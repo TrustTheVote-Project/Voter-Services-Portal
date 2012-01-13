@@ -1,0 +1,14 @@
+common: &common
+  adapter:  mysql2
+  username: root
+  password: password
+  pool: 5
+  timeout: 5000
+
+development:
+  <<: *common
+  database: vadvm_d
+
+test:
+  <<: *common
+  database: vadvm_t
