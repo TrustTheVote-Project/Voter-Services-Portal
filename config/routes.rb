@@ -1,5 +1,9 @@
 VaVote::Application.routes.draw do
 
+  get   '/found' => 'pages#found', as: :found
+  get   '/not_found' => 'pages#not_found', as: :not_found
+  post  '/search' => 'pages#search', as: :search
+
   root :to => "pages#front"
 
   # The priority is based upon order of creation:

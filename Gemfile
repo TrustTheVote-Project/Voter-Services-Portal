@@ -26,11 +26,13 @@ end
 group :test do
   gem 'rspec'
   gem 'rspec-rails'
+  gem 'turnip'
   gem 'faker'
   gem 'timecop'
   gem 'factory_girl_rails'
   gem 'shoulda'
   gem 'guard'
   gem 'guard-rspec'
+  gem 'capybara'
 end
 

@@ -11,4 +11,9 @@
       = render :partial => "layouts/header"
 
       .content
+        - if flash[:error]
+          .row
+            .span16
+              .alert-message.warning
+                %p= flash[:error]
         = yield
