@@ -1,5 +1,4 @@
 rvm use 1.9.3
 
 alias t="bundle exec guard"
-alias rmig="bundle exec rake db:migrate db:test:prepare"
-alias rr="bundle exec rake routes"
+alias rake="bundle exec rake"
