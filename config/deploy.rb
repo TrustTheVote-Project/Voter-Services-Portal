@@ -15,8 +15,6 @@ set :use_sudo, false
 set :deploy_to, "/home/deploy/va-vote.noizeramp.com"
 set :deploy_via, :export
 
-set :rake, 'bundle exec rake'
-
 # Bundled gems
 task :bundle_gems, :roles => :app do
   run "mkdir -p #{shared_path}/bundle && ln -s #{shared_path}/bundle #{release_path}/vendor/bundle"
@@ -42,7 +40,7 @@ end
 # Asset pipeline
 namespace :assets do
   task :precompile, :roles => :app do
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} rake assets:precompile"
+    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
   end
 end
 
