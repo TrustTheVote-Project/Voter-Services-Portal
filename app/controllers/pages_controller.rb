@@ -6,7 +6,7 @@ class PagesController < ApplicationController
   end
 
   def search
-    @search_query = SearchQuery.new(params[:person_info])
+    @search_query = SearchQuery.new(params[:search_query])
     unless @search_query.valid?
       flash[:error] = "Form is incomplete."
       return front

@@ -46,4 +46,8 @@ class SearchQuery
     attrs
   end
 
+  def to_key
+    nil
+  end
+
 end
