@@ -1,4 +1,4 @@
-VaDvm::Application.routes.draw do
+VaVote::Application.routes.draw do
 
   root :to => "pages#front"
 

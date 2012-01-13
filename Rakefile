@@ -4,4 +4,4 @@
 
 require File.expand_path('../config/application', __FILE__)
 
-VaDvm::Application.load_tasks
+VaVote::Application.load_tasks

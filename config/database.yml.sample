@@ -7,8 +7,8 @@ common: &common
 
 development:
   <<: *common
-  database: vadvm_d
+  database: vavote_d
 
 test:
   <<: *common
-  database: vadvm_t
+  database: vavote_t
