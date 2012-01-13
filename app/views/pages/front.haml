@@ -1,0 +1,17 @@
+.row
+  .span16
+    %h3 Search by Voter Registration
+    = twitter_bootstrap_form_for :user_info do |ui|
+      = ui.inputs do
+        = ui.text_field  :voter_id, 'Voter ID'
+
+      = ui.inputs "or" do
+        = ui.select      :locality
+        = ui.text_field  :first_name
+        = ui.text_field  :last_name
+        = ui.date_select :dob, "Date of birth", {}, :class => "small"
+        = ui.text_field  :ssn4, "Last 4 digits of SSN", :class => "mini"
+
+      = ui.actions do
+        = ui.submit 'Find My Voter Records'
+

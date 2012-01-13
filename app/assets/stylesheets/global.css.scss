@@ -1,0 +1,29 @@
+body {
+  padding: 20px 0;
+  background: #5C80B5;
+}
+
+#header {
+  overflow: hidden;
+  margin-bottom: 20px;
+
+  img {
+    float: left;
+    margin-right: 20px;
+  }
+
+  h1 {
+    margin-top: 60px;
+    color: #FFF;
+  }
+}
+
+.content {
+  background: #FFF;
+  margin: 0 -20px;
+  padding: 20px;
+}
+
+.actions {
+  background: transparent;
+}

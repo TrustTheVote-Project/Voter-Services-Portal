@@ -17,6 +17,7 @@ gem 'haml-rails'
 gem 'rdiscount'
 
 gem 'twitter-bootstrap-rails', :git => 'http://github.com/seyhunak/twitter-bootstrap-rails.git'
+gem 'twitter_bootstrap_form_for'
 
 group :development do
   gem 'capistrano'
