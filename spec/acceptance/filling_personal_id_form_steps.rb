@@ -1,12 +1,18 @@
-steps_for :filling_personal_id_form do
-
-  step 'I am on the front page' do
-    visit root_path
-  end
+steps_for :personal_id_form do
 
   step '(I) submit the form' do
-    click_button 'Find My Voter Records'
+    submit_button.click
   end
+
+  def submit_button
+    find_button 'Find My Voter Records'
+  end
+
+end
+
+steps_for :filling_personal_id_form do
+
+  use_steps :personal_id_form
 
   step 'I should be warned of incomplete form' do
     page.should have_content "incomplete"
