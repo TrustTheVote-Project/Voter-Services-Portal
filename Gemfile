@@ -33,6 +33,7 @@ group :test do
   gem 'shoulda'
   gem 'guard'
   gem 'guard-rspec'
+  gem 'launchy'
   gem 'capybara'
 end
 
