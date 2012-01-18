@@ -1,0 +1,41 @@
+.row
+  .span16
+    %h2 Your registration was found
+
+    %p
+      Below is your registration details and request forms.
+
+    .row
+      .span4
+        %h3 Residence address
+        %address
+          795 Folsom Ave, Suite 600<br/>
+          San Francisco, CA 94107<br/>
+          P: (123) 456-7890
+        = link_to "Change of residence address", "#"
+
+      .span4
+        %h3 Mailing address
+        %address
+          795 Folsom Ave, Suite 600<br/>
+          San Francisco, CA 94107<br/>
+          P: (123) 456-7890
+        = link_to "Change of mailing address", "#"
+
+      .span4
+        %h3 Personal details
+        %p
+          %strong John Smith
+        = link_to "Change of name", "#"
+
+        %p
+          Party:
+          %strong Some party name
+        = link_to "Change of party affiliation", "#"
+
+      .span4
+        %h3 Absentee status
+        %p
+          %strong Present
+        = link_to "Request absentee status for next election", "#"
+

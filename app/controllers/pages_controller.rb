@@ -15,8 +15,8 @@ class PagesController < ApplicationController
     reg = RegistrationSearch.perform(@search_query)
 
     if reg
-      # TODO store it locally to be available through #current_registration method
-      redirect_to :found
+      RegistrationRepository.store_registration(session[:session_id], reg)
+      redirect_to :registration
     else
       redirect_to :not_found
     end
