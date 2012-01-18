@@ -1,4 +1,27 @@
 .row
   .span16
-    %h3 Your registration was not found
+    %h2 Your registration was not found
+
+    .row
+      .span4
+        %h3 Retry identification
+        %p
+          If you are sure there's been a mistake
+          and you are a registered voter, please
+          try filling the form again.
+        = link_to 'Retry identification', :root, :class => 'btn primary'
+
+      .span4.offset2
+        %h3 Register in Virginia
+        %p
+          If you want to register and you are currently
+          <strong>in</strong> VA, please choose this option.
+        = link_to 'Register in VA', '#', :class => 'btn'
+
+      .span4.offset2
+        %h3 Register outside Virginia
+        %p
+          If you want to register and you are currently
+          <strong>outside</strong> VA, please choose this option.
+        = link_to 'Register outside VA', '#', :class => 'btn'
 
