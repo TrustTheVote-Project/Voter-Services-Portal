@@ -6,6 +6,8 @@ VaVote::Application.routes.draw do
 
   resource :registration
 
+  match '/forms/request_absentee_status' => 'forms#request_absentee_status', as: :request_absentee_status
+
   root :to => "pages#front"
 
   # The priority is based upon order of creation:
