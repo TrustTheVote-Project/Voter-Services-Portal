@@ -10,6 +10,8 @@
 /config/database.yml
 /db/*.sqlite3
 
+/doc/notes.md
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
