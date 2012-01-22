@@ -1,5 +1,5 @@
 set :application, "va-vote"
-set :repository,  "git@bitbucket.org:spyromus/va-vote.git"
+set :repository,  "git://github.com/trustthevote/Virginia-Voter-Services-Portal.git"
 set :rails_env,   "production"
 
 set :scm, :git
@@ -14,6 +14,8 @@ set :use_sudo, false
 
 set :deploy_to, "/home/deploy/va-vote.noizeramp.com"
 set :deploy_via, :export
+
+set :rake, "bundle exec rake"
 
 # Bundled gems
 task :bundle_gems, :roles => :app do
