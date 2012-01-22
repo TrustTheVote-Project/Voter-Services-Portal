@@ -15,7 +15,7 @@ class PagesController < ApplicationController
     reg = RegistrationSearch.perform(@search_query)
 
     if reg
-      RegistrationRepository.store_registration(session[:session_id], reg)
+      RegistrationRepository.store_registration(session, reg)
       redirect_to :registration
     else
       redirect_to :not_found
