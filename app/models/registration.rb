@@ -1,5 +1,7 @@
-class Registration
+class Registration < ActiveRecord::Base
 
-  attr_accessor :voter_id
+  def full_name
+    [ first_name, middle_name, last_name, suffix_name_text ].delete_if(&:blank?).join(' ')
+  end
 
 end

@@ -5,8 +5,8 @@
     = twitter_bootstrap_form_for @req, url: request_absentee_status_path do |f|
 
       = f.inputs 'Personal information', id: 'personal_info' do
-        = f.text_field :full_name, 'Full name of absentee', disabled: true
-        = f.text_field :ssn, 'SSN', disabled: true, class: 'span3'
+        = f.text_field :full_name, 'Full name of absentee', readonly: true
+        = f.text_field :ssn, 'SSN', readonly: true, class: 'span2'
 
         = f.toggles 'Registered to vote in *' do
           = f.radio_button :location_type, 'County', :county
