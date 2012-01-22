@@ -1,23 +1,23 @@
-.row
-  .span16
-    = twitter_bootstrap_form_for @req, url: request_absentee_status_path do |f|
-      = f.inputs 'Personal information', class: 'step' do
-        = f.text_field :full_name, 'Full name of absentee', placeholder: 'John Smith'
-        = f.inline 'SSN' do |i|
-          #{i.text_field :ssn1, class: 'mini', maxlength: 3, placeholder: 'NNN'} -
-          #{i.text_field :ssn2, class: 'mini', maxlength: 2, placeholder: 'NN'} -
-          #{i.text_field :ssn3, class: 'mini', maxlength: 4, placeholder: 'NNNN'}
+- @page_title = "Absentee status change request"
 
-        = f.toggles 'Registered to vote in' do
+.row
+  .span16#request_absentee_status
+    = twitter_bootstrap_form_for @req, url: request_absentee_status_path do |f|
+
+      = f.inputs 'Personal information', id: 'personal_info' do
+        = f.text_field :full_name, 'Full name of absentee', disabled: true
+        = f.text_field :ssn, 'SSN', disabled: true, class: 'span3'
+
+        = f.toggles 'Registered to vote in *' do
           = f.radio_button :location_type, 'County', :county
           = f.radio_button :location_type, 'City', :city
         = f.text_field :location_name, 'of', placeholder: 'Olympia'
 
         .actions
-          = f.button 'Next section', class: 'btn'
+          = f.button 'Next &rarr;'.html_safe, class: 'next btn'
 
-      = f.inputs 'Election details' do
-        = f.toggles 'Applying to vote in' do
+      = f.inputs 'Election details', id: 'election' do
+        = f.toggles 'Applying to vote in *' do
           = f.radio_button :vote_in, 'General Election or Special Election', :general_or_special
           = f.radio_button :vote_in, 'Democratic Primary', :democratic_primary
           = f.radio_button :vote_in, 'Republican Primary', :republican_primary
@@ -25,4 +25,6 @@
         = f.date_select :vote_on, 'to be held on', {}, class: 'small'
 
         .actions
-          = f.submit 'Submit request'
+          = f.button '&larr; Back'.html_safe, class: 'back btn'
+          or
+          = f.submit 'Submit request', class: 'next primary btn'
