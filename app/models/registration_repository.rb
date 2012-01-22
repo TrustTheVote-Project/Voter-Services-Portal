@@ -6,15 +6,22 @@
 class RegistrationRepository
 
   # Find a registration for the current session
-  def self.get_registration(session_key)
+  def self.get_registration(session)
+    rid = session[:registration_id]
+    rid ? (Registration.find(rid) rescue nil) : nil
   end
 
   # Store a registration for the given session
-  def self.store_registration(session_key, registration)
+  def self.store_registration(session, registration)
+    registration.save unless registration.persisted?
+    session[:registration_id] = registration.id
   end
 
   # Removes registration data for the given session
-  def self.remove_registration(session_key)
+  def self.remove_registration(session)
+    rid = session[:registration_id]
+    Registration.delete_all(id: rid) if rid
+    session.delete(:registration_id)
   end
 
 end

@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
 
   # Returns the registration record for the current session
   def current_registration
-    @current_registration ||= RegistrationRepository.get_registration(session[:session_id])
+    @current_registration ||= RegistrationRepository.get_registration(session)
   end
 
   protected
