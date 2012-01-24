@@ -12,23 +12,23 @@ Requirements
 Installation
 ------------
 
-# Get the most recent source code from:
+* Get the most recent source code from:
 
-    git://github.com/trustthevote/Virginia-Voter-Services-Portal.git
+      git://github.com/trustthevote/Virginia-Voter-Services-Portal.git
 
-# Copy database configuration:
+* Copy database configuration:
 
-    $ cp config/database.yml{.sample,}
+      $ cp config/database.yml{.sample,}
 
-# Install required gems:
+* Install required gems:
 
-    $ bundle install
+      $ bundle install
 
-# Create the database:
+* Create the database:
 
-    $ bundle exec rake db:setup
+      $ bundle exec rake db:setup
 
-# Start the application server:
+* Start the application server:
 
-    $ rails server
+      $ rails server
 
