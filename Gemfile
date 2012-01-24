@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.0'
 
 gem 'mysql2'
-gem 'sqlite3'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -22,6 +21,7 @@ gem 'twitter_bootstrap_form_for'
 
 group :development do
   gem 'capistrano'
+  gem 'thin'
 end
 
 group :test do
@@ -38,3 +38,6 @@ group :test do
   gem 'capybara'
 end
 
+group :development, :test do
+  gem 'sqlite3'
+end
