@@ -4,4 +4,8 @@ class RegistrationsController < ApplicationController
     @registration = current_registration
   end
 
+  def new
+    LogRecord.log('registration', 'started')
+  end
+
 end
