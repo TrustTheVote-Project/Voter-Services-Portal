@@ -29,7 +29,7 @@ end
 # Create uploads directory and link
 task :deploy_shared, :roles => :app do
   run "cp #{shared_path}/config/database.yml #{latest_release}/config/database.yml"
-  # run "cp #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
+  run "cp #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
 end
 
 # Passenger tasks
