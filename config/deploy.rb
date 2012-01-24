@@ -17,6 +17,10 @@ set :deploy_via, :export
 
 set :rake, "bundle exec rake"
 
+set :whenever_command, "bundle exec whenever"
+set :whenever_environment, "production"
+require 'whenever/capistrano'
+
 # Bundled gems
 task :bundle_gems, :roles => :app do
   run "mkdir -p #{shared_path}/bundle && ln -s #{shared_path}/bundle #{release_path}/vendor/bundle"
