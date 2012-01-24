@@ -19,7 +19,12 @@ VaVote::Application.routes.draw do
     end
   end
 
-  root :to => "pages#front"
+  namespace :admin do
+    root to: 'log_records#index'
+    resources :log_records, only: [ :index, :show ]
+  end
+
+  root to: "pages#front"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

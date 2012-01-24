@@ -11,5 +11,5 @@
  *= require_self
  *= require twitter/bootstrap
  *= require global
- *= require_tree ./public
+ *= require_tree ./admin
 */

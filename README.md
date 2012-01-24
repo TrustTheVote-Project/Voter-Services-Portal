@@ -18,6 +18,12 @@ Installation
 
         $ cp config/database.yml{.sample,}
 
+* Copy application configuration:
+
+        $ cp config/config.yml{.sample,}
+
+* Set admin password in the application configuration.
+
 * Install required gems:
 
         $ bundle install

@@ -1,0 +1,16 @@
+- @page_title = 'Event log'
+
+.row
+  .span16
+    %table#log_records.zebra-striped
+      %thead
+        %tr
+          %th.subject Subject
+          %th.action  Action
+          %th.date    Date
+      %tbody
+        = render @log_records
+
+.row
+  .span16
+    = paginate @log_records

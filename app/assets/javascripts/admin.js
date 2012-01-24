@@ -13,5 +13,4 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
-//= require public/forms
-//= require_tree ./public
+//= require_tree ./admin

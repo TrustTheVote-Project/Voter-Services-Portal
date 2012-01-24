@@ -16,6 +16,8 @@ gem 'jquery-rails'
 gem 'haml-rails'
 gem 'rdiscount'
 gem 'whenever', :require => false
+gem 'inherited_resources'
+gem 'kaminari'
 
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'twitter_bootstrap_form_for'
