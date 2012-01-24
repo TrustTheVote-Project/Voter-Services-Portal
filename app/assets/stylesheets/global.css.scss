@@ -27,3 +27,12 @@ body {
 .actions {
   background: transparent;
 }
+
+form {
+  .group {
+    margin-bottom: 18px;
+    .clearfix {
+      margin-bottom: 7px;
+    }
+  }
+}

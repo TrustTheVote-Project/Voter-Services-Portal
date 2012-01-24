@@ -23,6 +23,29 @@ class window.FieldStatus
       @hint.html(@state).addClass('invalid').show()
 
 
+# Simple block visibility toggling field.
+# When checked, the block is visible, otherwise -- not.
+class window.BlockToggleField
+  constructor: (id, block_id) ->
+    @el = $(id)
+    @block = $(block_id)
+
+    # If it's a radio-button, monitor whole group, not this one only
+    # to be able to catch unchecks.
+    if @el.attr('type') == 'radio'
+      $("input[name='" + @el.attr('name') + "']").change(@onChange)
+    else
+      @el.change(@onChange)
+
+    @onChange()
+
+  onChange: (e) =>
+    if @el.is(':checked')
+      @block.show()
+    else
+      @block.hide()
+
+
 # Single required field that can have or not have a status next to it
 # Options are:
 # 

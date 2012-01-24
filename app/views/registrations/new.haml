@@ -2,4 +2,42 @@
 
 .row
   .span16
-    To be implemented.
+    = twitter_bootstrap_form_for @registration, url: :new_registration do |f|
+      = f.inputs 'Step 1 - Preliminaries' do
+        = f.toggles 'Qualifications' do
+          = f.check_box :citizen, 'I am a citizen of the United States of America'
+          = f.check_box :age, "I will be at least 18 years of age on or before the #{link_to 'next General Election day', '#'}".html_safe
+
+        .group
+          = f.toggles 'Convictions' do
+            = f.check_box :convicted, 'I have been convicted of a felony'
+
+          .convicted
+            = f.select :convicted_state, 'State', [ "CA", "NY", "VA" ], {}, class: 'small'
+            = f.date_select :rights_restored_at, 'Voting rights restored', {}, class: 'small'
+
+        = f.toggles 'Residence' do
+          = f.radio_button :residence, 'I am currently a resident of Virginia', 'in'
+          = f.radio_button :residence, 'I am outside of the U.S., but the most recent U.S. residence was in Virginia', 'outside'
+
+      = f.inputs 'Step 2 - Personal details' do
+        = f.text_field :first_name, 'First name'
+        = f.text_field :middle_name, 'Middle name'
+        = f.text_field :last_name, 'Last name'
+        = f.text_field :suffix_name_text, 'Suffix', placeholder: 'e.g. Jr, Sr', class: 'span2'
+        = f.date_select :dob, 'Date of birth', {}, class: 'small'
+        = f.select :gender, 'Gender', [ 'Male', 'Female' ], { include_blank: true }, class: 'small'
+
+        .group
+          = f.toggles 'Identification by' do
+            = f.radio_button :identify_by, 'Social security number', 'ssn'
+            = f.radio_button :identify_by, 'Drivers license number', 'dln'
+
+          .dln
+            = f.text_field :dln, 'License number'
+
+          .ssn
+            = f.text_field :ssn, 'SSN'
+
+        = f.text_field :phone, 'Phone number', placeholder: '(NNN) NNN-NNNN'
+        = f.text_field :email, 'Email address', placeholder: 'jack@email.com'

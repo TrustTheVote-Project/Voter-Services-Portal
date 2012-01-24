@@ -6,6 +6,8 @@ class RegistrationsController < ApplicationController
 
   def new
     LogRecord.log('registration', 'started')
+
+    @registration = Registration.new
   end
 
 end
