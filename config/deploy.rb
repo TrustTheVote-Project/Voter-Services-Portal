@@ -19,7 +19,6 @@ set :rake, "bundle exec rake"
 
 set :whenever_command, "bundle exec whenever"
 set :whenever_environment, "production"
-require 'whenever/capistrano'
 
 # Bundled gems
 task :bundle_gems, :roles => :app do
@@ -54,3 +53,5 @@ after  "deploy:update_code", "deploy_shared"
 after  "deploy:update_code", "bundle_gems"
 before "deploy:restart", "assets:precompile"
 after  "deploy:restart", "deploy:cleanup"
+
+require 'whenever/capistrano'
