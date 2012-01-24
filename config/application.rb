@@ -53,6 +53,11 @@ module VaVote
     # Enable the asset pipeline
     config.assets.enabled = true
 
+    config.assets.precompile += %w{ admin.css admin.js }
+
+    # Library assets
+    # config.assets.path << File.join(Rails.root, 'lib', 'assets')
+
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
   end
