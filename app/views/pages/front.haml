@@ -1,6 +1,7 @@
+- @page_title = 'Check your voter record'
+
 .row
   .span16
-    %h2 Search by Voter Registration
     = twitter_bootstrap_form_for @search_query, url: search_path do |ui|
       = ui.inputs do
         = ui.text_field  :voter_id, 'Voter ID', class: 'span5', placeholder: 'NNNN-NNNN-NNNN-NNNN'
