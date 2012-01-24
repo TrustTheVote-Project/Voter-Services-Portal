@@ -2,7 +2,7 @@
 
 .row
   .span16#request_absentee_status
-    = twitter_bootstrap_form_for @req, url: request_absentee_status_path do |f|
+    = twitter_bootstrap_form_for @req, url: request_absentee_status_form_path do |f|
 
       = f.inputs 'Personal information', id: 'personal_info' do
         = f.text_field :full_name, 'Full name of absentee', readonly: true
