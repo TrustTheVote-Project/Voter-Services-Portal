@@ -15,7 +15,7 @@ end
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'rdiscount'
-gem 'whenever'
+gem 'whenever', :require => false
 
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 gem 'twitter_bootstrap_form_for'
