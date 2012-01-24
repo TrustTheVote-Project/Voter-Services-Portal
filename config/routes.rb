@@ -1,12 +1,23 @@
 VaVote::Application.routes.draw do
 
-  get   '/found' => 'pages#found', as: :found
   get   '/not_found' => 'pages#not_found', as: :not_found
   post  '/search' => 'pages#search', as: :search
 
-  resource :registration
+  resource :registration, only: [ :show, :new ]
 
-  match '/forms/request_absentee_status' => 'forms#request_absentee_status', as: :request_absentee_status
+  resource :page, only: [], path: '' do
+    member do
+      get :front, path: ''
+      get :help
+      get :resources
+    end
+  end
+
+  resource :form, only: [] do
+    member do
+      get :request_absentee_status
+    end
+  end
 
   root :to => "pages#front"
 
