@@ -1,24 +1,24 @@
+# Location configuration
+set :domain,      "server.com"                    # Domain name or IP address of the server
+set :user,        "deploy"                        # Unix user to own the deployment
+set :runner,      "deploy"                        # Same as :user
+set :deploy_to,   "/home/deploy/server.com"       # Path to the deployment directory
+
+# Common configuration
 set :application, "va-vote"
 set :repository,  "git://github.com/trustthevote/Virginia-Voter-Services-Portal.git"
 set :rails_env,   "production"
 
-set :scm, :git
+role :web, domain
+role :app, domain
+role :db,  domain, :primary => true
 
-role :web, "96.126.105.65"                   # Your HTTP server, Apache/etc
-role :app, "96.126.105.65"                   # This may be the same as your `Web` server
-role :db,  "96.126.105.65", :primary => true # This is where Rails migrations will run
-
-set :user, "deploy"
-set :runner, "deploy"
-set :use_sudo, false
-
-set :deploy_to, "/home/deploy/va-vote.noizeramp.com"
-set :deploy_via, :export
-
-set :rake, "bundle exec rake"
-
-set :whenever_command, "bundle exec whenever"
-set :whenever_environment, "production"
+set :use_sudo,              false
+set :scm,                   :git
+set :deploy_via,            :export
+set :rake,                  "bundle exec rake"
+set :whenever_command,      "bundle exec whenever"
+set :whenever_environment,  "production"
 
 # Bundled gems
 task :bundle_gems, :roles => :app do
