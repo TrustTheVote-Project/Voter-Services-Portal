@@ -1,7 +1,16 @@
-- @page_title = 'Check your voter record'
+= render partial: 'shared/page_header', locals: { title: 'Check Your Voter Record' }
 
 .row
-  .span16
+  .span-one-third
+    %h3 Identify Yourself
+    %p
+      To look up your voter records, you have two options.
+      If you know your Virginia <em>Voter Card Number</em>,
+      you can supply that. Otherwise, provide your first name,
+      last name, date of birth, and the last 4 digits of your
+      Social Security Number.
+
+  .span-two-thirds
     = twitter_bootstrap_form_for @search_query, url: search_path do |ui|
       = ui.inputs do
         = ui.text_field  :voter_id, 'Voter ID', class: 'span5', placeholder: 'NNNN-NNNN-NNNN-NNNN'

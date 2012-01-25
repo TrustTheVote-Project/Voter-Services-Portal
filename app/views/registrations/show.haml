@@ -1,41 +1,55 @@
+= render partial: 'shared/page_header', locals: { title: 'Check Your Voter Record' }
+
 .row
-  .span16
-    %h2 Your registration was found
+  .span-one-third
+    %h3 Check Your Voter Record
+    %p
+      Your Virginia voter registration record is current,
+      and you are eligible to vote absentee in upcoming
+      election on Nov 6, 2012.
 
     %p
-      Below is your registration details and request forms.
+      You can also update your voter record if you act
+      before Sep 6, 2012.
 
-    .row
-      .span4
-        %h3 Residence address
-        %address
-          795 Folsom Ave, Suite 600<br/>
-          San Francisco, CA 94107<br/>
-          P: (123) 456-7890
-        = link_to "Change of residence address", "#"
+    %p
+      You are also eligible to get your ballot online,
+      marking it online or by hand, downloading it, and
+      returning to your election registrar.
 
-      .span4
-        %h3 Mailing address
-        %address
-          795 Folsom Ave, Suite 600<br/>
-          San Francisco, CA 94107<br/>
-          P: (123) 456-7890
-        = link_to "Change of mailing address", "#"
+  .span-two-thirds
 
-      .span4
-        %h3 Personal details
-        %p
-          %strong= @registration.full_name
-        = link_to "Change of name", "#"
+    %h3= @registration.full_name
 
-        %p
-          Party:
-          %strong Some party name
-        = link_to "Change of party affiliation", "#"
+    %table.condensed-table.properties.zebra-striped
+      %tr
+        %th Date of Birth:
+        %td 01/01/1901
+      %tr
+        %th Social Security Number:
+        %td xxx-xx-1234
+      %tr
+        %th Voter Registration Address:
+        %td 123 Oak St., Humumunuku’ua’ pu’aville, VA, 12345
+      %tr
+        %th Mailing Address:
+        %td 123 Oak St., Humumunuku’ua’ pu’aville, VA, 12345
+      %tr
+        %th Political Party Preference:
+        %td not stated
+      %tr
+        %th Absentee Status:
+        %td Resident Absentee Voter
+      %tr
+        %th Absentee Status Expires:
+        %td 01/01/2013
+      %tr
+        %th Email:
+        %td wanda42@gmail.com
+      %tr
+        %th Daytime Phone Number:
+        %td 123/456-7890
 
-      .span4
-        %h3 Absentee status
-        %p
-          %strong Active
-        = link_to "Request absentee status for next election", :request_absentee_status_form
-
+    %p= link_to "Update Your Voter Record", "#", class: 'btn'
+    %p= link_to "Update Your Absentee Status", "#", class: 'btn'
+    %p= link_to "Mark Your Ballot Online", "#", class: 'btn'
