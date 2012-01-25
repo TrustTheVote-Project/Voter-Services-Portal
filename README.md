@@ -73,10 +73,10 @@ Deployment
     `:deploy_to/current/public` where `:deploy_to` is from capistrano
     script above):
 
-        <VirtualHost *:8888>
-          ServerName    server.com
-          DocumentRoot  /home/deploy/server.com/current/public
-        </VirtualHost>
+          <VirtualHost *:8888>
+            ServerName    server.com
+            DocumentRoot  /home/deploy/server.com/current/public
+          </VirtualHost>
 
 * If it's not the first deployment, make it with `cap
   deploy:migrations`.
