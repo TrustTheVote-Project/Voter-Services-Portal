@@ -8,9 +8,8 @@
 
   %body
     .container
-      = render :partial => 'layouts/header'
-
       .content
-        = render :partial => 'layouts/page_header'
+        = render :partial => 'layouts/header'
         = render :partial => 'layouts/alerts_and_notices'
         = yield
+        = render :partial => 'layouts/footer'

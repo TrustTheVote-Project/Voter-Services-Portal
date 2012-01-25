@@ -1,18 +1,68 @@
-- @page_title = 'Check your voter record'
+#front
+  .row
+    .span-one-third
+      &nbsp;
 
-.row
-  .span16
-    = twitter_bootstrap_form_for @search_query, url: search_path do |ui|
-      = ui.inputs do
-        = ui.text_field  :voter_id, 'Voter ID', class: 'span5', placeholder: 'NNNN-NNNN-NNNN-NNNN'
+    .span-two-thirds.dates
+      %h2 Virginia Voter Registration
 
-      = ui.inputs 'or' do
-        = ui.select      :locality, 'Locality', [ 'York County' ], {}, class: 'span5'
-        = ui.text_field  :first_name, class: 'span5'
-        = ui.text_field  :last_name, class: 'span5'
-        = ui.date_select :dob, 'Date of birth', {}, class: 'small'
-        = ui.text_field  :ssn4, 'Last 4 digits of SSN', class: 'span1', maxlength: 4
+      .row
+        .span3 General Election:
+        .span3 Nov 6, 2012
+      .row
+        .span3 Registration Deadline:
+        .span3 Sep 6, 2012
 
-      = ui.actions do
-        = ui.submit 'Find My Voter Records', disabled: true
+  .row.main
+    .span-one-third.sidebar
+      %p
+        %em Welcome to the Virginia Voter Services Portal
 
+      %p
+        The Voter Portal is a new service
+        to all voters of Virginia --
+        domestic, overseas, and military
+        voters.
+
+      %p
+        We've designed this service to
+        make it easier for you to make
+        sure that you're registered to
+        vote, and to help you keep your
+        voter info up-to-date.
+
+      .signature
+        Virginia State Board of Elections
+
+    .span-two-thirds
+      .row
+        .span-two-thirds
+          The service offers two ways to get started:
+
+      .row
+        .span-one-third.option
+          .marker 1
+          %h3 Register to Vote
+          %p
+            If you're not currently registered to vote in
+            Virginia, you can complete your voter
+            registration application online, ensuring that
+            it is complete and correct, and ready to print,
+            sign, and mail.
+
+        .span-one-third.option
+          .marker 2
+          %h3 Check Your Record and Eligibility
+          %p
+            You can check your voter record, and make
+            changes -- including absentee status and
+            eligibility for online ballot marking -- with
+            help to make sure your update forms are
+            complete and correct, ready to pring, sign,
+            and mail.
+
+      .row.buttons
+        .span-one-third
+          = link_to "Get Started Now", :new_registration, class: 'primary btn'
+        .span-one-third
+          = link_to "Get Started Now", :root, class: 'primary btn'

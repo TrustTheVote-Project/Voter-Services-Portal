@@ -1,0 +1,48 @@
+#front {
+  h2 {
+    font-size: 225%;
+  }
+
+  .main {
+    margin-top: 20px;
+  }
+
+  .marker {
+    font-size: 400%;
+    line-height: 100%;
+  }
+
+  h3 {
+    font-size: 125%;
+  }
+
+  .option {
+    border-top: 1px solid #ccc;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+
+  .buttons {
+    margin-top: 20px;
+  }
+
+  .dates .row {
+    margin: 10px 0 10px 0;
+    div {
+      font-size: 110%;
+    }
+    > [class*='span'] {
+      margin-left: 0;
+    }
+  }
+
+  .sidebar {
+    em {
+      color: #f00;
+    }
+
+    .signature {
+      font-style: italic;
+    }
+  }
+}

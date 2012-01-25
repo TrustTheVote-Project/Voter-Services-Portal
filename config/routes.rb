@@ -9,7 +9,9 @@ VaVote::Application.routes.draw do
     member do
       get :front, path: ''
       get :help
-      get :resources
+      get :about
+      get :security
+      get :feedback
     end
   end
 

@@ -1,0 +1,36 @@
+#header {
+  overflow: hidden;
+  margin-bottom: 20px;
+  background: #982861;
+  color: #fff;
+  padding: 10px;
+
+  img {
+    float: left;
+  }
+
+  h1 {
+    color: #FFF;
+    margin: 20px 0 0 200px;
+    font-size: 140%;
+  }
+
+  .subtitle {
+    margin-left: 200px;
+  }
+}
+
+#menu {
+  text-align: right;
+  margin: 20px 40px 0 0;
+
+  li {
+    display: inline-block;
+    list-style: none;
+    margin-left: 2em;
+
+    a {
+      color: #ddd;
+    }
+  }
+}
