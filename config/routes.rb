@@ -17,6 +17,8 @@ VaVote::Application.routes.draw do
     end
   end
 
+  resource :registration_request, only: [ :new, :create ]
+
   resource :form, only: [] do
     member do
       get :request_absentee_status

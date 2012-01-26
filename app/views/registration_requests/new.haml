@@ -1,0 +1,69 @@
+= render partial: "shared/page_header", locals: { title: "Register to Vote" }
+
+.row
+  .span-one-third
+    %table.steps
+      %tr#step_eligibility
+        %td.marker 1
+        %td Check Your Eligibility
+      %tr#step_identity
+        %td.marker 2
+        %td Identify Yourself
+      %tr#step_contact_info
+        %td.marker 3
+        %td Provide Contact Info
+      %tr#step_complete
+        %td.marker 4
+        %td Complete Application
+      %tr#step_return
+        %td.marker 5
+        %td Return Application
+
+  .span-two-thirds
+    = twitter_bootstrap_form_for @registration_request, url: :registration_request do |f|
+      = f.inputs nil, id: 'eligibility' do
+        = f.toggles 'Qualifications (*)' do
+          = f.check_box :citizen, 'I am a citizen of the United States of America'
+          = f.check_box :old_enough, "I will be at least 18 years of age on or before the #{link_to 'next General Election day', '#'}".html_safe
+
+        .group
+          = f.toggles 'Convictions' do
+            = f.check_box :was_convicted, 'I have been convicted of a felony'
+
+          .convicted
+            = f.select :conviction_state, 'State', [ "CA", "NY", "VA" ], {}, class: 'small'
+            = f.date_select :rights_restored_on, 'Voting rights restored', {}, class: 'small'
+
+        = f.toggles 'Residence (*)' do
+          = f.radio_button :residence, 'I am currently a resident of Virginia', 'in'
+          = f.radio_button :residence, 'I am outside of the U.S., but the most recent U.S. residence was in Virginia', 'outside'
+
+        .actions
+          = f.button 'Next &rarr;'.html_safe, class: 'next btn'
+
+      = f.inputs nil, id: 'identity' do
+        = f.text_field :first_name, 'First name'
+        = f.text_field :middle_name, 'Middle name'
+        = f.text_field :last_name, 'Last name (*)'
+        = f.text_field :suffix_name_text, 'Suffix', placeholder: 'e.g. Jr, Sr', class: 'span2'
+        = f.date_select :dob, 'Date of birth', { start_year: 200.years.ago.year, end_year: 16.years.ago.year, default: 20.years.ago }, class: 'small'
+        = f.select :gender, 'Gender (*)', [ 'Male', 'Female' ], { include_blank: true }, class: 'small'
+
+        .group
+          = f.toggles 'Identification by (*)' do
+            = f.radio_button :identify_by, 'Social security number', 'ssn'
+            = f.radio_button :identify_by, 'Drivers license number', 'dln'
+
+          .dln
+            = f.text_field :dln, 'License number'
+
+          .ssn
+            = f.text_field :ssn, 'SSN'
+
+        = f.text_field :phone, 'Phone number', placeholder: '(NNN) NNN-NNNN'
+        = f.text_field :email, 'Email address', placeholder: 'jack@email.com'
+
+        .actions
+          = f.button '&larr; Back'.html_safe, class: 'back btn'
+          = f.button 'Next &rarr;'.html_safe, class: 'next btn'
+

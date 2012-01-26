@@ -1,8 +1,10 @@
+Forms = window.Forms = {}
+
 # Status of the field that appears next to the field given.
 # Can take unknown / valid / invalid states and displays either
 # none, valid or invalid messages given.
 #
-class window.FieldStatus
+class Forms.FieldStatus
   constructor: (@input) ->
     @hint = $("<span class='help-inline'>").hide()
     @input.after(@hint)
@@ -25,7 +27,7 @@ class window.FieldStatus
 
 # Simple block visibility toggling field.
 # When checked, the block is visible, otherwise -- not.
-class window.BlockToggleField
+class Forms.BlockToggleField
   constructor: (id, block_id) ->
     @el = $(id)
     @block = $(block_id)
@@ -53,11 +55,11 @@ class window.BlockToggleField
 #   max    - (integer) maximum length of the value
 #   min    - (integer) minimum length of the value
 #
-class window.RequiredField
+class Forms.RequiredField
   constructor: (id, @options = {}) ->
     @field = $(id)
     @listeners = []
-    @status = new FieldStatus(@field) unless @options['status'] == false
+    @status = new Forms.FieldStatus(@field) unless @options['status'] == false
     @dep = @options['unless']
 
     if @status
@@ -102,3 +104,61 @@ class window.RequiredField
   onChange: =>
     @status.setState(@validate()) if @status
     l.onChange() for l in @listeners
+
+# A single section of a form with "Next" and "Back" buttons.
+class Forms.Section
+  constructor: (id, navigationListener) ->
+    @el = $(id)
+
+    # Back button
+    @btnBack = $('.btn.back', @el).click (e) ->
+      e.preventDefault()
+      navigationListener.onPrevSection()
+
+    # Next button
+    @btnNext = $('.btn.next', @el).click (e) ->
+      e.preventDefault()
+      navigationListener.onNextSection()
+
+    @updateButton()
+    $('input, select', @el).change(@updateButton).keyup(@updateButton)
+
+  updateButton: =>
+    if @isComplete()
+      @btnNext.removeAttr('disabled')
+    else
+      @btnNext.attr('disabled', 'disabled')
+
+  isComplete: -> true
+
+  hide: => @el.hide()
+  show: => @el.show()
+
+# A form with multiple sections.
+class Forms.MultiSectionForm
+  constructor: (@sections = []) ->
+    @currentSection = null
+    @currentSectionIndex = -1
+
+    # Start from the first section if the list is given
+    @onNextSection() if @sections.length > 0
+
+  onPrevSection: =>
+    unless @currentSectionIndex <= 0
+      @navigate -1
+
+  onNextSection: =>
+    if @currentSectionIndex == @sections.length - 1
+      @onSubmit()
+    else
+      @navigate 1
+
+  navigate: (d) ->
+    @currentSection.hide() if @currentSection
+    @currentSectionIndex += d
+    @currentSection = @sections[@currentSectionIndex]
+    @currentSection.show()
+
+
+  onSubmit: =>
+    console.log('Implement submission')
