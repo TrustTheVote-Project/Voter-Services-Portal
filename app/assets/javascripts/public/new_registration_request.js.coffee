@@ -16,10 +16,14 @@ class IdentitySection extends Forms.Section
     oid       = '#registration_request'
     @lastName = new Forms.RequiredField(oid + '_last_name')
     @gender   = new Forms.RequiredField(oid + '_gender')
+    @dlnOrSsn = new Forms.RequiredField(oid + '_dln_or_ssn')
+
+    new Forms.BlockToggleField(oid + '_was_convicted', 'div.convicted')
+
     super 'fieldset#identity', navigationListener
 
   isComplete: =>
-    @lastName.isValid() and @gender.isValid()
+    @lastName.isValid() and @gender.isValid() and @dlnOrSsn.isValid()
 
 class Form extends Forms.MultiSectionForm
   constructor: ->
@@ -30,6 +34,3 @@ $ ->
 
   new Form
 
-  #new Forms.BlockToggleField('input#registration_request_was_convicted', 'div.convicted')
-  #new Forms.BlockToggleField('input#registration_request_identify_by_ssn', 'div.ssn')
-  #new Forms.BlockToggleField('input#registration_request_identify_by_dln', 'div.dln')

@@ -6,7 +6,6 @@ class CreateRegistrationRequests < ActiveRecord::Migration
       t.string  :middle_name
       t.string  :last_name
       t.string  :suffix_name_text
-      t.string  :ssn
       t.date    :dob
       t.boolean :citizen
       t.boolean :old_enough
@@ -16,7 +15,7 @@ class CreateRegistrationRequests < ActiveRecord::Migration
       t.string  :residence
       t.string  :gender
       t.string  :identify_by
-      t.string  :dln
+      t.string  :dln_or_ssn
       t.string  :phone
       t.string  :email
 

@@ -46,7 +46,7 @@
         = f.text_field :middle_name, 'Middle name'
         = f.text_field :last_name, 'Last name (*)'
         = f.text_field :suffix_name_text, 'Suffix', placeholder: 'e.g. Jr, Sr', class: 'span2'
-        = f.date_select :dob, 'Date of birth', { start_year: 200.years.ago.year, end_year: 16.years.ago.year, default: 20.years.ago }, class: 'small'
+        = f.date_select :dob, 'Date of birth', { start_year: 200.years.ago.year, end_year: 16.years.ago.year, default: 20.years.ago, order: [ :day, :month, :year ] }, class: 'small'
         = f.select :gender, 'Gender (*)', [ 'Male', 'Female' ], { include_blank: true }, class: 'small'
 
         .group
@@ -54,11 +54,7 @@
             = f.radio_button :identify_by, 'Social security number', 'ssn'
             = f.radio_button :identify_by, 'Drivers license number', 'dln'
 
-          .dln
-            = f.text_field :dln, 'License number'
-
-          .ssn
-            = f.text_field :ssn, 'SSN'
+          = f.text_field :dln_or_ssn, '&nbsp;'.html_safe
 
         = f.text_field :phone, 'Phone number', placeholder: '(NNN) NNN-NNNN'
         = f.text_field :email, 'Email address', placeholder: 'jack@email.com'

@@ -13,7 +13,12 @@
 }
 
 form#new_registration_request {
-  .convicted, .dln, .ssn { margin-top: -4px; display: none; }
+  .convicted {
+    margin-top: -4px;
+    display: none;
+  }
 
-  fieldset { display: none; }
+  fieldset {
+    display: none;
+  }
 }
