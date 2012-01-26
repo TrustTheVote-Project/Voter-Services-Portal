@@ -133,10 +133,23 @@ class Forms.Section
 
   hide: => @el.hide()
   show: => @el.show()
+  name: => @el.attr('id')
+
+
+# Step indicator
+class Forms.StepIndicator
+  constructor: (id) ->
+    @el       = $(id)
+    @allSteps = $("tr[id*='step_']", @el)
+
+  setCurrent: (name) ->
+    @allSteps.removeClass 'current'
+    $("#step_" + name).addClass 'current'
+
 
 # A form with multiple sections.
 class Forms.MultiSectionForm
-  constructor: (@sections = []) ->
+  constructor: (@sections = [], @indicator = null) ->
     @currentSection = null
     @currentSectionIndex = -1
 
@@ -158,6 +171,9 @@ class Forms.MultiSectionForm
     @currentSectionIndex += d
     @currentSection = @sections[@currentSectionIndex]
     @currentSection.show()
+
+    # Mark current section
+    @indicator.setCurrent @currentSection.name() if @indicator
 
 
   onSubmit: =>

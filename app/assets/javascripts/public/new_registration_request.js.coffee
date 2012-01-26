@@ -23,7 +23,7 @@ class IdentitySection extends Forms.Section
 
 class Form extends Forms.MultiSectionForm
   constructor: ->
-    super [ new EligibilitySection(this), new IdentitySection(this) ]
+    super [ new EligibilitySection(this), new IdentitySection(this) ], new Forms.StepIndicator(".steps")
 
 $ ->
   return unless $('form#new_registration_request').length > 0

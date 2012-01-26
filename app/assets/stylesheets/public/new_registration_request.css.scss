@@ -1,3 +1,17 @@
+.steps {
+  #step_eligibility td {
+    border-top: none;
+  }
+
+  .marker {
+    font-size: 150%;
+  }
+
+  .current {
+    background: #f0f0f0;
+  }
+}
+
 form#new_registration_request {
   .convicted, .dln, .ssn { margin-top: -4px; display: none; }
 
