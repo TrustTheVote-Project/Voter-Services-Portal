@@ -21,45 +21,77 @@
 
   .span-two-thirds
     = twitter_bootstrap_form_for @registration_request, url: :registration_request do |f|
-      = f.inputs nil, id: 'eligibility' do
-        = f.toggles 'Qualifications (*)' do
-          = f.check_box :citizen, 'I am a citizen of the United States of America'
-          = f.check_box :old_enough, "I will be at least 18 years of age on or before the #{link_to 'next General Election day', '#'}".html_safe
 
-        .group
-          = f.toggles 'Convictions' do
-            = f.check_box :was_convicted, 'I have been convicted of a felony'
+      #eligibility.section
+        = f.inputs nil do
+          = f.toggles 'Qualifications (*)' do
+            = f.check_box :citizen, 'I am a citizen of the United States of America'
+            = f.check_box :old_enough, "I will be at least 18 years of age on or before the #{link_to 'next General Election day', '#'}".html_safe
 
-          .convicted
-            = f.select :conviction_state, 'State', [ "CA", "NY", "VA" ], {}, class: 'small'
-            = f.date_select :rights_restored_on, 'Voting rights restored', {}, class: 'small'
+          .group
+            = f.toggles 'Convictions' do
+              = f.check_box :was_convicted, 'I have been convicted of a felony'
 
-        = f.toggles 'Residence (*)' do
-          = f.radio_button :residence, 'I am currently a resident of Virginia', 'in'
-          = f.radio_button :residence, 'I am outside of the U.S., but the most recent U.S. residence was in Virginia', 'outside'
+            .convicted
+              = f.select :conviction_state, 'State', [ "CA", "NY", "VA" ], {}, class: 'small'
+              = f.date_select :rights_restored_on, 'Voting rights restored', {}, class: 'small'
 
-        .actions
-          = f.button 'Next &rarr;'.html_safe, class: 'next btn'
+          = f.toggles 'Residence (*)' do
+            = f.radio_button :residence, 'I am currently a resident of Virginia', 'in'
+            = f.radio_button :residence, 'I am outside of the U.S., but the most recent U.S. residence was in Virginia', 'outside'
 
-      = f.inputs nil, id: 'identity' do
-        = f.text_field :first_name, 'First name'
-        = f.text_field :middle_name, 'Middle name'
-        = f.text_field :last_name, 'Last name (*)'
-        = f.text_field :suffix_name_text, 'Suffix', placeholder: 'e.g. Jr, Sr', class: 'span2'
-        = f.date_select :dob, 'Date of birth', { start_year: 200.years.ago.year, end_year: 16.years.ago.year, default: 20.years.ago, order: [ :day, :month, :year ] }, class: 'small'
-        = f.select :gender, 'Gender (*)', [ 'Male', 'Female' ], { include_blank: true }, class: 'small'
+          .actions
+            = f.button 'Next &rarr;'.html_safe, class: 'next btn'
 
-        .group
-          = f.toggles 'Identification by (*)' do
-            = f.radio_button :identify_by, 'Social security number', 'ssn'
-            = f.radio_button :identify_by, 'Drivers license number', 'dln'
+      #identity.section
+        = f.inputs nil do
+          = f.text_field :first_name, 'First name'
+          = f.text_field :middle_name, 'Middle name'
+          = f.text_field :last_name, 'Last name (*)'
+          = f.text_field :suffix_name_text, 'Suffix', placeholder: 'e.g. Jr, Sr', class: 'span2'
+          = f.date_select :dob, 'Date of birth', { start_year: 200.years.ago.year, end_year: 16.years.ago.year, default: 20.years.ago, order: [ :day, :month, :year ] }, class: 'small'
+          = f.select :gender, 'Gender (*)', [ 'Male', 'Female' ], { include_blank: true }, class: 'small'
 
-          = f.text_field :dln_or_ssn, '&nbsp;'.html_safe
+          .group
+            = f.toggles 'Identification by (*)' do
+              = f.radio_button :identify_by, 'Social security number', 'ssn'
+              = f.radio_button :identify_by, 'Drivers license number', 'dln'
 
-        = f.text_field :phone, 'Phone number', placeholder: '(NNN) NNN-NNNN'
-        = f.text_field :email, 'Email address', placeholder: 'jack@email.com'
+            = f.text_field :dln_or_ssn, '&nbsp;'.html_safe
 
-        .actions
-          = f.button '&larr; Back'.html_safe, class: 'back btn'
-          = f.button 'Next &rarr;'.html_safe, class: 'next btn'
+          = f.text_field :phone, 'Phone number', placeholder: '(NNN) NNN-NNNN'
+          = f.text_field :email, 'Email address', placeholder: 'jack@email.com'
 
+          .actions
+            = f.button '&larr; Back'.html_safe, class: 'back btn'
+            = f.button 'Next &rarr;'.html_safe, class: 'next btn'
+
+      #contact_info.section
+        = f.inputs 'Virginia voting residence' do
+          = f.fields_for :virginia_voting_address, f.object.virginia_voting_address do |a|
+            = a.text_field :street, 'Address'
+            = a.text_field :city
+            = a.text_field :zip, class: 'small'
+
+        = f.inputs 'Mailing address' do
+          = f.fields_for :mailing_address, f.object.mailing_address do |a|
+            = a.text_field :full_name
+            = a.text_field :street, 'Address'
+            = a.text_field :city
+            = a.country_select :country
+            = a.state_select :state, '', 'us'
+            = a.text_field :zip, class: 'small'
+
+        = f.inputs 'Another state registration' do
+          = f.toggles do
+            %label
+              = check_box_tag 'registered_in_another_state', false
+              %span I am registered in another state
+          #another_state
+            = f.fields_for :foreign_state_address, f.object.foreign_state_address do |a|
+              = a.text_field :street, 'Address'
+              = a.text_field :city
+              = a.state_select :state, '', 'us'
+              = a.text_field :zip, class: 'small'
+            = f.toggles do
+              = f.check_box :authorized_cancelation, 'I authorize the cancellation of the previous registration (entered above)'

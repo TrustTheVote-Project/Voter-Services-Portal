@@ -10,4 +10,6 @@ class RegistrationRequest < ActiveRecord::Base
   attr_accessible :rights_restored_on, :residence, :gender, :identify_by
   attr_accessible :phone, :email, :authorized_cancelation
 
+  accepts_nested_attributes_for :virginia_voting_address
+
 end

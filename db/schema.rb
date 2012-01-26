@@ -14,11 +14,12 @@
 ActiveRecord::Schema.define(:version => 20120125203634) do
 
   create_table "addresses", :force => true do |t|
+    t.string "full_name"
     t.string "street"
     t.string "city"
-    t.string "state",   :default => "VA"
+    t.string "state",     :default => "VA"
     t.string "zip"
-    t.string "country", :default => "United States"
+    t.string "country",   :default => "United States"
   end
 
   create_table "log_records", :force => true do |t|
