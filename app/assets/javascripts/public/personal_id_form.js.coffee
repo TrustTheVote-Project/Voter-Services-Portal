@@ -3,10 +3,10 @@
 class PersonalIdForm
   constructor: ->
     @form       = $("form#new_search_query")
-    @voterId    = new RequiredTextField("#search_query_voter_id", status: false)
-    @firstName  = new RequiredTextField("#search_query_first_name", unless: @voterId)
-    @lastName   = new RequiredTextField("#search_query_last_name", unless: @voterId)
-    @ssn4       = new RequiredTextField("#search_query_ssn4", min: 4, max: 4, unless: @voterId)
+    @voterId    = new Forms.RequiredTextField("#search_query_voter_id", status: false)
+    @firstName  = new Forms.RequiredTextField("#search_query_first_name", unless: @voterId)
+    @lastName   = new Forms.RequiredTextField("#search_query_last_name", unless: @voterId)
+    @ssn4       = new Forms.RequiredTextField("#search_query_ssn4", min: 4, max: 4, unless: @voterId)
     @btn        = $(".btn[name='commit']")
 
     $("input", @form).change(@onFormChange).keyup(@onFormChange)
