@@ -9,13 +9,17 @@ class CreateRegistrationRequests < ActiveRecord::Migration
       t.date    :dob
       t.boolean :citizen
       t.boolean :old_enough
-      t.boolean :was_convicted
-      t.string  :conviction_state
+
+      t.string  :voting_rights
+      t.string  :rights_revoke_reason
+      t.string  :rights_revoked_in_state
       t.date    :rights_restored_on
+
       t.string  :residence
       t.string  :gender
       t.string  :identify_by
-      t.string  :dln_or_ssn
+      t.string  :ssn
+      t.string  :dln_or_stateid
       t.string  :phone
       t.string  :email
 

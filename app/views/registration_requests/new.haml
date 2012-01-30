@@ -24,40 +24,44 @@
 
       #eligibility.section
         = f.inputs nil do
-          = f.toggles 'Qualifications (*)' do
+          = f.toggles 'Qualifications' do
             = f.check_box :citizen, 'I am a citizen of the United States of America'
             = f.check_box :old_enough, "I will be at least 18 years of age on or before the #{link_to 'next General Election day', '#'}".html_safe
 
-          .group
-            = f.toggles 'Convictions' do
-              = f.check_box :was_convicted, 'I have been convicted of a felony'
-
-            .convicted
-              = f.select :conviction_state, 'State', [ "CA", "NY", "VA" ], {}, class: 'small'
-              = f.date_select :rights_restored_on, 'Voting rights restored', {}, class: 'small'
-
-          = f.toggles 'Residence (*)' do
+          = f.toggles 'Residence' do
             = f.radio_button :residence, 'I am currently a resident of Virginia', 'in'
             = f.radio_button :residence, 'I am outside of the U.S., but the most recent U.S. residence was in Virginia', 'outside'
+
+          .group
+            = f.toggles 'Convictions' do
+              = f.radio_button :voting_rights, 'My voting rights have never been revoked', RegistrationRequest::VOTING_RIGHTS[:unrevoked]
+              = f.radio_button :voting_rights, 'My voting rights have been revoked and not yet restored', RegistrationRequest::VOTING_RIGHTS[:restored]
+            .restored
+              = f.select      :rights_revoke_reason, 'Reason', [ "Felony", "Mental health" ], { include_blank: true }, class: 'span3'
+              = f.select      :rights_revoked_in_state, 'State', [ "CA", "NY", "VA" ], { include_blank: true }, class: 'small'
+              = f.date_select :rights_restored_on, 'Restored on', { include_blank: true, start_year: 100.years.ago.year, end_year: Date.today.year, order: [ :day, :month, :year ] }, class: 'small'
 
           .actions
             = f.button 'Next &rarr;'.html_safe, class: 'next btn'
 
       #identity.section
         = f.inputs nil do
-          = f.text_field :first_name, 'First name'
-          = f.text_field :middle_name, 'Middle name'
-          = f.text_field :last_name, 'Last name (*)'
-          = f.text_field :suffix_name_text, 'Suffix', placeholder: 'e.g. Jr, Sr', class: 'span2'
-          = f.date_select :dob, 'Date of birth', { start_year: 200.years.ago.year, end_year: 16.years.ago.year, default: 20.years.ago, order: [ :day, :month, :year ] }, class: 'small'
-          = f.select :gender, 'Gender (*)', [ 'Male', 'Female' ], { include_blank: true }, class: 'small'
+          = f.select      :title, 'Title', [ 'Mr', 'Ms', 'Mrs' ], { include_blank: true }, class: 'small'
+          = f.text_field  :first_name, 'First name'
+          = f.text_field  :middle_name, 'Middle name'
+          = f.text_field  :last_name, 'Last name'
+          = f.text_field  :suffix_name_text, 'Suffix', placeholder: 'e.g. Jr, Sr', class: 'span2'
+          = f.date_select :dob, 'Date of birth', { start_year: 200.years.ago.year, end_year: 16.years.ago.year, include_blank: true, order: [ :day, :month, :year ] }, class: 'small'
+          = f.select      :gender, 'Gender', [ 'Male', 'Female' ], { include_blank: true }, class: 'small'
 
           .group
-            = f.toggles 'Identification by (*)' do
-              = f.radio_button :identify_by, 'Social security number', 'ssn'
-              = f.radio_button :identify_by, 'Drivers license number', 'dln'
-
-            = f.text_field :dln_or_ssn, '&nbsp;'.html_safe
+            = f.text_field :ssn, 'Social Security #'
+            = f.toggles '&nbsp;'.html_safe do
+              %label
+                = check_box_tag 'no_ssn'
+                %span I do not have a Social Security Number
+            .dln
+              = f.text_field :dln_or_stateid, 'Drivers license #, or state ID card'
 
           = f.text_field :phone, 'Phone number', placeholder: '(NNN) NNN-NNNN'
           = f.text_field :email, 'Email address', placeholder: 'jack@email.com'

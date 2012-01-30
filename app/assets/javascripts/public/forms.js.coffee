@@ -7,7 +7,7 @@ Forms = window.Forms = {}
 class Forms.FieldStatus
   constructor: (@input) ->
     @hint = $("<span class='help-inline'>").hide()
-    @input.after(@hint)
+    @input.append(@hint)
     @untouched()
 
   untouched: -> @setState(null)
@@ -48,39 +48,71 @@ class Forms.BlockToggleField
       @block.hide()
 
 
-# Single required field that can have or not have a status next to it
-# Options are:
-# 
-#   status - (true / false; default 'true') controls if the status appears.
-#   max    - (integer) maximum length of the value
-#   min    - (integer) minimum length of the value
-#
-class Forms.RequiredField
-  constructor: (id, @options = {}) ->
-    @field = $(id)
+# Abstract required field that supports listeners
+# and optional status field.
+class Forms.AbstractRequiredField
+  constructor: (@options = {}) ->
     @listeners = []
-    @status = new Forms.FieldStatus(@field) unless @options['status'] == false
     @dep = @options['unless']
-
-    if @status
-      @field.focus(@onFocus)
-
-    # Watch for changes
-    @field.change(@onChange).blur(@onChange).keyup(@onKeyup)
 
     # Register ourselves as a listener to dependency changes
     @dep.addListener(this) if @dep
+
+  # Call this method when you know the of an element you want to append
+  # your status label to.
+  appendStatusTo: (id) ->
+    @status = new Forms.FieldStatus(id) unless @options['status'] == false
 
   addListener: (l) ->
     @listeners.push(l)
 
   validate: ->
+    console.log('Implement')
+    return null
+
+  isValid: ->
+    @validate() == null
+
+  onFocus: =>
+    @status.untouched()
+
+  onChange: =>
+    @status.setState(@validate()) if @status
+    l.onChange() for l in @listeners
+
+
+# Single required field that can have or not have a status next to it
+# Options are:
+#
+#   status - (true / false; default 'true') controls if the status appears.
+#   max    - (integer) maximum length of the value
+#   min    - (integer) minimum length of the value
+#   date   - (boolean; default false) TRUE to indicate that the field is
+#             a date
+#   skip_validation_if - (function) return TRUE to skip validating the
+#             field and report it as valid.
+#
+class Forms.RequiredTextField extends Forms.AbstractRequiredField
+  constructor: (id, @options = {}) ->
+    super @options
+
+    @field = $(id)
+    @field.focus(@onFocus) if @status
+    @field.change(@onChange).blur(@onChange).keyup(@onKeyup)
+
+    @appendStatusTo @field.parent()
+
+  validate: ->
+    # Skip validation if there's a pre-condition and it results in TRUE
+    call = @options['skip_validation_if']
+    return null if call and call()
+
     v = @field.val()
 
     # If there's a dependent field that can be filled instead of this
     # and it's valid, this one is considered valid as well.
     return null if (dep = @options['unless']) and dep.isValid()
-    
+
     if v.match(/^\s*$/)
       return "Cannot be blank"
     else if (max = @options['max']) and v.length > max
@@ -90,20 +122,35 @@ class Forms.RequiredField
 
     return null
 
-  isValid: ->
-    @validate() == null
-
   onKeyup: =>
     # Don't check if we just moved into the field via tabbing
     return if @field.val().match(/^$/)
     @onChange()
 
-  onFocus: =>
-    @status.untouched()
 
-  onChange: =>
-    @status.setState(@validate()) if @status
-    l.onChange() for l in @listeners
+# Required date field that supports the validation of all three
+# selection boxes filled.
+class Forms.RequiredDateField extends Forms.AbstractRequiredField
+  constructor: (id) ->
+    super
+
+    @year  = $(id + "_1i")
+    @month = $(id + "_2i")
+    @date  = $(id + "_3i")
+
+    fields = $("select[id*='" + id.replace('#', '') + "_']")
+    fields.focus(@onFocus) if @status
+    fields.change(@onChange).blur(@onChange)
+
+    @appendStatusTo @year.parent()
+
+  validate: ->
+    blank = /^\s*$/
+
+    if @year.val().match(blank) or @month.val().match(blank) or @date.val().match(blank)
+      return "Cannot be blank"
+
+    return null
 
 # A single section of a form with "Next" and "Back" buttons.
 class Forms.Section

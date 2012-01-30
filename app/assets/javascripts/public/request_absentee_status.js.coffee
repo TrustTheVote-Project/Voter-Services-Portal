@@ -2,7 +2,7 @@ class PersonalInfoSection extends Forms.Section
   constructor: (navigationListener) ->
     @location_city    = $('#absentee_status_request_location_type_city')
     @location_county  = $('#absentee_status_request_location_type_county')
-    @location_name    = new RequiredField('#absentee_status_request_location_name')
+    @location_name    = new RequiredTextField('#absentee_status_request_location_name')
     super 'fieldset#personal_info', navigationListener
 
   isComplete: =>
