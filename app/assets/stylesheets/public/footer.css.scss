@@ -1,13 +1,18 @@
 footer {
   font-size: 90%;
 
-  .powered, .info {
+  .info {
     padding: 5px;
   }
 
   .powered {
-    background: #888;
-    color: #ccc;
+    padding: 5px 0;
+    font-size: 90%;
+    span {
+      background: #888;
+      color: #ccc;
+      padding: 4px 5px;
+    }
   }
 
   ul {
