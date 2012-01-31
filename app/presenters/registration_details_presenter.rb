@@ -19,9 +19,14 @@ class RegistrationDetailsPresenter
     @registration.party_affiliation.blank? ? 'Not stated' : @registration.party_affiliation
   end
 
+  # Label for the status that depends on the status itself
+  def status_label
+    absentee? ? 'Absentee status' : 'Voter status'
+  end
+
   # Absentee status
   def absentee_status
-    absentee? ? 'Resident Absentee Voter' : 'Active'
+    absentee? ? "#{uocava? ? 'Overseas' : 'Resident'} Absentee Voter" : 'Active'
   end
 
   # Absentee status expiration date

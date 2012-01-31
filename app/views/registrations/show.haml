@@ -44,7 +44,7 @@
         %th Political Party Preference:
         %td= reg.party_affiliation
       %tr
-        %th Absentee Status:
+        %th #{reg.status_label}:
         %td= reg.absentee_status
       - if reg.absentee?
         %tr
