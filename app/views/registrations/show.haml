@@ -25,9 +25,9 @@
       %tr
         %th Date of Birth:
         %td= reg.dob
-      -# %tr
-      -#   %th Social Security Number:
-      -#   %td xxxx-xxx-1234
+      %tr
+        %th Social Security Number:
+        %td xxxx-xxx-1234
       %tr
         %th Voter Registration Address:
         %td= reg.voting_address
@@ -51,6 +51,13 @@
           %th Absentee Status Expires:
           %td= reg.absentee_status_expires_on
 
-    %p= link_to "Update Your Voter Record", "#", class: 'btn'
-    %p= link_to "Update Your Absentee Status", "#", class: 'btn'
-    %p= link_to "Mark Your Ballot Online", "#", class: 'btn'
+    %p= link_to "Update your voter record", "#", class: 'btn'
+
+    - if !reg.absentee? && !reg.uocava?
+      %p= link_to "Request an absentee ballot", "#", class: 'btn'
+    - elsif !reg.uocava?
+      %p= link_to "Update your absentee request", "#", class: 'btn'
+    - else
+      %p= link_to "Update your absentee status", "#", class: 'btn'
+      %p= link_to "Mark your ballot online", "#", class: 'btn'
+

@@ -24,6 +24,11 @@ class RegistrationDetailsPresenter
     true # TODO use real data
   end
 
+  # UOCAVA voter (overseas voter)
+  def uocava?
+    true # TODO use real data
+  end
+
   # Absentee status
   def absentee_status
     absentee? ? 'Resident Absentee Voter' : 'Active'
