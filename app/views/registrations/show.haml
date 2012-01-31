@@ -18,39 +18,38 @@
       returning to your election registrar.
 
   .span-two-thirds
-
-    %h3= @registration.full_name
+    - reg = RegistrationDetailsPresenter.new(@registration)
+    %h3= reg.full_name
 
     %table.condensed-table.properties.zebra-striped
       %tr
         %th Date of Birth:
-        %td 01/01/1901
-      %tr
-        %th Social Security Number:
-        %td xxxx-xxx-1234
+        %td= reg.dob
+      -# %tr
+      -#   %th Social Security Number:
+      -#   %td xxxx-xxx-1234
       %tr
         %th Voter Registration Address:
-        %td 123 Oak St., Humumunuku’ua’ pu’aville, VA, 12345
+        %td= reg.voting_address
       %tr
         %th Mailing Address:
-        %td 123 Oak St., Humumunuku’ua’ pu’aville, VA, 12345
+        %td= reg.mailing_address
       %tr
         %th Email:
-        %td wanda42@gmail.com
+        %td= reg.email
       %tr
         %th Daytime Phone Number:
-        %td (123) 456-7890
+        %td= reg.phone
       %tr
         %th Political Party Preference:
-        %td not stated
-
-      -# If not absentee show Absentee Status: "Active" and no date
+        %td= reg.party_affiliation
       %tr
         %th Absentee Status:
-        %td Resident Absentee Voter
-      %tr
-        %th Absentee Status Expires:
-        %td 01/01/2013
+        %td= reg.absentee_status
+      - if reg.absentee?
+        %tr
+          %th Absentee Status Expires:
+          %td= reg.absentee_status_expires_on
 
     %p= link_to "Update Your Voter Record", "#", class: 'btn'
     %p= link_to "Update Your Absentee Status", "#", class: 'btn'
