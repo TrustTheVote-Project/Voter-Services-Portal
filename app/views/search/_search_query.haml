@@ -1,0 +1,23 @@
+- sq = search_query
+%table.zebra-striped.condensed-table.properties
+  - if sq.using_voter_id?
+    %tr
+      %th Voter ID
+      %td= sq.voter_id
+
+  - else
+    %tr
+      %th Locality
+      %td= sq.locality
+    %tr
+      %th First name
+      %td= sq.first_name
+    %tr
+      %th Last name
+      %td= sq.last_name
+    %tr
+      %th Date of birth
+      %td= sq.dob.strftime('%B %d, %Y')
+    %tr
+      %th SSN4
+      %td= sq.ssn4

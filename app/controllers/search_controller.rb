@@ -19,7 +19,7 @@ class SearchController < ApplicationController
       RegistrationRepository.store_registration(session, reg)
       redirect_to :registration
     else
-      redirect_to :not_found
+      render :not_found
     end
   end
 

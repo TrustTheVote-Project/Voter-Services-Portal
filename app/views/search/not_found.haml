@@ -1,0 +1,25 @@
+= render partial: 'shared/page_header', locals: { title: 'Your Registration was not Found' }
+
+.row
+  .span-one-third
+    &nbsp;
+  .span-two-thirds
+    #retry.section
+      %p We don't have a record with the following details:
+      = render partial: "search_query", object: @search_query
+      .action
+        = link_to 'Retry identification', :search, class: 'btn primary'
+
+    .section
+      %h3 Register in Virginia
+      %p
+        If you want to register and you are currently
+        <strong>in</strong> VA, please choose this option.
+      = link_to 'Start registration', '#', class: 'btn'
+
+    .section
+      %h3 Register outside Virginia
+      %p
+        If you want to register and you are currently
+        <strong>outside</strong> VA, please choose this option.
+      = link_to 'More info', '#'
