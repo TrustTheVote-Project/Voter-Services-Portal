@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120131131137) do
+ActiveRecord::Schema.define(:version => 20120131151941) do
 
   create_table "addresses", :force => true do |t|
     t.string "full_name"
@@ -75,6 +75,8 @@ ActiveRecord::Schema.define(:version => 20120131131137) do
     t.string   "party_affiliation"
     t.string   "voting_address"
     t.string   "mailing_address"
+    t.boolean  "absentee"
+    t.boolean  "uocava"
   end
 
 end

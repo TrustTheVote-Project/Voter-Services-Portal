@@ -3,7 +3,7 @@ class RegistrationDetailsPresenter
 
   extend Forwardable
 
-  def_delegators :@registration, :full_name, :voting_address, :mailing_address, :email, :phone
+  def_delegators :@registration, :full_name, :voting_address, :mailing_address, :email, :phone, :absentee?, :uocava?
 
   def initialize(reg)
     @registration = reg
@@ -17,16 +17,6 @@ class RegistrationDetailsPresenter
   # Party affiliation or 'Not stated'
   def party_affiliation
     @registration.party_affiliation.blank? ? 'Not stated' : @registration.party_affiliation
-  end
-
-  # Absentee flag
-  def absentee?
-    true # TODO use real data
-  end
-
-  # UOCAVA voter (overseas voter)
-  def uocava?
-    true # TODO use real data
   end
 
   # Absentee status
