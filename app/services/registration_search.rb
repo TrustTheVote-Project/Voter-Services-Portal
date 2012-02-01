@@ -35,6 +35,18 @@ class RegistrationSearch
       voting_address:     '518 Vance St, Bristol, VA 242012445',
       mailing_address:    '518 Vance St, Bristol, VA 242012445',
       absentee:           true,
+      uocava:             true },
+
+    '4' => {
+      first_name:         'Jane',
+      last_name:          'Soldier',
+      phone:              '540-555-1200',
+      gender:             'f',
+      dob:                Date.parse('1937-11-06 00:00:00.000'),
+      party_affiliation:  'Republican',
+      voting_address:     '518 Vance St, Bristol, VA 242012445',
+      mailing_address:    '518 Vance St, Bristol, VA 242012445',
+      absentee:           false,
       uocava:             true }
   }
 
