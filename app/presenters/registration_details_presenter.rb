@@ -21,12 +21,16 @@ class RegistrationDetailsPresenter
 
   # Label for the status that depends on the status itself
   def status_label
-    absentee? ? 'Absentee status' : 'Voter status'
+    absentee? || uocava? ? 'Absentee Status' : 'Voter Status'
   end
 
   # Absentee status
   def absentee_status
-    absentee? ? "#{uocava? ? 'Overseas' : 'Resident'} Absentee Voter" : 'Active'
+    if absentee?
+      "#{uocava? ? 'Overseas' : 'Resident'} Absentee Voter"
+    else
+      uocava? ? 'Expired' : 'Active'
+    end
   end
 
   # Absentee status expiration date
