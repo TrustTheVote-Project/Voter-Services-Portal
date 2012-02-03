@@ -23,14 +23,29 @@
     = twitter_bootstrap_form_for @registration_request, url: :registration_request do |f|
 
       #eligibility.section
+        %h3 Eligibility
+        %p To be eligible to vote, you must meet requirement for citizenship, age, qualification, and residence. To proceed with registering to vote, you must indicate whether you meet each of these requirements.  If you are already registered with your current name and address, you do not need to re-register.
         = f.inputs nil do
           = f.toggles 'Qualifications' do
             = f.check_box :citizen, 'I am a citizen of the United States of America'
-            = f.check_box :old_enough, "I will be at least 18 years of age on or before the #{link_to 'next General Election day', '#'}".html_safe
+            = f.check_box :old_enough, "I will be at least 18 years of age on or before the #{link_to 'next Election Day', '#'}".html_safe
 
-          = f.toggles 'Residence' do
-            = f.radio_button :residence, 'I am currently a resident of Virginia', 'in'
-            = f.radio_button :residence, 'I am outside of the U.S., but the most recent U.S. residence was in Virginia', 'outside'
+          .group
+            = f.toggles 'Residence' do
+              = f.radio_button :residence, 'I am currently a resident of Virginia', 'in'
+              = f.radio_button :residence, 'I live outside of the U.S., but the most recent U.S. residence was in Virginia', 'outside'
+            .outside
+              = f.toggles do
+                = f.radio_button :outside_type, 'Active Duty Merchant Marine or Armed Forces', 'active_duty'
+              .add= f.text_area :outside_active_duty_details, false, placeholder: 'Branch of service, Service ID, and rank / grade / rate', rows: 3, class: 'span7'
+
+              = f.toggles do
+                = f.radio_button :outside_type, 'Spouse or dependent living with a member of an active duty Merchant Marine or Armed Forces', 'spouse_active_duty'
+              .sadd= f.text_area :outside_spouse_active_duty_details, false, placeholder: 'Branch of service, Service ID, and rank / grade / rate', rows: 3, class: 'span7'
+
+              = f.toggles do
+                = f.radio_button :outside_type, 'Temporarily residing outside U.S.', 'temporarily'
+                = f.radio_button :outside_type, 'Temporarily residing outside U.S. for employment, or spouse or dependent residing with employee', 'spouse_temporarily'
 
           .group
             = f.toggles 'Convictions' do

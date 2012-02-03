@@ -21,4 +21,9 @@ form#new_registration_request {
   .section, #another_state {
     display: none;
   }
+
+  .outside, .add, .sadd {
+    display: none;
+    margin-left: 20px;
+  }
 }

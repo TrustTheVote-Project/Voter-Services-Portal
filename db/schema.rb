@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120131151941) do
+ActiveRecord::Schema.define(:version => 20120203094213) do
 
   create_table "addresses", :force => true do |t|
     t.string "full_name"
@@ -57,6 +57,9 @@ ActiveRecord::Schema.define(:version => 20120131151941) do
     t.integer "foreign_state_address_id"
     t.boolean "authorized_cancelation"
     t.integer "non_us_residence_address_id"
+    t.string  "outside_type"
+    t.string  "outside_active_duty_details"
+    t.string  "outside_spouse_active_duty_details"
   end
 
   create_table "registrations", :force => true do |t|

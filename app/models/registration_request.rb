@@ -15,6 +15,7 @@ class RegistrationRequest < ActiveRecord::Base
   attr_accessible :voting_rights, :conviction_state, :rights_restored_on
   attr_accessible :residence, :gender, :identify_by
   attr_accessible :phone, :email, :authorized_cancelation
+  attr_accessible :outside_type, :outside_active_duty_details, :outside_spouse_active_duty_details
 
   accepts_nested_attributes_for :virginia_voting_address
 

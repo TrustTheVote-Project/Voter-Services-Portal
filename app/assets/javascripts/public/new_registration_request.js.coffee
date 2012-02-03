@@ -1,6 +1,7 @@
 class EligibilitySection extends Forms.Section
   constructor: (navigationListener) ->
-    oid             = '#registration_request'
+    oname           = 'registration_request'
+    oid             = "##{oname}"
     @citizenFlag    = $(oid + '_citizen')
     @oldEnoughFlag  = $(oid + '_old_enough')
     @residenceRadio = $("input[name='registration_request[residence]']")
@@ -8,7 +9,14 @@ class EligibilitySection extends Forms.Section
     @rrReason       = new Forms.RequiredTextField(oid + '_rights_revoke_reason')
     @rrState        = new Forms.RequiredTextField(oid + '_rights_revoked_in_state')
     @rrDate         = new Forms.RequiredDateField(oid + '_rights_restored_on')
+    @resideOutside  = $(oid + '_residence_outside')
 
+    @votingRightsGroup = $("input[name='#{oname}[voting_rights]']")
+    @outsideTypeGroup  = $("input[name='#{oname}[outside_type]']")
+
+    new Forms.BlockToggleField(oid + '_residence_outside', 'div.outside')
+    new Forms.BlockToggleField(oid + '_outside_type_active_duty', 'div.add')
+    new Forms.BlockToggleField(oid + '_outside_type_spouse_active_duty', 'div.sadd')
     new Forms.BlockToggleField(oid + '_voting_rights_restored', 'div.restored')
 
     super '#eligibility', navigationListener
@@ -17,9 +25,10 @@ class EligibilitySection extends Forms.Section
     @residenceRadio.is(":checked") and
     @citizenFlag.is(":checked") and
     @oldEnoughFlag.is(":checked") and
-    $("input[name='registration_request[voting_rights]']").is(":checked") and
+    @votingRightsGroup.is(":checked") and
     (@votingRightsUnrevoked.is(":checked") or
-      (@rrReason.isValid() and @rrState.isValid() and @rrDate.isValid()))
+      (@rrReason.isValid() and @rrState.isValid() and @rrDate.isValid())) and
+    (!@resideOutside.is(":checked") or @outsideTypeGroup.is(":checked"))
 
 
 class IdentitySection extends Forms.Section
