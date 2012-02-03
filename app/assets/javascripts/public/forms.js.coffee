@@ -156,6 +156,7 @@ class Forms.RequiredDateField extends Forms.AbstractRequiredField
 class Forms.Section
   constructor: (id, navigationListener) ->
     @el = $(id)
+    @complete = false
 
     # Back button
     @btnBack = $('.btn.back', @el).click (e) ->
@@ -163,18 +164,32 @@ class Forms.Section
       navigationListener.onPrevSection()
 
     # Next button
-    @btnNext = $('.btn.next', @el).click (e) ->
+    @btnNext = $('.btn.next', @el).click (e) =>
       e.preventDefault()
-      navigationListener.onNextSection()
+      navigationListener.onNextSection() if @complete
+
+    @btnNext.mousedown @onNextButtonTouch
 
     @updateButton()
     $('input, select', @el).change(@updateButton).keyup(@updateButton)
 
+  incompleteItems: =>
+    []
+
+  onNextButtonTouch: (e) =>
+    unless @complete
+      e.preventDefault()
+      items = @incompleteItems()
+      if items.length > 0
+        modal = new Forms.IncompleteFormModal
+        modal.show(items)
+      return false
+
   updateButton: =>
-    if @isComplete()
-      @btnNext.removeAttr('disabled')
+    if @complete = @isComplete()
+      @btnNext.removeClass('disabled')
     else
-      @btnNext.attr('disabled', 'disabled')
+      @btnNext.addClass('disabled')
 
   isComplete: -> true
 
@@ -225,3 +240,30 @@ class Forms.MultiSectionForm
 
   onSubmit: =>
     console.log('Implement submission')
+
+
+# Modal that is shown when there are still fields to complete.
+class Forms.IncompleteFormModal
+  constructor: ->
+    @modal = $('#incomplete_form_modal')
+    @modal = @createModal() if @modal.length == 0
+    @modal.hide()
+
+  createModal: ->
+    modal = $("<div class='modal fade' id='incomplete_form_modal'><div class='modal-header'><a class='close' data-dismiss='modal'>x</a><h3>Form is incomplete</h3></div><div class='modal-body'><p>Please resolve the following items before you can complete the form:</p><ul></ul></div><div class='modal-footer'><a href='#' class='btn btn-primary'>Close</a></div></div>").appendTo($('body')).modal({ backdrop: true })
+    $(".btn", modal).click @hide
+    modal
+
+  hide: (e) =>
+    e.preventDefault()
+    @modal.modal('hide')
+
+  show: (incompleteItems) =>
+    @fillInItems(incompleteItems)
+    @modal.modal('show')
+
+  fillInItems: (items) =>
+    ul = $('.modal-body ul', @modal)
+    ul.empty()
+    for item in items
+      ul.append($("<li>").text(item))

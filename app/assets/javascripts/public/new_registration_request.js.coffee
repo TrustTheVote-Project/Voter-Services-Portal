@@ -4,7 +4,7 @@ class EligibilitySection extends Forms.Section
     oid             = "##{oname}"
     @citizenFlag    = $(oid + '_citizen')
     @oldEnoughFlag  = $(oid + '_old_enough')
-    @residenceRadio = $("input[name='registration_request[residence]']")
+    @residenceGroup = $("input[name='registration_request[residence]']")
     @votingRightsUnrevoked = $(oid + '_voting_rights_unrevoked')
     @rrReason       = new Forms.RequiredTextField(oid + '_rights_revoke_reason')
     @rrState        = new Forms.RequiredTextField(oid + '_rights_revoked_in_state')
@@ -21,8 +21,24 @@ class EligibilitySection extends Forms.Section
 
     super '#eligibility', navigationListener
 
+  incompleteItems: ->
+    items = []
+    items.push('Confirm you are a citizen of U.S.') unless @citizenFlag.is(":checked")
+    items.push('Confirm you will be of allowed age') unless @oldEnoughFlag.is(":checked")
+
+    if !@residenceGroup.is(":checked") or (@resideOutside.is(":checked") and !@outsideTypeGroup.is(":checked"))
+      items.push('Choose the correct residence status')
+
+    if @votingRightsGroup.is(":checked")
+      if !@votingRightsUnrevoked.is(":checked") and (!@rrReason.isValid() or !@rrState.isValid() or !@rrDate.isValid())
+        items.push('Provide details of your voting rights restoration')
+    else
+      items.push('Provide your voting rights status')
+
+    items
+
   isComplete: =>
-    @residenceRadio.is(":checked") and
+    @residenceGroup.is(":checked") and
     @citizenFlag.is(":checked") and
     @oldEnoughFlag.is(":checked") and
     @votingRightsGroup.is(":checked") and
