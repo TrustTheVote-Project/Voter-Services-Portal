@@ -13,18 +13,16 @@
 }
 
 form#new_registration_request {
-  .dln {
-    margin-top: -4px;
-    display: none;
-  }
-
   .section, #another_state {
     display: none;
   }
 
-  .outside, .add, .sadd, .restored {
+  .outside, .add, .sadd, .restored, .dln {
     display: none;
     margin-left: 20px;
+    span {
+      color: #000;
+    }
   }
 
   .convicted-details, .mental-details {

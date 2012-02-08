@@ -1,0 +1,30 @@
+#identity.section
+  %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
+  = f.inputs nil do
+    = f.select      :title, 'Title', [ 'Mr', 'Ms', 'Mrs' ], { include_blank: true }, class: 'small'
+    = f.text_field  :first_name, 'First name'
+    = f.text_field  :middle_name, 'Middle name'
+    = f.text_field  :last_name, 'Last name'
+    = f.text_field  :suffix, 'Suffix', placeholder: 'e.g. Jr, Sr', class: 'span2'
+    = f.date_select :dob, 'Date of birth', { start_year: 200.years.ago.year, end_year: 16.years.ago.year, include_blank: true, order: [ :day, :month, :year ] }, class: 'date'
+    = f.select      :gender, 'Gender', [ 'Male', 'Female' ], { include_blank: true }, class: 'small'
+
+    .group
+      = f.text_field :ssn, 'Social Security #', 'data-format' => '^([\s\-]*\d[\s\-]*){9}$', placeholder: 'NNN NN NNNN'
+      = f.toggles '&nbsp;'.html_safe do
+        %label
+          = check_box_tag 'registration_request[no_ssn]'
+          %span I do not have a Social Security Number
+      .dln
+        = f.inline do |i|
+          %span My Virginia drivers license or state ID card number is
+          = i.text_field :dln, class: 'small', 'data-format' => '^([\s\-]*[a-z0-9\d][\s\-]*){24}$'
+
+    = f.text_field :phone, 'Phone number', placeholder: '(NNN) NNN-NNNN'
+    = f.text_field :email, 'Email address', placeholder: 'jack@email.com'
+
+    %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
+
+    .actions
+      = f.button '&larr; Back'.html_safe, class: 'back btn'
+      = f.button 'Next &rarr;'.html_safe, class: 'next btn'

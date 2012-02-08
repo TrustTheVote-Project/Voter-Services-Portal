@@ -1,5 +1,4 @@
 Forms = window.Forms = {}
-Feedback = window.Feedback = {}
 
 # Status of the field that appears next to the field given.
 # Can take unknown / valid / invalid states and displays either
@@ -47,58 +46,6 @@ class Forms.BlockToggleField
       @block.show()
     else
       @block.hide()
-
-class Feedback.AbstractItem
-  constructor: (@feedbackMessage, @options = {}) ->
-
-  addChangeCallback: (cb) ->
-
-  isComplete: =>
-    false
-
-  feedback: ->
-    # Immediately complete if the condition is met
-    skipIf   = @options.skipIf
-    complete = (skipIf and skipIf()) or @isComplete()
-
-    @feedbackMessage unless complete
-
-class Feedback.Checked extends Feedback.AbstractItem
-  constructor: (id, feedbackMessage, options = {}) ->
-    super feedbackMessage, options
-    @el = $(id)
-
-  addChangeCallback: (cb) -> @el.change(cb)
-  isComplete: => @el.is(":checked")
-
-class Feedback.Popover
-  constructor: (id) ->
-    @el = $(id).popover(content: @popoverContent, title: @popoverTitle, html: 'html')
-    @items = []
-    @content = null
-
-  addItem: (i) ->
-    @items.push(i)
-    i.addChangeCallback(@refresh)
-    @refresh()
-
-  popoverTitle: -> "Please review"
-  popoverContent: =>
-    @content
-
-  refresh: =>
-    feedback = []
-    for item in @items
-      f = item.feedback()
-      feedback.push(f) if f
-
-    po = @el.data().popover
-    if feedback.length > 0
-      po.enabled = true
-      @content = "<ul>#{('<li>' + i + '</li>' for i in feedback).join('')}</ul>"
-    else
-      po.enabled = false
-      @content = null
 
 # Abstract required field that supports listeners
 # and optional status field.

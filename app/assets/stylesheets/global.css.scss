@@ -18,6 +18,10 @@ body {
 }
 
 form {
+  select.date {
+    width: auto;
+  }
+
   .group {
     margin-bottom: 18px;
     .clearfix {

@@ -1,3 +1,4 @@
+# Eligibility section
 class EligibilitySection extends Forms.Section
   constructor: (navigationListener) ->
     oname   = 'registration_request'
@@ -18,7 +19,7 @@ class EligibilitySection extends Forms.Section
     @mentalFalse        = $("#{oid}_mental_false")
 
     # Configure feedback popover on Next button
-    btnNext = $('button', section)
+    btnNext = $('button.next', section)
     popover = new Feedback.Popover(btnNext)
     popover.addItem(new Feedback.Checked(@citizen, 'Citizenship criteria'))
     popover.addItem(new Feedback.Checked(@age, 'Age criteria'))
@@ -50,38 +51,44 @@ class EligibilitySection extends Forms.Section
 
 
 
-
-
-
-
-
-
-
-
+# Identify Yourself section
 class IdentitySection extends Forms.Section
   constructor: (navigationListener) ->
-    oid       = '#registration_request'
-    @lastName = new Forms.RequiredTextField(oid + '_last_name')
-    @dob      = new Forms.RequiredDateField(oid + '_dob')
-    @noSSN    = $("#no_ssn")
-    @dln      = new Forms.RequiredTextField(oid + '_dln_or_stateid',
-                  skip_validation_if: => !@noSSN.is(':checked'))
-    @ssn      = new Forms.RequiredTextField(oid + '_ssn', 
-                  skip_validation_if: => @noSSN.is(':checked'))
+    oname   = 'registration_request'
+    oid     = "##{oname}"
+    section = $('#identity')
 
-    @noSSN.change(@updateDlnAndSsn)
+    # Fields
+    @lastName = $("#{oid}_last_name")
+    @gender   = $("#{oid}_gender")
+    @ssn      = $("#{oid}_ssn")
+    @dln      = $("#{oid}_dln")
+    @noSsn    = $("#{oid}_no_ssn")
 
-    new Forms.BlockToggleField('#no_ssn', '.dln')
+    # Configure feedback popover on Next button
+    popover = new Feedback.Popover($('button.next', section))
+    popover.addItem(new Feedback.Filled(@lastName, 'Last name'))
+    popover.addItem(new Feedback.Filled(@gender, 'Gender'))
+    popover.addItem(new Feedback.Filled(@ssn, 'Social Security #', skipIf: => @noSsn.is(":checked")))
+    popover.addItem(new Feedback.Filled(@dln, 'Drivers license or State ID', skipIf: => !@noSsn.is(":checked")))
+
+    new Forms.BlockToggleField("#{oid}_no_ssn", '.dln')
 
     super '#identity', navigationListener
 
-  updateDlnAndSsn: =>
-    @ssn.onChange()
-    @dln.onChange()
+  validSsn: ->
+    @ssn.val().match(new RegExp(@ssn.attr('data-format'), 'gi'))
+
+  validDln: ->
+    @dln.val().match(new RegExp(@dln.attr('data-format'), 'gi'))
 
   isComplete: =>
-    @lastName.isValid() and @dob.isValid() and
-    @dln.isValid() and @ssn.isValid()
+    checked = (id) -> $(id).is(":checked")
+    filled  = (id) -> $(id).val().match(/^[^\s]+$/)
+
+    filled(@lastName) and filled(@gender) and
+      (if checked(@noSsn) then @validDln() else @validSsn())
+
 
 
 class ContactInfoSection extends Forms.Section
@@ -93,8 +100,8 @@ class ContactInfoSection extends Forms.Section
 class Form extends Forms.MultiSectionForm
   constructor: ->
     super [
-      new EligibilitySection(this),
-#      new IdentitySection(this),
+#      new EligibilitySection(this),
+      new IdentitySection(this),
 #      new ContactInfoSection(this),
     ], new Forms.StepIndicator(".steps")
 
