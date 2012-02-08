@@ -11,16 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120203094213) do
-
-  create_table "addresses", :force => true do |t|
-    t.string "full_name"
-    t.string "street"
-    t.string "city"
-    t.string "state",     :default => "VA"
-    t.string "zip"
-    t.string "country",   :default => "United States"
-  end
+ActiveRecord::Schema.define(:version => 20120131151941) do
 
   create_table "log_records", :force => true do |t|
     t.string   "subject"
@@ -33,33 +24,9 @@ ActiveRecord::Schema.define(:version => 20120203094213) do
   add_index "log_records", ["created_at"], :name => "index_log_records_on_created_at"
 
   create_table "registration_requests", :force => true do |t|
-    t.string  "title"
-    t.string  "first_name"
-    t.string  "middle_name"
-    t.string  "last_name"
-    t.string  "suffix_name_text"
-    t.date    "dob"
-    t.boolean "citizen"
-    t.boolean "old_enough"
-    t.string  "voting_rights"
-    t.string  "rights_revoke_reason"
-    t.string  "rights_revoked_in_state"
-    t.date    "rights_restored_on"
-    t.string  "residence"
-    t.string  "gender"
-    t.string  "identify_by"
-    t.string  "ssn"
-    t.string  "dln_or_stateid"
-    t.string  "phone"
-    t.string  "email"
-    t.integer "virginia_voting_address_id"
-    t.integer "mailing_address_id"
-    t.integer "foreign_state_address_id"
-    t.boolean "authorized_cancelation"
-    t.integer "non_us_residence_address_id"
-    t.string  "outside_type"
-    t.string  "outside_active_duty_details"
-    t.string  "outside_spouse_active_duty_details"
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "registrations", :force => true do |t|
