@@ -1,50 +1,61 @@
 class EligibilitySection extends Forms.Section
   constructor: (navigationListener) ->
-    oname           = 'registration_request'
-    oid             = "##{oname}"
-    @citizenFlag    = $(oid + '_citizen')
-    @oldEnoughFlag  = $(oid + '_old_enough')
-    @residenceGroup = $("input[name='registration_request[residence]']")
-    @votingRightsUnrevoked = $(oid + '_voting_rights_unrevoked')
-    @rrReason       = new Forms.RequiredTextField(oid + '_rights_revoke_reason')
-    @rrState        = new Forms.RequiredTextField(oid + '_rights_revoked_in_state')
-    @rrDate         = new Forms.RequiredDateField(oid + '_rights_restored_on')
-    @resideOutside  = $(oid + '_residence_outside')
+    oname   = 'registration_request'
+    oid     = "##{oname}"
+    section = $('#eligibility')
 
-    @votingRightsGroup = $("input[name='#{oname}[voting_rights]']")
-    @outsideTypeGroup  = $("input[name='#{oname}[outside_type]']")
+    # Fields
+    @citizen            = $("#{oid}_citizen")
+    @age                = $("#{oid}_old_enough")
+    @residence          = $("input[name='#{oname}[residence]']")
+    @residenceInside    = $("#{oid}_residence_in")
+    @livingOutside      = $("input[name='#{oname}[outside_type]']")
+    @convicted          = $("input[name='#{oname}[convicted]']")
+    @convictedRestored  = $("#{oid}_convicted_restored")
+    @convictedFalse     = $("#{oid}_convicted_false")
+    @mental             = $("input[name='#{oname}[mental]']")
+    @mentalRestored     = $("#{oid}_mental_restored")
+    @mentalFalse        = $("#{oid}_mental_false")
+
+    # Configure feedback popover on Next button
+    btnNext = $('button', section)
+    popover = new Feedback.Popover(btnNext)
+    popover.addItem(new Feedback.Checked(@citizen, 'Citizenship criteria'))
+    popover.addItem(new Feedback.Checked(@age, 'Age criteria'))
+    popover.addItem(new Feedback.Checked(@residence, 'Residence selection'))
+    popover.addItem(new Feedback.Checked(@livingOutside, 'Reason for living outside', skipIf: => @residenceInside.is(":checked") or !@residence.is(":checked")))
+    popover.addItem(new Feedback.Checked(@convicted, 'Convictions status'))
+    popover.addItem(new Feedback.Checked(@mental, 'Mental status'))
+    unrestoredRights = "You can't vote until your rights are restored"
+    popover.addItem(new Feedback.Checked(@convictedRestored, unrestoredRights, skipIf: => @convictedFalse.is(":checked") or !@convicted.is(":checked") ))
+    popover.addItem(new Feedback.Checked(@mentalRestored, unrestoredRights, skipIf: => @mentalFalse.is(":checked") or !@mental.is(":checked") ))
 
     new Forms.BlockToggleField(oid + '_residence_outside', 'div.outside')
     new Forms.BlockToggleField(oid + '_outside_type_active_duty', 'div.add')
     new Forms.BlockToggleField(oid + '_outside_type_spouse_active_duty', 'div.sadd')
-    new Forms.BlockToggleField(oid + '_voting_rights_restored', 'div.restored')
+    new Forms.BlockToggleField(oid + '_convicted_true', '.convicted-details')
+    new Forms.BlockToggleField(oid + '_convicted_restored', '.convicted-details .restored')
+    new Forms.BlockToggleField(oid + '_mental_true', '.mental-details')
+    new Forms.BlockToggleField(oid + '_mental_restored', '.mental-details .restored')
 
     super '#eligibility', navigationListener
 
-  incompleteItems: ->
-    items = []
-    items.push('Confirm you are a citizen of U.S.') unless @citizenFlag.is(":checked")
-    items.push('Confirm you will be of allowed age') unless @oldEnoughFlag.is(":checked")
-
-    if !@residenceGroup.is(":checked") or (@resideOutside.is(":checked") and !@outsideTypeGroup.is(":checked"))
-      items.push('Choose the correct residence status')
-
-    if @votingRightsGroup.is(":checked")
-      if !@votingRightsUnrevoked.is(":checked") and (!@rrReason.isValid() or !@rrState.isValid() or !@rrDate.isValid())
-        items.push('Provide details of your voting rights restoration')
-    else
-      items.push('Provide your voting rights status')
-
-    items
-
   isComplete: =>
-    @residenceGroup.is(":checked") and
-    @citizenFlag.is(":checked") and
-    @oldEnoughFlag.is(":checked") and
-    @votingRightsGroup.is(":checked") and
-    (@votingRightsUnrevoked.is(":checked") or
-      (@rrReason.isValid() and @rrState.isValid() and @rrDate.isValid())) and
-    (!@resideOutside.is(":checked") or @outsideTypeGroup.is(":checked"))
+    ch = (id) -> $(id).is(":checked")
+
+    ch(@citizen) and ch(@age) and
+      (ch(@residenceInside) or ch(@livingOutside)) and
+      (ch(@convictedFalse) or ch(@convictedRestored)) and
+      (ch(@mentalFalse) or ch(@mentalRestored))
+
+
+
+
+
+
+
+
+
 
 
 class IdentitySection extends Forms.Section
@@ -83,8 +94,8 @@ class Form extends Forms.MultiSectionForm
   constructor: ->
     super [
       new EligibilitySection(this),
-      new IdentitySection(this),
-      new ContactInfoSection(this),
+#      new IdentitySection(this),
+#      new ContactInfoSection(this),
     ], new Forms.StepIndicator(".steps")
 
 

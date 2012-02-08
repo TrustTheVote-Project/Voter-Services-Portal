@@ -13,7 +13,7 @@
 }
 
 form#new_registration_request {
-  .restored, .dln {
+  .dln {
     margin-top: -4px;
     display: none;
   }
@@ -22,8 +22,17 @@ form#new_registration_request {
     display: none;
   }
 
-  .outside, .add, .sadd {
+  .outside, .add, .sadd, .restored {
     display: none;
     margin-left: 20px;
+  }
+
+  .convicted-details, .mental-details {
+    display: none;
+    margin-left: 20px;
+    p { margin: 5px 0; }
+    select {
+      width: auto;
+    }
   }
 }

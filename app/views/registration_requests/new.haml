@@ -22,7 +22,7 @@
   .span-two-thirds
     = twitter_bootstrap_form_for @registration_request, url: :registration_request do |f|
 
-      #eligibility.section
+      #eligibility
         %h3 Eligibility
         %p To be eligible to vote, you must meet requirement for citizenship, age, qualification, and residence. To proceed with registering to vote, you must indicate whether you meet each of these requirements.  If you are already registered with your current name and address, you do not need to re-register.
         = f.inputs nil do
@@ -48,69 +48,92 @@
                 = f.radio_button :outside_type, 'Temporarily residing outside U.S. for employment, or spouse or dependent residing with employee', 'spouse_temporarily'
 
           .group
-            = f.toggles 'Convictions' do
-              = f.radio_button :voting_rights, 'My voting rights have never been revoked', RegistrationRequest::VOTING_RIGHTS[:unrevoked]
-              = f.radio_button :voting_rights, 'My voting rights have been revoked and not yet restored', RegistrationRequest::VOTING_RIGHTS[:restored]
-            .restored
-              = f.select      :rights_revoke_reason, 'Reason', [ "Felony", "Mental health" ], { include_blank: true }, class: 'span3'
-              = f.select      :rights_revoked_in_state, 'State', [ "CA", "NY", "VA" ], { include_blank: true }, class: 'small'
-              = f.date_select :rights_restored_on, 'Restored on', { include_blank: true, start_year: 100.years.ago.year, end_year: Date.today.year, order: [ :day, :month, :year ] }, class: 'small'
+            = f.toggles 'Conditions' do
+              %li.question
+                %label
+                  %span Have you ever been convicted of a felony?
+              = f.radio_button :convicted, 'No', false
+              = f.radio_button :convicted, 'Yes', true
+            .convicted-details
+              = f.toggles do
+                = f.check_box :convicted_restored, 'My voting rights have been restored'
+                .restored
+                  %p
+                    I was convicted of a felony in
+                    = state_select :convicted_in_state, '', 'us'
+                  %p
+                    My voting rights were restored on
+                    = date_select :convicted_rights_restored_on, '', { order: [ :day, :month, :year ] }
 
-          .actions
-            = f.button 'Next &rarr;'.html_safe, class: 'next btn'
-
-      #identity.section
-        = f.inputs nil do
-          = f.select      :title, 'Title', [ 'Mr', 'Ms', 'Mrs' ], { include_blank: true }, class: 'small'
-          = f.text_field  :first_name, 'First name'
-          = f.text_field  :middle_name, 'Middle name'
-          = f.text_field  :last_name, 'Last name'
-          = f.text_field  :suffix_name_text, 'Suffix', placeholder: 'e.g. Jr, Sr', class: 'span2'
-          = f.date_select :dob, 'Date of birth', { start_year: 200.years.ago.year, end_year: 16.years.ago.year, include_blank: true, order: [ :day, :month, :year ] }, class: 'small'
-          = f.select      :gender, 'Gender', [ 'Male', 'Female' ], { include_blank: true }, class: 'small'
-
-          .group
-            = f.text_field :ssn, 'Social Security #'
-            = f.toggles '&nbsp;'.html_safe do
-              %label
-                = check_box_tag 'no_ssn'
-                %span I do not have a Social Security Number
-            .dln
-              = f.text_field :dln_or_stateid, 'Drivers license #, or state ID card'
-
-          = f.text_field :phone, 'Phone number', placeholder: '(NNN) NNN-NNNN'
-          = f.text_field :email, 'Email address', placeholder: 'jack@email.com'
-
-          .actions
-            = f.button '&larr; Back'.html_safe, class: 'back btn'
-            = f.button 'Next &rarr;'.html_safe, class: 'next btn'
-
-      #contact_info.section
-        = f.inputs 'Virginia voting residence' do
-          = f.fields_for :virginia_voting_address, f.object.virginia_voting_address do |a|
-            = a.text_field :street, 'Address'
-            = a.text_field :city
-            = a.text_field :zip, class: 'small'
-
-        = f.inputs 'Mailing address' do
-          = f.fields_for :mailing_address, f.object.mailing_address do |a|
-            = a.text_field :full_name
-            = a.text_field :street, 'Address'
-            = a.text_field :city
-            = a.country_select :country
-            = a.state_select :state, '', 'us'
-            = a.text_field :zip, class: 'small'
-
-        = f.inputs 'Another state registration' do
-          = f.toggles do
-            %label
-              = check_box_tag 'registered_in_another_state', false
-              %span I am registered in another state
-          #another_state
-            = f.fields_for :foreign_state_address, f.object.foreign_state_address do |a|
-              = a.text_field :street, 'Address'
-              = a.text_field :city
-              = a.state_select :state, '', 'us'
-              = a.text_field :zip, class: 'small'
             = f.toggles do
-              = f.check_box :authorized_cancelation, 'I authorize the cancellation of the previous registration (entered above)'
+              %li.question
+                %label
+                  %span Have you ever been judged mentally incapacitated?
+              = f.radio_button :mental, 'No', false
+              = f.radio_button :mental, 'Yes', true
+            .mental-details
+              = f.toggles do
+                = f.check_box :mental_restored, 'Court has restored my voting rights'
+                .restored
+                  %p
+                    My voting rights were restored on
+                    = date_select :mental_rights_restored_on, '', { order: [ :day, :month, :year ] }
+
+          .actions
+            = f.button 'Next &rarr;'.html_safe, class: 'next btn'
+
+-#      #identity.section
+-#        = f.inputs nil do
+-#          = f.select      :title, 'Title', [ 'Mr', 'Ms', 'Mrs' ], { include_blank: true }, class: 'small'
+-#          = f.text_field  :first_name, 'First name'
+-#          = f.text_field  :middle_name, 'Middle name'
+-#          = f.text_field  :last_name, 'Last name'
+-#          = f.text_field  :suffix_name_text, 'Suffix', placeholder: 'e.g. Jr, Sr', class: 'span2'
+-#          = f.date_select :dob, 'Date of birth', { start_year: 200.years.ago.year, end_year: 16.years.ago.year, include_blank: true, order: [ :day, :month, :year ] }, class: 'small'
+-#          = f.select      :gender, 'Gender', [ 'Male', 'Female' ], { include_blank: true }, class: 'small'
+-#
+-#          .group
+-#            = f.text_field :ssn, 'Social Security #'
+-#            = f.toggles '&nbsp;'.html_safe do
+-#              %label
+-#                = check_box_tag 'no_ssn'
+-#                %span I do not have a Social Security Number
+-#            .dln
+-#              = f.text_field :dln_or_stateid, 'Drivers license #, or state ID card'
+-#
+-#          = f.text_field :phone, 'Phone number', placeholder: '(NNN) NNN-NNNN'
+-#          = f.text_field :email, 'Email address', placeholder: 'jack@email.com'
+-#
+-#          .actions
+-#            = f.button '&larr; Back'.html_safe, class: 'back btn'
+-#            = f.button 'Next &rarr;'.html_safe, class: 'next btn'
+-#
+-#      #contact_info.section
+-#        = f.inputs 'Virginia voting residence' do
+-#          = f.fields_for :virginia_voting_address, f.object.virginia_voting_address do |a|
+-#            = a.text_field :street, 'Address'
+-#            = a.text_field :city
+-#            = a.text_field :zip, class: 'small'
+-#
+-#        = f.inputs 'Mailing address' do
+-#          = f.fields_for :mailing_address, f.object.mailing_address do |a|
+-#            = a.text_field :full_name
+-#            = a.text_field :street, 'Address'
+-#            = a.text_field :city
+-#            = a.country_select :country
+-#            = a.state_select :state, '', 'us'
+-#            = a.text_field :zip, class: 'small'
+-#
+-#        = f.inputs 'Another state registration' do
+-#          = f.toggles do
+-#            %label
+-#              = check_box_tag 'registered_in_another_state', false
+-#              %span I am registered in another state
+-#          #another_state
+-#            = f.fields_for :foreign_state_address, f.object.foreign_state_address do |a|
+-#              = a.text_field :street, 'Address'
+-#              = a.text_field :city
+-#              = a.state_select :state, '', 'us'
+-#              = a.text_field :zip, class: 'small'
+-#            = f.toggles do
+-#              = f.check_box :authorized_cancelation, 'I authorize the cancellation of the previous registration (entered above)'

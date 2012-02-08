@@ -9,6 +9,10 @@ body {
   padding: 20px;
 }
 
+.popover .content {
+  margin: 0;
+}
+
 .actions {
   background: transparent;
 }
@@ -19,6 +23,10 @@ form {
     .clearfix {
       margin-bottom: 7px;
     }
+  }
+
+  .question label span {
+    margin-left: -20px;
   }
 }
 

@@ -1,4 +1,5 @@
 Forms = window.Forms = {}
+Feedback = window.Feedback = {}
 
 # Status of the field that appears next to the field given.
 # Can take unknown / valid / invalid states and displays either
@@ -47,6 +48,57 @@ class Forms.BlockToggleField
     else
       @block.hide()
 
+class Feedback.AbstractItem
+  constructor: (@feedbackMessage, @options = {}) ->
+
+  addChangeCallback: (cb) ->
+
+  isComplete: =>
+    false
+
+  feedback: ->
+    # Immediately complete if the condition is met
+    skipIf   = @options.skipIf
+    complete = (skipIf and skipIf()) or @isComplete()
+
+    @feedbackMessage unless complete
+
+class Feedback.Checked extends Feedback.AbstractItem
+  constructor: (id, feedbackMessage, options = {}) ->
+    super feedbackMessage, options
+    @el = $(id)
+
+  addChangeCallback: (cb) -> @el.change(cb)
+  isComplete: => @el.is(":checked")
+
+class Feedback.Popover
+  constructor: (id) ->
+    @el = $(id).popover(content: @popoverContent, title: @popoverTitle, html: 'html')
+    @items = []
+    @content = null
+
+  addItem: (i) ->
+    @items.push(i)
+    i.addChangeCallback(@refresh)
+    @refresh()
+
+  popoverTitle: -> "Please review"
+  popoverContent: =>
+    @content
+
+  refresh: =>
+    feedback = []
+    for item in @items
+      f = item.feedback()
+      feedback.push(f) if f
+
+    po = @el.data().popover
+    if feedback.length > 0
+      po.enabled = true
+      @content = "<ul>#{('<li>' + i + '</li>' for i in feedback).join('')}</ul>"
+    else
+      po.enabled = false
+      @content = null
 
 # Abstract required field that supports listeners
 # and optional status field.
@@ -168,22 +220,8 @@ class Forms.Section
       e.preventDefault()
       navigationListener.onNextSection() if @complete
 
-    @btnNext.mousedown @onNextButtonTouch
-
     @updateButton()
     $('input, select', @el).change(@updateButton).keyup(@updateButton)
-
-  incompleteItems: =>
-    []
-
-  onNextButtonTouch: (e) =>
-    unless @complete
-      e.preventDefault()
-      items = @incompleteItems()
-      if items.length > 0
-        modal = new Forms.IncompleteFormModal
-        modal.show(items)
-      return false
 
   updateButton: =>
     if @complete = @isComplete()
@@ -240,30 +278,3 @@ class Forms.MultiSectionForm
 
   onSubmit: =>
     console.log('Implement submission')
-
-
-# Modal that is shown when there are still fields to complete.
-class Forms.IncompleteFormModal
-  constructor: ->
-    @modal = $('#incomplete_form_modal')
-    @modal = @createModal() if @modal.length == 0
-    @modal.hide()
-
-  createModal: ->
-    modal = $("<div class='modal fade' id='incomplete_form_modal'><div class='modal-header'><a class='close' data-dismiss='modal'>x</a><h3>Form is incomplete</h3></div><div class='modal-body'><p>Please resolve the following items before you can complete the form:</p><ul></ul></div><div class='modal-footer'><a href='#' class='btn btn-primary'>Close</a></div></div>").appendTo($('body')).modal({ backdrop: true })
-    $(".btn", modal).click @hide
-    modal
-
-  hide: (e) =>
-    e.preventDefault()
-    @modal.modal('hide')
-
-  show: (incompleteItems) =>
-    @fillInItems(incompleteItems)
-    @modal.modal('show')
-
-  fillInItems: (items) =>
-    ul = $('.modal-body ul', @modal)
-    ul.empty()
-    for item in items
-      ul.append($("<li>").text(item))
