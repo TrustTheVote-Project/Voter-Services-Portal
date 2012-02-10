@@ -1,20 +1,24 @@
 # Eligibility section
 class EligibilitySection extends Forms.Section
   constructor: (navigationListener) ->
-    oname   = 'registration_request'
-    oid     = "##{oname}"
+    @oname  = 'registration_request'
+    oid     = "##{@oname}"
     section = $('#eligibility')
 
     # Fields
     @citizen            = $("#{oid}_citizen")
     @age                = $("#{oid}_old_enough")
-    @residence          = $("input[name='#{oname}[residence]']")
+    @residence          = $("input[name='#{@oname}[residence]']")
     @residenceInside    = $("#{oid}_residence_in")
-    @livingOutside      = $("input[name='#{oname}[outside_type]']")
-    @convicted          = $("input[name='#{oname}[convicted]']")
+    @livingOutside      = $("input[name='#{@oname}[outside_type]']")
+    @oaServiceId        = $("#{oid}_outside_active_service_id")
+    @oaRank             = $("#{oid}_outside_active_rank")
+    @osServiceId        = $("#{oid}_outside_spouse_service_id")
+    @osRank             = $("#{oid}_outside_spouse_rank")
+    @convicted          = $("input[name='#{@oname}[convicted]']")
     @convictedRestored  = $("#{oid}_convicted_restored")
     @convictedFalse     = $("#{oid}_convicted_false")
-    @mental             = $("input[name='#{oname}[mental]']")
+    @mental             = $("input[name='#{@oname}[mental]']")
     @mentalRestored     = $("#{oid}_mental_restored")
     @mentalFalse        = $("#{oid}_mental_false")
 
@@ -24,7 +28,11 @@ class EligibilitySection extends Forms.Section
     popover.addItem(new Feedback.Checked(@citizen, 'Citizenship criteria'))
     popover.addItem(new Feedback.Checked(@age, 'Age criteria'))
     popover.addItem(new Feedback.Checked(@residence, 'Residence selection'))
-    popover.addItem(new Feedback.Checked(@livingOutside, 'Reason for living outside', skipIf: => @residenceInside.is(":checked") or !@residence.is(":checked")))
+    popover.addItem(new Feedback.Checked(@livingOutside, 'Reason for living outside', skipIf: => !@residenceOutside()))
+    popover.addItem(new Feedback.Filled(@oaServiceId, 'Your service ID', skipIf: => !@outsideActive()))
+    popover.addItem(new Feedback.Filled(@oaRank, 'Your rank / grade / rate', skipIf: => !@outsideActive()))
+    popover.addItem(new Feedback.Filled(@osServiceId, 'Your spouse\'s service ID', skipIf: => !@outsideSpouse()))
+    popover.addItem(new Feedback.Filled(@osRank, 'Your spouse\'s rank / grade / rate', skipIf: => !@outsideSpouse()))
     popover.addItem(new Feedback.Checked(@convicted, 'Convictions status'))
     popover.addItem(new Feedback.Checked(@mental, 'Mental status'))
     unrestoredRights = "You can't vote until your rights are restored"
@@ -41,11 +49,21 @@ class EligibilitySection extends Forms.Section
 
     super '#eligibility', navigationListener
 
+  residenceType: -> $("input:checked[name='#{@oname}[residence]']").val()
+  residenceOutside: -> @residenceType() == 'outside'
+  outsideType: -> $("input:checked[name='#{@oname}[outside_type]']").val()
+  outsideActive: -> @residenceOutside() and @outsideType() == 'active_duty'
+  outsideSpouse: -> @residenceOutside() and @outsideType() == 'spouse_active_duty'
+
   isComplete: =>
     ch = (id) -> $(id).is(":checked")
+    filled  = (el) -> el.val().match(/^[^\s]+$/)
 
     ch(@citizen) and ch(@age) and
-      (ch(@residenceInside) or ch(@livingOutside)) and
+      (ch(@residenceInside) or
+        (@outsideType() == 'active_duty' and filled(@oaServiceId) and filled(@oaRank)) or
+        (@outsideType() == 'spouse_active_duty' and filled(@osServiceId) and filled(@osRank)) or
+        (@outsideType() or '').match(/temporarily/)) and
       (ch(@convictedFalse) or ch(@convictedRestored)) and
       (ch(@mentalFalse) or ch(@mentalRestored))
 

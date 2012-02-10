@@ -13,11 +13,19 @@
       .outside
         = f.toggles do
           = f.radio_button :outside_type, 'Active Duty Merchant Marine or Armed Forces', 'active_duty'
-        .add= f.text_area :outside_active_duty_details, false, placeholder: 'Branch of service, Service ID, and rank / grade / rate', rows: 3, class: 'span7'
+        .add
+          = f.inline do |i|
+            = i.select :outside_active_service_branch, RegistrationRequest::SERVICE_BRANCHES, {}, class: 'span3'
+            = i.text_field :outside_active_service_id, placeholder: 'Service ID', class: 'span2'
+            = i.text_field :outside_active_rank, placeholder: 'Rank / Grade / Rate', class: 'span3'
 
         = f.toggles do
           = f.radio_button :outside_type, 'Spouse or dependent living with a member of an active duty Merchant Marine or Armed Forces', 'spouse_active_duty'
-        .sadd= f.text_area :outside_spouse_active_duty_details, false, placeholder: 'Branch of service, Service ID, and rank / grade / rate', rows: 3, class: 'span7'
+        .sadd
+          = f.inline do |i|
+            = i.select :outside_spouse_service_branch, RegistrationRequest::SERVICE_BRANCHES, {}, class: 'span3'
+            = i.text_field :outside_spouse_service_id, placeholder: 'Service ID', class: 'span2'
+            = i.text_field :outside_spouse_rank, placeholder: 'Rank / Grade / Rate', class: 'span3'
 
         = f.toggles do
           = f.radio_button :outside_type, 'Temporarily residing outside U.S.', 'temporarily'
