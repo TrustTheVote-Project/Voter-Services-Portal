@@ -23,7 +23,6 @@ describe FormHelper do
     private
 
     def collecting
-      helper = eval("class MyHelper; include FormHelper; end;").new unless helper
       helper.collecting?('form', 'field', app_config)
     end
   end
