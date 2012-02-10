@@ -61,6 +61,7 @@ class IdentitySection extends Forms.Section
     # Fields
     @lastName = $("#{oid}_last_name")
     @gender   = $("#{oid}_gender")
+    @gender   = false if @gender.length == 0
     @ssn      = $("#{oid}_ssn")
     @dln      = $("#{oid}_dln")
     @noSsn    = $("#{oid}_no_ssn")
@@ -68,7 +69,7 @@ class IdentitySection extends Forms.Section
     # Configure feedback popover on Next button
     popover = new Feedback.Popover($('button.next', section))
     popover.addItem(new Feedback.Filled(@lastName, 'Last name'))
-    popover.addItem(new Feedback.Filled(@gender, 'Gender'))
+    popover.addItem(new Feedback.Filled(@gender, 'Gender')) if @gender
     popover.addItem(new Feedback.Filled(@ssn, 'Social Security #', skipIf: => @noSsn.is(":checked")))
     popover.addItem(new Feedback.Filled(@dln, 'Drivers license or State ID', skipIf: => !@noSsn.is(":checked")))
 
@@ -83,10 +84,11 @@ class IdentitySection extends Forms.Section
     @dln.val().match(new RegExp(@dln.attr('data-format'), 'gi'))
 
   isComplete: =>
-    checked = (id) -> $(id).is(":checked")
-    filled  = (id) -> $(id).val().match(/^[^\s]+$/)
+    checked = (el) -> el.is(":checked")
+    filled  = (el) -> el.val().match(/^[^\s]+$/)
 
-    filled(@lastName) and filled(@gender) and
+    return filled(@lastName) and
+      (!@gender or filled(@gender)) and
       (if checked(@noSsn) then @validDln() else @validSsn())
 
 

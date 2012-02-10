@@ -1,13 +1,15 @@
 #identity.section
   %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
   = f.inputs nil do
-    = f.select      :title, 'Title', [ 'Mr', 'Ms', 'Mrs' ], { include_blank: true }, class: 'small'
+    - if collecting? :registration_request, :title
+      = f.select    :title, 'Title', [ 'Mr', 'Ms', 'Mrs' ], { include_blank: true }, class: 'small'
     = f.text_field  :first_name, 'First name'
     = f.text_field  :middle_name, 'Middle name'
     = f.text_field  :last_name, 'Last name'
     = f.text_field  :suffix, 'Suffix', placeholder: 'e.g. Jr, Sr', class: 'span2'
     = f.date_select :dob, 'Date of birth', { start_year: 200.years.ago.year, end_year: 16.years.ago.year, include_blank: true, order: [ :day, :month, :year ] }, class: 'date'
-    = f.select      :gender, 'Gender', [ 'Male', 'Female' ], { include_blank: true }, class: 'small'
+    - if collecting? :registration_request, :gender
+      = f.select    :gender, 'Gender', [ 'Male', 'Female' ], { include_blank: true }, class: 'small'
 
     .group
       = f.text_field :ssn, 'Social Security #', 'data-format' => '^([\s\-]*\d[\s\-]*){9}$', placeholder: 'NNN NN NNNN'
