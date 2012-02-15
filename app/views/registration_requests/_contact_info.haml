@@ -54,7 +54,7 @@
 
   = f.inputs 'Confidentiality' do
     = f.toggles do
-      = f.check_box :is_confidental_address, 'I qualify for confidential home address because I or a member of my household:'
+      = f.check_box :is_confidential_address, 'I qualify for confidential home address because I or a member of my household:'
     .confidental_address.dependent
       = f.toggles do
         = f.radio_button :ca_type, 'are active or retired law enforcement', 'law enforcement'

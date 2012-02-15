@@ -119,6 +119,16 @@ class ContactInfoSection extends Forms.Section
 
     @residenceOutside = $("#{oid}_residence_outside").change(@onResidenceChange)
 
+    new Forms.BlockToggleField("#{oid}_vvr_uocava_residence_available_false", '.residence_unavailable')
+    new Forms.BlockToggleField("#{oid}_mau_type_non-us", '.maut-non-us')
+    new Forms.BlockToggleField("#{oid}_mau_type_apo", '.maut-apo')
+    new Forms.BlockToggleField("#{oid}_is_confidential_address", '.confidental_address')
+    new Forms.BlockToggleField("#{oid}_has_existing_reg_true", '.existing_reg')
+    new Forms.BlockToggleField("#{oid}_ma_other", '.ma_other')
+
+    # DEBUG
+    #@residenceOutside.attr('checked', 'checked')
+
     @onResidenceChange()
     super '#contact_info', navigationListener
 

@@ -26,7 +26,7 @@ class RegistrationRequest < ActiveRecord::Base
   serialized_attr :mau_address, :mau_city, :mau_state, :mau_postal_code, :mau_country, :mau_type
   serialized_attr :ma_address, :ma_city, :ma_state, :ma_zip5, :ma_zip4, :ma_is_rural, :ma_rural, :ma_other
   serialized_attr :apo_address, :apo_1, :apo_2, :apo_zip5
-  serialized_attr :is_confidental_address, :ca_type
+  serialized_attr :is_confidential_address, :ca_type
   serialized_attr :has_existing_reg, :er_cancel
   serialized_attr :er_address, :er_city, :er_state, :er_zip5, :er_zip4, :er_is_rural, :er_rural, :er_other
   serialized_attr :be_official
