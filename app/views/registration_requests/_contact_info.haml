@@ -1,0 +1,18 @@
+#contact_info.section
+  .domestic
+    %p DOMESTIC. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
+  .uocava
+    %p UOCAVA. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
+
+  = f.inputs 'Virginia Voting Residence' do
+    = f.select     :vvr_county_or_city, 'County or City', [ 'Alexandria', 'Orange County' ], { include_blank: true }
+    = f.text_field :vvr_street_number, 'Street number', class: 'span2'
+    = f.text_field :vvr_street_name, 'Street name'
+    = f.select     :vvr_street_type, 'Street type', [ 'St.', 'Ave.', 'Ln.', 'Pd.' ], {}, class: 'span2'
+    = f.text_field :vvr_street_suffix, 'Street suffix', class: 'span2', placeholder: 'e.g. NW'
+    = f.select     :vvr_town_or_city, 'Town or City'
+    = f.inline 'ZIP Code' do |i|
+      = i.text_field :vvr_zip5, class: 'span2', placeholder: 'NNNNN'
+      \-
+      = i.text_field :vvr_zip4, class: 'span2', placeholder: 'NNNN'
+

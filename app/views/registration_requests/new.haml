@@ -24,33 +24,5 @@
 
       = render partial: 'eligibility', locals: { f: f }
       = render partial: 'identity', locals: { f: f }
+      = render partial: 'contact_info', locals: { f: f }
 
--#      #contact_info.section
--#        = f.inputs 'Virginia voting residence' do
--#          = f.fields_for :virginia_voting_address, f.object.virginia_voting_address do |a|
--#            = a.text_field :street, 'Address'
--#            = a.text_field :city
--#            = a.text_field :zip, class: 'small'
--#
--#        = f.inputs 'Mailing address' do
--#          = f.fields_for :mailing_address, f.object.mailing_address do |a|
--#            = a.text_field :full_name
--#            = a.text_field :street, 'Address'
--#            = a.text_field :city
--#            = a.country_select :country
--#            = a.state_select :state, '', 'us'
--#            = a.text_field :zip, class: 'small'
--#
--#        = f.inputs 'Another state registration' do
--#          = f.toggles do
--#            %label
--#              = check_box_tag 'registered_in_another_state', false
--#              %span I am registered in another state
--#          #another_state
--#            = f.fields_for :foreign_state_address, f.object.foreign_state_address do |a|
--#              = a.text_field :street, 'Address'
--#              = a.text_field :city
--#              = a.state_select :state, '', 'us'
--#              = a.text_field :zip, class: 'small'
--#            = f.toggles do
--#              = f.check_box :authorized_cancelation, 'I authorize the cancellation of the previous registration (entered above)'

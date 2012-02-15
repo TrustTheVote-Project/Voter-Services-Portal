@@ -17,4 +17,7 @@ class RegistrationRequest < ActiveRecord::Base
   serialized_attr :dob, :gender, :ssn, :dln, :no_ssn, :no_dln
   serialized_attr :phone, :email
 
+  # Contact info
+  serialized_attr :vvr_county_or_city, :vvr_street_number, :vvr_street_name, :vvr_street_type, :vvr_street_suffix
+  serialized_attr :vvr_town_or_city, :vvr_zip5, :vvr_zip4
 end

@@ -120,9 +120,9 @@ class ContactInfoSection extends Forms.Section
 class Form extends Forms.MultiSectionForm
   constructor: ->
     super [
-      new EligibilitySection(this),
-      new IdentitySection(this),
-#      new ContactInfoSection(this),
+#      new EligibilitySection(this),
+#      new IdentitySection(this),
+      new ContactInfoSection(this),
     ], new Forms.StepIndicator(".steps")
 
 
