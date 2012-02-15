@@ -15,4 +15,67 @@
       = i.text_field :vvr_zip5, class: 'span2', placeholder: 'NNNNN'
       \-
       = i.text_field :vvr_zip4, class: 'span2', placeholder: 'NNNN'
+    = f.toggles do
+      = f.check_box :vvr_is_rural, 'Rural or other address'
+    = f.inline '' do |i|
+      = i.text_area :vvr_rural, class: 'span8', rows: 5
 
+    .uocava
+      = f.toggles do
+        = f.radio_button :vvr_uocava_residence_available, 'My Virginia residence is still available to me', true
+        = f.radio_button :vvr_uocava_residence_available, 'My Virginia residence is no longer available to me. My last date of residence at the above address was:', false
+      .residence_unavailable.dependent
+        = f.inline do |i|
+          = i.date_select :vvr_uocava_residence_unavailable_since, { order: [ :day, :month, :year ] }, class: 'date'
+
+  .uocava
+    = f.inputs 'Residental Address Abroad' do
+      = render partial: 'non_us_address', locals: { f: f, prefix: 'raa' }
+
+  = f.inputs 'Mailing Address' do
+    .domestic
+      = f.toggles do
+        = f.check_box :ma_other, 'I get my mail at a different address'
+      .ma_other.dependent
+        = render partial: 'us_address', locals: { f: f, prefix: 'ma' }
+
+    .uocava
+      = f.toggles do
+        = f.radio_button :mau_type, 'I prefer that voting materials be sent to me at a different non-U.S address', 'non-us'
+        = f.radio_button :mau_type, 'I prefer that voting materials be sent to me at an APO/DPO/FPO address', 'apo'
+      .maut-non-us.dependent
+        = render partial: 'non_us_address', locals: { f: f, prefix: 'mau' }
+      .maut-apo.dependent
+        = f.text_field :apo_address, 'Address'
+        = f.inline do |i|
+          = i.select :apo_1, [ 'APO', 'DPO', 'FPO' ], {}, class: 'span2'
+          = i.select :apo_2, [ 'AA', 'AE', 'AP' ], {}, class: 'span2'
+          = i.text_field :apo_zip5, placeholder: 'ZIP 5', class: 'span2'
+
+  = f.inputs 'Confidentiality' do
+    = f.toggles do
+      = f.check_box :is_confidental_address, 'I qualify for confidential home address because I or a member of my household:'
+    .confidental_address.dependent
+      = f.toggles do
+        = f.radio_button :ca_type, 'are active or retired law enforcement', 'law enforcement'
+        = f.radio_button :ca_type, 'have been granted a protective court order', 'protective court order'
+        = f.radio_button :ca_type, 'are in fear of your personal safety from someone who has threatened or stalked you and have filed a complaint against that person with a magistrate or law enforcement (must attach copy of complaint)', 'personal safety'
+        = f.radio_button :ca_type, 'participate in the Address Confidentiality Program. You must show a Virginia P.O. box under mailing address', 'ACP'
+
+  = f.inputs 'Existing Registration' do
+    = f.toggles do
+      = f.radio_button :has_existing_reg, 'No, I am not currently registered to vote in Virginia or another state', false
+      = f.radio_button :has_existing_reg, 'Yes, I am registered to vote at another address in Virginia or in another state', true
+
+    .existing_reg.dependent
+      = render partial: 'us_address', locals: { f: f, prefix: 'er' }
+      = f.toggles do
+        = f.check_box :er_cancel, 'I authorize cancellation of existing registration'
+
+  %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
+
+  = f.toggles do
+    = f.check_box :be_official, "I'm interested in being an Election Official on Election Day. Please send me information."
+
+  .actions
+    = f.button 'Next &rarr;'.html_safe, class: 'next btn'

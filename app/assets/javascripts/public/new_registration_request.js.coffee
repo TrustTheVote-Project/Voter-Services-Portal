@@ -113,15 +113,31 @@ class IdentitySection extends Forms.Section
 
 class ContactInfoSection extends Forms.Section
   constructor: (navigationListener) ->
-    new Forms.BlockToggleField('#registered_in_another_state', '#another_state')
+    oname    = 'registration_request'
+    oid      = "##{oname}"
+    @section = $('#contact_info')
+
+    @residenceOutside = $("#{oid}_residence_outside").change(@onResidenceChange)
+
+    @onResidenceChange()
     super '#contact_info', navigationListener
+
+  onResidenceChange: =>
+    uocava   = $(".uocava", @section)
+    domestic = $(".domestic", @section)
+    if @residenceOutside.is(':checked')
+      uocava.show()
+      domestic.hide()
+    else
+      uocava.hide()
+      domestic.show()
 
 
 class Form extends Forms.MultiSectionForm
   constructor: ->
     super [
-#      new EligibilitySection(this),
-#      new IdentitySection(this),
+      new EligibilitySection(this),
+      new IdentitySection(this),
       new ContactInfoSection(this),
     ], new Forms.StepIndicator(".steps")
 
