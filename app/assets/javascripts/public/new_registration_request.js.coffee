@@ -116,7 +116,7 @@ class ContactInfoSection extends Forms.Section
     @vvrCityOrCounty = $("#{oid}_vvr_county_or_city")
     @vvrStreetNumber = $("#{oid}_vvr_street_number")
     @vvrStreetName   = $("#{oid}_vvr_street_name")
-    @vvrCity         = $("#{oid}_vvr_town_or_city")
+    @vvrTown         = $("#{oid}_vvr_town_or_city")
     @vvrZip5         = $("#{oid}_vvr_zip5")
     @vvrIsRural      = $("#{oid}_vvr_is_rural")
     @vvrRural        = $("#{oid}_vvr_rural")
@@ -132,6 +132,15 @@ class ContactInfoSection extends Forms.Section
     @maZip5          = $("#{oid}_ma_zip5")
     @maIsRural       = $("#{oid}_ma_is_rural")
     @maRural         = $("#{oid}_ma_rural")
+
+    @mauTypeOptions  = $("input[name='#{oname}[mau_type]']")
+    @mauTypeNonUs    = $("#{oid}_mau_type_non-us")
+    @mauAddress      = $("#{oid}_mau_address")
+    @mauPostalCode   = $("#{oid}_mau_postal_code")
+    @mauCountry      = $("#{oid}_mau_country")
+
+    @apoAddress      = $("#{oid}_apo_address")
+    @apoZip5         = $("#{oid}_apo_zip5")
 
     @confidentiality = $("#{oid}_is_confidential_address")
     @confidentialityOptions = $("input[name='#{oname}[ca_type]']")
@@ -155,11 +164,11 @@ class ContactInfoSection extends Forms.Section
     new Forms.BlockToggleField("#{oid}_er_is_rural", '.er_rural', '.er_common')
 
     # DEBUG
-    #@residenceOutside.attr('checked', 'checked')
+    # @residenceOutside.attr('checked', 'checked')
 
     votingResidenceSection = new Feedback.CustomItem('Voting residence',
       isComplete: @isVotingResidenceComplete,
-      watch: [ @vvrCityOrCounty, @vvrStreetNumber, @vvrStreetName, @vvrCity, @vvrZip5, @vvrIsRural, @vvrRural, @vvrUocavaResidenceAvailable ])
+      watch: [ @vvrCityOrCounty, @vvrStreetNumber, @vvrStreetName, @vvrTown, @vvrZip5, @vvrIsRural, @vvrRural, @vvrUocavaResidenceAvailable ])
 
     residentalAddressAbroadSection = new Feedback.CustomItem('Residental address abroad',
       isComplete: @isResidentalAddressAbroadComplete,
@@ -167,7 +176,7 @@ class ContactInfoSection extends Forms.Section
 
     mailingAddressSection = new Feedback.CustomItem('Mailing address',
       isComplete: @isMailingAddressComplete,
-      watch: [ @maOther, @maAddress, @maCity, @maZip5, @maIsRural, @maRural ])
+      watch: [ @maOther, @maAddress, @maCity, @maZip5, @maIsRural, @maRural, @mauTypeOptions, @mauAddress, @mauPostalCode, @mauCountry, @apoAddress, @apoZip5 ])
 
     confidentialitySection = new Feedback.CustomItem('Confidentiality reasons',
       isComplete: @isConfidentialityComplete,
@@ -194,7 +203,7 @@ class ContactInfoSection extends Forms.Section
     rural = @checked(@vvrIsRural)
     @filled(@vvrCityOrCounty) and
       ((rural  and @filled(@vvrRural)) or
-       (!rural and @filled(@vvrStreetNumber) and @filled(@vvrStreetName) and @filled(@vvrCity) and @filled(@vvrZip5))) and
+       (!rural and @filled(@vvrStreetNumber) and @filled(@vvrStreetName) and @filled(@vvrTown) and @filled(@vvrZip5))) and
     (!@isUocava() or @checked(@vvrUocavaResidenceAvailable))
 
   isResidentalAddressAbroadComplete: =>
@@ -202,7 +211,11 @@ class ContactInfoSection extends Forms.Section
       (@filled(@raaAddress) and @filled(@raaPostalCode) and @filled(@raaCountry))
 
   isMailingAddressComplete: =>
-    @isUocava() or !@checked(@maOther) or
+    if @isUocava()
+      @checked(@mauTypeOptions) and
+      (if @checked(@mauTypeNonUs) then (@filled(@mauAddress) and @filled(@mauPostalCode) and @filled(@mauCountry)) else (@filled(@apoAddress) and @filled(@apoZip5)))
+    else
+      !@checked(@maOther) or
       (if @checked(@maIsRural) then @filled(@maRural) else (@filled(@maAddress) and @filled(@maCity) and @filled(@maZip5)))
 
   isConfidentialityComplete: =>
