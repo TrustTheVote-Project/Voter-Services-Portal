@@ -135,7 +135,13 @@ class ContactInfoSection extends Forms.Section
 
     @confidentiality = $("#{oid}_is_confidential_address")
     @confidentialityOptions = $("input[name='#{oname}[ca_type]']")
-    console.log(window.co = @confidentialityOptions)
+
+    @hasExistinReg   = $("#{oid}_has_existing_reg_true")
+    @erAddress       = $("#{oid}_er_address")
+    @erCity          = $("#{oid}_er_city")
+    @erZip5          = $("#{oid}_er_zip5")
+    @erIsRural       = $("#{oid}_er_is_rural")
+    @erRural         = $("#{oid}_er_rural")
 
     new Forms.BlockToggleField("#{oid}_vvr_uocava_residence_available_false", '.residence_unavailable')
     new Forms.BlockToggleField("#{oid}_mau_type_non-us", '.maut-non-us')
@@ -166,12 +172,17 @@ class ContactInfoSection extends Forms.Section
       isComplete: @isConfidentialityComplete,
       watch: [ @confidentiality, @confidentialityOptions ])
 
+    existingRegistrationSection = new Feedback.CustomItem('Existing registration address',
+      isComplete: @isExistinRegistrationComplete,
+      watch: [ @hasExistinReg, @erAddress, @erCity, @erZip5, @erIsRural, @erRural ])
+
     # Configure feedback popover on Next button
     popover = new Feedback.Popover($('button.next', @section))
     popover.addItem(votingResidenceSection)
     popover.addItem(residentalAddressAbroadSection)
     popover.addItem(mailingAddressSection)
     popover.addItem(confidentialitySection)
+    popover.addItem(existingRegistrationSection)
 
     @onResidenceChange()
     super '#contact_info', navigationListener
@@ -196,6 +207,10 @@ class ContactInfoSection extends Forms.Section
   isConfidentialityComplete: =>
     !@checked(@confidentiality) or @checked(@confidentialityOptions)
 
+  isExistinRegistrationComplete: =>
+    !@checked(@hasExistinReg) or
+      (if @checked(@erIsRural) then @filled(@erRural) else (@filled(@erAddress) and @filled(@erCity) and @filled(@erZip5)))
+
   onResidenceChange: =>
     uocava   = $(".uocava", @section)
     domestic = $(".domestic", @section)
@@ -210,7 +225,8 @@ class ContactInfoSection extends Forms.Section
     @isVotingResidenceComplete() and
     @isResidentalAddressAbroadComplete() and
     @isMailingAddressComplete() and
-    @isConfidentialityComplete()
+    @isConfidentialityComplete() and
+    @isExistinRegistrationComplete()
 
 class Form extends Forms.MultiSectionForm
   constructor: ->
