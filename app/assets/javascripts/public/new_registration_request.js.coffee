@@ -126,6 +126,13 @@ class ContactInfoSection extends Forms.Section
     @raaPostalCode   = $("#{oid}_raa_postal_code")
     @raaCountry      = $("#{oid}_raa_country")
 
+    @maOther         = $("#{oid}_ma_other")
+    @maAddress       = $("#{oid}_ma_address")
+    @maCity          = $("#{oid}_ma_city")
+    @maZip5          = $("#{oid}_ma_zip5")
+    @maIsRural       = $("#{oid}_ma_is_rural")
+    @maRural         = $("#{oid}_ma_rural")
+
     new Forms.BlockToggleField("#{oid}_vvr_uocava_residence_available_false", '.residence_unavailable')
     new Forms.BlockToggleField("#{oid}_mau_type_non-us", '.maut-non-us')
     new Forms.BlockToggleField("#{oid}_mau_type_apo", '.maut-apo')
@@ -147,10 +154,15 @@ class ContactInfoSection extends Forms.Section
       isComplete: @isResidentalAddressAbroadComplete,
       watch: [ @raaAddress, @raaPostalCode, @raaCountry ])
 
+    mailingAddressSection = new Feedback.CustomItem('Mailing address',
+      isComplete: @isMailingAddressComplete,
+      watch: [ @maOther, @maAddress, @maCity, @maZip5, @maIsRural, @maRural ])
+
     # Configure feedback popover on Next button
     popover = new Feedback.Popover($('button.next', @section))
     popover.addItem(votingResidenceSection)
     popover.addItem(residentalAddressAbroadSection)
+    popover.addItem(mailingAddressSection)
 
     @onResidenceChange()
     super '#contact_info', navigationListener
@@ -168,6 +180,10 @@ class ContactInfoSection extends Forms.Section
     !@isUocava() or
       (@filled(@raaAddress) and @filled(@raaPostalCode) and @filled(@raaCountry))
 
+  isMailingAddressComplete: =>
+    @isUocava() or !@checked(@maOther) or
+      (if @checked(@maIsRural) then @filled(@maRural) else (@filled(@maAddress) and @filled(@maCity) and @filled(@maZip5)))
+
   onResidenceChange: =>
     uocava   = $(".uocava", @section)
     domestic = $(".domestic", @section)
@@ -180,7 +196,8 @@ class ContactInfoSection extends Forms.Section
 
   isComplete: =>
     @isVotingResidenceComplete() and
-    @isResidentalAddressAbroadComplete()
+    @isResidentalAddressAbroadComplete() and
+    @isMailingAddressComplete()
 
 class Form extends Forms.MultiSectionForm
   constructor: ->
