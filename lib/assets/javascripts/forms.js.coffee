@@ -28,9 +28,10 @@ class Forms.FieldStatus
 # Simple block visibility toggling field.
 # When checked, the block is visible, otherwise -- not.
 class Forms.BlockToggleField
-  constructor: (id, block_id) ->
-    @el = $(id)
-    @block = $(block_id)
+  constructor: (id, block_id, opposite_block_id = null) ->
+    @el             = $(id)
+    @block          = if block_id then $(block_id) else null
+    @opposite_block = if opposite_block_id then $(opposite_block_id) else null
 
     # If it's a radio-button, monitor whole group, not this one only
     # to be able to catch unchecks.
@@ -43,9 +44,11 @@ class Forms.BlockToggleField
 
   onChange: (e) =>
     if @el.is(':checked')
-      @block.show()
+      @block.show() if @block
+      @opposite_block.hide() if @opposite_block
     else
-      @block.hide()
+      @block.hide() if @block
+      @opposite_block.show() if @opposite_block
 
 # Abstract required field that supports listeners
 # and optional status field.

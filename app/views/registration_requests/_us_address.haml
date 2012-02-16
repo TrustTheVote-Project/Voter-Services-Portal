@@ -1,11 +1,15 @@
-= f.text_field "#{prefix}_address", 'Address'
-= f.text_field "#{prefix}_city", 'City or Town'
-= f.select     "#{prefix}_state", 'State', [ 'Virginia' ]
-= f.inline 'ZIP Code' do |i|
-  = i.text_field "#{prefix}_zip5", class: 'span2', placeholder: 'NNNNN'
-  \-
-  = i.text_field "#{prefix}_zip4", class: 'span2', placeholder: 'NNNN'
+%div{ class: "#{prefix}_common" }
+  = f.text_field "#{prefix}_address", 'Address'
+  = f.text_field "#{prefix}_city", 'City or Town'
+  = f.select     "#{prefix}_state", 'State', [ 'Virginia' ]
+  = f.inline 'ZIP Code' do |i|
+    = i.text_field "#{prefix}_zip5", class: 'span2', placeholder: 'NNNNN'
+    \-
+    = i.text_field "#{prefix}_zip4", class: 'span2', placeholder: 'NNNN'
+
 = f.toggles do
   = f.check_box "#{prefix}_is_rural", 'Rural or other address'
-= f.inline '' do |i|
-  = i.text_area "#{prefix}_rural", class: 'span8', rows: 5
+
+%div{ class: "#{prefix}_rural" }
+  = f.inline '' do |i|
+    = i.text_area "#{prefix}_rural", class: 'span7', rows: 5

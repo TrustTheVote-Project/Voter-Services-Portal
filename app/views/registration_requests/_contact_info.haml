@@ -6,19 +6,21 @@
 
   = f.inputs 'Virginia Voting Residence' do
     = f.select     :vvr_county_or_city, 'County or City', [ 'Alexandria', 'Orange County' ], { include_blank: true }
-    = f.text_field :vvr_street_number, 'Street number', class: 'span2'
-    = f.text_field :vvr_street_name, 'Street name'
-    = f.select     :vvr_street_type, 'Street type', [ 'St.', 'Ave.', 'Ln.', 'Pd.' ], {}, class: 'span2'
-    = f.text_field :vvr_street_suffix, 'Street suffix', class: 'span2', placeholder: 'e.g. NW'
-    = f.select     :vvr_town_or_city, 'Town or City', [ 'Town' ]
-    = f.inline 'ZIP Code' do |i|
-      = i.text_field :vvr_zip5, class: 'span2', placeholder: 'NNNNN'
-      \-
-      = i.text_field :vvr_zip4, class: 'span2', placeholder: 'NNNN'
+    .vvr_common
+      = f.text_field :vvr_street_number, 'Street number', class: 'span2'
+      = f.text_field :vvr_street_name, 'Street name'
+      = f.select     :vvr_street_type, 'Street type', [ 'St.', 'Ave.', 'Ln.', 'Pd.' ], {}, class: 'span2'
+      = f.text_field :vvr_street_suffix, 'Street suffix', class: 'span2', placeholder: 'e.g. NW'
+      = f.select     :vvr_town_or_city, 'Town or City', [ 'Town' ]
+      = f.inline 'ZIP Code' do |i|
+        = i.text_field :vvr_zip5, class: 'span2', placeholder: 'NNNNN'
+        \-
+        = i.text_field :vvr_zip4, class: 'span2', placeholder: 'NNNN'
     = f.toggles do
       = f.check_box :vvr_is_rural, 'Rural or other address'
-    = f.inline '' do |i|
-      = i.text_area :vvr_rural, class: 'span8', rows: 5
+    .vvr_rural
+      = f.inline '' do |i|
+        = i.text_area :vvr_rural, class: 'span8', rows: 5
 
     .uocava
       = f.toggles do

@@ -128,9 +128,12 @@ class ContactInfoSection extends Forms.Section
     new Forms.BlockToggleField("#{oid}_is_confidential_address", '.confidental_address')
     new Forms.BlockToggleField("#{oid}_has_existing_reg_true", '.existing_reg')
     new Forms.BlockToggleField("#{oid}_ma_other", '.ma_other')
+    new Forms.BlockToggleField("#{oid}_vvr_is_rural", '.vvr_rural', '.vvr_common')
+    new Forms.BlockToggleField("#{oid}_ma_is_rural", '.ma_rural', '.ma_common')
+    new Forms.BlockToggleField("#{oid}_er_is_rural", '.er_rural', '.er_common')
 
     # DEBUG
-    #@residenceOutside.attr('checked', 'checked')
+    # @residenceOutside.attr('checked', 'checked')
 
     votingResidenceItem = new Feedback.CustomItem('Voting residence',
       isComplete: @isVotingResidenceComplete,
@@ -146,11 +149,9 @@ class ContactInfoSection extends Forms.Section
 
   isVotingResidenceComplete: =>
     rural = @checked(@vvrIsRural)
-    r = @filled(@vvrCityOrCounty) and
+    @filled(@vvrCityOrCounty) and
       (rural  and @filled(@vvrRural)) or
       (!rural and @filled(@vvrStreetNumber) and @filled(@vvrStreetName) and @filled(@vvrCity) and @filled(@vvrZip5))
-    console.log(r)
-    r
 
   onResidenceChange: =>
     uocava   = $(".uocava", @section)
@@ -168,8 +169,8 @@ class ContactInfoSection extends Forms.Section
 class Form extends Forms.MultiSectionForm
   constructor: ->
     super [
-#      new EligibilitySection(this),
-#      new IdentitySection(this),
+      new EligibilitySection(this),
+      new IdentitySection(this),
       new ContactInfoSection(this),
     ], new Forms.StepIndicator(".steps")
 
