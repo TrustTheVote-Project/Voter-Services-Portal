@@ -136,6 +136,7 @@ class ContactInfoSection extends Forms.Section
     @confidentiality = $("#{oid}_is_confidential_address")
     @confidentialityOptions = $("input[name='#{oname}[ca_type]']")
 
+    @existinRegOptions = $("input[name='#{oname}[has_existing_reg]']")
     @hasExistinReg   = $("#{oid}_has_existing_reg_true")
     @erAddress       = $("#{oid}_er_address")
     @erCity          = $("#{oid}_er_city")
@@ -174,7 +175,7 @@ class ContactInfoSection extends Forms.Section
 
     existingRegistrationSection = new Feedback.CustomItem('Existing registration address',
       isComplete: @isExistinRegistrationComplete,
-      watch: [ @hasExistinReg, @erAddress, @erCity, @erZip5, @erIsRural, @erRural ])
+      watch: [ @existinRegOptions, @erAddress, @erCity, @erZip5, @erIsRural, @erRural ])
 
     # Configure feedback popover on Next button
     popover = new Feedback.Popover($('button.next', @section))
@@ -208,8 +209,9 @@ class ContactInfoSection extends Forms.Section
     !@checked(@confidentiality) or @checked(@confidentialityOptions)
 
   isExistinRegistrationComplete: =>
-    !@checked(@hasExistinReg) or
-      (if @checked(@erIsRural) then @filled(@erRural) else (@filled(@erAddress) and @filled(@erCity) and @filled(@erZip5)))
+    @checked(@existinRegOptions) and
+      (!@checked(@hasExistinReg) or
+       (if @checked(@erIsRural) then @filled(@erRural) else (@filled(@erAddress) and @filled(@erCity) and @filled(@erZip5))))
 
   onResidenceChange: =>
     uocava   = $(".uocava", @section)
