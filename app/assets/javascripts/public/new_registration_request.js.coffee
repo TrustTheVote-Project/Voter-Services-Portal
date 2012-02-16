@@ -133,6 +133,10 @@ class ContactInfoSection extends Forms.Section
     @maIsRural       = $("#{oid}_ma_is_rural")
     @maRural         = $("#{oid}_ma_rural")
 
+    @confidentiality = $("#{oid}_is_confidential_address")
+    @confidentialityOptions = $("input[name='#{oname}[ca_type]']")
+    console.log(window.co = @confidentialityOptions)
+
     new Forms.BlockToggleField("#{oid}_vvr_uocava_residence_available_false", '.residence_unavailable')
     new Forms.BlockToggleField("#{oid}_mau_type_non-us", '.maut-non-us')
     new Forms.BlockToggleField("#{oid}_mau_type_apo", '.maut-apo')
@@ -158,11 +162,16 @@ class ContactInfoSection extends Forms.Section
       isComplete: @isMailingAddressComplete,
       watch: [ @maOther, @maAddress, @maCity, @maZip5, @maIsRural, @maRural ])
 
+    confidentialitySection = new Feedback.CustomItem('Confidentiality reasons',
+      isComplete: @isConfidentialityComplete,
+      watch: [ @confidentiality, @confidentialityOptions ])
+
     # Configure feedback popover on Next button
     popover = new Feedback.Popover($('button.next', @section))
     popover.addItem(votingResidenceSection)
     popover.addItem(residentalAddressAbroadSection)
     popover.addItem(mailingAddressSection)
+    popover.addItem(confidentialitySection)
 
     @onResidenceChange()
     super '#contact_info', navigationListener
@@ -184,6 +193,9 @@ class ContactInfoSection extends Forms.Section
     @isUocava() or !@checked(@maOther) or
       (if @checked(@maIsRural) then @filled(@maRural) else (@filled(@maAddress) and @filled(@maCity) and @filled(@maZip5)))
 
+  isConfidentialityComplete: =>
+    !@checked(@confidentiality) or @checked(@confidentialityOptions)
+
   onResidenceChange: =>
     uocava   = $(".uocava", @section)
     domestic = $(".domestic", @section)
@@ -197,7 +209,8 @@ class ContactInfoSection extends Forms.Section
   isComplete: =>
     @isVotingResidenceComplete() and
     @isResidentalAddressAbroadComplete() and
-    @isMailingAddressComplete()
+    @isMailingAddressComplete() and
+    @isConfidentialityComplete()
 
 class Form extends Forms.MultiSectionForm
   constructor: ->
