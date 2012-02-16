@@ -120,7 +120,11 @@ class ContactInfoSection extends Forms.Section
     @vvrZip5         = $("#{oid}_vvr_zip5")
     @vvrIsRural      = $("#{oid}_vvr_is_rural")
     @vvrRural        = $("#{oid}_vvr_rural")
+    @vvrUocavaResidenceAvailable = $("input[name='#{oname}[vvr_uocava_residence_available]']")
 
+    @raaAddress      = $("#{oid}_raa_address")
+    @raaPostalCode   = $("#{oid}_raa_postal_code")
+    @raaCountry      = $("#{oid}_raa_country")
 
     new Forms.BlockToggleField("#{oid}_vvr_uocava_residence_available_false", '.residence_unavailable')
     new Forms.BlockToggleField("#{oid}_mau_type_non-us", '.maut-non-us')
@@ -133,30 +137,41 @@ class ContactInfoSection extends Forms.Section
     new Forms.BlockToggleField("#{oid}_er_is_rural", '.er_rural', '.er_common')
 
     # DEBUG
-    # @residenceOutside.attr('checked', 'checked')
+    #@residenceOutside.attr('checked', 'checked')
 
-    votingResidenceItem = new Feedback.CustomItem('Voting residence',
+    votingResidenceSection = new Feedback.CustomItem('Voting residence',
       isComplete: @isVotingResidenceComplete,
-      watch: [ @vvrCityOrCounty, @vvrStreetNumber, @vvrStreetName, @vvrCity, @vvrZip5, @vvrIsRural, @vvrRural ]
-    )
+      watch: [ @vvrCityOrCounty, @vvrStreetNumber, @vvrStreetName, @vvrCity, @vvrZip5, @vvrIsRural, @vvrRural, @vvrUocavaResidenceAvailable ])
+
+    residentalAddressAbroadSection = new Feedback.CustomItem('Residental address abroad',
+      isComplete: @isResidentalAddressAbroadComplete,
+      watch: [ @raaAddress, @raaPostalCode, @raaCountry ])
 
     # Configure feedback popover on Next button
     popover = new Feedback.Popover($('button.next', @section))
-    popover.addItem(votingResidenceItem)
+    popover.addItem(votingResidenceSection)
+    popover.addItem(residentalAddressAbroadSection)
 
     @onResidenceChange()
     super '#contact_info', navigationListener
 
+  isUocava: -> @residenceOutside.is(':checked')
+
   isVotingResidenceComplete: =>
     rural = @checked(@vvrIsRural)
     @filled(@vvrCityOrCounty) and
-      (rural  and @filled(@vvrRural)) or
-      (!rural and @filled(@vvrStreetNumber) and @filled(@vvrStreetName) and @filled(@vvrCity) and @filled(@vvrZip5))
+      ((rural  and @filled(@vvrRural)) or
+       (!rural and @filled(@vvrStreetNumber) and @filled(@vvrStreetName) and @filled(@vvrCity) and @filled(@vvrZip5))) and
+    (!@isUocava() or @checked(@vvrUocavaResidenceAvailable))
+
+  isResidentalAddressAbroadComplete: =>
+    !@isUocava() or
+      (@filled(@raaAddress) and @filled(@raaPostalCode) and @filled(@raaCountry))
 
   onResidenceChange: =>
     uocava   = $(".uocava", @section)
     domestic = $(".domestic", @section)
-    if @residenceOutside.is(':checked')
+    if @isUocava()
       uocava.show()
       domestic.hide()
     else
@@ -164,7 +179,8 @@ class ContactInfoSection extends Forms.Section
       domestic.show()
 
   isComplete: =>
-    @isVotingResidenceComplete()
+    @isVotingResidenceComplete() and
+    @isResidentalAddressAbroadComplete()
 
 class Form extends Forms.MultiSectionForm
   constructor: ->
