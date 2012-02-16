@@ -10,7 +10,7 @@
     = f.text_field :vvr_street_name, 'Street name'
     = f.select     :vvr_street_type, 'Street type', [ 'St.', 'Ave.', 'Ln.', 'Pd.' ], {}, class: 'span2'
     = f.text_field :vvr_street_suffix, 'Street suffix', class: 'span2', placeholder: 'e.g. NW'
-    = f.select     :vvr_town_or_city, 'Town or City'
+    = f.select     :vvr_town_or_city, 'Town or City', [ 'Town' ]
     = f.inline 'ZIP Code' do |i|
       = i.text_field :vvr_zip5, class: 'span2', placeholder: 'NNNNN'
       \-

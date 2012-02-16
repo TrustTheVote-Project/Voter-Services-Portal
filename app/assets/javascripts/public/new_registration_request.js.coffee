@@ -56,16 +56,13 @@ class EligibilitySection extends Forms.Section
   outsideSpouse: -> @residenceOutside() and @outsideType() == 'spouse_active_duty'
 
   isComplete: =>
-    ch = (id) -> $(id).is(":checked")
-    filled  = (el) -> el.val().match(/^[^\s]+$/)
-
-    ch(@citizen) and ch(@age) and
-      (ch(@residenceInside) or
-        (@outsideType() == 'active_duty' and filled(@oaServiceId) and filled(@oaRank)) or
-        (@outsideType() == 'spouse_active_duty' and filled(@osServiceId) and filled(@osRank)) or
+    @checked(@citizen) and @checked(@age) and
+      (@checked(@residenceInside) or
+        (@outsideType() == 'active_duty' and @filled(@oaServiceId) and @filled(@oaRank)) or
+        (@outsideType() == 'spouse_active_duty' and @filled(@osServiceId) and @filled(@osRank)) or
         (@outsideType() or '').match(/temporarily/)) and
-      (ch(@convictedFalse) or ch(@convictedRestored)) and
-      (ch(@mentalFalse) or ch(@mentalRestored))
+      (@checked(@convictedFalse) or @checked(@convictedRestored)) and
+      (@checked(@mentalFalse) or @checked(@mentalRestored))
 
 
 
@@ -102,12 +99,9 @@ class IdentitySection extends Forms.Section
     @dln.val().match(new RegExp(@dln.attr('data-format'), 'gi'))
 
   isComplete: =>
-    checked = (el) -> el.is(":checked")
-    filled  = (el) -> el.val().match(/^[^\s]+$/)
-
-    return filled(@lastName) and
-      (!@gender or filled(@gender)) and
-      (if checked(@noSsn) then @validDln() else @validSsn())
+    return @filled(@lastName) and
+      (!@gender or @filled(@gender)) and
+      (if @checked(@noSsn) then @validDln() else @validSsn())
 
 
 
@@ -119,6 +113,15 @@ class ContactInfoSection extends Forms.Section
 
     @residenceOutside = $("#{oid}_residence_outside").change(@onResidenceChange)
 
+    @vvrCityOrCounty = $("#{oid}_vvr_county_or_city")
+    @vvrStreetNumber = $("#{oid}_vvr_street_number")
+    @vvrStreetName   = $("#{oid}_vvr_street_name")
+    @vvrCity         = $("#{oid}_vvr_town_or_city")
+    @vvrZip5         = $("#{oid}_vvr_zip5")
+    @vvrIsRural      = $("#{oid}_vvr_is_rural")
+    @vvrRural        = $("#{oid}_vvr_rural")
+
+
     new Forms.BlockToggleField("#{oid}_vvr_uocava_residence_available_false", '.residence_unavailable')
     new Forms.BlockToggleField("#{oid}_mau_type_non-us", '.maut-non-us')
     new Forms.BlockToggleField("#{oid}_mau_type_apo", '.maut-apo')
@@ -129,8 +132,25 @@ class ContactInfoSection extends Forms.Section
     # DEBUG
     #@residenceOutside.attr('checked', 'checked')
 
+    votingResidenceItem = new Feedback.CustomItem('Voting residence',
+      isComplete: @isVotingResidenceComplete,
+      watch: [ @vvrCityOrCounty, @vvrStreetNumber, @vvrStreetName, @vvrCity, @vvrZip5, @vvrIsRural, @vvrRural ]
+    )
+
+    # Configure feedback popover on Next button
+    popover = new Feedback.Popover($('button.next', @section))
+    popover.addItem(votingResidenceItem)
+
     @onResidenceChange()
     super '#contact_info', navigationListener
+
+  isVotingResidenceComplete: =>
+    rural = @checked(@vvrIsRural)
+    r = @filled(@vvrCityOrCounty) and
+      (rural  and @filled(@vvrRural)) or
+      (!rural and @filled(@vvrStreetNumber) and @filled(@vvrStreetName) and @filled(@vvrCity) and @filled(@vvrZip5))
+    console.log(r)
+    r
 
   onResidenceChange: =>
     uocava   = $(".uocava", @section)
@@ -142,12 +162,14 @@ class ContactInfoSection extends Forms.Section
       uocava.hide()
       domestic.show()
 
+  isComplete: =>
+    @isVotingResidenceComplete()
 
 class Form extends Forms.MultiSectionForm
   constructor: ->
     super [
-      new EligibilitySection(this),
-      new IdentitySection(this),
+#      new EligibilitySection(this),
+#      new IdentitySection(this),
       new ContactInfoSection(this),
     ], new Forms.StepIndicator(".steps")
 

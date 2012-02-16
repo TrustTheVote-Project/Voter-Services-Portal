@@ -168,7 +168,7 @@ class Forms.Section
       navigationListener.onNextSection() if @complete
 
     @updateButton()
-    $('input, select', @el).change(@updateButton).keyup(@updateButton)
+    $('input, select, textarea', @el).change(@updateButton).keyup(@updateButton)
 
   updateButton: =>
     if @complete = @isComplete()
@@ -181,6 +181,9 @@ class Forms.Section
   hide: => @el.hide()
   show: => @el.show()
   name: => @el.attr('id')
+
+  filled: (el) -> el.val().match(/^[^\s]+$/)
+  checked: (el) -> el.is(":checked")
 
 
 # Step indicator

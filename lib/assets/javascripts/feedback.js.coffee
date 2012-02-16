@@ -3,10 +3,9 @@ Feedback = window.Feedback = {}
 # Abstract item that knows how to return feedback based on
 # own #isComplete status and subscribe for own change.
 class Feedback.AbstractItem
-  constructor: (id, @feedbackMessage, @options = {}) ->
-    @el = $(id)
+  constructor: (@feedbackMessage, @options = {}) ->
 
-  addChangeCallback: (cb) -> @el.change(cb)
+  addChangeCallback: (cb) ->
 
   isComplete: =>
     false
@@ -18,17 +17,39 @@ class Feedback.AbstractItem
 
     @feedbackMessage unless complete
 
+# Abstract item that knows how to return feedback based on
+# own #isComplete status and subscribe for own change.
+class Feedback.AbstractElementItem extends Feedback.AbstractItem
+  constructor: (id, feedbackMessage, options = {}) ->
+    super feedbackMessage, options
+    @el = $(id)
+
+  addChangeCallback: (cb) -> @el.change(cb)
+
+
+class Feedback.CustomItem extends Feedback.AbstractItem
+  update: =>
+    @changeCallback() if @changeCallback
+
+  addChangeCallback: (cb) =>
+    @changeCallback = cb
+    for item in (@options.watch || [])
+      item.change(cb).keyup(cb)
+
+  isComplete: =>
+    @options.isComplete && @options.isComplete()
+
 
 # Simple checker if an element is checked (check box, radio button,
 # or a group of either).
-class Feedback.Checked extends Feedback.AbstractItem
+class Feedback.Checked extends Feedback.AbstractElementItem
   isComplete: => @el.is(":checked")
 
 
 # A field that should be filled.
 # The element may have 'data-format' attribute holding a
 # regex to verify the format.
-class Feedback.Filled extends Feedback.AbstractItem
+class Feedback.Filled extends Feedback.AbstractElementItem
   addChangeCallback: (cb) ->
     super cb
     @el.keyup(cb)
