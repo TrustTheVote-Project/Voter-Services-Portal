@@ -194,8 +194,18 @@ class ContactInfoSection extends Forms.Section
     popover.addItem(confidentialitySection)
     popover.addItem(existingRegistrationSection)
 
+    @vvrCityOrCounty.change(@onCityCountyChange)
+    @onCityCountyChange()
+
     @onResidenceChange()
     super '#contact_info', navigationListener
+
+  onCityCountyChange: =>
+    cc = @vvrCityOrCounty.val()
+    if cc.match('CITY')
+      @vvrTown.val(cc).attr('readonly', 'readonly')
+    else
+      @vvrTown.val('').removeAttr('readonly')
 
   isUocava: -> @residenceOutside.is(':checked')
 
