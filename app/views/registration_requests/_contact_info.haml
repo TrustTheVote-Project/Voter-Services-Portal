@@ -5,7 +5,7 @@
     %p UOCAVA. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
 
   = f.inputs 'Virginia Voting Residence' do
-    = f.select     :vvr_county_or_city, 'County or City', [ 'Alexandria', 'Orange County' ], { include_blank: true }
+    = f.select     :vvr_county_or_city, 'County or City', Dictionaries::CITIES_AND_COUNTIES, { include_blank: true }
     .vvr_common
       = f.text_field :vvr_street_number, 'Street number', class: 'span2'
       = f.text_field :vvr_street_name, 'Street name'
