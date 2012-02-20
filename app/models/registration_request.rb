@@ -31,4 +31,6 @@ class RegistrationRequest < ActiveRecord::Base
   serialized_attr :er_address, :er_city, :er_state, :er_zip5, :er_zip4, :er_is_rural, :er_rural, :er_other
   serialized_attr :be_official
 
+  # Complete Registration
+  serialized_attr :information_correct, :privacy_agree
 end

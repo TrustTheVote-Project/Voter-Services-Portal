@@ -12,9 +12,9 @@
       %tr#step_contact_info
         %td.marker 3
         %td Provide Contact Info
-      %tr#step_complete
+      %tr#step_complete_registration
         %td.marker 4
-        %td Complete Application
+        %td Complete Registration
       %tr#step_return
         %td.marker 5
         %td Return Application
@@ -25,4 +25,5 @@
       = render partial: 'eligibility', locals: { f: f }
       = render partial: 'identity', locals: { f: f }
       = render partial: 'contact_info', locals: { f: f }
+      = render partial: 'complete_registration', locals: { f: f }
 

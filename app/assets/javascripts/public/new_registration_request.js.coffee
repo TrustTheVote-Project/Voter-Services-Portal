@@ -253,12 +253,36 @@ class ContactInfoSection extends Forms.Section
     @isConfidentialityComplete() and
     @isExistinRegistrationComplete()
 
+
+
+class CompleteRegistrationSection extends Forms.Section
+  constructor: (navigationListener) ->
+    @oname  = 'registration_request'
+    oid     = "##{@oname}"
+    section = $('#complete_registration')
+
+    @infoCorrect  = $("#{oid}_information_correct")
+    @privacyAgree = $("#{oid}_privacy_agree")
+
+    # Configure feedback popover on Next button
+    popover = new Feedback.Popover($('button.next', section))
+    popover.addItem(new Feedback.Checked(@infoCorrect, 'Confirm the information is correct'))
+    popover.addItem(new Feedback.Checked(@privacyAgree, 'Agree with privacy terms'))
+
+    super '#complete_registration', navigationListener
+
+  isComplete: =>
+    @checked(@infoCorrect) and @checked(@privacyAgree)
+
+
+
 class Form extends Forms.MultiSectionForm
   constructor: ->
     super [
       new EligibilitySection(this),
       new IdentitySection(this),
       new ContactInfoSection(this),
+      new CompleteRegistrationSection(this)
     ], new Forms.StepIndicator(".steps")
 
 
