@@ -17,7 +17,11 @@ VaVote::Application.routes.draw do
     end
   end
 
-  resource :registration_request, only: [ :new, :create ]
+  resource :registration_request, only: [ :new, :create ] do
+    collection do
+      get :return_application
+    end
+  end
 
   resource :form, only: [] do
     member do

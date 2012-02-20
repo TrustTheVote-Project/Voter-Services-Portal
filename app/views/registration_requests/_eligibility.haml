@@ -44,10 +44,10 @@
           .restored
             %p
               I was convicted of a felony in
-              = state_select :convicted_in_state, '', 'us'
+              = state_select :registration_request, :convicted_in_state, 'us'
             %p
               My voting rights were restored on
-              = date_select :convicted_rights_restored_on, '', { order: [ :day, :month, :year ] }
+              = date_select :registration_request, :convicted_rights_restored_on, { order: [ :day, :month, :year ] }
 
       = f.toggles do
         %li.question
@@ -61,7 +61,7 @@
           .restored
             %p
               My voting rights were restored on
-              = date_select :mental_rights_restored_on, '', { order: [ :day, :month, :year ] }
+              = date_select :registration_request, :mental_rights_restored_on, { order: [ :day, :month, :year ] }
 
     %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
 

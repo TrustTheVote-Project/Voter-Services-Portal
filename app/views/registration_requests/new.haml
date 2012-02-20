@@ -2,22 +2,7 @@
 
 .row
   .span-one-third
-    %table.steps
-      %tr#step_eligibility
-        %td.marker 1
-        %td Check Your Eligibility
-      %tr#step_identity
-        %td.marker 2
-        %td Identify Yourself
-      %tr#step_contact_info
-        %td.marker 3
-        %td Provide Contact Info
-      %tr#step_complete_registration
-        %td.marker 4
-        %td Complete Registration
-      %tr#step_return_application
-        %td.marker 5
-        %td Return Application
+    = render partial: 'steps'
 
   .span-two-thirds
     = twitter_bootstrap_form_for @registration_request, url: :registration_request do |f|
@@ -26,5 +11,4 @@
       = render partial: 'identity', locals: { f: f }
       = render partial: 'contact_info', locals: { f: f }
       = render partial: 'complete_registration', locals: { f: f }
-      = render partial: 'return_application', locals: { f: f }
 

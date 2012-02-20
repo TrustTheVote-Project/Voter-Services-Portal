@@ -6,9 +6,17 @@ class RegistrationRequestsController < ApplicationController
   end
 
   def create
-    # TODO implement saving data, generation of PDF etc
-    flash[:notice] = 'Your registration data has been sent.'
-    redirect_to :root
+    data = params[:registration_request]
+    Converter.params_to_date(data,
+      :vvr_uocava_residence_unavailable_since,
+      :dob,
+      :convicted_rights_restored_on,
+      :mental_rights_restored_on)
+
+    puts data.inspect
+
+    @registration_request = RegistrationRequest.create(data)
+    render :return_application
   end
 
 end

@@ -1,0 +1,17 @@
+- return_is_current ||= false
+%table.steps
+  %tr#step_eligibility
+    %td.marker 1
+    %td Check Your Eligibility
+  %tr#step_identity
+    %td.marker 2
+    %td Identify Yourself
+  %tr#step_contact_info
+    %td.marker 3
+    %td Provide Contact Info
+  %tr#step_complete_registration
+    %td.marker 4
+    %td Complete Registration
+  %tr#step_return_application{ class: return_is_current ? 'current' : nil }
+    %td.marker 5
+    %td Return Application
