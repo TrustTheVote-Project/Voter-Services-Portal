@@ -276,13 +276,18 @@ class CompleteRegistrationSection extends Forms.Section
 
 
 
+class ReturnApplicationSection extends Forms.Section
+  constructor: (navigationListener) ->
+    super '#return_application', navigationListener
+
 class Form extends Forms.MultiSectionForm
   constructor: ->
     super [
-      new EligibilitySection(this),
-      new IdentitySection(this),
-      new ContactInfoSection(this),
-      new CompleteRegistrationSection(this)
+      #new EligibilitySection(this),
+      #new IdentitySection(this),
+      #new ContactInfoSection(this),
+      #new CompleteRegistrationSection(this),
+      new ReturnApplicationSection(this)
     ], new Forms.StepIndicator(".steps")
 
 
