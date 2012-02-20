@@ -13,10 +13,31 @@ class RegistrationRequestsController < ApplicationController
       :convicted_rights_restored_on,
       :mental_rights_restored_on)
 
-    puts data.inspect
+    @registration_request = RegistrationRequest.new(data)
 
-    @registration_request = RegistrationRequest.create(data)
-    render :return_application
+    if @registration_request.save
+      session[:regreq_id] = @registration_request.id
+      render :show
+    else
+      flash.now[:error] = 'Please review your request data and try submitting again'
+      render :new
+    end
+  end
+
+  def show
+    @registration_request = last_registration_request
+    respond_to do |f|
+      f.html
+      f.pdf  { render layout: false }
+    end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to :new_registration_request
+  end
+
+  private
+
+  def last_registration_request
+    RegistrationRequest.find(session[:regreq_id])
   end
 
 end
