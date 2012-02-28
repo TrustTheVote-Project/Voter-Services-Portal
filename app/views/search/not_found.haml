@@ -1,9 +1,8 @@
 = render partial: 'shared/page_header', locals: { title: 'Your Registration was not Found' }
 
 .row
-  .span-one-third
-    &nbsp;
-  .span-two-thirds
+  .span4 &nbsp;
+  .span8
     #retry.section
       %p We don't have a record with the following details:
       = render partial: "search_query", object: @search_query

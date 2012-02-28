@@ -21,8 +21,10 @@ gem 'kaminari'
 gem 'country_select'
 gem 'state_select'
 
-gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
-gem 'twitter_bootstrap_form_for'
+gem 'compass_twitter_bootstrap'
+gem 'compass-rails'
+
+gem 'simple_form'
 
 gem 'prawn_rails'
 

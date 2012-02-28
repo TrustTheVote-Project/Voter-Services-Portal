@@ -1,7 +1,7 @@
 = render partial: 'shared/page_header', locals: { title: 'Check Your Voter Record' }
 
 .row
-  .span-one-third
+  .span4
     %h3 Identify Yourself
     %p
       To look up your voter records, you have two options.
@@ -10,18 +10,20 @@
       last name, date of birth, and the last 4 digits of your
       Social Security Number.
 
-  .span-two-thirds
-    = twitter_bootstrap_form_for @search_query, url: search_path do |ui|
-      = ui.inputs do
-        = ui.text_field  :voter_id, 'Voter ID', class: 'span5', placeholder: 'NNNN-NNNN-NNNN-NNNN'
+  .span8
+    = simple_form_for @search_query, url: search_path, html: { class: 'form-horizontal' } do |ui|
+      %fieldset
+        = ui.input :voter_id, label: 'Voter ID', placeholder: 'NNNN-NNNN-NNNN-NNNN'
 
-      = ui.inputs 'or' do
-        = ui.select      :locality, 'Locality', [ 'York County' ], {}, class: 'span5'
-        = ui.text_field  :first_name, class: 'span5'
-        = ui.text_field  :last_name, class: 'span5'
-        = ui.date_select :dob, 'Date of birth', {}, class: 'small'
-        = ui.text_field  :ssn4, 'Last 4 digits of SSN', class: 'span1', maxlength: 4
+      %fieldset
+        %legend.separator or
 
-      = ui.actions do
-        = ui.submit 'Find My Voter Records', disabled: true
+        = ui.input :locality, label: 'Locality', collection: [ 'York County' ]
+        = ui.input :first_name
+        = ui.input :last_name
+        = ui.input :dob, as: :date, label: 'Date of birth', order: [ :day, :month, :year ]
+        = ui.input :ssn4, label: 'Last 4 digits of SSN', maxlength: 4, input_html: { class: 'span1' }
+
+      .form-actions
+        = ui.submit 'Find My Voter Records', disabled: true, class: 'btn'
 

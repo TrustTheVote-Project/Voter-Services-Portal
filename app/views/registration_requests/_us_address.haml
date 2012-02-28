@@ -1,15 +1,20 @@
 %div{ class: "#{prefix}_common" }
-  = f.text_field "#{prefix}_address", 'Address'
-  = f.text_field "#{prefix}_city", 'City or Town'
-  = f.select     "#{prefix}_state", 'State', [ 'Virginia' ]
-  = f.inline 'ZIP Code' do |i|
-    = i.text_field "#{prefix}_zip5", class: 'span2', placeholder: 'NNNNN'
-    \-
-    = i.text_field "#{prefix}_zip4", class: 'span2', placeholder: 'NNNN'
+  = f.input "#{prefix}_address", label: 'Address'
+  = f.input "#{prefix}_city", label: 'City or Town'
+  = f.input "#{prefix}_state", label: 'State', collection: [ 'Virginia' ]
+  .control-group
+    %label.control-label ZIP Code
+    .controls
+      = text_field :registration_request, "#{prefix}_zip5", class: 'inline span1', placeholder: 'NNNNN'
+      \-
+      = text_field :registration_request, "#{prefix}_zip4", class: 'inline span1', placeholder: 'NNNN'
 
-= f.toggles do
-  = f.check_box "#{prefix}_is_rural", 'Rural or other address'
+.control-group
+  .controls
+    %label.checkbox
+      = check_box :registration_request, "#{prefix}_is_rural"
+      Rural or other address
 
-%div{ class: "#{prefix}_rural" }
-  = f.inline '' do |i|
-    = i.text_area "#{prefix}_rural", class: 'span7', rows: 5
+%div{ class: "#{prefix}_rural control-group" }
+  .controls
+    = text_area :registration_request, "#{prefix}_rural", class: 'span5', rows: 5

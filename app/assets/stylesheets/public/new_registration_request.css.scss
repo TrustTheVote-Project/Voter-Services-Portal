@@ -27,10 +27,12 @@ form#new_registration_request {
 
   .convicted-details, .mental-details {
     display: none;
-    margin-left: 20px;
-    p { margin: 5px 0; }
-    select {
-      width: auto;
+    .controls {
+      margin-left: 180px;
+      p { margin: 5px 0; }
+      select {
+        width: auto;
+      }
     }
   }
 

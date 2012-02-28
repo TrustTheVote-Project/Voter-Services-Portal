@@ -185,7 +185,7 @@ class Forms.Section
   show: => @el.show()
   name: => @el.attr('id')
 
-  filled: (el) -> !el.val().match(/^\s+$/)
+  filled: (el) -> !el.val().match(/^\s*$/)
   checked: (el) -> el.is(":checked")
 
 

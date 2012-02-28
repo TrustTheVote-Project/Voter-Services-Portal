@@ -1,46 +1,71 @@
 #eligibility.section
   %h3 Eligibility
   %p To be eligible to vote, you must meet requirement for citizenship, age, qualification, and residence. To proceed with registering to vote, you must indicate whether you meet each of these requirements.  If you are already registered with your current name and address, you do not need to re-register.
-  = f.inputs nil do
-    = f.toggles 'Qualifications' do
-      = f.check_box :citizen, 'I am a citizen of the United States of America'
-      = f.check_box :old_enough, "I will be at least 18 years of age on or before the #{link_to 'next Election Day', '#'}".html_safe
+  %fieldset
+    .control-group.check_boxes
+      %label.control-label Qualifications
+      .controls
+        %label.checkbox
+          = check_box :registration_request, :citizen
+          I am a citizen of the United States of America
+        %label.checkbox
+          = check_box :registration_request, :old_enough
+          I will be at least 18 years of age on or before the #{link_to 'next Election Day', '#'}
 
     .group
-      = f.toggles 'Residence' do
-        = f.radio_button :residence, 'I am currently a resident of Virginia', 'in'
-        = f.radio_button :residence, 'I live outside of the U.S., but the most recent U.S. residence was in Virginia', 'outside'
+      .control-group.check_boxes
+        %label.control-label Residence
+        .controls
+          %label.radio
+            = radio_button :registration_request, :residence, 'in'
+            I am currently a resident of Virginia
+          %label.radio
+            = radio_button :registration_request, :residence, 'outside'
+            I live outside of the U.S., but the most recent U.S. residence was in Virginia
+
       .outside
-        = f.toggles do
-          = f.radio_button :outside_type, 'Active Duty Merchant Marine or Armed Forces', 'active_duty'
-        .add
-          = f.inline do |i|
-            = i.select :outside_active_service_branch, RegistrationRequest::SERVICE_BRANCHES, {}, class: 'span3'
-            = i.text_field :outside_active_service_id, placeholder: 'Service ID', class: 'span2'
-            = i.text_field :outside_active_rank, placeholder: 'Rank / Grade / Rate', class: 'span3'
+        .control-group.check_boxes
+          .controls
+            %label.radio
+              = radio_button :registration_request, :outside_type, 'active_duty'
+              Active Duty Merchant Marine or Armed Forces
+            .add.controls
+              = select     :registration_request, :outside_active_service_branch, options_for_select(RegistrationRequest::SERVICE_BRANCHES), class: 'span2 inline'
+              = text_field :registration_request, :outside_active_service_id, placeholder: 'Service ID', class: 'span1 inline'
+              = text_field :registration_request, :outside_active_rank, placeholder: 'Rank / Grade / Rate', class: 'span2 inline'
 
-        = f.toggles do
-          = f.radio_button :outside_type, 'Spouse or dependent living with a member of an active duty Merchant Marine or Armed Forces', 'spouse_active_duty'
-        .sadd
-          = f.inline do |i|
-            = i.select :outside_spouse_service_branch, RegistrationRequest::SERVICE_BRANCHES, {}, class: 'span3'
-            = i.text_field :outside_spouse_service_id, placeholder: 'Service ID', class: 'span2'
-            = i.text_field :outside_spouse_rank, placeholder: 'Rank / Grade / Rate', class: 'span3'
+            %label.radio
+              = radio_button :registration_request, :outside_type, 'spouse_active_duty'
+              Spouse or dependent living with a member of an active duty Merchant Marine or Armed Forces
+            .sadd.controls
+              = select     :registration_request, :outside_spouse_service_branch, options_for_select(RegistrationRequest::SERVICE_BRANCHES), class: 'span2 inline'
+              = text_field :registration_request, :outside_spouse_service_id, placeholder: 'Service ID', class: 'span1 inline'
+              = text_field :registration_request, :outside_spouse_rank, placeholder: 'Rank / Grade / Rate', class: 'span2 inline'
 
-        = f.toggles do
-          = f.radio_button :outside_type, 'Temporarily residing outside U.S.', 'temporarily'
-          = f.radio_button :outside_type, 'Temporarily residing outside U.S. for employment, or spouse or dependent residing with employee', 'spouse_temporarily'
+            %label.radio
+              = radio_button :registration_request, :outside_type, 'temporarily'
+              Temporarily residing outside U.S.
+            %label.radio
+              = radio_button :registration_request, :outside_type, 'spouse_temporarily'
+              Temporarily residing outside U.S. for employment, or spouse or dependent residing with employee
 
     .group
-      = f.toggles 'Conditions' do
-        %li.question
-          %label
+      .control-group.check_boxes
+        %label.control-label Conditions
+        .controls
+          %label.radio.question
             %span Have you ever been convicted of a felony?
-        = f.radio_button :convicted, 'No', false
-        = f.radio_button :convicted, 'Yes', true
-      .convicted-details
-        = f.toggles do
-          = f.check_box :convicted_restored, 'My voting rights have been restored'
+          %label.radio.inline
+            = radio_button :registration_request, :convicted, false
+            No
+          %label.radio.inline
+            = radio_button :registration_request, :convicted, true
+            Yes
+      .control-group.convicted-details
+        .controls
+          %label.checkbox
+            = check_box :registration_request, :convicted_restored
+            My voting rights have been restored
           .restored
             %p
               I was convicted of a felony in
@@ -49,15 +74,21 @@
               My voting rights were restored on
               = date_select :registration_request, :convicted_rights_restored_on, { order: [ :day, :month, :year ] }
 
-      = f.toggles do
-        %li.question
-          %label
+      .control-group
+        .controls
+          %label.radio.question
             %span Have you ever been judged mentally incapacitated?
-        = f.radio_button :mental, 'No', false
-        = f.radio_button :mental, 'Yes', true
-      .mental-details
-        = f.toggles do
-          = f.check_box :mental_restored, 'Court has restored my voting rights'
+          %label.radio.inline
+            = radio_button :registration_request, :mental, false
+            No
+          %label.radio.inline
+            = radio_button :registration_request, :mental, true
+            Yes
+      .control-group.mental-details
+        .controls
+          %label.checkbox
+            = check_box :registration_request, :mental_restored
+            Court has restored my voting rights
           .restored
             %p
               My voting rights were restored on
@@ -65,5 +96,5 @@
 
     %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
 
-    .actions
-      = f.button 'Next &rarr;'.html_safe, class: 'next btn'
+    .form-actions
+      = button_tag 'Next &rarr;'.html_safe, class: 'next btn'

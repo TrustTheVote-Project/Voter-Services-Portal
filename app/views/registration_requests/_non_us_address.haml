@@ -1,5 +1,5 @@
-= f.text_field "#{prefix}_address", 'Address'
-= f.text_field "#{prefix}_city", 'City or Town'
-= f.text_field "#{prefix}_state", 'Province or State', class: 'span2'
-= f.text_field "#{prefix}_postal_code", 'Postal Code', class: 'span2'
-= f.text_field "#{prefix}_country", 'Country'
+= f.input "#{prefix}_address", label: 'Address'
+= f.input "#{prefix}_city", label: 'City or Town'
+= f.input "#{prefix}_state", label: 'Province or State', input_html: { class: 'span2' }
+= f.input "#{prefix}_postal_code", label: 'Postal Code', input_html: { class: 'span1' }
+= f.input "#{prefix}_country", label: 'Country'

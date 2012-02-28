@@ -1,9 +1,9 @@
 #front
   .row
-    .span-one-third
+    .span4
       &nbsp;
 
-    .span-two-thirds.dates
+    .span8.dates
       %h2 Virginia Voter Registration
 
       .row
@@ -14,7 +14,7 @@
         .span3 Sep 6, 2012
 
   .row.main
-    .span-one-third.sidebar
+    .span4.sidebar
       %p
         %em Welcome to the Virginia Voter Services Portal
 
@@ -34,13 +34,13 @@
       .signature
         Virginia State Board of Elections
 
-    .span-two-thirds
+    .span8
       .row
-        .span-two-thirds
+        .span8
           The service offers two ways to get started:
 
       .row
-        .span-one-third.option
+        .span4.option
           .marker 1
           %h3 Register to Vote
           %p
@@ -50,7 +50,7 @@
             it is complete and correct, and ready to print,
             sign, and mail.
 
-        .span-one-third.option
+        .span4.option
           .marker 2
           %h3 Check Your Record and Eligibility
           %p
@@ -62,7 +62,7 @@
             and mail.
 
       .row.buttons
-        .span-one-third
-          = link_to "Get Started Now", :new_registration_request, class: 'primary btn'
-        .span-one-third
-          = link_to "Get Started Now", :search_form, class: 'primary btn'
+        .span4
+          = link_to "Get Started Now", :new_registration_request, class: 'btn btn-primary'
+        .span4
+          = link_to "Get Started Now", :search_form, class: 'btn btn-primary'

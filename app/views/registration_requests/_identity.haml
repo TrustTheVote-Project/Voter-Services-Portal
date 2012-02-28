@@ -1,32 +1,35 @@
 #identity.section
   %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
-  = f.inputs nil do
+
+  %fieldset
     - if collecting? :registration_request, :title
-      = f.select    :title, 'Title', [ 'Mr', 'Ms', 'Mrs' ], { include_blank: true }, class: 'small'
-    = f.text_field  :first_name, 'First name'
-    = f.text_field  :middle_name, 'Middle name'
-    = f.text_field  :last_name, 'Last name'
-    = f.text_field  :suffix, 'Suffix', placeholder: 'e.g. Jr, Sr', class: 'span2'
-    = f.date_select :dob, 'Date of birth', { start_year: 200.years.ago.year, end_year: 16.years.ago.year, include_blank: true, order: [ :day, :month, :year ] }, class: 'date'
+      = f.input :title, label: 'Title', collection: [ 'Mr', 'Ms', 'Mrs' ], include_blank: true
+    = f.input :first_name
+    = f.input :middle_name
+    = f.input :last_name
+    = f.input :suffix, placeholder: 'e.g. Jr, Sr', input_html: { class: 'span2' }
+    = f.input :dob, label: 'Date of birth', as: :date, start_year: 200.years.ago.year, end_year: 16.years.ago.year, include_blank: true, order: [ :day, :month, :year ], class: 'date'
     - if collecting? :registration_request, :gender
-      = f.select    :gender, 'Gender', [ 'Male', 'Female' ], { include_blank: true }, class: 'small'
+      = f.input :gender, collection: [ 'Male', 'Female' ], include_blank: true, class: 'small'
 
     .group
-      = f.text_field :ssn, 'Social Security #', 'data-format' => '^([\s\-]*\d[\s\-]*){9}$', placeholder: 'NNN NN NNNN'
-      = f.toggles '&nbsp;'.html_safe do
-        %label
-          = check_box_tag 'registration_request[no_ssn]'
-          %span I do not have a Social Security Number
-      .dln
-        = f.inline do |i|
+      = f.input :ssn, label: 'Social Security #', input_html: { 'data-format' => '^([\s\-]*\d[\s\-]*){9}$' }, placeholder: 'NNN NN NNNN'
+      .control-group
+        .controls
+          %label.checkbox
+            = check_box :registration_request, :no_ssn, input_html: { class: 'span2' }
+            I do not have a Social Security Number
+
+      .control-group.dln
+        .controls
           %span My Virginia drivers license or state ID card number is
-          = i.text_field :dln, class: 'small', 'data-format' => '^([\s\-]*[a-z0-9\d][\s\-]*){24}$'
+          = text_field :registration_request, :dln, class: 'span2', 'data-format' => '^([\s\-]*[a-z0-9\d][\s\-]*){24}$'
 
-    = f.text_field :phone, 'Phone number', placeholder: '(NNN) NNN-NNNN'
-    = f.text_field :email, 'Email address', placeholder: 'jack@email.com'
+    = f.input :phone, label: 'Phone number', placeholder: '(NNN) NNN-NNNN'
+    = f.input :email, label: 'Email address', placeholder: 'jack@email.com'
 
-    %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
+  %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
 
-    .actions
-      = f.button '&larr; Back'.html_safe, class: 'back btn'
-      = f.button 'Next &rarr;'.html_safe, class: 'next btn'
+  .form-actions
+    = button_tag '&larr; Back'.html_safe, class: 'back btn'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn'

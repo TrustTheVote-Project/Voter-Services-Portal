@@ -1,3 +1,5 @@
+@import "compass_twitter_bootstrap";
+
 body {
   padding: 20px 0;
   background: #5C80B5;
@@ -29,7 +31,7 @@ form {
     }
   }
 
-  .question label span {
+  .question span {
     margin-left: -20px;
   }
 }

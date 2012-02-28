@@ -1,7 +1,7 @@
 = render partial: 'shared/page_header', locals: { title: 'Check Your Voter Record' }
 
 .row
-  .span-one-third
+  .span4
     %h3 Check Your Voter Record
     %p
       Your Virginia voter registration record is current,
@@ -17,11 +17,11 @@
       marking it online or by hand, downloading it, and
       returning to your election registrar.
 
-  .span-two-thirds
+  .span8
     - reg = RegistrationDetailsPresenter.new(@registration)
     %h3= reg.full_name
 
-    %table.condensed-table.properties.zebra-striped
+    %table.table.table-condensed.properties.table-striped
       %tr
         %th Date of Birth:
         %td= reg.dob
