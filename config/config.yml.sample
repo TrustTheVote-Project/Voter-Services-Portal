@@ -2,3 +2,12 @@
 admin:
   user: admin
   pass: 
+
+registration_request:
+
+  # Enable collection of gender on the registration request form
+  collect_gender: true
+
+  # Enable collection of title on the registration request form
+  collect_title:  false
+
