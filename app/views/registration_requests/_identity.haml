@@ -12,19 +12,7 @@
     - if collecting? :registration_request, :gender
       = f.input :gender, collection: [ 'Male', 'Female' ], include_blank: true, class: 'small'
 
-    .group
-      = f.input :ssn, label: 'Social Security #', input_html: { 'data-format' => '^([\s\-]*\d[\s\-]*){9}$' }, placeholder: 'NNN NN NNNN'
-      .control-group
-        .controls
-          %label.checkbox
-            = check_box :registration_request, :no_ssn, input_html: { class: 'span2' }
-            I do not have a Social Security Number
-
-      .control-group.dln
-        .controls
-          %span My Virginia drivers license or state ID card number is
-          = text_field :registration_request, :dln, class: 'span2', 'data-format' => '^([\s\-]*[a-z0-9\d][\s\-]*){24}$'
-
+    = f.input :ssn, label: 'Social Security #', input_html: { 'data-format' => '^([\s\-]*\d[\s\-]*){9}$' }, placeholder: 'NNN NN NNNN'
     = f.input :phone, label: 'Phone number', placeholder: '(NNN) NNN-NNNN'
     = f.input :email, label: 'Email address', placeholder: 'jack@email.com'
 

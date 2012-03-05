@@ -78,30 +78,22 @@ class IdentitySection extends Forms.Section
     @gender   = $("#{oid}_gender")
     @gender   = false if @gender.length == 0
     @ssn      = $("#{oid}_ssn")
-    @dln      = $("#{oid}_dln")
-    @noSsn    = $("#{oid}_no_ssn")
 
     # Configure feedback popover on Next button
     popover = new Feedback.Popover($('button.next', section))
     popover.addItem(new Feedback.Filled(@lastName, 'Last name'))
     popover.addItem(new Feedback.Filled(@gender, 'Gender')) if @gender
-    popover.addItem(new Feedback.Filled(@ssn, 'Social Security #', skipIf: => @noSsn.is(":checked")))
-    popover.addItem(new Feedback.Filled(@dln, 'Drivers license or State ID', skipIf: => !@noSsn.is(":checked")))
-
-    new Forms.BlockToggleField("#{oid}_no_ssn", '.dln')
+    popover.addItem(new Feedback.Filled(@ssn, 'Social Security #'))
 
     super '#identity', navigationListener
 
   validSsn: ->
     @ssn.val().match(new RegExp(@ssn.attr('data-format'), 'gi'))
 
-  validDln: ->
-    @dln.val().match(new RegExp(@dln.attr('data-format'), 'gi'))
-
   isComplete: =>
     return @filled(@lastName) and
       (!@gender or @filled(@gender)) and
-      (if @checked(@noSsn) then @validDln() else @validSsn())
+      @validSsn()
 
 
 
