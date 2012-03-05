@@ -2,7 +2,7 @@ class RegistrationRequest < ActiveRecord::Base
 
   include Concern::SerializedAttrs
 
-  SERVICE_BRANCHES = [ 'Navy', 'Air Force', 'Marines', 'Merchant Marine' ]
+  SERVICE_BRANCHES = [ 'Army', 'Air Force', 'Marines', 'Merchant Marine', 'Navy' ]
 
   # Eligibility
   serialized_attr :citizen, :old_enough
