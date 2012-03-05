@@ -156,7 +156,7 @@ class ContactInfoSection extends Forms.Section
     new Forms.BlockToggleField("#{oid}_er_is_rural", '.er_rural', '.er_common')
 
     # DEBUG
-    #@residenceOutside.attr('checked', 'checked')
+    @residenceOutside.attr('checked', 'checked')
 
     votingResidenceSection = new Feedback.CustomItem('Voting residence',
       isComplete: @isVotingResidenceComplete,
