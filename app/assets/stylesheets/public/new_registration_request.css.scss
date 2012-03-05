@@ -25,6 +25,10 @@ form#new_registration_request {
     }
   }
 
+  .add, .sadd {
+    margin-bottom: 5px;
+  }
+
   .convicted-details, .mental-details {
     display: none;
     .controls {

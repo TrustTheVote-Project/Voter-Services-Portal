@@ -29,16 +29,16 @@
             %label.radio
               = radio_button :registration_request, :outside_type, 'active_duty'
               Active Duty Merchant Marine or Armed Forces
-            .add.controls
-              = select     :registration_request, :outside_active_service_branch, options_for_select(RegistrationRequest::SERVICE_BRANCHES), class: 'span2 inline'
+            .add
+              = select     :registration_request, :outside_active_service_branch, options_for_select(RegistrationRequest::SERVICE_BRANCHES), {}, class: 'span2 inline'
               = text_field :registration_request, :outside_active_service_id, placeholder: 'Service ID', class: 'span1 inline'
               = text_field :registration_request, :outside_active_rank, placeholder: 'Rank / Grade / Rate', class: 'span2 inline'
 
             %label.radio
               = radio_button :registration_request, :outside_type, 'spouse_active_duty'
               Spouse or dependent living with a member of an active duty Merchant Marine or Armed Forces
-            .sadd.controls
-              = select     :registration_request, :outside_spouse_service_branch, options_for_select(RegistrationRequest::SERVICE_BRANCHES), class: 'span2 inline'
+            .sadd
+              = select     :registration_request, :outside_spouse_service_branch, options_for_select(RegistrationRequest::SERVICE_BRANCHES), {}, class: 'span2 inline'
               = text_field :registration_request, :outside_spouse_service_id, placeholder: 'Service ID', class: 'span1 inline'
               = text_field :registration_request, :outside_spouse_rank, placeholder: 'Rank / Grade / Rate', class: 'span2 inline'
 
