@@ -66,7 +66,10 @@ Deployment
     * _database.yml_ (see sample in `config/database.yml.sample`) with
       database configuration.
     * _config.yml_ (see sample in `config/config.yml.sample`) with
-      application configuration.
+      application configuration:
+      * update the online ballot marking server section for "Mark Your
+        Ballot Online" feature to work properly
+
   * Make the initial deployment with `cap deploy:cold`.
   * Configure Apache virtual host. Here's the sample configuration
     ('server.com' is your server name, 'DocumentRoot' points to the

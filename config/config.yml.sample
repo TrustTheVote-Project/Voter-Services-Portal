@@ -1,13 +1,18 @@
 # Administrative console credentials
 admin:
   user: admin
-  pass: 
+  pass:
 
 registration_request:
-
   # Enable collection of gender on the registration request form
   collect_gender: true
 
   # Enable collection of title on the registration request form
   collect_title:  false
 
+
+# Server for online ballot marking
+dl:
+  url:
+  access_token:
+  account_id:
