@@ -61,5 +61,5 @@
       %p= link_to "Update your absentee status", "#", class: 'btn'
 
     - if reg.absentee? && reg.uocava?
-      %p= link_to "Mark your ballot online", "#", class: 'btn'
+      %p= render partial: 'shared/mark_my_ballot_online'
 
