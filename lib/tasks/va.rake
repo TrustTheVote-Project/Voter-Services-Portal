@@ -5,4 +5,18 @@ namespace :va do
     SessionCleaner.perform
   end
 
+  namespace :mark_ballot_online do
+    desc 'Enables marking ballots online'
+    task enable: :environment do
+      Setting.marking_ballot_online = true
+      puts "Marking ballots online is enabled."
+    end
+
+    desc 'Disables marking ballots online'
+    task disable: :environment do
+      Setting.marking_ballot_online = false
+      puts "Marking ballots online is disabled."
+    end
+  end
+
 end

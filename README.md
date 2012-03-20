@@ -111,3 +111,13 @@ your httpd.conf or a separate file in `/etc/httpd/conf.d/passenger.conf`
 (recommended).
 
 
+Marking ballots online
+----------------------
+
+There's a Rake task to enable / disable marking ballots online:
+
+    $ rake va:mark_ballot_online:enable
+    $ rake va:mark_ballot_online:disable
+
+In order to the feature to work, you need to also configure the
+parameters for DL server in `config/config.yml` (section "dl").

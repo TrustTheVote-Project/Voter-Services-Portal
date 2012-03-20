@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120131151941) do
+ActiveRecord::Schema.define(:version => 20120320103006) do
 
   create_table "log_records", :force => true do |t|
     t.string   "subject"
@@ -48,5 +48,12 @@ ActiveRecord::Schema.define(:version => 20120131151941) do
     t.boolean  "absentee"
     t.boolean  "uocava"
   end
+
+  create_table "settings", :force => true do |t|
+    t.string "name",  :null => false
+    t.string "value"
+  end
+
+  add_index "settings", ["name"], :name => "index_settings_on_name", :unique => true
 
 end
