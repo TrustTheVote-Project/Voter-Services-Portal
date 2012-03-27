@@ -1,100 +1,66 @@
 #eligibility.section
   %h3 Eligibility
-  %p To be eligible to vote, you must meet requirement for citizenship, age, qualification, and residence. To proceed with registering to vote, you must indicate whether you meet each of these requirements.  If you are already registered with your current name and address, you do not need to re-register.
-  %fieldset
-    .control-group.check_boxes
-      %label.control-label Qualifications
-      .controls
-        %label.checkbox
-          = check_box :registration_request, :citizen
-          I am a citizen of the United States of America
-        %label.checkbox
-          = check_box :registration_request, :old_enough
-          I will be at least 18 years of age on or before the #{link_to 'next Election Day', '#'}
+  .description Eligibility to vote in Virginia.
+  %p
+    To be eligible to vote, you must meet the requirements for citizenship, age,
+    qualification, and residence. To proceed with registering to vote, you must indicate
+    whether you meet each of these requirements. If you are already registered with your
+    current name and address, you do not need to re-register.
 
-    .group
-      .control-group.check_boxes
-        %label.control-label Residence
-        .controls
-          %label.radio
-            = radio_button :registration_request, :residence, 'in'
-            I am currently a resident of Virginia
-          %label.radio
-            = radio_button :registration_request, :residence, 'outside'
-            I live outside of the U.S., but the most recent U.S. residence was in Virginia
+  %section
+    .checkbox
+      = f.check_box :citizen
+      %label I am a citizen of the United States of America.
 
-      .outside
-        .control-group.check_boxes
-          .controls
-            %label.radio
-              = radio_button :registration_request, :outside_type, 'active_duty'
-              Active Duty Merchant Marine or Armed Forces
-            .add
-              = select     :registration_request, :outside_active_service_branch, options_for_select(RegistrationRequest::SERVICE_BRANCHES), {}, class: 'span2 inline'
-              = text_field :registration_request, :outside_active_service_id, placeholder: 'Service ID', class: 'span1 inline'
-              = text_field :registration_request, :outside_active_rank, placeholder: 'Rank / Grade / Rate', class: 'span2 inline'
+  %section
+    .checkbox
+      = f.check_box :old_enough
+      %label I will be at least 18 years of age on or before the next Election Day.
 
-            %label.radio
-              = radio_button :registration_request, :outside_type, 'spouse_active_duty'
-              Spouse or dependent living with a member of an active duty Merchant Marine or Armed Forces
-            .sadd
-              = select     :registration_request, :outside_spouse_service_branch, options_for_select(RegistrationRequest::SERVICE_BRANCHES), {}, class: 'span2 inline'
-              = text_field :registration_request, :outside_spouse_service_id, placeholder: 'Service ID', class: 'span1 inline'
-              = text_field :registration_request, :outside_spouse_rank, placeholder: 'Rank / Grade / Rate', class: 'span2 inline'
+  %section
+    .radio
+      = f.radio_button :residence, 'in'
+      %label I am currently a resident of Virginia
+    .radio
+      = f.radio_button :residence, 'outside'
+      %label I live outside of the U.S., but the most recent U.S. residence was in Virginia
 
-            %label.radio
-              = radio_button :registration_request, :outside_type, 'temporarily'
-              Temporarily residing outside U.S.
-            %label.radio
-              = radio_button :registration_request, :outside_type, 'spouse_temporarily'
-              Temporarily residing outside U.S. for employment, or spouse or dependent residing with employee
+  %section
+    %h4 Have your voting rights been revoked in the past?
+    .radio
+      = f.radio_button :rights_revoked, 'no'
+      %label No
+    .radio
+      = f.radio_button :rights_revoked, 'yes'
+      %label Yes
 
-    .group
-      .control-group.check_boxes
-        %label.control-label Conditions
-        .controls
-          %label.radio.question
-            %span Have you ever been convicted of a felony?
-          %label.radio.inline
-            = radio_button :registration_request, :convicted, false
-            No
-          %label.radio.inline
-            = radio_button :registration_request, :convicted, true
-            Yes
-      .control-group.convicted-details
-        .controls
-          %label.checkbox
-            = check_box :registration_request, :convicted_restored
-            My voting rights have been restored
-          .restored
-            %p
-              I was convicted of a felony in
-              = state_select :registration_request, :convicted_in_state, 'us'
-            %p
-              My voting rights were restored on
-              = date_select :registration_request, :convicted_rights_restored_on, { order: [ :day, :month, :year ] }
+    %section.hidden.revoked
+      %h4 Why were your voting rights revoked?
+      .radio
+        = f.radio_button :rights_revoked_reason, 'felony'
+        %label Due to Felony
+      .radio
+        = f.radio_button :rights_revoked_reason, 'mental'
+        %label Due to mental incapacity
 
-      .control-group
-        .controls
-          %label.radio.question
-            %span Have you ever been judged mentally incapacitated?
-          %label.radio.inline
-            = radio_button :registration_request, :mental, false
-            No
-          %label.radio.inline
-            = radio_button :registration_request, :mental, true
-            Yes
-      .control-group.mental-details
-        .controls
-          %label.checkbox
-            = check_box :registration_request, :mental_restored
-            Court has restored my voting rights
-          .restored
-            %p
-              My voting rights were restored on
-              = date_select :registration_request, :mental_rights_restored_on, { order: [ :day, :month, :year ] }
+    %section.hidden.felony
+      %h4 What state were you convicted in?
+      .select
+        = f.select :felony_state, state_options_for_select(@registration_request.felony_state).html_safe
 
-    %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
+      %section
+        %h4 Were your voting rights restored?
+        .radio
+          = f.radio_button :rights_restored, 'yes'
+          %label Yes
+        .radio
+          = f.radio_button :rights_restored, 'no'
+          %label No
 
-    .form-actions
-      = button_tag 'Next &rarr;'.html_safe, class: 'next btn'
+      %section.hidden.restored
+        %h4 My voting rights were restored on:
+        .date
+          = f.date_select :rights_restored_on, { order: [ :day, :month, :year ] }
+
+  .form-actions
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn'

@@ -33,11 +33,11 @@ class EligibilitySection extends Forms.Section
     popover.addItem(new Feedback.Filled(@oaRank, 'Your rank / grade / rate', skipIf: => !@outsideActive()))
     popover.addItem(new Feedback.Filled(@osServiceId, 'Your spouse\'s service ID', skipIf: => !@outsideSpouse()))
     popover.addItem(new Feedback.Filled(@osRank, 'Your spouse\'s rank / grade / rate', skipIf: => !@outsideSpouse()))
-    popover.addItem(new Feedback.Checked(@convicted, 'Convictions status'))
-    popover.addItem(new Feedback.Checked(@mental, 'Mental status'))
-    unrestoredRights = "You can't vote until your rights are restored"
-    popover.addItem(new Feedback.Checked(@convictedRestored, unrestoredRights, skipIf: => @convictedFalse.is(":checked") or !@convicted.is(":checked") ))
-    popover.addItem(new Feedback.Checked(@mentalRestored, unrestoredRights, skipIf: => @mentalFalse.is(":checked") or !@mental.is(":checked") ))
+    #popover.addItem(new Feedback.Checked(@convicted, 'Convictions status'))
+    #popover.addItem(new Feedback.Checked(@mental, 'Mental status'))
+    #unrestoredRights = "You can't vote until your rights are restored"
+    #popover.addItem(new Feedback.Checked(@convictedRestored, unrestoredRights, skipIf: => @convictedFalse.is(":checked") or !@convicted.is(":checked") ))
+    #popover.addItem(new Feedback.Checked(@mentalRestored, unrestoredRights, skipIf: => @mentalFalse.is(":checked") or !@mental.is(":checked") ))
 
     new Forms.BlockToggleField(oid + '_residence_outside', 'div.outside')
     new Forms.BlockToggleField(oid + '_outside_type_active_duty', 'div.add')
@@ -60,9 +60,10 @@ class EligibilitySection extends Forms.Section
       (@checked(@residenceInside) or
         (@outsideType() == 'active_duty' and @filled(@oaServiceId) and @filled(@oaRank)) or
         (@outsideType() == 'spouse_active_duty' and @filled(@osServiceId) and @filled(@osRank)) or
-        (@outsideType() or '').match(/temporarily/)) and
-      (@checked(@convictedFalse) or @checked(@convictedRestored)) and
-      (@checked(@mentalFalse) or @checked(@mentalRestored))
+        (@outsideType() or '').match(/temporarily/))
+      #and
+      #(@checked(@convictedFalse) or @checked(@convictedRestored)) and
+      #(@checked(@mentalFalse) or @checked(@mentalRestored))
 
 
 
@@ -271,7 +272,7 @@ class CompleteRegistrationSection extends Forms.Section
 class Form extends Forms.MultiSectionForm
   constructor: ->
     super [
-      new EligibilitySection(this),
+      #      new EligibilitySection(this),
       new IdentitySection(this),
       new ContactInfoSection(this),
       new CompleteRegistrationSection(this)

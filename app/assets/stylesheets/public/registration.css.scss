@@ -1,0 +1,48 @@
+#registration {
+  .disclaimer {
+    color: #ccc;
+    margin-top: -24px;
+    margin-bottom: 24px;
+  }
+
+  .section {
+    h3 {
+      font-size: 22px;
+    }
+    .description {
+      border-bottom: 1px dotted #ccc;
+      padding-bottom: 10px;
+      margin-bottom: 10px;
+      color: #000;
+    }
+    .row {
+      margin-top: 20px;
+      margin-bottom: 10px;
+    }
+  }
+
+  section {
+    padding: 10px 0;
+    border-bottom: 1px dotted #ccc;
+
+    h4 {
+      font-size: 15px;
+      font-weight: normal;
+      line-height: 1.5;
+    }
+
+    section {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+  }
+
+  label {
+    font-size: 15px;
+    color: #000;
+  }
+}
+
+.date select {
+  width: auto;
+}

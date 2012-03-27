@@ -1,33 +1,24 @@
 footer {
-  font-size: 90%;
+  margin-top: 100px;
+  border-top: 4px solid #ccc;
+  padding-top: 16px;
+  color: #555;
 
-  .info {
-    padding: 5px;
+  p {
+    font-size: 13px;
+    line-height: 1.5;
   }
 
-  .powered {
-    padding: 5px 0;
-    font-size: 90%;
-    span {
-      background: #B0B0B0;
-      color: #ccc;
-      padding: 2px 4px;
-    }
+  h5 {
+    font-size: 16px;
+    margin-bottom: 16px;
   }
 
-  ul {
-    display: inline-block;
-    margin: 0;
-    padding: 0;
-
-    li {
-      display: inline-block;
-      padding-left: 10px;
-    }
-
-    li:before {
-      content: '|';
-      padding-right: 10px;
-    }
+  h6 {
+    text-transform: none;
+    color: #000;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 23px;
   }
 }

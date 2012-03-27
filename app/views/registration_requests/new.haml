@@ -1,14 +1,19 @@
-= render partial: "shared/page_header", locals: { title: "Register to Vote" }
+- @page_id = 'registration'
+
+= render partial: 'steps'
+
+.row.disclaimer
+  .span12
+    %p
+      All information in this online experience is required by state or federal
+      law, unless specifically marked optional.
 
 .row
-  .span4
-    = render partial: 'steps'
+  .span12
+    = form_for @registration_request, url: :registration_request do |f|
 
-  .span8
-    = simple_form_for @registration_request, url: :registration_request, html: { class: 'form-horizontal' } do |f|
-
-      = render partial: 'eligibility', locals: { f: f }
+      -#= render partial: 'eligibility', locals: { f: f }
       = render partial: 'identity', locals: { f: f }
-      = render partial: 'contact_info', locals: { f: f }
-      = render partial: 'complete_registration', locals: { f: f }
+      -#= render partial: 'contact_info', locals: { f: f }
+      -#= render partial: 'complete_registration', locals: { f: f }
 

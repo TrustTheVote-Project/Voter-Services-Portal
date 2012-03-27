@@ -2,7 +2,7 @@ class RegistrationRequestsController < ApplicationController
 
   def new
     LogRecord.log('registration', 'started')
-    @registration_request = RegistrationRequest.new
+    @registration_request = RegistrationRequest.new(residence: params[:kind] == 'residential' ? 'in' : 'outside')
   end
 
   def create

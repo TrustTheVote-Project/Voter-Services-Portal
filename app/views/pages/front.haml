@@ -1,68 +1,49 @@
-#front
-  .row
-    .span4
-      &nbsp;
+- @page_id = 'front'
 
-    .span8.dates
-      %h2 Virginia Voter Registration
+.row
+  .span12
+    %h2 Welcome to the Virginia Voter Registration Service
+    %p
+      We've created this service to help all Virginia voters—domestic, military, and<br/>
+      overseas—register to vote and keep their voter information up-to-date.
 
-      .row
-        .span3 General Election:
-        .span3 Nov 6, 2012
-      .row
-        .span3 Registration Deadline:
-        .span3 Sep 6, 2012
+.row.steps
+  .span2= image_tag 'step1.png'
+  .span2= image_tag 'step2.png'
+  .span2= image_tag 'step3.png'
+  .span2= image_tag 'step4.png'
+  .span4
+    %p
+      Fill in information online and build a PDF form. Then download, review, and sign the
+      PDF form, and mail it back to your local election official.
 
-  .row.main
-    .span4.sidebar
-      %p
-        %em Welcome to the Virginia Voter Services Portal
+.row.action-block
+  .span8
+    %h3 Register to Vote
+    .row
+      .span4
+        %h4 Residential voter
+        %p
+          I am a Virginia resident and will be voting in person or as a residential
+          absentee on election day.
 
-      %p
-        The Voter Portal is a new service
-        to all voters of Virginia --
-        domestic, overseas, and military
-        voters.
+        = link_to "Residential voter", :register_residential, class: 'btn'
 
-      %p
-        We've designed this service to
-        make it easier for you to make
-        sure that you're registered to
-        vote, and to help you keep your
-        voter info up-to-date.
+      .span4
+        %h4 Overseas or military voter
+        %p
+          I am an active member of the Uniformed Services, the Merchant Marine, or are a
+          family member, that is residing outside the United States and will be voting
+          absentee on election day.
 
-      .signature
-        Virginia State Board of Elections
+        = link_to "Overseas or military voter", :register_military_or_overseas, class: 'btn'
 
-    .span8
-      .row
-        .span8
-          The service offers two ways to get started:
+  .span4
+    %h3 View &amp; Update Voter Record
+    %h4 Update or view Voter Record
+    %p
+      I am already registered to vote and want to view or update my Voter Record, or
+      request an absentee ballot.
 
-      .row
-        .span4.option
-          .marker 1
-          %h3 Register to Vote
-          %p
-            If you're not currently registered to vote in
-            Virginia, you can complete your voter
-            registration application online, ensuring that
-            it is complete and correct, and ready to print,
-            sign, and mail.
+    = link_to "Update voter record", :search_form, class: 'btn'
 
-        .span4.option
-          .marker 2
-          %h3 Check Your Record and Eligibility
-          %p
-            You can check your voter record, and make
-            changes -- including absentee status and
-            eligibility for online ballot marking -- with
-            help to make sure your update forms are
-            complete and correct, ready to pring, sign,
-            and mail.
-
-      .row.buttons
-        .span4
-          = link_to "Get Started Now", :new_registration_request, class: 'btn btn-primary'
-        .span4
-          = link_to "Get Started Now", :search_form, class: 'btn btn-primary'
