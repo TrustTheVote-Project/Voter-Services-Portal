@@ -272,7 +272,7 @@ class CompleteRegistrationSection extends Forms.Section
 class Form extends Forms.MultiSectionForm
   constructor: ->
     super [
-      #      new EligibilitySection(this),
+      new EligibilitySection(this),
       new IdentitySection(this),
       new ContactInfoSection(this),
       new CompleteRegistrationSection(this)
