@@ -1,22 +1,64 @@
 #identity.section
-  %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
+  %h3 Identity
+  .description Identify who you are
 
-  %fieldset
-    - if collecting? :registration_request, :title
-      = f.input :title, label: 'Title', collection: [ 'Mr', 'Ms', 'Mrs' ], include_blank: true
-    = f.input :first_name
-    = f.input :middle_name
-    = f.input :last_name
-    = f.input :suffix, placeholder: 'e.g. Jr, Sr', input_html: { class: 'span2' }
-    = f.input :dob, label: 'Date of birth', as: :date, start_year: 200.years.ago.year, end_year: 16.years.ago.year, include_blank: true, order: [ :day, :month, :year ], class: 'date'
-    - if collecting? :registration_request, :gender
-      = f.input :gender, collection: [ 'Male', 'Female' ], include_blank: true, class: 'small'
+  .row
+    .span3
+      %label First name (optional)
+      = f.text_field :first_name
+    .span3
+      %label Full middle or maiden (optional)
+      = f.text_field :middle_name
+    .span3
+      %label Last name
+      = f.text_field :last_name
+    .span3
+      %label Suffix (optional)
+      = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }
 
-    = f.input :ssn, label: 'Social Security #', input_html: { 'data-format' => '^([\s\-]*\d[\s\-]*){9}$' }, placeholder: 'NNN NN NNNN'
-    = f.input :phone, label: 'Phone number', placeholder: '(NNN) NNN-NNNN'
-    = f.input :email, label: 'Email address', placeholder: 'jack@email.com'
+  .row
+    .span12.date
+      %label Date of birth
+      = f.date_select :dob, include_blank: true, order: [ :month, :day, :year ]
 
-  %p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
+  - if collecting? :registration_request, :gender
+    .row
+      .span12
+        %label Gender
+        = f.select :gender, [ 'Male', 'Femaly' ], { include_blank: true }, { class: 'span2' }
+
+  .row
+    .span12
+      %label Social Security Number
+      = f.text_field :ssn
+      .checkbox
+        = f.check_box :no_ssn
+        %label I don't have a Social Security Number
+
+  .row
+    .span3
+      %label Phone (optional)
+      = f.text_field :phone, placeholder: '(NNN) NNN-NNNN'
+    .span9
+      %label Email (optional)
+      = f.text_field :email, placeholder: 'john@smith.com'
+
+  -#%fieldset
+    -#- if collecting? :registration_request, :title
+      -#= f.input :title, label: 'Title', collection: [ 'Mr', 'Ms', 'Mrs' ], include_blank: true
+    -#= f.input :first_name
+    -#= f.input :middle_name
+    -#= f.input :last_name
+    -#= f.input :suffix, placeholder: 'e.g. Jr, Sr', input_html: { class: 'span2' }
+    -#= f.input :dob, label: 'Date of birth', as: :date, start_year: 200.years.ago.year, end_year: 16.years.ago.year, include_blank: true, order: [ :day, :month, :year ], class: 'date'
+    -#- if collecting? :registration_request, :gender
+      -#= f.input :gender, collection: [ 'Male', 'Female' ], include_blank: true, class: 'small'
+
+    -#= f.input :ssn, label: 'Social Security #', input_html: { 'data-format' => '^([\s\-]*\d[\s\-]*){9}$' }, placeholder: 'NNN NN NNNN'
+    -#= f.input :phone, label: 'Phone number', placeholder: '(NNN) NNN-NNNN'
+    -#= f.input :email, label: 'Email address', placeholder: 'jack@email.com'
+
+  -#%p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
 
   .form-actions
     = button_tag '&larr; Back'.html_safe, class: 'back btn'

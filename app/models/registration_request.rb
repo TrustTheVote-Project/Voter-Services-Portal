@@ -5,16 +5,19 @@ class RegistrationRequest < ActiveRecord::Base
   SERVICE_BRANCHES = [ 'Army', 'Air Force', 'Marines', 'Merchant Marine', 'Navy' ]
 
   # Eligibility
-  serialized_attr :citizen, :old_enough
-  serialized_attr :residence, :outside_type
+  serialized_attr :citizen, :old_enough, :residence
+
+  serialized_attr :outside_type
   serialized_attr :outside_active_service_branch, :outside_active_service_id, :outside_active_rank
   serialized_attr :outside_spouse_service_branch, :outside_spouse_service_id, :outside_spouse_rank
-  serialized_attr :convicted, :convicted_restored, :convicted_in_state, :convicted_rights_restored_on
-  serialized_attr :mental,    :mental_restored,    :mental_rights_restored_on
+
+  serialized_attr :rights_revoked, :rights_revoked_reason
+  serialized_attr :rights_restored, :rights_restored_on
+  serialized_attr :felony_state
 
   # Identity
-  serialized_attr :title, :first_name, :middle_name, :last_name, :suffix
-  serialized_attr :dob, :gender, :ssn
+  serialized_attr :first_name, :middle_name, :last_name, :suffix
+  serialized_attr :dob, :gender, :ssn, :no_ssn
   serialized_attr :phone, :email
 
   # Contact info

@@ -18,6 +18,8 @@ VaVote::Application.routes.draw do
   end
 
   resource :registration_request, only: [ :new, :create, :show ]
+  get '/register/residential' => 'registration_requests#new', defaults: { kind: 'residential' }, as: 'register_residential'
+  get '/register/military_or_overseas' => 'registration_requests#new', defaults: { kind: 'military_or_overseas' }, as: 'register_military_or_overseas'
 
   resource :form, only: [] do
     member do

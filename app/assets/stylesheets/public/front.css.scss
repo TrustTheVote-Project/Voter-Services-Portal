@@ -1,48 +1,23 @@
 #front {
-  h2 {
-    font-size: 225%;
-  }
-
-  .main {
-    margin-top: 20px;
-  }
-
-  .marker {
-    font-size: 400%;
-    line-height: 100%;
+  .steps {
+    padding: 10px 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background: #f4f4f4;
   }
 
   h3 {
-    font-size: 125%;
+    font-size: 20px;
+    border-top: 2px solid #000;
+    border-bottom: 1px dotted #000;
+    padding: 10px 0;
+    margin-top: 10px;
+    margin-bottom: 10px;
   }
 
-  .option {
-    border-top: 1px solid #ccc;
-    margin-top: 20px;
-    padding-top: 20px;
-  }
-
-  .buttons {
-    margin-top: 20px;
-  }
-
-  .dates .row {
-    margin: 10px 0 10px 0;
-    div {
-      font-size: 110%;
-    }
-    > [class*='span'] {
-      margin-left: 0;
-    }
-  }
-
-  .sidebar {
-    em {
-      color: #0064cd;
-    }
-
-    .signature {
-      font-style: italic;
+  .action-block {
+    p {
+      height: 120px;
     }
   }
 }

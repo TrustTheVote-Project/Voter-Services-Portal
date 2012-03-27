@@ -1,17 +1,28 @@
-- return_is_current ||= false
-%table.steps.table
-  %tr#step_eligibility
-    %td.marker 1
-    %td Check Your Eligibility
-  %tr#step_identity
-    %td.marker 2
-    %td Identify Yourself
-  %tr#step_contact_info
-    %td.marker 3
-    %td Provide Contact Info
-  %tr#step_complete_registration
-    %td.marker 4
-    %td Complete Registration
-  %tr#step_return_application{ class: return_is_current ? 'current' : nil }
-    %td.marker 5
-    %td Return Application
+.row#steps
+  .span2.current
+    %h2 1. Eligibility
+
+  .span2
+    %h2 2. Identity
+
+  .span2
+    %h2 3. Addresses
+    %ul
+      %li Registration
+      %li Mailing
+      %li Previous
+
+  .span2
+    %h2 4. Options
+    %ul
+      %li Confidentiality
+      %li Vote absentee
+      %li Volunteer
+
+  .span4
+    %h2 5. Complete &amp; Mail
+    %ul
+      %li Download
+      %li Print
+      %li Sign
+      %li Mail
