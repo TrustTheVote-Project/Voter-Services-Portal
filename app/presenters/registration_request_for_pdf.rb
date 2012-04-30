@@ -7,53 +7,60 @@ class RegistrationRequestForPdf
   # Rights
 
   def felony_rights_revoked?
-    true
+    @req.convicted != 'false'
   end
 
   def felony_state
-    "CA"
+    @req.convicted_in_state
   end
 
   def felony_restored_on
-    "02/24/2011"
+    @req.convicted_rights_restored_on.try(:strftime, "%m/%d/%Y")
   end
 
   def mental_rights_revoked?
-    true
+    @req.mental != 'false'
   end
 
   def mental_restored_on
-    "02/12/2012"
+    @req.mental_rights_restored_on.try(:strftime, "%m/%d/%Y")
   end
 
   # Identity
 
   def name
-    "Mr. John Quincy Public"
+    [ @req.title,
+      @req.first_name,
+      @req.middle_name,
+      @req.last_name,
+      @req.suffix ].reject(&:blank?).join(' ')
   end
 
   def email
-    "john@email.com"
+    @req.email
   end
 
   def ssn
-    "123-12-1234"
+    n = @req.ssn
+    return '' if n.blank?
+
+    "#{n[0, 3]}-#{n[3, 2]}-#{n[5, 4]}"
   end
 
   def dob
-    "05/14/1975"
+    @req.dob.try(:strftime, '%m/%d/%Y')
   end
 
   def phone
-    "(540) 555-4567"
+    @req.phone
   end
 
   def gender
-    "Male"
+    @req.gender
   end
 
   def party_preference
-    "Democrat" # or "none"
+    "none"
   end
 
   # Addresses
