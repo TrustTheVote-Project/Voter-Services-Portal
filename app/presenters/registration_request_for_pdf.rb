@@ -110,7 +110,7 @@ class RegistrationRequestForPdf
   private
 
   def us_address(prefix)
-    if @req.send("#{prefix}_is_rural")
+    if @req.send("#{prefix}_is_rural") == '1'
       @req.send("#{prefix}_rural")
     else
       [ @req.send("#{prefix}_address"),
