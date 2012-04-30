@@ -104,7 +104,7 @@ class RegistrationRequestForPdf
   end
 
   def address_confidentiality?
-    true
+    @req.is_confidential_address == '1'
   end
 
   private
