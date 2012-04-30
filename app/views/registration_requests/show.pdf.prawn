@@ -10,7 +10,7 @@ prawn_document(page_size: [ 216.mm, 279.mm ], margin: 20) do |pdf|
   pdf.default_leading = 3
   pdf.font_size 9
 
-  render "header", pdf: pdf
+  render "header", pdf: pdf, rr: rr
   render "eligibility", pdf: pdf, rr: rr
   render "identity", pdf: pdf, rr: rr
   render "addresses", pdf: pdf, rr: rr

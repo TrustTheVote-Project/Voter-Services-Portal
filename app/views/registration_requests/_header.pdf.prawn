@@ -14,6 +14,10 @@ pdf.save_graphics_state do
       pdf.fill_color "888888"
       pdf.text_box 'Application Form', at: [ 10, 30 ]
     end
+
+    if rr.overseas?
+      pdf.text_box 'Overseas / Military Voter', at: [ width - 110, 20 ]
+    end
   end
 
   pdf.move_down 10
