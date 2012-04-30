@@ -111,6 +111,36 @@ class RegistrationRequestForPdf
     @req.ca_type
   end
 
+  # Military / overseas
+
+  def overseas?
+    @req.residence == 'outside'
+  end
+
+  def absentee_status_until
+    '24/10/2020 (where do we get this?)'
+  end
+
+  def absentee_type
+    I18n.t "outside_type.#{@req.outside_type}"
+  end
+
+  def outside_type_with_details?
+    %w( active_duty spouse_active_duty ).include?(@req.outside_type)
+  end
+
+  def military_branch
+    @req.send("outside_#{military_prefix}_service_branch")
+  end
+
+  def military_service_id
+    @req.send("outside_#{military_prefix}_service_id")
+  end
+
+  def military_rank
+    @req.send("outside_#{military_prefix}_rank")
+  end
+
   private
 
   def us_address(prefix)
@@ -125,4 +155,9 @@ class RegistrationRequestForPdf
       ].reject(&:blank?).join(', ')
     end
   end
+
+  def military_prefix
+    @req.outside_type == 'active_duty' ? 'active' : 'spouse'
+  end
+
 end

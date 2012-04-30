@@ -3,3 +3,10 @@
 
 en:
   hello: "Hello world"
+
+  outside_type:
+    active_duty: Active Duty Merchant Marine or Armed Forces
+    spouse_active_duty: Spouse or dependent living with a member of an active duty Merchant Marine or Armed Forces
+    temporarily: Temporarily residing outside U.S.
+    spouse_temporarily: Temporarily residing outside U.S. for employment, or spouse or dependent residing with employee
+
