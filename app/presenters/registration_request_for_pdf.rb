@@ -107,6 +107,10 @@ class RegistrationRequestForPdf
     @req.is_confidential_address == '1'
   end
 
+  def acp_reason
+    @req.ca_type
+  end
+
   private
 
   def us_address(prefix)

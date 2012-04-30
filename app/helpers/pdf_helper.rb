@@ -55,7 +55,7 @@ module PdfHelper
       if block
         block.call
       else
-        pdf.text label
+        pdf.text label, inline_format: true
       end
     end
   end

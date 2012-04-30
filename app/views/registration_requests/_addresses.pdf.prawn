@@ -24,14 +24,7 @@ pdf_labeled_block pdf, "Addresses" do
 
     if rr.address_confidentiality?
       pdf.move_down 10
-    end
-
-    pdf_full_width_block pdf do |heights|
-      if rr.address_confidentiality?
-        heights << pdf_column_block(pdf, 2, 1, 0) do
-          pdf_checkbox pdf, "I quality for address confidentiality."
-        end
-      end
+      pdf_checkbox pdf, "I quality for address confidentiality (<strong>#{rr.acp_reason}</strong>)"
     end
   end
 end
