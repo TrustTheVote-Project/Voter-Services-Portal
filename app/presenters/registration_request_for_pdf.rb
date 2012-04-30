@@ -88,6 +88,14 @@ class RegistrationRequestForPdf
   end
 
   def mailing_address
+    if overseas?
+      overseas_mailing_address
+    else
+      domestic_mailing_address
+    end
+  end
+
+  def domestic_mailing_address
     if @req.ma_other == '0'
       registration_address
     else
@@ -141,7 +149,31 @@ class RegistrationRequestForPdf
     @req.send("outside_#{military_prefix}_rank")
   end
 
+  def overseas_mailing_address
+    if @req.mau_type == 'non-us'
+      abroad_address :mau
+    else
+      [ @req.send("apo_address"),
+        @req.send("apo_1"),
+        @req.send("apo_2"),
+        @req.send("apo_zip5") ].reject(&:blank?).join(', ')
+    end
+  end
+
+  def residental_address_abroad
+    abroad_address :raa
+  end
+
   private
+
+  def abroad_address(prefix)
+    [ [ @req.send("#{prefix}_address"), @req.send("#{prefix}_address_2") ].reject(&:blank?).join(' '),
+      [ @req.send("#{prefix}_city"), @req.send("#{prefix}_city_2") ].reject(&:blank?).join(' '),
+      @req.send("#{prefix}_state"),
+      @req.send("#{prefix}_postal_code"),
+      @req.send("#{prefix}_country")
+    ].reject(&:blank?).join(', ')
+  end
 
   def us_address(prefix)
     if @req.send("#{prefix}_is_rural") == '1'

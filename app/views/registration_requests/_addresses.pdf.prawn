@@ -5,6 +5,13 @@ pdf_labeled_block pdf, "Addresses" do
       { columns: 1, value: rr.mailing_address, label: 'mailing address' }
     ]
 
+    if rr.overseas?
+      pdf.move_down 15
+      pdf_fields pdf, [
+        { columns: 1, value: rr.residental_address_abroad, label: 'residental address abroad' }
+      ]
+    end
+
     if rr.previous_registration?
       pdf.move_down 15
       pdf_full_width_block pdf do |heights|
