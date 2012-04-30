@@ -11,25 +11,7 @@ prawn_document(page_size: [ 216.mm, 279.mm ], margin: 20) do |pdf|
   pdf.font_size 9
 
   render "header", pdf: pdf
-
-  pdf_labeled_block pdf, "Eligibility" do
-    pdf_full_width_block pdf do |heights|
-      heights << pdf_column_block(pdf, 6, 4, 0) do
-        pdf_checkbox pdf, "I am a citizen of the U.S.A, a resident of Virginia, and am at least 18 years of age."
-        if rr.voting_rights_revoked?
-          pdf_checkbox pdf, "My voting rights were revoked in the past due to a felony."
-        end
-      end
-
-      if rr.voting_rights_revoked?
-        heights << pdf_column_block(pdf, 6, 2, 4) do
-          pdf_fields pdf, [
-            { columns: 1, value: rr.state_where_convicted, label: 'state where convicted' },
-            { columns: 1, value: rr.date_when_restored, label: 'date when restored' } ]
-        end
-      end
-    end
-  end
+  render "eligibility", pdf: pdf, rr: rr
 
   pdf_labeled_block pdf, "Identity" do
     pdf_full_width_block pdf do |heights|
@@ -44,7 +26,7 @@ prawn_document(page_size: [ 216.mm, 279.mm ], margin: 20) do |pdf|
         { columns: 1, value: rr.dob, label: 'date of birth' },
         { columns: 1, value: rr.phone, label: 'phone' },
         { columns: 1, value: rr.gender, label: 'gender' },
-        { columns: 2, value: rr.party_preference, label: 'political party preference' }
+        { columns: 2, value: rr.party_preference, label: 'party preference' }
       ]
     end
   end

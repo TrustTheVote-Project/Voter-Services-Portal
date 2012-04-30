@@ -6,16 +6,24 @@ class RegistrationRequestForPdf
 
   # Rights
 
-  def voting_rights_revoked?
+  def felony_rights_revoked?
     true
   end
 
-  def state_where_convicted
+  def felony_state
     "CA"
   end
 
-  def date_when_restored
+  def felony_restored_on
     "02/24/2011"
+  end
+
+  def mental_rights_revoked?
+    true
+  end
+
+  def mental_restored_on
+    "02/12/2012"
   end
 
   # Identity
@@ -45,7 +53,7 @@ class RegistrationRequestForPdf
   end
 
   def party_preference
-    "Democrat"
+    "Democrat" # or "none"
   end
 
   # Addresses
