@@ -1,24 +1,42 @@
 footer {
-  margin-top: 100px;
-  border-top: 4px solid #ccc;
-  padding-top: 16px;
-  color: #555;
+  margin-top: 50px;
+  background: #f4f4f4;
 
-  p {
-    font-size: 13px;
-    line-height: 1.5;
+  .upcoming, .additional-info {
+    padding: 10px 10px 0;
+    margin: 0;
+    height: 300px;
   }
 
-  h5 {
-    font-size: 16px;
-    margin-bottom: 16px;
+  .upcoming  h3 {
+    color: #cf2145;
+    font-family: Georgia, serif;
+    font-weight: bold;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #4d4a4c;
+    margin-bottom: 10px;
   }
 
-  h6 {
-    text-transform: none;
-    color: #000;
-    font-size: 14px;
-    font-weight: normal;
-    line-height: 23px;
+  .upcoming p {
+    margin-bottom: 18px;
+  }
+
+  .additional-info {
+    p, h3, h4 {
+      font-size: 10px;
+    }
+
+    h3 {
+      margin-bottom: 20px;
+    }
+  }
+
+  .footer {
+    padding: 20px 0;
+    background: #e1e2e2;
+    font-size: 11px;
+    &, a {
+      color: #a1a3a5;
+    }
   }
 }

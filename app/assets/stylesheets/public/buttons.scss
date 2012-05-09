@@ -1,0 +1,30 @@
+.button {
+  display: block;
+  background: image-url('buttons.png') no-repeat;
+  background-position-y: -74px;
+  height: 37px;
+  margin-left: -5px;
+}
+
+.button:hover {
+  background-position-y: -37px;
+}
+
+.button:active {
+  background-position-y: 0;
+}
+
+.overseas.button {
+  background-position-x: 0;
+  width: 164px;
+}
+
+.residential.button {
+  background-position-x: -164px;
+  width: 175px;
+}
+
+.update.button {
+  background-position-x: -339px;
+  width: 231px;
+}

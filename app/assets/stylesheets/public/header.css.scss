@@ -1,36 +1,32 @@
 #header {
   overflow: hidden;
-  margin-bottom: 20px;
-  background: #3D59AB;
+  background: #4c4a4c;
   color: #fff;
-  padding: 10px;
+  padding: 24px 10px;
+  height: 60px;
 
   img {
     float: left;
   }
 
   h1 {
+    margin-top: 27px;
     color: #FFF;
-    margin: 20px 0 0 200px;
-    font-size: 140%;
-  }
-
-  .subtitle {
-    margin-left: 200px;
+    font-family: Georgia, serif;
+    font-size: 32pt;
+    font-weight: normal;
+    clear: right;
+    text-align: right;
   }
 }
 
 #menu {
-  text-align: right;
-  margin: 20px 40px 0 0;
+  float: right;
+  font-family: Helvetica, sans-serif;
+  font-size: 9pt;
+  margin-top: -9pt;
 
-  li {
-    display: inline-block;
-    list-style: none;
-    margin-left: 2em;
-
-    a {
-      color: #ddd;
-    }
+  a {
+    color: #fff;
   }
 }

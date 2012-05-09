@@ -1,49 +1,69 @@
 - @page_id = 'front'
 
-.row
-  .span12
-    %h2 Welcome to the Virginia Voter Registration Service
-    %p
-      We've created this service to help all Virginia voters—domestic, military, and<br/>
-      overseas—register to vote and keep their voter information up-to-date.
+#hero
+  .row
+    .span12
+      %h2 Welcome.
+      %small
+        We've created this service to help all Virginia voters—<br/>
+        domestic, military, and overseas—register to vote and<br/>
+        keep their voter information up-to-date.
 
-.row.steps
-  .span2= image_tag 'step1.png'
-  .span2= image_tag 'step2.png'
-  .span2= image_tag 'step3.png'
-  .span2= image_tag 'step4.png'
-  .span4
-    %p
-      Fill in information online and build a PDF form. Then download, review, and sign the
-      PDF form, and mail it back to your local election official.
+  .row.steps
+    .span4.info
+      .line1 5
+      .line2 simple steps
+      .line3 to register to vote
+    .span8
+      %table
+        %tr.step-numbers
+          %th 1
+          %th 2
+          %th 3
+          %th 4
+          %th 5
+        %tr.step-names
+          %td Enter information<hr>
+          %td Download<hr>
+          %td Print<hr>
+          %td Sign &amp; Date<hr>
+          %td Mail<hr>
+        %tr.step-icons
+          %td= image_tag 'icon_enterinformation.png', size: "60x60"
+          %td= image_tag 'icon_download.png', size: "60x60"
+          %td= image_tag 'icon_print.png', size: "60x60"
+          %td= image_tag 'icon_sign.png', size: "60x60"
+          %td.mail= image_tag 'icon_mail.png', size: "60x60"
 
-.row.action-block
+.row.options
   .span8
     %h3 Register to Vote
-    .row
-      .span4
-        %h4 Residential voter
-        %p
-          I am a Virginia resident and will be voting in person or as a residential
-          absentee on election day.
+  .span4
+    %h3 Update Record
 
-        = link_to "Residential voter", :register_residential, class: 'btn'
-
-      .span4
-        %h4 Overseas or military voter
-        %p
-          I am an active member of the Uniformed Services, the Merchant Marine, or are a
-          family member, that is residing outside the United States and will be voting
-          absentee on election day.
-
-        = link_to "Overseas or military voter", :register_military_or_overseas, class: 'btn'
+.row.options-details
+  .span4
+    %h4 Residential voter
+    %p
+      I am a Virginia resident and will be voting in person or as a residential
+      absentee on election day.
 
   .span4
-    %h3 View &amp; Update Voter Record
-    %h4 Update or view Voter Record
+    %h4 Overseas or military voter
     %p
-      I am already registered to vote and want to view or update my Voter Record, or
-      request an absentee ballot.
+      I am an active member of the Uniformed Services, the Merchant Marine, or are a
+      family member, that is residing outside the United States and will be voting
+      absentee on election day.
 
-    = link_to "Update voter record", :search_form, class: 'btn'
+  .span4
+    %h4 Update or view Voter Record
+    %p I am already registered to vote and want to view or update my Voter Record.
+    %h4 Request Absentee Ballot
+    %p I need to request a domestic or overseas Absentee Ballot.
+
+.row.options-links
+  .span4= link_to "", :register_residential, alt: "Register Resedential", class: "residential button"
+  .span4= link_to "", :register_military_or_overseas, alt: "Register Overseas", class: "overseas button"
+  .span4= link_to "", :search_form, alt: "Update or View Voter Record", class: "update button"
+
 

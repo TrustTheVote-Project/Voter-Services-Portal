@@ -1,28 +1,60 @@
 %footer
   .row
-    .span4
-      %h5 Upcoming election
+    .span4.upcoming
+      %h3 Upcoming Election
 
-      %h6 State primary
+      %h4 State Primary
       %p June 12, 2012
 
-      %h6 Virginia polling times
+      %h4 Virginia polling times
       %p 6:00am to 7:00pm
 
-    .span4
-      %h5 How to register
+      %h4 Registration deadline
+      %p June 5, 2012
 
-      %h6 Register online
-      %p
-        To register to vote, you must complete a voter registration application and mail
-        it to your local election official. This web- site allows you to build a
-        registration application PDF for mail- ing by providing information online.
+    .span8.additional-info
+      .row
+        .span4.howto
+          %h3 How to Register
+          %h4 Register online
+          %p To register to vote, you must complete a voter registration application and mail it to your local election official. This website allows you to build a registration application PDF for mailing by providing information online.
 
-    .span4
-      %h5 Contact
+          %p You can also download a blank mail-in voter registration application and complete it by hand.
 
-      %h6 Virginia State Board of Elections
-      %p
-        Washington Building, First Floor,<br/>
-        1100 Bank Street,<br/>
-        Richmond, VA 23219
+          %h4 Other ways to register
+          %p Voters may complete registration applications in person at a local election official office, DMV, and other Virginia government agencies. Learn more.
+
+        .span4.contact
+          %h3 Contact
+          %h4 Virginia State Board of Elections
+          %p
+            Washington Building<br/>
+            First Floor<br/>
+            1100 Bank Street<br/>
+            Richmond, VA 23219
+
+          %p
+            (800) 552-9745 Phone<br/>
+            (804) 371-0194 Fax<br/>
+            info@sbe.virginia.gov Email<br/>
+            www.sbe.virginia.gov Web
+
+  .row.footer
+    .span4 &nbsp;
+    .span5
+      = link_to 'Home', :root
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      = link_to 'About', :about_page
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      = link_to 'FAQs', :faqs_page
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      = link_to 'Help', :help_page
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      Elections
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      Security
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      Feedback
+    .span3.powered
+      Powered by Open Source<br/>
+      Digital Voting Foundation

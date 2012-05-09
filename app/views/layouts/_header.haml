@@ -1,9 +1,12 @@
 #header
-  = image_tag 'logo.png'
-  %h1 Virginia State Board of Elections
-  .subtitle Assisting Voters with Registration and Voting
+  #menu
+    = link_to 'Home', :root
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    = link_to 'About', :about_page
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    = link_to 'FAQs', :faqs_page
+    &nbsp;&nbsp;|&nbsp;&nbsp;
+    = link_to 'Help', :help_page
+  = image_tag 'VA_logo.png', size: '90x60'
+  %h1 Virginia Voter Registration
 
-  %ul#menu
-    %li= link_to 'Home', :root
-    %li= link_to 'About', :about_page
-    %li= link_to 'Help', :help_page

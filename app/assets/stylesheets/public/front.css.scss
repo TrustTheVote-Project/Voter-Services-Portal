@@ -1,23 +1,79 @@
-#front {
+#hero {
+  background: #c0c0b7;
+  color: #4c4a4c;
+
+  h2 {
+    color: #4c4a4c;
+    font-size: 23pt;
+    padding: 0;
+    margin-top: 36pt;
+  }
+
+  small {
+    font-size: 22pt;
+  }
+
   .steps {
-    padding: 10px 0;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    background: #f4f4f4;
-  }
+    margin-top: 10pt;
 
-  h3 {
-    font-size: 20px;
-    border-top: 2px solid #000;
-    border-bottom: 1px dotted #000;
-    padding: 10px 0;
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-
-  .action-block {
-    p {
-      height: 120px;
+    .line1, .step-numbers {
+      color: #fff;
+      font-size: 18pt;
     }
+
+    .line2, .line3 {
+      font-size: 13pt;
+      font-weight: bold;
+    }
+
+    .line2 {
+      color: #fff;
+    }
+
+    .step-numbers {
+      text-align: left;
+    }
+
+    .step-names hr {
+      width: 110px;
+      border-bottom: 0;
+      margin: 5px 0 0;
+    }
+
+    td { width: 120px; }
+
+    .step-icons {
+      td {
+        padding: 40px 0;
+        background: image-url('icon_rightarrow.png') right 40px no-repeat;
+      }
+
+      .mail {
+        background: none;
+      }
+    }
+  }
+}
+
+#front {
+  .options {
+    margin-top: 20px;
+    padding-top: 5px;
+
+    h3 {
+      color: #cf2145;
+      padding-bottom: 5px;
+      font-family: Georgia, serif;
+      border-bottom: 1px solid #4d4a4c;
+      margin-bottom: 10px;
+    }
+  }
+
+  .options-details {
+    margin-bottom: 25px;
+  }
+
+  .options-links {
+    margin-bottom: 100px;
   }
 }
