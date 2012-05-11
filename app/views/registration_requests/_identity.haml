@@ -1,4 +1,4 @@
-#identity.section
+#identity.section{ 'data-bind' => 'visible: page() == "identity"' }
   .head
     %h3 Identity
     .description Identify who you are
@@ -6,12 +6,12 @@
   .row.personal-info
     .span3
       %span
-        First name 
+        First name
         %label
           (optional)
       = f.text_field :first_name
     .span3
-      %span 
+      %span
         Full middle
         %label
           (optional)
@@ -20,8 +20,8 @@
       %span Last name
       = f.text_field :last_name
     .span2
-      %span 
-        Suffix 
+      %span
+        Suffix
         %label
           (optional)
       = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }
@@ -43,26 +43,26 @@
       = f.text_field :ssn
       .checkbox
         = f.check_box :no_ssn
-        %label 
+        %label
           I do not have a Social Security Number.
           %br/
           To register without a Social Security Number you will have to contact your
           %br/
-          county’s local 
-          %a{ :href => "#" }Voter Registration office. 
-          Find out more 
+          county’s local
+          %a{ :href => "#" }Voter Registration office.
+          Find out more
           %a{ :href => "#" }here.
 
   .row
     .span3.phone-field
       %span
-        Phone 
+        Phone
         %label
           (optional)
       = f.text_field :phone, placeholder: '(NNN) NNN-NNNN'
     .span3.email-field
       %span
-        Email 
+        Email
         %label
           (optional)
       %span= f.text_field :email, placeholder: 'john@smith.com'
@@ -85,5 +85,5 @@
   -#%p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
 
   .form-actions
-    = button_tag '&larr; Back'.html_safe, class: 'back btn'
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn'
+    = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'

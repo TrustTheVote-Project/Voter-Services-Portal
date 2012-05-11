@@ -11,7 +11,6 @@
 .row
   .span12
     = form_for @registration_request, url: :registration_request do |f|
-
       = render partial: 'eligibility', locals: { f: f }
       = render partial: 'identity', locals: { f: f }
       = render partial: 'addresses', locals: { f: f }

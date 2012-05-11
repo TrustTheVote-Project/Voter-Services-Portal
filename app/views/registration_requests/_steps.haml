@@ -1,28 +1,15 @@
 .row#steps
-  .span2.current
+  %div{ 'data-bind' => "attr: { class: stepClass(currentPageIdx(), 0) }" }
     %h2 Eligibility
 
-  .span2
+  %div{ 'data-bind' => "attr: { class: stepClass(currentPageIdx(), 1) }" }
     %h2 Identity
 
-  .span2
+  %div{ 'data-bind' => "attr: { class: stepClass(currentPageIdx(), 2) }" }
     %h2 Addresses
-    %ul
-      %li Registration
-      %li Mailing
-      %li Previous
 
-  .span2
+  %div{ 'data-bind' => "attr: { class: stepClass(currentPageIdx(), 3) }" }
     %h2 Options
-    %ul
-      %li Confidentiality
-      %li Vote absentee
-      %li Volunteer
 
-  .span4.last
+  %div{ 'data-bind' => "attr: { class: stepClass(currentPageIdx(), [ 4, 5, 6 ], 'span2 last') }" }
     %h2 Complete &amp; Mail
-    %ul
-      %li Download
-      %li Print
-      %li Sign
-      %li Mail
