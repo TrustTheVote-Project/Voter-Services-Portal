@@ -10,12 +10,6 @@
     height: 31px;
   }
 
-  ul {
-    list-style: none;
-    font-size: 13px;
-    display: none;
-  }
-
   .current {
     background: image-url('current-step.jpg') no-repeat right top #3d75b9;
     h2 {
@@ -25,7 +19,7 @@
     &.last {
       background-image: none;
     }
-  }  
+  }
 
   .done {
     background: #d8e3f1;

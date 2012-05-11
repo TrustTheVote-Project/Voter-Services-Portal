@@ -1,4 +1,4 @@
-#congratulations.section
+#congratulations.section{ 'data-bind' => 'visible: page() == "congratulations"' }
   .head
     %h3 Congratulations! You're almost registered.
     .description Don't forget, to officially register to vote in Virginia you will need to complete these steps:
@@ -9,7 +9,7 @@
           %li Download
           %li Print
           %li Sign
-          %li Mail          
+          %li Mail
         %p
           %strong
             Mail your Virginia Voter Registration Application and proof of identity to your local
@@ -19,8 +19,8 @@
           Accomack County
           %br/
           PO Box 97
-          %br/        
-          Accomac, VA 23301-0097    
+          %br/
+          Accomac, VA 23301-0097
   .partition
     .row
       .span10
@@ -28,11 +28,11 @@
           Within 30 days of mailing your Virginia Voter Registration Application, you should receive a
           %br/
           voter card by mail that will confirm you are registered to vote. If you do not receive a voter card
-          %br/        
-          within in that time, please contact the 
+          %br/
+          within in that time, please contact the
           %a{ :href => "#" }
-            %strong Virginia State Board or Elections.  
-        %p Thank you!    
+            %strong Virginia State Board or Elections.
+        %p Thank you!
 
   .form-actions
-    = button_tag '&larr; Back'.html_safe, class: 'back btn'   
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'

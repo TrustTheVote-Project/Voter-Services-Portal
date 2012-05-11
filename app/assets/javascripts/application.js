@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require bootstrap-tooltip
 //= require bootstrap-popover
-//= require forms
-//= require feedback
+//= require knockout-2.1.0
+// require forms
+// require feedback
 //= require_tree ./public

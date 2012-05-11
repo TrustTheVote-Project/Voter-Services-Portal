@@ -1,4 +1,4 @@
-#eligibility.section
+#eligibility.section{ 'data-bind' => 'visible: page() == "eligibility"' }
   .head
     %h3 Eligibility
     .description Eligibility to vote in Virginia.
@@ -64,4 +64,4 @@
           = f.date_select :rights_restored_on, { order: [ :day, :month, :year ] }
 
   .form-actions
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'

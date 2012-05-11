@@ -1,4 +1,4 @@
-#address.section
+#address.section{ 'data-bind' => 'visible: page() == "address"' }
   .head
     %h3 Registration address
     .description Registration address is your Home address in Virginia or your most recent Virginia residence.
@@ -17,14 +17,14 @@
       = f.text_field :first_name
     .span2.street-type-field
       %span
-        Street type  
-      = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }            
+        Street type
+      = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }
     .span2.lot-field
       %span
-        Apt/Lot 
+        Apt/Lot
         %label
-          (optional)  
-      = f.text_field :first_name    
+          (optional)
+      = f.text_field :first_name
   .row
     .span3
       %span
@@ -33,22 +33,22 @@
     .span2.state-field
       %span
         State
-      = f.text_field :first_name                   
+      = f.text_field :first_name
     .span3.zip-field
       %span
         Zip code
-      %input{ :type => "text", :value => "", :class => "first-zip" }/ 
+      %input{ :type => "text", :value => "", :class => "first-zip" }/
       .space
         &mdash;
-      %input{ :type => "text", :value => "", :class => "second-zip" }/    
+      %input{ :type => "text", :value => "", :class => "second-zip" }/
   .row
     .span3
       %span
-        County or city    
-      = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span2' }          
+        County or city
+      = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span2' }
   .row
     .span12
       .checkbox
         = f.check_box :no_ssn
         Rural address or homeless? Please check the box and describe where you reside.
-      %textarea{ :cols => "10", :rows => "10" }      
+      %textarea{ :cols => "10", :rows => "10" }

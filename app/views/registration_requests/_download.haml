@@ -1,4 +1,4 @@
-#download.section
+#download.section{ 'data-bind' => 'visible: page() == "download"' }
   .head
     %h3 Download
     .description Download and view your Virginia Voter Registration Application.
@@ -6,16 +6,16 @@
     .span10
       %a.download-link{ :href => "#" }
       %p
-        We have created your Virginia Voter Registration Application using the information you provided. Click the PDF icon below to download. The irginia Voter Registration Application PDF will open in your default PDF viewing application, or in your web browser. 
+        We have created your Virginia Voter Registration Application using the information you provided. Click the PDF icon below to download. The irginia Voter Registration Application PDF will open in your default PDF viewing application, or in your web browser.
         %a{ :href => "#" }
-          %strong Adobe Acrobat Reader 
-        is required to view PDF files.  
+          %strong Adobe Acrobat Reader
+        is required to view PDF files.
       %p Check the PDF for accuracy.
-      %p 
-        If the PDF has any incorrect information, return to the 
+      %p
+        If the PDF has any incorrect information, return to the
         %a{ :href => "#" }
-          %strong Home 
-        page and re-enter your information.  
+          %strong Home
+        page and re-enter your information.
 
   .head
     %h3 Print
@@ -25,7 +25,7 @@
       %p
         Print your Virginia Voter Registration Application by selecting the PRINT button in the PDF.
         %br/
-        You can also select File/Print in your default PDF viewing application.  
+        You can also select File/Print in your default PDF viewing application.
 
   .head
     %h3 Sign
@@ -35,7 +35,7 @@
       %p
         Don't forget to sign and date your Virginia Voter Registration Application. It will not be
         %br/
-        approved if you do not.  
+        approved if you do not.
 
   .head
     %h3 Mail
@@ -43,24 +43,24 @@
   .row
     .span10
       %p
-        Mail your Virginia Voter Registration Application and 
+        Mail your Virginia Voter Registration Application and
         %a{ :href => "#" }
-          %strong proof of identity 
+          %strong proof of identity
         to your local
         %br/
-        Voter Registration Office.  
+        Voter Registration Office.
       %p
         %strong
           Accomack County
           %br/
           PO Box 97
-          %br/          
-          Accomac, VA 23301-0097  
+          %br/
+          Accomac, VA 23301-0097
       %p
         Your return envelope must be postmarked at least 22 days before the next Primary or
         %br/
-        General Election in which you plan to vote.    
+        General Election in which you plan to vote.
 
   .form-actions
-    = button_tag '&larr; Back'.html_safe, class: 'back btn'
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn'    
+    = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'
