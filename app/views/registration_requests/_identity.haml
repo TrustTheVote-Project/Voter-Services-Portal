@@ -1,19 +1,29 @@
 #identity.section
-  %h3 Identity
-  .description Identify who you are
+  .head
+    %h3 Identity
+    .description Identify who you are
 
-  .row
+  .row.personal-info
     .span3
-      %label First name (optional)
+      %span
+        First name 
+        %label
+          (optional)
       = f.text_field :first_name
     .span3
-      %label Full middle or maiden (optional)
+      %span 
+        Full middle
+        %label
+          (optional)
       = f.text_field :middle_name
     .span3
-      %label Last name
+      %span Last name
       = f.text_field :last_name
-    .span3
-      %label Suffix (optional)
+    .span2
+      %span 
+        Suffix 
+        %label
+          (optional)
       = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }
 
   .row
@@ -28,20 +38,34 @@
         = f.select :gender, [ 'Male', 'Femaly' ], { include_blank: true }, { class: 'span2' }
 
   .row
-    .span12
+    .span12.security-number
       %label Social Security Number
       = f.text_field :ssn
       .checkbox
         = f.check_box :no_ssn
-        %label I don't have a Social Security Number
+        %label 
+          I do not have a Social Security Number.
+          %br/
+          To register without a Social Security Number you will have to contact your
+          %br/
+          county’s local 
+          %a{ :href => "#" }Voter Registration office. 
+          Find out more 
+          %a{ :href => "#" }here.
 
   .row
-    .span3
-      %label Phone (optional)
+    .span3.phone-field
+      %span
+        Phone 
+        %label
+          (optional)
       = f.text_field :phone, placeholder: '(NNN) NNN-NNNN'
-    .span9
-      %label Email (optional)
-      = f.text_field :email, placeholder: 'john@smith.com'
+    .span3.email-field
+      %span
+        Email 
+        %label
+          (optional)
+      %span= f.text_field :email, placeholder: 'john@smith.com'
 
   -#%fieldset
     -#- if collecting? :registration_request, :title

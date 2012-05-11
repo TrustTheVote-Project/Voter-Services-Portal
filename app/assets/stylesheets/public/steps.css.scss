@@ -1,19 +1,44 @@
 #steps {
-  padding-bottom: 16px;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 32px;
+  background: #ebebeb;
+  margin: 35px 90px 28px;
 
   h2 {
-    font-size: 20px;
+    font-size: 17px;
     font-weight: normal;
+    color: #a6a4a5;
+    line-height: 31px;
+    height: 31px;
   }
 
   ul {
     list-style: none;
     font-size: 13px;
+    display: none;
   }
 
-  .current h2 {
-    font-weight: bold;
+  .current {
+    background: image-url('current-step.jpg') no-repeat right top #3d75b9;
+    h2 {
+      font-weight: bold;
+      color: #fff;
+    }
+    &.last {
+      background-image: none;
+    }
+  }  
+
+  .done {
+    background: #d8e3f1;
+    h2 {
+      color: #8aacd5;
+      font-weight: bold;
+    }
+  }
+
+  .span2,
+  .span4 {
+    margin: 0;
+    text-align: center;
+    width: 156px;
   }
 }

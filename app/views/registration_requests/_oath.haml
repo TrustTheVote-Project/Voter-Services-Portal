@@ -1,0 +1,30 @@
+#oath.section
+  .head
+    %h3 Oath
+    .description Read the Registration Statement and Privacy Act.
+  .partition
+    .row
+      .span10
+        .checkbox
+          = f.check_box :no_ssn
+          %strong Registration Statement
+          %br/
+          I swear/affirm, under felony penalty for making willfully false material statements or entries, that the information provided on this form is true.    
+  .partition
+    .row
+      .span10
+        %span 
+          %strong Privacy Act Notice
+    .row
+      .span10
+        .notice
+          Privacy Act Notice: Article II, Section 2 of the Constitution of Virginia (1971) requires that a person registering to vote provide his or her social security number, if any. Therefore, if you do not provide your social security number, your application for voter registration will be denied. Section 7 of the Federal Privacy Act (Public Law Number 93-579) allows the Commonwealth to...      
+    .row
+      .span10
+        .checkbox
+          = f.check_box :no_ssn
+          %strong I have read and agree with the terms of the Privacy Act Notice.        
+
+  .form-actions
+    = button_tag '&larr; Back'.html_safe, class: 'back btn'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn'       

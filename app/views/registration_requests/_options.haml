@@ -1,0 +1,149 @@
+#options.section
+  .head
+    %h3
+      Options
+    .description Select only applicable options.
+  .partition
+    .row  
+      .span12
+        .checkbox
+          = f.check_box :no_ssn
+          %strong
+            I qualify for address confidentiality.
+    .row
+      .span12
+        %span I qualify for Address confidentiality because
+        = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span6' }
+  .partition
+    .row  
+      .span12
+        .checkbox
+          = f.check_box :no_ssn
+          %strong
+            I am not able to go to the polls on election day and would like an Absentee Ballot Application.
+        %p To apply to vote absentee, you must identify the election for which you are applying.  
+        %h4 
+          %strong I am applying to vote absentee for
+        .radio
+          = f.radio_button :rights_revoked, 'no'
+          %label Presidential Primary Election held on Tuesday, March 6, 2012.
+        .radio
+          = f.radio_button :rights_revoked, 'yes'
+          %label State Primary Election held on Tuesday, June 12, 2012.          
+        .radio
+          = f.radio_button :rights_revoked, 'no'
+          %label General Election held on Tuesday, November 6, 2012.
+        .radio
+          = f.radio_button :rights_revoked, 'yes'
+          %label Other
+    .row 
+      .span6.election-name-field
+        %span Election name
+        = f.text_field :first_name 
+      .span3
+        %span Held on              
+        = f.text_field :first_name 
+  .partition
+    .row                                    
+      .span12
+        %p 
+          Select only one reason to vote absentee from the list below and include any 
+          %br/
+          required information to support the reason.        
+    .row
+      .span12
+        %span I am unable to go to the polls on election day because      
+        = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span6' }
+    .row
+      .span12
+        Please complete the following information about your school
+    .row
+      .span3
+        %span School name        
+        = f.text_field :first_name 
+    .row
+      .span3
+        %span
+          Street number
+          %label
+            (optional)
+        = f.text_field :first_name
+      .span3
+        %span
+          Street name
+          %label
+            (optional)
+        = f.text_field :first_name
+      .span2.street-type-field
+        %span
+          Street type  
+        = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }            
+      .span2.lot-field
+        %span
+          Apt/Lot 
+          %label
+            (optional)  
+        = f.text_field :first_name     
+    .row
+      .span3
+        %span
+          City
+        = f.text_field :first_name
+      .span3
+        %span
+          Province or Sate
+        = f.text_field :first_name
+      .span3.postal-code-field
+        %span
+          Postal code
+        %input{ :type => "text", :value => "", :class => "first-zip" }/ 
+        .space
+          &mdash;
+        %input{ :type => "text", :value => "", :class => "second-zip" }/     
+      .span2.country-field
+        %span
+          Country 
+        = f.text_field :first_name   
+  .partition   
+    .row  
+      .span12
+        %h4 
+          %strong If approved, please send my Absentee Ballot to
+        .radio
+          = f.radio_button :rights_revoked, 'no'
+          %label My Registration address.
+        .radio
+          = f.radio_button :rights_revoked, 'yes'
+          %label My Mailing address (if different from Registration address).      
+        .radio
+          = f.radio_button :rights_revoked, 'no'
+          %label The following address:    
+    .row
+      .span3
+        %span3.address-field
+          %span Address
+          %input{ :type => "text", :value => "", :class => "" }/    
+          %input{ :type => "text", :value => "", :class => "" }/  
+    .row
+      .span3
+        %span
+          City
+        = f.text_field :first_name
+      .span3
+        %span
+          Province or Sate
+        = f.text_field :first_name
+      .span3.postal-code-field
+        %span
+          Postal code
+        %input{ :type => "text", :value => "", :class => "first-zip" }/ 
+        .space
+          &mdash;
+        %input{ :type => "text", :value => "", :class => "second-zip" }/     
+      .span2.country-field
+        %span
+          Country 
+        = f.text_field :first_name     
+  .form-actions
+    = button_tag '&larr; Back'.html_safe, class: 'back btn'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn'

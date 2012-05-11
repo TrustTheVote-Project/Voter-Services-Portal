@@ -1,0 +1,97 @@
+#mailing.section
+  .head
+    %h3
+      Mailing address
+  .partition
+    %h4 Is your Mailing address the same as your Registration address?    
+    .radio
+      = f.radio_button :rights_revoked, 'no'
+      %label No
+    .radio
+      = f.radio_button :rights_revoked, 'yes'
+      %label Yes  
+    .row
+      .span3
+        %span3.address-field
+          %span Address
+          %input{ :type => "text", :value => "", :class => "" }/    
+          %input{ :type => "text", :value => "", :class => "" }/    
+    .row
+      .span3
+        %span
+          City
+        = f.text_field :first_name
+      .span2.state-field
+        %span
+          State
+        = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }             
+      .span3.zip-field
+        %span
+          Zip code
+        %input{ :type => "text", :value => "", :class => "first-zip" }/ 
+        .space
+          &mdash;
+        %input{ :type => "text", :value => "", :class => "second-zip" }/   
+  .partition
+    %h4 Are you currently registered to vote at another address in Virginia or in another state?
+    .radio
+      = f.radio_button :rights_revoked, 'no'
+      %label No
+    .radio
+      = f.radio_button :rights_revoked, 'yes'
+      %label Yes    
+    .row
+      .span3
+        %span
+          Street number
+          %label
+            (optional)
+        = f.text_field :first_name
+      .span3
+        %span
+          Street name
+          %label
+            (optional)
+        = f.text_field :first_name
+      .span2.street-type-field
+        %span
+          Street type  
+        = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }            
+      .span2.lot-field
+        %span
+          Apt/Lot 
+          %label
+            (optional)  
+        = f.text_field :first_name 
+    .row
+      .span3
+        %span
+          City
+        = f.text_field :first_name
+      .span2.state-field
+        %span
+          State
+        = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }             
+      .span3.zip-field
+        %span
+          Zip code
+        %input{ :type => "text", :value => "", :class => "first-zip" }/ 
+        .space
+          &mdash;
+        %input{ :type => "text", :value => "", :class => "second-zip" }/   
+    .row
+      .span12
+        .checkbox
+          = f.check_box :no_ssn
+          Rural address or homeless? Please check the box and describe where you reside.
+        %textarea{ :cols => "10", :rows => "10" }    
+  .partition      
+    .row   
+      .span12
+        .checkbox
+          = f.check_box :no_ssn
+          %strong
+            I authorize cancellation of my existing registration.     
+  .form-actions
+    = button_tag '&larr; Back'.html_safe, class: 'back btn'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn'             

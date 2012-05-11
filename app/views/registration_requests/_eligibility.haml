@@ -1,23 +1,24 @@
 #eligibility.section
-  %h3 Eligibility
-  .description Eligibility to vote in Virginia.
+  .head
+    %h3 Eligibility
+    .description Eligibility to vote in Virginia.
   %p
     To be eligible to vote, you must meet the requirements for citizenship, age,
     qualification, and residence. To proceed with registering to vote, you must indicate
     whether you meet each of these requirements. If you are already registered with your
     current name and address, you do not need to re-register.
 
-  %section
+  .partition
     .checkbox
       = f.check_box :citizen
       %label I am a citizen of the United States of America.
 
-  %section
+  .partition
     .checkbox
       = f.check_box :old_enough
       %label I will be at least 18 years of age on or before the next Election Day.
 
-  %section
+  .partition
     .radio
       = f.radio_button :residence, 'in'
       %label I am currently a resident of Virginia
@@ -25,7 +26,7 @@
       = f.radio_button :residence, 'outside'
       %label I live outside of the U.S., but the most recent U.S. residence was in Virginia
 
-  %section
+  .partition
     %h4 Have your voting rights been revoked in the past?
     .radio
       = f.radio_button :rights_revoked, 'no'
