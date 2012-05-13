@@ -33,4 +33,4 @@ class NewRegistration
   prevPage: => @currentPageIdx(@currentPageIdx() - 1)
   nextPage: => @currentPageIdx((@currentPageIdx() + 1) % @pages.length)
 
-ko.applyBindings(new NewRegistration(3))
+ko.applyBindings(new NewRegistration(0))
