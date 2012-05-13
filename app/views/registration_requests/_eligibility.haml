@@ -29,36 +29,36 @@
   .partition
     %h4 Have your voting rights been revoked in the past?
     .radio
-      = f.radio_button :rights_revoked, 'no'
+      = f.radio_button :rights_revoked, 'no', 'data-bind' => 'checked: rightsWereRevoked'
       %label No
     .radio
-      = f.radio_button :rights_revoked, 'yes'
+      = f.radio_button :rights_revoked, 'yes', 'data-bind' => 'checked: rightsWereRevoked'
       %label Yes
 
-    %section.hidden.revoked
+    .block.revoked{ 'data-bind' => "visible: rightsWereRevoked() == 'yes'" }
       %h4 Why were your voting rights revoked?
       .radio
-        = f.radio_button :rights_revoked_reason, 'felony'
+        = f.radio_button :rights_revoked_reason, 'felony', 'data-bind' => 'checked: rightsRevokationReason'
         %label Due to Felony
       .radio
-        = f.radio_button :rights_revoked_reason, 'mental'
+        = f.radio_button :rights_revoked_reason, 'mental', 'data-bind' => 'checked: rightsRevokationReason'
         %label Due to mental incapacity
 
-    %section.hidden.felony
-      %h4 What state were you convicted in?
-      .select
-        = f.select :felony_state, state_options_for_select(@registration_request.felony_state).html_safe
+      .block.felony{ 'data-bind' => "visible: rightsRevokationReason() == 'felony'" }
+        %h4 What state were you convicted in?
+        .select
+          = f.select :felony_state, state_options_for_select(@registration_request.felony_state).html_safe
 
-      %section
+      .block
         %h4 Were your voting rights restored?
         .radio
-          = f.radio_button :rights_restored, 'yes'
+          = f.radio_button :rights_restored, 'yes', 'data-bind' => 'checked: rightsWereRestored'
           %label Yes
         .radio
-          = f.radio_button :rights_restored, 'no'
+          = f.radio_button :rights_restored, 'no', 'data-bind' => 'checked: rightsWereRestored'
           %label No
 
-      %section.hidden.restored
+      .block.restored{ 'data-bind' => "visible: rightsWereRestored() == 'yes'" }
         %h4 My voting rights were restored on:
         .date
           = f.date_select :rights_restored_on, { order: [ :day, :month, :year ] }

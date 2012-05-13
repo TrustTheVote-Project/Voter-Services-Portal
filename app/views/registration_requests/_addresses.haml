@@ -8,47 +8,49 @@
         Street number
         %label
           (optional)
-      = f.text_field :first_name
+      = f.text_field :vvr_street_name
     .span3
       %span
         Street name
         %label
           (optional)
-      = f.text_field :first_name
+      = f.text_field :vvr_street_number
     .span2.street-type-field
       %span
         Street type
-      = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }
+      = f.select :vvr_street_type, [ 'St.', 'Ave.', 'Ln.', 'Pd.' ], { include_blank: true }, { class: 'span1' }
     .span2.lot-field
       %span
         Apt/Lot
         %label
           (optional)
-      = f.text_field :first_name
+      = f.text_field :vvr_apt
   .row
     .span3
       %span
         City
-      = f.text_field :first_name
+      = f.text_field :vvr_town_or_city
     .span2.state-field
       %span
         State
-      = f.text_field :first_name
+      = f.text_field :vvr_state
     .span3.zip-field
       %span
         Zip code
-      %input{ :type => "text", :value => "", :class => "first-zip" }/
+      = f.text_field :vvr_zip5, class: 'first-zip'
       .space
         &mdash;
-      %input{ :type => "text", :value => "", :class => "second-zip" }/
+      = f.text_field :vvr_zip4, class: 'second-zip'
   .row
     .span3
       %span
         County or city
-      = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span2' }
+      = f.select :vvr_county_or_city, Dictionaries::CITIES_AND_COUNTIES, { include_blank: true }, { class: 'span3' }
   .row
     .span12
       .checkbox
-        = f.check_box :no_ssn
+        = f.check_box :vvr_is_rural, { 'data-bind' => 'checked: vvrIsRural' }
         Rural address or homeless? Please check the box and describe where you reside.
+      <!-- ko if: vvrIsRural -->
       %textarea{ :cols => "10", :rows => "10" }
+      <!-- /ko -->

@@ -7,42 +7,54 @@
     .row
       .span12
         .checkbox
-          = f.check_box :no_ssn
+          = f.check_box :is_confidential_address, { 'data-bind' => 'checked: isConfidentialAddress' }
           %strong
             I qualify for address confidentiality.
+    <!-- ko if: isConfidentialAddress -->
     .row
       .span12
         %span I qualify for Address confidentiality because
-        = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span6' }
+        = f.select :ca_type, [ 'Option 1', 'Option 2' ], { include_blank: false }, { class: 'span6' }
+    <!-- /ko -->
   .partition
     .row
       .span12
         .checkbox
-          = f.check_box :no_ssn
+          = f.check_box :requesting_absentee, { 'data-bind' => 'checked: requestingAbsentee' }
           %strong
             I am not able to go to the polls on election day and would like an Absentee Ballot Application.
+        <!-- ko if: requestingAbsentee -->
         %p To apply to vote absentee, you must identify the election for which you are applying.
+        <!-- /ko -->
+    <!-- ko if: requestingAbsentee -->
+    .row
+      .span12
         %h4
           %strong I am applying to vote absentee for
         .radio
-          = f.radio_button :rights_revoked, 'no'
+          = f.radio_button :rab_election, '1', { 'data-bind' => 'checked: rabElection' }
           %label Presidential Primary Election held on Tuesday, March 6, 2012.
         .radio
-          = f.radio_button :rights_revoked, 'yes'
+          = f.radio_button :rab_election, '2', { 'data-bind' => 'checked: rabElection' }
           %label State Primary Election held on Tuesday, June 12, 2012.
         .radio
-          = f.radio_button :rights_revoked, 'no'
+          = f.radio_button :rab_election, '3', { 'data-bind' => 'checked: rabElection' }
           %label General Election held on Tuesday, November 6, 2012.
         .radio
-          = f.radio_button :rights_revoked, 'yes'
+          = f.radio_button :rab_election, 'other', { 'data-bind' => 'checked: rabElection' }
           %label Other
+    <!-- ko if: rabElection() == 'other' -->
     .row
       .span6.election-name-field
         %span Election name
-        = f.text_field :first_name
+        = f.text_field :rab_election_name
       .span3
         %span Held on
-        = f.text_field :first_name
+        = f.text_field :rab_election_date
+    <!-- /ko -->
+    <!-- /ko -->
+
+  <!-- ko if: requestingAbsentee -->
   .partition
     .row
       .span12
@@ -53,97 +65,96 @@
     .row
       .span12
         %span I am unable to go to the polls on election day because
-        = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span6' }
+        = f.select :ab_reason, [ 'Reason 1', 'Reason 2' ], { class: 'span6' }
     .row
       .span12
         Please complete the following information about your school
     .row
       .span3
         %span School name
-        = f.text_field :first_name
+        = f.text_field :ab_school_name
     .row
       .span3
         %span
           Street number
-          %label
-            (optional)
-        = f.text_field :first_name
+          %label (optional)
+        = f.text_field :ab_street_number
       .span3
         %span
           Street name
-          %label
-            (optional)
-        = f.text_field :first_name
+          %label (optional)
+        = f.text_field :ab_street_name
       .span2.street-type-field
-        %span
-          Street type
-        = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }
+        %span Street type
+        = f.select :ab_street_type, [ ], { include_blank: true }, { class: 'span1' }
       .span2.lot-field
         %span
           Apt/Lot
-          %label
-            (optional)
-        = f.text_field :first_name
+          %label (optional)
+        = f.text_field :ab_apt
     .row
       .span3
-        %span
-          City
-        = f.text_field :first_name
+        %span City
+        = f.text_field :ab_city
       .span3
         %span
-          Province or Sate
-        = f.text_field :first_name
+          Province or State
+        = f.text_field :ab_state
       .span3.postal-code-field
-        %span
-          Postal code
-        %input{ :type => "text", :value => "", :class => "first-zip" }/
-        .space
-          &mdash;
-        %input{ :type => "text", :value => "", :class => "second-zip" }/
+        %span Postal code
+        = f.text_field :ab_zip5, class: 'first-zip'
+        .space &mdash;
+        = f.text_field :ab_zip4, class: 'second-zip'
       .span2.country-field
-        %span
-          Country
-        = f.text_field :first_name
+        %span Country
+        = f.text_field :ab_country
   .partition
     .row
       .span12
         %h4
           %strong If approved, please send my Absentee Ballot to
         .radio
-          = f.radio_button :rights_revoked, 'no'
+          = f.radio_button :ab_send_to, 'ra', { 'data-bind' => 'checked: abSendTo' }
           %label My Registration address.
         .radio
-          = f.radio_button :rights_revoked, 'yes'
+          = f.radio_button :ab_send_to, 'ma', { 'data-bind' => 'checked: abSendTo' }
           %label My Mailing address (if different from Registration address).
         .radio
-          = f.radio_button :rights_revoked, 'no'
+          = f.radio_button :ab_send_to, 'other', { 'data-bind' => 'checked: abSendTo' }
           %label The following address:
+    <!-- ko if: abSendTo() == 'other' -->
     .row
       .span3
         %span3.address-field
           %span Address
-          %input{ :type => "text", :value => "", :class => "" }/
-          %input{ :type => "text", :value => "", :class => "" }/
+          = f.text_field :aba_address
+          = f.text_field :aba_address_2
     .row
       .span3
-        %span
-          City
-        = f.text_field :first_name
+        %span City
+        = f.text_field :aba_city
       .span3
-        %span
-          Province or Sate
-        = f.text_field :first_name
+        %span Province or Sate
+        = f.text_field :aba_state
       .span3.postal-code-field
-        %span
-          Postal code
-        %input{ :type => "text", :value => "", :class => "first-zip" }/
-        .space
-          &mdash;
-        %input{ :type => "text", :value => "", :class => "second-zip" }/
+        %span Postal code
+        = f.text_field :aba_zip5, class: 'first-zip'
+        .space &mdash;
+        = f.text_field :aba_zip4, class: 'second-zip'
       .span2.country-field
-        %span
-          Country
-        = f.text_field :first_name
+        %span Country
+        = f.text_field :aba_country
+    <!-- /ko -->
+  <!-- /ko -->
+
+  .partition
+    .row
+      .span12
+        .checkbox
+          = f.check_box :be_official
+          %strong
+            I'm interested in being an Election Official on Election Day. Please send me information.
+
   .form-actions
     = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'

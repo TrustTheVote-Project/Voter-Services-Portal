@@ -52,6 +52,10 @@
     border-bottom: none;
     padding-bottom: 0;
   }
+
+  .block {
+    margin-top: 15px;
+  }
 }
 
 select {
@@ -109,13 +113,13 @@ select {
     .second-zip {
       width: 45px;
       float: left;
-    } 
+    }
 
     .space {
       float: left;
       padding: 0 5px;
     }
-  }   
+  }
 
   .lot-field {
     input {
@@ -130,7 +134,7 @@ select {
     input {
       width: 60px;
     }
-  }  
+  }
 
   .lot-field {
     margin-left: 0;
@@ -141,7 +145,7 @@ select {
     width: 82px;
     margin-left: 0;
     padding-left: 10px;
-  }  
+  }
 
   .election-name-field {
     input {
@@ -153,7 +157,7 @@ select {
     input {
       width: 450px;
     }
-  }  
+  }
 }
 
 .new_registration_request {
@@ -180,7 +184,7 @@ select {
 }
 
 .form-actions {
-  overflow: hidden; 
+  overflow: hidden;
 
   .back {
     float: left;
@@ -193,7 +197,7 @@ select {
 
   .back:active {
       background: image-url('buttons.png') no-repeat 100% 0;
-  }  
+  }
 
   .next {
     float: right;
@@ -201,16 +205,16 @@ select {
   }
 
   .next:hover {
-    background: image-url('buttons.png') no-repeat -570px -37px;  
+    background: image-url('buttons.png') no-repeat -570px -37px;
   }
 
   .next:active {
-    background: image-url('buttons.png') no-repeat -570px 0;  
-  }  
+    background: image-url('buttons.png') no-repeat -570px 0;
+  }
 }
 
 .personal-info {
-  
+
   .span2 {
     width: 120px;
   }
@@ -237,7 +241,7 @@ select {
       width: 140px;
     }
   }
-}  
+}
 
 .notice {
   border: 1px solid #d2d1d2;

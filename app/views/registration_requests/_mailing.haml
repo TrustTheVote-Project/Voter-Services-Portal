@@ -5,91 +5,97 @@
   .partition
     %h4 Is your Mailing address the same as your Registration address?
     .radio
-      = f.radio_button :rights_revoked, 'no'
+      = f.radio_button :ma_is_same, 'no', { 'data-bind' => 'checked: maIsSame' }
       %label No
     .radio
-      = f.radio_button :rights_revoked, 'yes'
+      = f.radio_button :ma_is_same, 'yes', { 'data-bind' => 'checked: maIsSame' }
       %label Yes
+    <!-- ko if: maIsSame() == 'no' -->
     .row
       .span3
         %span3.address-field
           %span Address
-          %input{ :type => "text", :value => "", :class => "" }/
-          %input{ :type => "text", :value => "", :class => "" }/
+          %input{ type: "text", name: 'ma_address' }/
+          %input{ type: "text", name: 'ma_address_2' }/
     .row
       .span3
         %span
           City
-        = f.text_field :first_name
+        = f.text_field :ma_city
       .span2.state-field
         %span
           State
-        = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }
+        = f.select :ma_state, [ 'VA' ], { include_blank: true }, { class: 'span1' }
       .span3.zip-field
         %span
           Zip code
-        %input{ :type => "text", :value => "", :class => "first-zip" }/
+        = f.text_field :ma_zip5, class: 'first-zip'
         .space
           &mdash;
-        %input{ :type => "text", :value => "", :class => "second-zip" }/
+        = f.text_field :ma_zip4, class: 'second-zip'
+    <!-- /ko -->
   .partition
     %h4 Are you currently registered to vote at another address in Virginia or in another state?
     .radio
-      = f.radio_button :rights_revoked, 'no'
+      = f.radio_button :has_existing_reg, 'no', { 'data-bind' => 'checked: hasExistingReg' }
       %label No
     .radio
-      = f.radio_button :rights_revoked, 'yes'
+      = f.radio_button :has_existing_reg, 'yes', { 'data-bind' => 'checked: hasExistingReg' }
       %label Yes
+    <!-- ko if: hasExistingReg() == 'yes' -->
     .row
       .span3
         %span
           Street number
           %label
             (optional)
-        = f.text_field :first_name
+        = f.text_field :er_street_number
       .span3
         %span
           Street name
           %label
             (optional)
-        = f.text_field :first_name
+        = f.text_field :er_street_name
       .span2.street-type-field
         %span
           Street type
-        = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }
+        = f.select :er_street_type, [ ], { include_blank: true }, { class: 'span1' }
       .span2.lot-field
         %span
           Apt/Lot
           %label
             (optional)
-        = f.text_field :first_name
+        = f.text_field :er_apt
     .row
       .span3
         %span
           City
-        = f.text_field :first_name
+        = f.text_field :er_city
       .span2.state-field
         %span
           State
-        = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }
+        = f.select :er_state, [ 'VA' ], { include_blank: true }, { class: 'span1' }
       .span3.zip-field
         %span
           Zip code
-        %input{ :type => "text", :value => "", :class => "first-zip" }/
+        = f.text_field :er_zip5, class: 'first-zip'
         .space
           &mdash;
-        %input{ :type => "text", :value => "", :class => "second-zip" }/
+        = f.text_field :er_zip4, class: 'second-zip'
     .row
       .span12
         .checkbox
-          = f.check_box :no_ssn
+          = f.check_box :er_is_rural, { 'data-bind' => 'checked: erIsRural' }
           Rural address or homeless? Please check the box and describe where you reside.
+        <!-- ko if: erIsRural -->
         %textarea{ :cols => "10", :rows => "10" }
+        <!-- /ko -->
+    <!-- /ko -->
   .partition
     .row
       .span12
         .checkbox
-          = f.check_box :no_ssn
+          = f.check_box :er_cancel
           %strong
             I authorize cancellation of my existing registration.
   .form-actions
