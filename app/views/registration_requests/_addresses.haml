@@ -38,8 +38,9 @@
   .row
     .span3
       %span County or city
-      = f.select :vvr_county_or_city, Dictionaries::CITIES_AND_COUNTIES, { include_blank: true }, { class: 'span3' }
+      = f.select :vvr_county_or_city, Dictionaries::CITIES_AND_COUNTIES, { include_blank: true }, { class: 'span3', 'data-bind' => 'value: vvrCountyOrCity' }
   <!-- /ko -->
+
   .row
     .span12
       .checkbox

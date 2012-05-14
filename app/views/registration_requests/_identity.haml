@@ -62,23 +62,6 @@
         %label (optional)
       %span= f.text_field :email, placeholder: 'john@smith.com', 'data-bind' => 'value: email'
 
-  -#%fieldset
-    -#- if collecting? :registration_request, :title
-      -#= f.input :title, label: 'Title', collection: [ 'Mr', 'Ms', 'Mrs' ], include_blank: true
-    -#= f.input :first_name
-    -#= f.input :middle_name
-    -#= f.input :last_name
-    -#= f.input :suffix, placeholder: 'e.g. Jr, Sr', input_html: { class: 'span2' }
-    -#= f.input :dob, label: 'Date of birth', as: :date, start_year: 200.years.ago.year, end_year: 16.years.ago.year, include_blank: true, order: [ :day, :month, :year ], class: 'date'
-    -#- if collecting? :registration_request, :gender
-      -#= f.input :gender, collection: [ 'Male', 'Female' ], include_blank: true, class: 'small'
-
-    -#= f.input :ssn, label: 'Social Security #', input_html: { 'data-format' => '^([\s\-]*\d[\s\-]*){9}$' }, placeholder: 'NNN NN NNNN'
-    -#= f.input :phone, label: 'Phone number', placeholder: '(NNN) NNN-NNNN'
-    -#= f.input :email, label: 'Email address', placeholder: 'jack@email.com'
-
-  -#%p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed at elit vitae quam tempor eleifend at a est. Pellentesque vulputate ornare tortor, in tempus turpis accumsan sed. Pellentesque tristique risus a turpis molestie nec molestie augue malesuada. Sed bibendum odio vitae ipsum varius molestie. Cras vehicula lorem euismod erat vulputate vehicula auctor ut urna. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Integer est tellus, condimentum a ornare sit amet, imperdiet sit amet arcu.
-
   .form-actions
     = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'

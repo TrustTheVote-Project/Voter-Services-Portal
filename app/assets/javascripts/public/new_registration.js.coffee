@@ -7,6 +7,7 @@ window.stepClass = (current, idx, def) ->
 filled = (v) -> v && !v.match(/^\s*$/)
 join   = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
 
+
 class NewRegistration
   constructor: (initPage = 0) ->
     @pages = [ 'eligibility', 'identity', 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
@@ -43,6 +44,7 @@ class NewRegistration
     @vvrState               = ko.observable()
     @vvrZip5                = ko.observable()
     @vvrZip4                = ko.observable()
+    @vvrCountyOrCity        = ko.observable()
 
     # Options
     @isConfidentialAddress  = ko.observable(false)
@@ -69,6 +71,10 @@ class NewRegistration
         join([ @vvrCity(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
 
     @summaryStatus = ko.computed => if @requestingAbsentee() then 'Absentee' else 'In person'
+
+    # County - city
+    @vvrCountyOrCity.subscribe (coc) =>
+      @vvrCity(coc.replace(/\s+city/i, '')) if coc.match(/\s+city/i)
 
     # Navigation
     @currentPageIdx         = ko.observable(initPage)
