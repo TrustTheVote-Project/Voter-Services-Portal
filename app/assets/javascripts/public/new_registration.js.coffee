@@ -24,9 +24,14 @@ class NewRegistration
     @dobYear                = ko.observable()
     @dobMonth               = ko.observable()
     @dobDay                 = ko.observable()
+    @gender                 = ko.observable()
+    @ssn                    = ko.observable()
+    @phone                  = ko.observable()
+    @email                  = ko.observable()
 
     # Addresses
     @vvrIsRural             = ko.observable(false)
+    @vvrRural               = ko.observable()
     @maIsSame               = ko.observable('yes')
     @hasExistingReg         = ko.observable('no')
     @erIsRural              = ko.observable(false)
@@ -46,19 +51,24 @@ class NewRegistration
     @abSendTo               = ko.observable()
 
     # Summary
-    @summaryFullName        = ko.computed =>
+    @summaryFullName = ko.computed =>
       join([ @firstName(), @middleName(), @lastName(), @suffix() ], ' ')
 
-    @summaryDOB             = ko.computed =>
+    @summaryDOB = ko.computed =>
       if filled(@dobMonth()) && filled(@dobDay()) && filled(@dobYear())
         moment([ @dobYear(), parseInt(@dobMonth()) - 1, @dobDay() ]).format("MMMM D, YYYY")
 
-    # 142 N Street
-    # Accomac, VA 23301
     @summaryAddress1 = ko.computed =>
-      join([ join([ @vvrStreetNumber(), @vvrApt() ], '/'), @vvrStreetName(), @vvrStreetType() ], ' ')
+      if @vvrIsRural()
+        @vvrRural()
+      else
+        join([ join([ @vvrStreetNumber(), @vvrApt() ], '/'), @vvrStreetName(), @vvrStreetType() ], ' ')
+
     @summaryAddress2 = ko.computed =>
-      join([ @vvrCity(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
+      unless @vvrIsRural()
+        join([ @vvrCity(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
+
+    @summaryStatus = ko.computed => if @requestingAbsentee() then 'Absentee' else 'In person'
 
     # Navigation
     @currentPageIdx         = ko.observable(initPage)

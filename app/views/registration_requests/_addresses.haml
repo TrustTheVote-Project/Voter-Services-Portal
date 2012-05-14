@@ -2,8 +2,7 @@
   .head
     %h3 Registration address
     .description Registration address is your Home address in Virginia or your most recent Virginia residence.
-  %div{ 'data-bind' => 'text: summaryAddress1' }
-  %div{ 'data-bind' => 'text: summaryAddress2' }
+  <!-- ko ifnot: vvrIsRural -->
   .row
     .span3
       %span
@@ -40,11 +39,12 @@
     .span3
       %span County or city
       = f.select :vvr_county_or_city, Dictionaries::CITIES_AND_COUNTIES, { include_blank: true }, { class: 'span3' }
+  <!-- /ko -->
   .row
     .span12
       .checkbox
         = f.check_box :vvr_is_rural, { 'data-bind' => 'checked: vvrIsRural' }
         Rural address or homeless? Please check the box and describe where you reside.
       <!-- ko if: vvrIsRural -->
-      %textarea{ :cols => "10", :rows => "10" }
+      %textarea{ :cols => "10", :rows => "10", 'data-bind' => 'value: vvrRural' }
       <!-- /ko -->

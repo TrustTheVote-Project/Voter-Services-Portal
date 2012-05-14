@@ -13,31 +13,38 @@
     .span12
       %strong Date of birth
       %div{ 'data-bind' => 'text: summaryDOB' }
+
   .row
     .span12
       %strong Gender
-      %br/
-      Male
+      %div{ 'data-bind' => 'text: gender' }
+
+  <!-- ko if: ssn -->
   .row
     .span12
       %strong Social Security Number
-      %br/
-      123-45-6789
+      %div{ 'data-bind' => 'text: ssn' }
+  <!-- /ko -->
+
+  <!-- ko if: phone -->
   .row
     .span12
       %strong Phone
-      %br/
-      (757) 456-7891
+      %div{ 'data-bind' => 'text: phone' }
+  <!-- /ko -->
+
+  <!-- ko if: email -->
   .row
     .span12
       %strong Email
-      %br/
-      johnQ@gmail.com
+      %div{ 'data-bind' => 'text: email' }
+  <!-- /ko -->
+
   .row
     .span12
       %strong Voter Status
-      %br/
-      Vote in person.
+      %div{ 'data-bind' => 'text: summaryStatus' }
+
 
   .form-actions
     = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'

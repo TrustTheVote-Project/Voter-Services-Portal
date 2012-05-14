@@ -12,8 +12,7 @@
     .span3
       %span
         Full middle
-        %label
-          (optional)
+        %label (optional)
       = f.text_field :middle_name, { 'data-bind' => 'value: middleName' }
     .span3
       %span Last name
@@ -21,8 +20,7 @@
     .span2
       %span
         Suffix
-        %label
-          (optional)
+        %label (optional)
       = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1', 'data-bind' => 'value: suffix' }
 
   .row
@@ -34,12 +32,12 @@
     .row
       .span12
         %label Gender
-        = f.select :gender, [ 'Male', 'Femaly' ], { include_blank: true }, { class: 'span2' }
+        = f.select :gender, [ 'Male', 'Femaly' ], { include_blank: true }, { class: 'span2', 'data-bind' => 'value: gender' }
 
   .row
     .span12.security-number
       %label Social Security Number
-      = f.text_field :ssn, placeholder: '123 45 6789'
+      = f.text_field :ssn, placeholder: '123 45 6789', 'data-bind' => 'value: ssn'
       .checkbox
         = f.check_box :no_ssn
         %label
@@ -56,15 +54,13 @@
     .span3.phone-field
       %span
         Phone
-        %label
-          (optional)
-      = f.text_field :phone, placeholder: '(NNN) NNN-NNNN'
+        %label (optional)
+      = f.text_field :phone, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'value: phone'
     .span3.email-field
       %span
         Email
-        %label
-          (optional)
-      %span= f.text_field :email, placeholder: 'john@smith.com'
+        %label (optional)
+      %span= f.text_field :email, placeholder: 'john@smith.com', 'data-bind' => 'value: email'
 
   -#%fieldset
     -#- if collecting? :registration_request, :title
