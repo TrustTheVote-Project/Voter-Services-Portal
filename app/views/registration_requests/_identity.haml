@@ -7,29 +7,28 @@
     .span3
       %span
         First name
-        %label
-          (optional)
-      = f.text_field :first_name
+        %label (optional)
+      = f.text_field :first_name, { 'data-bind' => 'value: firstName' }
     .span3
       %span
         Full middle
         %label
           (optional)
-      = f.text_field :middle_name
+      = f.text_field :middle_name, { 'data-bind' => 'value: middleName' }
     .span3
       %span Last name
-      = f.text_field :last_name
+      = f.text_field :last_name, { 'data-bind' => 'value: lastName' }
     .span2
       %span
         Suffix
         %label
           (optional)
-      = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1' }
+      = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1', 'data-bind' => 'value: suffix' }
 
   .row
     .span12.date
       %label Date of birth
-      = f.date_select :dob, include_blank: true, order: [ :month, :day, :year ]
+      = bound_date f, :dob
 
   - if collecting? :registration_request, :gender
     .row
@@ -40,7 +39,7 @@
   .row
     .span12.security-number
       %label Social Security Number
-      = f.text_field :ssn
+      = f.text_field :ssn, placeholder: '123 45 6789'
       .checkbox
         = f.check_box :no_ssn
         %label

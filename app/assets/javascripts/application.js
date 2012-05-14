@@ -16,6 +16,5 @@
 //= require bootstrap-tooltip
 //= require bootstrap-popover
 //= require knockout-2.1.0
-// require forms
-// require feedback
+//= require moment.min
 //= require_tree ./public

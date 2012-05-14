@@ -2,49 +2,43 @@
   .head
     %h3 Registration address
     .description Registration address is your Home address in Virginia or your most recent Virginia residence.
+  %div{ 'data-bind' => 'text: summaryAddress1' }
+  %div{ 'data-bind' => 'text: summaryAddress2' }
   .row
     .span3
       %span
         Street number
-        %label
-          (optional)
-      = f.text_field :vvr_street_name
+        %label (optional)
+      = f.text_field :vvr_street_number, { 'data-bind' => 'value: vvrStreetNumber' }
     .span3
       %span
         Street name
-        %label
-          (optional)
-      = f.text_field :vvr_street_number
+        %label (optional)
+      = f.text_field :vvr_street_name, { 'data-bind' => 'value: vvrStreetName' }
     .span2.street-type-field
       %span
         Street type
-      = f.select :vvr_street_type, [ 'St.', 'Ave.', 'Ln.', 'Pd.' ], { include_blank: true }, { class: 'span1' }
+      = f.select :vvr_street_type, [ 'St.', 'Ave.', 'Ln.', 'Pd.' ], { include_blank: true }, { class: 'span1', 'data-bind' => 'value: vvrStreetType' }
     .span2.lot-field
       %span
         Apt/Lot
-        %label
-          (optional)
-      = f.text_field :vvr_apt
+        %label (optional)
+      = f.text_field :vvr_apt, { 'data-bind' => 'value: vvrApt' }
   .row
     .span3
-      %span
-        City
-      = f.text_field :vvr_town_or_city
+      %span City
+      = f.text_field :vvr_town_or_city, { 'data-bind' => 'value: vvrCity' }
     .span2.state-field
-      %span
-        State
-      = f.text_field :vvr_state
+      %span State
+      = f.text_field :vvr_state, { 'data-bind' => 'value: vvrState' }
     .span3.zip-field
-      %span
-        Zip code
-      = f.text_field :vvr_zip5, class: 'first-zip'
-      .space
-        &mdash;
-      = f.text_field :vvr_zip4, class: 'second-zip'
+      %span Zip code
+      = f.text_field :vvr_zip5, class: 'first-zip', 'data-bind' => 'value: vvrZip5'
+      .space &mdash;
+      = f.text_field :vvr_zip4, class: 'second-zip', 'data-bind' => 'value: vvrZip4'
   .row
     .span3
-      %span
-        County or city
+      %span County or city
       = f.select :vvr_county_or_city, Dictionaries::CITIES_AND_COUNTIES, { include_blank: true }, { class: 'span3' }
   .row
     .span12

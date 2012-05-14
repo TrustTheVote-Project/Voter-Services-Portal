@@ -4,6 +4,9 @@ window.stepClass = (current, idx, def) ->
   max   = if $.isArray(idx) then idx[idx.length - 1] else idx
   (if match then 'current ' else if current > max then 'done ' else '') + def
 
+filled = (v) -> v && !v.match(/^\s*$/)
+join   = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
+
 class NewRegistration
   constructor: (initPage = 0) ->
     @pages = [ 'eligibility', 'identity', 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
@@ -13,17 +16,49 @@ class NewRegistration
     @rightsRevokationReason = ko.observable()
     @rightsWereRestored     = ko.observable()
 
+    # Identity
+    @firstName              = ko.observable()
+    @middleName             = ko.observable()
+    @lastName               = ko.observable()
+    @suffix                 = ko.observable()
+    @dobYear                = ko.observable()
+    @dobMonth               = ko.observable()
+    @dobDay                 = ko.observable()
+
     # Addresses
     @vvrIsRural             = ko.observable(false)
     @maIsSame               = ko.observable('yes')
     @hasExistingReg         = ko.observable('no')
     @erIsRural              = ko.observable(false)
+    @vvrStreetNumber        = ko.observable()
+    @vvrStreetName          = ko.observable()
+    @vvrStreetType          = ko.observable()
+    @vvrApt                 = ko.observable()
+    @vvrCity                = ko.observable()
+    @vvrState               = ko.observable()
+    @vvrZip5                = ko.observable()
+    @vvrZip4                = ko.observable()
 
     # Options
     @isConfidentialAddress  = ko.observable(false)
     @requestingAbsentee     = ko.observable(false)
     @rabElection            = ko.observable()
     @abSendTo               = ko.observable()
+
+    # Summary
+    @summaryFullName        = ko.computed =>
+      join([ @firstName(), @middleName(), @lastName(), @suffix() ], ' ')
+
+    @summaryDOB             = ko.computed =>
+      if filled(@dobMonth()) && filled(@dobDay()) && filled(@dobYear())
+        moment([ @dobYear(), parseInt(@dobMonth()) - 1, @dobDay() ]).format("MMMM D, YYYY")
+
+    # 142 N Street
+    # Accomac, VA 23301
+    @summaryAddress1 = ko.computed =>
+      join([ join([ @vvrStreetNumber(), @vvrApt() ], '/'), @vvrStreetName(), @vvrStreetType() ], ' ')
+    @summaryAddress2 = ko.computed =>
+      join([ @vvrCity(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
 
     # Navigation
     @currentPageIdx         = ko.observable(initPage)
