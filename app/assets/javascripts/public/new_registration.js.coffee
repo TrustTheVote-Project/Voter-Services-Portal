@@ -10,19 +10,16 @@ join   = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
 
 class NewRegistration
   constructor: (initPage = 0) ->
-    @oname  = 'registration_request'
-    oid     = "##{@oname}"
-    @pages = [ 'eligibility', 'identity', 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
+    @oname    = 'registration_request'
+    oid       = "##{@oname}"
+    @pages    = [ 'eligibility', 'identity', 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
 
-    @eligibilitySection()
-    @identitySection()
-    @addressSection()
+    overseas  = true # debug
 
-    # Options
-    @isConfidentialAddress  = ko.observable(false)
-    @requestingAbsentee     = ko.observable(false)
-    @rabElection            = ko.observable()
-    @abSendTo               = ko.observable()
+    @eligibilitySection(overseas)
+    @identitySection(overseas)
+    @addressSection(overseas)
+    @optionsSection(overseas)
 
     # Summary
     @summaryFullName = ko.computed =>
@@ -57,9 +54,12 @@ class NewRegistration
 
   # --- Validation
 
-  eligibilitySection: =>
+  eligibilitySection: (overseas) =>
     @isCitizen              = ko.observable()
     @isOldEnough            = ko.observable()
+    @residence              = ko.observable(if overseas then 'outside' else 'in')
+    @overseas               = ko.computed => @residence() == 'outside'
+    @domestic               = ko.computed => !@overseas()
     @rightsWereRevoked      = ko.observable()
     @rightsRevokationReason = ko.observable()
     @rightsWereRestored     = ko.observable()
@@ -68,8 +68,9 @@ class NewRegistration
       @isCitizen() and @isOldEnough() and
         (@rightsWereRevoked() == 'no' or (@rightsRevokationReason() and @rightsWereRestored() == 'yes')) or
         false
+    #true
 
-  identitySection: =>
+  identitySection: (overseas) =>
     @firstName              = ko.observable()
     @middleName             = ko.observable()
     @lastName               = ko.observable()
@@ -88,8 +89,9 @@ class NewRegistration
       filled(@dobYear()) and filled(@dobMonth()) and filled(@dobDay()) and
       filled(@gender()) and (filled(@ssn()) or @noSSN()) or
       false
+      #true
 
-  addressSection: =>
+  addressSection: (overseas) =>
     @vvrIsRural             = ko.observable(false)
     @vvrRural               = ko.observable()
     @maIsSame               = ko.observable('yes')
@@ -148,6 +150,16 @@ class NewRegistration
       console.log residental, mailing, existing, @erIsRural(), filled(@erRural())
 
       residental and mailing and existing
+      #true
+
+  optionsSection: (overseas) =>
+    @isConfidentialAddress  = ko.observable(false)
+    @requestingAbsentee     = ko.observable(overseas)
+    @rabElection            = ko.observable()
+    @abSendTo               = ko.observable()
+    @outsideType            = ko.observable()
+    @needsServiceDetails    = ko.computed => @outsideType() && @outsideType().match(/duty/)
+
 
   # --- Navigation
 

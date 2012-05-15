@@ -20,10 +20,10 @@
 
   .partition
     .radio
-      = f.radio_button :residence, 'in'
+      = f.radio_button :residence, 'in', 'data-bind' => 'checked: residence'
       %label I am currently a resident of Virginia
     .radio
-      = f.radio_button :residence, 'outside'
+      = f.radio_button :residence, 'outside', 'data-bind' => 'checked: residence'
       %label I live outside of the U.S., but the most recent U.S. residence was in Virginia
 
   .partition

@@ -16,6 +16,8 @@
         %span I qualify for Address confidentiality because
         = f.select :ca_type, [ 'Option 1', 'Option 2' ], { include_blank: false }, { class: 'span6' }
     <!-- /ko -->
+
+  <!-- ko if: domestic -->
   .partition
     .row
       .span12
@@ -144,6 +146,47 @@
       .span2.country-field
         %span Country
         = f.text_field :aba_country
+    <!-- /ko -->
+  <!-- /ko -->
+  <!-- /ko --> <!-- domestic -->
+
+  <!-- ko if: overseas -->
+  .partition
+    .row
+      .span12
+        .checkbox
+          = f.check_box :requesting_absentee, { 'data-bind' => 'checked: requestingAbsentee' }
+          %strong
+            I will not be able to vote in person, and would like to vote absentee
+            until <strong>#{1.year.from_now.strftime('%B %d, %Y')}</strong>
+    <!-- ko if: requestingAbsentee -->
+    .row
+      .span12
+        .radio
+          = f.radio_button :outside_type, 'active_duty', { 'data-bind' => 'checked: outsideType' }
+          %label= t 'outside_type.active_duty'
+        .radio
+          = f.radio_button :outside_type, 'spouse_active_duty', { 'data-bind' => 'checked: outsideType' }
+          %label= t 'outside_type.spouse_active_duty'
+        .radio
+          = f.radio_button :outside_type, 'temporarily', { 'data-bind' => 'checked: outsideType' }
+          %label= t 'outside_type.temporarily'
+        .radio
+          = f.radio_button :outside_type, 'spouse_temporarily', { 'data-bind' => 'checked: outsideType' }
+          %label= t 'outside_type.spouse_temporarily'
+
+    <!-- ko if: needsServiceDetails -->
+    .row
+      .span2
+        %span Service Branch
+        = select     :registration_request, :service_branch, options_for_select(RegistrationRequest::SERVICE_BRANCHES), {}, class: 'span2 inline'
+      .span2
+        %span Service ID
+        = text_field :registration_request, :service_id, placeholder: 'Service ID', class: 'span1 inline'
+      .span2
+        %span Rank / Grade / Rate
+        = text_field :registration_request, :rank, placeholder: 'Rank / Grade / Rate', class: 'span2 inline'
+    <!-- /ko -->
     <!-- /ko -->
   <!-- /ko -->
 

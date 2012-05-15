@@ -8,8 +8,7 @@ class RegistrationRequest < ActiveRecord::Base
   serialized_attr :citizen, :old_enough, :residence
 
   serialized_attr :outside_type
-  serialized_attr :outside_active_service_branch, :outside_active_service_id, :outside_active_rank
-  serialized_attr :outside_spouse_service_branch, :outside_spouse_service_id, :outside_spouse_rank
+  serialized_attr :service_branch, :service_id, :rank
 
   serialized_attr :rights_revoked, :rights_revoked_reason
   serialized_attr :rights_restored, :rights_restored_on
