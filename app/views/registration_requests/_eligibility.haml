@@ -10,12 +10,12 @@
 
   .partition
     .checkbox
-      = f.check_box :citizen
+      = f.check_box :citizen, 'data-bind' => 'checked: isCitizen'
       %label I am a citizen of the United States of America.
 
   .partition
     .checkbox
-      = f.check_box :old_enough
+      = f.check_box :old_enough, 'data-bind' => 'checked: isOldEnough'
       %label I will be at least 18 years of age on or before the next Election Day.
 
   .partition
@@ -64,4 +64,4 @@
           = f.date_select :rights_restored_on, { order: [ :day, :month, :year ] }
 
   .form-actions
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, disable: !eligibilityFilled()'

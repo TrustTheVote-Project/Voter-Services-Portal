@@ -211,6 +211,11 @@ select {
   .next:active {
     background: image-url('buttons.png') no-repeat -570px 0;
   }
+
+  .next[disabled] {
+    background: image-url('buttons.png') no-repeat -570px 0;
+    opacity: .5;
+  }
 }
 
 .personal-info {

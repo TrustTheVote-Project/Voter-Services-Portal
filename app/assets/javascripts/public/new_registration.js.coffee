@@ -10,12 +10,12 @@ join   = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
 
 class NewRegistration
   constructor: (initPage = 0) ->
+    @oname  = 'registration_request'
+    oid     = "##{@oname}"
     @pages = [ 'eligibility', 'identity', 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
 
     # Eligibility
-    @rightsWereRevoked      = ko.observable()
-    @rightsRevokationReason = ko.observable()
-    @rightsWereRestored     = ko.observable()
+    @eligibilitySection()
 
     # Identity
     @firstName              = ko.observable()
@@ -45,6 +45,7 @@ class NewRegistration
     @vvrZip5                = ko.observable()
     @vvrZip4                = ko.observable()
     @vvrCountyOrCity        = ko.observable()
+    @vvrCountyOrCity.subscribe (coc) => @vvrCity(coc.replace(/\s+city/i, '')) if coc.match(/\s+city/i)
 
     # Options
     @isConfidentialAddress  = ko.observable(false)
@@ -72,9 +73,6 @@ class NewRegistration
 
     @summaryStatus = ko.computed => if @requestingAbsentee() then 'Absentee' else 'In person'
 
-    # County - city
-    @vvrCountyOrCity.subscribe (coc) =>
-      @vvrCity(coc.replace(/\s+city/i, '')) if coc.match(/\s+city/i)
 
     # Navigation
     @currentPageIdx         = ko.observable(initPage)
@@ -86,12 +84,24 @@ class NewRegistration
       newIdx = 0 if newIdx == -1
       @currentPageIdx(newIdx)
 
+  # --- Validation
+
+  eligibilitySection: =>
+    @isCitizen              = ko.observable()
+    @isOldEnough            = ko.observable()
+    @rightsWereRevoked      = ko.observable()
+    @rightsRevokationReason = ko.observable()
+    @rightsWereRestored     = ko.observable()
+
+    @eligibilityFilled = ko.computed =>
+      @isCitizen() and @isOldEnough() and
+        (@rightsWereRevoked() == 'no' or (@rightsRevokationReason() and @rightsWereRestored() == 'yes')) or
+        false
+
   # --- Navigation
 
   prevPage: =>
     window.history.back()
-
-    location.hash = @pages[newIdx]
 
   nextPage: =>
     newIdx = @currentPageIdx() + 1
