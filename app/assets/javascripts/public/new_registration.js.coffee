@@ -14,21 +14,8 @@ class NewRegistration
     oid     = "##{@oname}"
     @pages = [ 'eligibility', 'identity', 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
 
-    # Eligibility
     @eligibilitySection()
-
-    # Identity
-    @firstName              = ko.observable()
-    @middleName             = ko.observable()
-    @lastName               = ko.observable()
-    @suffix                 = ko.observable()
-    @dobYear                = ko.observable()
-    @dobMonth               = ko.observable()
-    @dobDay                 = ko.observable()
-    @gender                 = ko.observable()
-    @ssn                    = ko.observable()
-    @phone                  = ko.observable()
-    @email                  = ko.observable()
+    @identitySection()
 
     # Addresses
     @vvrIsRural             = ko.observable(false)
@@ -93,10 +80,30 @@ class NewRegistration
     @rightsRevokationReason = ko.observable()
     @rightsWereRestored     = ko.observable()
 
-    @eligibilityFilled = ko.computed =>
+    @eligibilityValid = ko.computed =>
       @isCitizen() and @isOldEnough() and
         (@rightsWereRevoked() == 'no' or (@rightsRevokationReason() and @rightsWereRestored() == 'yes')) or
         false
+
+  identitySection: =>
+    @firstName              = ko.observable()
+    @middleName             = ko.observable()
+    @lastName               = ko.observable()
+    @suffix                 = ko.observable()
+    @dobYear                = ko.observable()
+    @dobMonth               = ko.observable()
+    @dobDay                 = ko.observable()
+    @gender                 = ko.observable()
+    @ssn                    = ko.observable()
+    @noSSN                  = ko.observable()
+    @phone                  = ko.observable()
+    @email                  = ko.observable()
+
+    @identityValid = ko.computed =>
+      filled(@lastName()) and
+      filled(@dobYear()) and filled(@dobMonth()) and filled(@dobDay()) and
+      filled(@gender()) and (filled(@ssn()) or @noSSN()) or
+      false
 
   # --- Navigation
 
@@ -107,4 +114,4 @@ class NewRegistration
     newIdx = @currentPageIdx() + 1
     location.hash = @pages[newIdx]
 
-ko.applyBindings(new NewRegistration(0))
+ko.applyBindings(new NewRegistration(1))
