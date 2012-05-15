@@ -158,4 +158,4 @@ class NewRegistration
     newIdx = @currentPageIdx() + 1
     location.hash = @pages[newIdx]
 
-ko.applyBindings(new NewRegistration(2))
+ko.applyBindings(new NewRegistration(0))
