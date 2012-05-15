@@ -7,17 +7,15 @@
     .span3
       %span
         Street number
-        %label (optional)
       = f.text_field :vvr_street_number, { 'data-bind' => 'value: vvrStreetNumber' }
     .span3
       %span
         Street name
-        %label (optional)
       = f.text_field :vvr_street_name, { 'data-bind' => 'value: vvrStreetName' }
     .span2.street-type-field
       %span
         Street type
-      = f.select :vvr_street_type, [ 'St.', 'Ave.', 'Ln.', 'Pd.' ], { include_blank: true }, { class: 'span1', 'data-bind' => 'value: vvrStreetType' }
+      = f.select :vvr_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { class: 'span1', 'data-bind' => 'value: vvrStreetType' }
     .span2.lot-field
       %span
         Apt/Lot
@@ -29,7 +27,7 @@
       = f.text_field :vvr_town_or_city, { 'data-bind' => 'value: vvrCity' }
     .span2.state-field
       %span State
-      = f.text_field :vvr_state, { 'data-bind' => 'value: vvrState' }
+      = f.select :vvr_state, Dictionaries::STATES, { include_blank: true }, { class: 'span1', 'data-bind' => 'value: vvrState' }
     .span3.zip-field
       %span Zip code
       = f.text_field :vvr_zip5, class: 'first-zip', 'data-bind' => 'value: vvrZip5'

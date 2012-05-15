@@ -15,21 +15,21 @@
       .span3
         %span3.address-field
           %span Address
-          %input{ type: "text", name: 'ma_address' }/
+          %input{ type: "text", name: 'ma_address', 'data-bind' => 'value: maAddress1' }/
           %input{ type: "text", name: 'ma_address_2' }/
     .row
       .span3
         %span
           City
-        = f.text_field :ma_city
+        = f.text_field :ma_city, 'data-bind' => 'value: maCity'
       .span2.state-field
         %span
           State
-        = f.select :ma_state, [ 'VA' ], { include_blank: true }, { class: 'span1' }
+        = f.select :ma_state, Dictionaries::STATES, { include_blank: true }, { class: 'span1', 'data-bind' => 'value: maState' }
       .span3.zip-field
         %span
           Zip code
-        = f.text_field :ma_zip5, class: 'first-zip'
+        = f.text_field :ma_zip5, class: 'first-zip', 'data-bind' => 'value: maZip5'
         .space
           &mdash;
         = f.text_field :ma_zip4, class: 'second-zip'
@@ -43,61 +43,61 @@
       = f.radio_button :has_existing_reg, 'yes', { 'data-bind' => 'checked: hasExistingReg' }
       %label Yes
     <!-- ko if: hasExistingReg() == 'yes' -->
+    <!-- ko ifnot: erIsRural -->
     .row
       .span3
         %span
           Street number
-          %label
-            (optional)
-        = f.text_field :er_street_number
+        = f.text_field :er_street_number, 'data-bind' => 'value: erStreetNumber'
       .span3
         %span
           Street name
-          %label
-            (optional)
-        = f.text_field :er_street_name
+        = f.text_field :er_street_name, 'data-bind' => 'value: erStreetName'
       .span2.street-type-field
         %span
           Street type
-        = f.select :er_street_type, [ ], { include_blank: true }, { class: 'span1' }
+        = f.select :er_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { class: 'span1', 'data-bind' => 'value: erStreetType' }
       .span2.lot-field
         %span
           Apt/Lot
-          %label
-            (optional)
+          %label (optional)
         = f.text_field :er_apt
     .row
       .span3
         %span
           City
-        = f.text_field :er_city
+        = f.text_field :er_city, 'data-bind' => 'value: erCity'
       .span2.state-field
         %span
           State
-        = f.select :er_state, [ 'VA' ], { include_blank: true }, { class: 'span1' }
+        = f.select :er_state, Dictionaries::STATES, { include_blank: true }, { class: 'span1', 'data-bind' => 'value: erState' }
       .span3.zip-field
         %span
           Zip code
-        = f.text_field :er_zip5, class: 'first-zip'
-        .space
-          &mdash;
+        = f.text_field :er_zip5, class: 'first-zip', 'data-bind' => 'value: erZip5'
+        .space &mdash;
         = f.text_field :er_zip4, class: 'second-zip'
+    <!-- /ko -->
     .row
       .span12
         .checkbox
           = f.check_box :er_is_rural, { 'data-bind' => 'checked: erIsRural' }
           Rural address or homeless? Please check the box and describe where you reside.
         <!-- ko if: erIsRural -->
-        %textarea{ :cols => "10", :rows => "10" }
+        %textarea{ :cols => "10", :rows => "10", 'data-bind' => 'value: erRural' }
         <!-- /ko -->
     <!-- /ko -->
+
+  <!-- ko if: hasExistingReg() == 'yes' -->
   .partition
     .row
       .span12
         .checkbox
-          = f.check_box :er_cancel
+          = f.check_box :er_cancel, 'data-bind' => 'checked: erCancel'
           %strong
             I authorize cancellation of my existing registration.
+  <!-- /ko -->
+
   .form-actions
     = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, disable: !addressesValid()'

@@ -138,4 +138,7 @@ module Dictionaries
     "YORK COUNTY"
   ]
 
+  STATES = [ 'VA' ]
+  STREET_TYPES = [ 'St.', 'Ave.', 'Ln.', 'Pd.' ]
+
 end
