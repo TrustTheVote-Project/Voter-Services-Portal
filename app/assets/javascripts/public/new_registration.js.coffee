@@ -80,8 +80,21 @@ class NewRegistration
     @currentPageIdx         = ko.observable(initPage)
     @page                   = ko.computed(=> @pages[@currentPageIdx()])
 
-  # Navigation
-  prevPage: => @currentPageIdx(@currentPageIdx() - 1)
-  nextPage: => @currentPageIdx((@currentPageIdx() + 1) % @pages.length)
+    $(window).hashchange =>
+      hash = location.hash
+      newIdx = @pages.indexOf(hash.replace('#', ''))
+      newIdx = 0 if newIdx == -1
+      @currentPageIdx(newIdx)
+
+  # --- Navigation
+
+  prevPage: =>
+    window.history.back()
+
+    location.hash = @pages[newIdx]
+
+  nextPage: =>
+    newIdx = @currentPageIdx() + 1
+    location.hash = @pages[newIdx]
 
 ko.applyBindings(new NewRegistration(0))

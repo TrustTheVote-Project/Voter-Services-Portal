@@ -17,4 +17,5 @@
 //= require bootstrap-popover
 //= require knockout-2.1.0
 //= require moment.min
+//= require jquery.ba-hashchange.min
 //= require_tree ./public
