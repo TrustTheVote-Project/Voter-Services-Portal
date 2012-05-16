@@ -68,7 +68,6 @@ class NewRegistration
       @isCitizen() and @isOldEnough() and
         (@rightsWereRevoked() == 'no' or (@rightsRevokationReason() and @rightsWereRestored() == 'yes')) or
         false
-    #true
 
   identitySection: (overseas) =>
     @firstName              = ko.observable()
@@ -89,7 +88,6 @@ class NewRegistration
       filled(@dobYear()) and filled(@dobMonth()) and filled(@dobDay()) and
       filled(@gender()) and (filled(@ssn()) or @noSSN()) or
       false
-      #true
 
   addressSection: (overseas) =>
     @vvrIsRural             = ko.observable(false)
@@ -107,10 +105,21 @@ class NewRegistration
     @vvrZip4                = ko.observable()
     @vvrCountyOrCity        = ko.observable()
     @vvrCountyOrCity.subscribe (coc) => @vvrCity(coc.replace(/\s+city/i, '')) if coc.match(/\s+city/i)
+    @vvrOverseasRA          = ko.observable()
     @maAddress1             = ko.observable()
     @maCity                 = ko.observable()
     @maState                = ko.observable()
     @maZip5                 = ko.observable()
+    @mauType                = ko.observable()
+    @mauAPO1                = ko.observable()
+    @mauAPO2                = ko.observable()
+    @mauAPOZip5             = ko.observable()
+    @mauAddress             = ko.observable()
+    @mauAddress2            = ko.observable()
+    @mauCity                = ko.observable()
+    @mauState               = ko.observable()
+    @mauPostalCode          = ko.observable()
+    @mauCountry             = ko.observable()
     @erStreetNumber         = ko.observable()
     @erStreetName           = ko.observable()
     @erStreetType           = ko.observable()
@@ -121,36 +130,57 @@ class NewRegistration
     @erRural                = ko.observable()
     @erCancel               = ko.observable()
 
+    @domesticMAFilled = ko.computed =>
+      @maIsSame() == 'yes' or
+      ( filled(@maAddress1()) and
+        filled(@maCity()) and
+        filled(@maState()) and
+        filled(@maZip5()) )
+
+    @nonUSMAFilled = ko.computed =>
+      filled(@mauAddress()) and
+      filled(@mauCity()) and
+      filled(@mauState()) and
+      filled(@mauPostalCode()) and
+      filled(@mauCountry())
+
+    @overseasMAFilled = ko.computed =>
+      if   @mauType() == 'apo'
+      then filled(@mauAPO1()) and filled(@mauAPO2()) and filled(@mauAPOZip5())
+      else @nonUSMAFilled()
+
+
     @addressesValid = ko.computed =>
-      residental = (@vvrIsRural() and filled(@vvrRural())) or
-        ( filled(@vvrStreetNumber()) and
-          filled(@vvrStreetName()) and
-          filled(@vvrStreetType()) and
-          filled(@vvrCity()) and
-          filled(@vvrState()) and
-          filled(@vvrZip5()) and
-          filled(@vvrCountyOrCity()) )
+      residental =
+        if   @vvrIsRural()
+        then filled(@vvrRural())
+        else filled(@vvrStreetNumber()) and
+             filled(@vvrStreetName()) and
+             filled(@vvrStreetType()) and
+             filled(@vvrCity()) and
+             filled(@vvrState()) and
+             filled(@vvrZip5()) and
+             filled(@vvrCountyOrCity())
 
-      mailing = @maIsSame() == 'yes' or
-        ( filled(@maAddress1()) and
-          filled(@maCity()) and
-          filled(@maState()) and
-          filled(@maZip5()) )
+      if @overseas()
+        residental = residental and filled(@vvrOverseasRA())
+        mailing = @overseasMAFilled()
+      else
+        mailing = @domesticMAFilled()
 
-      existing = @hasExistingReg() == 'no' or
-        ( @erCancel() and (
-          ( @erIsRural() and filled(@erRural()) ) or
-          ( filled(@erStreetNumber()) and
-            filled(@erStreetName()) and
-            filled(@erStreetType()) and
-            filled(@erCity()) and
-            filled(@erState()) and
-            filled(@erZip5()) ) ) )
-
-      console.log residental, mailing, existing, @erIsRural(), filled(@erRural())
+      existing =
+        @hasExistingReg() == 'no' or
+        @erCancel() and
+        if   @erIsRural()
+        then filled(@erRural())
+        else filled(@erStreetNumber()) and
+             filled(@erStreetName()) and
+             filled(@erStreetType()) and
+             filled(@erCity()) and
+             filled(@erState()) and
+             filled(@erZip5())
 
       residental and mailing and existing
-      #true
 
   optionsSection: (overseas) =>
     @isConfidentialAddress  = ko.observable(false)
@@ -160,12 +190,9 @@ class NewRegistration
     @outsideType            = ko.observable()
     @needsServiceDetails    = ko.computed => @outsideType() && @outsideType().match(/duty/)
 
-
   # --- Navigation
 
-  prevPage: =>
-    window.history.back()
-
+  prevPage: => window.history.back()
   nextPage: =>
     newIdx = @currentPageIdx() + 1
     location.hash = @pages[newIdx]

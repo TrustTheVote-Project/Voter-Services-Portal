@@ -1,39 +1,10 @@
 #mailing.section{ 'data-bind' => 'visible: page() == "address"' }
   .head
-    %h3
-      Mailing address
-  .partition
-    %h4 Is your Mailing address the same as your Registration address?
-    .radio
-      = f.radio_button :ma_is_same, 'no', { 'data-bind' => 'checked: maIsSame' }
-      %label No
-    .radio
-      = f.radio_button :ma_is_same, 'yes', { 'data-bind' => 'checked: maIsSame' }
-      %label Yes
-    <!-- ko if: maIsSame() == 'no' -->
-    .row
-      .span3
-        %span3.address-field
-          %span Address
-          %input{ type: "text", name: 'ma_address', 'data-bind' => 'value: maAddress1' }/
-          %input{ type: "text", name: 'ma_address_2' }/
-    .row
-      .span3
-        %span
-          City
-        = f.text_field :ma_city, 'data-bind' => 'value: maCity'
-      .span2.state-field
-        %span
-          State
-        = f.select :ma_state, Dictionaries::STATES, { include_blank: true }, { class: 'span1', 'data-bind' => 'value: maState' }
-      .span3.zip-field
-        %span
-          Zip code
-        = f.text_field :ma_zip5, class: 'first-zip', 'data-bind' => 'value: maZip5'
-        .space
-          &mdash;
-        = f.text_field :ma_zip4, class: 'second-zip'
-    <!-- /ko -->
+    %h3 Mailing address
+
+  = render partial: 'mailing_domestic', locals: { f: f }
+  = render partial: 'mailing_overseas', locals: { f: f }
+
   .partition
     %h4 Are you currently registered to vote at another address in Virginia or in another state?
     .radio
@@ -64,16 +35,13 @@
         = f.text_field :er_apt
     .row
       .span3
-        %span
-          City
+        %span City
         = f.text_field :er_city, 'data-bind' => 'value: erCity'
       .span2.state-field
-        %span
-          State
+        %span State
         = f.select :er_state, Dictionaries::STATES, { include_blank: true }, { class: 'span1', 'data-bind' => 'value: erState' }
       .span3.zip-field
-        %span
-          Zip code
+        %span Zip code
         = f.text_field :er_zip5, class: 'first-zip', 'data-bind' => 'value: erZip5'
         .space &mdash;
         = f.text_field :er_zip4, class: 'second-zip'

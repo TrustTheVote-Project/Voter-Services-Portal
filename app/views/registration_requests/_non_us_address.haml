@@ -1,7 +1,21 @@
-= f.input "#{prefix}_address", label: 'Address'
-= f.input "#{prefix}_address_2", label: false
-= f.input "#{prefix}_city", label: 'City or Town'
-= f.input "#{prefix}_city_2", label: false
-= f.input "#{prefix}_state", label: 'Province or State', input_html: { class: 'span2' }
-= f.input "#{prefix}_postal_code", label: 'Postal Code', input_html: { class: 'span1' }
-= f.input "#{prefix}_country", label: 'Country'
+.row
+  .span3.address-field
+    %span Address
+    = f.text_field "#{prefix}_address", 'data-bind' => 'value: mauAddress'
+    = f.text_field "#{prefix}_address_2", 'data-bind' => 'value: mauAddress2'
+
+.row
+  .span3
+    %span City or Town
+    = f.text_field "#{prefix}_city", 'data-bind' => 'value: mauCity'
+  .span3
+    %span State or Province
+    = f.text_field "#{prefix}_state", 'data-bind' => 'value: mauState'
+  .span3
+    %span Postal Code
+    = f.text_field "#{prefix}_postal_code", class: 'span1', 'data-bind' => 'value: mauPostalCode'
+
+.row
+  .span12
+    %span Country
+    = f.text_field "#{prefix}_country", 'data-bind' => 'value: mauCountry'

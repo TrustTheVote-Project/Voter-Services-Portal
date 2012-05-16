@@ -1,0 +1,24 @@
+<!-- ko if: overseas -->
+.partition
+  .radio
+    = radio_button :registration_request, :mau_type, 'non-us', 'data-bind' => 'checked: mauType'
+    %label I prefer that voting materials be sent to me at a different non-U.S address
+  .radio
+    = radio_button :registration_request, :mau_type, 'apo', 'data-bind' => 'checked: mauType'
+    %label I prefer that voting materials be sent to me at an APO/DPO/FPO address
+
+  <!-- ko if: mauType() == 'non-us' -->
+  = render partial: 'non_us_address', locals: { f: f, prefix: 'mau' }
+  <!-- /ko -->
+
+  <!-- ko if: mauType() == 'apo' -->
+  .row
+    .span1
+      = select :registration_request, :apo_1, options_for_select([ 'APO', 'DPO', 'FPO' ]), {}, class: 'inline span1', 'data-bind' => 'value: mauAPO1'
+    .span1
+      = select :registration_request, :apo_2, options_for_select([ 'AA', 'AE', 'AP' ]), {}, class: 'inline span1', 'data-bind' => 'value: mauAPO2'
+    .span1
+      = text_field :registration_request, :apo_zip5, placeholder: 'ZIP 5', class: 'inline span1', 'data-bind' => 'value: mauAPOZip5'
+  <!-- /ko -->
+
+<!-- /ko -->
