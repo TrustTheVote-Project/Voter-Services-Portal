@@ -1,4 +1,4 @@
-#options.section{ 'data-bind' => 'visible: page() == "options"' }
+#options.section{ 'data-bind' => 'vis: page() == "options"' }
   .head
     %h3
       Options
@@ -49,10 +49,10 @@
     .row
       .span6.election-name-field
         %span Election name
-        = f.text_field :rab_election_name
+        = f.text_field :rab_election_name, 'data-bind' => 'value: rabElectionName'
       .span3
         %span Held on
-        = f.text_field :rab_election_date
+        = f.text_field :rab_election_date, 'data-bind' => 'value: rabElectionDate'
     <!-- /ko -->
     <!-- /ko -->
 
@@ -74,21 +74,19 @@
     .row
       .span3
         %span School name
-        = f.text_field :ab_school_name
+        = f.text_field :ab_school_name, 'data-bind' => 'value: abSchoolName'
     .row
       .span3
         %span
           Street number
-          %label (optional)
-        = f.text_field :ab_street_number
+        = f.text_field :ab_street_number, 'data-bind' => 'value: abStreetNumber'
       .span3
         %span
           Street name
-          %label (optional)
-        = f.text_field :ab_street_name
+        = f.text_field :ab_street_name, 'data-bind' => 'value: abStreetName'
       .span2.street-type-field
         %span Street type
-        = f.select :ab_street_type, [ ], { include_blank: true }, { class: 'span1' }
+        = f.select :ab_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { class: 'span1', 'data-bind' => 'value: abStreetType' }
       .span2.lot-field
         %span
           Apt/Lot
@@ -97,56 +95,19 @@
     .row
       .span3
         %span City
-        = f.text_field :ab_city
+        = f.text_field :ab_city, 'data-bind' => 'value: abCity'
       .span3
         %span
           Province or State
-        = f.text_field :ab_state
+        = f.text_field :ab_state, 'data-bind' => 'value: abState'
       .span3.postal-code-field
         %span Postal code
-        = f.text_field :ab_zip5, class: 'first-zip'
+        = f.text_field :ab_zip5, class: 'first-zip', 'data-bind' => 'value: abZip5'
         .space &mdash;
         = f.text_field :ab_zip4, class: 'second-zip'
       .span2.country-field
         %span Country
-        = f.text_field :ab_country
-  .partition
-    .row
-      .span12
-        %h4
-          %strong If approved, please send my Absentee Ballot to
-        .radio
-          = f.radio_button :ab_send_to, 'ra', { 'data-bind' => 'checked: abSendTo' }
-          %label My Registration address.
-        .radio
-          = f.radio_button :ab_send_to, 'ma', { 'data-bind' => 'checked: abSendTo' }
-          %label My Mailing address (if different from Registration address).
-        .radio
-          = f.radio_button :ab_send_to, 'other', { 'data-bind' => 'checked: abSendTo' }
-          %label The following address:
-    <!-- ko if: abSendTo() == 'other' -->
-    .row
-      .span3
-        %span3.address-field
-          %span Address
-          = f.text_field :aba_address
-          = f.text_field :aba_address_2
-    .row
-      .span3
-        %span City
-        = f.text_field :aba_city
-      .span3
-        %span Province or Sate
-        = f.text_field :aba_state
-      .span3.postal-code-field
-        %span Postal code
-        = f.text_field :aba_zip5, class: 'first-zip'
-        .space &mdash;
-        = f.text_field :aba_zip4, class: 'second-zip'
-      .span2.country-field
-        %span Country
-        = f.text_field :aba_country
-    <!-- /ko -->
+        = f.text_field :ab_country, 'data-bind' => 'value: abCountry'
   <!-- /ko -->
   <!-- /ko --> <!-- domestic -->
 
@@ -189,6 +150,46 @@
     <!-- /ko -->
     <!-- /ko -->
   <!-- /ko -->
+
+  <!-- ko if: requestingAbsentee -->
+  .partition
+    .row
+      .span12
+        %h4
+          %strong If approved, please send my Absentee Ballot to
+        .radio
+          = f.radio_button :ab_send_to, 'ra', { 'data-bind' => 'checked: abSendTo' }
+          %label My Registration address.
+        .radio
+          = f.radio_button :ab_send_to, 'ma', { 'data-bind' => 'checked: abSendTo' }
+          %label My Mailing address (if different from Registration address).
+        .radio
+          = f.radio_button :ab_send_to, 'other', { 'data-bind' => 'checked: abSendTo' }
+          %label The following address:
+    <!-- ko if: abSendTo() == 'other' -->
+    .row
+      .span3
+        %span3.address-field
+          %span Address
+          = f.text_field :aba_address, 'data-bind' => 'value: abSTAddress'
+          = f.text_field :aba_address_2
+    .row
+      .span3
+        %span City
+        = f.text_field :aba_city, 'data-bind' => 'value: abSTCity'
+      .span3
+        %span Province or Sate
+        = f.text_field :aba_state, 'data-bind' => 'value: abSTState'
+      .span3.postal-code-field
+        %span Postal code
+        = f.text_field :aba_zip5, class: 'first-zip', 'data-bind' => 'value: abSTZip5'
+        .space &mdash;
+        = f.text_field :aba_zip4, class: 'second-zip'
+      .span2.country-field
+        %span Country
+        = f.text_field :aba_country, 'data-bind' => 'value: abSTCountry'
+    <!-- /ko -->
+  <!-- /ko --> <!-- requestingAbsentee -->
 
   .partition
     .row

@@ -11,6 +11,7 @@
 .row
   .span12
     = form_for @registration_request, url: :registration_request do |f|
+      = hidden_field_tag :overseas, params[:kind] == 'overseas' ? 1 : 0
       = render partial: 'eligibility', locals: { f: f }
       = render partial: 'identity', locals: { f: f }
       = render partial: 'addresses', locals: { f: f }
@@ -20,6 +21,4 @@
       = render partial: 'oath', locals: { f: f }
       = render partial: 'download', locals: { f: f }
       = render partial: 'congratulations', locals: { f: f }
-      -#= render partial: 'contact_info', locals: { f: f }
-      -#= render partial: 'complete_registration', locals: { f: f }
 

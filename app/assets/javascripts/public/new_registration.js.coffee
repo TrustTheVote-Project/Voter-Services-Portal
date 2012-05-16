@@ -7,6 +7,16 @@ window.stepClass = (current, idx, def) ->
 filled = (v) -> v && !v.match(/^\s*$/)
 join   = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
 
+ko.bindingHandlers.vis = {
+  update: (element, valueAccessor) ->
+    value = ko.utils.unwrapObservable(valueAccessor())
+    isCurrentlyVisible = !(element.style.display == "none")
+    if value && !isCurrentlyVisible
+      element.style.display = "block"
+    else if !value && isCurrentlyVisible
+      element.style.display = "none"
+}
+
 class Popover
   constructor: (id, errors) ->
     @errors = errors
@@ -33,7 +43,7 @@ class NewRegistration
     oid       = "##{@oname}"
     @pages    = [ 'eligibility', 'identity', 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
 
-    overseas  = true # debug
+    overseas  = $('input#overseas').val() == '1'
 
     @eligibilitySection(overseas)
     @identitySection(overseas)
@@ -218,23 +228,65 @@ class NewRegistration
       errors.push("Existing registration") unless existing
       errors
 
-    @addressesInalid = ko.computed => @addressesErrors().length > 0
+    @addressesInvalid = ko.computed => @addressesErrors().length > 0
     new Popover('#mailing .next.btn', @addressesErrors)
 
   optionsSection: (overseas) =>
     @isConfidentialAddress  = ko.observable(false)
     @requestingAbsentee     = ko.observable(overseas)
     @rabElection            = ko.observable()
+    @rabElectionName        = ko.observable()
+    @rabElectionDate        = ko.observable()
     @abSendTo               = ko.observable()
     @outsideType            = ko.observable()
     @needsServiceDetails    = ko.computed => @outsideType() && @outsideType().match(/duty/)
     @serviceId              = ko.observable()
     @rank                   = ko.observable()
 
+    @abSchoolName           = ko.observable()
+    @abStreetNumber         = ko.observable()
+    @abStreetName           = ko.observable()
+    @abStreetType           = ko.observable()
+    @abCity                 = ko.observable()
+    @abState                = ko.observable()
+    @abZip5                 = ko.observable()
+    @abCountry              = ko.observable()
+
+    @abSTAddress            = ko.observable()
+    @abSTCity               = ko.observable()
+    @abSTState              = ko.observable()
+    @abSTZip5               = ko.observable()
+    @abSTCountry            = ko.observable()
+
     @optionsErrors = ko.computed =>
       errors = []
-      errors.push("Absense type") unless filled(@outsideType())
-      errors.push("Service details") if @needsServiceDetails() and (!filled(@serviceId()) || !filled(@rank()))
+      if @requestingAbsentee()
+        if @overseas()
+          errors.push("Absense type") unless filled(@outsideType())
+          errors.push("Service details") if @needsServiceDetails() and (!filled(@serviceId()) || !filled(@rank()))
+        else
+          if !filled(@rabElection()) or (@rabElection() == 'other' and (!filled(@rabElectionName()) or !filled(@rabElectionDate())))
+            errors.push("Election details")
+
+          if !filled(@abSchoolName()) or
+            !filled(@abStreetNumber()) or
+            !filled(@abSchoolName()) or
+            !filled(@abStreetType()) or
+            !filled(@abCity()) or
+            !filled(@abState()) or
+            !filled(@abZip5()) or
+            !filled(@abCountry())
+              errors.push("School details")
+
+          if !filled(@abSendTo()) or
+            (@abSendTo() == 'other' and
+            ( !filled(@abSTAddress()) or
+              !filled(@abSTCity()) or
+              !filled(@abSTState()) or
+              !filled(@abSTZip5()) or
+              !filled(@abSTCountry()) ) )
+                errors.push("Absentee ballot destination")
+
       errors
 
     @optionsInvalid = ko.computed => @optionsErrors().length > 0
@@ -248,4 +300,4 @@ class NewRegistration
     newIdx = @currentPageIdx() + 1
     location.hash = @pages[newIdx]
 
-ko.applyBindings(new NewRegistration(0))
+ko.applyBindings(new NewRegistration(3))
