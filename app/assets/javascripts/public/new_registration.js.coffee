@@ -1,8 +1,8 @@
 window.stepClass = (current, idx, def) ->
-  def   = def || 'span2'
-  match = if $.isArray(idx) then idx.indexOf(current) > -1 else idx == current
+  def = def || 'span2'
+  match = if $.isArray(idx) then $.inArray(current, idx) > -1 else idx == current
   max   = if $.isArray(idx) then idx[idx.length - 1] else idx
-  (if match then 'current ' else if current > max then 'done ' else '') + def
+  (if match then 'ccurrent ' else if current > max then 'done ' else '') + def
 
 pages  = [ 'eligibility', 'identity', 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
 oath_page_idx = 5
@@ -27,9 +27,11 @@ class Popover
     @el = $(id).popover(content: @popoverContent, title: 'Please review', html: 'html')
     @po = @el.data().popover
 
-    errors.subscribe =>
-      items = @errors()
-      @po.enabled = items.length > 0
+    errors.subscribe @update
+    @update()
+
+  update: =>
+    @po.enabled = @errors().length > 0
 
   popoverContent: =>
     items = @errors()
@@ -81,7 +83,7 @@ class NewRegistration
 
     $(window).hashchange =>
       hash = location.hash
-      newIdx = pages.indexOf(hash.replace('#', ''))
+      newIdx = $.inArray(hash.replace('#', ''), pages)
       newIdx = 0 if newIdx == -1
       @currentPageIdx(newIdx)
 
@@ -330,7 +332,7 @@ class DownloadRegistration
 
     $(window).hashchange =>
       hash = location.hash
-      newIdx = pages.indexOf(hash.replace('#', ''))
+      newIdx = $.inArray(hash.replace('#', ''), pages)
       newIdx = download_page_idx if newIdx == -1
       @currentPageIdx(newIdx)
 
