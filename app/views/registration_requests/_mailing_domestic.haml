@@ -20,11 +20,11 @@
       = f.text_field :ma_city, 'data-bind' => 'value: maCity'
     .span2.state-field
       %span State
-      = f.select :ma_state, Dictionaries::STATES, { include_blank: true }, { class: 'span1', 'data-bind' => 'value: maState' }
+      = f.select :ma_state, Dictionaries::STATES, { include_blank: true }, { class: 'span3', 'data-bind' => 'value: maState' }
     .span3.zip-field
       %span Zip code
-      = f.text_field :ma_zip5, class: 'first-zip', 'data-bind' => 'value: maZip5'
+      = f.text_field :ma_zip5, class: 'first-zip', 'data-bind' => 'value: maZip5', placeholder: '12345'
       .space &mdash;
-      = f.text_field :ma_zip4, class: 'second-zip'
+      = f.text_field :ma_zip4, class: 'second-zip', placeholder: '1234'
   <!-- /ko -->
 <!-- /ko -->

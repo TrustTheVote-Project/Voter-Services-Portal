@@ -10,6 +10,8 @@ download_page_idx = 6
 
 filled = (v) -> v && !v.match(/^\s*$/)
 join   = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
+zip5   = (v) -> filled(v) && v.match(/^\d{5}$/)
+ssn    = (v) -> filled(v) && v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){9}$/)
 
 ko.bindingHandlers.vis = {
   update: (element, valueAccessor) ->
@@ -128,7 +130,7 @@ class NewRegistration
       errors.push('Last name') unless filled(@lastName())
       errors.push('Date of birth') unless filled(@dobYear()) and filled(@dobMonth()) and filled(@dobDay())
       errors.push('Gender') unless filled(@gender())
-      errors.push('Social Security #') unless filled(@ssn()) or @noSSN()
+      errors.push('Social Security #') unless ssn(@ssn()) or @noSSN()
       errors
 
     @identityInvalid = ko.computed => @identityErrors().length > 0
@@ -180,7 +182,7 @@ class NewRegistration
       filled(@maAddress1()) and
       filled(@maCity()) and
       filled(@maState()) and
-      filled(@maZip5())
+      zip5(@maZip5())
 
     @nonUSMAFilled = ko.computed =>
       filled(@mauAddress()) and
@@ -191,7 +193,7 @@ class NewRegistration
 
     @overseasMAFilled = ko.computed =>
       if   @mauType() == 'apo'
-      then filled(@mauAPO1()) and filled(@mauAPO2()) and filled(@mauAPOZip5())
+      then filled(@mauAPO1()) and filled(@mauAPO2()) and zip5(@mauAPOZip5())
       else @nonUSMAFilled()
 
 
@@ -206,7 +208,7 @@ class NewRegistration
              filled(@vvrStreetType()) and
              filled(@vvrCity()) and
              filled(@vvrState()) and
-             filled(@vvrZip5()) and
+             zip5(@vvrZip5()) and
              filled(@vvrCountyOrCity())
 
       if @overseas()
@@ -225,7 +227,7 @@ class NewRegistration
              filled(@erStreetType()) and
              filled(@erCity()) and
              filled(@erState()) and
-             filled(@erZip5())
+             zip5(@erZip5())
 
       errors.push("Registration address") unless residental
       errors.push("Mailing address") unless mailing
@@ -278,7 +280,7 @@ class NewRegistration
             !filled(@abStreetType()) or
             !filled(@abCity()) or
             !filled(@abState()) or
-            !filled(@abZip5()) or
+            !zip5(@abZip5()) or
             !filled(@abCountry())
               errors.push("School details")
 
@@ -287,7 +289,7 @@ class NewRegistration
           ( !filled(@abSTAddress()) or
             !filled(@abSTCity()) or
             !filled(@abSTState()) or
-            !filled(@abSTZip5()) or
+            !zip5(@abSTZip5()) or
             !filled(@abSTCountry()) ) )
               errors.push("Absentee ballot destination")
 
@@ -346,7 +348,7 @@ class DownloadRegistration
 
 $ ->
   if $('form#new_registration_request').length > 0
-    ko.applyBindings(new NewRegistration(0))
+    ko.applyBindings(new NewRegistration(2))
 
   if $('#registration #download').length > 0
     ko.applyBindings(new DownloadRegistration())
