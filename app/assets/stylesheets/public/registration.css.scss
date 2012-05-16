@@ -212,7 +212,8 @@ select {
     background: image-url('buttons.png') no-repeat -570px 0;
   }
 
-  .next[disabled] {
+  .next.disabled {
+    cursor: default;
     background: image-url('buttons.png') no-repeat -570px 0;
     opacity: .5;
   }

@@ -64,4 +64,4 @@
           = f.date_select :rights_restored_on, { order: [ :day, :month, :year ] }
 
   .form-actions
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, disable: !eligibilityValid()'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: !eligibilityValid() }'

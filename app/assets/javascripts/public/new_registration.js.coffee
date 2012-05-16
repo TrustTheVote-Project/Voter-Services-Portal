@@ -7,9 +7,28 @@ window.stepClass = (current, idx, def) ->
 filled = (v) -> v && !v.match(/^\s*$/)
 join   = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
 
+class Popover
+  constructor: (id, errors) ->
+    @errors = errors
+    @el = $(id).popover(content: @popoverContent, title: 'Please review', html: 'html')
+    @po = @el.data().popover
+
+    errors.subscribe =>
+      items = @errors()
+      @po.enabled = items.length > 0
+
+  popoverContent: =>
+    items = @errors()
+    if items.length > 0
+      "<ul>#{('<li>' + i + '</li>' for i in items).join('')}</ul>"
+    else
+      null
+
+
 
 class NewRegistration
   constructor: (initPage = 0) ->
+    self      = this
     @oname    = 'registration_request'
     oid       = "##{@oname}"
     @pages    = [ 'eligibility', 'identity', 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
@@ -64,10 +83,15 @@ class NewRegistration
     @rightsRevokationReason = ko.observable()
     @rightsWereRestored     = ko.observable()
 
-    @eligibilityValid = ko.computed =>
-      @isCitizen() and @isOldEnough() and
-        (@rightsWereRevoked() == 'no' or (@rightsRevokationReason() and @rightsWereRestored() == 'yes')) or
-        false
+    @eligibilityErrors = ko.computed =>
+      errors = []
+      errors.push("Citizenship criteria") unless @isCitizen()
+      errors.push("Age criteria") unless @isOldEnough()
+      errors.push("Voting rights criteria") unless (@rightsWereRevoked() == 'no' or (@rightsRevokationReason() and @rightsWereRestored() == 'yes'))
+      errors
+
+    @eligibilityValid = ko.computed => @eligibilityErrors().length == 0
+    new Popover('#eligibility .next.btn', @eligibilityErrors)
 
   identitySection: (overseas) =>
     @firstName              = ko.observable()
@@ -83,11 +107,16 @@ class NewRegistration
     @phone                  = ko.observable()
     @email                  = ko.observable()
 
-    @identityValid = ko.computed =>
-      filled(@lastName()) and
-      filled(@dobYear()) and filled(@dobMonth()) and filled(@dobDay()) and
-      filled(@gender()) and (filled(@ssn()) or @noSSN()) or
-      false
+    @identityErrors = ko.computed =>
+      errors = []
+      errors.push('Last name') unless filled(@lastName())
+      errors.push('Date of birth') unless filled(@dobYear()) and filled(@dobMonth()) and filled(@dobDay())
+      errors.push('Gender') unless filled(@gender())
+      errors.push('Social Security #') unless filled(@ssn()) or @noSSN()
+      errors
+
+    @identityValid = ko.computed => @identityErrors().length == 0
+    new Popover('#identity .next.btn', @identityErrors)
 
   addressSection: (overseas) =>
     @vvrIsRural             = ko.observable(false)
@@ -132,10 +161,10 @@ class NewRegistration
 
     @domesticMAFilled = ko.computed =>
       @maIsSame() == 'yes' or
-      ( filled(@maAddress1()) and
-        filled(@maCity()) and
-        filled(@maState()) and
-        filled(@maZip5()) )
+      filled(@maAddress1()) and
+      filled(@maCity()) and
+      filled(@maState()) and
+      filled(@maZip5())
 
     @nonUSMAFilled = ko.computed =>
       filled(@mauAddress()) and
@@ -150,7 +179,9 @@ class NewRegistration
       else @nonUSMAFilled()
 
 
-    @addressesValid = ko.computed =>
+    @addressesErrors = ko.computed =>
+      errors = []
+
       residental =
         if   @vvrIsRural()
         then filled(@vvrRural())
@@ -180,7 +211,13 @@ class NewRegistration
              filled(@erState()) and
              filled(@erZip5())
 
-      residental and mailing and existing
+      errors.push("Registration address") unless residental
+      errors.push("Mailing address") unless mailing
+      errors.push("Existing registration") unless existing
+      errors
+
+    @addressesValid = ko.computed => @addressesErrors().length == 0
+    new Popover('#mailing .next.btn', @addressesErrors)
 
   optionsSection: (overseas) =>
     @isConfidentialAddress  = ko.observable(false)
@@ -193,7 +230,8 @@ class NewRegistration
   # --- Navigation
 
   prevPage: => window.history.back()
-  nextPage: =>
+  nextPage: (_, a) =>
+    return if $(a.target).hasClass('disabled')
     newIdx = @currentPageIdx() + 1
     location.hash = @pages[newIdx]
 
