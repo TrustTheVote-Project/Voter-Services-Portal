@@ -61,6 +61,8 @@ class NewRegistration
     @summaryStatus = ko.computed => if @requestingAbsentee() then 'Absentee' else 'In person'
 
 
+    $(".section").show()
+
     # Navigation
     @currentPageIdx         = ko.observable(initPage)
     @page                   = ko.computed(=> @pages[@currentPageIdx()])
@@ -90,7 +92,7 @@ class NewRegistration
       errors.push("Voting rights criteria") unless (@rightsWereRevoked() == 'no' or (@rightsRevokationReason() and @rightsWereRestored() == 'yes'))
       errors
 
-    @eligibilityValid = ko.computed => @eligibilityErrors().length == 0
+    @eligibilityInvalid = ko.computed => @eligibilityErrors().length > 0
     new Popover('#eligibility .next.btn', @eligibilityErrors)
 
   identitySection: (overseas) =>
@@ -115,7 +117,7 @@ class NewRegistration
       errors.push('Social Security #') unless filled(@ssn()) or @noSSN()
       errors
 
-    @identityValid = ko.computed => @identityErrors().length == 0
+    @identityInvalid = ko.computed => @identityErrors().length > 0
     new Popover('#identity .next.btn', @identityErrors)
 
   addressSection: (overseas) =>
@@ -216,7 +218,7 @@ class NewRegistration
       errors.push("Existing registration") unless existing
       errors
 
-    @addressesValid = ko.computed => @addressesErrors().length == 0
+    @addressesInalid = ko.computed => @addressesErrors().length > 0
     new Popover('#mailing .next.btn', @addressesErrors)
 
   optionsSection: (overseas) =>
@@ -226,6 +228,17 @@ class NewRegistration
     @abSendTo               = ko.observable()
     @outsideType            = ko.observable()
     @needsServiceDetails    = ko.computed => @outsideType() && @outsideType().match(/duty/)
+    @serviceId              = ko.observable()
+    @rank                   = ko.observable()
+
+    @optionsErrors = ko.computed =>
+      errors = []
+      errors.push("Absense type") unless filled(@outsideType())
+      errors.push("Service details") if @needsServiceDetails() and (!filled(@serviceId()) || !filled(@rank()))
+      errors
+
+    @optionsInvalid = ko.computed => @optionsErrors().length > 0
+    new Popover('#options .next.btn', @optionsErrors)
 
   # --- Navigation
 

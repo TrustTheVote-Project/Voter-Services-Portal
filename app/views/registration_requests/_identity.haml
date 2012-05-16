@@ -64,4 +64,4 @@
 
   .form-actions
     = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: !identityValid() }'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: identityInvalid }'

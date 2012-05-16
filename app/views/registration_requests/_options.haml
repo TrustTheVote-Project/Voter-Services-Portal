@@ -182,10 +182,10 @@
         = select     :registration_request, :service_branch, options_for_select(RegistrationRequest::SERVICE_BRANCHES), {}, class: 'span2 inline'
       .span2
         %span Service ID
-        = text_field :registration_request, :service_id, placeholder: 'Service ID', class: 'span1 inline'
+        = text_field :registration_request, :service_id, placeholder: 'Service ID', class: 'span1 inline', 'data-bind' => 'value: serviceId'
       .span2
         %span Rank / Grade / Rate
-        = text_field :registration_request, :rank, placeholder: 'Rank / Grade / Rate', class: 'span2 inline'
+        = text_field :registration_request, :rank, placeholder: 'Rank / Grade / Rate', class: 'span2 inline', 'data-bind' => 'value: rank'
     <!-- /ko -->
     <!-- /ko -->
   <!-- /ko -->
@@ -200,4 +200,4 @@
 
   .form-actions
     = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: optionsInvalid }'
