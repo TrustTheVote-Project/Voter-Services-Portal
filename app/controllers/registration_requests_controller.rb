@@ -2,7 +2,9 @@ class RegistrationRequestsController < ApplicationController
 
   def new
     LogRecord.log('registration', 'started')
-    @registration_request = RegistrationRequest.new(residence: params[:kind] == 'residential' ? 'in' : 'outside')
+    @registration_request = RegistrationRequest.new(
+      residence: params[:kind] == 'residential' ? 'in' : 'outside',
+      absentee_until: 1.year.from_now.strftime('%m/%d/%Y') )
   end
 
   def create
@@ -10,8 +12,7 @@ class RegistrationRequestsController < ApplicationController
     Converter.params_to_date(data,
       :vvr_uocava_residence_unavailable_since,
       :dob,
-      :convicted_rights_restored_on,
-      :mental_rights_restored_on)
+      :rights_restored_on)
 
     @registration_request = RegistrationRequest.new(data)
 

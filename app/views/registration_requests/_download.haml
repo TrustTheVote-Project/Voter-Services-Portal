@@ -4,7 +4,7 @@
     .description Download and view your Virginia Voter Registration Application.
   .row
     .span10
-      %a.download-link{ :href => "#" }
+      = link_to "", registration_request_path(format: 'pdf'), class: 'download-link'
       %p
         We have created your Virginia Voter Registration Application using the information you provided. Click the PDF icon below to download. The irginia Voter Registration Application PDF will open in your default PDF viewing application, or in your web browser.
         %a{ :href => "#" }
@@ -62,5 +62,4 @@
         General Election in which you plan to vote.
 
   .form-actions
-    = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'

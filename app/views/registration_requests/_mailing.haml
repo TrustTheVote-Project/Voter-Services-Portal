@@ -52,7 +52,7 @@
           = f.check_box :er_is_rural, { 'data-bind' => 'checked: erIsRural' }
           Rural address or homeless? Please check the box and describe where you reside.
         <!-- ko if: erIsRural -->
-        %textarea{ :cols => "10", :rows => "10", 'data-bind' => 'value: erRural' }
+        = f.text_area :er_rural, cols: "10", rows: "10", 'data-bind' => 'value: erRural'
         <!-- /ko -->
     <!-- /ko -->
 
@@ -67,5 +67,5 @@
   <!-- /ko -->
 
   .form-actions
-    = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: addressesInvalid }'
+    = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'

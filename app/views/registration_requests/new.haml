@@ -9,8 +9,8 @@
       law, unless specifically marked optional.
 
 .row
-  .span12
-    = form_for @registration_request, url: :registration_request do |f|
+  .padded_page_span
+    = form_for @registration_request, url: :registration_request, html: { 'data-bind' => 'submit: submit' } do |f|
       = hidden_field_tag :overseas, params[:kind] == 'overseas' ? 1 : 0
       = render partial: 'eligibility', locals: { f: f }
       = render partial: 'identity', locals: { f: f }
@@ -19,6 +19,4 @@
       = render partial: 'options', locals: { f: f }
       = render partial: 'confirm', locals: { f: f }
       = render partial: 'oath', locals: { f: f }
-      = render partial: 'download', locals: { f: f }
-      = render partial: 'congratulations', locals: { f: f }
 

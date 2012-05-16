@@ -32,7 +32,7 @@
     .row
       .span12
         %label Gender
-        = f.select :gender, [ 'Male', 'Femaly' ], { include_blank: true }, { class: 'span2', 'data-bind' => 'value: gender' }
+        = f.select :gender, [ 'Male', 'Female' ], { include_blank: true }, { class: 'span2', 'data-bind' => 'value: gender' }
 
   .row
     .span12.security-number
@@ -63,5 +63,5 @@
       %span= f.text_field :email, placeholder: 'john@smith.com', 'data-bind' => 'value: email'
 
   .form-actions
-    = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: identityInvalid }'
+    = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'

@@ -6,31 +6,30 @@ class RegistrationRequestForPdf
 
   # Rights
 
-  def felony_rights_revoked?
-    @req.convicted != 'false'
+  def rights_revoked?
+    @req.rights_revoked == 'yes'
   end
 
   def felony_state
-    @req.convicted_in_state
+    @req.felony_state
   end
 
-  def felony_restored_on
-    @req.convicted_rights_restored_on.try(:strftime, "%m/%d/%Y")
+  def rights_revokation_reason
+    rights_revoked_felony? ? 'felony' : 'mental incapacitation'
   end
 
-  def mental_rights_revoked?
-    @req.mental != 'false'
+  def rights_revoked_felony?
+    @req.rights_revoked_reason == 'felony'
   end
 
-  def mental_restored_on
-    @req.mental_rights_restored_on.try(:strftime, "%m/%d/%Y")
+  def rights_restored_on
+    @req.rights_restored_on.try(:strftime, "%m/%d/%Y")
   end
 
   # Identity
 
   def name
-    [ @req.title,
-      @req.first_name,
+    [ @req.first_name,
       @req.middle_name,
       @req.last_name,
       @req.suffix ].reject(&:blank?).join(' ')
@@ -77,7 +76,7 @@ class RegistrationRequestForPdf
         end
 
         zip = [ @req.vvr_zip5, @req.vvr_zip4 ].reject(&:blank?).join('-')
-        [ [ @req.vvr_street_number, @req.vvr_street_name, @req.vvr_street_suffix ].reject(&:blank?).join(' '),
+        [ [ [ @req.vvr_street_number, @req.vvr_apt ].reject(&:blank?).join(' / '), @req.vvr_street_name, @req.vvr_street_suffix ].reject(&:blank?).join(' '),
           county,
           city,
           [ 'VA', zip ].join(' ') ].reject(&:blank?).join(', ')
@@ -96,10 +95,10 @@ class RegistrationRequestForPdf
   end
 
   def domestic_mailing_address
-    if @req.ma_other == '0'
+    if @req.ma_is_same == 'yes'
       registration_address
     else
-      us_address(:ma)
+      us_address_no_rural(:ma)
     end
   end
 
@@ -126,7 +125,7 @@ class RegistrationRequestForPdf
   end
 
   def absentee_status_until
-    '24/10/2020 (where do we get this?)'
+    @req.absentee_until
   end
 
   def absentee_type
@@ -138,15 +137,15 @@ class RegistrationRequestForPdf
   end
 
   def military_branch
-    @req.send("outside_#{military_prefix}_service_branch")
+    @req.send("service_branch")
   end
 
   def military_service_id
-    @req.send("outside_#{military_prefix}_service_id")
+    @req.send("service_id")
   end
 
   def military_rank
-    @req.send("outside_#{military_prefix}_rank")
+    @req.send("rank")
   end
 
   def overseas_mailing_address
@@ -179,13 +178,17 @@ class RegistrationRequestForPdf
     if @req.send("#{prefix}_is_rural") == '1'
       @req.send("#{prefix}_rural")
     else
-      [ @req.send("#{prefix}_address"),
-        @req.send("#{prefix}_address_2"),
-        @req.send("#{prefix}_city"),
-        @req.send("#{prefix}_state"),
-        [ @req.send("#{prefix}_zip5"), @req.send("#{prefix}_zip4") ].reject(&:blank?).join('-')
-      ].reject(&:blank?).join(', ')
+      us_address_no_rural(prefix)
     end
+  end
+
+  def us_address_no_rural(prefix)
+    [ @req.send("#{prefix}_address"),
+      @req.send("#{prefix}_address_2"),
+      @req.send("#{prefix}_city"),
+      @req.send("#{prefix}_state"),
+      [ @req.send("#{prefix}_zip5"), @req.send("#{prefix}_zip4") ].reject(&:blank?).join('-')
+    ].reject(&:blank?).join(', ')
   end
 
   def military_prefix

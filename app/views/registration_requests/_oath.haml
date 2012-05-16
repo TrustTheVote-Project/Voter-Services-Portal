@@ -6,7 +6,7 @@
     .row
       .span10
         .checkbox
-          = f.check_box :no_ssn
+          = check_box :registration_request, :information_correct, 'data-bind' => 'checked: infoCorrect'
           %strong Registration Statement
           %br/
           I swear/affirm, under felony penalty for making willfully false material statements or entries, that the information provided on this form is true.
@@ -22,9 +22,9 @@
     .row
       .span10
         .checkbox
-          = f.check_box :no_ssn
+          = check_box :registration_request, :privacy_agree, 'data-bind' => 'checked: privacyAgree'
           %strong I have read and agree with the terms of the Privacy Act Notice.
 
   .form-actions
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: oathInvalid }'
     = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'

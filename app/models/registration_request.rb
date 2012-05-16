@@ -35,7 +35,8 @@ class RegistrationRequest < ActiveRecord::Base
   # Options
   serialized_attr :is_confidential_address, :ca_type
   serialized_attr :requesting_absentee, :rab_election,
-                  :rab_election_name, :rab_election_date
+                  :rab_election_name, :rab_election_date,
+                  :absentee_until
   serialized_attr :ab_reason, :ab_school_name, :ab_street_number,
                   :ab_street_name, :ab_street_type,
                   :ab_apt, :ab_city, :ab_state, :ab_zip5, :ab_zip4, :ab_country,

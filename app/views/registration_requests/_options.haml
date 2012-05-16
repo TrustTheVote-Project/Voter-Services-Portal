@@ -112,6 +112,7 @@
   <!-- /ko --> <!-- domestic -->
 
   <!-- ko if: overseas -->
+  = f.hidden_field :absentee_until
   .partition
     .row
       .span12
@@ -119,7 +120,7 @@
           = f.check_box :requesting_absentee, { 'data-bind' => 'checked: requestingAbsentee' }
           %strong
             I will not be able to vote in person, and would like to vote absentee
-            until <strong>#{1.year.from_now.strftime('%B %d, %Y')}</strong>
+            until <strong>#{f.object.absentee_until}</strong>
     <!-- ko if: requestingAbsentee -->
     .row
       .span12
@@ -200,5 +201,5 @@
             I'm interested in being an Election Official on Election Day. Please send me information.
 
   .form-actions
-    = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: optionsInvalid }'
+    = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'

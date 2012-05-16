@@ -4,6 +4,10 @@ window.stepClass = (current, idx, def) ->
   max   = if $.isArray(idx) then idx[idx.length - 1] else idx
   (if match then 'current ' else if current > max then 'done ' else '') + def
 
+pages  = [ 'eligibility', 'identity', 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
+oath_page_idx = 5
+download_page_idx = 6
+
 filled = (v) -> v && !v.match(/^\s*$/)
 join   = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
 
@@ -34,14 +38,11 @@ class Popover
     else
       null
 
-
-
 class NewRegistration
   constructor: (initPage = 0) ->
     self      = this
     @oname    = 'registration_request'
     oid       = "##{@oname}"
-    @pages    = [ 'eligibility', 'identity', 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
 
     overseas  = $('input#overseas').val() == '1'
 
@@ -49,6 +50,7 @@ class NewRegistration
     @identitySection(overseas)
     @addressSection(overseas)
     @optionsSection(overseas)
+    @oathSection()
 
     # Summary
     @summaryFullName = ko.computed =>
@@ -75,11 +77,11 @@ class NewRegistration
 
     # Navigation
     @currentPageIdx         = ko.observable(initPage)
-    @page                   = ko.computed(=> @pages[@currentPageIdx()])
+    @page                   = ko.computed(=> pages[@currentPageIdx()])
 
     $(window).hashchange =>
       hash = location.hash
-      newIdx = @pages.indexOf(hash.replace('#', ''))
+      newIdx = pages.indexOf(hash.replace('#', ''))
       newIdx = 0 if newIdx == -1
       @currentPageIdx(newIdx)
 
@@ -292,12 +294,58 @@ class NewRegistration
     @optionsInvalid = ko.computed => @optionsErrors().length > 0
     new Popover('#options .next.btn', @optionsErrors)
 
+  oathSection: =>
+    @infoCorrect  = ko.observable()
+    @privacyAgree = ko.observable()
+
+    @oathErrors = ko.computed =>
+      errors = []
+      errors.push("Confirm that information is correct") unless @infoCorrect()
+      errors.push("Agree with privacy terms") unless @privacyAgree()
+      errors
+
+    @oathInvalid = ko.computed => @oathErrors().length > 0
+    new Popover('#oath .next.btn', @oathErrors)
+
+  # --- Navigation
+  submit: (f) =>
+    $("##{@page()} .next.btn").trigger('click')
+
+  prevPage: => window.history.back()
+  nextPage: (_, e) =>
+    return if $(e.target).hasClass('disabled')
+    newIdx = @currentPageIdx() + 1
+    if newIdx > oath_page_idx
+      $('form#new_registration_request')[0].submit()
+    else
+      location.hash = pages[newIdx]
+
+class DownloadRegistration
+  constructor: ->
+    $(".section").show()
+
+    # Navigation
+    @currentPageIdx         = ko.observable(download_page_idx)
+    @page                   = ko.computed(=> pages[@currentPageIdx()])
+
+    $(window).hashchange =>
+      hash = location.hash
+      newIdx = pages.indexOf(hash.replace('#', ''))
+      newIdx = download_page_idx if newIdx == -1
+      @currentPageIdx(newIdx)
+
   # --- Navigation
 
   prevPage: => window.history.back()
   nextPage: (_, a) =>
     return if $(a.target).hasClass('disabled')
     newIdx = @currentPageIdx() + 1
-    location.hash = @pages[newIdx]
+    location.hash = pages[newIdx]
 
-ko.applyBindings(new NewRegistration(0))
+$ ->
+  if $('form#new_registration_request').length > 0
+    ko.applyBindings(new NewRegistration(0))
+
+  if $('#registration #download').length > 0
+    ko.applyBindings(new DownloadRegistration())
+
