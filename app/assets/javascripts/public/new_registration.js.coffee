@@ -278,14 +278,14 @@ class NewRegistration
             !filled(@abCountry())
               errors.push("School details")
 
-          if !filled(@abSendTo()) or
-            (@abSendTo() == 'other' and
-            ( !filled(@abSTAddress()) or
-              !filled(@abSTCity()) or
-              !filled(@abSTState()) or
-              !filled(@abSTZip5()) or
-              !filled(@abSTCountry()) ) )
-                errors.push("Absentee ballot destination")
+        if !filled(@abSendTo()) or
+          (@abSendTo() == 'other' and
+          ( !filled(@abSTAddress()) or
+            !filled(@abSTCity()) or
+            !filled(@abSTState()) or
+            !filled(@abSTZip5()) or
+            !filled(@abSTCountry()) ) )
+              errors.push("Absentee ballot destination")
 
       errors
 
@@ -300,4 +300,4 @@ class NewRegistration
     newIdx = @currentPageIdx() + 1
     location.hash = @pages[newIdx]
 
-ko.applyBindings(new NewRegistration(3))
+ko.applyBindings(new NewRegistration(0))
