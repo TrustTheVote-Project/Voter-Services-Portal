@@ -27,7 +27,7 @@
       = f.text_field :vvr_town_or_city, { 'data-bind' => 'value: vvrCity' }
     .span2.state-field
       %span State
-      = f.select :vvr_state, Dictionaries::STATES, { include_blank: true }, { class: 'span3', 'data-bind' => 'value: vvrState' }
+      = f.select :vvr_state, [ 'VA' ], {}, { class: 'span3', 'data-bind' => 'value: vvrState' }
     .span3.zip-field
       %span Zip code
       = f.text_field :vvr_zip5, class: 'first-zip', 'data-bind' => 'value: vvrZip5', placeholder: '12345'
