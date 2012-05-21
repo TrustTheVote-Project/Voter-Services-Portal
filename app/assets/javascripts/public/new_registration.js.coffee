@@ -12,6 +12,7 @@ filled = (v) -> v && !v.match(/^\s*$/)
 join   = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
 zip5   = (v) -> filled(v) && v.match(/^\d{5}$/)
 ssn    = (v) -> filled(v) && v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){9}$/)
+date   = (y, m, d) -> filled(y) && filled(m) && filled(d) && moment([y, m, d]).diff(new Date()) < 0
 
 ko.bindingHandlers.vis = {
   update: (element, valueAccessor) ->
@@ -100,12 +101,15 @@ class NewRegistration
     @rightsWereRevoked      = ko.observable()
     @rightsRevokationReason = ko.observable()
     @rightsWereRestored     = ko.observable()
+    @rightsRestoredOnMonth  = ko.observable()
+    @rightsRestoredOnYear   = ko.observable()
+    @rightsRestoredOnDay    = ko.observable()
 
     @eligibilityErrors = ko.computed =>
       errors = []
       errors.push("Citizenship criteria") unless @isCitizen()
       errors.push("Age criteria") unless @isOldEnough()
-      errors.push("Voting rights criteria") unless (@rightsWereRevoked() == 'no' or (@rightsRevokationReason() and @rightsWereRestored() == 'yes'))
+      errors.push("Voting rights criteria") unless (@rightsWereRevoked() == 'no' or (@rightsRevokationReason() and @rightsWereRestored() == 'yes' and date(@rightsRestoredOnYear(), @rightsRestoredOnMonth(), @rightsRestoredOnDay())))
       errors
 
     @eligibilityInvalid = ko.computed => @eligibilityErrors().length > 0

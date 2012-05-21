@@ -61,7 +61,7 @@
       .block.restored{ 'data-bind' => "visible: rightsWereRestored() == 'yes'" }
         %h4 My voting rights were restored on:
         .date
-          = f.date_select :rights_restored_on, { order: [ :day, :month, :year ] }
+          = bound_date f, :rights_restored_on, :end_year => Date.today.year
 
       .block.ineligible{ 'data-bind' => "visible: rightsWereRestored() == 'no'" }
         %p We are sorry, but you are ineligible... TBD
