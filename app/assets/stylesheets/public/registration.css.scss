@@ -40,6 +40,10 @@
       display: inline;
     }
   }
+
+  .ineligible {
+    color: red;
+  }
 }
 
 .partition {
@@ -270,5 +274,4 @@ select {
     margin: 0 0 10px 10px;
   }
 }
-
 

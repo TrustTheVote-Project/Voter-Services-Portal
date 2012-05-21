@@ -63,5 +63,8 @@
         .date
           = f.date_select :rights_restored_on, { order: [ :day, :month, :year ] }
 
+      .block.ineligible{ 'data-bind' => "visible: rightsWereRestored() == 'no'" }
+        %p We are sorry, but you are ineligible... TBD
+
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: eligibilityInvalid }'
