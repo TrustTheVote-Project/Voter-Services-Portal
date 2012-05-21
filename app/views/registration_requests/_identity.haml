@@ -42,6 +42,7 @@
         = f.check_box :no_ssn, 'data-bind' => 'checked: noSSN'
         %label
           I do not have a Social Security Number.
+          <!-- ko if: noSSN -->
           %br/
           To register without a Social Security Number you will have to contact your
           %br/
@@ -49,6 +50,7 @@
           %a{ :href => "#" }Voter Registration office.
           Find out more
           %a{ :href => "#" }here.
+          <!-- /ko -->
 
   .row
     .span3.phone-field

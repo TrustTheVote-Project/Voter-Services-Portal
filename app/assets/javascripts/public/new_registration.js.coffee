@@ -134,7 +134,7 @@ class NewRegistration
       errors.push('Last name') unless filled(@lastName())
       errors.push('Date of birth') unless filled(@dobYear()) and filled(@dobMonth()) and filled(@dobDay())
       errors.push('Gender') unless filled(@gender())
-      errors.push('Social Security #') unless ssn(@ssn()) or @noSSN()
+      errors.push('Social Security #') unless ssn(@ssn()) and !@noSSN()
       errors
 
     @identityInvalid = ko.computed => @identityErrors().length > 0
