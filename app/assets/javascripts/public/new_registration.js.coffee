@@ -13,6 +13,7 @@ join   = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
 zip5   = (v) -> filled(v) && v.match(/^\d{5}$/)
 ssn    = (v) -> filled(v) && v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){9}$/)
 date   = (y, m, d) -> filled(y) && filled(m) && filled(d) && moment([y, m, d]).diff(new Date()) < 0
+phone  = (v) -> v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){10}$/)
 
 ko.bindingHandlers.vis = {
   update: (element, valueAccessor) ->
@@ -135,6 +136,7 @@ class NewRegistration
       errors.push('Date of birth') unless filled(@dobYear()) and filled(@dobMonth()) and filled(@dobDay())
       errors.push('Gender') unless filled(@gender())
       errors.push('Social Security #') unless ssn(@ssn()) and !@noSSN()
+      errors.push('Phone number') unless !filled(@phone()) or phone(@phone())
       errors
 
     @identityInvalid = ko.computed => @identityErrors().length > 0
