@@ -159,6 +159,7 @@ class NewRegistration
     @vvrZip5                = ko.observable()
     @vvrZip4                = ko.observable()
     @vvrCountyOrCity        = ko.observable()
+    @vvrCountySelected      = ko.computed => String(@vvrCountyOrCity()).match(/\s+county/i)
     @vvrCountyOrCity.subscribe (coc) => @vvrCity(coc.replace(/\s+city/i, '')) if coc.match(/\s+city/i)
     @vvrOverseasRA          = ko.observable()
     @maAddress1             = ko.observable()

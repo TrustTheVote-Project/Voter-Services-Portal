@@ -23,8 +23,8 @@
       = f.text_field :vvr_apt, { 'data-bind' => 'value: vvrApt' }
   .row
     .span3
-      %span City
-      = f.text_field :vvr_town_or_city, { 'data-bind' => 'value: vvrCity' }
+      %span County or city
+      = f.select :vvr_county_or_city, Dictionaries::CITIES_AND_COUNTIES, { include_blank: true }, { class: 'span3', 'data-bind' => 'value: vvrCountyOrCity' }
     .span2.state-field
       %span State
       = f.select :vvr_state, [ 'VA' ], {}, { class: 'span3', 'data-bind' => 'value: vvrState' }
@@ -33,10 +33,12 @@
       = f.text_field :vvr_zip5, class: 'first-zip', 'data-bind' => 'value: vvrZip5', placeholder: '12345'
       .space &mdash;
       = f.text_field :vvr_zip4, class: 'second-zip', 'data-bind' => 'value: vvrZip4', placeholder: '1234'
+  <!-- ko if: vvrCountySelected -->
   .row
     .span3
-      %span County or city
-      = f.select :vvr_county_or_city, Dictionaries::CITIES_AND_COUNTIES, { include_blank: true }, { class: 'span3', 'data-bind' => 'value: vvrCountyOrCity' }
+      %span City
+      = f.text_field :vvr_town_or_city, { 'data-bind' => 'value: vvrCity' }
+  <!-- /ko -->
   <!-- /ko -->
 
   .row
