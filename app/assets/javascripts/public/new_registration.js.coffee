@@ -213,7 +213,6 @@ class NewRegistration
         then filled(@vvrRural())
         else filled(@vvrStreetNumber()) and
              filled(@vvrStreetName()) and
-             filled(@vvrStreetType()) and
              filled(@vvrCity()) and
              filled(@vvrState()) and
              zip5(@vvrZip5()) and
@@ -232,7 +231,6 @@ class NewRegistration
         then filled(@erRural())
         else filled(@erStreetNumber()) and
              filled(@erStreetName()) and
-             filled(@erStreetType()) and
              filled(@erCity()) and
              filled(@erState()) and
              zip5(@erZip5())
@@ -285,7 +283,6 @@ class NewRegistration
           if !filled(@abSchoolName()) or
             !filled(@abStreetNumber()) or
             !filled(@abSchoolName()) or
-            !filled(@abStreetType()) or
             !filled(@abCity()) or
             !filled(@abState()) or
             !zip5(@abZip5()) or
@@ -356,7 +353,7 @@ class DownloadRegistration
 
 $ ->
   if $('form#new_registration_request').length > 0
-    ko.applyBindings(new NewRegistration(0))
+    ko.applyBindings(new NewRegistration(2))
 
   if $('#registration #download').length > 0
     ko.applyBindings(new DownloadRegistration())
