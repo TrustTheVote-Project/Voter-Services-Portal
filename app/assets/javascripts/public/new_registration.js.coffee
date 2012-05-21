@@ -14,6 +14,7 @@ zip5   = (v) -> filled(v) && v.match(/^\d{5}$/)
 ssn    = (v) -> filled(v) && v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){9}$/)
 date   = (y, m, d) -> filled(y) && filled(m) && filled(d) && moment([y, m, d]).diff(new Date()) < 0
 phone  = (v) -> v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){10}$/)
+email  = (v) -> v.match(/^\S+@\S+\.\S+$/)
 
 ko.bindingHandlers.vis = {
   update: (element, valueAccessor) ->
@@ -137,6 +138,7 @@ class NewRegistration
       errors.push('Gender') unless filled(@gender())
       errors.push('Social Security #') unless ssn(@ssn()) and !@noSSN()
       errors.push('Phone number') unless !filled(@phone()) or phone(@phone())
+      errors.push('Email address') unless !filled(@email()) or email(@email())
       errors
 
     @identityInvalid = ko.computed => @identityErrors().length > 0
