@@ -64,7 +64,7 @@
           = bound_date f, :rights_restored_on, :end_year => Date.today.year
 
       .block.ineligible{ 'data-bind' => "visible: rightsWereRestored() == 'no'" }
-        %p We are sorry, but you are ineligible... TBD
+        %p You are not eligible to vote, if your voting rights have been revoked, and have not been restored.
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: eligibilityInvalid }'
