@@ -358,7 +358,6 @@ class NewRegistration
       ], " ")
 
 
-
   # --- Navigation
   submit: (f) =>
     $("##{@page()} .next.btn").trigger('click')
