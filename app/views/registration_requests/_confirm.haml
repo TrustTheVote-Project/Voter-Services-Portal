@@ -7,8 +7,12 @@
       %strong Name and registration address
       %br/
       %div{ 'data-bind' => 'text: summaryFullName' }
-      %div{ 'data-bind' => 'text: summaryAddress1' }
-      %div{ 'data-bind' => 'text: summaryAddress2' }
+      %div{ 'data-bind' => 'html: summaryRegistrationAddress' }
+  .row
+    .span12
+      %strong Mailing address
+      %br/
+      %div{ 'data-bind' => 'html: summaryMailingAddress' }
   .row
     .span12
       %strong Date of birth

@@ -58,27 +58,7 @@ class NewRegistration
     @addressSection(overseas)
     @optionsSection(overseas)
     @oathSection()
-
-    # Summary
-    @summaryFullName = ko.computed =>
-      join([ @firstName(), @middleName(), @lastName(), @suffix() ], ' ')
-
-    @summaryDOB = ko.computed =>
-      if filled(@dobMonth()) && filled(@dobDay()) && filled(@dobYear())
-        moment([ @dobYear(), parseInt(@dobMonth()) - 1, @dobDay() ]).format("MMMM D, YYYY")
-
-    @summaryAddress1 = ko.computed =>
-      if @vvrIsRural()
-        @vvrRural()
-      else
-        join([ join([ @vvrStreetNumber(), @vvrApt() ], '/'), @vvrStreetName(), @vvrStreetType() ], ' ')
-
-    @summaryAddress2 = ko.computed =>
-      unless @vvrIsRural()
-        join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
-
-    @summaryStatus = ko.computed => if @requestingAbsentee() then 'Absentee' else 'In person'
-
+    @summarySection()
 
     $(".section").show()
 
@@ -86,13 +66,17 @@ class NewRegistration
     @currentPageIdx         = ko.observable(initPage)
     @page                   = ko.computed(=> pages[@currentPageIdx()])
 
+    # Reset any hash in the URL
+    location.hash = ''
+
+    # Watch for URL changes
     $(window).hashchange =>
       hash = location.hash
       newIdx = $.inArray(hash.replace('#', ''), pages)
       newIdx = 0 if newIdx == -1
       @currentPageIdx(newIdx)
 
-  # --- Validation
+  # --- Sections
 
   eligibilitySection: (overseas) =>
     @isCitizen              = ko.observable()
@@ -162,10 +146,14 @@ class NewRegistration
     @vvrCountySelected      = ko.computed => String(@vvrCountyOrCity()).match(/\s+county/i)
     @vvrOverseasRA          = ko.observable()
     @maAddress1             = ko.observable()
+    @maAddress2             = ko.observable()
     @maCity                 = ko.observable()
     @maState                = ko.observable()
     @maZip5                 = ko.observable()
+    @maZip4                 = ko.observable()
     @mauType                = ko.observable()
+    @mauAPOAddress1         = ko.observable()
+    @mauAPOAddress2         = ko.observable()
     @mauAPO1                = ko.observable()
     @mauAPO2                = ko.observable()
     @mauAPOZip5             = ko.observable()
@@ -203,7 +191,6 @@ class NewRegistration
       if   @mauType() == 'apo'
       then filled(@mauAPO1()) and filled(@mauAPO2()) and zip5(@mauAPOZip5())
       else @nonUSMAFilled()
-
 
     @addressesErrors = ko.computed =>
       errors = []
@@ -316,6 +303,56 @@ class NewRegistration
 
     @oathInvalid = ko.computed => @oathErrors().length > 0
     new Popover('#oath .next.btn', @oathErrors)
+
+
+  summarySection: =>
+    @summaryFullName = ko.computed =>
+      join([ @firstName(), @middleName(), @lastName(), @suffix() ], ' ')
+
+    @summaryDOB = ko.computed =>
+      if filled(@dobMonth()) && filled(@dobDay()) && filled(@dobYear())
+        moment([ @dobYear(), parseInt(@dobMonth()) - 1, @dobDay() ]).format("MMMM D, YYYY")
+
+    @summaryRegistrationAddress = ko.computed =>
+      if @vvrIsRural()
+        @vvrRural()
+      else
+        join([ join([ @vvrStreetNumber(), @vvrApt() ], '/'), @vvrStreetName(), @vvrStreetType() ], ' ') + "<br/>" +
+        join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
+
+    @summaryOverseasMailingAddress = ko.computed =>
+      if @mauType() == 'apo'
+        join([
+          @mauAPOAddress1(),
+          @mauAPOAddress2(),
+          join([ @mauAPO1(), @mauAPO2(), @mauAPOZip5() ], ', ')
+        ], "<br/>")
+      else
+        join([
+          @mauAddress(),
+          @mauAddress2(),
+          join([ @mauCity(), join([ @mauState(), @mauPostalCode()], ' '), @mauCountry()], ', ')
+        ], "<br/>")
+
+
+    @summaryDomesticMailingAddress = ko.computed =>
+      join([
+        @maAddress1(),
+        @maAddress2(),
+        join([ @maCity(), join([ @maState(), join([ @maZip5(), @maZip4()], '-')], ' ')], ', ')
+      ], "<br/>")
+
+    @summaryMailingAddress = ko.computed =>
+      if @overseas()
+        @summaryOverseasMailingAddress()
+      else
+        if @maIsSame() == 'yes'
+          @summaryRegistrationAddress()
+        else
+          @summaryDomesticMailingAddress()
+
+    @summaryStatus = ko.computed => if @requestingAbsentee() then 'Absentee' else 'In person'
+
 
   # --- Navigation
   submit: (f) =>

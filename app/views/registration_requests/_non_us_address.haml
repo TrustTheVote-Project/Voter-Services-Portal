@@ -1,21 +1,21 @@
 .row
   .span3.address-field
     %span Address
-    = f.text_field "#{prefix}_address", 'data-bind' => 'value: mauAddress'
-    = f.text_field "#{prefix}_address_2", 'data-bind' => 'value: mauAddress2'
+    = f.text_field "#{prefix}_address", 'data-bind' => "value: #{prefix}Address"
+    = f.text_field "#{prefix}_address_2", 'data-bind' => "value: #{prefix}Address2"
 
 .row
   .span3
     %span City or Town
-    = f.text_field "#{prefix}_city", 'data-bind' => 'value: mauCity'
+    = f.text_field "#{prefix}_city", 'data-bind' => "value: #{prefix}City"
   .span3
     %span State or Province
-    = f.text_field "#{prefix}_state", 'data-bind' => 'value: mauState'
+    = f.text_field "#{prefix}_state", 'data-bind' => "value: #{prefix}State"
   .span3
     %span Postal Code
-    = f.text_field "#{prefix}_postal_code", class: 'span1', 'data-bind' => 'value: mauPostalCode'
+    = f.text_field "#{prefix}_postal_code", class: 'span1', 'data-bind' => "value: #{prefix}PostalCode"
 
 .row
   .span12
     %span Country
-    = f.text_field "#{prefix}_country", 'data-bind' => 'value: mauCountry'
+    = f.text_field "#{prefix}_country", 'data-bind' => "value: #{prefix}Country"

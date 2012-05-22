@@ -13,7 +13,7 @@
       %span3.address-field
         %span Address
         %input{ type: "text", name: 'ma_address', 'data-bind' => 'value: maAddress1' }/
-        %input{ type: "text", name: 'ma_address_2' }/
+        %input{ type: "text", name: 'ma_address_2', 'data-bind' => 'value: maAddress2' }/
   .row
     .span3
       %span City
@@ -25,6 +25,6 @@
       %span Zip code
       = f.text_field :ma_zip5, class: 'first-zip', 'data-bind' => 'value: maZip5', placeholder: '12345'
       .space &mdash;
-      = f.text_field :ma_zip4, class: 'second-zip', placeholder: '1234'
+      = f.text_field :ma_zip4, class: 'second-zip', 'data-bind' => 'value: maZip4', placeholder: '1234'
   <!-- /ko -->
 <!-- /ko -->
