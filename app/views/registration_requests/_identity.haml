@@ -37,7 +37,9 @@
   .row
     .span12.security-number
       %label Social Security Number
+      <!-- ko if: !noSSN() -->
       = f.text_field :ssn, placeholder: '123 45 6789', 'data-bind' => 'value: ssn'
+      <!-- /ko -->
       .checkbox
         = f.check_box :no_ssn, 'data-bind' => 'checked: noSSN'
         %label
