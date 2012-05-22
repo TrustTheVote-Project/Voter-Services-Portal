@@ -353,7 +353,7 @@ class DownloadRegistration
 
 $ ->
   if $('form#new_registration_request').length > 0
-    ko.applyBindings(new NewRegistration(2))
+    ko.applyBindings(new NewRegistration(0))
 
   if $('#registration #download').length > 0
     ko.applyBindings(new DownloadRegistration())
