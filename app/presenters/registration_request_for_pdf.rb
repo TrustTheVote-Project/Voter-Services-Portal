@@ -69,7 +69,7 @@ class RegistrationRequestForPdf
       if @req.vvr_is_rural == '0'
         if @req.vvr_county_or_city.downcase.include?('county')
           county = @req.vvr_county_or_city
-          city = @req.vvr_town_or_city
+          city = @req.vvr_town
         else
           county = ''
           city = @req.vvr_county_or_city

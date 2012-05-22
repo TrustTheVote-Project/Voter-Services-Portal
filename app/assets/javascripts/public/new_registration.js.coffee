@@ -75,7 +75,7 @@ class NewRegistration
 
     @summaryAddress2 = ko.computed =>
       unless @vvrIsRural()
-        join([ @vvrCity(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
+        join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
 
     @summaryStatus = ko.computed => if @requestingAbsentee() then 'Absentee' else 'In person'
 
@@ -154,13 +154,12 @@ class NewRegistration
     @vvrStreetName          = ko.observable()
     @vvrStreetType          = ko.observable()
     @vvrApt                 = ko.observable()
-    @vvrCity                = ko.observable()
-    @vvrState               = ko.observable()
+    @vvrTown                = ko.observable()
+    @vvrState               = ko.observable('VA')
     @vvrZip5                = ko.observable()
     @vvrZip4                = ko.observable()
     @vvrCountyOrCity        = ko.observable()
     @vvrCountySelected      = ko.computed => String(@vvrCountyOrCity()).match(/\s+county/i)
-    @vvrCountyOrCity.subscribe (coc) => @vvrCity(coc.replace(/\s+city/i, '')) if coc.match(/\s+city/i)
     @vvrOverseasRA          = ko.observable()
     @maAddress1             = ko.observable()
     @maCity                 = ko.observable()
@@ -214,7 +213,7 @@ class NewRegistration
         then filled(@vvrRural())
         else filled(@vvrStreetNumber()) and
              filled(@vvrStreetName()) and
-             filled(@vvrCity()) and
+             filled(@vvrTown()) and
              filled(@vvrState()) and
              zip5(@vvrZip5()) and
              filled(@vvrCountyOrCity())
@@ -354,7 +353,7 @@ class DownloadRegistration
 
 $ ->
   if $('form#new_registration_request').length > 0
-    ko.applyBindings(new NewRegistration(0))
+    ko.applyBindings(new NewRegistration(2))
 
   if $('#registration #download').length > 0
     ko.applyBindings(new DownloadRegistration())

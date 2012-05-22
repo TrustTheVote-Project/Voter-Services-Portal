@@ -103,6 +103,10 @@ select {
     .span1 {
       width: 70px;
     }
+
+    &.short {
+      width: 82px;
+    }
   }
 
   .postal-code-field {
