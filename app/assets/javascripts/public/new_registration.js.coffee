@@ -245,6 +245,7 @@ class NewRegistration
 
   optionsSection: (overseas) =>
     @isConfidentialAddress  = ko.observable(false)
+    @caType                 = ko.observable()
     @requestingAbsentee     = ko.observable(overseas)
     @rabElection            = ko.observable()
     @rabElectionName        = ko.observable()
