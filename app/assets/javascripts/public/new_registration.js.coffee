@@ -192,7 +192,7 @@ class NewRegistration
 
     @overseasMAFilled = ko.computed =>
       if   @mauType() == 'apo'
-      then filled(@mauAPO1()) and filled(@mauAPO2()) and zip5(@mauAPOZip5())
+      then filled(@mauAPO1()) and zip5(@mauAPOZip5())
       else @nonUSMAFilled()
 
     @addressesErrors = ko.computed =>
