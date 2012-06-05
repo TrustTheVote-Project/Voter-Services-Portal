@@ -145,6 +145,9 @@ class NewRegistration
     @vvrCountyOrCity        = ko.observable()
     @vvrCountySelected      = ko.computed => String(@vvrCountyOrCity()).match(/\s+county/i)
     @vvrOverseasRA          = ko.observable()
+    @vvrUocavaResidenceUnavailableSinceDay = ko.observable()
+    @vvrUocavaResidenceUnavailableSinceMonth = ko.observable()
+    @vvrUocavaResidenceUnavailableSinceYear = ko.observable()
     @maAddress1             = ko.observable()
     @maAddress2             = ko.observable()
     @maCity                 = ko.observable()
@@ -206,7 +209,12 @@ class NewRegistration
              filled(@vvrCountyOrCity())
 
       if @overseas()
-        residental = residental and filled(@vvrOverseasRA())
+        residental = residental and
+          filled(@vvrOverseasRA()) and
+          (@vvrOverseasRA() == 'yes' or (
+            filled(@vvrUocavaResidenceUnavailableSinceDay()) and
+            filled(@vvrUocavaResidenceUnavailableSinceMonth()) and
+            filled(@vvrUocavaResidenceUnavailableSinceYear())))
         mailing = @overseasMAFilled()
       else
         mailing = @domesticMAFilled()

@@ -66,6 +66,6 @@
   .row
     .span12
       %span My last date of residence at the above address was:
-      = date_select :registration_request, :vvr_uocava_residence_unavailable_since, { order: [ :day, :month, :year ] }, class: 'date'
+      = bound_date f, :vvr_uocava_residence_unavailable_since, { }, class: 'date'
   <!-- /ko -->
   <!-- /ko -->
