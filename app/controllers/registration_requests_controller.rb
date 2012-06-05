@@ -3,8 +3,8 @@ class RegistrationRequestsController < ApplicationController
   def new
     LogRecord.log('registration', 'started')
     @registration_request = RegistrationRequest.new(
-      residence: params[:kind] == 'residential' ? 'in' : 'outside',
-      absentee_until: 1.year.from_now.strftime('%m/%d/%Y') )
+      residence:      params[:kind] == 'residential' ? 'in' : 'outside',
+      absentee_until: 1.year.from_now)
   end
 
   def create

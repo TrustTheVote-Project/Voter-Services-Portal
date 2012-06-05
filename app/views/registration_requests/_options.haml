@@ -130,16 +130,19 @@
   <!-- /ko --> <!-- domestic -->
 
   <!-- ko if: overseas -->
-  = f.hidden_field :absentee_until
   .partition
     .row
       .span12
         .checkbox
           = f.check_box :requesting_absentee, { 'data-bind' => 'checked: requestingAbsentee' }
           %strong
-            I will not be able to vote in person, and would like to vote absentee
-            until <strong>#{f.object.absentee_until}</strong>
+            I will not be able to vote in person, and would like to vote absentee until:
+
     <!-- ko if: requestingAbsentee -->
+    .row
+      .span12
+        = f.date_select :absentee_until, { start_year: Date.today.year, end_year: 1.year.from_now.year, order: [ :day, :month, :year ] }, class: 'date'
+
     .row
       .span12
         .radio

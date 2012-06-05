@@ -134,7 +134,7 @@ class RegistrationRequestForPdf
   end
 
   def absentee_status_until
-    @req.absentee_until
+    @req.absentee_until.strftime("%m/%d/%Y")
   end
 
   def absentee_type
