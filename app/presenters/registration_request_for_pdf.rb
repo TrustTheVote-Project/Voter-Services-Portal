@@ -103,11 +103,20 @@ class RegistrationRequestForPdf
   end
 
   def previous_registration?
-    @req.has_existing_reg == 'true'
+    @req.has_existing_reg == 'yes'
   end
 
   def previous_registration_address
-    us_address(:er)
+    @er ||= begin
+      if @req.er_is_rural == '1'
+        @req.er_rural
+      else
+        zip = [ @req.er_zip5, @req.er_zip4 ].reject(&:blank?).join('-')
+        [ [ [ @req.er_street_number, @req.er_apt ].reject(&:blank?).join(' / '), @req.er_street_name ].reject(&:blank?).join(' '),
+          @req.er_city,
+          [ @req.er_state, zip ].join(' ') ].reject(&:blank?).join(', ')
+      end
+    end
   end
 
   def address_confidentiality?
