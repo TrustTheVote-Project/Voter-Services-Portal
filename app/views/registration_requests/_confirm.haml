@@ -11,6 +11,9 @@
   .row
     .span12
       %strong Mailing address
+      <!-- ko if: overseas -->
+      (used for absentee ballot and other voting correspondence)
+      <!-- /ko -->
       %br/
       %div{ 'data-bind' => 'html: summaryMailingAddress' }
   .row
