@@ -375,6 +375,9 @@ class DownloadRegistration
   constructor: ->
     $(".section").show()
 
+    @downloaded = ko.observable(false)
+    @downloadSection()
+
     # Navigation
     @currentPageIdx         = ko.observable(download_page_idx)
     @page                   = ko.computed(=> pages[@currentPageIdx()])
@@ -384,6 +387,19 @@ class DownloadRegistration
       newIdx = $.inArray(hash.replace('#', ''), pages)
       newIdx = download_page_idx if newIdx == -1
       @currentPageIdx(newIdx)
+
+  markAsDownloaded: =>
+    @downloaded(true)
+    true
+
+  downloadSection: ->
+    downloadErrors = ko.computed =>
+      errors = []
+      errors.push("Download your PDF please") unless @downloaded()
+      errors
+
+    @downloadInvalid = ko.computed => downloadErrors().length > 0
+    new Popover('#download .next.btn', downloadErrors)
 
   # --- Navigation
 
