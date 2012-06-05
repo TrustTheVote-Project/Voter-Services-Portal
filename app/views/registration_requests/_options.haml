@@ -16,21 +16,23 @@
         .radio
           = f.radio_button :ca_type, 'law enforcement', 'data-bind' => 'checked: caType'
           %label active or retired law enforcement
-          <!-- ko if: caType() == 'law enforcement' -->
-          .important You must provide a mailing address that is a Virginia P.O. Box
-          <!-- /ko -->
         .radio
           = f.radio_button :ca_type, 'protective court order', 'data-bind' => 'checked: caType'
           %label have been granted a protective court order
         .radio
           = f.radio_button :ca_type, 'in fear', 'data-bind' => 'checked: caType'
           %label are in fear of your personal safety from someone who has threatened or stalked you and have filed a complaint against that person with magistrate or law enforcement
-          <!-- ko if: caType() == 'in fear' -->
-          .important You must attach copy of the complaint that you filed
-          <!-- /ko -->
         .radio
           = f.radio_button :ca_type, 'acp', 'data-bind' => 'checked: caType'
           %label participate in the Address Confidentiality Program
+
+        <!-- ko if: caType -->
+        .additional
+          .important You must provide a mailing address that is a Virginia P.O. Box
+          <!-- ko if: caType() == 'in fear' -->
+          .important You must attach copy of the complaint that you filed
+          <!-- /ko -->
+        <!-- /ko -->
     <!-- /ko -->
 
   <!-- ko if: domestic -->
