@@ -39,7 +39,7 @@
         = f.text_field :er_city, 'data-bind' => 'value: erCity'
       .span2.state-field
         %span State
-        = f.select :er_state, Dictionaries::STATES, { include_blank: true }, { class: 'span3', 'data-bind' => 'value: erState' }
+        = f.select :er_state, Dictionaries::STATES_WITHOUT_VA, { include_blank: true }, { class: 'span3', 'data-bind' => 'value: erState' }
       .span3.zip-field
         %span Zip code
         = f.text_field :er_zip5, class: 'first-zip', 'data-bind' => 'value: erZip5', placeholder: '12345'
