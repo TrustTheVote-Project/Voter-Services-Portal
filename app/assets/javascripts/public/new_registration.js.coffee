@@ -200,7 +200,7 @@ class NewRegistration
         then filled(@vvrRural())
         else filled(@vvrStreetNumber()) and
              filled(@vvrStreetName()) and
-             filled(@vvrTown()) and
+             (!@vvrCountySelected() or filled(@vvrTown())) and
              filled(@vvrState()) and
              zip5(@vvrZip5()) and
              filled(@vvrCountyOrCity())
