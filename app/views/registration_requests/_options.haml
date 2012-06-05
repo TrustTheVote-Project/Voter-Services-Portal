@@ -170,46 +170,6 @@
     <!-- /ko -->
   <!-- /ko -->
 
-  <!-- ko if: requestingAbsentee -->
-  .partition
-    .row
-      .span12
-        %h4
-          %strong If approved, please send my Absentee Ballot to
-        .radio
-          = f.radio_button :ab_send_to, 'ra', { 'data-bind' => 'checked: abSendTo' }
-          %label My Registration address.
-        .radio
-          = f.radio_button :ab_send_to, 'ma', { 'data-bind' => 'checked: abSendTo' }
-          %label My Mailing address (if different from Registration address).
-        .radio
-          = f.radio_button :ab_send_to, 'other', { 'data-bind' => 'checked: abSendTo' }
-          %label The following address:
-    <!-- ko if: abSendTo() == 'other' -->
-    .row
-      .span3
-        %span3.address-field
-          %span Address
-          = f.text_field :aba_address, 'data-bind' => 'value: abSTAddress'
-          = f.text_field :aba_address_2
-    .row
-      .span3
-        %span City
-        = f.text_field :aba_city, 'data-bind' => 'value: abSTCity'
-      .span3
-        %span Province or Sate
-        = f.text_field :aba_state, 'data-bind' => 'value: abSTState'
-      .span3.postal-code-field
-        %span Postal code
-        = f.text_field :aba_zip5, class: 'first-zip', 'data-bind' => 'value: abSTZip5', placeholder: '12345'
-        .space &mdash;
-        = f.text_field :aba_zip4, class: 'second-zip', placeholder: '1234'
-      .span2.country-field
-        %span Country
-        = f.text_field :aba_country, 'data-bind' => 'value: abSTCountry'
-    <!-- /ko -->
-  <!-- /ko --> <!-- requestingAbsentee -->
-
   .partition
     .row
       .span12
