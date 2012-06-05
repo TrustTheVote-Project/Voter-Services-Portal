@@ -154,7 +154,7 @@ class NewRegistration
     @maState                = ko.observable()
     @maZip5                 = ko.observable()
     @maZip4                 = ko.observable()
-    @mauType                = ko.observable()
+    @mauType                = ko.observable('non-us')
     @mauAPOAddress1         = ko.observable()
     @mauAPOAddress2         = ko.observable()
     @mauAPO1                = ko.observable()
