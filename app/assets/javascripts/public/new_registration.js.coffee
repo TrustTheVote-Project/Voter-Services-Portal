@@ -245,7 +245,6 @@ class NewRegistration
     @rabElection            = ko.observable()
     @rabElectionName        = ko.observable()
     @rabElectionDate        = ko.observable()
-    @abSendTo               = ko.observable()
     @outsideType            = ko.observable()
     @needsServiceDetails    = ko.computed => @outsideType() && @outsideType().match(/duty/)
     @serviceId              = ko.observable()
@@ -260,11 +259,6 @@ class NewRegistration
     @abZip5                 = ko.observable()
     @abCountry              = ko.observable()
 
-    @abSTAddress            = ko.observable()
-    @abSTCity               = ko.observable()
-    @abSTState              = ko.observable()
-    @abSTZip5               = ko.observable()
-    @abSTCountry            = ko.observable()
 
     @optionsErrors = ko.computed =>
       errors = []
@@ -284,15 +278,6 @@ class NewRegistration
             !zip5(@abZip5()) or
             !filled(@abCountry())
               errors.push("School details")
-
-        if !filled(@abSendTo()) or
-          (@abSendTo() == 'other' and
-          ( !filled(@abSTAddress()) or
-            !filled(@abSTCity()) or
-            !filled(@abSTState()) or
-            !zip5(@abSTZip5()) or
-            !filled(@abSTCountry()) ) )
-              errors.push("Absentee ballot destination")
 
       errors
 
