@@ -133,6 +133,10 @@ class RegistrationRequestForPdf
     @req.residence == 'outside'
   end
 
+  def requesting_absentee?
+    @req.requesting_absentee == '1'
+  end
+
   def absentee_status_until
     @req.absentee_until.strftime("%m/%d/%Y")
   end
