@@ -68,16 +68,13 @@ class RegistrationRequestForPdf
     @vvr ||= begin
       if @req.vvr_is_rural == '0'
         if @req.vvr_county_or_city.downcase.include?('county')
-          county = @req.vvr_county_or_city
           city = @req.vvr_town
         else
-          county = ''
           city = @req.vvr_county_or_city
         end
 
         zip = [ @req.vvr_zip5, @req.vvr_zip4 ].reject(&:blank?).join('-')
         [ [ [ @req.vvr_street_number, @req.vvr_apt ].reject(&:blank?).join(' / '), @req.vvr_street_name, @req.vvr_street_suffix ].reject(&:blank?).join(' '),
-          county,
           city,
           [ 'VA', zip ].join(' ') ].reject(&:blank?).join(', ')
       else
