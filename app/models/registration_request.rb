@@ -12,7 +12,7 @@ class RegistrationRequest < ActiveRecord::Base
 
   serialized_attr :rights_revoked, :rights_revoked_reason
   serialized_attr :rights_restored, :rights_restored_on
-  serialized_attr :felony_state
+  serialized_attr :rights_restored_in
 
   # Identity
   serialized_attr :first_name, :middle_name, :last_name, :suffix

@@ -44,11 +44,6 @@
         = f.radio_button :rights_revoked_reason, 'mental', 'data-bind' => 'checked: rightsRevokationReason'
         %label Due to mental incapacity
 
-      .block.felony{ 'data-bind' => "visible: rightsRevokationReason() == 'felony'" }
-        %h4 What state were you convicted in?
-        .select
-          = f.select :felony_state, Dictionaries::STATES, { class: 'span3' }
-
       .block
         %h4 Were your voting rights restored?
         .radio
@@ -58,10 +53,17 @@
           = f.radio_button :rights_restored, 'no', 'data-bind' => 'checked: rightsWereRestored'
           %label No
 
-      .block.restored{ 'data-bind' => "visible: rightsWereRestored() == 'yes'" }
-        %h4 My voting rights were restored on:
+      <!-- ko if: rightsWereRestored() == 'yes' -->
+      .block{ 'data-bind' => "visible: rightsRevokationReason" }
+        %h4 In what state were your voting rights restored?
+        .select
+          = f.select :rights_restored_in, Dictionaries::STATES, { class: 'span3' }
+
+      .block
+        %h4 On what date were your voting rights restored?
         .date
           = bound_date f, :rights_restored_on, :end_year => Date.today.year
+      <!-- /ko -->
 
       .block.ineligible{ 'data-bind' => "visible: rightsWereRestored() == 'no'" }
         %p You are not eligible to vote, if your voting rights have been revoked, and have not been restored.

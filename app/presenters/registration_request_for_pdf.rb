@@ -10,8 +10,8 @@ class RegistrationRequestForPdf
     @req.rights_revoked == 'yes'
   end
 
-  def felony_state
-    @req.felony_state
+  def rights_restored_in
+    @req.rights_restored_in
   end
 
   def rights_revokation_reason
