@@ -14,7 +14,7 @@ pdf_labeled_block pdf, "Eligibility" do
           { columns: 1, value: rr.rights_restored_on, label: 'date when restored' }
         ]
         if rr.rights_revoked_felony?
-          fields.unshift({ columns: 1, value: rr.felony_state, label: 'state where convicted' })
+          fields.unshift({ columns: 1, value: rr.rights_restored_in, label: 'state where convicted' })
         end
         pdf_fields pdf, fields
       end
