@@ -12,6 +12,7 @@ class RegistrationRequestsController < ApplicationController
     Converter.params_to_date(data,
       :vvr_uocava_residence_unavailable_since,
       :dob,
+      :absentee_until,
       :rights_restored_on)
 
     @registration_request = RegistrationRequest.new(data)
