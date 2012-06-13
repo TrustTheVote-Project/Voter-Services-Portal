@@ -1,24 +1,12 @@
-= render partial: 'shared/page_header', locals: { title: 'Your Registration was not Found' }
+= render partial: 'steps'
 
 .row
-  .span4 &nbsp;
-  .span8
-    #retry.section
-      %p We don't have a record with the following details:
-      = render partial: "search_query", object: @search_query
-      .action
-        = link_to 'Retry identification', :search, class: 'btn primary'
+  .padded_page_span.section
+    .head
+      %h3 Record Not Found
+      .description
+        We were unable to find an existing voter record with the
+        information you provided. You can try again by<br/>
+        #{link_to "changing the information", :search}, or you can instead
+        #{link_to "register to vote", :register_residential}.
 
-    .section
-      %h3 Register in Virginia
-      %p
-        If you want to register and you are currently
-        <strong>in</strong> VA, please choose this option.
-      = link_to 'Start registration', '#', class: 'btn'
-
-    .section
-      %h3 Register outside Virginia
-      %p
-        If you want to register and you are currently
-        <strong>outside</strong> VA, please choose this option.
-      = link_to 'More info', '#'
