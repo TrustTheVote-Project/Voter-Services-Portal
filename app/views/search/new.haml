@@ -1,29 +1,47 @@
-= render partial: 'shared/page_header', locals: { title: 'Check Your Voter Record' }
+= render partial: 'steps'
 
 .row
-  .span4
-    %h3 Identify Yourself
+  .padded_page_span.section
+    .head
+      %h3 Identity
+      .description Identify who you are to look-up your Virginia Voter Record.
+
     %p
-      To look up your voter records, you have two options.
-      If you know your Virginia <em>Voter Card Number</em>,
-      you can supply that. Otherwise, provide your first name,
-      last name, date of birth, and the last 4 digits of your
-      Social Security Number.
+      To look-up your Virginia Voter Record, you'll need to provide either your Virginia Voter Card Number OR
+      your first name, last name, date of birth, and the last 4 digits of your Social Security Number.
 
-  .span8
-    = simple_form_for @search_query, url: search_path, html: { class: 'form-horizontal' } do |ui|
-      %fieldset
-        = ui.input :voter_id, label: 'Voter ID', placeholder: 'NNNN-NNNN-NNNN-NNNN'
+    = form_for @search_query, url: search_path do |f|
+      .row
+        .span3
+          %span Voter ID
+          = f.text_field :voter_id, label: 'Voter ID', placeholder: 'NNNN-NNNN-NNNN-NNNN', 'data-bind' => 'value: voterId'
 
-      %fieldset
-        %legend.separator or
+      .row
+        .span3
+          %span OR
 
-        = ui.input :locality, label: 'Locality', collection: [ 'York County' ]
-        = ui.input :first_name
-        = ui.input :last_name
-        = ui.input :dob, as: :date, label: 'Date of birth', order: [ :day, :month, :year ]
-        = ui.input :ssn4, label: 'Last 4 digits of SSN', maxlength: 4, input_html: { class: 'span1' }
+      %hr
+
+      .row
+        .span3
+          %label Locality
+          = f.select :locality, Dictionaries::CITIES_AND_COUNTIES, 'data-bind' => 'value: locality'
+      .row
+        .span3
+          %label First name
+          = f.text_field :first_name
+        .span3
+          %label Last name
+          = f.text_field :last_name, 'data-bind' => 'value: lastName'
+      .row
+        .span3
+          %label Date of birth
+          = f.date_select :dob, { order: [ :day, :month, :year ], include_blank: true }, { class: 'date' }
+      .row
+        .span3
+          %label Last 4 digits of SSN
+          = f.text_field :ssn4, maxlength: 4, class: 'span1', 'data-bind' => 'value: ssn4'
+
 
       .form-actions
-        = ui.submit 'Find My Voter Records', disabled: true, class: 'btn'
-
+        = button_tag "Next &rarr;".html_safe, class: 'next btn', 'data-bind' => 'css: { disabled: invalid }'

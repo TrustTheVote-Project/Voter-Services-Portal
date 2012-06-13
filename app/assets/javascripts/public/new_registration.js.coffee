@@ -8,14 +8,6 @@ pages  = [ 'eligibility', 'identity', 'address', 'options', 'confirm', 'oath', '
 oath_page_idx = 5
 download_page_idx = 6
 
-filled = (v) -> v && !v.match(/^\s*$/)
-join   = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
-zip5   = (v) -> filled(v) && v.match(/^\d{5}$/)
-ssn    = (v) -> filled(v) && v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){9}$/)
-date   = (y, m, d) -> filled(y) && filled(m) && filled(d) && moment([y, m, d]).diff(new Date()) < 0
-phone  = (v) -> v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){10}$/)
-email  = (v) -> v.match(/^\S+@\S+\.\S+$/)
-
 ko.bindingHandlers.vis = {
   update: (element, valueAccessor) ->
     value = ko.utils.unwrapObservable(valueAccessor())
@@ -25,25 +17,6 @@ ko.bindingHandlers.vis = {
     else if !value && isCurrentlyVisible
       element.style.display = "none"
 }
-
-class Popover
-  constructor: (id, errors) ->
-    @errors = errors
-    @el = $(id).popover(content: @popoverContent, title: 'Please review', html: 'html')
-    @po = @el.data().popover
-
-    errors.subscribe @update
-    @update()
-
-  update: =>
-    @po.enabled = @errors().length > 0
-
-  popoverContent: =>
-    items = @errors()
-    if items.length > 0
-      "<ul>#{('<li>' + i + '</li>' for i in items).join('')}</ul>"
-    else
-      null
 
 class NewRegistration
   constructor: (initPage = 0) ->

@@ -1,28 +1,25 @@
-# Personal ID form
-#
 class PersonalIdForm
   constructor: ->
-    @form       = $("form#new_search_query")
-    @voterId    = new Forms.RequiredTextField("#search_query_voter_id", status: false)
-    @firstName  = new Forms.RequiredTextField("#search_query_first_name", unless: @voterId)
-    @lastName   = new Forms.RequiredTextField("#search_query_last_name", unless: @voterId)
-    @ssn4       = new Forms.RequiredTextField("#search_query_ssn4", min: 4, max: 4, unless: @voterId)
-    @btn        = $(".btn[name='commit']")
+    @voterId    = ko.observable()
+    @locality   = ko.observable()
+    @lastName   = ko.observable()
+    @ssn4       = ko.observable()
 
-    $("input", @form).change(@onFormChange).keyup(@onFormChange)
+    @errors = ko.computed =>
+      errors = []
 
-  isValidForm: ->
-    @voterId.isValid() or
-      @firstName.isValid() and
-      @lastName.isValid() and
-      @ssn4.isValid()
+      if filled(@voterId())
+        errors.push("Voter ID (16 digits)") if !voterId(@voterId())
+      else
+        errors.push("Locality") if !filled(@locality())
+        errors.push("Last name") if !filled(@lastName())
+        errors.push("Social security number") if !filled(@ssn4())
 
-  onFormChange: =>
-    if @isValidForm()
-      @btn.removeAttr('disabled')
-    else
-      @btn.attr('disabled', 'true')
+      errors
+
+    @invalid = ko.computed => @errors().length > 0
+    new Popover('#new_search_query .next.btn', @errors)
 
 $ ->
   if $("form#new_search_query").length > 0
-    window.fr = new PersonalIdForm
+    ko.applyBindings(new PersonalIdForm())

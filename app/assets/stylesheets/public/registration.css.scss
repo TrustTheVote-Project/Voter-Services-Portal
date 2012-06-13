@@ -6,39 +6,7 @@
 
   .section {
     display: none;
-
     &#eligibility { display: block; }
-
-    .description {
-      color: #000;
-    }
-    .row {
-      margin-bottom: 10px;
-      margin-left: 0;
-
-      .span2,
-      .span3,
-      .span6,
-      .span10,
-      .span12 {
-        &:first-child {
-          margin-left: 0;
-        }
-      }
-    }
-  }
-
-  span {
-    font-size: 15px;
-    color: #000;
-    margin-bottom: 5px;
-    display: block;
-
-    label {
-      color: #c8c7c7;
-      margin: 0;
-      display: inline;
-    }
   }
 
   .ineligible {
@@ -87,6 +55,38 @@ select {
       font-family: Georgia, serif;
       margin-bottom: 2px;
     }
+  }
+
+  .description {
+    color: #000;
+  }
+
+  .row {
+    margin-bottom: 10px;
+    margin-left: 0;
+
+    .span2,
+    .span3,
+    .span6,
+    .span10,
+    .span12 {
+      &:first-child {
+        margin-left: 0;
+      }
+    }
+  }
+
+  span, label {
+    font-size: 15px;
+    color: #000;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  span label {
+    color: #c8c7c7;
+    margin: 0;
+    display: inline;
   }
 
   textarea {

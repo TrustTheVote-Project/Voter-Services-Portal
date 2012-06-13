@@ -19,4 +19,6 @@
 //= require moment.min
 //= require jquery.ba-hashchange.min
 //= require feedback
+//= require public/helpers
+//= require public/popover
 //= require_tree ./public
