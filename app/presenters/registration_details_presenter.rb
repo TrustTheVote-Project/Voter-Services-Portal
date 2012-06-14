@@ -3,7 +3,8 @@ class RegistrationDetailsPresenter
 
   extend Forwardable
 
-  def_delegators :@registration, :full_name, :voting_address, :mailing_address, :email, :phone, :absentee?, :uocava?
+  def_delegators :@registration, :full_name, :voting_address,
+                 :mailing_address, :email, :phone, :absentee?, :uocava?
 
   def initialize(reg)
     @registration = reg
@@ -14,29 +15,25 @@ class RegistrationDetailsPresenter
     @registration.dob.strftime('%B %d, %Y')
   end
 
+  def gender
+    @registration.gender == 'f' ? 'Female' : 'Male'
+  end
+
+  def ssn
+    "xxx-xx-#{@registration.ssn4}"
+  end
+
   # Party affiliation or 'Not stated'
   def party_affiliation
     @registration.party_affiliation.blank? ? 'Not stated' : @registration.party_affiliation
   end
 
-  # Label for the status that depends on the status itself
-  def status_label
-    absentee? || uocava? ? 'Absentee Status' : 'Voter Status'
-  end
-
-  # Absentee status
-  def absentee_status
+  def registration_status
     if absentee?
       "#{uocava? ? 'Overseas' : 'Resident'} Absentee Voter"
     else
-      uocava? ? 'Expired' : 'Active'
+      "You are currently registered to vote in person"
     end
-  end
-
-  # Absentee status expiration date
-  def absentee_status_expires_on
-    # TODO use real data
-    1.year.from_now.strftime('%B %d, %Y')
   end
 
 end

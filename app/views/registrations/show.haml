@@ -1,65 +1,56 @@
-= render partial: 'shared/page_header', locals: { title: 'Check Your Voter Record' }
+- reg = RegistrationDetailsPresenter.new(@registration)
+= render partial: "search/steps", locals: { step: 'view' }
 
 .row
-  .span4
-    %h3 Check Your Voter Record
-    %p
-      Your Virginia voter registration record is current,
-      and you are eligible to vote absentee in upcoming
-      election on Nov 6, 2012.
+  .padded_page_span.section
+    .head
+      %h3= reg.full_name
+      .description
+        Update your Virginia Voter Record.
+        If this is not you, please go back to the identity page.
 
     %p
-      You can also update your voter record if you act
-      before Sep 6, 2012.
+      Please update any information that has changed. Doint so will generate
+      a form PDF that must be printed, signed and mailed. The envelope needs
+      to be postmarked by September 6, 2012 to take effect for the next election.
 
-    %p
-      You are also eligible to get your ballot online,
-      marking it online or by hand, downloading it, and
-      returning to your election registrar.
 
-  .span8
-    - reg = RegistrationDetailsPresenter.new(@registration)
-    %h3= reg.full_name
+    .span10.summary
+      .head
+        %p
+          %strong Registration Status: #{reg.registration_status}
+        %p Next Election Date: June 12, 2012
 
-    %table.table.table-condensed.properties.table-striped
-      %tr
-        %th Date of Birth:
-        %td= reg.dob
-      %tr
-        %th Social Security Number:
-        %td xxxx-xxx-1234
-      %tr
-        %th Voter Registration Address:
-        %td= reg.voting_address
-      %tr
-        %th Mailing Address:
-        %td= reg.mailing_address
-      %tr
-        %th Email:
-        %td= reg.email
-      %tr
-        %th Daytime Phone Number:
-        %td= reg.phone
-      %tr
-        %th Political Party Preference:
-        %td= reg.party_affiliation
-      %tr
-        %th #{reg.status_label}:
-        %td= reg.absentee_status
-      - if reg.absentee?
-        %tr
-          %th Absentee Status Expires:
-          %td= reg.absentee_status_expires_on
+      .body
+        %table.table.properties
+          %tr
+            %th Name:
+            %td= reg.full_name
+          %tr
+            %th Date of Birth:
+            %td= reg.dob
+          %tr
+            %th Gender:
+            %td= reg.gender
+          %tr
+            %th Social Security Number:
+            %td= reg.ssn
+          %tr
+            %th Phone:
+            %td= reg.phone
+          %tr
+            %th Email:
+            %td= reg.email
+          %tr
+            %th Registration Address:
+            %td= reg.voting_address
+          %tr
+            %th Mailing Address:
+            %td= reg.mailing_address
+          %tr
+            %th Political Party Preference:
+            %td= reg.party_affiliation
 
-    %p= link_to "Update your voter record", "#", class: 'btn'
 
-    - if !reg.absentee?
-      %p= link_to "Request an absentee ballot", "#", class: 'btn'
-    - elsif !reg.uocava?
-      %p= link_to "Update your absentee request", "#", class: 'btn'
-    - else
-      %p= link_to "Update your absentee status", "#", class: 'btn'
-
-    - if reg.absentee? && reg.uocava?
-      %p= render partial: 'shared/mark_my_ballot_online'
-
+      .form-actions
+        = button_tag "Update Information &rarr;".html_safe, class: 'next btn', 'data-bind' => 'css: { disabled: invalid }'

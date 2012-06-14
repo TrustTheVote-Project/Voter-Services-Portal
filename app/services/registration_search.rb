@@ -2,7 +2,7 @@
 class RegistrationSearch
 
   SEED_DATA = {
-    '1' => {
+    '1234123412341234' => {
       first_name:         'Wanda',
       middle_name:        'Hunt',
       last_name:          'Phepts',
@@ -11,6 +11,7 @@ class RegistrationSearch
       gender:             'f',
       dob:                Date.parse('1927-11-06 00:00:00.000'),
       party_affiliation:  'Democrat',
+      ssn4:               '6789',
       voting_address:     '518 Vance St, Bristol, VA 242012445',
       mailing_address:    '518 Vance St, Bristol, VA 242012445' },
 

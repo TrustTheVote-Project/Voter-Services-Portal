@@ -1,0 +1,43 @@
+$summaryHeadBackground: #bbb;
+$summaryHeadColor: #444;
+$summaryBodyBackground: #eee;
+$summaryBodyColor: #222;
+
+.summary {
+  margin-left: -10px;
+  width: 800px;
+
+  .head {
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-bottom: 0;
+    border: 0;
+    background: $summaryHeadBackground;
+    color: $summaryHeadColor;
+  }
+
+  .body {
+    background: $summaryBodyBackground;
+    color: $summaryBodyColor;
+    padding: 10px;
+
+    table {
+      width: 780px;
+      margin: 0;
+    }
+
+    th {
+      width: 150pt;
+    }
+
+    tr:first-child {
+      td, th {
+        border-top: none;
+      }
+    }
+
+    td, th {
+      border-top: 1px dotted #ccc;
+    }
+  }
+}

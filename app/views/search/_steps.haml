@@ -1,9 +1,10 @@
+- step ||= 'identity'
 .row#steps
-  .span2.current
+  .span2{ class: step == 'identity' ? 'current' : nil }
     %h2 Identity
 
-  .span2
+  .span2{ class: %w( view update ).include?(step) ? 'current' : nil }
     %h2 View &amp; Update
 
-  .span2
+  .span{ class: %w( oath download complete ).include?(step) ? 'current' : nil }
     %h2 Complete &amp; Mail
