@@ -40,4 +40,10 @@ $summaryBodyColor: #222;
       border-top: 1px dotted #ccc;
     }
   }
+
+  input, select {
+    margin-bottom: 0;
+  }
 }
+
+#oath.section { display: none; }

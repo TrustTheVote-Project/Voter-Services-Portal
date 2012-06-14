@@ -1,0 +1,49 @@
+- reg = RegistrationDetailsPresenter.new(@registration)
+#update.section
+  = render partial: 'head', locals: { name: reg.full_name }
+
+  .span10.summary
+    .head
+      %p
+        %strong  Status: #{reg.registration_status}
+      %p Next Election Date: June 12, 2012
+
+    .body
+      %table.table.properties
+        %tr
+          %th Name:
+          %td
+            = f.text_field :first_name,   class: 'span2', placeholder: 'First name'
+            = f.text_field :middle_name,  class: 'span2', placeholder: 'Middle name'
+            = f.text_field :last_name,    class: 'span2', placeholder: 'Last name', 'data-bind' => 'value: lastName, valueUpdate: "keyup"'
+            = f.select     :suffix, Dictionaries::NAME_SUFFIXES, {}, class: 'span1'
+        %tr
+          %th Date of Birth:
+          %td= reg.dob
+        %tr
+          %th Gender:
+          %td= reg.gender
+        %tr
+          %th Social Security Number:
+          %td= reg.ssn
+        %tr
+          %th Phone:
+          %td= f.text_field :phone, class: 'span2', placeholder: '(NNN) NNN-NNNN'
+        %tr
+          %th Email:
+          %td= f.text_field :email, class: 'span2', placeholder: 'john@smith.com'
+        %tr
+          %th Registration Address:
+          %td= reg.voting_address
+        %tr
+          %th Mailing Address:
+          %td= reg.mailing_address
+        %tr
+          %th Political Party Preference:
+          %td= reg.party_affiliation
+
+
+  .span10
+    .form-actions
+      = button_tag "Next &rarr;".html_safe, class: 'next btn', 'data-bind' => 'click: gotoOath, css: { disabled: updateFormInvalid }'
+      = link_to    '&larr; Back'.html_safe, :registration, class: 'back btn'

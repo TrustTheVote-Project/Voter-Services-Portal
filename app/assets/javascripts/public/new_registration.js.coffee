@@ -261,14 +261,14 @@ class NewRegistration
     @infoCorrect  = ko.observable()
     @privacyAgree = ko.observable()
 
-    @oathErrors = ko.computed =>
+    oathErrors = ko.computed =>
       errors = []
       errors.push("Confirm that information is correct") unless @infoCorrect()
       errors.push("Agree with privacy terms") unless @privacyAgree()
       errors
 
-    @oathInvalid = ko.computed => @oathErrors().length > 0
-    new Popover('#oath .next.btn', @oathErrors)
+    @oathInvalid = ko.computed => oathErrors().length > 0
+    new Popover('#oath .next.btn', oathErrors)
 
 
   summarySection: =>

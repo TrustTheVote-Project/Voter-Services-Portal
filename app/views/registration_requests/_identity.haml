@@ -21,7 +21,7 @@
       %span
         Suffix
         %label (optional)
-      = f.select :suffix, [ 'Jr', 'Sr' ], { include_blank: true }, { class: 'span1', 'data-bind' => 'value: suffix' }
+      = f.select :suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { class: 'span1', 'data-bind' => 'value: suffix' }
 
   .row
     .span12.date

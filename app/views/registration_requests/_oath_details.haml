@@ -1,0 +1,25 @@
+.head
+  %h3 Oath
+  .description Read the Registration Statement and Privacy Act.
+.partition
+  .row
+    .span10
+      .checkbox
+        = check_box :registration_request, :information_correct, 'data-bind' => 'checked: infoCorrect'
+        %strong Registration Statement
+        %br/
+        I swear/affirm, under felony penalty for making willfully false material statements or entries, that the information provided on this form is true.
+.partition
+  .row
+    .span10
+      %span
+        %strong Privacy Act Notice
+  .row
+    .span10
+      .notice
+        Privacy Act Notice: Article II, Section 2 of the Constitution of Virginia (1971) requires that a person registering to vote provide his or her social security number, if any. Therefore, if you do not provide your social security number, your application for voter registration will be denied. Section 7 of the Federal Privacy Act (Public Law Number 93-579) allows the Commonwealth to enforce this requirement, but also requires that you be advised that state and local voting officials will use the social security number as a unique identifier to ensure that no person is registered in more than one place. This registration card will not be open to inspection by the public. Your social security number will appear on reports produced only for official use by voter registration and election officials, and for jury selection purposes by courts.
+  .row
+    .span10
+      .checkbox
+        = check_box :registration_request, :privacy_agree, 'data-bind' => 'checked: privacyAgree'
+        %strong I have read and agree with the terms of the Privacy Act Notice.

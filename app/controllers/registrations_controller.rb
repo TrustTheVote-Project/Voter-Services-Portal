@@ -4,4 +4,8 @@ class RegistrationsController < ApplicationController
     @registration = current_registration
   end
 
+  def edit
+    @registration = current_registration
+  end
+
 end

@@ -6,7 +6,7 @@ class RegistrationSearch
       first_name:         'Wanda',
       middle_name:        'Hunt',
       last_name:          'Phepts',
-      suffix_name_text:   'III',
+      suffix:             'III',
       phone:              '540-555-1212',
       gender:             'f',
       dob:                Date.parse('1927-11-06 00:00:00.000'),

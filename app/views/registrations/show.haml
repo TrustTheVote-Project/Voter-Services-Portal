@@ -3,16 +3,7 @@
 
 .row
   .padded_page_span.section
-    .head
-      %h3= reg.full_name
-      .description
-        Update your Virginia Voter Record.
-        If this is not you, please go back to the identity page.
-
-    %p
-      Please update any information that has changed. Doint so will generate
-      a form PDF that must be printed, signed and mailed. The envelope needs
-      to be postmarked by September 6, 2012 to take effect for the next election.
+    = render partial: 'head', locals: { name: reg.full_name }
 
 
     .span10.summary
@@ -53,4 +44,4 @@
 
 
       .form-actions
-        = button_tag "Update Information &rarr;".html_safe, class: 'next btn', 'data-bind' => 'css: { disabled: invalid }'
+        = link_to "Update Information &rarr;".html_safe, :edit_registration, class: 'next btn'
