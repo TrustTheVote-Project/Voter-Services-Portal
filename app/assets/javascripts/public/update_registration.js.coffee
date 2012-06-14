@@ -43,7 +43,39 @@ class UpdateRegistration
   submit: =>
     $("form.edit_registration")[0].submit()
 
-$ ->
-  return if $("#update.section").length == 0
+class DownloadRegistration
+  constructor: ->
+    @downloaded = ko.observable(false)
+    @downloadSection()
+    @sectionComplete = $("#complete.section")
 
-  ko.applyBindings(new UpdateRegistration())
+  markAsDownloaded: =>
+    @downloaded(true)
+    true
+
+  downloadSection: ->
+    @sectionDownload = $("#download.update.section")
+
+    downloadErrors = ko.computed =>
+      errors = []
+      errors.push("Download your PDF please") unless @downloaded()
+      errors
+
+    @downloadInvalid = ko.computed => downloadErrors().length > 0
+    new Popover('#download.update .next.btn', downloadErrors)
+
+  gotoComplete: =>
+    @sectionDownload.hide()
+    @sectionComplete.show()
+
+  gotoDownload: =>
+    @sectionComplete.hide()
+    @sectionDownload.show()
+
+$ ->
+  if $("#update.section").length > 0
+    ko.applyBindings(new UpdateRegistration())
+
+  if $("#download.update.section").length > 0
+    ko.applyBindings(new DownloadRegistration())
+

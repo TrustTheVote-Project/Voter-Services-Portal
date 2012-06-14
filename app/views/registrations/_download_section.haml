@@ -1,5 +1,5 @@
 - pdf_url = registration_path(format: 'pdf')
-#download.section
+#download.update.section
   .head
     %h3 Download
     .description
@@ -70,4 +70,4 @@
         General Election in which you plan to vote.
 
   .form-actions
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: downloadInvalid }'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: gotoComplete, css: { disabled: downloadInvalid }'
