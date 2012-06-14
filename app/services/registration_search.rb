@@ -54,7 +54,7 @@ class RegistrationSearch
   def self.perform(search_query)
     # TODO replace this hack we use for tests with real search
     data = SEED_DATA[search_query.voter_id]
-    data ? Registration.new(data) : nil
+    data ? RegistrationSearch.new(data) : nil
   end
 
 end

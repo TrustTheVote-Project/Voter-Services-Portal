@@ -2,6 +2,6 @@
 
 .row
   .padded_page_span
-    = form_for @registration do |f|
-      = render partial: 'update', locals: { f: f }
-      = render partial: 'oath', locals: { f: f }
+    = form_for @registration, url: :registration  do |f|
+      = render partial: 'update_section', locals: { f: f }
+      = render partial: 'oath_section', locals: { f: f }

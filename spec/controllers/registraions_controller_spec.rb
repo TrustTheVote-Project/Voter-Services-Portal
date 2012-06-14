@@ -17,4 +17,18 @@ describe RegistrationsController do
     it      { should render_template :edit }
   end
 
+  describe 'update' do
+    context 'valid' do
+      before  { current_registration.should_receive(:update_attributes).and_return(true) }
+      before  { put :update, registration: {} }
+      specify { assigns(:registration).should == current_registration }
+      it      { should render_template :update }
+    end
+
+    context 'invalid' do
+      before  { current_registration.should_receive(:update_attributes).and_return(false) }
+      before  { put :update, registration: {} }
+      it      { should redirect_to :edit_registration }
+    end
+  end
 end

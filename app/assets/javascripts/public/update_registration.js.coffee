@@ -41,7 +41,7 @@ class UpdateRegistration
     @sectionOath.hide()
 
   submit: =>
-    alert('submit')
+    $("form.edit_registration")[0].submit()
 
 $ ->
   return if $("#update.section").length == 0

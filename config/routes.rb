@@ -2,7 +2,7 @@ VaVote::Application.routes.draw do
 
   get   '/not_found' => 'pages#not_found', as: :not_found
 
-  resource :registration, only: [ :show, :edit ]
+  resource :registration, only: [ :show, :edit, :update ]
 
   get   '/search' => 'search#new', as: :search_form
   post  '/search' => 'search#create', as: :search
