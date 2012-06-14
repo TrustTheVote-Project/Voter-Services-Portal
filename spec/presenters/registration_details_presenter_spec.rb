@@ -7,17 +7,10 @@ describe RegistrationDetailsPresenter do
     specify { rdp(party_affiliation: 'Democrat').party_affiliation.should == 'Democrat' }
   end
 
-  describe '#status_label' do
-    specify { rdp(absentee: true).status_label.should == 'Absentee Status' }
-    specify { rdp(absentee: false).status_label.should == 'Voter Status' }
-    specify { rdp(absentee: false, uocava: true).status_label.should == 'Absentee Status' }
-  end
-
-  describe '#absentee_status' do
-    specify { rdp(absentee: false, uocava: false).absentee_status.should == 'Active' }
-    specify { rdp(absentee: true,  uocava: false).absentee_status.should == 'Resident Absentee Voter' }
-    specify { rdp(absentee: true,  uocava: true).absentee_status.should  == 'Overseas Absentee Voter' }
-    specify { rdp(absentee: false, uocava: true).absentee_status.should  == 'Expired' }
+  describe '#registration_status' do
+    specify { rdp(absentee: true, uocava: true).registration_status.should == 'Overseas Absentee Voter' }
+    specify { rdp(absentee: true, uocava: false).registration_status.should == 'Resident Absentee Voter' }
+    specify { rdp(absentee: false).registration_status.should == 'You are currently registered to vote in person' }
   end
 
   private
