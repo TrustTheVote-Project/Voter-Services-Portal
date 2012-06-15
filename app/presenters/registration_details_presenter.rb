@@ -36,4 +36,42 @@ class RegistrationDetailsPresenter
     end
   end
 
+  def registration_address
+    @vvr ||= begin
+      if !@registration.vvr_is_rural || @registration.vvr_is_rural == '0'
+        if @registration.vvr_county_or_city.downcase.include?('county')
+          city = @registration.vvr_town
+        else
+          city = @registration.vvr_county_or_city
+        end
+
+        zip = [ @registration.vvr_zip5, @registration.vvr_zip4 ].reject(&:blank?).join('-')
+        [ [ [ @registration.vvr_street_number, @registration.vvr_apt ].reject(&:blank?).join(' / '), @registration.vvr_street_name, @registration.vvr_street_suffix ].reject(&:blank?).join(' '),
+          city,
+          [ 'VA', zip ].join(' ') ].reject(&:blank?).join(', ')
+      else
+        @registration.vvr_rural
+      end
+    end
+  end
+
+  def mailing_address
+    if overseas?
+      overseas_mailing_address
+    else
+      domestic_mailing_address
+    end
+  end
+
+  def domestic_mailing_address
+    if @registration.ma_is_same == 'yes'
+      registration_address
+    else
+      us_address_no_rural(:ma)
+    end
+  end
+
+  def overseas?
+    @registration.uocava?
+  end
 end

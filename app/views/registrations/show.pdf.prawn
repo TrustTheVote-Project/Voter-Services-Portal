@@ -1,4 +1,4 @@
-rr = RegistrationRequestForPdf.new(@registration_request)
+rr = RegistrationForPdf.new(@registration)
 
 require 'prawn/measurement_extensions'
 

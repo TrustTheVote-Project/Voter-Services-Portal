@@ -28,7 +28,7 @@
       %label Date of birth
       = bound_date f, :dob, :start_year => Date.today.year - 120, :end_year => Date.today.year - 17
 
-  - if collecting? :registration_request, :gender
+  - if collecting? :registration, :gender
     .row
       .span12
         %label Gender

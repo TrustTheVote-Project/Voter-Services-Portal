@@ -1,0 +1,46 @@
+- reg = RegistrationDetailsPresenter.new(@registration)
+= render partial: "search/steps", locals: { step: 'view' }
+
+.row
+  .padded_page_span.section
+    = render partial: 'head', locals: { name: reg.full_name }
+
+    .span10.summary
+      .head
+        %p
+          %strong Registration Status: #{reg.registration_status}
+        %p Next Election Date: June 12, 2012
+
+      .body
+        %table.table.properties
+          %tr
+            %th Name:
+            %td= reg.full_name
+          %tr
+            %th Date of Birth:
+            %td= reg.dob
+          %tr
+            %th Gender:
+            %td= reg.gender
+          %tr
+            %th Social Security Number:
+            %td= reg.ssn
+          %tr
+            %th Phone:
+            %td= reg.phone
+          %tr
+            %th Email:
+            %td= reg.email
+          %tr
+            %th Registration Address:
+            %td= reg.registration_address
+          %tr
+            %th Mailing Address:
+            %td= reg.mailing_address
+          %tr
+            %th Political Party Preference:
+            %td= reg.party_affiliation
+
+
+      .form-actions
+        = link_to "Update Information &rarr;".html_safe, :edit_registration, class: 'next btn'

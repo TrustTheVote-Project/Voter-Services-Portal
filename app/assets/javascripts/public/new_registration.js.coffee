@@ -21,7 +21,7 @@ ko.bindingHandlers.vis = {
 class NewRegistration
   constructor: (initPage = 0) ->
     self      = this
-    @oname    = 'registration_request'
+    @oname    = 'registration'
     oid       = "##{@oname}"
 
     overseas  = $('input#overseas').val() == '1'
@@ -333,7 +333,7 @@ class NewRegistration
     return if $(e.target).hasClass('disabled')
     newIdx = @currentPageIdx() + 1
     if newIdx > oath_page_idx
-      $('form#new_registration_request')[0].submit()
+      $('form#new_registration')[0].submit()
     else
       location.hash = pages[newIdx]
 
@@ -376,7 +376,7 @@ class DownloadRegistration
     location.hash = pages[newIdx]
 
 $ ->
-  if $('form#new_registration_request').length > 0
+  if $('form#new_registration').length > 0
     ko.applyBindings(new NewRegistration(0))
 
   if $('#registration #download').length > 0

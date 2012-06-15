@@ -2,8 +2,6 @@ VaVote::Application.routes.draw do
 
   get   '/not_found' => 'pages#not_found', as: :not_found
 
-  resource :registration, only: [ :show, :edit, :update ]
-
   get   '/search' => 'search#new', as: :search_form
   post  '/search' => 'search#create', as: :search
 
@@ -18,9 +16,10 @@ VaVote::Application.routes.draw do
     end
   end
 
-  resource :registration_request, only: [ :new, :create, :show ]
-  get '/register/residential' => 'registration_requests#new', defaults: { kind: 'residential' }, as: 'register_residential'
-  get '/register/overseas'    => 'registration_requests#new', defaults: { kind: 'overseas' }, as: 'register_overseas'
+  resource :registration, except: :destroy
+
+  get '/register/residential' => 'registrations#new', defaults: { kind: 'residential' }, as: 'register_residential'
+  get '/register/overseas'    => 'registrations#new', defaults: { kind: 'overseas' }, as: 'register_overseas'
 
   resource :form, only: [] do
     member do

@@ -162,13 +162,13 @@
     .row
       .span2
         %span Service Branch
-        = select     :registration_request, :service_branch, options_for_select(RegistrationRequest::SERVICE_BRANCHES), {}, class: 'span2 inline'
+        = select     :registration, :service_branch, options_for_select(Registration::SERVICE_BRANCHES), {}, class: 'span2 inline'
       .span2
         %span Service ID
-        = text_field :registration_request, :service_id, placeholder: 'Service ID', class: 'span1 inline', 'data-bind' => 'value: serviceId'
+        = text_field :registration, :service_id, placeholder: 'Service ID', class: 'span1 inline', 'data-bind' => 'value: serviceId'
       .span2
         %span Rank / Grade / Rate
-        = text_field :registration_request, :rank, placeholder: 'Rank / Grade / Rate', class: 'span2 inline', 'data-bind' => 'value: rank'
+        = text_field :registration, :rank, placeholder: 'Rank / Grade / Rate', class: 'span2 inline', 'data-bind' => 'value: rank'
     <!-- /ko -->
     <!-- /ko -->
   <!-- /ko -->

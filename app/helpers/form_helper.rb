@@ -17,9 +17,9 @@ module FormHelper
     years   = options_for_select([ nil ] + (start_year .. end_year).to_a.reverse)
     jsfield = field.to_s.camelcase(:lower)
 
-    [ select_tag("registration_request[#{field}(3i)]", days,   html_options.merge('data-bind' => "value: #{jsfield}Day")),
-      select_tag("registration_request[#{field}(2i)]", months, html_options.merge('data-bind' => "value: #{jsfield}Month")),
-      select_tag("registration_request[#{field}(1i)]", years,  html_options.merge('data-bind' => "value: #{jsfield}Year"))
+    [ select_tag("registration[#{field}(3i)]", days,   html_options.merge('data-bind' => "value: #{jsfield}Day")),
+      select_tag("registration[#{field}(2i)]", months, html_options.merge('data-bind' => "value: #{jsfield}Month")),
+      select_tag("registration[#{field}(1i)]", years,  html_options.merge('data-bind' => "value: #{jsfield}Year"))
     ].join(' ').html_safe
   end
 

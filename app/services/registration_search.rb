@@ -9,52 +9,27 @@ class RegistrationSearch
       suffix:             'III',
       phone:              '540-555-1212',
       gender:             'f',
-      dob:                Date.parse('1927-11-06 00:00:00.000'),
+      dob:                Date.parse('1950-11-06 00:00:00.000'),
       party_affiliation:  'Democrat',
       ssn4:               '6789',
-      voting_address:     '518 Vance St, Bristol, VA 242012445',
-      mailing_address:    '518 Vance St, Bristol, VA 242012445' },
 
-    '2' => {
-      first_name:         'Jack',
-      last_name:          'Morgan',
-      phone:              '555-555-5555',
-      gender:             'm',
-      dob:                Date.parse('1947-11-06 00:00:00.000'),
-      party_affiliation:  'Republican',
-      voting_address:     '518 Oak St, Bristol, VA 242012445',
-      mailing_address:    '518 Oak St, Bristol, VA 242012445',
-      absentee:           true },
+      vvr_street_number:  '518',
+      vvr_street_name:    'Vance',
+      vvr_street_type:    'ST',
+      vvr_county_or_city: 'Bristol City',
+      vvr_state:          'VA',
+      vvr_zip5:           '24201',
+      vvr_zip4:           '2445',
 
-    '3' => {
-      first_name:         'Michael',
-      last_name:          'Phepts',
-      phone:              '540-555-1200',
-      gender:             'm',
-      dob:                Date.parse('1937-11-06 00:00:00.000'),
-      party_affiliation:  'Democrat',
-      voting_address:     '518 Vance St, Bristol, VA 242012445',
-      mailing_address:    '518 Vance St, Bristol, VA 242012445',
-      absentee:           true,
-      uocava:             true },
+      ma_is_same:         'yes'
+  }
 
-    '4' => {
-      first_name:         'Jane',
-      last_name:          'Soldier',
-      phone:              '540-555-1200',
-      gender:             'f',
-      dob:                Date.parse('1937-11-06 00:00:00.000'),
-      party_affiliation:  'Republican',
-      voting_address:     '518 Vance St, Bristol, VA 242012445',
-      mailing_address:    '518 Vance St, Bristol, VA 242012445',
-      absentee:           false,
-      uocava:             true }
   }
 
   def self.perform(search_query)
     # TODO replace this hack we use for tests with real search
     data = SEED_DATA[search_query.voter_id]
-    data ? RegistrationSearch.new(data) : nil
+    data ? Registration.new(data.merge(existing: true)) : nil
   end
 
 end

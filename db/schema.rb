@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120320103006) do
+ActiveRecord::Schema.define(:version => 20120615122536) do
 
   create_table "log_records", :force => true do |t|
     t.string   "subject"
@@ -23,30 +23,10 @@ ActiveRecord::Schema.define(:version => 20120320103006) do
 
   add_index "log_records", ["created_at"], :name => "index_log_records_on_created_at"
 
-  create_table "registration_requests", :force => true do |t|
+  create_table "registrations", :force => true do |t|
     t.text     "data"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
-  end
-
-  create_table "registrations", :force => true do |t|
-    t.string   "voter_id"
-    t.string   "first_name"
-    t.string   "middle_name"
-    t.string   "suffix_name_text"
-    t.string   "last_name"
-    t.string   "locality"
-    t.date     "dob"
-    t.string   "gender"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
-    t.string   "phone"
-    t.string   "email"
-    t.string   "party_affiliation"
-    t.string   "voting_address"
-    t.string   "mailing_address"
-    t.boolean  "absentee"
-    t.boolean  "uocava"
   end
 
   create_table "settings", :force => true do |t|

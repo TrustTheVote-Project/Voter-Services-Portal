@@ -8,7 +8,7 @@ class RegistrationRepository
   # Find a registration for the current session
   def self.get_registration(session)
     rid = session[:registration_id]
-    rid ? (Registration.find(rid) rescue nil) : nil
+    rid ? Registration.find_by_id(rid) : nil
   end
 
   # Store a registration for the given session

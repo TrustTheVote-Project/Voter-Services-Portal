@@ -10,7 +10,7 @@
 
 .row
   .padded_page_span
-    = form_for @registration_request, url: :registration_request, html: { 'data-bind' => 'submit: submit' } do |f|
+    = form_for @registration, url: :registration, html: { 'data-bind' => 'submit: submit' } do |f|
       = hidden_field_tag :overseas, params[:kind] == 'overseas' ? 1 : 0
       = render partial: 'eligibility', locals: { f: f }
       = render partial: 'identity', locals: { f: f }
