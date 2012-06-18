@@ -24,12 +24,10 @@ class NewRegistration
     @oname    = 'registration'
     oid       = "##{@oname}"
 
-    overseas  = $('input#overseas').val() == '1'
-
-    @eligibilitySection(overseas)
-    @identitySection(overseas)
-    @addressSection(overseas)
-    @optionsSection(overseas)
+    @eligibilitySection()
+    @identitySection()
+    @addressSection()
+    @optionsSection()
     @oathSection()
     @summarySection()
 
@@ -51,10 +49,12 @@ class NewRegistration
 
   # --- Sections
 
-  eligibilitySection: (overseas) =>
+  eligibilitySection: =>
+    residence  = $('input#residence').val()
+
     @isCitizen              = ko.observable()
     @isOldEnough            = ko.observable()
-    @residence              = ko.observable(if overseas then 'outside' else 'in')
+    @residence              = ko.observable(residence)
     @overseas               = ko.computed => @residence() == 'outside'
     @domestic               = ko.computed => !@overseas()
     @rightsWereRevoked      = ko.observable()
@@ -74,10 +74,10 @@ class NewRegistration
     @eligibilityInvalid = ko.computed => @eligibilityErrors().length > 0
     new Popover('#eligibility .next.btn', @eligibilityErrors)
 
-  identitySection: (overseas) =>
-    @firstName              = ko.observable()
+  identitySection: =>
+    @firstName              = ko.observable($('#registration_first_name').val())
     @middleName             = ko.observable()
-    @lastName               = ko.observable()
+    @lastName               = ko.observable($('#registration_last_name').val())
     @suffix                 = ko.observable()
     @dobYear                = ko.observable()
     @dobMonth               = ko.observable()
@@ -101,7 +101,7 @@ class NewRegistration
     @identityInvalid = ko.computed => @identityErrors().length > 0
     new Popover('#identity .next.btn', @identityErrors)
 
-  addressSection: (overseas) =>
+  addressSection: =>
     @vvrIsRural             = ko.observable(false)
     @vvrRural               = ko.observable()
     @maIsSame               = ko.observable('yes')
@@ -211,10 +211,10 @@ class NewRegistration
     @addressesInvalid = ko.computed => @addressesErrors().length > 0
     new Popover('#mailing .next.btn', @addressesErrors)
 
-  optionsSection: (overseas) =>
+  optionsSection: =>
     @isConfidentialAddress  = ko.observable(false)
     @caType                 = ko.observable()
-    @requestingAbsentee     = ko.observable(overseas)
+    @requestingAbsentee     = ko.observable(@overseas())
     @rabElection            = ko.observable()
     @rabElectionName        = ko.observable()
     @rabElectionDate        = ko.observable()

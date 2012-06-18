@@ -18,8 +18,8 @@ VaVote::Application.routes.draw do
 
   resource :registration, except: :destroy
 
-  get '/register/residential' => 'registrations#new', defaults: { kind: 'residential' }, as: 'register_residential'
-  get '/register/overseas'    => 'registrations#new', defaults: { kind: 'overseas' }, as: 'register_overseas'
+  get '/register/residential' => 'registrations#new', defaults: { residence: 'in' }, as: 'register_residential'
+  get '/register/overseas'    => 'registrations#new', defaults: { residence: 'outside' }, as: 'register_overseas'
 
   resource :form, only: [] do
     member do

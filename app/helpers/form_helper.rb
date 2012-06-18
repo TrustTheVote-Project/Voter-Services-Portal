@@ -12,9 +12,14 @@ module FormHelper
     start_year = options[:start_year] || Date.today.year - 150
     end_year   = options[:end_year] || Date.today.year - 17
 
-    months  = options_for_select([ nil ] + 12.times.map { |i| [ dts.send(:month_name, i + 1), i + 1 ] })
-    days    = options_for_select([ nil ] + (1 .. 31).to_a)
-    years   = options_for_select([ nil ] + (start_year .. end_year).to_a.reverse)
+    value   = f.object.send(field)
+    month   = value && value.month
+    day     = value && value.day
+    year    = value && value.year
+
+    months  = options_for_select([ nil ] + 12.times.map { |i| [ dts.send(:month_name, i + 1), i + 1 ] }, month)
+    days    = options_for_select([ nil ] + (1 .. 31).to_a, day)
+    years   = options_for_select([ nil ] + (start_year .. end_year).to_a.reverse, year)
     jsfield = field.to_s.camelcase(:lower)
 
     [ select_tag("registration[#{field}(3i)]", days,   html_options.merge('data-bind' => "value: #{jsfield}Day")),

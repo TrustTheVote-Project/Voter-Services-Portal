@@ -23,7 +23,7 @@ class SearchQuery
     at = SearchQuery.convert_date(at, :dob)
 
     sanitize_for_mass_assignment(at).each do |k, v|
-      send("#{k.gsub(%r{\(\)}, '')}=", v)
+      send("#{k.to_s.gsub(%r{\(\)}, '')}=", v)
     end
   end
 

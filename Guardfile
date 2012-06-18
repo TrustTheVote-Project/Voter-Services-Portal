@@ -12,6 +12,6 @@ guard 'rspec', :version => 2, :notification => false do
   watch('app/controllers/application_controller.rb')  { "spec/controllers" }
 
   watch(%r{^spec/acceptance/.+\.feature})
-  watch(%r{^spec/acceptance/.+_steps\.rb})
+  watch(%r{^spec/acceptance/.+_steps\.rb})            { "spec/acceptance" }
 end
 

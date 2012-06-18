@@ -5,6 +5,12 @@ describe RegistrationsController do
   let(:current_registration) { stub }
   before { controller.stub(:current_registration).and_return(current_registration) }
 
+  describe 'new' do
+    before  { RegistrationRepository.should_receive(:pop_search_query).and_return({ first_name: 'Tester' }) }
+    before  { get :new }
+    specify { assigns(:registration).first_name.should == 'Tester' }
+  end
+
   describe 'create' do
     describe 'successfully' do
       before  { post :create, registration: {} }

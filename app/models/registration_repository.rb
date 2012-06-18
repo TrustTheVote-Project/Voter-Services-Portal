@@ -24,4 +24,19 @@ class RegistrationRepository
     session.delete(:registration_id)
   end
 
+  # Stores search query params for registration
+  def self.store_search_query(session, query)
+    session[:s_first_name]  = query.first_name
+    session[:s_last_name]   = query.last_name
+    session[:s_dob]         = query.dob.try(:strftime, "%Y-%m-%d")
+  end
+
+  # Gets stored search query params
+  def self.pop_search_query(session)
+    dob = session.delete(:s_dob)
+    { first_name: session.delete(:s_first_name),
+      last_name:  session.delete(:s_last_name),
+      dob:        dob.blank? ? nil : Date.parse(dob) }
+  end
+
 end

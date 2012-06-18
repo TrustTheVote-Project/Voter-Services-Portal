@@ -25,7 +25,7 @@
         .row
           .span3
             %label Locality
-            = f.select :locality, Dictionaries::CITIES_AND_COUNTIES, 'data-bind' => 'value: locality'
+            = f.select :locality, Dictionaries::CITIES_AND_COUNTIES, {}, 'data-bind' => 'value: locality'
         .row
           .span3
             %label First name
@@ -36,7 +36,7 @@
         .row
           .span3
             %label Date of birth
-            = f.date_select :dob, { order: [ :day, :month, :year ], include_blank: true }, { class: 'date' }
+            = f.date_select :dob, { start_year: Date.today.year - 120, end_year: Date.today.year - 17, order: [ :day, :month, :year ], include_blank: true }, { class: 'date' }
         .row
           .span3
             %label Last 4 digits of SSN

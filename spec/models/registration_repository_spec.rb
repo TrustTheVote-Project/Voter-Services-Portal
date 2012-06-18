@@ -17,4 +17,16 @@ describe RegistrationRepository do
     specify { session.should_not be_include :registration_id }
   end
 
+  describe 'storing search query data' do
+    it 'should store empty query' do
+      RegistrationRepository.store_search_query(session, SearchQuery.new)
+      RegistrationRepository.pop_search_query(session).should == { first_name: nil, last_name: nil, dob: nil }
+    end
+
+    it 'should store query' do
+      RegistrationRepository.store_search_query(session, SearchQuery.new(first_name: 'John', last_name: 'Smith', dob: Date.today))
+      RegistrationRepository.pop_search_query(session).should == { first_name: 'John', last_name: 'Smith', dob: Date.today }
+    end
+  end
+
 end

@@ -1,12 +1,18 @@
 class RegistrationsController < ApplicationController
 
-  before_filter :requires_registration
+  before_filter :requires_registration, except: [ :new, :create ]
 
   def new
     LogRecord.log('registration', 'started')
-    @registration = Registration.new(
-      residence:      params[:kind] == 'residential' ? 'in' : 'outside',
+
+    options = RegistrationRepository.pop_search_query(session)
+    puts 'options: ', options.inspect
+
+    options.merge!(
+      residence:      params[:residence],
       absentee_until: 1.year.from_now)
+
+    @registration = Registration.new(options)
   end
 
   def create
