@@ -91,7 +91,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
   end
 
   def acp_reason
-    @reg.ca_type
+    Dictionaries::ACP_REASONS[@reg.ca_type]
   end
 
   # Military / overseas

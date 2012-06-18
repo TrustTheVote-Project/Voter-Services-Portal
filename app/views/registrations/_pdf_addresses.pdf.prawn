@@ -31,7 +31,7 @@ pdf_labeled_block pdf, "Addresses" do
 
       if rr.address_confidentiality?
         heights << pdf_column_block(pdf, 2, 1, 1) do
-          pdf_checkbox pdf, "I request that my my home address not be released"
+          pdf_checkbox pdf, "I request that my home address not be released"
         end
       end
     end

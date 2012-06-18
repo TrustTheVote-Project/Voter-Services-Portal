@@ -205,4 +205,10 @@ module Dictionaries
 
   NAME_SUFFIXES = [ "Jr", "Sr" ]
 
+  ACP_REASONS = {
+    'le'  => "Law Enforcement",
+    'po'  => "Protective Order",
+    'if'  => "Threatened / Stalked",
+    'acp' => "Participage in Address Confidentiality Program"
+  }
 end

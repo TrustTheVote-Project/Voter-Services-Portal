@@ -14,13 +14,13 @@
       .span10
         %span I request that my home address not be released because I or member of my household is
         .radio
-          = f.radio_button :ca_type, 'law enforcement', 'data-bind' => 'checked: caType'
+          = f.radio_button :ca_type, 'le', 'data-bind' => 'checked: caType'
           %label active or retired law enforcement
         .radio
-          = f.radio_button :ca_type, 'protective court order', 'data-bind' => 'checked: caType'
+          = f.radio_button :ca_type, 'po', 'data-bind' => 'checked: caType'
           %label have been granted a protective court order
         .radio
-          = f.radio_button :ca_type, 'in fear', 'data-bind' => 'checked: caType'
+          = f.radio_button :ca_type, 'if', 'data-bind' => 'checked: caType'
           %label are in fear of your personal safety from someone who has threatened or stalked you and have filed a complaint against that person with magistrate or law enforcement
         .radio
           = f.radio_button :ca_type, 'acp', 'data-bind' => 'checked: caType'
