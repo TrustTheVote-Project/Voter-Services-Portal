@@ -6,8 +6,6 @@ class RegistrationsController < ApplicationController
     LogRecord.log('registration', 'started')
 
     options = RegistrationRepository.pop_search_query(session)
-    puts 'options: ', options.inspect
-
     options.merge!(
       residence:      params[:residence],
       absentee_until: 1.year.from_now)
