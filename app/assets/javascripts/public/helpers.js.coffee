@@ -5,7 +5,7 @@ window.ssn    = (v) -> filled(v) && v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){9}$/)
 window.date   = (y, m, d) -> filled(y) && filled(m) && filled(d) && moment([y, m, d]).diff(new Date()) < 0
 window.phone  = (v) -> v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){10}$/)
 window.email  = (v) -> v.match(/^\S+@\S+\.\S+$/)
-window.voterId= (v) -> v.replace(/[^\d]/, '').match(/^\d{16}$/)
+window.voterId= (v) -> v.replace(/[^\d]/g, '').match(/^\d{16}$/)
 
 # Value handler that respects the existing value
 ko.bindingHandlers.valueWithInit = {
