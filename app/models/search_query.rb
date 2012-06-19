@@ -9,7 +9,6 @@ class SearchQuery
   attr_accessible :voter_id, :locality, :first_name, :last_name, :dob, :ssn4
 
   validates :locality,    presence: { unless: :using_voter_id? }
-  validates :first_name,  presence: { unless: :using_voter_id? }
   validates :last_name,   presence: { unless: :using_voter_id? }
   validates :dob,         presence: { unless: :using_voter_id? }
   validates :ssn4,        presence: { unless: :using_voter_id? }

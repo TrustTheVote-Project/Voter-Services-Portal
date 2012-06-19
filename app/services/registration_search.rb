@@ -22,14 +22,32 @@ class RegistrationSearch
       vvr_zip4:           '2445',
 
       ma_is_same:         'yes'
-  }
-
+    }
   }
 
   def self.perform(search_query)
     # TODO replace this hack we use for tests with real search
-    data = SEED_DATA[search_query.voter_id.gsub(/[^\d]/, '')]
+    data = unless search_query.voter_id.blank?
+      search_by_voter_id(search_query.voter_id)
+    else
+      search_by_data(search_query)
+    end
+
     data ? Registration.new(data.merge(existing: true)) : nil
   end
 
+  def self.search_by_voter_id(vid)
+    data = SEED_DATA[vid.gsub(/[^\d]/, '')]
+    data
+  end
+
+  def self.search_by_data(query)
+    k, v = SEED_DATA.to_a.find do |vid, data|
+      data[:last_name].to_s.downcase == query.last_name.to_s.downcase &&
+      data[:ssn4].to_s == query.ssn4.to_s &&
+      data[:dob] == query.dob
+    end
+
+    v
+  end
 end

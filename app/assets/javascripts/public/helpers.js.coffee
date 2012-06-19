@@ -13,6 +13,6 @@ ko.bindingHandlers.valueWithInit = {
     property = valueAccessor()
     value = $(element).val()
 
-    ko.bindingHandlers.value.init(element, (-> context[property]), allBindingsAccessor, context)
-    $(element).val(value)
+    ko.bindingHandlers.value.init(element, valueAccessor, allBindingsAccessor, context)
+    property(value)
 }

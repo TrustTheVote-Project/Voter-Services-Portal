@@ -32,7 +32,7 @@
             = f.text_field :first_name
           .span3
             %label Last name
-            = f.text_field :last_name, 'data-bind' => 'value: lastName'
+            = f.text_field :last_name, 'data-bind' => 'valueWithInit: lastName'
         .row
           .span3
             %label Date of birth
@@ -40,12 +40,12 @@
         .row
           .span3
             %label Last 4 digits of SSN
-            = f.text_field :ssn4, maxlength: 4, class: 'span1', 'data-bind' => 'value: ssn4'
+            = f.text_field :ssn4, maxlength: 4, class: 'span1', 'data-bind' => 'valueWithInit: ssn4'
 
       .partition
         .checkbox
           = check_box_tag :swear, 1, false, 'data-bind' => 'checked: swear'
-          %label{ for: 'search_query_swear' }
+          %label{ for: 'swear' }
             I swear/affirm, under felony penalty for making willfully false material statements or entries, that the
             information provided to access my voter registration record are my own.
 
