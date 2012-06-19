@@ -1,4 +1,4 @@
-class PersonalIdForm
+class SearchForm
   constructor: ->
     @voterId    = ko.observable()
     @locality   = ko.observable()
@@ -26,4 +26,4 @@ class PersonalIdForm
 
 $ ->
   if $("form#new_search_query").length > 0
-    ko.applyBindings(new PersonalIdForm())
+    ko.applyBindings(new SearchForm())
