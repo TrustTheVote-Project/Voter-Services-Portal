@@ -14,6 +14,12 @@ describe RegistrationDetailsPresenter do
     specify { rdp(absentee: false).registration_status.should == 'You are currently registered to vote in person' }
   end
 
+  describe "status_options" do
+    it "should place overseas before everything else" do
+      rdp(absentee: true, uocava: true).status_options.should == [ "overseas", "residential_voter", "residential_absentee" ]
+    end
+  end
+
   private
 
   def rdp(data)

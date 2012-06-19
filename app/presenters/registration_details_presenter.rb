@@ -35,6 +35,26 @@ class RegistrationDetailsPresenter
     end
   end
 
+  def address_confidentiality?
+    @registration.is_confidential_address == '1'
+  end
+
+  def status
+    if uocava?
+      "overseas"
+    elsif absentee?
+      "residential_absentee"
+    else
+      "residential_voter"
+    end
+  end
+
+  def status_options
+    st       = self.status
+    statuses = [ "residential_voter", "residential_absentee", "overseas" ]
+    [ st ] + (statuses - [ st ])
+  end
+
   def registration_status
     if absentee?
       "#{uocava? ? 'Overseas' : 'Resident'} Absentee Voter"

@@ -5,12 +5,10 @@
   .padded_page_span.section
     = render partial: 'head', locals: { name: reg.full_name }
 
-    .span10.summary
-      .head
-        %p
-          %strong Registration Status: #{reg.registration_status}
-        %p Next Election Date: June 12, 2012
+    .head.light
+      %h3 Voter Information
 
+    .summary
       .body
         %table.table.properties
           %tr
@@ -25,12 +23,14 @@
           %tr
             %th Social security number:
             %td= reg.ssn
-          %tr
-            %th Phone:
-            %td= reg.phone
-          %tr
-            %th Email:
-            %td= reg.email
+          - unless reg.phone.blank?
+            %tr
+              %th Phone:
+              %td= reg.phone
+          - unless reg.email.blank?
+            %tr
+              %th Email:
+              %td= reg.email
 
         %table.table.properties
           %tr
@@ -49,6 +49,12 @@
               %th Address confidentiality:
               %td Active
 
+    .head.light
+      %h3 Voting Status
 
-      .form-actions
-        = link_to "Update Information &rarr;".html_safe, :edit_registration, class: 'next btn'
+    %ul.status_options
+      - reg.status_options.each do |opt|
+        = render partial: "#{opt}_status_option", locals: { reg: reg }
+
+    .form-actions
+      = link_to "Update Information &rarr;".html_safe, :edit_registration, class: 'next btn'

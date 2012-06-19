@@ -21,7 +21,10 @@ class RegistrationSearch
       vvr_zip5:           '24201',
       vvr_zip4:           '2445',
 
-      ma_is_same:         'yes'
+      ma_is_same:         'yes',
+
+      is_confidential_address: '1',
+      ca_type:            'if'
     }
   }
 
