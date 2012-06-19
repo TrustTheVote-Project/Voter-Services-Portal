@@ -8,7 +8,7 @@
       %span
         First name
         %label (optional)
-      = f.text_field :first_name, { 'data-bind' => 'value: firstName' }
+      = f.text_field :first_name, { 'data-bind' => 'valueWithInit: firstName' }
     .span3
       %span
         Full middle
@@ -16,7 +16,7 @@
       = f.text_field :middle_name, { 'data-bind' => 'value: middleName' }
     .span3
       %span Last name
-      = f.text_field :last_name, { 'data-bind' => 'value: lastName' }
+      = f.text_field :last_name, { 'data-bind' => 'valueWithInit: lastName' }
     .span2
       %span
         Suffix

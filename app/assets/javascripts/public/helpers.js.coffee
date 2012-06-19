@@ -7,3 +7,12 @@ window.phone  = (v) -> v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){10}$/)
 window.email  = (v) -> v.match(/^\S+@\S+\.\S+$/)
 window.voterId= (v) -> v.replace(/[^\d]/, '').match(/^\d{16}$/)
 
+# Value handler that respects the existing value
+ko.bindingHandlers.valueWithInit = {
+  init: (element, valueAccessor, allBindingsAccessor, context) ->
+    property = valueAccessor()
+    value = $(element).val()
+
+    ko.bindingHandlers.value.init(element, (-> context[property]), allBindingsAccessor, context)
+    $(element).val(value)
+}

@@ -75,9 +75,9 @@ class NewRegistration
     new Popover('#eligibility .next.btn', @eligibilityErrors)
 
   identitySection: =>
-    @firstName              = ko.observable($('#registration_first_name').val())
+    @firstName              = ko.observable()
     @middleName             = ko.observable()
-    @lastName               = ko.observable($('#registration_last_name').val())
+    @lastName               = ko.observable()
     @suffix                 = ko.observable()
     @dobYear                = ko.observable()
     @dobMonth               = ko.observable()
