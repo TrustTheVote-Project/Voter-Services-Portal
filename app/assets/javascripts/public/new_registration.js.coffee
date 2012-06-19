@@ -325,11 +325,13 @@ class NewRegistration
         else
           @summaryDomesticMailingAddress()
 
-    @summaryStatus = ko.computed =>
-      join([
-        (if @requestingAbsentee() then 'Absentee' else 'In person'),
-        (if @isConfidentialAddress() then 'and qualify for address confidentiality' else null)
-      ], " ")
+    @summaryParty = ko.computed =>
+      if @chooseParty()
+        if @party() == 'other'
+          @otherParty()
+        else
+          @party()
+
 
 
   # --- Navigation
