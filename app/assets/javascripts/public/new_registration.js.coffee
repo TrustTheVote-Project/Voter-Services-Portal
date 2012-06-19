@@ -212,6 +212,10 @@ class NewRegistration
     new Popover('#mailing .next.btn', @addressesErrors)
 
   optionsSection: =>
+    @chooseParty            = ko.observable(false)
+    @party                  = ko.observable()
+    @otherParty             = ko.observable()
+
     @isConfidentialAddress  = ko.observable(false)
     @caType                 = ko.observable()
     @requestingAbsentee     = ko.observable(@overseas())
@@ -235,6 +239,10 @@ class NewRegistration
 
     @optionsErrors = ko.computed =>
       errors = []
+      if @chooseParty()
+        if !filled(@party()) || (@party() == 'other' and !filled(@otherParty()))
+          errors.push("Party preference")
+
       if @requestingAbsentee()
         if @overseas()
           errors.push("Absense type") unless filled(@outsideType())

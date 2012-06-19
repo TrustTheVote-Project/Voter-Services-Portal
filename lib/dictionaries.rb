@@ -211,4 +211,15 @@ module Dictionaries
     'if'  => "Threatened / Stalked",
     'acp' => "Participage in Address Confidentiality Program"
   }
+
+  PARTIES = [
+    "American Independent Party",
+    "Americans Elect Party",
+    "Democratic Party",
+    "Green Party",
+    "Libertarian Party",
+    "Peace and Freedom Party",
+    "Republican Party"
+  ]
+
 end

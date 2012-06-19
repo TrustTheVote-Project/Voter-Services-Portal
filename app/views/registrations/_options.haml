@@ -1,7 +1,36 @@
 #options.section{ 'data-bind' => 'vis: page() == "options"' }
   .head
     %h3 Options
-    .description Select only applicable options.
+    .description Select only applicable options (not required).
+
+  .partition
+    .row
+      .span10
+        .checkbox
+          = f.check_box :choose_party, { 'data-bind' => 'checked: chooseParty' }
+          %strong I want to choose a political party preference.
+
+    <!-- ko if: chooseParty -->
+    .row
+      .span10
+        %p
+          %strong My political party preference is
+
+        - Dictionaries::PARTIES.each do |party|
+          .radio
+            = f.radio_button :party, party, { 'data-bind' => 'checked: party' }
+            %label= party
+        .radio
+          = f.radio_button :party, 'other', { 'data-bind' => 'checked: party' }
+          %label Other
+
+        <!-- ko if: party() == 'other' -->
+        %span Political party preference name
+        = f.text_field :other_party, 'data-bind' => 'value: otherParty'
+        <!-- /ko -->
+
+    <!-- /ko -->
+
   .partition
     .row
       .span12
