@@ -24,6 +24,10 @@ class SearchForm
     @invalid = ko.computed => @errors().length > 0
     new Popover('#new_search_query .next.btn', @errors)
 
+  submit: =>
+    return if @invalid()
+    $("form#new_search_query")[0].submit()
+
 $ ->
   if $("form#new_search_query").length > 0
     ko.applyBindings(new SearchForm())

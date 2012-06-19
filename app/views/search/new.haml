@@ -45,10 +45,10 @@
       .partition
         .checkbox
           = check_box_tag :swear, 1, false, 'data-bind' => 'checked: swear'
-          %label
+          %label{ for: 'search_query_swear' }
             I swear/affirm, under felony penalty for making willfully false material statements or entries, that the
             information provided to access my voter registration record are my own.
 
 
       .form-actions
-        = button_tag "Next &rarr;".html_safe, class: 'next btn', 'data-bind' => 'css: { disabled: invalid }'
+        = button_tag "Next &rarr;".html_safe, class: 'next btn', 'data-bind' => 'css: { disabled: invalid }, click: submit'
