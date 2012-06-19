@@ -54,7 +54,7 @@
 
     %ul.status_options
       - reg.status_options.each do |opt|
-        = render partial: "#{opt}_status_option", locals: { reg: reg }
+        = render partial: "status_option_#{opt}", locals: { reg: reg }
 
     .form-actions
       = link_to "Update Information &rarr;".html_safe, :edit_registration, class: 'next btn'

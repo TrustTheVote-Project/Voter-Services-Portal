@@ -1,0 +1,31 @@
+.status_options {
+  margin-left: 0;
+
+  li {
+    list-style: none;
+    background: #eee;
+    padding: 10px;
+  }
+
+  li.separator {
+    background: #fff;
+    h2 {
+      font-size: 16px;
+      margin-left: 20px;
+    }
+  }
+
+  input {
+    float: left;
+  }
+
+  label {
+    margin-left: 20px;
+    font-weight: bold;
+  }
+
+  p {
+    margin-left: 20px;
+    margin-bottom: 0;
+  }
+}
