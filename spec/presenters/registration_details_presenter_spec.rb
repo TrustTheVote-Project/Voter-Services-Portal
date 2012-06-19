@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe RegistrationDetailsPresenter do
 
-  describe '#party_affiliation' do
-    specify { rdp(party_affiliation: '').party_affiliation.should == 'Not stated' }
-    specify { rdp(party_affiliation: 'Democrat').party_affiliation.should == 'Democrat' }
+  describe '#party' do
+    specify { rdp(party: '').party.should == '(none)' }
+    specify { rdp(party: 'Democrat').party.should == 'Democrat' }
+    specify { rdp(party: 'other', other_party: 'Choppers').party.should == 'Choppers' }
   end
 
   describe '#registration_status' do

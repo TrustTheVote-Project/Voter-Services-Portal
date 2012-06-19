@@ -49,7 +49,7 @@ class Registration < ActiveRecord::Base
 
   # Current status fields (from server)
   serialized_attr :existing
-  serialized_attr :absentee, :uocava, :party_affiliation, :ssn4
+  serialized_attr :absentee, :uocava, :ssn4
 
   def full_name
     [ first_name, middle_name, last_name, suffix ].delete_if(&:blank?).join(' ')

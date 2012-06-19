@@ -10,7 +10,7 @@ class RegistrationSearch
       phone:              '540-555-1212',
       gender:             'f',
       dob:                Date.parse('1950-11-06 00:00:00.000'),
-      party_affiliation:  'Democrat',
+      party:              'Democrat Party',
       ssn4:               '6789',
 
       vvr_street_number:  '518',

@@ -24,8 +24,15 @@ class RegistrationDetailsPresenter
   end
 
   # Party affiliation or 'Not stated'
-  def party_affiliation
-    @registration.party_affiliation.blank? ? 'Not stated' : @registration.party_affiliation
+  def party
+    p = @registration.party
+    if p.blank?
+      '(none)'
+    elsif p == 'other'
+      @registration.other_party
+    else
+      @registration.party
+    end
   end
 
   def registration_status
