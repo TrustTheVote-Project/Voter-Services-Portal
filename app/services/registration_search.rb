@@ -8,7 +8,7 @@ class RegistrationSearch
       last_name:          'Phepts',
       suffix:             'III',
       phone:              '540-555-1212',
-      gender:             'f',
+      gender:             'Female',
       dob:                Date.parse('1950-11-06 00:00:00.000'),
       choose_party:       '1',
       party:              'Democratic Party',
