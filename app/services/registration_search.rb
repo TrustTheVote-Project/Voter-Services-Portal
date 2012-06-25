@@ -10,13 +10,15 @@ class RegistrationSearch
       phone:              '540-555-1212',
       gender:             'f',
       dob:                Date.parse('1950-11-06 00:00:00.000'),
-      party:              'Democrat Party',
+      choose_party:       '1',
+      party:              'Democratic Party',
       ssn4:               '6789',
 
       vvr_street_number:  '518',
       vvr_street_name:    'Vance',
       vvr_street_type:    'ST',
-      vvr_county_or_city: 'Bristol City',
+      vvr_county_or_city: 'BRUNSWICK COUNTY',
+      vvr_town:           'Queensberry',
       vvr_state:          'VA',
       vvr_zip5:           '24201',
       vvr_zip4:           '2445',
@@ -24,7 +26,9 @@ class RegistrationSearch
       ma_is_same:         'yes',
 
       is_confidential_address: '1',
-      ca_type:            'if'
+      ca_type:            'if',
+
+      be_official:        '1'
     }
   }
 

@@ -1,0 +1,48 @@
+- reg = RegistrationDetailsPresenter.new(@registration)
+#confirm.section{ 'data-bind' => 'vis: page() == "confirm"' }
+  .head
+    %h3 Confirm
+    .description Please confirm that your information is accurate. If the information is not correct, please go back and correct it.
+
+  .row
+    .span10
+      .head.light
+        %h3 Voter Information
+      .summary
+        .body
+          %table.table.properties
+            %tr
+              %th Name:
+              %td
+                = f.text_field :first_name,   class: 'span2', placeholder: 'First name', 'data-bind' => 'valueWithInit: firstName'
+                = f.text_field :middle_name,  class: 'span2', placeholder: 'Middle name', 'data-bind' => 'valueWithInit: middleName'
+                = f.text_field :last_name,    class: 'span2', placeholder: 'Last name', 'data-bind' => 'valueWithInit: lastName, valueUpdate: "keyup"'
+                = f.select     :suffix, Dictionaries::NAME_SUFFIXES, {}, class: 'span1', 'data-bind' => 'valueWithInit: suffix'
+            %tr
+              %th Date of Birth:
+              %td= reg.dob
+            %tr
+              %th Gender:
+              %td= reg.gender
+            %tr
+              %th Social Security Number:
+              %td= reg.ssn
+            %tr
+              %th Phone:
+              %td= f.text_field :phone, class: 'span2', placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'valueWithInit: phone'
+            %tr
+              %th Email:
+              %td= f.text_field :email, class: 'span2', placeholder: 'john@smith.com', 'data-bind' => 'valueWithInit: email'
+            %tr
+              %th Registration Address:
+              %td{ 'data-bind' => 'html: summaryRegistrationAddress' }
+            %tr
+              %th Mailing Address:
+              %td{ 'data-bind' => 'html: summaryMailingAddress' }
+            %tr
+              %th Political Party Preference:
+              %td{ 'data-bind' => 'text: summaryParty' }
+
+  .form-actions
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'
+    = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'

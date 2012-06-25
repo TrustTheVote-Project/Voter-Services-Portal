@@ -1,0 +1,58 @@
+- reg = RegistrationDetailsPresenter.new(@registration)
+.section#overview
+  = render partial: 'head'
+
+  .row
+    .head.light
+      %h3 Voter Information
+
+    .summary
+      .body
+        %table.table.properties
+          %tr
+            %th Name:
+            %td= reg.full_name
+          %tr
+            %th Date of birth:
+            %td= reg.dob
+          %tr
+            %th Gender:
+            %td= reg.gender
+          %tr
+            %th Social security number:
+            %td= reg.ssn
+          - unless reg.phone.blank?
+            %tr
+              %th Phone:
+              %td= reg.phone
+          - unless reg.email.blank?
+            %tr
+              %th Email:
+              %td= reg.email
+
+        %table.table.properties
+          %tr
+            %th Registration address:
+            %td= reg.registration_address
+          %tr
+            %th Mailing address:
+            %td= reg.mailing_address
+
+        %table.table.properties
+          %tr
+            %th Political party preference:
+            %td= reg.party
+          - if reg.address_confidentiality?
+            %tr
+              %th Address confidentiality:
+              %td Active
+
+    .head.light
+      %h3 Voting Status
+
+    %ul.status_options
+      - reg.status_options.each do |opt|
+        = render partial: "status_option_#{opt}", locals: { reg: reg }
+
+    .form-actions
+      = link_to "Next &rarr;".html_safe, :edit_registration, class: 'next btn'

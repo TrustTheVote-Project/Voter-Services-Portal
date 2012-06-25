@@ -1,0 +1,11 @@
+.section#update_address
+  .head.simple
+    %h3 Update your address information
+  = render partial: 'update_address_section_residential', locals: { f: f }
+
+  .head
+    %h3 Abroad residential address
+    .description
+      Abroad registration address is your Residential address in another country.
+  = render partial: 'non_us_address', locals: { f: f, prefix: 'mau' }
+

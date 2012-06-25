@@ -1,0 +1,74 @@
+.section#overseas_absentee_ballot_request
+  .head.simple
+    %h3 Overseas Absentee Ballot Request
+  .head
+    %h3 Eligibility
+    .description
+      Please answer the following questions to see if you qualify for an
+      Overseas Absentee Ballot.
+  %p
+    You selected that you are moving overseas and won't be in the U.S.
+    on the election day and need an Absentee Ballot.
+
+  .partition
+    .row
+      .span10
+        %p
+          %strong Why are you moving overseas?
+
+        .radio
+          = radio_button_tag "absentee_reason", "marine"
+          %label
+            I am a member of the Uniformed Services or Merchant Marine on
+            active duty or I am their spouse or dependent.
+
+    .row
+      .span2
+        %span Branch
+        = select_tag "absentee_branch", [], class: 'span2'
+      .span2
+        %span Service ID
+        = text_field_tag "absentee_service_id", "", class: 'span2'
+      .span2
+        %span Rank/Grade/Rate
+        = text_field_tag "absentee_rank", "", class: 'span2'
+
+    .row
+      .span10
+        .radio
+          = radio_button_tag "absentee_reason", "ouside_return"
+          %label
+            I am a U.S. citizen residing outside the U.S., and I intend to return.
+        .radio
+          = radio_button_tag "absentee_reason", "ouside_stay"
+          %label
+            I am a U.S. citizen residing outside the U.S., and I do not intend to return.
+        .radio
+          = radio_button_tag "absentee_reason", "granted"
+          %label
+            I am a U.S. citizen otherwise granted military/overseas voting rights under State law.
+  .partition
+    .row
+      .span10
+        %p
+          %strong Overseas Absentee Status duration
+
+        .radio
+          = radio_button_tag "absentee_duration", "year"
+          %label One year
+
+        .radio
+          = radio_button_tag "absentee_duration", "other"
+          %label Other
+
+    .row
+      .span2
+        %span Duration
+        = select_tag "absentee_duration_other", [ ], class: 'span2'
+
+  .row
+    .form-actions
+      = link_to "Next &rarr;".html_safe, '#', class: 'next btn'
+      = link_to "&larr; Back".html_safe, '#', class: 'back btn'
+
+

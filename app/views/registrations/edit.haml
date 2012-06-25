@@ -1,7 +1,10 @@
 = render partial: "search/steps", locals: { step: 'update' }
 
-.row
+.row#update_registration
   .padded_page_span
     = form_for @registration, url: :registration  do |f|
-      = render partial: 'update_section', locals: { f: f }
-      = render partial: 'oath_section', locals: { f: f }
+      = render partial: 'addresses_section',      locals: { f: f }
+      = render partial: 'mailing_section',        locals: { f: f }
+      = render partial: 'options_section',        locals: { f: f, updating: true }
+      = render partial: 'confirm_update_section', locals: { f: f }
+      = render partial: 'oath_section',           locals: { f: f }

@@ -21,4 +21,5 @@
 //= require feedback
 //= require public/helpers
 //= require public/popover
+//= require public/registration
 //= require_tree ./public

@@ -19,15 +19,15 @@
       .span3
         %span
           Street number
-        = f.text_field :er_street_number, 'data-bind' => 'value: erStreetNumber'
+        = f.text_field :er_street_number, 'data-bind' => 'valueWithInit: erStreetNumber'
       .span3
         %span
           Street name
-        = f.text_field :er_street_name, 'data-bind' => 'value: erStreetName'
+        = f.text_field :er_street_name, 'data-bind' => 'valueWithInit: erStreetName'
       .span2.street-type-field
         %span
           Street type
-        = f.select :er_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { class: 'span1', 'data-bind' => 'value: erStreetType' }
+        = f.select :er_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { class: 'span1', 'data-bind' => 'valueWithInit: erStreetType' }
       .span2.lot-field
         %span
           Apt/Lot
@@ -36,13 +36,13 @@
     .row
       .span3
         %span City
-        = f.text_field :er_city, 'data-bind' => 'value: erCity'
+        = f.text_field :er_city, 'data-bind' => 'valueWithInit: erCity'
       .span2.state-field
         %span State
-        = f.select :er_state, Dictionaries::STATES_WITHOUT_VA, { include_blank: true }, { class: 'span3', 'data-bind' => 'value: erState' }
+        = f.select :er_state, Dictionaries::STATES_WITHOUT_VA, { include_blank: true }, { class: 'span3', 'data-bind' => 'valueWithInit: erState' }
       .span3.zip-field
         %span Zip code
-        = f.text_field :er_zip5, class: 'first-zip', 'data-bind' => 'value: erZip5', placeholder: '12345'
+        = f.text_field :er_zip5, class: 'first-zip', 'data-bind' => 'valueWithInit: erZip5', placeholder: '12345'
         .space &mdash;
         = f.text_field :er_zip4, class: 'second-zip', placeholder: '1234'
     <!-- /ko -->
@@ -52,7 +52,7 @@
           = f.check_box :er_is_rural, { 'data-bind' => 'checked: erIsRural' }
           Rural address or homeless? Please check the box and describe where you reside.
         <!-- ko if: erIsRural -->
-        = f.text_area :er_rural, cols: "10", rows: "10", 'data-bind' => 'value: erRural'
+        = f.text_area :er_rural, cols: "10", rows: "10", 'data-bind' => 'valueWithInit: erRural'
         <!-- /ko -->
     <!-- /ko -->
 
