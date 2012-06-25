@@ -8,10 +8,10 @@
   .partition
     %h4 Are you currently registered to vote at another address in Virginia or in another state?
     .radio
-      = f.radio_button :has_existing_reg, 'no', { 'data-bind' => 'checked: hasExistingReg' }
+      = f.radio_button :has_existing_reg, 'no', { 'data-bind' => 'checkedWithInit: hasExistingReg' }
       %label No
     .radio
-      = f.radio_button :has_existing_reg, 'yes', { 'data-bind' => 'checked: hasExistingReg' }
+      = f.radio_button :has_existing_reg, 'yes', { 'data-bind' => 'checkedWithInit: hasExistingReg' }
       %label Yes
     <!-- ko if: hasExistingReg() == 'yes' -->
     <!-- ko ifnot: erIsRural -->
@@ -49,7 +49,7 @@
     .row
       .span12
         .checkbox
-          = f.check_box :er_is_rural, { 'data-bind' => 'checked: erIsRural' }
+          = f.check_box :er_is_rural, { 'data-bind' => 'checkedWithInit: erIsRural' }
           Rural address or homeless? Please check the box and describe where you reside.
         <!-- ko if: erIsRural -->
         = f.text_area :er_rural, cols: "10", rows: "10", 'data-bind' => 'valueWithInit: erRural'
@@ -61,7 +61,7 @@
     .row
       .span12
         .checkbox
-          = f.check_box :er_cancel, 'data-bind' => 'checked: erCancel'
+          = f.check_box :er_cancel, 'data-bind' => 'checkedWithInit: erCancel'
           %strong
             I authorize cancellation of my existing registration.
   <!-- /ko -->

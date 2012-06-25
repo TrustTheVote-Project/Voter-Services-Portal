@@ -49,18 +49,18 @@ class Registration < ActiveRecord::Base
 
   # Current status fields (from server)
   serialized_attr :existing
-  serialized_attr :absentee, :uocava, :ssn4
+  serialized_attr :ssn4
 
   def full_name
     [ first_name, middle_name, last_name, suffix ].delete_if(&:blank?).join(' ')
   end
 
   def absentee?
-    absentee
+    self.requesting_absentee
   end
 
   def uocava?
-    uocava
+    self.residence == 'outside'
   end
 
 end

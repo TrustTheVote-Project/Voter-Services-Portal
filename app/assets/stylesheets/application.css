@@ -10,5 +10,6 @@
  *
  *= require_self
  *= require global
+ *= require nouislider
  *= require_tree ./public
 */

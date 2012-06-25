@@ -98,6 +98,35 @@ class RegistrationDetailsPresenter
     end
   end
 
+  def us_address_no_rural(prefix)
+    [ @registration.send("#{prefix}_address"),
+      @registration.send("#{prefix}_address_2"),
+      @registration.send("#{prefix}_city"),
+      @registration.send("#{prefix}_state"),
+      [ @registration.send("#{prefix}_zip5"), @registration.send("#{prefix}_zip4") ].reject(&:blank?).join('-')
+    ].reject(&:blank?).join(', ')
+  end
+
+  def overseas_mailing_address
+    if @registration.mau_type == 'non-us'
+      abroad_address :mau
+    else
+      [ @registration.send("apo_address"),
+        @registration.send("apo_1"),
+        @registration.send("apo_2"),
+        @registration.send("apo_zip5") ].reject(&:blank?).join(', ')
+    end
+  end
+
+  def abroad_address(prefix)
+    [ [ @registration.send("#{prefix}_address"), @registration.send("#{prefix}_address_2") ].reject(&:blank?).join(' '),
+      [ @registration.send("#{prefix}_city"), @registration.send("#{prefix}_city_2") ].reject(&:blank?).join(' '),
+      @registration.send("#{prefix}_state"),
+      @registration.send("#{prefix}_postal_code"),
+      @registration.send("#{prefix}_country")
+    ].reject(&:blank?).join(', ')
+  end
+
   def overseas?
     @registration.uocava?
   end

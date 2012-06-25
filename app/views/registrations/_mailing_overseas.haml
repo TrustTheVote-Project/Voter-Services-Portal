@@ -1,10 +1,10 @@
 <!-- ko if: overseas -->
 .partition
   .radio
-    = radio_button :registration, :mau_type, 'non-us', 'data-bind' => 'checked: mauType'
+    = radio_button :registration, :mau_type, 'non-us', 'data-bind' => 'checkedWithInit: mauType'
     %label I prefer that voting materials be sent to me at a different non-U.S address
   .radio
-    = radio_button :registration, :mau_type, 'apo', 'data-bind' => 'checked: mauType'
+    = radio_button :registration, :mau_type, 'apo', 'data-bind' => 'checkedWithInit: mauType'
     %label I prefer that voting materials be sent to me at an APO/DPO/FPO address
 
   <!-- ko if: mauType() == 'non-us' -->
@@ -15,15 +15,15 @@
   .row
     .span3.address-field
       %span Address
-      = f.text_field :apo_address,   'data-bind' => 'value: mauAPOAddress1'
-      = f.text_field :apo_address_2, 'data-bind' => 'value: mauAPOAddress2'
+      = f.text_field :apo_address,   'data-bind' => 'valueWithInit: mauAPOAddress1'
+      = f.text_field :apo_address_2, 'data-bind' => 'valueWithInit: mauAPOAddress2'
   .row
     .span1
-      = select :registration, :apo_1, options_for_select([ 'APO', 'DPO', 'FPO' ]), {}, class: 'inline span1', 'data-bind' => 'value: mauAPO1'
+      = select :registration, :apo_1, options_for_select([ 'APO', 'DPO', 'FPO' ]), {}, class: 'inline span1', 'data-bind' => 'valueWithInit: mauAPO1'
     .span1
-      = select :registration, :apo_2, options_for_select([ 'AA', 'AE', 'AP' ]), {}, class: 'inline span1', 'data-bind' => 'value: mauAPO2'
+      = select :registration, :apo_2, options_for_select([ 'AA', 'AE', 'AP' ]), {}, class: 'inline span1', 'data-bind' => 'valueWithInit: mauAPO2'
     .span1
-      = text_field :registration, :apo_zip5, placeholder: 'ZIP 5', class: 'inline span1', 'data-bind' => 'value: mauAPOZip5'
+      = text_field :registration, :apo_zip5, placeholder: 'ZIP 5', class: 'inline span1', 'data-bind' => 'valueWithInit: mauAPOZip5'
   <!-- /ko -->
 
 <!-- /ko -->

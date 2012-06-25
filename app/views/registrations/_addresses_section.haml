@@ -47,7 +47,7 @@
   .row
     .span12
       .checkbox
-        = f.check_box :vvr_is_rural, 'data-bind' => 'checked: vvrIsRural'
+        = f.check_box :vvr_is_rural, 'data-bind' => 'checkedWithInit: vvrIsRural'
         Rural address or homeless? Please check the box and describe where you reside.
       <!-- ko if: vvrIsRural -->
       = f.text_area :vvr_rural, cols: "10", rows: "10", 'data-bind' => 'valueWithInit: vvrRural'
@@ -57,15 +57,15 @@
   .row
     .span12
       .radio
-        = radio_button :registration, :vvr_uocava_residence_available, 'yes', { 'data-bind' => 'checked: vvrOverseasRA' }
+        = radio_button :registration, :vvr_uocava_residence_available, 'yes', { 'data-bind' => 'checkedWithInit: vvrOverseasRA' }
         %label My Virginia residence is still available to me
       .radio
-        = radio_button :registration, :vvr_uocava_residence_available, 'no', { 'data-bind' => 'checked: vvrOverseasRA' }
+        = radio_button :registration, :vvr_uocava_residence_available, 'no', { 'data-bind' => 'checkedWithInit: vvrOverseasRA' }
         %label My Virginia residence is no longer available to me
   <!-- ko if: vvrOverseasRA() == 'no' -->
   .row
     .span12
       %span My last date of residence at the above address was:
-      = bound_date f, :vvr_uocava_residence_unavailable_since, { }, class: 'date'
+      = bound_date f, :vvr_uocava_residence_unavailable_since, { end_year: Date.today.year }, class: 'date'
   <!-- /ko -->
   <!-- /ko -->

@@ -28,7 +28,43 @@ class RegistrationSearch
       is_confidential_address: '1',
       ca_type:            'if',
 
+      has_existing_reg:   'no',
       be_official:        '1'
+    },
+
+    '1111222233334444' => {
+      residence:          'outside',
+      requesting_absentee: true,
+      first_name:         'Overseas',
+      last_name:          'Marine',
+      gender:             'Male',
+      dob:                40.years.ago,
+      ssn4:               '1234',
+
+      vvr_street_number:  '5',
+      vvr_street_name:    'First',
+      vvr_street_type:    'ST',
+      vvr_county_or_city: 'BRISTOL CITY',
+      vvr_state:          'VA',
+      vvr_zip5:           '12345',
+      vvr_zip4:           '',
+
+      vvr_uocava_residence_available: 'no',
+      vvr_uocava_residence_unavailable_since: 5.years.ago,
+
+      mau_type:           'apo',
+      apo_address:        'Apo street',
+      apo_1:              'APO',
+      apo_2:              'AA',
+      apo_zip5:           '23456',
+
+      outside_type:       'active_duty',
+      service_branch:     'Army',
+      service_id:         '112233',
+      rank:               'Major',
+
+      has_existing_reg:   'no',
+      absentee_until:     2.months.from_now
     }
   }
 

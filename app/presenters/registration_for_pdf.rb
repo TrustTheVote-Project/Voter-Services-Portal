@@ -128,31 +128,11 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     @reg.send("rank")
   end
 
-  def overseas_mailing_address
-    if @reg.mau_type == 'non-us'
-      abroad_address :mau
-    else
-      [ @reg.send("apo_address"),
-        @reg.send("apo_1"),
-        @reg.send("apo_2"),
-        @reg.send("apo_zip5") ].reject(&:blank?).join(', ')
-    end
-  end
-
   def residental_address_abroad
     abroad_address :raa
   end
 
   private
-
-  def abroad_address(prefix)
-    [ [ @reg.send("#{prefix}_address"), @reg.send("#{prefix}_address_2") ].reject(&:blank?).join(' '),
-      [ @reg.send("#{prefix}_city"), @reg.send("#{prefix}_city_2") ].reject(&:blank?).join(' '),
-      @reg.send("#{prefix}_state"),
-      @reg.send("#{prefix}_postal_code"),
-      @reg.send("#{prefix}_country")
-    ].reject(&:blank?).join(', ')
-  end
 
   def us_address(prefix)
     if @reg.send("#{prefix}_is_rural") == '1'
@@ -160,15 +140,6 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     else
       us_address_no_rural(prefix)
     end
-  end
-
-  def us_address_no_rural(prefix)
-    [ @reg.send("#{prefix}_address"),
-      @reg.send("#{prefix}_address_2"),
-      @reg.send("#{prefix}_city"),
-      @reg.send("#{prefix}_state"),
-      [ @reg.send("#{prefix}_zip5"), @reg.send("#{prefix}_zip4") ].reject(&:blank?).join('-')
-    ].reject(&:blank?).join(', ')
   end
 
   def military_prefix
