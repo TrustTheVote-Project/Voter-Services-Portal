@@ -43,7 +43,7 @@ class RegistrationDetailsPresenter
     if uocava?
       "overseas"
     elsif absentee?
-      "residential_absentee"
+      "domestic_absentee"
     else
       "residential_voter"
     end

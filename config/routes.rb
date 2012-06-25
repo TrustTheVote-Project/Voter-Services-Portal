@@ -16,7 +16,9 @@ VaVote::Application.routes.draw do
     end
   end
 
-  resource :registration, except: :destroy
+  resource :registration, except: :destroy do
+    get '/edit/:kind' => 'registrations#edit'
+  end
 
   get '/register/residential' => 'registrations#new', defaults: { residence: 'in' }, as: 'register_residential'
   get '/register/overseas'    => 'registrations#new', defaults: { residence: 'outside' }, as: 'register_overseas'

@@ -66,10 +66,18 @@ class DownloadRegistration
     @sectionComplete.hide()
     @sectionDownload.show()
 
+updateEditLink = ->
+  editLink = $("a#edit_registration")
+  st = $('input:checked[name="status"]').val()
+  path = editLink.attr('href').replace(/edit.*$/, 'edit')
+  editLink.attr('href', path + '/' + st)
+
+
 $ ->
   if $("#update_registration").length > 0
     ko.applyBindings(new UpdateRegistration())
 
-  # if $("#download.update.section").length > 0
-  #   ko.applyBindings(new DownloadRegistration())
-
+  editLink = $("a#edit_registration")
+  if editLink.length > 0
+    $('input[name="status"]').change(updateEditLink)
+    updateEditLink()

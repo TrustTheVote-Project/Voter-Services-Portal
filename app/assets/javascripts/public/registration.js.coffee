@@ -190,6 +190,8 @@ class window.Registration
     @abZip5                 = ko.observable()
     @abCountry              = ko.observable()
 
+    @overseas.subscribe (v) =>
+      @requestingAbsentee(true) if v
 
     @optionsErrors = ko.computed =>
       errors = []

@@ -44,6 +44,10 @@ class RegistrationsController < ApplicationController
 
   def edit
     @registration = current_registration
+
+    kind = params[:kind].to_s
+    @registration.residence = 'outside' if kind == 'overseas'
+    @registration.requesting_absentee = kind =~ /absentee|overseas/ ? '1' : '0'
   end
 
   def update
