@@ -47,7 +47,7 @@ class RegistrationsController < ApplicationController
 
     kind = params[:kind].to_s
     @registration.residence = 'outside' if kind == 'overseas'
-    @registration.requesting_absentee = kind =~ /absentee|overseas/ ? '1' : '0'
+    @registration.requesting_absentee = kind =~ /absentee|overseas/
   end
 
   def update
