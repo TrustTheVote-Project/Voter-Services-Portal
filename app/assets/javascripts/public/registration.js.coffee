@@ -172,7 +172,7 @@ class window.Registration
 
     @caType                 = ko.observable()
     @isConfidentialAddress  = ko.observable()
-    @requestingAbsentee     = ko.observable(@overseas())
+    @requestingAbsentee     = ko.observable()
     @absenteeUntil          = ko.observable()
     @rabElection            = ko.observable()
     @rabElectionName        = ko.observable()
@@ -235,6 +235,8 @@ class window.Registration
   initAbsenteeUntilSlider: ->
     return if @abstenteeUntilSlider
     rau = $("#registration_absentee_until").val()
+    @setAbsenteeUntil(rau)
+
     days = Math.floor((moment(rau) - moment()) / 86400000)
     @absenteeUntilSlider = $("#absentee_until")
     @absenteeUntilSlider.slider(min: 45, max: 365, value: days, slide: @onAbsenteeUntilSlide)

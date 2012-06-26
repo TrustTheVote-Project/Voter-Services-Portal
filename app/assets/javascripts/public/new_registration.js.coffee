@@ -1,6 +1,7 @@
-pages  = [ 'eligibility', 'identity', 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
-oath_page_idx = 5
-download_page_idx = 6
+pages           = [ 'eligibility', 'identity', 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
+oathPageIdx     = pages.indexOf('oath')
+downloadPageIdx = pages.indexOf('download')
+optionsPageIdx  = pages.indexOf('options')
 
 
 class NewRegistration extends Registration
@@ -37,7 +38,7 @@ class NewRegistration extends Registration
   nextPage: (_, e) =>
     return if $(e.target).hasClass('disabled')
     newIdx = @currentPageIdx() + 1
-    if newIdx > oath_page_idx
+    if newIdx > oathPageIdx
       $('form#new_registration')[0].submit()
     else
       location.hash = pages[newIdx]
@@ -52,13 +53,13 @@ class DownloadRegistration
     @downloadSection()
 
     # Navigation
-    @currentPageIdx         = ko.observable(download_page_idx)
+    @currentPageIdx         = ko.observable(downloadPageIdx)
     @page                   = ko.computed(=> pages[@currentPageIdx()])
 
     $(window).hashchange =>
       hash = location.hash
       newIdx = $.inArray(hash.replace('#', ''), pages)
-      newIdx = download_page_idx if newIdx == -1
+      newIdx = downloadPageIdx if newIdx == -1
       @currentPageIdx(newIdx)
 
   markAsDownloaded: =>
