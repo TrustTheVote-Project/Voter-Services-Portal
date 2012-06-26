@@ -174,8 +174,11 @@
 
       <!-- ko if: requestingAbsentee -->
       .row
-        .span12
-          = f.date_select :absentee_until, { start_year: Date.today.year, end_year: 1.year.from_now.year, order: [ :day, :month, :year ] }, class: 'date'
+        .span3
+          = f.hidden_field :absentee_until
+          #absentee_until.sliderbar
+        .span3
+          .absentee_until_label{ 'data-bind' => 'text: absenteeUntilFormatted' }
 
       .row
         .span12

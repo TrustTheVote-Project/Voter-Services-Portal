@@ -41,6 +41,7 @@ class NewRegistration extends Registration
       $('form#new_registration')[0].submit()
     else
       location.hash = pages[newIdx]
+      @initAbsenteeUntilSlider() if newIdx == optionsPageIdx
 
 
 class DownloadRegistration

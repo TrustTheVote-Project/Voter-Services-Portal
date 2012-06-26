@@ -19,7 +19,7 @@
 //= require moment.min
 //= require jquery.ba-hashchange.min
 //= require feedback
-//= require jquery.nouislider.min
+//= require jquery-ui-1.8.21.custom.min
 //= require public/helpers
 //= require public/popover
 //= require public/registration

@@ -10,6 +10,6 @@
  *
  *= require_self
  *= require global
- *= require nouislider
+ *= require jquery-ui-1.8.21.custom
  *= require_tree ./public
 */

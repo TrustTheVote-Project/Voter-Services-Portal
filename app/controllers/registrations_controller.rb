@@ -46,13 +46,20 @@ class RegistrationsController < ApplicationController
     @registration = current_registration
 
     kind = params[:kind].to_s
-    @registration.residence = 'outside' if kind == 'overseas'
+    @registration.residence = kind == 'overseas' ? 'outside' : 'in'
     @registration.requesting_absentee = kind =~ /absentee|overseas/
   end
 
   def update
+    data = params[:registration]
+    Converter.params_to_date(data,
+      :vvr_uocava_residence_unavailable_since,
+      :dob,
+      :absentee_until,
+      :rights_restored_on)
+
     @registration = current_registration
-    unless @registration.update_attributes(params[:registration])
+    unless @registration.update_attributes(data)
       redirect_to :edit_registration, alert: 'Please review your registration data and try again'
     end
   end

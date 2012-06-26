@@ -1,5 +1,6 @@
 pages  = [ 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
-oath_page_idx = pages.indexOf('oath')
+optionsPageIdx = pages.indexOf('options')
+oathPageIdx = pages.indexOf('oath')
 
 class UpdateRegistration extends Registration
   constructor: (initPage = 0) ->
@@ -8,6 +9,11 @@ class UpdateRegistration extends Registration
     new Popover('#mailing .next.btn', @addressesErrors)
     new Popover('#options .next.btn', @optionsErrors)
     new Popover('#oath .next.btn', @oathErrors)
+
+    # Init absenteeUntil
+    rau = $("#registration_absentee_until").val()
+    rau = moment().add('days', 45).format("YYYY-MM-DD") if !filled(rau)
+    @setAbsenteeUntil(rau)
 
     # Navigation
     @currentPageIdx         = ko.observable(initPage)
@@ -30,11 +36,11 @@ class UpdateRegistration extends Registration
   nextPage: (_, e) =>
     return if $(e.target).hasClass('disabled')
     newIdx = @currentPageIdx() + 1
-    if newIdx > oath_page_idx
+    if newIdx > oathPageIdx
       @submit()
     else
       location.hash = pages[newIdx]
-
+      @initAbsenteeUntilSlider() if newIdx == optionsPageIdx
 
 
 class DownloadRegistration
