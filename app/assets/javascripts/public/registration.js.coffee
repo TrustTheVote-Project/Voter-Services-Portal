@@ -131,6 +131,7 @@ class window.Registration
         then filled(@vvrRural())
         else filled(@vvrStreetNumber()) and
              filled(@vvrStreetName()) and
+             filled(@vvrStreetType()) and
              (!@vvrCountySelected() or filled(@vvrTown())) and
              filled(@vvrState()) and
              zip5(@vvrZip5()) and

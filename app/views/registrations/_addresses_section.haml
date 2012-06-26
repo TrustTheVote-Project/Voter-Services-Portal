@@ -36,7 +36,7 @@
     .span2.state-field.short
       %span State
       VA
-      = f.hidden_field :vvr_state, 'data-bind' => 'valueWithInit: vvrState'
+      = f.hidden_field :vvr_state, 'data-bind' => 'value: vvrState'
     .span2.zip-field
       %span Zip code
       = f.text_field :vvr_zip5, class: 'first-zip', 'data-bind' => 'valueWithInit: vvrZip5', placeholder: '12345'
