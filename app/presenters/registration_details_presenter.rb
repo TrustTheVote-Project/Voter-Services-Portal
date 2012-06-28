@@ -51,7 +51,7 @@ class RegistrationDetailsPresenter
 
   def status_options
     st       = self.status
-    statuses = [ "separator", "residential_voter", "residential_absentee", "overseas" ]
+    statuses = [ "separator", "residential_voter", "domestic_absentee", "overseas" ]
     [ st ] + (statuses - [ st ])
   end
 
