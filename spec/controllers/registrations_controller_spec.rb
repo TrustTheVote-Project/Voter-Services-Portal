@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe RegistrationsController do
 
-  let(:current_registration) { stub }
+  let(:current_registration) { Factory.build(:registration) }
   before { controller.stub(:current_registration).and_return(current_registration) }
 
   describe 'new' do

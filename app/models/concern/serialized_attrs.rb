@@ -6,6 +6,7 @@ module Concern
 
     included do
       serialize :data
+      serialize :previous_data
     end
 
     module ClassMethods
@@ -13,7 +14,15 @@ module Concern
         names.each do |name|
           define_method "#{name}=" do |v|
             self.data = {} unless self.data
-            self.data[name.to_sym] = v
+
+            n = name.to_sym
+
+            if self.id
+              self.previous_data = {} unless self.previous_data
+              self.previous_data[n] = self.data[n]
+            end
+
+            self.data[n] = v
           end
 
           define_method name do

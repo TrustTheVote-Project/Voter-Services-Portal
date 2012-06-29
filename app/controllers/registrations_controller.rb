@@ -34,6 +34,7 @@ class RegistrationsController < ApplicationController
   end
 
   def show
+    @update       = RegistrationRepository.registration_update?(session)
     @registration = current_registration
     respond_to do |f|
       f.html

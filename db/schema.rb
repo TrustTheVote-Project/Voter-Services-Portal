@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120615122536) do
+ActiveRecord::Schema.define(:version => 20120629103016) do
 
   create_table "log_records", :force => true do |t|
     t.string   "subject"
@@ -25,8 +25,9 @@ ActiveRecord::Schema.define(:version => 20120615122536) do
 
   create_table "registrations", :force => true do |t|
     t.text     "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.text     "previous_data"
   end
 
   create_table "settings", :force => true do |t|
