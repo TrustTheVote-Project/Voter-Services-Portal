@@ -4,7 +4,7 @@ oathPageIdx = pages.indexOf('oath')
 
 class UpdateRegistration extends Registration
   constructor: (initPage = 0) ->
-    super($('input#residence').val())
+    super($('input#registration_residence').val())
 
     new Popover('#mailing .next.btn', @addressesErrors)
     new Popover('#options .next.btn', @optionsErrors)

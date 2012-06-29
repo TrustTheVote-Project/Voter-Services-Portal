@@ -12,10 +12,12 @@ pdf.save_graphics_state do
       pdf.fill_color "000000"
       pdf.text_box 'Virginia Voter Registration', at: [ 10, pdf.cursor - 10 ]
       pdf.fill_color "888888"
-      pdf.text_box 'Application Form', at: [ 10, 30 ]
+
+      l = @update ? "Update Form #{'(UOCAVA)' if rr.overseas?}" : "Application Form"
+      pdf.text_box l, at: [ 10, 30 ]
     end
 
-    if rr.overseas?
+    if !@update && rr.overseas?
       pdf.text_box 'Overseas / Military Voter', at: [ width - 110, 20 ]
     end
   end
