@@ -2,9 +2,18 @@ class SearchForm
   constructor: ->
     @voterId    = ko.observable()
     @locality   = ko.observable()
+    @firstName  = ko.observable()
     @lastName   = ko.observable()
     @ssn4       = ko.observable()
     @swear      = ko.observable()
+
+    @dobDay     = ko.observable()
+    @dobMonth   = ko.observable()
+    @dobYear    = ko.observable()
+
+    @dob = ko.computed =>
+      dte = date(@dobYear(), @dobMonth(), @dobDay())
+      (dte and dte.format("YYYY-M-D")) or ""
 
     @errors = ko.computed =>
       errors = []
@@ -12,12 +21,21 @@ class SearchForm
       unless @swear()
         errors.push("Affirmation")
 
-      if filled(@voterId())
-        errors.push("Voter ID (16 digits)") if !voterId(@voterId())
+      unless filled(@firstName())
+        errors.push("First name")
+      unless filled(@lastName())
+        errors.push("Last name")
+      unless filled(@locality())
+        errors.push("Locality")
+
+      if !filled(@voterId()) && !filled(@ssn4()) && !filled(@dob())
+        errors.push("Voter ID or SSN and Date of birth")
       else
-        errors.push("Locality") if !filled(@locality())
-        errors.push("Last name") if !filled(@lastName())
-        errors.push("Social security number") if !filled(@ssn4())
+        if filled(@voterId())
+          errors.push("Voter ID (16 digits)") if !voterId(@voterId())
+        else
+          errors.push("Date of birth") if !filled(@dob())
+          errors.push("Social security number") if !filled(@ssn4())
 
       errors
 
