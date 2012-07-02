@@ -5,10 +5,10 @@ pdf_labeled_block pdf, "Addresses" do
       { columns: 1, value: rr.mailing_address, label: 'mailing address' }
     ]
 
-    if rr.previous_registration? || rr.address_confidentiality?
+    if rr.existing_registration? || rr.address_confidentiality?
       pdf.move_down 15
       pdf_full_width_block pdf do |heights|
-        if rr.previous_registration?
+        if rr.existing_registration?
           heights << pdf_column_block(pdf, 2, 1, 0) do
             pdf_fields pdf, [ { columns: 1, value: rr.existing_registration_address, label: 'previous registration address' } ]
           end
@@ -23,7 +23,7 @@ pdf_labeled_block pdf, "Addresses" do
 
       pdf.move_down 15
       pdf_full_width_block pdf do |heights|
-        if rr.previous_registration?
+        if rr.existing_registration?
           heights << pdf_column_block(pdf, 2, 1, 0) do
             pdf_checkbox pdf, "Cancel my existing registration"
           end
