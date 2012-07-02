@@ -11,6 +11,8 @@ class SearchForm
     @dobMonth   = ko.observable()
     @dobYear    = ko.observable()
 
+    @currentPageIdx = ko.observable(null)
+
     @dob = ko.computed =>
       dte = date(@dobYear(), @dobMonth(), @dobDay())
       (dte and dte.format("YYYY-M-D")) or ""
