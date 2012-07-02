@@ -71,11 +71,11 @@ class RegistrationForPdf < RegistrationDetailsPresenter
 
   # Addresses
 
-  def previous_registration?
-    @reg.has_existing_reg == 'yes'
+  def existing_registration?
+    @reg.has_existing_reg == '1'
   end
 
-  def previous_registration_address
+  def existing_registration_address
     @er ||= begin
       if @reg.er_is_rural == '1'
         @reg.er_rural

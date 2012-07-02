@@ -23,12 +23,12 @@ class RegistrationSearch
       vvr_zip5:           '24201',
       vvr_zip4:           '2445',
 
-      ma_is_same:         'yes',
+      ma_is_same:         '1',
 
       is_confidential_address: '1',
       ca_type:            'if',
 
-      has_existing_reg:   'no',
+      has_existing_reg:   '0',
       be_official:        '1'
     },
 
@@ -63,7 +63,7 @@ class RegistrationSearch
       service_id:         '112233',
       rank:               'Major',
 
-      has_existing_reg:   'no',
+      has_existing_reg:   '0',
       absentee_until:     2.months.from_now
     },
 
@@ -84,7 +84,7 @@ class RegistrationSearch
       vvr_zip5:           '12345',
       vvr_zip4:           '',
 
-      ma_is_same:         'yes',
+      ma_is_same:         '1',
 
       is_confidential_address: '1',
       ca_type:            'if',
@@ -102,7 +102,7 @@ class RegistrationSearch
       ab_zip4:            '6789',
       ab_country:         'USA',
 
-      has_existing_reg:   'no',
+      has_existing_reg:   '0',
       be_official:        '1'
     }
   }

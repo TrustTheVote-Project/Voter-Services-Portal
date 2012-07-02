@@ -10,7 +10,7 @@ pdf_labeled_block pdf, "Addresses" do
       pdf_full_width_block pdf do |heights|
         if rr.previous_registration?
           heights << pdf_column_block(pdf, 2, 1, 0) do
-            pdf_fields pdf, [ { columns: 1, value: rr.previous_registration_address, label: 'previous registration address' } ]
+            pdf_fields pdf, [ { columns: 1, value: rr.existing_registration_address, label: 'previous registration address' } ]
           end
         end
 

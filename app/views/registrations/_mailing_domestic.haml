@@ -2,12 +2,12 @@
 .partition
   %h4 Is your Mailing address the same as your Registration address?
   .radio
-    = f.radio_button :ma_is_same, 'no', { 'data-bind' => 'checked: maIsSame' }
+    = f.radio_button :ma_is_same, '0', { 'data-bind' => 'checked: maIsSame' }
     %label No
   .radio
-    = f.radio_button :ma_is_same, 'yes', { 'data-bind' => 'checked: maIsSame' }
+    = f.radio_button :ma_is_same, '1', { 'data-bind' => 'checked: maIsSame' }
     %label Yes
-  <!-- ko if: maIsSame() == 'no' -->
+  <!-- ko if: maIsSame() == '0' -->
   .row
     .span3
       %span3.address-field
