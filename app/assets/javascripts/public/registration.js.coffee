@@ -25,7 +25,7 @@ class window.Registration
       errors = []
       errors.push("Citizenship criteria") unless @isCitizen()
       errors.push("Age criteria") unless @isOldEnough()
-      errors.push("Voting rights criteria") unless (@rightsWereRevoked() == 'no' or (@rightsRevokationReason() and @rightsWereRestored() == 'yes' and date(@rightsRestoredOnYear(), @rightsRestoredOnMonth(), @rightsRestoredOnDay())))
+      errors.push("Voting rights criteria") unless (@rightsWereRevoked() == 'no' or (@rightsRevokationReason() and @rightsWereRestored() == 'yes' and pastDate(@rightsRestoredOnYear(), @rightsRestoredOnMonth(), @rightsRestoredOnDay())))
       errors
 
     @eligibilityInvalid = ko.computed => @eligibilityErrors().length > 0
