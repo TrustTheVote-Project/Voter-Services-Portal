@@ -211,14 +211,16 @@
       <!-- /ko -->
     <!-- /ko -->
 
-  - if @registration.can_officiate?
-    .partition
-      .row
-        .span12
-          .checkbox
-            = f.check_box :be_official
-            %strong
-              I'm interested in being an Election Official on Election Day. Please send me information.
+  = hidden_field_tag 'registration[be_official]', '0'
+  <!-- ko if: domestic -->
+  .partition
+    .row
+      .span12
+        .checkbox
+          = f.check_box :be_official
+          %strong
+            I'm interested in being an Election Official on Election Day. Please send me information.
+  <!-- /ko -->
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: optionsInvalid }'

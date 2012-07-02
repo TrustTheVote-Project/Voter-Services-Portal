@@ -51,17 +51,12 @@ class Registration < ActiveRecord::Base
   serialized_attr :existing
   serialized_attr :ssn4
 
-  # Indicates if this person can officiate the elections
-  attr_accessor :can_officiate
-  alias :can_officiate? :can_officiate
-
   # Indicates if this person can change their address
   attr_accessor :can_change_registration_address
   alias :can_change_registration_address? :can_change_registration_address
 
   def initialize(*args)
     super(*args)
-    self.can_officiate = true
     self.can_change_registration_address = true
   end
 
@@ -92,7 +87,7 @@ class Registration < ActiveRecord::Base
     end
 
     # Can't be an official if overseas and the status hasn't changed
-    self.can_change_registration_address = self.can_officiate = !(was_uocava && uocava?)
+    self.can_change_registration_address = !(was_uocava && uocava?)
   end
 
 end

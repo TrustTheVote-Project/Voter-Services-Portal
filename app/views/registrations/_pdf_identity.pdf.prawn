@@ -13,5 +13,10 @@ pdf_labeled_block pdf, "Identity" do
       { columns: 1, value: rr.gender, label: 'gender' },
       { columns: 2, value: rr.party_preference, label: 'party preference' }
     ]
+
+    if rr.being_official?
+      pdf.move_down 15
+      pdf_checkbox pdf, "I'm interested in being an Election Official on Election Day. Please send me information."
+    end
   end
 end

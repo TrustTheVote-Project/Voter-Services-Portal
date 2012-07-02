@@ -160,6 +160,12 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     abroad_address :raa
   end
 
+  # Misc
+
+  def being_official?
+    @reg.be_official == '1'
+  end
+
   private
 
   def us_address(prefix)
