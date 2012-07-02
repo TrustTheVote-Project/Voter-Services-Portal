@@ -49,7 +49,7 @@ class RegistrationSearch
       vvr_zip5:           '12345',
       vvr_zip4:           '',
 
-      vvr_uocava_residence_available: 'no',
+      vvr_uocava_residence_available: '0',
       vvr_uocava_residence_unavailable_since: 5.years.ago,
 
       mau_type:           'apo',

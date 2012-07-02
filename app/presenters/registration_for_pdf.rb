@@ -160,6 +160,14 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     abroad_address :raa
   end
 
+  def mailing_address_availability
+    if @reg.vvr_uocava_residence_available == '0'
+      "My last date of residence at the above address was #{@reg.vvr_uocava_residence_unavailable_since.strftime("%m/%d/%Y")}"
+    else
+      "My Virginia residence is still available to me"
+    end
+  end
+
   # Misc
 
   def being_official?

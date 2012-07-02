@@ -57,12 +57,12 @@
   .row
     .span12
       .radio
-        = radio_button :registration, :vvr_uocava_residence_available, 'yes', { 'data-bind' => 'checkedWithInit: vvrOverseasRA' }
+        = radio_button :registration, :vvr_uocava_residence_available, '1', { 'data-bind' => 'checkedWithInit: vvrOverseasRA' }
         %label My Virginia residence is still available to me
       .radio
-        = radio_button :registration, :vvr_uocava_residence_available, 'no', { 'data-bind' => 'checkedWithInit: vvrOverseasRA' }
+        = radio_button :registration, :vvr_uocava_residence_available, '0', { 'data-bind' => 'checkedWithInit: vvrOverseasRA' }
         %label My Virginia residence is no longer available to me
-  <!-- ko if: vvrOverseasRA() == 'no' -->
+  <!-- ko if: vvrOverseasRA() == '0' -->
   .row
     .span12
       %span My last date of residence at the above address was:
