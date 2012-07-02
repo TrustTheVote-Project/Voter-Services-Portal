@@ -1,10 +1,14 @@
 - step ||= 'identity'
 .row#steps
-  .span2{ class: step == 'identity' ? 'current' : nil }
-    %h2 Identity
-
-  .span2{ class: %w( view update ).include?(step) ? 'current' : nil }
+  .span2{ class: %w( identity view ).include?(step) ? 'current' : 'done' }
     %h2 View &amp; Update
 
-  .span{ class: %w( oath download complete ).include?(step) ? 'current' : nil }
+  .span2{ 'data-bind' => "attr: { 'class': stepClass(currentPageIdx(), 0) }" }
+    %h2 Addresses
+
+  .span2{ 'data-bind' => "attr: { 'class': stepClass(currentPageIdx(), 1) }" }
+    %h2 Options
+
+  .span2{ 'data-bind' => "attr: { 'class': stepClass(currentPageIdx(), [ 2, 3, 4, 5 ], 'span2 last') }" }
     %h2 Complete &amp; Mail
+

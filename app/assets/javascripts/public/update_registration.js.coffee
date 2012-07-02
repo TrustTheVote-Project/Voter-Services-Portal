@@ -1,6 +1,7 @@
 pages  = [ 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
-optionsPageIdx = pages.indexOf('options')
-oathPageIdx = pages.indexOf('oath')
+optionsPageIdx  = pages.indexOf('options')
+oathPageIdx     = pages.indexOf('oath')
+downloadPageIdx = pages.indexOf('download')
 
 class UpdateRegistration extends Registration
   constructor: (initPage = 0) ->
@@ -44,10 +45,11 @@ class UpdateRegistration extends Registration
 
 
 class DownloadRegistration
-  constructor: ->
+  constructor: (initPage) ->
     @downloaded = ko.observable(false)
     @downloadSection()
     @sectionComplete = $("#complete.section")
+    @currentPageIdx  = ko.observable(initPage)
 
   markAsDownloaded: =>
     @downloaded(true)
@@ -82,6 +84,9 @@ updateEditLink = ->
 $ ->
   if $("#update_registration").length > 0
     ko.applyBindings(new UpdateRegistration())
+
+  if $("#download.section").length > 0
+    ko.applyBindings(new DownloadRegistration(downloadPageIdx))
 
   editLink = $("a#edit_registration")
   if editLink.length > 0
