@@ -29,11 +29,12 @@ class RegistrationForPdf < RegistrationDetailsPresenter
 
   # Identity
 
-  def name
-    [ @reg.first_name,
-      @reg.middle_name,
-      @reg.last_name,
-      @reg.suffix ].reject(&:blank?).join(' ')
+  def name(d = :data)
+    d = @reg.send(d)
+    [ d[:first_name],
+      d[:middle_name],
+      d[:last_name],
+      d[:suffix] ].reject(&:blank?).join(' ')
   end
 
   def email
@@ -63,8 +64,9 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     @reg.gender
   end
 
-  def party_preference
-    "none"
+  def party_preference(d = :data)
+    d = @reg.send(d)
+    d[:choose_party] == '0' ? "none" : d[:party] == 'other' ? d[:other_party] : d[:party]
   end
 
   # Addresses
@@ -172,6 +174,28 @@ class RegistrationForPdf < RegistrationDetailsPresenter
 
   def being_official?
     @reg.be_official == '1'
+  end
+
+  # Changes
+
+  def previous_name
+    name(:previous_data)
+  end
+
+  def name_changed?
+    previous_name != name
+  end
+
+  def email_changed?
+    @reg.email.to_s != previous_data[:email].to_s
+  end
+
+  def phone_changed?
+    @reg.phone.to_s != previous_data[:phone].to_s
+  end
+
+  def party_changed?
+    party_preference != party_preference(:previous_data)
   end
 
   private
