@@ -29,13 +29,13 @@
   .partition
     %h4 Have your voting rights been revoked in the past?
     .radio
-      = f.radio_button :rights_revoked, 'no', 'data-bind' => 'checked: rightsWereRevoked'
+      = f.radio_button :rights_revoked, '0', 'data-bind' => 'checked: rightsWereRevoked'
       %label No
     .radio
-      = f.radio_button :rights_revoked, 'yes', 'data-bind' => 'checked: rightsWereRevoked'
+      = f.radio_button :rights_revoked, '1', 'data-bind' => 'checked: rightsWereRevoked'
       %label Yes
 
-    .block.revoked{ 'data-bind' => "visible: rightsWereRevoked() == 'yes'" }
+    .block.revoked{ 'data-bind' => "visible: rightsWereRevoked() == '1'" }
       %h4 Why were your voting rights revoked?
       .radio
         = f.radio_button :rights_revoked_reason, 'felony', 'data-bind' => 'checked: rightsRevokationReason'
@@ -47,13 +47,13 @@
       .block
         %h4 Were your voting rights restored?
         .radio
-          = f.radio_button :rights_restored, 'yes', 'data-bind' => 'checked: rightsWereRestored'
+          = f.radio_button :rights_restored, '1', 'data-bind' => 'checked: rightsWereRestored'
           %label Yes
         .radio
-          = f.radio_button :rights_restored, 'no', 'data-bind' => 'checked: rightsWereRestored'
+          = f.radio_button :rights_restored, '0', 'data-bind' => 'checked: rightsWereRestored'
           %label No
 
-      <!-- ko if: rightsWereRestored() == 'yes' -->
+      <!-- ko if: rightsWereRestored() == '1' -->
       .block{ 'data-bind' => "visible: rightsRevokationReason" }
         %h4 In what state were your voting rights restored?
         .select
@@ -65,7 +65,7 @@
           = bound_date f, :rights_restored_on, :end_year => Date.today.year
       <!-- /ko -->
 
-      .block.ineligible{ 'data-bind' => "visible: rightsWereRestored() == 'no'" }
+      .block.ineligible{ 'data-bind' => "visible: rightsWereRestored() == '0'" }
         %p You are not eligible to vote, if your voting rights have been revoked, and have not been restored.
 
   .form-actions
