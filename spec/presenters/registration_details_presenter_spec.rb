@@ -23,8 +23,8 @@ describe RegistrationDetailsPresenter do
   private
 
   def rdp(data)
-    data[:residence] = data.delete(:uocava) ? 'outside' : 'in'
-    data[:requesting_absentee] = data.delete(:absentee) || data[:residence] == 'outside'
+    data[:residence]            = data.delete(:uocava) ? 'outside' : 'in'
+    data[:requesting_absentee]  = (data.delete(:absentee) || data[:residence] == 'outside') ? '1' : '0'
     RegistrationDetailsPresenter.new(Factory.build(:registration, data))
   end
 

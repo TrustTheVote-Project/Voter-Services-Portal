@@ -51,16 +51,48 @@ class Registration < ActiveRecord::Base
   serialized_attr :existing
   serialized_attr :ssn4
 
+  # Indicates if this person can officiate the elections
+  attr_accessor :can_officiate
+  alias :can_officiate? :can_officiate
+
+  # Indicates if this person can change their address
+  attr_accessor :can_change_registration_address
+  alias :can_change_registration_address? :can_change_registration_address
+
+  def initialize(*args)
+    super(*args)
+    self.can_officiate = true
+    self.can_change_registration_address = true
+  end
+
   def full_name
     [ first_name, middle_name, last_name, suffix ].delete_if(&:blank?).join(' ')
   end
 
   def absentee?
-    self.requesting_absentee
+    self.requesting_absentee == '1'
   end
 
   def uocava?
     self.residence == 'outside'
+  end
+
+  def residential?
+    !uocava?
+  end
+
+
+  # Initializes the record for the update workflow
+  def init_update_to(kind)
+    was_uocava = uocava?
+
+    unless kind.blank?
+      self.residence           = kind == 'overseas' ? 'outside' : 'in'
+      self.requesting_absentee = !!(kind =~ /absentee|overseas/) ? '1' : '0'
+    end
+
+    # Can't be an official if overseas and the status hasn't changed
+    self.can_change_registration_address = self.can_officiate = !(was_uocava && uocava?)
   end
 
 end
