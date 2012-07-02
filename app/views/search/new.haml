@@ -14,14 +14,18 @@
       .partition
         .row
           .span3
-            %label Locality
-            = f.select :locality, Dictionaries::CITIES_AND_COUNTIES, {}, 'data-bind' => 'value: locality'
-          .span3
             %label First name
             = f.text_field :first_name, 'data-bind' => 'valueWithInit: firstName'
           .span3
             %label Last name
             = f.text_field :last_name, 'data-bind' => 'valueWithInit: lastName'
+          .span4
+            %label Date of birth
+            = bound_date f, :dob, { start_year: Date.today.year - 120, end_year: Date.today.year - 17 }, { class: 'date' }
+        .row
+          .span3
+            %label Locality
+            = f.select :locality, Dictionaries::CITIES_AND_COUNTIES, {}, 'data-bind' => 'value: locality'
 
       .partition
         .row
@@ -34,9 +38,6 @@
             %span OR
 
           .span3
-            %label Date of birth
-            = bound_date f, :dob, { start_year: Date.today.year - 120, end_year: Date.today.year - 17 }, { class: 'date' }
-            %br
             %label Last 4 digits of SSN
             = f.text_field :ssn4, maxlength: 4, class: 'span1', 'data-bind' => 'valueWithInit: ssn4'
 
