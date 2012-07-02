@@ -34,7 +34,7 @@ class RegistrationSearch
 
     '1111222233334444' => {
       residence:          'outside',
-      requesting_absentee: true,
+      requesting_absentee: '1',
       first_name:         'Overseas',
       last_name:          'Marine',
       gender:             'Male',
@@ -69,7 +69,7 @@ class RegistrationSearch
 
     '4444333322221111' => {
       residence:          'in',
-      requesting_absentee: true,
+      requesting_absentee: '1',
       first_name:         'Domestic',
       last_name:          'Absentee',
       gender:             'Male',

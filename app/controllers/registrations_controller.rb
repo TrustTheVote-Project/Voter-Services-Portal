@@ -34,8 +34,9 @@ class RegistrationsController < ApplicationController
   end
 
   def show
-    @update       = RegistrationRepository.registration_update?(session)
     @registration = current_registration
+    @update       = !@registration.previous_data.blank?
+    puts "Update: #{@update}"
     respond_to do |f|
       f.html
       f.pdf  { render layout: false }
@@ -47,9 +48,11 @@ class RegistrationsController < ApplicationController
   def edit
     @registration = current_registration
 
+    # "kind" comes from the review form where we either maintain or
+    # change the status.
     kind = params[:kind].to_s
-    @registration.residence = kind == 'overseas' ? 'outside' : 'in'
-    @registration.requesting_absentee = kind =~ /absentee|overseas/
+    @registration.residence           = kind == 'overseas' ? 'outside' : 'in'
+    @registration.requesting_absentee = !!(kind =~ /absentee|overseas/) ? '1' : '0'
   end
 
   def update

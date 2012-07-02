@@ -1,6 +1,13 @@
-top    = pdf.cursor
-width  = pdf.bounds.right
-height = 65
+top       = pdf.cursor
+width     = pdf.bounds.right
+height    = 65
+
+title     = "Application Form"
+subheader = rr.overseas? ? "Overseas / Military Voter" : nil
+
+if @update
+  title, subheader = rr.subheaders
+end
 
 pdf.save_graphics_state do
 
@@ -12,13 +19,12 @@ pdf.save_graphics_state do
       pdf.fill_color "000000"
       pdf.text_box 'Virginia Voter Registration', at: [ 10, pdf.cursor - 10 ]
       pdf.fill_color "888888"
-
-      l = @update ? "Update Form #{'(UOCAVA)' if rr.overseas?}" : "Application Form"
-      pdf.text_box l, at: [ 10, 30 ]
+      pdf.text_box title, at: [ 10, 30 ]
     end
 
-    if !@update && rr.overseas?
-      pdf.text_box 'Overseas / Military Voter', at: [ width - 110, 20 ]
+    if subheader
+      w = subheader =~ /Returning/ ? 150 : 110
+      pdf.text_box subheader, at: [ width - w, 20 ]
     end
   end
 

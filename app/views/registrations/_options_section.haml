@@ -65,7 +65,8 @@
         <!-- /ko -->
     <!-- /ko -->
 
-  - if !updating || @registration.requesting_absentee
+  = f.hidden_field :requesting_absentee
+  - if !updating || @registration.requesting_absentee == '1'
     <!-- ko if: domestic -->
     .partition
       .row

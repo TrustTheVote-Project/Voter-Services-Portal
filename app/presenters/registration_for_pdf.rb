@@ -96,8 +96,36 @@ class RegistrationForPdf < RegistrationDetailsPresenter
 
   # Military / overseas
 
+  def residential?
+    !overseas?
+  end
+
   def overseas?
     @reg.residence == 'outside'
+  end
+
+  def was_overseas?
+    previous_data[:residence] == 'outside'
+  end
+
+  def subheaders
+    if overseas?
+      # Became overseas/military
+      [ "Update Form and Absentee Request", "Overseas/Military Voter" ]
+    elsif was_overseas?
+      # Was overseas/military
+      if requesting_absentee?
+        [ "Update Form and Absentee Request", "Returning Overseas/Military Voter" ]
+      else
+        [ "Update Form", "Returning Overseas/Military Voter" ]
+      end
+    elsif requesting_absentee?
+      # Domestic absentee
+      [ "Update Form and Absentee Request", nil ]
+    else
+      # Residential voter
+      [ "Update Form", nil ]
+    end
   end
 
   def requesting_absentee?
@@ -105,7 +133,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
   end
 
   def absentee_status_until
-    @reg.absentee_until.strftime("%m/%d/%Y")
+    Date.parse(@reg.absentee_until).strftime("%m/%d/%Y")
   end
 
   def absentee_type
@@ -146,4 +174,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     @reg.outside_type == 'active_duty' ? 'active' : 'spouse'
   end
 
+  def previous_data
+    @reg.previous_data || {}
+  end
 end
