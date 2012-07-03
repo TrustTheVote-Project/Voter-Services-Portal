@@ -39,7 +39,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :requesting_absentee, :rab_election,
                   :rab_election_name, :rab_election_date,
                   :absentee_until
-  serialized_attr :ab_reason, :ab_school_name, :ab_street_number,
+  serialized_attr :ab_reason, :ab_street_number,
                   :ab_street_name, :ab_street_type,
                   :ab_apt, :ab_city, :ab_state, :ab_zip5, :ab_zip4, :ab_country,
                   :ab_field_1, :ab_field_2, :ab_time_1, :ab_time_2

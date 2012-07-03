@@ -11,6 +11,7 @@ class NewRegistration extends Registration
     new Popover('#eligibility .next.btn', @eligibilityErrors)
     new Popover('#identity .next.btn', @identityErrors)
     new Popover('#mailing .next.btn', @addressesErrors)
+    new Popover('#options .next.btn', @optionsErrors)
     new Popover('#oath .next.btn', @oathErrors)
 
     $(".section").show()
@@ -85,7 +86,7 @@ class DownloadRegistration
 
 $ ->
   if $('form#new_registration').length > 0
-    ko.applyBindings(new NewRegistration(3))
+    ko.applyBindings(new NewRegistration(0))
 
   if $('#registration #download').length > 0
     ko.applyBindings(new DownloadRegistration())

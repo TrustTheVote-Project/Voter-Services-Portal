@@ -8,10 +8,10 @@
   .partition
     %h4 Are you currently registered to vote at another address in Virginia or in another state?
     .radio
-      = f.radio_button :has_existing_reg, '0', { 'data-bind' => 'checkedWithInit: hasExistingReg' }
+      = f.radio_button :has_existing_reg, '0', { 'data-bind' => 'checked: hasExistingReg' }
       %label No
     .radio
-      = f.radio_button :has_existing_reg, '1', { 'data-bind' => 'checkedWithInit: hasExistingReg' }
+      = f.radio_button :has_existing_reg, '1', { 'data-bind' => 'checked: hasExistingReg' }
       %label Yes
     <!-- ko if: hasExistingReg() == '1' -->
     <!-- ko ifnot: erIsRural -->
