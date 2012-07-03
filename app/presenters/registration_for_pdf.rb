@@ -144,6 +144,40 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     %w( active_duty spouse_active_duty ).include?(@reg.outside_type)
   end
 
+  def absence_reason
+    Dictionaries::ABSENCE_REASONS[@reg.ab_reason]
+  end
+
+  def absence_fields
+    @absence_fields ||= begin
+      f1_label = Dictionaries::ABSENCE_F1_LABEL[@reg.ab_reason]
+      f2_label = Dictionaries::ABSENCE_F2_LABEL[@reg.ab_reason]
+
+      fields = []
+      fields << { columns: 1, value: @reg.ab_field_1, label: f1_label } if f1_label
+      fields << { columns: 1, value: @reg.ab_field_2, label: f2_label } if f2_label
+
+      fields
+    end
+
+    @absence_fields
+  end
+
+  def absence_address
+    data = @reg.data
+
+    zip = [ data[:ab_zip5], data[:ab_zip4] ].reject(&:blank?).join('-')
+    [ [ [ data[:ab_street_number], data[:ab_apt] ].reject(&:blank?).join(' / '), data[:ab_street_name], data[:ab_street_type] ].reject(&:blank?).join(' '),
+      data[:ab_city],
+      [ data[:ab_state], zip, data[:ab_country] ].join(' ') ].reject(&:blank?).join(', ')
+  end
+
+  def absence_time_range
+    "#{@reg.ab_time_1.strftime("%H:%M")} - #{@reg.ab_time_2.strftime("%H:%M")}"
+  rescue
+    nil
+  end
+
   def military_branch
     @reg.send("service_branch")
   end

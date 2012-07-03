@@ -239,4 +239,22 @@ module Dictionaries
     '7A' => 'Requesting a ballot for presidential and vice-presidential electors only (Ballots for other offices/issues will not be sent)',
     '8A' => 'Designated representative of candidate or party inside polls'
   }
+
+  ABSENCE_F1_LABEL = {
+    '1C' => 'Name of employer or business',
+    '1E' => 'Name of employer or business',
+    '1D' => 'Place of travel (VA county/city or state or country)',
+    '2A' => 'Nature of disability or illness',
+    '2B' => 'Nature of disability or illness',
+    '3A' => 'Place of confinement',
+    '3B' => 'Place of confinement',
+    '5A' => 'Religion',
+    '8A' => 'Designated candidate party'
+  }
+
+  ABSENCE_F2_LABEL = {
+    '2B' => 'Name of family member',
+    '5A' => 'Nature of obligation'
+  }
+
 end

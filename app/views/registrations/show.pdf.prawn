@@ -21,9 +21,12 @@ prawn_document(page_size: [ 216.mm, 279.mm ], margin: 20) do |pdf|
     render "pdf_addresses", pdf: pdf, rr: rr
   end
 
-
-  if rr.overseas? && rr.requesting_absentee?
-    render "pdf_absentee_request_overseas", pdf: pdf, rr: rr
+  if rr.requesting_absentee?
+    if rr.overseas?
+      render "pdf_absentee_request_overseas", pdf: pdf, rr: rr
+    else
+      render "pdf_absentee_request_domestic", pdf: pdf, rr: rr
+    end
   end
 
   render "pdf_oath", pdf: pdf, rr: rr
