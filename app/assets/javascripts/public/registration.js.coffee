@@ -270,6 +270,9 @@ class window.Registration
           if !filled(@rabElection()) or (@rabElection() == 'other' and (!filled(@rabElectionName()) or !filled(@rabElectionDate())))
             errors.push("Election details")
 
+          if !filled(@abReason())
+            errors.push("Absence reason")
+
           if @abAddressRequired() and
             (!filled(@abStreetNumber()) or
             !filled(@abStreetName()) or
