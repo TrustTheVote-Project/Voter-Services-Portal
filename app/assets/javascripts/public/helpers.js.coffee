@@ -5,7 +5,7 @@ window.ssn    = (v) -> filled(v) && v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){9}$/)
 
 window.date = (y, m, d) ->
   str = "#{y}-#{m}-#{d}"
-  dte = moment(str)
+  dte = moment(str, "YYYY-M-D")
   if dte.format("YYYY-M-D") == str then dte else false
 
 window.pastDate = (y, m, d) ->
