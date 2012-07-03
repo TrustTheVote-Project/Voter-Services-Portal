@@ -1,0 +1,46 @@
+<!-- ko if: overseas -->
+.partition
+  .row
+    .span12
+      .checkbox
+        = f.hidden_field :requesting_absentee, 'data-bind' => 'valueWithInit: requestingAbsentee'
+        %strong
+          I will not be able to vote in person, and would like to vote absentee until:
+
+  <!-- ko if: requestingAbsentee -->
+  .row
+    .span3
+      = f.hidden_field :absentee_until
+      #absentee_until.sliderbar
+    .span3
+      .absentee_until_label{ 'data-bind' => 'text: absenteeUntilFormatted' }
+
+  .row
+    .span12
+      .radio
+        = f.radio_button :outside_type, 'active_duty', { 'data-bind' => 'checkedWithInit: outsideType' }
+        %label= t 'outside_type.active_duty'
+      .radio
+        = f.radio_button :outside_type, 'spouse_active_duty', { 'data-bind' => 'checkedWithInit: outsideType' }
+        %label= t 'outside_type.spouse_active_duty'
+      .radio
+        = f.radio_button :outside_type, 'temporarily', { 'data-bind' => 'checkedWithInit: outsideType' }
+        %label= t 'outside_type.temporarily'
+      .radio
+        = f.radio_button :outside_type, 'spouse_temporarily', { 'data-bind' => 'checkedWithInit: outsideType' }
+        %label= t 'outside_type.spouse_temporarily'
+
+  <!-- ko if: needsServiceDetails -->
+  .row
+    .span2
+      %span Service Branch
+      = select     :registration, :service_branch, options_for_select(Registration::SERVICE_BRANCHES), {}, class: 'span2 inline'
+    .span2
+      %span Service ID
+      = text_field :registration, :service_id, placeholder: 'Service ID', class: 'span1 inline', 'data-bind' => 'valueWithInit: serviceId'
+    .span2
+      %span Rank / Grade / Rate
+      = text_field :registration, :rank, placeholder: 'Rank / Grade / Rate', class: 'span2 inline', 'data-bind' => 'valueWithInit: rank'
+  <!-- /ko -->
+  <!-- /ko -->
+<!-- /ko -->

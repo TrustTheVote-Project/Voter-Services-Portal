@@ -183,6 +183,7 @@ class window.Registration
     @serviceId              = ko.observable()
     @rank                   = ko.observable()
 
+    @abReason               = ko.observable()
     @abSchoolName           = ko.observable()
     @abStreetNumber         = ko.observable()
     @abStreetName           = ko.observable()
@@ -191,6 +192,58 @@ class window.Registration
     @abState                = ko.observable()
     @abZip5                 = ko.observable()
     @abCountry              = ko.observable()
+    @abTime1Hour            = ko.observable()
+    @abTime1Minute          = ko.observable()
+    @abTime2Hour            = ko.observable()
+    @abTime2Minute          = ko.observable()
+
+    @abAddressRequired = ko.computed =>
+      r = @abReason()
+      r == '1A' or
+      r == '1B' or
+      r == '1E' or
+      r == '3A' or r == '3B'
+
+    @abField1Required = ko.computed =>
+      r = @abReason()
+      r == '1C' or
+      r == '1D' or
+      r == '1E' or
+      r == '2A' or
+      r == '2B' or
+      r == '3A' or r == '3B' or
+      r == '5A' or
+      r == '8A'
+
+    @abField2Required = ko.computed =>
+      r = @abReason()
+      r == '2B' or
+      r == '5A'
+
+    @abTimeRangeRequired = ko.computed =>
+      @abReason() == '1E'
+
+    @abField1Label = ko.computed =>
+      r = @abReason()
+      if r == '1C' or r == '1E'
+        "Name of employer or businesss"
+      else if r == '1D'
+        "Place of travel (VA county/city or state or country)"
+      else if r == '2A' or r == '2B'
+        "Nature of disability or illness"
+      else if r == '3A' or r == '3B'
+        "Place of confinement"
+      else if r == '5A'
+        "Religion"
+      else if r == '8A'
+        "Designated candidate party"
+
+    @abField2Label = ko.computed =>
+      r = @abReason()
+      if r == '2B'
+        "Name of family member"
+      else if r == '5A'
+        "Nature of obligation"
 
     @absenteeUntilFormatted = ko.computed =>
       au = @absenteeUntil()

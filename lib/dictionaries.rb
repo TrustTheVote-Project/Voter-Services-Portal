@@ -222,4 +222,21 @@ module Dictionaries
     "Republican Party"
   ]
 
+  ABSENCE_REASONS = {
+    '1A' => 'Student',
+    '1B' => 'Spouse of student',
+    '1C' => 'Business',
+    '1D' => 'Personal business or vacation',
+    '1E' => 'I am working and commuting to/from home for 11 or more hours between 6:00 AM and 7:00 PM on Election Day',
+    '1F' => 'I am a first responder (member of law enforcement, fire fighter, emergency technician, search and rescue)',
+    '2A' => 'My disability or illness',
+    '2B' => 'I am primarily and personally responsible for the care of a disabled/ill family member confined at home',
+    '2C' => 'My pregnancy',
+    '3A' => 'Confined, awaiting trial',
+    '3B' => 'Confined, convicted of a misdemeanor',
+    '4A' => 'An electoral board member, registrar, officer of election, or custodian of voting equipment',
+    '5A' => 'I have a religious obligation',
+    '7A' => 'Requesting a ballot for presidential and vice-presidential electors only (Ballots for other offices/issues will not be sent)',
+    '8A' => 'Designated representative of candidate or party inside polls'
+  }
 end

@@ -1,0 +1,124 @@
+<!-- ko if: domestic -->
+.partition
+  .row
+    .span12
+      .checkbox
+        - if updating
+          = f.hidden_field :requesting_absentee, 'data-bind' => 'valueWithInit: requestingAbsentee'
+        - else
+          = f.check_box :requesting_absentee, { 'data-bind' => 'checkedWithInit: requestingAbsentee' }
+        %strong
+          I am not able to go to the polls on election day and would like an Absentee Ballot Application.
+      <!-- ko if: requestingAbsentee -->
+      %p To apply to vote absentee, you must identify the election for which you are applying.
+      <!-- /ko -->
+  <!-- ko if: requestingAbsentee -->
+  .row
+    .span12
+      %h4
+        %strong I am applying to vote absentee for
+      .radio
+        = f.radio_button :rab_election, '1', { 'data-bind' => 'checkedWithInit: rabElection' }
+        %label Presidential Primary Election held on Tuesday, March 6, 2012.
+      .radio
+        = f.radio_button :rab_election, '2', { 'data-bind' => 'checkedWithInit: rabElection' }
+        %label State Primary Election held on Tuesday, June 12, 2012.
+      .radio
+        = f.radio_button :rab_election, '3', { 'data-bind' => 'checkedWithInit: rabElection' }
+        %label General Election held on Tuesday, November 6, 2012.
+      .radio
+        = f.radio_button :rab_election, 'other', { 'data-bind' => 'checkedWithInit: rabElection' }
+        %label Other
+  <!-- ko if: rabElection() == 'other' -->
+  .row
+    .span6.election-name-field
+      %span Election name
+      = f.text_field :rab_election_name, 'data-bind' => 'valueWithInit: rabElectionName'
+    .span3
+      %span Held on
+      = f.text_field :rab_election_date, 'data-bind' => 'valueWithInit: rabElectionDate', placeholder: 'MM/DD/YYYY'
+  <!-- /ko -->
+  <!-- /ko -->
+
+<!-- ko if: requestingAbsentee -->
+.partition
+  .row
+    .span12
+      %p
+        Select only one reason to vote absentee from the list below and include any
+        %br/
+        required information to support the reason.
+  .row
+    .span12
+      %span I am unable to go to the polls on election day because
+      = f.select :ab_reason, Dictionaries::ABSENCE_REASONS.invert, { include_blank: true }, { class: 'span10', 'data-bind' => 'valueWithInit: abReason' }
+
+  <!-- ko if: abReason() == '1A' || abReason() == '1B' -->
+  .row
+    .span12
+      Please complete the following information about the school
+  .row
+    .span3
+      %span School name
+      = f.text_field :ab_school_name, 'data-bind' => 'valueWithInit: abSchoolName'
+  <!-- /ko -->
+
+  <!-- ko if: abField1Required || abField2Required -->
+  .row
+    .span5
+      %span{ 'data-bind' => 'text: abField1Label' }
+      = f.text_field :ab_field_1
+    <!-- ko if: abField2Required -->
+    .span5
+      %span{ 'data-bind' => 'text: abField2Label' }
+      = f.text_field :ab_field_2
+    <!-- /ko -->
+  <!-- /ko --> <!-- 1C -->
+
+  <!-- ko if: abTimeRangeRequired -->
+  .row
+    .span3
+      %span Time start
+      = bound_time f, :ab_time_1
+    .span3
+      %span Time end
+      = bound_time f, :ab_time_2
+  <!-- /ko --> <!-- time range -->
+
+  <!-- ko if: abAddressRequired -->
+  .row
+    .span3
+      %span
+        Street number
+      = f.text_field :ab_street_number, 'data-bind' => 'valueWithInit: abStreetNumber'
+    .span3
+      %span
+        Street name
+      = f.text_field :ab_street_name, 'data-bind' => 'valueWithInit: abStreetName'
+    .span2.street-type-field
+      %span Street type
+      = f.select :ab_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { class: 'span1', 'data-bind' => 'valueWithInit: abStreetType' }
+    .span2.lot-field
+      %span
+        Apt/Lot
+        %label (optional)
+      = f.text_field :ab_apt
+  .row
+    .span3
+      %span City
+      = f.text_field :ab_city, 'data-bind' => 'valueWithInit: abCity'
+    .span3
+      %span
+        Province or State
+      = f.text_field :ab_state, 'data-bind' => 'valueWithInit: abState'
+    .span3.postal-code-field
+      %span Postal code
+      = f.text_field :ab_zip5, class: 'first-zip', 'data-bind' => 'valueWithInit: abZip5', placeholder: '12345'
+      .space &mdash;
+      = f.text_field :ab_zip4, class: 'second-zip', placeholder: '1234'
+    .span2.country-field
+      %span Country
+      = f.text_field :ab_country, 'data-bind' => 'valueWithInit: abCountry'
+  <!-- /ko --> <!-- addressRequired -->
+<!-- /ko -->
+<!-- /ko --> <!-- domestic -->

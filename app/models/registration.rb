@@ -41,7 +41,8 @@ class Registration < ActiveRecord::Base
                   :absentee_until
   serialized_attr :ab_reason, :ab_school_name, :ab_street_number,
                   :ab_street_name, :ab_street_type,
-                  :ab_apt, :ab_city, :ab_state, :ab_zip5, :ab_zip4, :ab_country
+                  :ab_apt, :ab_city, :ab_state, :ab_zip5, :ab_zip4, :ab_country,
+                  :ab_field_1, :ab_field_2, :ab_time_1, :ab_time_2
   serialized_attr :be_official
 
   # Complete Registration

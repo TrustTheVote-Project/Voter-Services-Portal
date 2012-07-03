@@ -29,4 +29,26 @@ module FormHelper
     ].join(' ').html_safe
   end
 
+  def bound_time(f, field, options = {}, html_options = {})
+    object_name = options[:object_name] || 'registration'
+
+    value   = f.object.send(field)
+    year    = Date.today.year
+    month   = Date.today.month
+    day     = Date.today.day
+    hour    = value && value.hour
+    minute  = value && value.minute
+
+    hours   = options_for_select([ nil ] + (0 .. 23).to_a, hour)
+    minutes = options_for_select([ nil ] + (0 .. 11).map { |n| n * 5 }, minute)
+    jsfield = field.to_s.camelcase(:lower)
+
+    [ hidden_field_tag("#{object_name}[#{field}(1i)]", year),
+      hidden_field_tag("#{object_name}[#{field}(2i)]", month),
+      hidden_field_tag("#{object_name}[#{field}(3i)]", day),
+      select_tag("#{object_name}[#{field}(4i)]", hours, html_options.merge('data-bind' => "value: #{jsfield}Hour", class: 'span1' )),
+      ":",
+      select_tag("#{object_name}[#{field}(5i)]", minutes, html_options.merge('data-bind' => "value: #{jsfield}Minute", class: 'span1' ))
+    ].join(' ').html_safe
+  end
 end
