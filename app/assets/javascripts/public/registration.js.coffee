@@ -184,7 +184,8 @@ class window.Registration
     @rank                   = ko.observable()
 
     @abReason               = ko.observable()
-    @abSchoolName           = ko.observable()
+    @abField1               = ko.observable()
+    @abField2               = ko.observable()
     @abStreetNumber         = ko.observable()
     @abStreetName           = ko.observable()
     @abStreetType           = ko.observable()
@@ -269,14 +270,29 @@ class window.Registration
           if !filled(@rabElection()) or (@rabElection() == 'other' and (!filled(@rabElectionName()) or !filled(@rabElectionDate())))
             errors.push("Election details")
 
-          if !filled(@abSchoolName()) or
-            !filled(@abStreetNumber()) or
-            !filled(@abSchoolName()) or
+          if @abAddressRequired() and
+            (!filled(@abStreetNumber()) or
+            !filled(@abStreetName()) or
             !filled(@abCity()) or
             !filled(@abState()) or
             !zip5(@abZip5()) or
-            !filled(@abCountry())
-              errors.push("School details")
+            !filled(@abCountry()))
+              errors.push("Address in supporting information")
+
+          if @abTimeRangeRequired() and
+            (!filled(@abTime1Hour()) or
+            !filled(@abTime1Minute()) or
+            !filled(@abTime2Hour()) or
+            !filled(@abTime2Minute()))
+              errors.push("Time range in supporting information")
+
+          if @abField1Required() and
+            !filled(@abField1())
+              errors.push(@abField1Label())
+
+          if @abField2Required() and
+            !filled(@abField2())
+              errors.push(@abField2Label())
 
       errors
 

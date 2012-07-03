@@ -22,6 +22,9 @@ class RegistrationsController < ApplicationController
       :absentee_until,
       :rights_restored_on)
 
+    Converter.params_to_time(data,
+      :ab_time_1, :ab_time_2)
+
     @registration = Registration.new(data)
 
     if @registration.save
@@ -59,6 +62,11 @@ class RegistrationsController < ApplicationController
       :dob,
       :absentee_until,
       :rights_restored_on)
+
+    Converter.params_to_time(data,
+      :ab_time_1, :ab_time_2)
+
+    puts data.inspect
 
     @registration = current_registration
     unless @registration.update_attributes(data)

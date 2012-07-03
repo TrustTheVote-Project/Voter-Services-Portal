@@ -37,10 +37,10 @@ module FormHelper
     month   = Date.today.month
     day     = Date.today.day
     hour    = value && value.hour
-    minute  = value && value.minute
+    minute  = value && value.min
 
     hours   = options_for_select([ nil ] + (0 .. 23).to_a, hour)
-    minutes = options_for_select([ nil ] + (0 .. 11).map { |n| n * 5 }, minute)
+    minutes = options_for_select([ nil ] + (0 .. 11).map { |n| [ "#{n * 5}".rjust(2, '0'), n * 5 ] }, minute)
     jsfield = field.to_s.camelcase(:lower)
 
     [ hidden_field_tag("#{object_name}[#{field}(1i)]", year),

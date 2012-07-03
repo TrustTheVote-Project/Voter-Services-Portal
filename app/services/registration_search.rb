@@ -90,7 +90,10 @@ class RegistrationSearch
       ca_type:            'if',
 
       rab_election:       '1',
-      ab_reason:          'Reason 2',
+      ab_reason:          '1E',
+      ab_field_1:         'Employer',
+      ab_time_1:          Time.parse('6:00'),
+      ab_time_2:          Time.parse('21:00'),
       ab_school_name:     'St Joseph',
       ab_street_number:   '51',
       ab_street_name:     'Church',

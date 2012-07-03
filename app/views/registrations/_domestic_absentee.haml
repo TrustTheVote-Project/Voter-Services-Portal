@@ -57,21 +57,17 @@
   .row
     .span12
       Please complete the following information about the school
-  .row
-    .span3
-      %span School name
-      = f.text_field :ab_school_name, 'data-bind' => 'valueWithInit: abSchoolName'
   <!-- /ko -->
 
   <!-- ko if: abField1Required || abField2Required -->
   .row
     .span5
       %span{ 'data-bind' => 'text: abField1Label' }
-      = f.text_field :ab_field_1
+      = f.text_field :ab_field_1, 'data-bind' => 'valueWithInit: abField1'
     <!-- ko if: abField2Required -->
     .span5
       %span{ 'data-bind' => 'text: abField2Label' }
-      = f.text_field :ab_field_2
+      = f.text_field :ab_field_2, 'data-bind' => 'valueWithInit: abField2'
     <!-- /ko -->
   <!-- /ko --> <!-- 1C -->
 
