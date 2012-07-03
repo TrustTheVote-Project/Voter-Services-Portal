@@ -13,6 +13,6 @@ pdf_labeled_block pdf, "Absentee" do
   
   pdf.move_down 15
   pdf_fields pdf, [
-    { columns: 1, value: rr.absentee_status_until, label: 'absentee status duration' }
+    { columns: 1, value: "until #{rr.absentee_status_until}", label: 'absentee status duration' }
   ]
 end
