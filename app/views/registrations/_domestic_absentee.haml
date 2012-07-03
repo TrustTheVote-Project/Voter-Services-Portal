@@ -84,12 +84,10 @@
   <!-- ko if: abAddressRequired -->
   .row
     .span3
-      %span
-        Street number
+      %span Street number
       = f.text_field :ab_street_number, 'data-bind' => 'valueWithInit: abStreetNumber'
     .span3
-      %span
-        Street name
+      %span Street name
       = f.text_field :ab_street_name, 'data-bind' => 'valueWithInit: abStreetName'
     .span2.street-type-field
       %span Street type
@@ -104,8 +102,7 @@
       %span City
       = f.text_field :ab_city, 'data-bind' => 'valueWithInit: abCity'
     .span3
-      %span
-        Province or State
+      %span Province or State
       = f.text_field :ab_state, 'data-bind' => 'valueWithInit: abState'
     .span3.postal-code-field
       %span Postal code
