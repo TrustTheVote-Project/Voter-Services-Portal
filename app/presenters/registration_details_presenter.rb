@@ -8,6 +8,7 @@ class RegistrationDetailsPresenter
 
   def initialize(reg)
     @registration = reg
+    @vvr = {}
   end
 
   # Formatted date of birth
@@ -63,71 +64,77 @@ class RegistrationDetailsPresenter
     end
   end
 
-  def registration_address
-    @vvr ||= begin
-      if !@registration.vvr_is_rural || @registration.vvr_is_rural == '0'
-        if @registration.vvr_county_or_city.downcase.include?('county')
-          city = @registration.vvr_town
+  def registration_address(d = :data)
+    @vvr[d] ||= begin
+      data = @registration.send(d)
+
+      if !data[:vvr_is_rural] || data[:vvr_is_rural] != '1'
+        if data[:vvr_county_or_city].to_s.downcase.include?('county')
+          city = data[:vvr_town]
         else
-          city = @registration.vvr_county_or_city
+          city = data[:vvr_county_or_city]
         end
 
-        zip = [ @registration.vvr_zip5, @registration.vvr_zip4 ].reject(&:blank?).join('-')
-        [ [ [ @registration.vvr_street_number, @registration.vvr_apt ].reject(&:blank?).join(' / '), @registration.vvr_street_name, @registration.vvr_street_suffix ].reject(&:blank?).join(' '),
+        zip = [ data[:vvr_zip5], data[:vvr_zip4] ].reject(&:blank?).join('-')
+        [ [ [ data[:vvr_street_number], data[:vvr_apt] ].reject(&:blank?).join(' / '),
+            data[:vvr_street_name], data[:vvr_street_suffix] ].reject(&:blank?).join(' '),
           city,
           [ 'VA', zip ].join(' ') ].reject(&:blank?).join(', ')
       else
-        @registration.vvr_rural
+        data[:vvr_rural]
       end
     end
   end
 
-  def mailing_address
-    if overseas?
-      overseas_mailing_address
+  def mailing_address(d = :data)
+    if overseas?(d)
+      overseas_mailing_address(d)
     else
-      domestic_mailing_address
+      domestic_mailing_address(d)
     end
   end
 
-  def domestic_mailing_address
-    if @registration.ma_is_same == 'yes'
-      registration_address
+  def domestic_mailing_address(d = :data)
+    if @registration.send(d)[:ma_is_same] == '1'
+      registration_address(d)
     else
-      us_address_no_rural(:ma)
+      us_address_no_rural(:ma, d)
     end
   end
 
-  def us_address_no_rural(prefix)
-    [ @registration.send("#{prefix}_address"),
-      @registration.send("#{prefix}_address_2"),
-      @registration.send("#{prefix}_city"),
-      @registration.send("#{prefix}_state"),
-      [ @registration.send("#{prefix}_zip5"), @registration.send("#{prefix}_zip4") ].reject(&:blank?).join('-')
+  def us_address_no_rural(prefix, d = :data)
+    data = @registration.send(d)
+    [ data[:"#{prefix}_address"],
+      data[:"#{prefix}_address_2"],
+      data[:"#{prefix}_city"],
+      data[:"#{prefix}_state"],
+      [ data[:"#{prefix}_zip5"], data[:"#{prefix}_zip4"] ].reject(&:blank?).join('-')
     ].reject(&:blank?).join(', ')
   end
 
-  def overseas_mailing_address
-    if @registration.mau_type == 'non-us'
-      abroad_address :mau
+  def overseas_mailing_address(d = :data)
+    data = @registration.send(d)
+    if data[:mau_type] == 'non-us'
+      abroad_address :mau, d
     else
-      [ @registration.send("apo_address"),
-        @registration.send("apo_1"),
-        @registration.send("apo_2"),
-        @registration.send("apo_zip5") ].reject(&:blank?).join(', ')
+      [ data[:"apo_address"],
+        data[:"apo_1"],
+        data[:"apo_2"],
+        data[:"apo_zip5"] ].reject(&:blank?).join(', ')
     end
   end
 
-  def abroad_address(prefix)
-    [ [ @registration.send("#{prefix}_address"), @registration.send("#{prefix}_address_2") ].reject(&:blank?).join(' '),
-      [ @registration.send("#{prefix}_city"), @registration.send("#{prefix}_city_2") ].reject(&:blank?).join(' '),
-      @registration.send("#{prefix}_state"),
-      @registration.send("#{prefix}_postal_code"),
-      @registration.send("#{prefix}_country")
+  def abroad_address(prefix, d = :data)
+    [ [ data[:"#{prefix}_address"], data[:"#{prefix}_address_2"] ].reject(&:blank?).join(' '),
+      [ data[:"#{prefix}_city"], data[:"#{prefix}_city_2"] ].reject(&:blank?).join(' '),
+      data[:"#{prefix}_state"],
+      data[:"#{prefix}_postal_code"],
+      data[:"#{prefix}_country"]
     ].reject(&:blank?).join(', ')
   end
 
-  def overseas?
-    @registration.uocava?
+  def overseas?(d = :data)
+    @registration.send(d)[:residence] == 'outside'
   end
+
 end

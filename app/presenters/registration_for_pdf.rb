@@ -3,6 +3,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
   def initialize(reg)
     super reg
     @reg = reg
+    @er = {}
   end
 
   # Rights
@@ -71,39 +72,36 @@ class RegistrationForPdf < RegistrationDetailsPresenter
 
   # Addresses
 
-  def existing_registration?
-    @reg.has_existing_reg == '1'
+  def existing_registration?(d = :data)
+    @reg.send(d)[:has_existing_reg] == '1'
   end
 
-  def existing_registration_address
-    @er ||= begin
-      if @reg.er_is_rural == '1'
-        @reg.er_rural
+  def existing_registration_address(d = :data)
+    @er[d] ||= begin
+      data = @reg.send(d)
+      if data[:er_is_rural] == '1'
+        data[:er_rural]
       else
-        zip = [ @reg.er_zip5, @reg.er_zip4 ].reject(&:blank?).join('-')
-        [ [ [ @reg.er_street_number, @reg.er_apt ].reject(&:blank?).join(' / '), @reg.er_street_name ].reject(&:blank?).join(' '),
-          @reg.er_city,
-          [ @reg.er_state, zip ].join(' ') ].reject(&:blank?).join(', ')
+        zip = [ data[:er_zip5], data[:er_zip4] ].reject(&:blank?).join('-')
+        [ [ [ data[:er_street_number], data[:er_apt] ].reject(&:blank?).join(' / '), data[:er_street_name] ].reject(&:blank?).join(' '),
+          data[:er_city],
+          [ data[:er_state], zip ].join(' ') ].reject(&:blank?).join(', ')
       end
     end
   end
 
-  def address_confidentiality?
-    @reg.is_confidential_address == '1'
+  def address_confidentiality?(d = :data)
+    @reg.send(d)[:is_confidential_address] == '1'
   end
 
-  def acp_reason
-    Dictionaries::ACP_REASONS[@reg.ca_type]
+  def acp_reason(d = :data)
+    Dictionaries::ACP_REASONS[@reg.send(d)[:ca_type]]
   end
 
   # Military / overseas
 
   def residential?
     !overseas?
-  end
-
-  def overseas?
-    @reg.residence == 'outside'
   end
 
   def was_overseas?
@@ -162,9 +160,10 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     abroad_address :raa
   end
 
-  def mailing_address_availability
-    if @reg.vvr_uocava_residence_available == '0'
-      "My last date of residence at the above address was #{@reg.vvr_uocava_residence_unavailable_since.strftime("%m/%d/%Y")}"
+  def mailing_address_availability(d = :data)
+    data = @reg.send(d)
+    if data[:vvr_uocava_residence_available] != '1'
+      "My last date of residence at the above address was #{data[:vvr_uocava_residence_unavailable_since].strftime("%m/%d/%Y")}"
     else
       "My Virginia residence is still available to me"
     end
@@ -176,11 +175,19 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     @reg.be_official == '1'
   end
 
-  # Changes
-
   def previous_name
     name(:previous_data)
   end
+
+  def previous_registration_address
+    registration_address(:previous_data)
+  end
+
+  def previous_mailing_address
+    mailing_address(:previous_data)
+  end
+
+  # Changes
 
   def name_changed?
     previous_name != name
@@ -196,6 +203,28 @@ class RegistrationForPdf < RegistrationDetailsPresenter
 
   def party_changed?
     party_preference != party_preference(:previous_data)
+  end
+
+  def registration_address_changed?
+    registration_address != previous_registration_address
+  end
+
+  def mailing_address_changed?
+    mailing_address != previous_mailing_address
+  end
+
+  def existing_registration_changed?
+    (existing_registration? && !existing_registration?(:previous_data)) ||
+    (existing_registration_address != existing_registration_address(:previous_data))
+  end
+
+  def address_confidentiality_changed?
+    (address_confidentiality? && !address_confidentiality?(:previous_data)) ||
+    (acp_reason != acp_reason(:previous_data))
+  end
+
+  def mailing_address_availability_changed?
+    mailing_address_availability != mailing_address_availability(:previous_data)
   end
 
   private
