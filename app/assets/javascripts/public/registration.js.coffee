@@ -59,8 +59,8 @@ class window.Registration
   initAddressFields: ->
     @vvrIsRural             = ko.observable(false)
     @vvrRural               = ko.observable()
-    @maIsSame               = ko.observable(1)
-    @hasExistingReg         = ko.observable(0)
+    @maIsSame               = ko.observable('1')
+    @hasExistingReg         = ko.observable('0')
     @erIsRural              = ko.observable(false)
     @vvrStreetNumber        = ko.observable()
     @vvrStreetName          = ko.observable()
