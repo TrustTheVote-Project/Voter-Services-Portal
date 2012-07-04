@@ -1,0 +1,26 @@
+.row
+  .span10
+    .head.light
+      %h3 Voting Status
+
+    <!-- ko if: overseas() -->
+    %p
+      %strong Overseas/Military Absentee Voter
+    %p
+      I am living overseas and won't be in the U.S. on election day and need
+      an <strong>Ansentee Ballot</strong>.
+    <!-- /ko -->
+
+    <!-- ko if: domestic() && requestingAbsentee() -->
+    %p
+      %strong Domestic Absentee Voter
+    %p
+      I am a Virginia resident but am not able to go to the polls on election
+      day and would like to request an <strong>Absentee Ballot Application</strong>.
+    <!-- /ko -->
+
+    <!-- ko if: domestic() && !requestingAbsentee() -->
+    %p
+      %strong Virginia Residential Voter
+    %p Resident able to go to polls for the upcoming election on 06/12/2012.
+    <!-- /ko -->

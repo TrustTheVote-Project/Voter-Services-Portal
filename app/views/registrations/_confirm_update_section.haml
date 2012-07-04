@@ -43,6 +43,8 @@
               %th Political Party Preference:
               %td{ 'data-bind' => 'text: summaryParty' }
 
+  = render partial: 'confirm_absentee_status'
+
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'
     = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'
