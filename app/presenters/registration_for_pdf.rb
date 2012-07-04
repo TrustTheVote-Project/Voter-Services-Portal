@@ -196,7 +196,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
 
   def mailing_address_availability(d = :data)
     data = @reg.send(d)
-    if data[:vvr_uocava_residence_available] != '1'
+    if data[:vvr_uocava_residence_available] == '0'
       "My last date of residence at the above address was #{data[:vvr_uocava_residence_unavailable_since].strftime("%m/%d/%Y")}"
     else
       "My Virginia residence is still available to me"
