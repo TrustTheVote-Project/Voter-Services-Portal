@@ -125,6 +125,7 @@ class RegistrationDetailsPresenter
   end
 
   def abroad_address(prefix, d = :data)
+    data = @registration.send(d)
     [ [ data[:"#{prefix}_address"], data[:"#{prefix}_address_2"] ].reject(&:blank?).join(' '),
       [ data[:"#{prefix}_city"], data[:"#{prefix}_city_2"] ].reject(&:blank?).join(' '),
       data[:"#{prefix}_state"],
