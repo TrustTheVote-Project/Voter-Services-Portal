@@ -45,17 +45,6 @@ describe Registration do
       r.should be_absentee
       r.should_not be_residential
     end
-
-    it 'should set can_change_registration_address if overseas and status does not change' do
-      r = FactoryGirl.create(:registration, :overseas)
-      r.init_update_to('overseas')
-      r.should_not be_can_change_registration_address
-    end
-  end
-
-  describe 'defaults for flags' do
-    subject { Registration.new }
-    its(:can_change_registration_address) { should be_true }
   end
 
 end

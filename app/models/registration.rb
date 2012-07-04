@@ -52,15 +52,6 @@ class Registration < ActiveRecord::Base
   serialized_attr :existing
   serialized_attr :ssn4
 
-  # Indicates if this person can change their address
-  attr_accessor :can_change_registration_address
-  alias :can_change_registration_address? :can_change_registration_address
-
-  def initialize(*args)
-    super(*args)
-    self.can_change_registration_address = true
-  end
-
   def full_name
     [ first_name, middle_name, last_name, suffix ].delete_if(&:blank?).join(' ')
   end
@@ -86,9 +77,6 @@ class Registration < ActiveRecord::Base
       self.residence           = kind == 'overseas' ? 'outside' : 'in'
       self.requesting_absentee = !!(kind =~ /absentee|overseas/) ? '1' : '0'
     end
-
-    # Can't be an official if overseas and the status hasn't changed
-    self.can_change_registration_address = !(was_uocava && uocava?)
   end
 
 end
