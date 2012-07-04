@@ -12,13 +12,13 @@ pdf_labeled_block pdf, "Identity" do
 
     pdf_fields pdf, fields
 
-    if rr.name_changed? 
+    if rr.name_changed?
       pdf.move_down 15
       pdf_fields pdf, [
         { columns: 4, value: rr.previous_name, label: 'previous name' }
       ]
     end
-      
+
 
     pdf.move_down 15
     fields = [
@@ -31,8 +31,6 @@ pdf_labeled_block pdf, "Identity" do
     else
       fields << { columns: 1, value: '', label: '' }
     end
-
-    fields << { columns: 1, value: rr.gender, label: 'gender' }
 
     if rr.party_changed?
       fields << { columns: 2, value: rr.party_preference, label: 'new party preference' }
