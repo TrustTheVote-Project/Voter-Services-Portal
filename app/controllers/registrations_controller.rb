@@ -66,8 +66,6 @@ class RegistrationsController < ApplicationController
     Converter.params_to_time(data,
       :ab_time_1, :ab_time_2)
 
-    puts data.inspect
-
     @registration = current_registration
     unless @registration.update_attributes(data)
       redirect_to :edit_registration, alert: 'Please review your registration data and try again'
