@@ -8,7 +8,7 @@ class RegistrationsController < ApplicationController
     options = RegistrationRepository.pop_search_query(session)
     options.merge!(
       residence:      params[:residence],
-      requesting_absentee: params[:residence] == 'outside' ? true : false,
+      requesting_absentee: params[:residence] == 'outside' ? '1' : '0',
       absentee_until: 1.year.from_now)
 
     @registration = Registration.new(options)
