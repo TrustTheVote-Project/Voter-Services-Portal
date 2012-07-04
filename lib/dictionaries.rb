@@ -241,6 +241,8 @@ module Dictionaries
   }
 
   ABSENCE_F1_LABEL = {
+    '1A' => 'Name of school',
+    '1B' => 'Name of school',
     '1C' => 'Name of employer or business',
     '1E' => 'Name of employer or business',
     '1D' => 'Place of travel (VA county/city or state or country)',

@@ -207,6 +207,8 @@ class window.Registration
 
     @abField1Required = ko.computed =>
       r = @abReason()
+      r == '1A' or
+      r == '1B' or
       r == '1C' or
       r == '1D' or
       r == '1E' or
@@ -224,12 +226,17 @@ class window.Registration
     @abTimeRangeRequired = ko.computed =>
       @abReason() == '1E'
 
+    @abPartyLookupRequired = ko.computed =>
+      @abReason() == '8A'
+
     @abField1Label = ko.computed =>
       r = @abReason()
-      if r == '1C' or r == '1E'
+      if r == '1A' or r == '1B'
+        "Name of school"
+      else if r == '1C' or r == '1E'
         "Name of employer or businesss"
       else if r == '1D'
-        "Place of travel (VA county/city or state or country)"
+        "Place of travel<br/>VA county/city, state or country"
       else if r == '2A' or r == '2B'
         "Nature of disability or illness"
       else if r == '3A' or r == '3B'

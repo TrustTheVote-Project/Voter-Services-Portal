@@ -53,33 +53,56 @@
       %span I am unable to go to the polls on election day because
       = f.select :ab_reason, Dictionaries::ABSENCE_REASONS.invert, { include_blank: true }, { class: 'span10', 'data-bind' => 'valueWithInit: abReason' }
 
-  <!-- ko if: abReason() == '1A' || abReason() == '1B' -->
-  .row
-    .span12
-      Please complete the following information about the school
-  <!-- /ko -->
+  -# Fields to blank elements of the record that aren't on the form
+  = hidden_field_tag "registration[ab_field_1]", ''
+  = hidden_field_tag "registration[ab_field_2]", ''
+  = hidden_field_tag "registration[ab_time_1(1i)]", ''
+  = hidden_field_tag "registration[ab_time_1(2i)]", ''
+  = hidden_field_tag "registration[ab_time_1(3i)]", ''
+  = hidden_field_tag "registration[ab_time_1(4i)]", ''
+  = hidden_field_tag "registration[ab_time_1(5i)]", ''
+  = hidden_field_tag "registration[ab_time_2(1i)]", ''
+  = hidden_field_tag "registration[ab_time_2(2i)]", ''
+  = hidden_field_tag "registration[ab_time_2(3i)]", ''
+  = hidden_field_tag "registration[ab_time_2(4i)]", ''
+  = hidden_field_tag "registration[ab_time_2(5i)]", ''
+  = hidden_field_tag "registration[ab_street_number]", ''
+  = hidden_field_tag "registration[ab_street_name]", ''
+  = hidden_field_tag "registration[ab_street_type]", ''
+  = hidden_field_tag "registration[ab_apt]", ''
+  = hidden_field_tag "registration[ab_city]", ''
+  = hidden_field_tag "registration[ab_state]", ''
+  = hidden_field_tag "registration[ab_zip5]", ''
+  = hidden_field_tag "registration[ab_zip4]", ''
+  = hidden_field_tag "registration[ab_country]", ''
 
   <!-- ko if: abField1Required || abField2Required -->
   .row
-    .span5
-      %span{ 'data-bind' => 'text: abField1Label' }
-      = f.text_field :ab_field_1, 'data-bind' => 'valueWithInit: abField1'
-    <!-- ko if: abField2Required -->
-    .span5
-      %span{ 'data-bind' => 'text: abField2Label' }
-      = f.text_field :ab_field_2, 'data-bind' => 'valueWithInit: abField2'
-    <!-- /ko -->
-  <!-- /ko --> <!-- 1C -->
+    .span3
+      %span{ 'data-bind' => 'html: abField1Label' }
+      <!-- ko if: abPartyLookupRequired -->
+      = f.select :ab_field_1, Dictionaries::PARTIES, { include_blank: true }, 'data-bind' => 'valueWithInit: abField1'
+      <!-- /ko -->
 
-  <!-- ko if: abTimeRangeRequired -->
-  .row
+      <!-- ko if: !abPartyLookupRequired() -->
+      = f.text_field :ab_field_1, 'data-bind' => 'valueWithInit: abField1'
+      <!-- /ko -->
+
+    <!-- ko if: abTimeRangeRequired -->
     .span3
       %span Time start
       = bound_time f, :ab_time_1
     .span3
       %span Time end
       = bound_time f, :ab_time_2
-  <!-- /ko --> <!-- time range -->
+    <!-- /ko --> <!-- time range -->
+
+    <!-- ko if: abField2Required -->
+    .span3
+      %span{ 'data-bind' => 'html: abField2Label' }
+      = f.text_field :ab_field_2, 'data-bind' => 'valueWithInit: abField2'
+    <!-- /ko -->
+  <!-- /ko --> <!-- 1C -->
 
   <!-- ko if: abAddressRequired -->
   .row

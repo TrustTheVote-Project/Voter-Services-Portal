@@ -14,9 +14,15 @@ class Converter
       params.delete("#{key}(3i)")
       params.delete("#{key}(2i)")
       params.delete("#{key}(1i)")
-      h = params.delete("#{key}(4i)")
-      m = params.delete("#{key}(5i)")
-      params[key] = Time.parse("#{h}:#{m}") unless h.blank? || m.blank?
+      if params.has_key?("#{key}(4i)") && params.has_key?("#{key}(5i)")
+        h = params.delete("#{key}(4i)")
+        m = params.delete("#{key}(5i)")
+        unless h.blank? || m.blank?
+          params[key] = Time.parse("#{h}:#{m}")
+        else
+          params[key] = nil
+        end
+      end
     end
   end
 
