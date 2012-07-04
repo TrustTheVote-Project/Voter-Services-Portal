@@ -14,13 +14,17 @@ pdf_labeled_block pdf, "Addresses" do
           { columns: 1, value: rr.registration_address, label: 'new registration address' },
           { columns: 1, value: rr.previous_registration_address, label: 'previous registration address' }
         ]
+      end
 
+      if rac && mac
         pdf.move_down 15
       end
 
-      pdf_fields pdf, [
-        { columns: 1, value: rr.mailing_address, label: 'mailing address' }
-      ]
+      if mac
+        pdf_fields pdf, [
+          { columns: 1, value: rr.mailing_address, label: 'mailing address' }
+        ]
+      end
     end
 
     er = rr.existing_registration_changed? && rr.existing_registration?

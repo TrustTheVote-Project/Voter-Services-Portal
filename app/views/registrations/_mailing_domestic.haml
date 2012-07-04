@@ -2,29 +2,29 @@
 .partition
   %h4 Is your Mailing address the same as your Registration address?
   .radio
-    = f.radio_button :ma_is_same, '0', { 'data-bind' => 'checked: maIsSame' }
+    = f.radio_button :ma_is_same, '0', { 'data-bind' => 'checkedWithInit: maIsSame' }
     %label No
   .radio
-    = f.radio_button :ma_is_same, '1', { 'data-bind' => 'checked: maIsSame' }
+    = f.radio_button :ma_is_same, '1', { 'data-bind' => 'checkedWithInit: maIsSame' }
     %label Yes
   <!-- ko if: maIsSame() == '0' -->
   .row
     .span3
       %span3.address-field
         %span Address
-        %input{ type: "text", name: 'ma_address', 'data-bind' => 'value: maAddress1' }/
-        %input{ type: "text", name: 'ma_address_2', 'data-bind' => 'value: maAddress2' }/
+        = f.text_field :ma_address, 'data-bind' => 'valueWithInit: maAddress1'
+        = f.text_field :ma_address_2, 'data-bind' => 'valueWithInit: maAddress2'
   .row
     .span3
       %span City
-      = f.text_field :ma_city, 'data-bind' => 'value: maCity'
+      = f.text_field :ma_city, 'data-bind' => 'valueWithInit: maCity'
     .span2.state-field
       %span State
-      = f.select :ma_state, Dictionaries::STATES, { include_blank: true }, { class: 'span3', 'data-bind' => 'value: maState' }
+      = f.select :ma_state, Dictionaries::STATES, { include_blank: true }, { class: 'span3', 'data-bind' => 'valueWithInit: maState' }
     .span3.zip-field
       %span Zip code
-      = f.text_field :ma_zip5, class: 'first-zip', 'data-bind' => 'value: maZip5', placeholder: '12345'
+      = f.text_field :ma_zip5, class: 'first-zip', 'data-bind' => 'valueWithInit: maZip5', placeholder: '12345'
       .space &mdash;
-      = f.text_field :ma_zip4, class: 'second-zip', 'data-bind' => 'value: maZip4', placeholder: '1234'
+      = f.text_field :ma_zip4, class: 'second-zip', 'data-bind' => 'valueWithInit: maZip4', placeholder: '1234'
   <!-- /ko -->
 <!-- /ko -->
