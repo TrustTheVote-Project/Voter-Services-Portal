@@ -371,6 +371,8 @@ class window.Registration
           @otherParty()
         else
           @party()
+      else
+        'none'
 
   initOathFields: ->
     @infoCorrect  = ko.observable()

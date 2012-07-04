@@ -67,7 +67,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
 
   def party_preference(d = :data)
     d = @reg.send(d)
-    d[:choose_party] == '0' ? "none" : d[:party] == 'other' ? d[:other_party] : d[:party]
+    d[:choose_party] != '1' ? "none" : d[:party] == 'other' ? d[:other_party] : d[:party]
   end
 
   # Addresses
