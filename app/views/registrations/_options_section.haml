@@ -14,21 +14,16 @@
 
     <!-- ko if: chooseParty -->
     .row
-      .span10
+      .span3
         %p My political party preference is
 
-        - Dictionaries::PARTIES.each do |party|
-          .radio
-            = f.radio_button :party, party, { 'data-bind' => 'checkedWithInit: party' }
-            %label= party
-        .radio
-          = f.radio_button :party, 'other', { 'data-bind' => 'checkedWithInit: party' }
-          %label Other
+        = f.select :party, Dictionaries::PARTIES + [ [ "Other", "other" ] ], { include_blank: true }, { 'data-bind' => 'valueWithInit: party' }
 
-        <!-- ko if: party() == 'other' -->
+      <!-- ko if: party() == 'other' -->
+      .span3
         %span Political party preference name
         = f.text_field :other_party, 'data-bind' => 'valueWithInit: otherParty'
-        <!-- /ko -->
+      <!-- /ko -->
 
     <!-- /ko -->
 
