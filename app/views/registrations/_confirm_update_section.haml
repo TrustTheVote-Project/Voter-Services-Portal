@@ -17,7 +17,7 @@
                 = f.text_field :first_name,   class: 'span2', placeholder: 'First name', 'data-bind' => 'valueWithInit: firstName'
                 = f.text_field :middle_name,  class: 'span2', placeholder: 'Middle name', 'data-bind' => 'valueWithInit: middleName'
                 = f.text_field :last_name,    class: 'span2', placeholder: 'Last name', 'data-bind' => 'valueWithInit: lastName, valueUpdate: "keyup"'
-                = f.select     :suffix, Dictionaries::NAME_SUFFIXES, {}, class: 'span1', 'data-bind' => 'valueWithInit: suffix'
+                = f.select     :suffix, name_suffixes_for(@registration), {}, class: 'span1', 'data-bind' => 'valueWithInit: suffix'
             %tr
               %th Date of Birth:
               %td= reg.dob

@@ -51,4 +51,15 @@ module FormHelper
       select_tag("#{object_name}[#{field}(5i)]", minutes, html_options.merge('data-bind' => "value: #{jsfield}Minute", class: 'span1' ))
     ].join(' ').html_safe
   end
+
+  # Adds the custom suffix used by the record to the list of standard ones
+  def name_suffixes_for(reg)
+    suffixes = Dictionaries::NAME_SUFFIXES
+
+    if !reg.suffix.blank? && !suffixes.include?(reg.suffix)
+      suffixes = suffixes + [ reg.suffix ]
+    end
+
+    suffixes.sort
+  end
 end
