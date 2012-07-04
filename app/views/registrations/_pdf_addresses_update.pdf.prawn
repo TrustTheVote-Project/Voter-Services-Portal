@@ -24,7 +24,7 @@ pdf_labeled_block pdf, "Addresses" do
     end
 
     er = rr.existing_registration_changed? && rr.existing_registration?
-    ac = rr.address_confidentiality_changed? && rr.address_confidentiality?
+    ac = rr.address_confidentiality?
 
     if er || ac
       pdf.move_down 15
