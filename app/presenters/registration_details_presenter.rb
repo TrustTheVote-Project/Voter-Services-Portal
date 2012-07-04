@@ -28,7 +28,7 @@ class RegistrationDetailsPresenter
   def party
     p = @registration.party
     if p.blank?
-      '(none)'
+      'none'
     elsif p == 'other'
       @registration.other_party
     else
