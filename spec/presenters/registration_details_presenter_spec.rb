@@ -3,7 +3,7 @@ require 'spec_helper'
 describe RegistrationDetailsPresenter do
 
   describe '#party' do
-    specify { rdp(party: '').party.should == '(none)' }
+    specify { rdp(party: '').party.should == 'none' }
     specify { rdp(party: 'Democrat').party.should == 'Democrat' }
     specify { rdp(party: 'other', other_party: 'Choppers').party.should == 'Choppers' }
   end

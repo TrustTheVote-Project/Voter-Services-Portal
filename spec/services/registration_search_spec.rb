@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe RegistrationSearch do
   it 'should find record by voter_id' do
-    RegistrationSearch.perform(SearchQuery.new(voter_id: '1234-1234-1234-1234')).should be
+    RegistrationSearch.perform(SearchQuery.new(voter_id: '123-123-123')).should be
   end
 
   it 'should not find record' do
