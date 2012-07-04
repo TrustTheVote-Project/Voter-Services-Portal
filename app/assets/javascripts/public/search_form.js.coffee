@@ -32,7 +32,7 @@ class SearchForm
       if !filled(@voterId()) and !filled(@ssn4())
         errors.push("Voter ID or SSN")
       else if filled(@voterId()) and !voterId(@voterId())
-        errors.push("Voter ID (16 digits)")
+        errors.push("Voter ID (9 digits)")
 
       unless @swear()
         errors.push("Affirmation")

@@ -2,7 +2,7 @@
 class RegistrationSearch
 
   SEED_DATA = {
-    '1234123412341234' => {
+    '123123123' => {
       first_name:         'Wanda',
       middle_name:        'Hunt',
       last_name:          'Phepts',
@@ -32,7 +32,7 @@ class RegistrationSearch
       be_official:        '1'
     },
 
-    '1111222233334444' => {
+    '111222333' => {
       residence:          'outside',
       requesting_absentee: '1',
       first_name:         'Overseas',
@@ -67,7 +67,7 @@ class RegistrationSearch
       absentee_until:     2.months.from_now
     },
 
-    '4444333322221111' => {
+    '333222111' => {
       residence:          'in',
       requesting_absentee: '1',
       first_name:         'Domestic',

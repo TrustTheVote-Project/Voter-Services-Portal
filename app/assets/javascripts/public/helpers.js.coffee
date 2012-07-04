@@ -14,7 +14,7 @@ window.pastDate = (y, m, d) ->
 
 window.phone  = (v) -> v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){10}$/)
 window.email  = (v) -> v.match(/^\S+@\S+\.\S+$/)
-window.voterId= (v) -> v.replace(/[^\d]/g, '').match(/^\d{16}$/)
+window.voterId= (v) -> v.replace(/[^\d]/g, '').match(/^\d{9}$/)
 
 window.stepClass = (current, idx, def) ->
   def = def || 'span2'
