@@ -47,4 +47,26 @@ describe Registration do
     end
   end
 
+  describe 'voter_type' do
+    it 'should return nil for when voter_id is not present' do
+      r = Registration.new
+      r.voter_type.should be_nil
+    end
+
+    it 'should return overseas absentee' do
+      r = FactoryGirl.create(:registration, :existing, :overseas)
+      r.voter_type.should == "Overseas / Military Absentee"
+    end
+
+    it 'should return domestic absentee' do
+      r = FactoryGirl.create(:registration, :existing, :domestic_absentee)
+      r.voter_type.should == "Domestic Absentee"
+    end
+
+    it 'should return residential voter' do
+      r = FactoryGirl.create(:registration, :existing, :residential_voter)
+      r.voter_type.should == "Residential Voter"
+    end
+  end
+
 end

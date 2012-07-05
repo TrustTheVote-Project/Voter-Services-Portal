@@ -42,15 +42,13 @@ class RegistrationsController < ApplicationController
     respond_to do |f|
       f.html
       f.pdf do
-        voter_id = nil
-        doctype  = 'VoterRegistrationRequest'
+        doctype = 'VoterRegistrationRequest'
 
         if @update
-          voter_id  = @registration.voter_id
-          doctype   = @registration.requesting_absentee == '1' ? 'AbsenteeRequest+VoterRegistrationUpdateRequest' : 'VoterRegistrationUpdateRequest'
+          doctype = @registration.requesting_absentee == '1' ? 'AbsenteeRequest+VoterRegistrationUpdateRequest' : 'VoterRegistrationUpdateRequest'
         end
 
-        LogRecord.log(doctype, 'complete', voter_id)
+        LogRecord.log(doctype, 'complete', @registration)
 
         render layout: false
       end
@@ -66,7 +64,7 @@ class RegistrationsController < ApplicationController
     # change the status.
     @registration.init_update_to(params[:kind].to_s)
 
-    LogRecord.log("VoterRegistrationUpdateRequest", "start", @registration.voter_id)
+    LogRecord.log("VoterRegistrationUpdateRequest", "start", @registration)
   end
 
   def update

@@ -81,4 +81,17 @@ class Registration < ActiveRecord::Base
     end
   end
 
+  # Existing voter type (used in logs)
+  def voter_type
+    return nil if voter_id.blank?
+
+    if uocava?
+      "Overseas / Military Absentee"
+    elsif absentee?
+      "Domestic Absentee"
+    else
+      "Residential Voter"
+    end
+  end
+
 end

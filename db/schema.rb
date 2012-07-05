@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120705134833) do
+ActiveRecord::Schema.define(:version => 20120705142752) do
 
   create_table "log_records", :force => true do |t|
     t.string   "action"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20120705134833) do
     t.datetime "updated_at", :null => false
     t.string   "voter_id"
     t.string   "doctype"
+    t.string   "voter_type"
   end
 
   add_index "log_records", ["created_at"], :name => "index_log_records_on_created_at"
