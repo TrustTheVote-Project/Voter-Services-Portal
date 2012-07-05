@@ -37,7 +37,8 @@ end
 group :test do
   gem 'rspec'
   gem 'rspec-rails'
-  gem 'turnip', '0.3.0'
+  gem 'turnip'
+  gem 'poltergeist'
   gem 'faker'
   gem 'timecop'
   gem 'factory_girl_rails'

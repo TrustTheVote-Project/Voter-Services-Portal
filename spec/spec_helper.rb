@@ -4,11 +4,16 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rspec'
-#require 'turnip/capybara'
+require 'turnip/capybara'
+require 'capybara/poltergeist'
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
+
+Dir.glob("spec/acceptance/steps/**/*steps.rb") { |f| load f, true }
+
+Capybara.javascript_driver = :poltergeist
 
 RSpec.configure do |config|
   # If true, the base class of anonymous controllers will be inferred
@@ -21,4 +26,9 @@ RSpec.configure do |config|
   config.treat_symbols_as_metadata_keys_with_true_values = true
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
+
+  # Cleanup
+  config.before do
+    Registration.delete_all
+  end
 end
