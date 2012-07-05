@@ -36,7 +36,7 @@ ko.bindingHandlers.checkedWithInit = {
   init: (element, valueAccessor, allBindingsAccessor, context) ->
     property = valueAccessor()
     el = $(element)
-    checked = el.is(":checked")
+    checked = el[0].getAttribute('checked') != null
     value   = el.val()
 
     ko.bindingHandlers.checked.init(element, valueAccessor, allBindingsAccessor, context)
