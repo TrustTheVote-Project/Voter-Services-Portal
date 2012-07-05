@@ -28,6 +28,7 @@ gem 'compass-rails', '1.0.0.rc.3'
 gem 'simple_form'
 
 gem 'prawn_rails'
+gem 'kronic'
 
 group :development do
   gem 'capistrano'

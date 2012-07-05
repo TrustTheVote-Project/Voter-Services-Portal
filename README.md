@@ -121,3 +121,17 @@ There's a Rake task to enable / disable marking ballots online:
 
 In order to the feature to work, you need to also configure the
 parameters for DL server in `config/config.yml` (section "dl").
+
+
+Exporting log records
+---------------------
+
+To export all records:
+
+    $ rake va:export_log
+
+To export all records since July 5, 2012 5pm to July 8, 2012 21:35 UTC:
+
+    $ rake va:export_log start_date=2012-07-05 start_time=17:00 \
+                           end_date=2012-07-08   end_time=21:35Z
+

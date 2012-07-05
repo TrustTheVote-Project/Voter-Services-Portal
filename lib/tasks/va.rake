@@ -19,4 +19,14 @@ namespace :va do
     end
   end
 
+  desc 'Exports log records between start_date / start_time and end_date / end_time'
+  task export_log: :environment do
+    d1 = ENV['start_date']
+    t1 = ENV['start_time']
+    d2 = ENV['end_date']
+    t2 = ENV['end_time']
+
+    LogExporter.export(d1, t1, d2, t2)
+  end
+
 end
