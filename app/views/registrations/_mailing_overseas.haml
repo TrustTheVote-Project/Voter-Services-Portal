@@ -2,10 +2,10 @@
 .partition
   .radio
     = radio_button :registration, :mau_type, 'non-us', 'data-bind' => 'checkedWithInit: mauType'
-    %label I prefer that voting materials be sent to me at a different non-U.S address
+    %label{ for: 'registration_mau_type_non-us' } I prefer that voting materials be sent to me at a different non-U.S address
   .radio
     = radio_button :registration, :mau_type, 'apo', 'data-bind' => 'checkedWithInit: mauType'
-    %label I prefer that voting materials be sent to me at an APO/DPO/FPO address
+    %label{ for: 'registration_mau_type_apo' } I prefer that voting materials be sent to me at an APO/DPO/FPO address
 
   <!-- ko if: mauType() == 'non-us' -->
   = render partial: 'non_us_address', locals: { f: f, prefix: 'mau' }

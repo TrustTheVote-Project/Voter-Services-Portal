@@ -58,10 +58,10 @@
     .span12
       .radio
         = radio_button :registration, :vvr_uocava_residence_available, '1', { 'data-bind' => 'checkedWithInit: vvrOverseasRA' }
-        %label My Virginia residence is still available to me
+        %label{ for: 'registration_vvr_uocava_residence_available_1'} My Virginia residence is still available to me
       .radio
         = radio_button :registration, :vvr_uocava_residence_available, '0', { 'data-bind' => 'checkedWithInit: vvrOverseasRA' }
-        %label My Virginia residence is no longer available to me
+        %label{ for: 'registration vvr_uocava_residence_available_0' }My Virginia residence is no longer available to me
   <!-- ko if: vvrOverseasRA() == '0' -->
   .row
     .span12

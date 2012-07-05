@@ -80,6 +80,62 @@ steps_for :updating do
     page.should have_css ".btn.next.disabled"
   end
 
+  step 'change status to domestic absentee' do
+    choose  "Domestic Absentee Voter"
+    step    "I proceed"
+
+    step    "I should see the addresses page"
+    step    "I proceed"
+
+    step    "I should see the options page"
+    select  Dictionaries::ELECTIONS.to_a.first[1], from: "registration_rab_election"
+    select  "My pregnancy", from: "registration_ab_reason"
+    step    "I proceed"
+  end
+
+  step 'change status to overseas absentee' do
+    choose  "Overseas/Military Absentee Voter"
+    step    "I proceed"
+
+    step    "I should see the addresses page"
+    choose  "My Virginia residence is still available to me"
+
+    choose  "I prefer that voting materials be sent to me at an APO/DPO/FPO address"
+    fill_in "registration_apo_address", with: "Sample address"
+    fill_in "registration_apo_zip5", with: "12345"
+    step   "I proceed"
+
+    step    "I should see the options page"
+    choose  "Active Duty Merchant Marine or Armed Forces"
+    fill_in "registration_service_id", with: "service-id"
+    fill_in "registration_rank", with: "rank"
+    step    "I proceed"
+  end
+
+  step 'change status to residential voter' do
+    choose  "Virginia Residential Voter"
+    step    "I proceed"
+
+    step    "I should see the addresses page"
+    step    "I proceed"
+
+    step    "I should see the options page"
+    step    "I proceed"
+  end
+
+  step 'I should see :new_status on confirm page' do |new_status|
+    step "I should see the confirmation page"
+    page.should have_content new_status
+  end
+
+  step 'should be able to submit the update' do
+    step "I proceed"
+    step 'I should see the oath page'
+    step 'I check boxes on the oath page'
+    step 'I proceed'
+    step 'I should see the download page'
+  end
+
   private
 
   def should_be_visible(label)
