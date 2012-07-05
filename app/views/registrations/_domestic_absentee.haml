@@ -17,18 +17,7 @@
     .span12
       %h4
         %strong I am applying to vote absentee for
-      .radio
-        = f.radio_button :rab_election, '1', { 'data-bind' => 'checkedWithInit: rabElection' }
-        %label Presidential Primary Election held on Tuesday, March 6, 2012.
-      .radio
-        = f.radio_button :rab_election, '2', { 'data-bind' => 'checkedWithInit: rabElection' }
-        %label State Primary Election held on Tuesday, June 12, 2012.
-      .radio
-        = f.radio_button :rab_election, '3', { 'data-bind' => 'checkedWithInit: rabElection' }
-        %label General Election held on Tuesday, November 6, 2012.
-      .radio
-        = f.radio_button :rab_election, 'other', { 'data-bind' => 'checkedWithInit: rabElection' }
-        %label Other
+      = f.select :rab_election, Dictionaries::ELECTIONS.merge('other' => 'Other').invert, { include_blank: true }, { class: 'span6', 'data-bind' => 'valueWithInit: rabElection' }
   <!-- ko if: rabElection() == 'other' -->
   .row
     .span6.election-name-field
