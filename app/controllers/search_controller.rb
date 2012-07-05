@@ -16,9 +16,11 @@ class SearchController < ApplicationController
     reg = RegistrationSearch.perform(@search_query)
 
     if reg
+      LogRecord.log("", "identify", reg.voter_id, "Match for #{@search_query.to_log_details}")
       RegistrationRepository.store_registration(session, reg)
       redirect_to :registration
     else
+      LogRecord.log("", "identify", reg.voter_id, "No match for #{@search_query.to_log_details}")
       RegistrationRepository.store_search_query(session, @search_query)
       render :not_found
     end

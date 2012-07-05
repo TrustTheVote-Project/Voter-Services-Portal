@@ -6,6 +6,8 @@ class Registration < ActiveRecord::Base
 
   SERVICE_BRANCHES = [ 'Army', 'Air Force', 'Marines', 'Merchant Marine', 'Navy' ]
 
+  serialized_attr :voter_id
+
   # Eligibility
   serialized_attr :citizen, :old_enough, :residence
 

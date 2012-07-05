@@ -11,14 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120629103016) do
+ActiveRecord::Schema.define(:version => 20120705134833) do
 
   create_table "log_records", :force => true do |t|
-    t.string   "subject"
     t.string   "action"
-    t.text     "details"
+    t.text     "notes"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "voter_id"
+    t.string   "doctype"
   end
 
   add_index "log_records", ["created_at"], :name => "index_log_records_on_created_at"

@@ -46,6 +46,10 @@ class SearchQuery
     attrs
   end
 
+  def to_log_details
+    [ first_name, last_name, dob.try(:strftime, "%Y-%m-%d"), locality, voter_id.blank? ? ssn4 : voter_id ].reject(&:blank?).join(' / ')
+  end
+
   def to_key
     nil
   end

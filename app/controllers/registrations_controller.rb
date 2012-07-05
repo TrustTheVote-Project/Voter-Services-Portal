@@ -3,7 +3,7 @@ class RegistrationsController < ApplicationController
   before_filter :requires_registration, except: [ :new, :create ]
 
   def new
-    LogRecord.log('registration', 'started')
+    LogRecord.log('VoterRegistrationRequest', 'start')
 
     options = RegistrationRepository.pop_search_query(session)
     options.merge!(
@@ -41,7 +41,19 @@ class RegistrationsController < ApplicationController
     @update       = !@registration.previous_data.blank?
     respond_to do |f|
       f.html
-      f.pdf  { render layout: false }
+      f.pdf do
+        voter_id = nil
+        doctype  = 'VoterRegistrationRequest'
+
+        if @update
+          voter_id  = @registration.voter_id
+          doctype   = @registration.requesting_absentee == '1' ? 'AbsenteeRequest+VoterRegistrationUpdateRequest' : 'VoterRegistrationUpdateRequest'
+        end
+
+        LogRecord.log(doctype, 'complete', voter_id)
+
+        render layout: false
+      end
     end
   rescue ActiveRecord::RecordNotFound
     redirect_to :root
@@ -53,6 +65,8 @@ class RegistrationsController < ApplicationController
     # "kind" comes from the review form where we either maintain or
     # change the status.
     @registration.init_update_to(params[:kind].to_s)
+
+    LogRecord.log("VoterRegistrationUpdateRequest", "start", @registration.voter_id)
   end
 
   def update
