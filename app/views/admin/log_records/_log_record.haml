@@ -1,4 +1,6 @@
 %tr
-  %td= log_record.subject.capitalize
+  %td= log_record.voter_id
+  %td= log_record.doctype
   %td= log_record.action.capitalize
+  %td= log_record.notes
   %td= log_record.created_at.to_s(:short)
