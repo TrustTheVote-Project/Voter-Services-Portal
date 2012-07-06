@@ -148,6 +148,14 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     Dictionaries::ABSENCE_REASONS[@reg.ab_reason]
   end
 
+  def absentee_election
+    if @reg.rab_election == 'other'
+      "#{@reg.rab_election_name} on #{@reg.rab_election_date}"
+    else
+      Dictionaries::ELECTIONS[@reg.rab_election]
+    end
+  end
+
   def absence_fields
     @absence_fields ||= begin
       f1_label = Dictionaries::ABSENCE_F1_LABEL[@reg.ab_reason]

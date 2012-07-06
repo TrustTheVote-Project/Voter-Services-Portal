@@ -2,11 +2,16 @@ pdf_labeled_block pdf, "Absentee" do
   pdf_checkbox pdf, "I will not be able to vote in person, and would like to vote absentee"
   pdf_checkbox pdf, rr.absence_reason
 
+  pdf_fields pdf, [
+    { columns: 1, value: rr.absentee_election, label: "election" }
+  ]
+
   af = rr.absence_fields
   aa = rr.absence_address
   tr = rr.absence_time_range
 
   unless af.blank?
+    pdf.move_down 15
     pdf_fields pdf, af
   end
 
