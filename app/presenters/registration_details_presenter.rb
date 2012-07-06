@@ -84,7 +84,7 @@ class RegistrationDetailsPresenter
   end
 
   def mailing_address(d = :data)
-    if overseas?(d)
+    if d == :data ? @registration.currently_overseas? : overseas?(d)
       overseas_mailing_address(d)
     else
       domestic_mailing_address(d)
@@ -114,10 +114,10 @@ class RegistrationDetailsPresenter
     if data[:mau_type] == 'non-us'
       abroad_address :mau, d
     else
-      [ data[:"apo_address"],
-        data[:"apo_1"],
-        data[:"apo_2"],
-        data[:"apo_zip5"] ].reject(&:blank?).join(', ')
+      [ data[:apo_address],
+        data[:apo_1],
+        data[:apo_2],
+        data[:apo_zip5] ].reject(&:blank?).join(', ')
     end
   end
 
