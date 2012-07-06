@@ -53,6 +53,11 @@ class RegistrationDetailsPresenter
   def status_options
     st       = self.status
     statuses = [ "separator", "residential_voter", "domestic_absentee", "overseas" ]
+
+    if !AppConfig['allow_domestic_absentees_change_to_voter'] && @registration.currently_domestic_absentee?
+      statuses.delete("residential_voter")
+    end
+
     [ st ] + (statuses - [ st ])
   end
 

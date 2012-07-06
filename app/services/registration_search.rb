@@ -75,6 +75,7 @@ class RegistrationSearch
       voter_id:           '333222111',
       current_residence:  'in',
       current_absentee:   '1',
+      absentee_for_elections: [ "Election 1" ],
       first_name:         'Domestic',
       last_name:          'Absentee',
       gender:             'Male',

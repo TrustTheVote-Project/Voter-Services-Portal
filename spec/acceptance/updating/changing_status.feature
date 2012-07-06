@@ -18,11 +18,18 @@ Feature: changing status
 
 
   Scenario: from domestic absentee to residential voter
+   Given domestic absentees allowed change status to residential voters
     When I look up "domestic absentee" record
      And change status to residential voter
     Then I should see "Domestic Absentee Voter" on confirm page
      And I should see "I will attend polls personally... TBD"
      And should be able to submit the update
+
+
+  Scenario: from domestic absentee when residential voting not allowed
+   Given domestic absentees not allowed change status to residential voters
+    When I look up "domestic absentee" record
+    Then I should not see "Virginia Residential Voter" option
 
 
   Scenario: to residential voter as overseas absentee

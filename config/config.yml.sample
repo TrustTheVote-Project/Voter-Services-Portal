@@ -10,6 +10,8 @@ registration_request:
   # Enable collection of title on the registration request form
   collect_title:  false
 
+# Allow domestic absentees to change status to residential voter
+allow_domestic_absentees_change_to_voter: false
 
 # Server for online ballot marking
 dl:

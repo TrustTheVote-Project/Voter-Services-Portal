@@ -1,5 +1,13 @@
 steps_for :updating do
 
+  step 'domestic absentees allowed change status to residential voters' do
+    AppConfig['allow_domestic_absentees_change_to_voter'] = true
+  end
+
+  step 'domestic absentees not allowed change status to residential voters' do
+    AppConfig['allow_domestic_absentees_change_to_voter'] = false
+  end
+
   step 'I look up :kind record' do |kind|
     visit search_path
 
@@ -117,6 +125,10 @@ steps_for :updating do
     fill_in "registration_service_id", with: "service-id"
     fill_in "registration_rank", with: "rank"
     step    "I proceed"
+  end
+
+  step 'I should not see :new_status option' do |new_status|
+    page.should_not have_content new_status
   end
 
   step 'change status to residential voter' do
