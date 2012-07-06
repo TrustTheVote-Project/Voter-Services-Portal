@@ -4,6 +4,8 @@ class RegistrationSearch
   SEED_DATA = {
     '123123123' => {
       voter_id:           '123123123',
+      current_residence:  'in',
+      current_absentee:   '0',
       first_name:         'Wanda',
       middle_name:        'Hunt',
       last_name:          'Phepts',
@@ -35,8 +37,8 @@ class RegistrationSearch
 
     '111222333' => {
       voter_id:           '111222333',
-      residence:          'outside',
-      requesting_absentee: '1',
+      current_residence:  'outside',
+      current_absentee:   '1',
       first_name:         'Overseas',
       last_name:          'Marine',
       gender:             'Male',
@@ -71,8 +73,8 @@ class RegistrationSearch
 
     '333222111' => {
       voter_id:           '333222111',
-      residence:          'in',
-      requesting_absentee: '1',
+      current_residence:  'in',
+      current_absentee:   '1',
       first_name:         'Domestic',
       last_name:          'Absentee',
       gender:             'Male',

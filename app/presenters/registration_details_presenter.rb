@@ -41,9 +41,9 @@ class RegistrationDetailsPresenter
   end
 
   def status
-    if uocava?
+    if @registration.current_residence == 'outside'
       "overseas"
-    elsif absentee?
+    elsif @registration.current_absentee == '1'
       "domestic_absentee"
     else
       "residential_voter"
@@ -54,14 +54,6 @@ class RegistrationDetailsPresenter
     st       = self.status
     statuses = [ "separator", "residential_voter", "domestic_absentee", "overseas" ]
     [ st ] + (statuses - [ st ])
-  end
-
-  def registration_status
-    if absentee?
-      "#{uocava? ? 'Overseas' : 'Resident'} Absentee Voter"
-    else
-      "You are currently registered to vote in person"
-    end
   end
 
   def registration_address(d = :data)

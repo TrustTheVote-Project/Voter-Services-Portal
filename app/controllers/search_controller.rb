@@ -2,7 +2,8 @@
 class SearchController < ApplicationController
 
   def new
-    @search_query ||= SearchQuery.new
+    options = Rails.env.development? ? { first_name: '1', last_name: '1', dob: 20.years.ago, locality: 'ACCOMACK COUNTY' } : {}
+    @search_query ||= SearchQuery.new(options)
     render :new
   end
 

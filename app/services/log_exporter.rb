@@ -4,8 +4,6 @@ class LogExporter
     start_date = convert_date(d1, t1)
     end_date   = convert_date(d2, t2)
 
-    puts start_date, end_date
-
     records = LogRecord.scoped
     records = records.where([ "created_at >= ?", start_date ]) if start_date
     records = records.where([ "created_at <= ?", end_date ]) if end_date

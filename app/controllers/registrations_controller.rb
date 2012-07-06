@@ -60,11 +60,11 @@ class RegistrationsController < ApplicationController
   def edit
     @registration = current_registration
 
+    LogRecord.log("VoterRegistrationUpdateRequest", "start", @registration)
+
     # "kind" comes from the review form where we either maintain or
     # change the status.
     @registration.init_update_to(params[:kind].to_s)
-
-    LogRecord.log("VoterRegistrationUpdateRequest", "start", @registration)
   end
 
   def update

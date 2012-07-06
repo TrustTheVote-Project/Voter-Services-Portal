@@ -1,23 +1,32 @@
 @updating @javascript
 Feature: changing status
 
-  Scenario: to domestic absentee as residential voter
+  Scenario: from residential voter to domestic absentee
     When I look up "residential voter" record
      And change status to domestic absentee
-    Then I should see "Domestic Absentee Voter" on confirm page
+    Then I should see "Virginia Residential Voter" on confirm page
+     And I should see "I am not able to go to the polls on election day and would like to request an Absentee Ballot"
      And should be able to submit the update
 
 
-  Scenario: to overseas as residential voter 
+  Scenario: from residential voter to overseas absentee
     When I look up "residential voter" record
      And change status to overseas absentee
-    Then I should see "Overseas/Military Absentee Voter" on confirm page
+    Then I should see "Virginia Residential Voter" on confirm page
+     And I should see "I am living overseas and won't be in the U.S. on election day and need an Ansentee Ballot."
      And should be able to submit the update
 
 
-  Scenario: to residential voter as domestic absentee
+  Scenario: from domestic absentee to residential voter
     When I look up "domestic absentee" record
      And change status to residential voter
-    Then I should see "Virginia Residential Voter" on confirm page
+    Then I should see "Domestic Absentee Voter" on confirm page
+     And I should see "I will attend polls personally... TBD"
      And should be able to submit the update
 
+
+  Scenario: to residential voter as overseas absentee
+    When I look up "overseas absentee" record
+     And change status to residential voter
+    Then I should see "Overseas/Military Absentee Voter" on confirm page
+     And should be able to submit the update

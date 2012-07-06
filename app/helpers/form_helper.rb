@@ -62,4 +62,9 @@ module FormHelper
 
     suffixes.sort
   end
+
+  def changing_status_to_domestic_absentee?(reg = @registration)
+    reg.currently_overseas? || !reg.currently_absentee?
+  end
+
 end

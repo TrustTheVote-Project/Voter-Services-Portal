@@ -32,6 +32,10 @@ steps_for :updating do
     page.should have_checked_field status
   end
 
+  step "I don't change status" do
+    step 'I proceed'
+  end
+
   step 'I proceed without making changes' do
     step 'I proceed'
     step 'I should see the addresses page'
@@ -80,10 +84,13 @@ steps_for :updating do
     page.should have_css ".btn.next.disabled"
   end
 
-  step 'change status to domestic absentee' do
+  step 'initiate change status to domestic absentee' do
     choose  "Domestic Absentee Voter"
     step    "I proceed"
+  end
 
+  step 'change status to domestic absentee' do
+    step    "initiate change status to domestic absentee"
     step    "I should see the addresses page"
     step    "I proceed"
 
@@ -128,12 +135,50 @@ steps_for :updating do
     page.should have_content new_status
   end
 
+  step 'I should see :msg' do |msg|
+    page.should have_content msg
+  end
+
   step 'should be able to submit the update' do
     step "I proceed"
     step 'I should see the oath page'
     step 'I check boxes on the oath page'
     step 'I proceed'
     step 'I should see the download page'
+  end
+
+  step 'I should not see an absentee checkbox' do
+    step 'I should see the addresses page'
+    step 'I proceed'
+
+    page.should_not have_css("input#registration_requesting_absentee[type='checkbox']")
+  end
+
+  step 'I should see an unchecked absentee checkbox' do
+    step 'I should see the addresses page'
+    step 'I proceed'
+
+    e = find(:css, "input#registration_requesting_absentee[type='checkbox']")
+    e.should_not be_checked
+  end
+
+  step 'when checked, the list of options should be empty' do
+    check 'registration_requesting_absentee'
+    select 'I am working and commuting to/from home for 11 or more hours between 6:00 AM and 7:00 PM on Election Day', from: 'registration_ab_reason'
+    find('#registration_ab_field_1').value.should be_empty
+    find('#registration_ab_time_1_4i_').value.should be_empty
+    find('#registration_ab_time_1_5i_').value.should be_empty
+    find('#registration_ab_time_2_4i_').value.should be_empty
+    find('#registration_ab_time_2_5i_').value.should be_empty
+    find('#registration_ab_street_number').value.should be_empty
+    find('#registration_ab_street_name').value.should be_empty
+    find('#registration_ab_street_type').value.should be_empty
+    find('#registration_ab_apt').value.should be_empty
+    find('#registration_ab_city').value.should be_empty
+    find('#registration_ab_state').value.should be_empty
+    find('#registration_ab_zip5').value.should be_empty
+    find('#registration_ab_zip4').value.should be_empty
+    find('#registration_ab_country').value.should be_empty
   end
 
   private

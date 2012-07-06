@@ -53,6 +53,10 @@ class Registration < ActiveRecord::Base
   # Current status fields (from server)
   serialized_attr :existing
   serialized_attr :ssn4
+  serialized_attr :current_residence
+  serialized_attr :current_absentee
+  serialized_attr :absentee_for_elections
+
 
   def full_name
     [ first_name, middle_name, last_name, suffix ].delete_if(&:blank?).join(' ')
@@ -60,6 +64,14 @@ class Registration < ActiveRecord::Base
 
   def absentee?
     self.requesting_absentee == '1'
+  end
+
+  def currently_overseas?
+    self.current_residence == 'outside'
+  end
+
+  def currently_absentee?
+    self.current_absentee == '1'
   end
 
   def uocava?
@@ -78,6 +90,24 @@ class Registration < ActiveRecord::Base
     unless kind.blank?
       self.residence           = kind == 'overseas' ? 'outside' : 'in'
       self.requesting_absentee = !!(kind =~ /absentee|overseas/) ? '1' : '0'
+
+      self.rab_election        = nil
+      self.rab_election_name   = nil
+      self.rab_election_date   = nil
+      self.ab_field_1          = nil
+      self.ab_field_2          = nil
+      self.ab_time_1           = nil
+      self.ab_time_2           = nil
+      self.ab_reason           = nil
+      self.ab_street_number    = nil
+      self.ab_street_name      = nil
+      self.ab_street_type      = nil
+      self.ab_apt              = nil
+      self.ab_city             = nil
+      self.ab_state            = nil
+      self.ab_zip5             = nil
+      self.ab_zip4             = nil
+      self.ab_country          = nil
     end
   end
 

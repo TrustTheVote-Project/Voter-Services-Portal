@@ -381,6 +381,13 @@ class window.Registration
       else
         'none'
 
+    @summaryElection = ko.computed =>
+      if @rabElection() == 'other'
+        "#{@rabElectionName()} on #{@rabElectionDate()}"
+      else
+        v = @rabElection()
+        $("#registration_rab_election option[value='#{v}']").text()
+
   initOathFields: ->
     @infoCorrect  = ko.observable()
     @privacyAgree = ko.observable()

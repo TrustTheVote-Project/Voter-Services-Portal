@@ -3,12 +3,13 @@
   .row
     .span12
       .checkbox
-        - if updating
+        - if updating && changing_status_to_domestic_absentee?
           = f.hidden_field :requesting_absentee, 'data-bind' => 'valueWithInit: requestingAbsentee'
         - else
+          - f.object.requesting_absentee = '0'
           = f.check_box :requesting_absentee, { 'data-bind' => 'checkedWithInit: requestingAbsentee' }
-        %strong
-          I am not able to go to the polls on election day and would like an Absentee Ballot Application.
+        %label{ for: 'registration_requesting_absentee' }
+          %strong I am not able to go to the polls on election day and would like an Absentee Ballot Application.
       <!-- ko if: requestingAbsentee -->
       %p To apply to vote absentee, you must identify the election for which you are applying.
       <!-- /ko -->
@@ -16,15 +17,16 @@
   .row
     .span12
       %h4
-        %strong I am applying to vote absentee for
+        %label{ for: 'registration_rab_election' }
+          %strong I am applying to vote absentee for
       = f.select :rab_election, Dictionaries::ELECTIONS.merge('other' => 'Other').invert, { include_blank: true }, { class: 'span6', 'data-bind' => 'valueWithInit: rabElection' }
   <!-- ko if: rabElection() == 'other' -->
   .row
     .span6.election-name-field
-      %span Election name
+      %label{ for: 'registration_rab_election_name' } Election name
       = f.text_field :rab_election_name, 'data-bind' => 'valueWithInit: rabElectionName'
     .span3
-      %span Held on
+      %label{ for: 'registration_rab_election_date' } Held on
       = f.text_field :rab_election_date, 'data-bind' => 'valueWithInit: rabElectionDate', placeholder: 'MM/DD/YYYY'
   <!-- /ko -->
   <!-- /ko -->
@@ -39,7 +41,7 @@
         required information to support the reason.
   .row
     .span12
-      %span I am unable to go to the polls on election day because
+      %label{ for: 'registration_ab_reason' } I am unable to go to the polls on election day because
       = f.select :ab_reason, Dictionaries::ABSENCE_REASONS.invert, { include_blank: true }, { class: 'span10', 'data-bind' => 'valueWithInit: abReason' }
 
   -# Fields to blank elements of the record that aren't on the form
@@ -68,7 +70,7 @@
   <!-- ko if: abField1Required || abField2Required -->
   .row
     .span3
-      %span{ 'data-bind' => 'html: abField1Label' }
+      %label{ for: 'registration_ab_field_1', 'data-bind' => 'html: abField1Label' }
       <!-- ko if: abPartyLookupRequired -->
       = f.select :ab_field_1, Dictionaries::PARTIES, { include_blank: true }, 'data-bind' => 'valueWithInit: abField1'
       <!-- /ko -->
@@ -79,16 +81,16 @@
 
     <!-- ko if: abTimeRangeRequired -->
     .span3
-      %span Time start
+      %label{ for: 'registration_ab_time_1_4i_' } Time start
       = bound_time f, :ab_time_1
     .span3
-      %span Time end
+      %label{ for: 'registration_ab_time_2_4i_' } Time end
       = bound_time f, :ab_time_2
     <!-- /ko --> <!-- time range -->
 
     <!-- ko if: abField2Required -->
     .span3
-      %span{ 'data-bind' => 'html: abField2Label' }
+      %label{ for: 'registration_ab_field_2' } 'data-bind' => 'html: abField2Label' }
       = f.text_field :ab_field_2, 'data-bind' => 'valueWithInit: abField2'
     <!-- /ko -->
   <!-- /ko --> <!-- 1C -->
@@ -96,33 +98,33 @@
   <!-- ko if: abAddressRequired -->
   .row
     .span3
-      %span Street number
+      %label{ for: 'registration_ab_street_number' } Street number
       = f.text_field :ab_street_number, 'data-bind' => 'valueWithInit: abStreetNumber'
     .span3
-      %span Street name
+      %label{ for: 'registration_ab_street_name' } Street name
       = f.text_field :ab_street_name, 'data-bind' => 'valueWithInit: abStreetName'
     .span2.street-type-field
-      %span Street type
+      %label{ for: 'registration_ab_street_type' } Street type
       = f.select :ab_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { class: 'span1', 'data-bind' => 'valueWithInit: abStreetType' }
     .span2.lot-field
-      %span
+      %label{ for: 'registration_ab_apt' }
         Apt/Lot
         %label (optional)
       = f.text_field :ab_apt
   .row
     .span3
-      %span City
+      %label{ for: 'registration_ab_city' } City
       = f.text_field :ab_city, 'data-bind' => 'valueWithInit: abCity'
     .span3
-      %span Province or State
+      %label{ for: 'registration_ab_state' } Province or State
       = f.text_field :ab_state, 'data-bind' => 'valueWithInit: abState'
     .span3.postal-code-field
-      %span Postal code
+      %label{ for: 'registration_ab_zip5' } Postal code
       = f.text_field :ab_zip5, class: 'first-zip', 'data-bind' => 'valueWithInit: abZip5', placeholder: '12345'
       .space &mdash;
       = f.text_field :ab_zip4, class: 'second-zip', placeholder: '1234'
     .span2.country-field
-      %span Country
+      %label{ for: 'registration_ab_country' } Country
       = f.text_field :ab_country, 'data-bind' => 'valueWithInit: abCountry'
   <!-- /ko --> <!-- addressRequired -->
 <!-- /ko -->

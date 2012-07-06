@@ -43,7 +43,39 @@
               %th Political Party Preference:
               %td{ 'data-bind' => 'text: summaryParty' }
 
-  = render partial: 'confirm_absentee_status'
+  .row
+    .span10
+      .head.light
+        %h3 Voting Status
+
+      - if @registration.currently_overseas?
+        %p
+          %strong Overseas/Military Absentee Voter
+      - else
+        - if @registration.currently_absentee?
+          %p
+            %strong Domestic Absentee Voter
+          - af = @registration.absentee_for_elections || []
+          - unless af.blank?
+            %p Approved for absentee ballot for: #{af.join(', ')}
+        - else
+          %p
+            %strong Virginia Residential Voter
+
+      - if @registration.uocava?
+        %p
+          I am living overseas and won't be in the U.S. on election day and need
+          an <strong>Ansentee Ballot</strong>.
+      - else
+        <!-- ko if: requestingAbsentee -->
+        I am not able to go to the polls on election day and would like to request an Absentee Ballot for
+        %br
+        %strong{ 'data-bind' => 'html: summaryElection' }
+        <!-- /ko -->
+        <!-- ko ifnot: requestingAbsentee -->
+        - unless requesting_absentee_status
+          I will attend polls personally... TBD
+        <!-- /ko -->
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'
