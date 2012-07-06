@@ -78,6 +78,10 @@ class Registration < ActiveRecord::Base
     !currently_overseas? && currently_absentee?
   end
 
+  def currently_residential_voter?
+    !currently_overseas? && !currently_absentee?
+  end
+
   def uocava?
     self.residence == 'outside'
   end
