@@ -21,9 +21,10 @@ pdf_labeled_block pdf, "Addresses" do
       end
 
       if mac
-        pdf_fields pdf, [
-          { columns: 1, value: rr.mailing_address, label: 'mailing address' }
-        ]
+        fields = []
+        fields.push({ columns: 1, value: rr.registration_address, label: 'registration address' }) if !rac
+        fields.push({ columns: 1, value: rr.mailing_address, label: 'new mailing address' })
+        pdf_fields pdf, fields
       end
     end
 
