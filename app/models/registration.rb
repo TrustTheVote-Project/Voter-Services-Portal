@@ -57,6 +57,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :current_absentee
   serialized_attr :absentee_for_elections
 
+  before_create :review_absentee_until
 
   def full_name
     [ first_name, middle_name, last_name, suffix ].delete_if(&:blank?).join(' ')
@@ -117,6 +118,13 @@ class Registration < ActiveRecord::Base
       self.ab_zip4             = nil
       self.ab_country          = nil
     end
+
+    init_absentee_until
+  end
+
+  # Initializes the absentee_until field by the rules set in options
+  def init_absentee_until
+    self.absentee_until ||= AppConfig['choose_absentee_until'] ? 1.year.from_now : Date.today.end_of_year
   end
 
   # Existing voter type (used in logs)
@@ -130,6 +138,20 @@ class Registration < ActiveRecord::Base
     else
       "Residential Voter"
     end
+  end
+
+  private
+
+  def review_absentee_until
+    return if self.absentee_until.blank?
+
+    if AppConfig['choose_absentee_until']
+      max_date = 1.year.from_now
+    else
+      max_date = Date.today.end_of_year
+    end
+
+    self.absentee_until = max_date if self.absentee_until > max_date
   end
 
 end
