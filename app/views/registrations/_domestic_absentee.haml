@@ -90,7 +90,7 @@
 
     <!-- ko if: abField2Required -->
     .span3
-      %label{ for: 'registration_ab_field_2' } 'data-bind' => 'html: abField2Label' }
+      %label{ for: 'registration_ab_field_2', 'data-bind' => 'html: abField2Label' }
       = f.text_field :ab_field_2, 'data-bind' => 'valueWithInit: abField2'
     <!-- /ko -->
   <!-- /ko --> <!-- 1C -->
