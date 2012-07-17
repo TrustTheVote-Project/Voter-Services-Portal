@@ -79,17 +79,17 @@ describe Registration do
     it 'should be set to the end of the current year if not choosing' do
       AppConfig['choose_absentee_until'] = false
       r = Factory(:registration, absentee_until: 2.years.from_now)
-      r.absentee_until.should == Date.today.end_of_year
+      r.absentee_until.should be_within(1).of(1.year.from_now.end_of_year)
     end
 
     it 'should pass valid dates' do
       AppConfig['choose_absentee_until'] = true
       r = Factory(:registration, absentee_until: 1.month.from_now)
-      r.absentee_until.should be_within(2).of(1.month.from_now)
+      r.absentee_until.should be_within(1).of(1.month.from_now)
 
       AppConfig['choose_absentee_until'] = false
       r = Factory(:registration, absentee_until: 1.month.from_now)
-      r.absentee_until.should be_within(2).of(1.month.from_now)
+      r.absentee_until.should be_within(1).of(1.month.from_now)
     end
   end
 

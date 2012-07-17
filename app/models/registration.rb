@@ -124,7 +124,7 @@ class Registration < ActiveRecord::Base
 
   # Initializes the absentee_until field by the rules set in options
   def init_absentee_until
-    self.absentee_until ||= AppConfig['choose_absentee_until'] ? 1.year.from_now : Date.today.end_of_year
+    self.absentee_until ||= AppConfig['choose_absentee_until'] ? 1.year.from_now : 1.year.from_now.end_of_year
   end
 
   # Existing voter type (used in logs)
@@ -148,7 +148,7 @@ class Registration < ActiveRecord::Base
     if AppConfig['choose_absentee_until']
       max_date = 1.year.from_now
     else
-      max_date = Date.today.end_of_year
+      max_date = 1.year.from_now.end_of_year
     end
 
     self.absentee_until = max_date if self.absentee_until > max_date
