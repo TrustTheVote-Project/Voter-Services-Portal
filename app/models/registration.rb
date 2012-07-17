@@ -151,7 +151,7 @@ class Registration < ActiveRecord::Base
       max_date = 1.year.from_now.end_of_year
     end
 
-    self.absentee_until = max_date if self.absentee_until > max_date
+    self.absentee_until = max_date if self.absentee_until.to_i > max_date.to_i
   end
 
 end

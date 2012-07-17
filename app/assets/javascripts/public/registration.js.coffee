@@ -183,6 +183,9 @@ class window.Registration
     @serviceId              = ko.observable()
     @rank                   = ko.observable()
 
+    @residence.subscribe (v) =>
+      @requestingAbsentee(v == 'outside')
+
     @abReason               = ko.observable()
     @abField1               = ko.observable()
     @abField2               = ko.observable()

@@ -229,6 +229,14 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     mailing_address(:previous_data)
   end
 
+  def residence_still_available?
+    @reg.vvr_uocava_residence_available == '1'
+  end
+
+  def residence_unavailable_since
+    @reg.vvr_uocava_residence_unavailable_since.strftime("%B %d, %Y")
+  end
+
   # Changes
 
   def name_changed?
