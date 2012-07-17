@@ -5,15 +5,16 @@
       .checkbox
         = f.hidden_field :requesting_absentee, 'data-bind' => 'valueWithInit: requestingAbsentee'
         %strong
-          I will not be able to vote in person, and would like to vote absentee until:
+          I will not be able to vote in person, and would like to vote absentee until #{ " #{f.object.absentee_until.strftime("%B %d, %Y")}" unless AppConfig['choose_absentee_until']}:
 
   <!-- ko if: requestingAbsentee -->
-  .row
-    .span3
-      = f.hidden_field :absentee_until
-      #absentee_until.sliderbar
-    .span3
-      .absentee_until_label{ 'data-bind' => 'text: absenteeUntilFormatted' }
+  - if AppConfig['choose_absentee_until']
+    .row
+      .span3
+        = f.hidden_field :absentee_until
+        #absentee_until.sliderbar
+      .span3
+        .absentee_until_label{ 'data-bind' => 'text: absenteeUntilFormatted' }
 
   .row
     .span12
