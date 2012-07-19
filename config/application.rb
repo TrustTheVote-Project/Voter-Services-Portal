@@ -53,7 +53,7 @@ module VaVote
     # Enable the asset pipeline
     config.assets.enabled = true
 
-    config.assets.precompile += %w{ admin.css admin.js }
+    config.assets.precompile += %w{ admin.css admin.js pdf.css }
 
     # Library assets
     # config.assets.path << File.join(Rails.root, 'lib', 'assets')
