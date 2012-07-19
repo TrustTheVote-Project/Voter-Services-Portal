@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:alg/wicked_pdf.git
+  remote: git://github.com/alg/wicked_pdf.git
   revision: 4ffaeda52ea23e1b2934fdc0bf3fbbb0ee4172a2
   branch: issue-114
   specs:
