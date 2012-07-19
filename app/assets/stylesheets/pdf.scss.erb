@@ -1,0 +1,111 @@
+body {
+  font-family: Helvetica, Arial, sans-serif;
+  font-size: 10pt;
+}
+
+#header {
+  background: #ddd;
+  padding: 10px 10px;
+  overflow: hidden;
+
+  h1, h2 {
+    font-family: Georgia;
+    font-weight: normal;
+    font-size: 22pt;
+    margin: 0;
+    padding: 0;
+  }
+
+  h1 { color: #000; }
+  h2 { color: #888; }
+
+  .overseas {
+    float: right;
+    color: #888;
+    margin-top: -15px;
+  }
+}
+
+.section {
+  margin-top: 5px;
+  padding-top: 15px;
+  page-break-inside: avoid;
+
+  .border {
+    padding: 15px 10px 10px;
+    border: 1px solid #ddd;
+    overflow: hidden;
+  }
+
+  h1 {
+    position: absolute;
+    display: inline-block;
+    color: #888;
+    background: #fff;
+    font-family: Georgia;
+    font-size: 11pt;
+    font-weight: normal;
+    margin-top: -25px;
+    padding: 0 5px;
+  }
+
+  .row {
+    clear: both;
+    width: 702px;
+    overflow: hidden;
+    margin-bottom: 8px;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .span1, .span2, .span3, .span4, .span6 { float: left; }
+  .span1 { width: 117px; }
+  .span2 { width: 234px; }
+  .span3 { width: 351px; }
+  .span4 { width: 468px; }
+  .span6 { width: 702px; }
+}
+
+.check {
+  padding-left: 16px;
+  background: url(<%= asset_data_uri 'checkbox.png' %>) 0 0 no-repeat;
+}
+
+.line {
+  .optional {
+    height: '1ex';
+  }
+
+  label {
+    border-top: 1px solid #666;
+    margin-top: 3px;
+    padding-top: 3px;
+    display: block;
+    font-size: 8pt;
+    color: #666;
+  }
+}
+
+.check.oath {
+  font-size: 8pt;
+}
+
+.sign-block {
+  background: #aaa;
+  padding: 5px;
+
+  h2 {
+    margin: 0 0 0 10px;
+    color: #000;
+    font-size: 10pt;
+  }
+
+  .row.field {
+    width: auto;
+    background: #fff;
+    margin-top: 5px;
+    padding: 10px;
+    overflow: hidden;
+  }
+}

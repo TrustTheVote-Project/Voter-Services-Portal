@@ -1,0 +1,55 @@
+- rac = rr.registration_address_changed?
+- mac = rr.mailing_address_changed?
+- er = rr.existing_registration_changed? && rr.existing_registration?
+- ac = rr.address_confidentiality?
+
+.section
+  .border
+    %h1 Addresses
+
+    - if !rac && !mac
+      .row
+        .span3.line
+          = rr.registration_address
+          %label registration address
+        .span3.line
+          = rr.mailing_address
+          %label mailing_address
+
+    - else
+      - if rac
+        .row
+          .span3.line
+            = rr.registration_address
+            %label new registration address
+          .span3.line
+            = rr.previous_registration_address
+            %label previous registration address
+
+      - if mac
+        .row
+          .span3.line
+            = rr.registration_address
+            %label registration address
+          .span3.line
+            = rr.update_mailing_address
+            %label new mailing address
+
+    - if er || ac
+      .row
+        - if er
+          .span3.line
+            = rr.existing_registration_address
+            %label previous registration address
+        - if ac
+          .span3.line
+            = rr.acp_reason
+            %label address confidentiality
+
+      .row
+        - if er
+          .span3
+            .check Cancel my existing registrating
+        - if ac
+          .span3
+            .check I request that my home address not be released

@@ -1,0 +1,52 @@
+.section
+  .border
+    %h1 Identity
+
+    - name_width = rr.email_changed? ? 4 : 6
+    .row
+      %div{ class: "span#{name_width} line" }
+        = rr.name
+        %label #{rr.name_changed? ? "new name" : "name" }
+
+      - if rr.email_changed?
+        .span2
+          = rr.email
+          %label new email
+
+    - if rr.name_changed?
+      .row
+        .line
+          = rr.previous_name
+          %label previous name
+
+    .row
+      .span1.line
+        = rr.ssn
+        %label social security number
+      .span1.line
+        = rr.dob
+        %label date of birth
+
+      .span1.line
+        - if rr.phone_changed?
+          = rr.phone
+          %label new phone
+        - else
+          &nbsp;
+          %label &nbsp;
+
+      .span1.line
+        &nbsp;
+        %label &nbsp;
+
+      .span2.line
+        - if rr.party_changed?
+          = rr.party_preference
+          %label new party preference
+        - else
+          &nbsp;
+          %label &nbsp;
+
+    - if rr.being_official?
+      .row
+        .check I'm interested in being an Election Official on Election Day. Please send me information.

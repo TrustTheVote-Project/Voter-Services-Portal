@@ -9,7 +9,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
   # Rights
 
   def rights_revoked?
-    @reg.rights_revoked == 'yes'
+    @reg.rights_revoked == '1'
   end
 
   def rights_restored_in
@@ -38,10 +38,6 @@ class RegistrationForPdf < RegistrationDetailsPresenter
       d[:suffix] ].reject(&:blank?).join(' ')
   end
 
-  def email
-    @reg.email
-  end
-
   def ssn
     if !@reg.ssn4.blank?
       "xxx-xx-#{@reg.ssn4}"
@@ -55,10 +51,6 @@ class RegistrationForPdf < RegistrationDetailsPresenter
 
   def dob
     @reg.dob.try(:strftime, '%m/%d/%Y')
-  end
-
-  def phone
-    @reg.phone
   end
 
   def gender
@@ -226,7 +218,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
   end
 
   def previous_mailing_address
-    mailing_address(:previous_data)
+    update_mailing_address(:previous_data)
   end
 
   def residence_still_available?

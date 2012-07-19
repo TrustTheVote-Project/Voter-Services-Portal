@@ -1,0 +1,38 @@
+.section
+  .border
+    %h1 Absentee
+
+    .row
+      .check I will not be able to vote in person, and would like to vote absentee
+    .row
+      .line
+        until #{rr.absentee_status_until}
+        %label absentee status duration
+
+    .row
+      .check= rr.absentee_type
+    - if rr.outside_type_with_details?
+      .row
+        .span2.line
+          = rr.military_branch
+          %label service branch
+        .span2.line
+          = rr.military_service_id
+          %label service id
+        .span2.line
+          = rr.military_rank
+          %label rank, grade, or rate
+
+    .row
+      .check
+        - if rr.residence_still_available?
+          My Virginia residence is still available to me
+        - else
+          My Virginia residence is is no longer available to me
+
+    - unless rr.residence_still_available?
+      .row
+        .line
+          = rr.residence_unavailable_since
+          %label last residence at the above address
+

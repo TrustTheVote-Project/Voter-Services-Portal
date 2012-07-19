@@ -1,0 +1,9 @@
+- title     = "Application Form"
+- subheader = rr.overseas? ? "Overseas / Military Voter" : nil
+- title, subheader = rr.subheaders if @update
+
+#header
+  %h1 Virginia Voter Registration
+  %h2= title
+  - if subheader
+    .overseas= subheader

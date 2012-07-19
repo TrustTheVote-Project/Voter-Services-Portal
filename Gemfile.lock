@@ -1,7 +1,13 @@
+GIT
+  remote: git@github.com:alg/wicked_pdf.git
+  revision: 4ffaeda52ea23e1b2934fdc0bf3fbbb0ee4172a2
+  branch: issue-114
+  specs:
+    wicked_pdf (0.7.9)
+
 GEM
   remote: https://rubygems.org/
   specs:
-    Ascii85 (1.0.1)
     actionmailer (3.2.2)
       actionpack (= 3.2.2)
       mail (~> 2.4.0)
@@ -130,9 +136,6 @@ GEM
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
     nokogiri (1.5.2)
-    pdf-reader (1.0.0)
-      Ascii85 (~> 1.0.0)
-      ruby-rc4
     poltergeist (0.6.0)
       capybara (~> 1.0)
       childprocess (~> 0.3)
@@ -140,12 +143,6 @@ GEM
       http_parser.rb (~> 0.5.3)
       multi_json (~> 1.0)
     polyglot (0.3.3)
-    prawn (0.12.0)
-      pdf-reader (>= 0.9.0)
-      ttfunk (~> 1.0.2)
-    prawn_rails (0.0.8)
-      prawn (>= 0.11.1)
-      rails (>= 3.0.0)
     rack (1.4.1)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -187,7 +184,6 @@ GEM
       activesupport (>= 3.0)
       railties (>= 3.0)
       rspec (~> 2.9.0)
-    ruby-rc4 (0.1.5)
     rubyzip (0.9.6.1)
     sass (3.1.15)
     sass-rails (3.2.4)
@@ -223,7 +219,6 @@ GEM
     treetop (1.4.10)
       polyglot
       polyglot (>= 0.3.1)
-    ttfunk (1.0.3)
     turnip (1.0.0)
       gherkin (>= 2.5)
       rspec (~> 2.0)
@@ -260,7 +255,6 @@ DEPENDENCIES
   launchy
   mysql2
   poltergeist
-  prawn_rails
   rails (= 3.2.2)
   rdiscount
   rspec
@@ -275,3 +269,4 @@ DEPENDENCIES
   turnip
   uglifier (>= 1.0.3)
   whenever
+  wicked_pdf!

@@ -27,8 +27,8 @@ gem 'compass-rails', '1.0.0.rc.3'
 
 gem 'simple_form'
 
-gem 'prawn_rails'
 gem 'kronic'
+gem 'wicked_pdf', git: 'git@github.com:alg/wicked_pdf.git', branch: 'issue-114'
 
 group :development do
   gem 'capistrano'

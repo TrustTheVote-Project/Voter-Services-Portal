@@ -1,0 +1,37 @@
+.section
+  .border
+    %h1 Addresses
+
+    .row
+      .span3.line
+        = rr.registration_address
+        %label registration_address
+      .span3.line
+        = rr.mailing_address
+        %label mailing address
+
+    - if rr.existing_registration? || rr.address_confidentiality?
+      .row
+        .span3
+          - if rr.existing_registration?
+            .line
+              = rr.existing_registration_address
+              %label previous registration address
+          - else
+            &nbsp;
+
+        .span3
+          - if rr.address_confidentiality?
+            .line
+              = rr.acp_reason
+              %label address confidentiality
+
+      .row
+        .span3
+          - if rr.existing_registration?
+            .check Cancel my existing registration
+          - else
+            &nbsp;
+        .span3
+          - if rr.address_confidentiality?
+            .check I request that my home address not be released

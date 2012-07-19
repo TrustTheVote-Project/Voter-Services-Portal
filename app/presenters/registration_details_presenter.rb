@@ -4,11 +4,19 @@ class RegistrationDetailsPresenter
   extend Forwardable
 
   def_delegators :@registration, :full_name, :voting_address,
-                 :mailing_address, :email, :phone, :absentee?, :uocava?
+                 :absentee?, :uocava?
 
   def initialize(reg)
     @registration = reg
     @vvr = {}
+  end
+
+  def email
+    optional(@registration.email)
+  end
+
+  def phone
+    optional(@registration.phone)
   end
 
   # Formatted date of birth
@@ -83,7 +91,15 @@ class RegistrationDetailsPresenter
     end
   end
 
-  def mailing_address(d = :data)
+  def mailing_address
+    if overseas?
+      overseas_mailing_address
+    else
+      domestic_mailing_address
+    end
+  end
+
+  def update_mailing_address(d = :data)
     if d == :data ? @registration.currently_overseas? : overseas?(d)
       overseas_mailing_address(d)
     else
@@ -133,6 +149,12 @@ class RegistrationDetailsPresenter
 
   def overseas?(d = :data)
     @registration.send(d)[:residence] == 'outside'
+  end
+
+  protected
+
+  def optional(v)
+    v.blank? ? '&nbsp;'.html_safe : v
   end
 
 end

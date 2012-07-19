@@ -1,0 +1,34 @@
+- af = rr.absence_fields
+- aa = rr.absence_address
+- tr = rr.absence_time_range
+
+.section
+  .border
+    %h1 Absentee
+
+    .row
+      .check I will not be able to vote in person, and would like to vote absentee
+    .row
+      .check= rr.absence_reason
+
+    .row
+      .line
+        = rr.absentee_election
+        %label election
+
+    - unless af.blank?
+      .row
+        - af.each do |f|
+          .span3.line
+            = f[:value]
+            %label= f[:label]
+
+    .row
+      - unless aa.blank?
+        .span3.line
+          = aa
+          %label address
+      - unless tr.blank?
+        .span3.line
+          = tr
+          %label time range

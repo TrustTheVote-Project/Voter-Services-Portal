@@ -1,0 +1,33 @@
+.section
+  .border
+    %h1 Identity
+
+    .row
+      .span4.line
+        = rr.name
+        %label name
+      .span2.line
+        = rr.email
+        %label email
+
+    .row
+      .span1.line
+        = rr.ssn
+        %label social security number
+      .span1.line
+        = rr.dob
+        %label date of birth
+      .span1.line
+        = rr.phone
+        %label phone
+      .span1.line
+        = rr.gender
+        %label gender
+      .span2.line
+        = rr.party_preference
+        %label party preference
+
+    - if rr.being_official?
+      .row
+        .span6
+          .check I'm interested in being an Election Official on Election Day. Please send me information.
