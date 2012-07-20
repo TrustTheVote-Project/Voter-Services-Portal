@@ -7,10 +7,15 @@ Requirements
 
 * Ruby 1.9.3
 * Sqlite3 (development), MySQL 5+ (production)
+* wkhtmltopdf (http://code.google.com/p/wkhtmltopdf/)
 
 
 Installation
 ------------
+
+* Make sure `wkhtmltopdf` is installed. If not, pick the right binary from
+  the Downloads page and either place it or symlink so that Rails sees
+  it. Good choices for symlink are `/usr/bin` or `/usr/local/bin`.
 
 * Get the most recent source code.
 
