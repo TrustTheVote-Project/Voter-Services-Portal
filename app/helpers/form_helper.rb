@@ -67,4 +67,19 @@ module FormHelper
     reg.currently_overseas? || !reg.currently_absentee?
   end
 
+  def field_line(span, value, label = '&nbsp;', options = {})
+    if value == :empty || (options.has_key?(:if) && !options[:if])
+      label = value = "&nbsp;".html_safe
+    end
+
+    content_tag(:div, [
+      content_tag(:div, value, class: 'value'),
+      content_tag(:label, label )
+    ].join(' ').html_safe, class: "span#{span} line")
+  end
+
+  def empty_span(span)
+    content_tag(:div, "&nbsp;".html_safe, class: "span#{span}")
+  end
+
 end

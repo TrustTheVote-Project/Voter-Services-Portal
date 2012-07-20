@@ -3,35 +3,26 @@
     %h1 Addresses
 
     .row
-      .span3.line
-        = rr.registration_address
-        %label registration_address
-      .span3.line
-        = rr.mailing_address
-        %label mailing address
+      = field_line 3, rr.registration_address, 'registration address'
+      = field_line 3, rr.mailing_address, 'mailing address'
 
     - if rr.existing_registration? || rr.address_confidentiality?
       .row
-        .span3
-          - if rr.existing_registration?
-            .line
-              = rr.existing_registration_address
-              %label previous registration address
-          - else
-            &nbsp;
+        - if rr.existing_registration?
+          = field_line 3, rr.existing_registration_address, 'previous registration address'
+        - else
+          = empty_span 3
 
-        .span3
-          - if rr.address_confidentiality?
-            .line
-              = rr.acp_reason
-              %label address confidentiality
+        - if rr.address_confidentiality?
+          = field_line 3, rr.acp_reason, 'address confidentiality'
 
       .row
-        .span3
-          - if rr.existing_registration?
+        - if rr.existing_registration?
+          .span3
             .check Cancel my existing registration
-          - else
-            &nbsp;
-        .span3
-          - if rr.address_confidentiality?
+        - else
+          = empty_span 3
+
+        - if rr.address_confidentiality?
+          .span3
             .check I request that my home address not be released

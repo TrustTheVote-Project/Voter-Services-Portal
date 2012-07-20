@@ -3,31 +3,16 @@
     %h1 Identity
 
     .row
-      .span4.line
-        = rr.name
-        %label name
-      .span2.line
-        = rr.email
-        %label email
+      = field_line 4, rr.name, 'name'
+      = field_line 2, rr.email, 'email'
 
     .row
-      .span1.line
-        = rr.ssn
-        %label social security number
-      .span1.line
-        = rr.dob
-        %label date of birth
-      .span1.line
-        = rr.phone
-        %label phone
-      .span1.line
-        = rr.gender
-        %label gender
-      .span2.line
-        = rr.party_preference
-        %label party preference
+      = field_line 1, rr.ssn, 'social security number'
+      = field_line 1, rr.dob, 'date of birth'
+      = field_line 1, rr.phone, 'phone'
+      = field_line 1, rr.gender, 'gender'
+      = field_line 2, rr.party_preference, 'party preference'
 
     - if rr.being_official?
       .row
-        .span6
-          .check I'm interested in being an Election Official on Election Day. Please send me information.
+        .check I'm interested in being an Election Official on Election Day. Please send me information.

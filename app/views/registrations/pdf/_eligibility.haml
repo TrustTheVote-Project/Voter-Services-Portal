@@ -11,12 +11,6 @@
       - else
         .span4
           .check My voting rights were revoked in the past due to a #{rr.rights_revokation_reason}.
-        .span1
-          .line
-            = rr.rights_restored_on
-            %label date when restored
+        = field_line 1, rr.rights_restored_on, 'date when restored'
         - if rr.rights_revoked_felony?
-          .span1
-            .line
-              = rr.rights_restored_in
-              %label state where convicted
+          = field_line 1, rr.rights_restored_in, 'state where convicted'

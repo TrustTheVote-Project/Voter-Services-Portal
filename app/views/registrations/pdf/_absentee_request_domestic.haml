@@ -19,16 +19,10 @@
     - unless af.blank?
       .row
         - af.each do |f|
-          .span3.line
-            = f[:value]
-            %label= f[:label]
+          = field_line 3, f[:value], f[:label]
 
     .row
       - unless aa.blank?
-        .span3.line
-          = aa
-          %label address
+        = field_line 3, aa, 'address'
       - unless tr.blank?
-        .span3.line
-          = tr
-          %label time range
+        = field_line 3, tr, 'time range'

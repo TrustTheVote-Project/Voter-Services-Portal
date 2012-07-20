@@ -4,48 +4,21 @@
 
     - name_width = rr.email_changed? ? 4 : 6
     .row
-      %div{ class: "span#{name_width} line" }
-        = rr.name
-        %label #{rr.name_changed? ? "new name" : "name" }
+      = field_line name_width, rr.name, rr.name_changed? ? "new name" : "name"
 
       - if rr.email_changed?
-        .span2
-          = rr.email
-          %label new email
+        = field_line 2, rr.email, 'new email'
 
     - if rr.name_changed?
       .row
-        .line
-          = rr.previous_name
-          %label previous name
+        = field_line 6, rr.previous_name, 'previous name'
 
     .row
-      .span1.line
-        = rr.ssn
-        %label social security number
-      .span1.line
-        = rr.dob
-        %label date of birth
-
-      .span1.line
-        - if rr.phone_changed?
-          = rr.phone
-          %label new phone
-        - else
-          &nbsp;
-          %label &nbsp;
-
-      .span1.line
-        &nbsp;
-        %label &nbsp;
-
-      .span2.line
-        - if rr.party_changed?
-          = rr.party_preference
-          %label new party preference
-        - else
-          &nbsp;
-          %label &nbsp;
+      = field_line 1, rr.ssn, 'social security number'
+      = field_line 1, rr.dob, 'date of birth'
+      = field_line 1, rr.phone, 'new phone', if: rr.phone_changed?
+      = field_line 1, :empty
+      = field_line 2, rr.party_preference, 'new party preference', if: rr.party_changed?
 
     - if rr.being_official?
       .row
