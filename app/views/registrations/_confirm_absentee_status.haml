@@ -3,24 +3,20 @@
     .head.light
       %h3 Voting Status
 
-    <!-- ko if: overseas() -->
+    <!-- ko if: overseas -->
     %p
       %strong Overseas/Military Absentee Voter
-    %p
-      I am living overseas and won't be in the U.S. on election day and need
-      an <strong>Ansentee Ballot</strong>.
+    %p Receiving an absentee ballot for elections through <strong data-bind="text: absenteeUntilFormatted"></strong>
     <!-- /ko -->
 
     <!-- ko if: domestic() && requestingAbsentee() -->
     %p
       %strong Domestic Absentee Voter
     %p
-      I am a Virginia resident but am not able to go to the polls on election
-      day and would like to request an <strong>Absentee Ballot Application</strong>.
+      Requesting an <strong>Absentee Ballot</strong> for <span data-bind='html: summaryElection'></span>
     <!-- /ko -->
 
     <!-- ko if: domestic() && !requestingAbsentee() -->
     %p
       %strong Virginia Residential Voter
-    %p Resident able to go to polls for the upcoming election on 06/12/2012.
     <!-- /ko -->

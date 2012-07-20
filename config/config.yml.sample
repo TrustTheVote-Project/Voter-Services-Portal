@@ -13,9 +13,6 @@ registration_request:
 # Toggles if we let absentees to choose the end date
 choose_absentee_until: false
 
-# Allow domestic absentees to change status to residential voter
-allow_domestic_absentees_change_to_voter: false
-
 # Server for online ballot marking
 dl:
   url:

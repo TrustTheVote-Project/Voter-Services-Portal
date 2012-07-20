@@ -48,33 +48,46 @@
       .head.light
         %h3 Voting Status
 
+      - af = @registration.absentee_for_elections || []
       - if @registration.currently_overseas?
+        <!-- ko if: overseas -->
         %p
           %strong Overseas/Military Absentee Voter
-      - else
-        - if @registration.currently_absentee?
-          %p
-            %strong Domestic Absentee Voter
-          - af = @registration.absentee_for_elections || []
-          - unless af.blank?
-            %p Approved for absentee ballot for: #{af.join(', ')}
-        - else
-          %p
-            %strong Virginia Residential Voter
 
-      - if @registration.uocava?
+        %p Receiving an absentee ballot for elections through <strong data-bind="text: absenteeUntilFormatted"></strong>
+        <!-- /ko --> <!-- overseas -->
+
+        <!-- ko if: domestic -->
         %p
-          I am living overseas and won't be in the U.S. on election day and need
-          an <strong>Ansentee Ballot</strong>.
-      - else
-        <!-- ko if: requestingAbsentee -->
-        I am not able to go to the polls on election day and would like to request an Absentee Ballot for
-        %br
-        %strong{ 'data-bind' => 'html: summaryElection' }
+          %strong Returning Overseas/Military Absentee Voter
+        %p
+          Now residing in Virginia, and submitting registration update in order to vote
+          in the upcoming elections.
         <!-- /ko -->
-        <!-- ko ifnot: requestingAbsentee -->
-        - unless requesting_absentee_status
-          I will attend polls personally... TBD
+      - else
+        <!-- ko if: domestic -->
+        %p
+          %strong{ 'data-bind' => 'ifnot: requestingAbsentee' }
+            - if af.empty?
+              Virginial Residential Voter
+            - else
+              Domestic Absentee Voter
+
+          %strong{ 'data-bind' => 'if: requestingAbsentee' }
+            Domestic Absentee Voter
+
+        - unless af.blank?
+          %p Approved for absentee ballot for: #{af.join(', ')}
+
+        %p{ 'data-bind' => 'if: requestingAbsentee' }
+          Requesting an <strong>Absentee Ballot</strong> for <span data-bind='html: summaryElection'></span>
+        <!-- /ko -->
+
+        <!-- ko if: overseas -->
+        %p
+          %strong Overseas/Military Absentee Voter
+        %p
+          Requesting an absentee ballot for elections through <strong data-bind="text: absenteeUntilFormatted"></strong>
         <!-- /ko -->
 
   .form-actions

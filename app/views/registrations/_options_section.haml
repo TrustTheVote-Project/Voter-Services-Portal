@@ -60,10 +60,8 @@
         <!-- /ko -->
     <!-- /ko -->
 
-  = f.hidden_field :requesting_absentee
-  - if !updating || @registration.requesting_absentee == '1'
-    = render partial: 'domestic_absentee', locals: { f: f, updating: updating }
-    = render partial: 'overseas_absentee', locals: { f: f, updating: updating }
+  = render partial: 'domestic_absentee', locals: { f: f, updating: updating }
+  = render partial: 'overseas_absentee', locals: { f: f, updating: updating }
 
   = hidden_field_tag 'registration[be_official]', '0'
   <!-- ko if: domestic -->

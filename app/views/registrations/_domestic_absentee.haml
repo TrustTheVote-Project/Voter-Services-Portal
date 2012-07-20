@@ -3,10 +3,7 @@
   .row
     .span12
       .checkbox
-        - if updating && changing_status_to_domestic_absentee?
-          = f.hidden_field :requesting_absentee, 'data-bind' => 'valueWithInit: requestingAbsentee'
-        - else
-          = f.check_box :requesting_absentee, 'data-bind' => 'checked: requestingAbsentee'
+        = f.check_box :requesting_absentee, 'data-bind' => 'checked: requestingAbsentee'
         %label{ for: 'registration_requesting_absentee' }
           %strong I am not able to go to the polls on election day and would like an Absentee Ballot Application.
       <!-- ko if: requestingAbsentee -->

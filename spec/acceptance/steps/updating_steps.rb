@@ -1,20 +1,10 @@
 steps_for :updating do
 
-  step 'domestic absentees allowed change status to residential voters' do
-    AppConfig['allow_domestic_absentees_change_to_voter'] = true
-  end
-
-  step 'domestic absentees not allowed change status to residential voters' do
-    AppConfig['allow_domestic_absentees_change_to_voter'] = false
-  end
-
   step 'I look up :kind record' do |kind|
     visit search_path
 
     if kind == 'residential voter'
       voter_id = '123123123'
-    elsif kind == 'domestic absentee'
-      voter_id = '333222111'
     else
       voter_id = '111222333'
     end
@@ -92,25 +82,13 @@ steps_for :updating do
     page.should have_css ".btn.next.disabled"
   end
 
-  step 'initiate change status to domestic absentee' do
-    choose  "Domestic Absentee Voter"
-    step    "I proceed"
-  end
-
-  step 'change status to domestic absentee' do
-    step    "initiate change status to domestic absentee"
-    step    "I should see the addresses page"
-    step    "I proceed"
-
-    step    "I should see the options page"
-    select  Dictionaries::ELECTIONS.to_a.first[1], from: "registration_rab_election"
-    select  "My pregnancy", from: "registration_ab_reason"
+  step 'choose overseas absentee status option' do
+    choose  "Overseas/Military Absentee Voter"
     step    "I proceed"
   end
 
   step 'change status to overseas absentee' do
-    choose  "Overseas/Military Absentee Voter"
-    step    "I proceed"
+    step    "choose overseas absentee status option"
 
     step    "I should see the addresses page"
     choose  "My Virginia residence is still available to me"

@@ -10,7 +10,7 @@ describe RegistrationDetailsPresenter do
 
   describe "status_options" do
     it "should place overseas before everything else" do
-      rdp(uocava: true).status_options.should == [ "overseas", "separator", "residential_voter", "domestic_absentee" ]
+      rdp(uocava: true).status_options.should == [ "overseas", "separator", "residential_voter" ]
     end
   end
 

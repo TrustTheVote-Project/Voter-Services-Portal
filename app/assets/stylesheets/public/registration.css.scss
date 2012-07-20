@@ -100,6 +100,13 @@ select {
     color: #000;
     margin-bottom: 5px;
     display: block;
+    strong {
+      color: #4D4B4C;
+    }
+  }
+
+  p span {
+    display: inline;
   }
 
   label label, span label {
