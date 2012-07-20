@@ -11,7 +11,7 @@
   = render partial: 'registrations/pdf/identity', locals: { rr: rr }
   = render partial: 'registrations/pdf/addresses', locals: { rr: rr }
 
-- if rr.requesting_absentee?
+- if rr.overseas? || rr.requesting_absentee?
   - partial = rr.overseas? ? "overseas" : "domestic"
   = render partial: "registrations/pdf/absentee_request_#{partial}", locals: { rr: rr }
 
