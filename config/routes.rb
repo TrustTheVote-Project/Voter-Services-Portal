@@ -19,6 +19,7 @@ VaVote::Application.routes.draw do
   resource :registration, except: :destroy do
     get '/edit/:kind' => 'registrations#edit'
   end
+  get '/voter_card.pdf' => 'voter_cards#show', format: 'pdf', as: 'voter_card'
 
   get '/register/residential' => 'registrations#new', defaults: { residence: 'in' }, as: 'register_residential'
   get '/register/overseas'    => 'registrations#new', defaults: { residence: 'outside' }, as: 'register_overseas'

@@ -1,0 +1,63 @@
+- r = VoterCard.new(@registration)
+%table.main
+  %tr
+    %td.section
+      .logo
+      %h1 Commonweath of Virginia
+      %h2 Voter Card
+      %table.details
+        %tr
+          %td ID<br/>NO.
+          %td <br/>#{r.id}
+          %td.date DATE<br/>ISSUED
+          %td <br/>#{r.date_issued}
+
+      %p.registration
+        #{r.name}<br/>
+        #{r.registration_line_1}<br/>
+        #{r.registration_line_2}
+
+      %p LANGUAGE PREFERENCE: #{r.language}
+
+      %p.id= r.id
+
+      .voting_location
+        %h3 VOTING LOCATION:
+        %p
+          #{r.voting_location_line_1}<br/>
+          #{r.voting_location_line_2}
+
+    %td.fold
+      F o l d &nbsp; h e r e
+
+    %td.section.middle
+      %p LOCALITY: #{r.locality}
+      %p PRECINCT: #{r.precinct}
+
+      %p DISTRICTS: #{r.districts}
+      %p LOCAL: #{r.local}
+
+      .voter_office
+        %h3 Voter Registration Office
+        %p #{r.voter_registration_office.gsub("\n", "<br/>").html_safe}
+
+    %td.fold
+      F o l d &nbsp; h e r e
+
+    %td.section.right
+      .town_elections
+        %h3 For Town Elections:
+        %p TOWN:<br/><br/><br/>
+        %P TOWN PRECINCT / DISTRICT:<br/><br/><br/>
+        %p TOWN ELECTION VOTING LOCATION:<br/><br/><br/>
+
+.note
+  *** Please show this card or other proper ID when you go to vote
+
+%table.footer
+  %tr
+    %td.mailing_address
+      #{r.name}<br/>
+      #{r.mailing_line_1}<br/>
+      #{r.mailing_line_2}
+
