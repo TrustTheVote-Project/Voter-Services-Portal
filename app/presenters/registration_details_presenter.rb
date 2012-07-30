@@ -80,7 +80,7 @@ class RegistrationDetailsPresenter
           city,
           [ 'VA', zip ].join(' ') ].reject(&:blank?).join(', ')
       else
-        data[:vvr_rural]
+        data[:vvr_rural].to_s.gsub("\n", "<br/>")
       end
     end
   end
