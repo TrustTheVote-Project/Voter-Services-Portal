@@ -35,13 +35,16 @@
               %td= f.text_field :email, class: 'span2', placeholder: 'john@smith.com', 'data-bind' => 'valueWithInit: email'
             %tr
               %th Registration Address:
-              %td{ 'data-bind' => 'html: summaryRegistrationAddress' }
+              %td
+                %span{ 'data-bind' => 'html: summaryRegistrationAddress' }
             %tr
               %th Mailing Address:
-              %td{ 'data-bind' => 'html: summaryMailingAddress' }
+              %td
+                %span{ 'data-bind' => 'html: summaryMailingAddress' }
             %tr
               %th Political Party Preference:
-              %td{ 'data-bind' => 'text: summaryParty' }
+              %td
+                %span{ 'data-bind' => 'text: summaryParty' }
 
   .row
     .span10
