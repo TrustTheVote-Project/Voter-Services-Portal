@@ -66,7 +66,10 @@ body {
     }
   }
 
-  .span1, .span2, .span3, .span4, .span6 { float: left; }
+  .span1, .span2, .span3, .span4, .span6 {
+    margin-right: -4px;
+    display: inline-block;
+  }
   .span1 { width: 117px; }
   .span2 { width: 234px; }
   .span3 { width: 351px; }
@@ -84,11 +87,6 @@ body {
     height: '1ex';
   }
 
-  .value {
-    height: 10pt;
-    overflow: hidden;
-  }
-
   label {
     border-top: 1px solid #666;
     margin-top: 3px;
@@ -96,6 +94,10 @@ body {
     display: block;
     font-size: 8pt;
     color: #666;
+  }
+
+  .value {
+    word-wrap: break-word;
   }
 }
 
@@ -119,5 +121,10 @@ body {
     margin-top: 5px;
     padding: 10px;
     overflow: hidden;
+
+    .span4 {
+      display: block;
+      float: left;
+    }
   }
 }
