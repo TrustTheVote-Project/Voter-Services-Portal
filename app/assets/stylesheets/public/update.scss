@@ -24,10 +24,15 @@ $summaryBodyColor: #222;
     table {
       width: 780px;
       margin: 0;
+
+      &.properties td span {
+        width: 630px;
+        word-wrap: break-word;
+      }
     }
 
     th {
-      width: 150pt;
+      width: 150px;
     }
 
     tr:first-child {

@@ -38,7 +38,8 @@
           %table.table.properties
             %tr
               %th Registration address:
-              %td{ 'data-bind' => 'html: summaryRegistrationAddress' }
+              %td
+                %span{ 'data-bind' => 'html: summaryRegistrationAddress' }
             %tr
               %th Mailing address:
               %td
@@ -50,7 +51,8 @@
           %table.table.properties
             %tr{ 'data-bind' => 'if: summaryParty' }
               %th Political party preference:
-              %td{ 'data-bind' => 'text: summaryParty' }
+              %td
+                %span{ 'data-bind' => 'text: summaryParty' }
             %tr{ 'data-bind' => 'if: isConfidentialAddress' }
               %th Address confidentiality:
               %td Active
