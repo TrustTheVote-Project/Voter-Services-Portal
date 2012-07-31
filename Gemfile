@@ -29,6 +29,7 @@ gem 'simple_form'
 
 gem 'kronic'
 gem 'wicked_pdf', git: 'git://github.com/alg/wicked_pdf.git', branch: 'issue-114'
+gem 'nokogiri'
 
 group :development do
   gem 'capistrano'
@@ -48,6 +49,8 @@ group :test do
   gem 'guard-rspec'
   gem 'launchy'
   gem 'capybara'
+  gem 'vcr'
+  gem 'webmock'
 end
 
 group :development, :test do
