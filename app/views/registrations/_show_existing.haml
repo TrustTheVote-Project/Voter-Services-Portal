@@ -6,8 +6,8 @@
 
   .row
     .head.light
+      = link_to "Download Voter Card", voter_card_path, class: 'download voter_card'
       %h3 Voter Information
-      = link_to "Download Voter Card", voter_card_path
 
     .summary
       .body
@@ -15,23 +15,25 @@
           %tr
             %th Name:
             %td= reg.full_name
-          %tr
-            %th Date of birth:
-            %td= reg.dob
+          - if reg.dob
+            %tr
+              %th Date of birth:
+              %td= reg.dob
           %tr
             %th Gender:
             %td= reg.gender
-          %tr
-            %th Social security number:
-            %td= reg.ssn
-          - unless reg.phone.blank?
+          - unless reg.ssn.blank?
+            %tr
+              %th Social security number:
+              %td= reg.ssn
+          - unless reg.optional_phone.blank?
             %tr
               %th Phone:
-              %td= reg.phone
-          - unless reg.email.blank?
+              %td= reg.optional_phone
+          - unless reg.optional_email.blank?
             %tr
               %th Email:
-              %td= reg.email
+              %td= reg.optional_email
 
         %table.table.properties
           %tr
