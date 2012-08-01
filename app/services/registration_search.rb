@@ -7,15 +7,27 @@ class RegistrationSearch
   class RecordNotFound < StandardError; end
 
   def self.perform(search_query)
-    xml = unless search_query.voter_id.blank?
-      search_by_voter_id(search_query.voter_id)
+    unless search_query.voter_id.blank?
+      if search_query.first_name == 'vasample'
+        return sample_record(search_query.voter_id)
+      else
+        xml = search_by_voter_id(search_query.voter_id)
+      end
     else
-      search_by_data(search_query)
+      xml = search_by_data(search_query)
     end
 
     rec = parse(xml)
     rec.existing = true;
     rec
+  end
+
+  def self.sample_record(vid)
+    if vid == '123123123'
+      FactoryGirl.build(:existing_residential_voter)
+    else
+      FactoryGirl.build(:existing_overseas_voter)
+    end
   end
 
   def self.search_by_voter_id(vid)

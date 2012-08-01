@@ -30,6 +30,7 @@ gem 'simple_form'
 gem 'kronic'
 gem 'wicked_pdf', git: 'git://github.com/alg/wicked_pdf.git', branch: 'issue-114'
 gem 'nokogiri'
+gem 'factory_girl_rails'
 
 group :development do
   gem 'capistrano'
@@ -43,7 +44,6 @@ group :test do
   gem 'poltergeist'
   gem 'faker'
   gem 'timecop'
-  gem 'factory_girl_rails'
   gem 'shoulda'
   gem 'guard'
   gem 'guard-rspec'

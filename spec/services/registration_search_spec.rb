@@ -3,7 +3,7 @@ require 'spec_helper'
 describe RegistrationSearch do
 
   describe 'by known voter id' do
-    let(:q) { stub(voter_id: 600000000) }
+    let(:q) { stub(voter_id: 600000000, first_name: 'Mark') }
     subject do
       VCR.use_cassette('voter_by_known_id') do
         RegistrationSearch.perform(q)
