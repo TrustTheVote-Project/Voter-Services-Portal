@@ -1,3 +1,15 @@
+window.present = (v) ->
+  if typeof(v) == 'string'
+    filled(v)
+  else if v == null
+    false
+  else if typeof(v) == 'object'
+    if v.length then v.length > 0 else !!(v)
+  else if typeof(v) == 'number'
+    true
+  else
+    !!(v)
+
 window.filled = (v) -> v && !v.match(/^\s*$/)
 window.join   = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
 window.zip5   = (v) -> filled(v) && v.match(/^\d{5}$/)
@@ -14,7 +26,7 @@ window.pastDate = (y, m, d) ->
 
 window.phone  = (v) -> v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){10}$/)
 window.email  = (v) -> v.match(/^\S+@\S+\.\S+$/)
-window.voterId= (v) -> v.replace(/[^\d]/g, '').match(/^\d{9}$/)
+window.voterId= (v) -> filled(v) && v.replace(/[^\d]/g, '').match(/^\d{9}$/)
 
 window.stepClass = (current, idx, def) ->
   def = def || 'span2'
@@ -57,4 +69,39 @@ ko.bindingHandlers.vis = {
       element.style.display = "block"
     else if !value && isCurrentlyVisible
       element.style.display = "none"
+}
+
+ko.bindingHandlers.instantValidation = {
+  init: (element, valueAccessor, allBindingsAccessor, viewModel) =>
+    options = valueAccessor()
+    accessor = options.accessor
+    attribute = options.attribute || accessor
+    validation = options.validation || 'present'
+
+    toggleElement = $(element).is(':checkbox, :radio')
+    selectElement = $(element).is('select')
+    event = if toggleElement then 'click' else 'blur'
+
+    newValueAccessor = => viewModel[accessor]
+    if toggleElement
+      ko.bindingHandlers.checkedWithInit.init(element, newValueAccessor, allBindingsAccessor, viewModel)
+    else
+      ko.bindingHandlers.valueWithInit.init(element, newValueAccessor, allBindingsAccessor, viewModel)
+
+    $(element).bind(event, =>
+      if options.complex
+        $(element).attr('data-touched', true)
+        allCount = $(element).parent().children('[data-bind]').length
+        touchedCount = $(element).parent().children('[data-touched]').length
+        return if touchedCount < allCount
+      elementAcceptor = $(element).parent()
+      errorClass = 'field-invalid'
+      attributeValue = viewModel[attribute]()
+
+      if window[validation](attributeValue)
+        elementAcceptor.removeClass(errorClass)
+        $(options.resetAlso).removeClass(errorClass) if options.resetAlso
+      else
+        elementAcceptor.addClass(errorClass)
+    )
 }

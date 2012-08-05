@@ -7,9 +7,12 @@ class UpdateRegistration extends Registration
   constructor: (initPage = 0) ->
     super($('input#registration_residence').val())
 
+    @initConfirmFields()
+    
     new Popover('#mailing .next.btn', @addressesErrors)
     new Popover('#options .next.btn', @optionsErrors)
     new Popover('#oath .next.btn', @oathErrors)
+    new Popover('#confirm .next.btn', @confirmErrors)
 
     # Init absenteeUntil
     rau = $("#registration_absentee_until").val()
@@ -29,6 +32,13 @@ class UpdateRegistration extends Registration
       newIdx = $.inArray(hash.replace('#', ''), pages)
       newIdx = 0 if newIdx == -1
       @currentPageIdx(newIdx)
+
+  initConfirmFields: ->
+    @confirmErrors = ko.computed =>
+      errors = []
+      errors.push("Your last name") unless filled(@lastName())
+      errors
+    @confirmInvalid = ko.computed => @confirmErrors().length > 0
 
   submit: ->
     $("form.edit_registration")[0].submit()

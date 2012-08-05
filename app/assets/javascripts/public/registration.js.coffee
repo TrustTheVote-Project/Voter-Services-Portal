@@ -20,12 +20,13 @@ class window.Registration
     @rightsRestoredOnMonth  = ko.observable()
     @rightsRestoredOnYear   = ko.observable()
     @rightsRestoredOnDay    = ko.observable()
+    @rightsRestoredOn       = ko.computed => pastDate(@rightsRestoredOnYear(), @rightsRestoredOnMonth(), @rightsRestoredOnDay())
 
     @eligibilityErrors = ko.computed =>
       errors = []
       errors.push("Citizenship criteria") unless @isCitizen()
       errors.push("Age criteria") unless @isOldEnough()
-      errors.push("Voting rights criteria") unless (@rightsWereRevoked() == '0' or (@rightsRevokationReason() and @rightsWereRestored() == '1' and pastDate(@rightsRestoredOnYear(), @rightsRestoredOnMonth(), @rightsRestoredOnDay())))
+      errors.push("Voting rights criteria") unless (@rightsWereRevoked() == '0' or (@rightsRevokationReason() and @rightsWereRestored() == '1' and @rightsRestoredOn()))
       errors
 
     @eligibilityInvalid = ko.computed => @eligibilityErrors().length > 0
@@ -38,20 +39,23 @@ class window.Registration
     @dobYear                = ko.observable()
     @dobMonth               = ko.observable()
     @dobDay                 = ko.observable()
+    @dob                    = ko.computed => pastDate(@dobYear(), @dobMonth(), @dobDay())
     @gender                 = ko.observable()
     @ssn                    = ko.observable()
     @noSSN                  = ko.observable()
     @phone                  = ko.observable()
+    @validPhone             = ko.computed => !filled(@phone()) or phone(@phone())
     @email                  = ko.observable()
+    @validEmail             = ko.computed => !filled(@email()) or email(@email())
 
     @identityErrors = ko.computed =>
       errors = []
       errors.push('Last name') unless filled(@lastName())
-      errors.push('Date of birth') unless filled(@dobYear()) and filled(@dobMonth()) and filled(@dobDay())
+      errors.push('Date of birth') unless @dob()
       errors.push('Gender') unless filled(@gender())
       errors.push('Social Security #') unless ssn(@ssn()) and !@noSSN()
-      errors.push('Phone number') unless !filled(@phone()) or phone(@phone())
-      errors.push('Email address') unless !filled(@email()) or email(@email())
+      errors.push('Phone number') unless @validPhone()
+      errors.push('Email address') unless @validEmail()
       errors
 
     @identityInvalid = ko.computed => @identityErrors().length > 0
@@ -76,6 +80,7 @@ class window.Registration
     @vvrUocavaResidenceUnavailableSinceDay = ko.observable()
     @vvrUocavaResidenceUnavailableSinceMonth = ko.observable()
     @vvrUocavaResidenceUnavailableSinceYear = ko.observable()
+    @vvrUocavaResidenceUnavailableSince = ko.computed => pastDate(@vvrUocavaResidenceUnavailableSinceYear(), @vvrUocavaResidenceUnavailableSinceMonth(), @vvrUocavaResidenceUnavailableSinceDay())
     @maAddress1             = ko.observable()
     @maAddress2             = ko.observable()
     @maCity                 = ko.observable()
@@ -140,10 +145,7 @@ class window.Registration
       if @overseas()
         residental = residental and
           filled(@vvrOverseasRA()) and
-          (@vvrOverseasRA() == '1' or (
-            filled(@vvrUocavaResidenceUnavailableSinceDay()) and
-            filled(@vvrUocavaResidenceUnavailableSinceMonth()) and
-            filled(@vvrUocavaResidenceUnavailableSinceYear())))
+          (@vvrOverseasRA() == '1' or @vvrUocavaResidenceUnavailableSince())
         mailing = @overseasMAFilled()
       else
         mailing = @domesticMAFilled()

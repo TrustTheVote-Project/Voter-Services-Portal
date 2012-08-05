@@ -10,20 +10,21 @@
   <!-- ko if: maIsSame() == '0' -->
   .row
     .span3
-      %span3.address-field
+      .address-field
         %span Address
-        = f.text_field :ma_address, 'data-bind' => 'valueWithInit: maAddress1'
+        = f.text_field :ma_address, 'data-bind' => 'instantValidation: { accessor: "maAddress1" }'
+      .address-field
         = f.text_field :ma_address_2, 'data-bind' => 'valueWithInit: maAddress2'
   .row
     .span3
       %span City
-      = f.text_field :ma_city, 'data-bind' => 'valueWithInit: maCity'
+      = f.text_field :ma_city, 'data-bind' => 'instantValidation: { accessor: "maCity" }'
     .span2.state-field
       %span State
-      = f.select :ma_state, Dictionaries::STATES, { include_blank: true }, { class: 'span3', 'data-bind' => 'valueWithInit: maState' }
+      = f.select :ma_state, Dictionaries::STATES, { include_blank: true }, { class: 'span3', 'data-bind' => 'instantValidation: { accessor: "maState" }' }
     .span3.zip-field
       %span Zip code
-      = f.text_field :ma_zip5, class: 'first-zip', 'data-bind' => 'valueWithInit: maZip5', placeholder: '12345'
+      = f.text_field :ma_zip5, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "maZip5", validation: "zip5" }', placeholder: '12345'
       .space &mdash;
       = f.text_field :ma_zip4, class: 'second-zip', 'data-bind' => 'valueWithInit: maZip4', placeholder: '1234'
   <!-- /ko -->

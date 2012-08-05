@@ -4,7 +4,7 @@
     .span12
       .checkbox
         = f.check_box :requesting_absentee, disabled: true
-        = f.hidden_field :requesting_absentee, 'data-bind' => 'valueWithInit: requestingAbsentee'
+        = f.hidden_field :requesting_absentee, 'data-bind' => 'instantValidation: { accessor: "requestingAbsentee" }'
         %strong
           I will not be able to vote in person, and would like to vote absentee until #{ " #{f.object.absentee_until.strftime("%B %d, %Y")}" unless AppConfig['choose_absentee_until']}:
 

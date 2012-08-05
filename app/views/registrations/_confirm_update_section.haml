@@ -14,10 +14,14 @@
             %tr
               %th Name:
               %td
-                = f.text_field :first_name,   class: 'span2', placeholder: 'First name', 'data-bind' => 'valueWithInit: firstName'
-                = f.text_field :middle_name,  class: 'span2', placeholder: 'Middle name', 'data-bind' => 'valueWithInit: middleName'
-                = f.text_field :last_name,    class: 'span2', placeholder: 'Last name', 'data-bind' => 'valueWithInit: lastName, valueUpdate: "keyup"'
-                = f.select     :suffix, name_suffixes_for(@registration), { include_blank: true }, class: 'span1', 'data-bind' => 'valueWithInit: suffix'
+                .span2
+                  = f.text_field :first_name,  class: 'span2', placeholder: 'First name', 'data-bind' => 'valueWithInit: firstName'
+                .span2
+                  = f.text_field :middle_name, class: 'span2', placeholder: 'Middle name', 'data-bind' => 'valueWithInit: middleName'
+                .span2
+                  = f.text_field :last_name,   class: 'span2', placeholder: 'Last name', 'data-bind' => 'instantValidation: { accessor: "lastName" }, valueUpdate: "keyup"'
+                .span1
+                  = f.select     :suffix, name_suffixes_for(@registration), { include_blank: true }, class: 'span1', 'data-bind' => 'valueWithInit: suffix'
             %tr
               %th Date of Birth:
               %td= reg.dob
@@ -94,5 +98,5 @@
         <!-- /ko -->
 
   .form-actions
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: confirmInvalid }'
     = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'

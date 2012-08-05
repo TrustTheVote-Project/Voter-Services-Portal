@@ -17,7 +17,7 @@
       .span3
         %p My political party preference is
 
-        = f.select :party, Dictionaries::PARTIES + [ [ "Other", "other" ] ], { include_blank: true }, { 'data-bind' => 'valueWithInit: party' }
+        = f.select :party, Dictionaries::PARTIES + [ [ "Other", "other" ] ], { include_blank: true }, { 'data-bind' => 'instantValidation: { accessor: "party" }' }
 
       <!-- ko if: party() == 'other' -->
       .span3

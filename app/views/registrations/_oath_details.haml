@@ -5,7 +5,7 @@
   .row
     .span10
       .checkbox
-        = check_box :registration, :information_correct, 'data-bind' => 'checked: infoCorrect'
+        = check_box :registration, :information_correct, 'data-bind' => 'instantValidation: { accessor: "infoCorrect" }'
         %strong Registration Statement
         %br/
         I swear/affirm, under felony penalty for making willfully false material statements or entries, that the information provided on this form is true.
@@ -21,5 +21,5 @@
   .row
     .span10
       .checkbox
-        = check_box :registration, :privacy_agree, 'data-bind' => 'checked: privacyAgree'
+        = check_box :registration, :privacy_agree, 'data-bind' => 'instantValidation: { accessor: "privacyAgree" }'
         %strong I have read and agree with the terms of the Privacy Act Notice.

@@ -10,12 +10,12 @@
 
   .partition
     .checkbox
-      = f.check_box :citizen, 'data-bind' => 'checked: isCitizen'
+      = f.check_box :citizen, 'data-bind' => 'instantValidation: { accessor: "isCitizen" }'
       %label I am a citizen of the United States of America.
 
   .partition
     .checkbox
-      = f.check_box :old_enough, 'data-bind' => 'checked: isOldEnough'
+      = f.check_box :old_enough, 'data-bind' => 'instantValidation: { accessor: "isOldEnough" }'
       %label I will be at least 18 years of age on or before the next Election Day.
 
   .partition
@@ -60,8 +60,8 @@
           = f.select :rights_restored_in, Dictionaries::STATES, { class: 'span3' }
 
       .block
-        %h4 On what date were your voting rights restored?
         .date
+          %h4 On what date were your voting rights restored?
           = bound_date f, :rights_restored_on, :end_year => Date.today.year
       <!-- /ko -->
 

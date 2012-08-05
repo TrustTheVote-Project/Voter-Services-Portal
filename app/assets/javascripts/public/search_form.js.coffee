@@ -13,9 +13,7 @@ class SearchForm
 
     @currentPageIdx = ko.observable(null)
 
-    @dob = ko.computed =>
-      dte = date(@dobYear(), @dobMonth(), @dobDay())
-      (dte and dte.format("YYYY-M-D")) or ""
+    @dob = ko.computed => pastDate(@dobYear(), @dobMonth(), @dobDay())
 
     @errors = ko.computed =>
       errors = []
@@ -26,7 +24,7 @@ class SearchForm
         errors.push("Last name")
       unless filled(@locality())
         errors.push("Locality")
-      unless filled(@dob())
+      unless present(@dob())
         errors.push("Date of birth")
 
       if !filled(@voterId()) and !filled(@ssn4())

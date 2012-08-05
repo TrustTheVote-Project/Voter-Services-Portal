@@ -48,3 +48,16 @@ table.properties {
 .section {
   margin-bottom: 40px;
 }
+
+.field-invalid {
+  input:not(.second-zip), textarea, select {
+    border-color: #E9322D;
+    -webkit-box-shadow: 0 0 6px #F8B9B7;
+    -moz-box-shadow: 0 0 6px #f8b9b7;
+    box-shadow: 0 0 6px #F8B9B7;
+  }
+
+  label, span, p, h4, strong, label strong {
+    color: #E9322D;
+  }
+}

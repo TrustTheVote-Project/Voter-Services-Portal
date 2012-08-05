@@ -16,7 +16,7 @@
       = f.text_field :middle_name, { 'data-bind' => 'value: middleName' }
     .span3
       %span Last name
-      = f.text_field :last_name, { 'data-bind' => 'valueWithInit: lastName' }
+      = f.text_field :last_name, { 'data-bind' => 'instantValidation: { accessor: "lastName" }' }
     .span2
       %span
         Suffix
@@ -32,13 +32,13 @@
     .row
       .span12
         %label Gender
-        = f.select :gender, [ 'Male', 'Female' ], { include_blank: true }, { class: 'span2', 'data-bind' => 'value: gender' }
+        = f.select :gender, [ 'Male', 'Female' ], { include_blank: true }, { class: 'span2', 'data-bind' => 'instantValidation: { accessor: "gender" }' }
 
   .row
     .span12.security-number
       %label Social Security Number
       <!-- ko if: !noSSN() -->
-      = f.text_field :ssn, placeholder: '123 45 6789', 'data-bind' => 'value: ssn'
+      = f.text_field :ssn, placeholder: '123 45 6789', 'data-bind' => 'instantValidation: { accessor: "ssn", validation: "ssn" }'
       <!-- /ko -->
       .checkbox
         = f.check_box :no_ssn, 'data-bind' => 'checked: noSSN'
@@ -59,12 +59,12 @@
       %span
         Phone
         %label (optional)
-      = f.text_field :phone, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'value: phone'
+      = f.text_field :phone, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'instantValidation: { accessor: "phone", attribute: "validPhone" }'
     .span3.email-field
       %span
         Email
         %label (optional)
-      %span= f.text_field :email, placeholder: 'john@smith.com', 'data-bind' => 'value: email'
+      = f.text_field :email, placeholder: 'john@smith.com', 'data-bind' => 'instantValidation: { accessor: "email", attribute: "validEmail" }'
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: identityInvalid }'

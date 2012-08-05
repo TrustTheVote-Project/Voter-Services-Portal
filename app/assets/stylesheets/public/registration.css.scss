@@ -315,3 +315,10 @@ select {
   margin: 10px 0;
   font-size: 13px;
 }
+
+table.properties {
+  .span1, .span2 {
+    float: left;
+    margin-left: 10px;
+  }
+}
