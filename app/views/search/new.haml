@@ -7,8 +7,9 @@
       .description Identify who you are to look-up your Virginia Voter Record.
 
     %p
-      To look-up your Virginia Voter Record, you'll need to provide either your Virginia Voter Card Number OR
-      your first name, last name, date of birth, and the last 4 digits of your Social Security Number.
+      To look-up your Virginia Voter Record, you'll need to provide either
+      your Virginia Voter Card Number OR your first name, last name, date
+      of birth, and the last 4 digits of your Social Security Number.
 
     = form_for @search_query, url: search_path do |f|
       .partition
@@ -39,7 +40,7 @@
 
           .span3.numbers
             %label Last 4 digits of SSN
-            = f.text_field :ssn4, maxlength: 4, class: 'span1', 'data-bind' => 'instantValidation: { accessor: "ssn4", resetAlso: ".numbers" }'
+            = f.text_field :ssn4, maxlength: 4, class: 'span1', 'data-bind' => 'instantValidation: { accessor: "ssn4", validation: "ssn4OrVoterId", resetAlso: ".numbers" }'
 
       .partition
         .checkbox

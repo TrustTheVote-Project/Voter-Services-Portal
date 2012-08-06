@@ -1,3 +1,5 @@
+window.ssn4OrVoterId = (s) -> filled($("#search_query_voter_id").val()) || (filled(s) && s.replace(/[^\d]/g, '').match(/^\d{4}$/))
+
 class SearchForm
   constructor: ->
     @voterId    = ko.observable()
