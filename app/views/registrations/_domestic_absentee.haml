@@ -3,7 +3,7 @@
   .row
     .span12
       .checkbox
-        = f.check_box :requesting_absentee, 'data-bind' => 'checked: requestingAbsentee'
+        = f.check_box :requesting_absentee, 'data-bind' => 'checked: requestingAbsentee', autocomplete: ac
         %label{ for: 'registration_requesting_absentee' }
           %strong I am not able to go to the polls on election day and would like an Absentee Ballot Application.
       <!-- ko if: requestingAbsentee -->
@@ -15,15 +15,15 @@
       %h4
         %label{ for: 'registration_rab_election' }
           %strong I am applying to vote absentee for
-      = f.select :rab_election, Dictionaries::ELECTIONS.merge('other' => 'Other').invert, { include_blank: true }, { class: 'span6', 'data-bind' => 'instantValidation: { accessor: "rabElection" }' }
+      = f.select :rab_election, Dictionaries::ELECTIONS.merge('other' => 'Other').invert, { include_blank: true }, { autocomplete: ac, class: 'span6', 'data-bind' => 'instantValidation: { accessor: "rabElection" }' }
   <!-- ko if: rabElection() == 'other' -->
   .row
     .span6.election-name-field
       %label{ for: 'registration_rab_election_name' } Election name
-      = f.text_field :rab_election_name, 'data-bind' => 'instantValidation: { accessor: "rabElectionName" }'
+      = f.text_field :rab_election_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "rabElectionName" }'
     .span3
       %label{ for: 'registration_rab_election_date' } Held on
-      = f.text_field :rab_election_date, 'data-bind' => 'instantValidation: { accessor: "rabElectionDate" }', placeholder: 'MM/DD/YYYY'
+      = f.text_field :rab_election_date, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "rabElectionDate" }', placeholder: 'MM/DD/YYYY'
   <!-- /ko -->
   <!-- /ko -->
 
@@ -38,7 +38,7 @@
   .row
     .span12
       %label{ for: 'registration_ab_reason' } I am unable to go to the polls on election day because
-      = f.select :ab_reason, Dictionaries::ABSENCE_REASONS.invert, { include_blank: true }, { class: 'span10', 'data-bind' => 'instantValidation: { accessor: "abReason" }' }
+      = f.select :ab_reason, Dictionaries::ABSENCE_REASONS.invert, { include_blank: true }, { autocomplete: ac, class: 'span10', 'data-bind' => 'instantValidation: { accessor: "abReason" }' }
 
   -# Fields to blank elements of the record that aren't on the form
   = hidden_field_tag "registration[ab_field_1]", ''
@@ -68,11 +68,11 @@
     .span3
       %label{ for: 'registration_ab_field_1', 'data-bind' => 'html: abField1Label' }
       <!-- ko if: abPartyLookupRequired -->
-      = f.select :ab_field_1, Dictionaries::PARTIES, { include_blank: true }, 'data-bind' => 'instantValidation: { accessor: "abField1" }'
+      = f.select :ab_field_1, Dictionaries::PARTIES, { include_blank: true }, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abField1" }'
       <!-- /ko -->
 
       <!-- ko if: !abPartyLookupRequired() -->
-      = f.text_field :ab_field_1, 'data-bind' => 'instantValidation: { accessor: "abField1" }'
+      = f.text_field :ab_field_1, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abField1" }'
       <!-- /ko -->
 
     <!-- ko if: abTimeRangeRequired -->
@@ -87,7 +87,7 @@
     <!-- ko if: abField2Required -->
     .span3
       %label{ for: 'registration_ab_field_2', 'data-bind' => 'html: abField2Label' }
-      = f.text_field :ab_field_2, 'data-bind' => 'instantValidation: { accessor: "abField2" }'
+      = f.text_field :ab_field_2, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abField2" }'
     <!-- /ko -->
   <!-- /ko --> <!-- 1C -->
 
@@ -95,33 +95,33 @@
   .row
     .span3
       %label{ for: 'registration_ab_street_number' } Street number
-      = f.text_field :ab_street_number, 'data-bind' => 'instantValidation: { accessor: "abStreetNumber" }'
+      = f.text_field :ab_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abStreetNumber" }'
     .span3
       %label{ for: 'registration_ab_street_name' } Street name
-      = f.text_field :ab_street_name, 'data-bind' => 'instantValidation: { accessor: "abStreetName" }'
+      = f.text_field :ab_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abStreetName" }'
     .span2.street-type-field
       %label{ for: 'registration_ab_street_type' } Street type
-      = f.select :ab_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { class: 'span1', 'data-bind' => 'instantValidation: { accessor: "abStreetType" }' }
+      = f.select :ab_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'instantValidation: { accessor: "abStreetType" }' }
     .span2.lot-field
       %label{ for: 'registration_ab_apt' }
         Apt/Lot
         %label (optional)
-      = f.text_field :ab_apt
+      = f.text_field :ab_apt, autocomplete: ac
   .row
     .span3
       %label{ for: 'registration_ab_city' } City
-      = f.text_field :ab_city, 'data-bind' => 'instantValidation: { accessor: "abCity" }'
+      = f.text_field :ab_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abCity" }'
     .span3
       %label{ for: 'registration_ab_state' } Province or State
-      = f.text_field :ab_state, 'data-bind' => 'instantValidation: { accessor: "abState" }'
+      = f.text_field :ab_state, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abState" }'
     .span3.postal-code-field
       %label{ for: 'registration_ab_zip5' } Postal code
-      = f.text_field :ab_zip5, maxlength: 5, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "abZip5" }', placeholder: 'NNNNN'
+      = f.text_field :ab_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "abZip5" }', placeholder: 'NNNNN'
       .space &mdash;
-      = f.text_field :ab_zip4, maxlength: 4, class: 'second-zip', placeholder: 'NNNN'
+      = f.text_field :ab_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', placeholder: 'NNNN'
     .span2.country-field
       %label{ for: 'registration_ab_country' } Country
-      = f.text_field :ab_country, 'data-bind' => 'instantValidation: { accessor: "abCountry" }'
+      = f.text_field :ab_country, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abCountry" }'
   <!-- /ko --> <!-- addressRequired -->
 <!-- /ko -->
 <!-- /ko --> <!-- domestic -->

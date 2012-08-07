@@ -17,12 +17,12 @@
       .span3
         %p My political party preference is
 
-        = f.select :party, Dictionaries::PARTIES + [ [ "Other", "other" ] ], { include_blank: true }, { 'data-bind' => 'instantValidation: { accessor: "party" }' }
+        = f.select :party, Dictionaries::PARTIES + [ [ "Other", "other" ] ], { include_blank: true }, { autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "party" }' }
 
       <!-- ko if: party() == 'other' -->
       .span3
         %span Political party preference name
-        = f.text_field :other_party, 'data-bind' => 'valueWithInit: otherParty'
+        = f.text_field :other_party, autocomplete: ac, 'data-bind' => 'valueWithInit: otherParty'
       <!-- /ko -->
 
     <!-- /ko -->
@@ -31,7 +31,7 @@
     .row
       .span12
         .checkbox
-          = f.check_box :is_confidential_address, { 'data-bind' => 'checkedWithInit: isConfidentialAddress' }
+          = f.check_box :is_confidential_address, autocomplete: ac, 'data-bind' => 'checkedWithInit: isConfidentialAddress'
           %strong I qualify for address confidentiality.
 
     <!-- ko if: isConfidentialAddress -->
@@ -69,7 +69,7 @@
     .row
       .span12
         .checkbox
-          = f.check_box :be_official
+          = f.check_box :be_official, autocomplete: ac
           %strong
             I'm interested in being an Election Official on Election Day. Please send me information.
   <!-- /ko -->

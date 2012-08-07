@@ -3,8 +3,8 @@
   .row
     .span12
       .checkbox
-        = f.check_box :requesting_absentee, disabled: true
-        = f.hidden_field :requesting_absentee, 'data-bind' => 'instantValidation: { accessor: "requestingAbsentee" }'
+        = f.check_box :requesting_absentee, autocomplete: ac, disabled: true
+        = f.hidden_field :requesting_absentee, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "requestingAbsentee" }'
         %strong
           I will not be able to vote in person, and would like to vote absentee until #{ " #{f.object.absentee_until.strftime("%B %d, %Y")}" unless AppConfig['choose_absentee_until']}:
 
@@ -38,13 +38,13 @@
   .row
     .span2
       %span Service Branch
-      = select     :registration, :service_branch, options_for_select(Registration::SERVICE_BRANCHES), {}, class: 'span2 inline'
+      = select     :registration, :service_branch, options_for_select(Registration::SERVICE_BRANCHES), {}, autocomplete: ac, class: 'span2 inline'
     .span2
       %span Service ID
-      = text_field :registration, :service_id, placeholder: 'Service ID', class: 'span1 inline', 'data-bind' => 'valueWithInit: serviceId'
+      = text_field :registration, :service_id, placeholder: 'Service ID', autocomplete: ac, class: 'span1 inline', 'data-bind' => 'valueWithInit: serviceId'
     .span2
       %span Rank / Grade / Rate
-      = text_field :registration, :rank, placeholder: 'Rank / Grade / Rate', class: 'span2 inline', 'data-bind' => 'valueWithInit: rank'
+      = text_field :registration, :rank, placeholder: 'Rank / Grade / Rate', autocomplete: ac, class: 'span2 inline', 'data-bind' => 'valueWithInit: rank'
   <!-- /ko -->
   <!-- /ko -->
 <!-- /ko -->

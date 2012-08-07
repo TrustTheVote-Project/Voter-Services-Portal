@@ -10,6 +10,9 @@ registration:
   # Enable collection of title on the registration request form
   collect_title:  false
 
+# enables / disables form field autocompletion
+autocomplete: off
+
 # Toggles if we let absentees to choose the end date
 choose_absentee_until: false
 

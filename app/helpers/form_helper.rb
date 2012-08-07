@@ -82,4 +82,8 @@ module FormHelper
     content_tag(:div, "&nbsp;".html_safe, class: "span#{span}")
   end
 
+  def ac
+    AppConfig['autocomplete'] ? 'on' : 'off'
+  end
+
 end
