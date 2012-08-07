@@ -39,9 +39,9 @@
       = f.hidden_field :vvr_state, 'data-bind' => 'value: vvrState'
     .span2.zip-field
       %span Zip code
-      = f.text_field :vvr_zip5, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "vvrZip5", validation: "zip5" }', placeholder: '12345'
+      = f.text_field :vvr_zip5, maxlength: 5, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "vvrZip5", validation: "zip5" }', placeholder: 'NNNNN'
       .space &mdash;
-      = f.text_field :vvr_zip4, class: 'second-zip', 'data-bind' => 'valueWithInit: vvrZip4', placeholder: '1234'
+      = f.text_field :vvr_zip4, maxlength: 4, class: 'second-zip', 'data-bind' => 'valueWithInit: vvrZip4', placeholder: 'NNNN'
   <!-- /ko -->
 
   .row

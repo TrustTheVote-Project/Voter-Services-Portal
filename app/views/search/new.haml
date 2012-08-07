@@ -32,7 +32,7 @@
         .row
           .span4.numbers
             %span Voter ID
-            = f.text_field :voter_id, label: 'Voter ID', placeholder: 'NNNNNNNNN', 'data-bind' => 'instantValidation: { accessor: "voterId", validation: "voterId", resetAlso: ".numbers" }'
+            = f.text_field :voter_id, label: 'Voter ID', placeholder: 'NNNNNNNNN', maxlength: 9, 'data-bind' => 'instantValidation: { accessor: "voterId", validation: "voterId", resetAlso: ".numbers" }'
 
           .span2
             %br
@@ -40,7 +40,7 @@
 
           .span3.numbers
             %label Last 4 digits of SSN
-            = f.text_field :ssn4, maxlength: 4, class: 'span1', 'data-bind' => 'instantValidation: { accessor: "ssn4", validation: "ssn4OrVoterId", resetAlso: ".numbers" }'
+            = f.text_field :ssn4, placeholder: 'NNNN', maxlength: 4, class: 'span1', 'data-bind' => 'instantValidation: { accessor: "ssn4", validation: "ssn4OrVoterId", resetAlso: ".numbers" }'
 
       .partition
         .checkbox

@@ -24,8 +24,8 @@
       = f.select :ma_state, Dictionaries::STATES, { include_blank: true }, { class: 'span3', 'data-bind' => 'instantValidation: { accessor: "maState" }' }
     .span3.zip-field
       %span Zip code
-      = f.text_field :ma_zip5, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "maZip5", validation: "zip5" }', placeholder: '12345'
+      = f.text_field :ma_zip5, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "maZip5", validation: "zip5" }', placeholder: 'NNNNN', maxlength: 5
       .space &mdash;
-      = f.text_field :ma_zip4, class: 'second-zip', 'data-bind' => 'valueWithInit: maZip4', placeholder: '1234'
+      = f.text_field :ma_zip4, class: 'second-zip', 'data-bind' => 'valueWithInit: maZip4', placeholder: 'NNNN', maxlength: 4
   <!-- /ko -->
 <!-- /ko -->

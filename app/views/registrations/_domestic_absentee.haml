@@ -116,9 +116,9 @@
       = f.text_field :ab_state, 'data-bind' => 'instantValidation: { accessor: "abState" }'
     .span3.postal-code-field
       %label{ for: 'registration_ab_zip5' } Postal code
-      = f.text_field :ab_zip5, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "abZip5" }', placeholder: '12345'
+      = f.text_field :ab_zip5, maxlength: 5, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "abZip5" }', placeholder: 'NNNNN'
       .space &mdash;
-      = f.text_field :ab_zip4, class: 'second-zip', placeholder: '1234'
+      = f.text_field :ab_zip4, maxlength: 4, class: 'second-zip', placeholder: 'NNNN'
     .span2.country-field
       %label{ for: 'registration_ab_country' } Country
       = f.text_field :ab_country, 'data-bind' => 'instantValidation: { accessor: "abCountry" }'

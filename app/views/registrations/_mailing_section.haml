@@ -42,9 +42,9 @@
         = f.select :er_state, Dictionaries::STATES_WITHOUT_VA, { include_blank: true }, { class: 'span3', 'data-bind' => 'instantValidation: { accessor: "erState" }' }
       .span3.zip-field
         %span Zip code
-        = f.text_field :er_zip5, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "erZip5", validation: "zip5" }', placeholder: '12345'
+        = f.text_field :er_zip5, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "erZip5", validation: "zip5" }', placeholder: 'NNNNN', maxlength: 5
         .space &mdash;
-        = f.text_field :er_zip4, class: 'second-zip', placeholder: '1234'
+        = f.text_field :er_zip4, class: 'second-zip', placeholder: 'NNNN', maxlength: 4
     <!-- /ko -->
     .row
       .span12
