@@ -29,7 +29,7 @@ gem 'simple_form'
 
 gem 'kronic'
 gem 'wicked_pdf', git: 'git://github.com/alg/wicked_pdf.git', branch: 'issue-114'
-gem 'nokogiri'
+gem 'libxml-ruby'
 gem 'factory_girl_rails'
 
 group :development do
