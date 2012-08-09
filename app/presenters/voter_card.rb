@@ -51,7 +51,7 @@ class VoterCard
   end
 
   def language
-    "English" # TODO implement
+    # TODO implement
   end
 
   def voting_location_line_1

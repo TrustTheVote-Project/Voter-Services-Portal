@@ -1,13 +1,20 @@
+@font-face {
+  font-family: Inconsolata;
+  font-weight: normal;
+  font-style: normal;
+  src: url('<%= Rails.root %>/lib/fonts/inconsolata.otf') format('opentype');
+}
+
 body {
   font-family: Helvetica, Arial, sans-serif;
-  font-size: 9pt;
+  font-size: 8pt;
 }
 
 .logo { 
-  width: 85px;
-  height: 79px;
+  width: 65px;
+  height: 61px;
   float: left;
-  margin-right: 10px;
+  margin-right: 6px;
   background: url(<%= asset_data_uri 'voter_card_logo.png' %>) 0 0 no-repeat;
 }
 
@@ -18,8 +25,19 @@ table.main {
 
 table.details {
   margin-top: 5pt;
-  .date {
-    padding-left: 0px;
+
+  .idd, .date {
+    font-size: 8pt;
+    vertical-align: middle;
+  }
+
+  .label {
+    font-size: 7pt;
+  }
+
+  .date.label {
+    text-align: center;
+    padding-left: 30px;
     padding-right: 10px;
   }
 }
@@ -59,28 +77,36 @@ td {
 
 h1 {
   margin: 0;
-  font-size: 11pt;
+  font-size: 10pt;
   text-transform: uppercase;
   text-align: center;
 }
 
 h2 {
   margin: 0;
-  font-size: 10pt;
+  font-size: 8pt;
   text-transform: uppercase;
   text-align: center;
 }
 
 .fold {
   width: 10px;
+  font-size: 7pt;
   text-transform: uppercase;
   vertical-align: middle;
   border-right: 1px solid black;
-  padding-right: 5px;
 }
 
 .middle, .right {
   padding-left: 10px;
+}
+
+.middle {
+  width: 210pt;
+}
+
+.right {
+  width: 180pt;
 }
 
 .note {
@@ -95,3 +121,12 @@ h2 {
   }
 }
 
+.id {
+  margin-top: -8px;
+  font-family: Inconsolata;
+  font-size: 165%;
+
+  span {
+    padding-right: 1px;
+  }
+}
