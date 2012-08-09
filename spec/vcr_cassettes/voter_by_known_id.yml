@@ -1,0 +1,51 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://wscp.sbe.virginia.gov/ElectionList.svc/600000000
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 31 Jul 2012 17:01:55 GMT
+      Server:
+      - Microsoft-IIS/6.0
+      X-Powered-By:
+      - ASP.NET
+      X-Aspnet-Version:
+      - 4.0.30319
+      Content-Length:
+      - '1873'
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/xml; charset=utf-8
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0" encoding="utf-8"?><EML SchemaVersion="7.0" Id="330"
+        xmlns="urn:oasis:names:tc:evs:schema:eml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"><EMLHeader><TransactionId>330</TransactionId><SequenceNumber>1</SequenceNumber><NumberInSequence>1</NumberInSequence><SequencedElementName/><OfficialStatusDetail><OfficialStatus>approved</OfficialStatus><StatusDate>2012-07-31</StatusDate></OfficialStatusDetail></EMLHeader><ElectionList><VoterDetails><VoterRegistration><Voter><Source
+        Role="sender"><Name>Virginia</Name></Source><VoterIdentification Id="600000000"><VoterName><PersonFullName
+        xmlns="urn:oasis:names:tc:ciq:xnl:4">BRANDY RAY FRYE </PersonFullName><PersonNameDetail
+        xmlns="urn:oasis:names:tc:ciq:xnl:4"><GivenName>BRANDY</GivenName><MiddleName>RAY</MiddleName><FamilyName>FRYE</FamilyName></PersonNameDetail></VoterName></VoterIdentification><VoterInformation><Contact><MailingAddress><PostalAddress
+        xmlns="urn:oasis:names:tc:ciq:xal:4"><Thoroughfare type="CT" number="35738"
+        name="Parklawn">35738 Parklawn Ct</Thoroughfare><OtherDetail/><OtherDetail/><Locality>Round
+        Hill</Locality><AdministrativeArea type="StateCode">VA</AdministrativeArea><PostCode
+        type="ZipCode">201414414</PostCode><Country/></PostalAddress></MailingAddress><Telephone/></Contact><CheckBox
+        Type="AbsenteeStatus">yes</CheckBox><PollingDistrict><Association Id="PrecinctSplitUID">6c5b1a6a-0cf4-44e5-bf29-2c94a90c4d28</Association><Association
+        Id="PrecinctName">311 - WOODGROVE</Association><Association Id="LocalityName">LOUDOUN
+        COUNTY</Association><Association Id="TownshipName">BLUE RIDGE DISTRICT</Association><Association
+        Id="ElectoralDistrict">BLUE RIDGE DISTRICT</Association></PollingDistrict><Gender>male</Gender><FurtherInformation/></VoterInformation></Voter></VoterRegistration></VoterDetails></ElectionList></EML>
+    http_version: 
+  recorded_at: Tue, 31 Jul 2012 17:01:43 GMT
+recorded_with: VCR 2.2.4

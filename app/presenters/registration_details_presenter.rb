@@ -11,8 +11,16 @@ class RegistrationDetailsPresenter
     @vvr = {}
   end
 
+  def optional_email
+    @registration.email
+  end
+
   def email
     optional(@registration.email)
+  end
+
+  def optional_phone
+    @registration.phone
   end
 
   def phone
@@ -21,7 +29,7 @@ class RegistrationDetailsPresenter
 
   # Formatted date of birth
   def dob
-    @registration.dob.strftime('%B %d, %Y')
+    @registration.dob.try(:strftime, '%B %d, %Y')
   end
 
   def gender
@@ -29,7 +37,7 @@ class RegistrationDetailsPresenter
   end
 
   def ssn
-    "xxx-xx-#{@registration.ssn4}"
+    @registration.ssn4.blank? ? nil : "xxx-xx-#{@registration.ssn4}"
   end
 
   # Party affiliation or 'Not stated'

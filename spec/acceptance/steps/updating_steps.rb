@@ -4,10 +4,12 @@ steps_for :updating do
     visit search_path
 
     if kind == 'residential voter'
-      voter_id = '123123123'
+      rec = FactoryGirl.build(:existing_residential_voter)
     else
-      voter_id = '111222333'
+      rec = FactoryGirl.build(:existing_overseas_voter)
     end
+
+    RegistrationSearch.should_receive(:perform).and_return(rec)
 
     fill_in "search_query_first_name", with: 'First'
     fill_in "search_query_last_name",  with: 'Last'
@@ -16,7 +18,7 @@ steps_for :updating do
     select  "1995",    from: "search_query_dob_1i_"
     select  "ACCOMACK COUNTY", from: "search_query_locality"
 
-    fill_in "search_query_voter_id", with: voter_id
+    fill_in "search_query_voter_id", with: '111222333'
     check   "swear"
 
     click_button "Next"

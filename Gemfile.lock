@@ -71,6 +71,7 @@ GEM
     compass_twitter_bootstrap (2.0.1.2)
       compass
     country_select (0.0.2)
+    crack (0.3.1)
     daemons (1.1.8)
     diff-lcs (1.1.3)
     erubis (2.7.0)
@@ -226,6 +227,10 @@ GEM
     uglifier (1.2.3)
       execjs (>= 0.3.0)
       multi_json (>= 1.0.2)
+    vcr (2.2.4)
+    webmock (1.8.7)
+      addressable (>= 2.2.7)
+      crack (>= 0.1.7)
     whenever (0.7.3)
       activesupport (>= 2.3.4)
       chronic (~> 0.6.3)
@@ -254,6 +259,7 @@ DEPENDENCIES
   kronic
   launchy
   mysql2
+  nokogiri
   poltergeist
   rails (= 3.2.2)
   rdiscount
@@ -268,5 +274,7 @@ DEPENDENCIES
   timecop
   turnip
   uglifier (>= 1.0.3)
+  vcr
+  webmock
   whenever
   wicked_pdf!
