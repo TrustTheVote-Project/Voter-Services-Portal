@@ -17,37 +17,12 @@ class VoterCard
     @r.full_name
   end
 
-  def registration_line_1
-    if !@r.vvr_is_rural || @r.vvr_is_rural != '1'
-      [ [ @r.vvr_street_number, @r.vvr_apt ].reject(&:blank?).join(' / '),
-        @r.vvr_street_name, @r.vvr_street_suffix ].reject(&:blank?).join(' ')
-    else
-      @r.vvr_rural
-    end
+  def address_line_1
+    [ @r.ma_address, @r.ma_address_2 ].reject(&:blank?).join(', ')
   end
 
-  def registration_line_2
-    if !@r.vvr_is_rural || @r.vvr_is_rural != '1'
-      if @r.vvr_county_or_city.to_s.downcase.include?('county')
-        city = @r.vvr_town
-      else
-        city = @r.vvr_county_or_city
-      end
-
-      zip = [ @r.vvr_zip5, @r.vvr_zip4 ].reject(&:blank?).join('-')
-
-      [ city, [ 'VA', zip ].join(' ') ].reject(&:blank?).join(', ')
-    end
-  end
-
-  def mailing_line_1
-    # TODO ???
-    "PO BOX 37574"
-  end
-
-  def mailing_line_2
-    # TODO ???
-    "RICHMOND, VA 23234-7574"
+  def address_line_2
+    "#{@r.ma_city}, #{@r.ma_state} #{[ @r.ma_zip5, @r.ma_zip4 ].reject(&:blank?).join('-')}"
   end
 
   def language

@@ -43,7 +43,12 @@ FactoryGirl.define do
       vvr_zip5            '24201'
       vvr_zip4            '2445'
 
-      ma_is_same          '1'
+      ma_is_same          '0'
+      ma_address          '518 Vance St'
+      ma_city             'Queensberry'
+      ma_state            'VA'
+      ma_zip5             '24201'
+      ma_zip4             '2445'
 
       is_confidential_address '1'
       ca_type             'if'
@@ -53,7 +58,7 @@ FactoryGirl.define do
 
       existing            true
 
-      poll_locality       "HENRICO COUNTY"
+      poll_locality       "BRUNSWICK COUNTY"
       poll_precinct       "220 - RATCLIFFE"
       poll_district       "FAIRFIELD DISTRICT"
     end
