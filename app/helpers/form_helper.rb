@@ -86,4 +86,8 @@ module FormHelper
     AppConfig['autocomplete'] ? 'on' : 'off'
   end
 
+  def office_address(locality)
+    address = Office.where(locality: locality).first.try(:address)
+    address && address.gsub("\n", "<br/>").html_safe
+  end
 end

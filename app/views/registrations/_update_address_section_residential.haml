@@ -25,7 +25,7 @@
 .row
   .span3
     %span County or city
-    = f.select :vvr_county_or_city, Dictionaries::CITIES_AND_COUNTIES, { include_blank: true }, { class: 'span3', 'data-bind' => 'instantValidation: { accessor: "vvrCountyOrCity" }' }
+    = f.select :vvr_county_or_city, Office.localities, { include_blank: true }, { class: 'span3', 'data-bind' => 'instantValidation: { accessor: "vvrCountyOrCity" }' }
   .span3
     <!-- ko if: vvrCountySelected -->
     %span Town

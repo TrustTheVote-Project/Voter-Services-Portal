@@ -15,12 +15,7 @@
             Mail your Virginia Voter Registration Application and proof of identity to your local
             %br/
             Voter Registration office:
-        %p
-          Accomack County
-          %br/
-          PO Box 97
-          %br/
-          Accomac, VA 23301-0097
+        %p= office_address(@registration.vvr_county_or_city)
   .partition
     .row
       .span10

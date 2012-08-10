@@ -26,7 +26,7 @@
         .row
           .span3
             %label Locality
-            = f.select :locality, Dictionaries::CITIES_AND_COUNTIES, { include_blank: true }, 'data-bind' => 'instantValidation: { accessor: "locality" }'
+            = f.select :locality, Office.localities, { include_blank: true }, 'data-bind' => 'instantValidation: { accessor: "locality" }'
 
       .partition
         .row

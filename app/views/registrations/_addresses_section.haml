@@ -24,7 +24,7 @@
   .row
     .span3
       %span County or city
-      = f.select :vvr_county_or_city, Dictionaries::CITIES_AND_COUNTIES, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "vvrCountyOrCity", resetAlso: ".town" }' }
+      = f.select :vvr_county_or_city, Office.localities, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "vvrCountyOrCity", resetAlso: ".town" }' }
     .span3.town
       <!-- ko if: vvrCountySelected -->
       %span Town
