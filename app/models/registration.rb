@@ -76,10 +76,6 @@ class Registration < ActiveRecord::Base
     self.current_absentee == '1'
   end
 
-  def currently_domestic_absentee?
-    !currently_overseas? && currently_absentee?
-  end
-
   def currently_residential_voter?
     !currently_overseas?
   end
