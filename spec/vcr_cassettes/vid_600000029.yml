@@ -1,0 +1,55 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://wscp.sbe.virginia.gov/ElectionList.svc/600000029
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 10 Aug 2012 08:05:08 GMT
+      Server:
+      - Microsoft-IIS/6.0
+      X-Powered-By:
+      - ASP.NET
+      X-Aspnet-Version:
+      - 4.0.30319
+      Content-Length:
+      - '2396'
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/xml; charset=utf-8
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0" encoding="utf-8"?><EML SchemaVersion="7.0" Id="330"
+        xmlns="urn:oasis:names:tc:evs:schema:eml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"><EMLHeader><TransactionId>330</TransactionId><SequenceNumber>1</SequenceNumber><NumberInSequence>1</NumberInSequence><SequencedElementName/><OfficialStatusDetail><OfficialStatus>approved</OfficialStatus><StatusDate>2012-08-10</StatusDate></OfficialStatusDetail></EMLHeader><ElectionList><VoterDetails><VoterRegistration><Voter><Source
+        Role="sender"><Name>Virginia</Name></Source><VoterIdentification Id="600000029"><VoterName><PersonFullName
+        xmlns="urn:oasis:names:tc:ciq:xnl:4">KESHIA ROBERTSON PRODAN </PersonFullName><PersonNameDetail
+        xmlns="urn:oasis:names:tc:ciq:xnl:4"><GivenName>KESHIA</GivenName><MiddleName>ROBERTSON</MiddleName><FamilyName>PRODAN</FamilyName></PersonNameDetail></VoterName></VoterIdentification><VoterInformation><Contact><MailingAddress><PostalAddress
+        xmlns="urn:oasis:names:tc:ciq:xal:4"><Thoroughfare type="DR" number="18108"
+        name="Oak Ridge">18108 Oak Ridge Dr</Thoroughfare><OtherDetail/><OtherDetail/><Locality>Purcellville</Locality><AdministrativeArea
+        type="StateCode">VA</AdministrativeArea><PostCode type="ZipCode">201324049</PostCode><Country/></PostalAddress></MailingAddress><Telephone><Number>7032463862</Number></Telephone></Contact><CheckBox
+        Type="AbsenteeStatus">yes</CheckBox><PollingDistrict><Association Id="PrecinctSplitUID">be9c0f9b-8db0-44b1-b0b3-2ddc6e72739a</Association><Association
+        Id="PrecinctName">301 - PURCELLVILLE ONE</Association><Association Id="LocalityName">LOUDOUN
+        COUNTY</Association><Association Id="TownshipName"/><Association Id="ElectoralDistrict">BLUE
+        RIDGE DISTRICT</Association></PollingDistrict><Gender>female</Gender><FurtherInformation><Message
+        DisplayOrder="0001" Type="Felony" Seqn="1"><Felony xsi:schemaLocation="http://sbe.virginia.gov
+        EmlExtension.xsd" HasFelonyConviction="yes" RightsRestored="no" xmlns=""><RestoreDate
+        xsi:nil="true"/></Felony></Message><Message DisplayOrder="0002" Type="Incapacitated"
+        Seqn="2"><Incapacitated xsi:schemaLocation="http://sbe.virginia.gov EmlExtension.xsd"
+        HasIncapacitated="yes" RightsRestored="no" xmlns=""><RestoreDate xsi:nil="true"/></Incapacitated></Message></FurtherInformation></VoterInformation></Voter></VoterRegistration></VoterDetails></ElectionList></EML>
+    http_version: 
+  recorded_at: Fri, 10 Aug 2012 08:04:34 GMT
+recorded_with: VCR 2.2.4

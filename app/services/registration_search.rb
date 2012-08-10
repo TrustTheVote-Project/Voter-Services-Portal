@@ -57,10 +57,58 @@ class RegistrationSearch
     doc = Nokogiri::XML::Document.parse(xml)
     doc.remove_namespaces!
 
+    ma_zip = doc.css('MailingAddress PostCode[type="ZipCode"]').try(:text) || ""
+    ma_zip5, ma_zip4 = ma_zip.scan(/(\d{5})(\d{4})?/).flatten
+
+    rights                = doc.css('Felony, Incapacitated')
+    rights_revoked        = "0"
+    rights_revoked_reason = nil
+    rights_restored       = nil
+    rights_restored_on    = nil
+
+    if rights.any?
+      rights_revoked = "1"
+
+      pending = rights.select { |e| e["RightsRestored"] == "no" }.last
+      if pending
+        rights_revoked_reason = pending.name == "Felony" ? "felony" : "mental"
+        rights_restored = "0"
+      else
+        rights_revoked_reason = rights.last.name == "Felony" ? "felony" : "mental"
+        rights_restored = "1"
+        rights_restored_on = Kronic.parse(rights.last.css("RestoreDate").text)
+      end
+    end
+
     options = {
-      first_name:   doc.css('GivenName').try(:text),
-      middle_name:  doc.css('MiddleName').try(:text),
-      last_name:    doc.css('FamilyName').try(:text)
+      first_name:             doc.css('GivenName').try(:text),
+      middle_name:            doc.css('MiddleName').try(:text),
+      last_name:              doc.css('FamilyName').try(:text),
+      phone:                  doc.css('Contact Telephone Number').try(:text),
+      gender:                 doc.css('Gender').try(:text).to_s.capitalize,
+
+      rights_revoked:         rights_revoked,
+      rights_revoked_reason:  rights_revoked_reason,
+      rights_restored:        rights_restored,
+      rights_restored_on:     rights_restored_on,
+
+      ma_is_same:             "0",
+      ma_address:             doc.css('MailingAddress Thoroughfare').try(:text),
+      ma_city:                doc.css('MailingAddress Locality').try(:text),
+      ma_state:               doc.css('MailingAddress AdministrativeArea[type="StateCode"]').try(:text),
+      ma_zip5:                ma_zip5,
+      ma_zip4:                ma_zip4 || "",
+
+      is_confidential_address: doc.css('Confidentiality').try(:text) == "yes" ? "1" : "0",
+
+      poll_precinct:          doc.css('PollingDistrict Association[Id="PrecinctName"]').try(:text),
+      poll_locality:          doc.css('PollingDistrict Association[Id="LocalityName"]').try(:text),
+      poll_district:          doc.css('PollingDistrict Association[Id="ElectoralDistrict"]').try(:text),
+
+      ssn4:                   "XXXX",
+      current_residence:      "in",
+      current_absentee:       doc.css('CheckBox[Type="AbsenteeStatus"]').try(:text) == 'yes' ? "1" : "0",
+      absentee_for_elections: []
     }
 
     Registration.new(options.merge(existing: true))

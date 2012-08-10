@@ -56,6 +56,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :current_residence
   serialized_attr :current_absentee
   serialized_attr :absentee_for_elections
+  serialized_attr :poll_precinct, :poll_locality, :poll_district
 
   before_create :review_absentee_until
 

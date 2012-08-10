@@ -1,0 +1,56 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://wscp.sbe.virginia.gov/ElectionList.svc/600000027
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Fri, 10 Aug 2012 08:05:07 GMT
+      Server:
+      - Microsoft-IIS/6.0
+      X-Powered-By:
+      - ASP.NET
+      X-Aspnet-Version:
+      - 4.0.30319
+      Content-Length:
+      - '2564'
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/xml; charset=utf-8
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0" encoding="utf-8"?><EML SchemaVersion="7.0" Id="330"
+        xmlns="urn:oasis:names:tc:evs:schema:eml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"><EMLHeader><TransactionId>330</TransactionId><SequenceNumber>1</SequenceNumber><NumberInSequence>1</NumberInSequence><SequencedElementName/><OfficialStatusDetail><OfficialStatus>approved</OfficialStatus><StatusDate>2012-08-10</StatusDate></OfficialStatusDetail></EMLHeader><ElectionList><VoterDetails><VoterRegistration><Voter><Source
+        Role="sender"><Name>Virginia</Name></Source><VoterIdentification Id="600000027"><VoterName><PersonFullName
+        xmlns="urn:oasis:names:tc:ciq:xnl:4">GREGORY EARL FORSYTH </PersonFullName><PersonNameDetail
+        xmlns="urn:oasis:names:tc:ciq:xnl:4"><GivenName>GREGORY</GivenName><MiddleName>EARL</MiddleName><FamilyName>FORSYTH</FamilyName></PersonNameDetail></VoterName></VoterIdentification><VoterInformation><Contact><MailingAddress><PostalAddress
+        xmlns="urn:oasis:names:tc:ciq:xal:4"><Thoroughfare type="LN" number="3213"
+        name="Gaulding">3213 Gaulding LN</Thoroughfare><OtherDetail/><OtherDetail/><Locality>Henrico</Locality><AdministrativeArea
+        type="StateCode">VA</AdministrativeArea><PostCode type="ZipCode">23223</PostCode><Country/></PostalAddress></MailingAddress><Telephone><Number>8042693708</Number></Telephone></Contact><CheckBox
+        Type="AbsenteeStatus">yes</CheckBox><PollingDistrict><Association Id="PrecinctSplitUID">62931ae3-d117-4f52-ae5c-2833200e26ff</Association><Association
+        Id="PrecinctName">220 - RATCLIFFE</Association><Association Id="LocalityName">HENRICO
+        COUNTY</Association><Association Id="TownshipName"/><Association Id="ElectoralDistrict">FAIRFIELD
+        DISTRICT</Association></PollingDistrict><Gender>female</Gender><FurtherInformation><Message
+        DisplayOrder="0001" Type="Felony" Seqn="1"><Felony xsi:schemaLocation="http://sbe.virginia.gov
+        EmlExtension.xsd" HasFelonyConviction="yes" RightsRestored="yes" xmlns=""><RestoreDate>2008-04-03</RestoreDate></Felony></Message><Message
+        DisplayOrder="0002" Type="Incapacitated" Seqn="2"><Incapacitated xsi:schemaLocation="http://sbe.virginia.gov
+        EmlExtension.xsd" HasIncapacitated="yes" RightsRestored="yes" xmlns=""><RestoreDate>2012-04-21</RestoreDate></Incapacitated></Message><Message
+        DisplayOrder="0003" Type="Confidential" Seqn="3"><Confidentiality xsi:schemaLocation="http://sbe.virginia.gov
+        EmlExtension.xsd" xmlns="">yes</Confidentiality></Message></FurtherInformation></VoterInformation></Voter></VoterRegistration></VoterDetails></ElectionList></EML>
+    http_version: 
+  recorded_at: Fri, 10 Aug 2012 08:04:33 GMT
+recorded_with: VCR 2.2.4
