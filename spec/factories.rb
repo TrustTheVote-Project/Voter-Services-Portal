@@ -87,7 +87,7 @@ FactoryGirl.define do
       rank                'Major'
 
       has_existing_reg    '0'
-      absentee_until      2.months.from_now
+      current_absentee_until 2.months.from_now
 
       existing            true
     end

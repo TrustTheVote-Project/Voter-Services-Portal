@@ -61,7 +61,11 @@
         %p
           %strong Overseas/Military Absentee Voter
 
-        %p Receiving an absentee ballot for elections through <strong data-bind="text: absenteeUntilFormatted"></strong>
+        - if @registration.current_absentee_until
+          %p Receiving an absentee ballot for elections through #{@registration.current_absentee_until.strftime("%b %d, %Y")}.
+
+        - if @registration.extending_absentee_period?
+          %p Requesting an absentee ballot for elections through <strong data-bind="text: absenteeUntilFormatted"></strong>
         <!-- /ko --> <!-- overseas -->
 
         <!-- ko if: domestic -->
@@ -70,21 +74,17 @@
         %p
           Now residing in Virginia, and submitting registration update in order to vote
           in the upcoming elections.
+
+        %p{ 'data-bind' => 'if: requestingAbsentee' }
+          Requesting an <strong>Absentee Ballot</strong> for <span data-bind='html: summaryElection'></span>
         <!-- /ko -->
       - else
         <!-- ko if: domestic -->
         %p
-          %strong{ 'data-bind' => 'ifnot: requestingAbsentee' }
-            - if af.empty?
-              Virginial Residential Voter
-            - else
-              Domestic Absentee Voter
-
-          %strong{ 'data-bind' => 'if: requestingAbsentee' }
-            Domestic Absentee Voter
+          %strong Virginial Residential Voter
 
         - unless af.blank?
-          %p Approved for Absentee Ballot for: #{af.join(', ')}
+          %p Approved for Absentee Ballot for #{af.join(', ')}
 
         %p{ 'data-bind' => 'if: requestingAbsentee' }
           Requesting an <strong>Absentee Ballot</strong> for <span data-bind='html: summaryElection'></span>

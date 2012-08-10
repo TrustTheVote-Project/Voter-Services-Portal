@@ -56,6 +56,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :current_residence
   serialized_attr :current_absentee
   serialized_attr :absentee_for_elections
+  serialized_attr :current_absentee_until           # overseas absentee
   serialized_attr :poll_precinct, :poll_locality, :poll_district
 
   before_create :review_absentee_until
@@ -121,7 +122,12 @@ class Registration < ActiveRecord::Base
 
   # Initializes the absentee_until field by the rules set in options
   def init_absentee_until
-    self.absentee_until ||= AppConfig['choose_absentee_until'] ? 1.year.from_now : 1.year.from_now.end_of_year
+    self.absentee_until = AppConfig['choose_absentee_until'] ? 1.year.from_now : 1.year.from_now.end_of_year
+  end
+
+  # TRUE if we are changing the absentee period
+  def extending_absentee_period?
+    self.current_absentee_until.try(:strftime, "%Y-%m-%d") != self.absentee_until.try(:strftime, "%Y-%m-%d")
   end
 
   # Existing voter type (used in logs)

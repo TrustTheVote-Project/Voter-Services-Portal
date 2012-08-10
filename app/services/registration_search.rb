@@ -31,7 +31,11 @@ class RegistrationSearch
       end
       r
     else
-      FactoryGirl.build(:existing_overseas_voter)
+      r = FactoryGirl.build(:existing_overseas_voter)
+      if vid == "111222334"
+        r.current_absentee_until = 1.year.from_now.end_of_year
+      end
+      r
     end
   end
 

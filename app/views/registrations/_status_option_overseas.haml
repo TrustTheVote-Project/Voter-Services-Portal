@@ -6,4 +6,4 @@
       I have moved overseas or been deployed, and I need to update my information for
       %strong Absentee voting.
     - else
-      Receiving an absentee ballot for elections through _DATE_.
+      Receiving an absentee ballot for elections through #{@registration.current_absentee_until.strftime("%b %d, %Y")}.
