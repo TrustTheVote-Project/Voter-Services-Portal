@@ -23,8 +23,13 @@ class RegistrationSearch
   end
 
   def self.sample_record(vid)
-    if vid == '123123123'
-      FactoryGirl.build(:existing_residential_voter)
+    if vid =~ /12312312\d/
+      r = FactoryGirl.build(:existing_residential_voter)
+      if vid == "123123124"
+        r.current_absentee = "1"
+        r.absentee_for_elections = [ "Election 1", "Election 2" ]
+      end
+      r
     else
       FactoryGirl.build(:existing_overseas_voter)
     end

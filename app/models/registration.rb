@@ -81,7 +81,7 @@ class Registration < ActiveRecord::Base
   end
 
   def currently_residential_voter?
-    !currently_overseas? && !currently_absentee?
+    !currently_overseas?
   end
 
   def uocava?
