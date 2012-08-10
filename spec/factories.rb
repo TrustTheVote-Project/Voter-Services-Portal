@@ -52,6 +52,10 @@ FactoryGirl.define do
       be_official         '1'
 
       existing            true
+
+      poll_locality       "HENRICO COUNTY"
+      poll_precinct       "220 - RATCLIFFE"
+      poll_district       "FAIRFIELD DISTRICT"
     end
 
     factory :existing_overseas_voter do
@@ -90,6 +94,10 @@ FactoryGirl.define do
       current_absentee_until 2.months.from_now
 
       existing            true
+
+      poll_locality       "LOUDOUN COUNTY"
+      poll_precinct       "301 - PURCELLVILLE ONE"
+      poll_district       "BLUE RIDGE DISTRICT"
     end
   end
 end

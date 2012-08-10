@@ -65,27 +65,24 @@ class VoterCard
   end
 
   def locality
-    # TODO ???
-    "CHESTERFIELD COUNTY"
+    @r.poll_locality
   end
 
   def precinct
-    # TODO ???
-    "101 - BELLWOOD"
+    @r.poll_precinct
   end
 
   def districts
     # TODO ???
-    [ "CONG 004", "SEN 016", "HSE 062" ].join('&nbsp; &nbsp;').html_safe
+    [ ].join(" &nbsp ")
   end
 
   def local
-    # TODO ???
-    "BERMUDA DISTRICT"
+    @r.poll_district
   end
 
   def voter_registration_office
-    "PO BOX 1690\nCHESTERFIELD, VA 23832\n804-748-1471"
+    Office.where(locality: locality).first.try(:address)
   end
 
 end
