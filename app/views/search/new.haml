@@ -25,7 +25,7 @@
             = bound_date f, :dob, { object_name: 'search_query', start_year: Date.today.year - 120, end_year: Date.today.year - 17 }, { class: 'date' }
         .row
           .span3
-            %label Locality
+            %label Locality222
             = f.select :locality, Office.localities, { include_blank: true }, 'data-bind' => 'instantValidation: { accessor: "locality" }'
 
       .partition

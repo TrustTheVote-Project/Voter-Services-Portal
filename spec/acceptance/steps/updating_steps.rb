@@ -1,6 +1,10 @@
 steps_for :updating do
 
   step 'I look up :kind record' do |kind|
+    Office.create!(locality: "ACCOMACK COUNTY", address: "Some address")
+    Office.create!(locality: "BRUNSWICK COUNTY", address: "Some address")
+    Office.create!(locality: "BRISTOL CITY", address: "Some address")
+
     visit search_path
 
     if kind == 'residential voter'
