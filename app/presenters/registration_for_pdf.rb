@@ -87,7 +87,8 @@ class RegistrationForPdf < RegistrationDetailsPresenter
   end
 
   def acp_reason(d = :data)
-    Dictionaries::ACP_REASONS[@reg.send(d)[:ca_type]]
+    key = @reg.send(d)[:ca_type]
+    "#{key}: #{Dictionaries::ACP_REASONS[key]}"
   end
 
   # Military / overseas

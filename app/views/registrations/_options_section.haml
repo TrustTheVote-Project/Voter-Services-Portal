@@ -38,18 +38,10 @@
     .row
       .span10
         %span I request that my home address not be released because I or member of my household is
-        .radio
-          = f.radio_button :ca_type, 'le', 'data-bind' => 'checkedWithInit: caType'
-          %label active or retired law enforcement
-        .radio
-          = f.radio_button :ca_type, 'po', 'data-bind' => 'checkedWithInit: caType'
-          %label have been granted a protective court order
-        .radio
-          = f.radio_button :ca_type, 'if', 'data-bind' => 'checkedWithInit: caType'
-          %label are in fear of your personal safety from someone who has threatened or stalked you and have filed a complaint against that person with magistrate or law enforcement
-        .radio
-          = f.radio_button :ca_type, 'acp', 'data-bind' => 'checkedWithInit: caType'
-          %label participate in the Address Confidentiality Program
+        - %w( LEO CPO TSC ACP ).each do |r|
+          .radio
+            = f.radio_button :ca_type, r, 'data-bind' => 'checkedWithInit: caType'
+            %label= Dictionaries::ACP_REASONS[r]
 
         <!-- ko if: caType -->
         .additional

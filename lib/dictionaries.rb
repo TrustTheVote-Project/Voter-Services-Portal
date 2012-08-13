@@ -67,13 +67,6 @@ module Dictionaries
 
   NAME_SUFFIXES = [ "Jr", "Sr" ]
 
-  ACP_REASONS = {
-    'le'  => "Law Enforcement",
-    'po'  => "Protective Order",
-    'if'  => "Threatened / Stalked",
-    'acp' => "Participage in Address Confidentiality Program"
-  }
-
   PARTIES = [
     "American Independent Party",
     "Americans Elect Party",
@@ -125,6 +118,13 @@ module Dictionaries
     '1' => 'Presidential Primary Election held on Tuesday, March 6, 2012.',
     '2' => 'State Primary Election held on Tuesday, June 12, 2012.',
     '3' => 'General Election held on Tuesday, November 6, 2012.'
+  }
+
+  ACP_REASONS = {
+    'LEO' => 'active or retired law enforcement officer, judge, U.S. or Virginia Attorney General attorney',
+    'CPO' => 'have a court issued protective order for my benefit',
+    'TSC' => 'have a complaint with law enforcement about being threatened or stalked',
+    'ACP' => 'registered with the Virginia Attorney General\'s Address Confidentiality Program'
   }
 
 end
