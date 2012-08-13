@@ -6,6 +6,17 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     @er = {}
   end
 
+  def registrar_address
+    locality = @reg.poll_locality || @reg.vvr_county_or_city
+    o = Office.where(locality: locality).first
+    if o
+      a = o.address.split("\n")
+      a.pop # remove phone
+
+      ([ "#{locality} General Registrar" ] + a).join("<br/>").html_safe
+    end
+  end
+
   # Rights
 
   def rights_revoked?

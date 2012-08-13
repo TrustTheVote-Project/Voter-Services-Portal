@@ -1,8 +1,22 @@
 @font-face {
-  font-family: Georgia;
+  font-family: 'Georgia';
   font-weight: normal;
   font-style: normal;
   src: url('<%= Rails.root %>/lib/fonts/georgia.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'UniversCo';
+  font-weight: bold;
+  font-style:  normal;
+  src: url('<%= Rails.root %>/lib/fonts/UniversLTStd-BoldCn.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'UniversCo';
+  font-weight: normal;
+  font-style:  normal;
+  src: url('<%= Rails.root %>/lib/fonts/univers-condensed.ttf') format('truetype');
 }
 
 body {
@@ -126,5 +140,83 @@ body {
       display: block;
       float: left;
     }
+  }
+}
+
+$colWidth: 135px;
+$red: #d11242;
+$black: #000;
+$univers: 'UniversCo';
+$universBold: 'UniversCoBold';
+
+.title_page {
+  font-family: $univers;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 15px;
+  overflow: hidden;
+  page-break-after: always;
+
+  & > header {
+    border-bottom: 4px solid $red;
+    padding-right: 70px;
+  }
+
+  h1 {
+    color: $red;
+    font-size: 3.5em;
+    line-height: 1.1em;
+    margin: 5px 0 5px;
+    span {
+      font-weight: normal;
+      display: block;
+    }
+  }
+  p {
+    &.warning {
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+    &.first {
+      border-top: 1px solid $red;
+      margin-top: 1px;
+      padding-top: 9px;
+    }
+  }
+  article {
+    font-size: 1.15em;
+    line-height: 1.1em;
+    border-bottom: 1px solid $black;
+    header {
+      display: block;
+      float: left;
+      width: $colWidth;
+      h2 {
+        font-weight: normal;
+        color: $red;
+        font-size: 1.2em;
+        margin: 0 15px 0 0;
+        padding: 0;
+      }
+    }
+    p {
+      margin-left: $colWidth + 10px;
+    }
+    ul {
+      margin-left: $colWidth + 10px;
+      padding-left: 20px;
+    }
+    &.last {
+      border-bottom: 2px solid $red;
+    }
+  }
+  .registrar {
+    margin: 5px 0 5px 5px;
+    font-weight: bold;
+  }
+  .serial {
+    float: right;
+    color: #aaa;
+    font-size: 0.8em;
   }
 }

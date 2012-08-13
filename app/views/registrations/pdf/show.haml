@@ -1,5 +1,6 @@
 - rr = RegistrationForPdf.new(@registration)
 
+= render partial: 'registrations/pdf/title', locals: { rr: rr }
 = render partial: 'registrations/pdf/header', locals: { rr: rr }
 = render partial: 'registrations/pdf/eligibility', locals: { rr: rr }
 
