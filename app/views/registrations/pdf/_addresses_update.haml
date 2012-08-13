@@ -23,17 +23,18 @@
           = field_line 3, rr.registration_address, 'registration address'
           = field_line 3, rr.update_mailing_address, 'new mailing address'
 
-    - if er || ac
+    - if er
       .row
-        - if er
-          = field_line 3, rr.existing_registration_address, 'previous registration address'
-        - if ac
-          = field_line 3, rr.acp_reason, 'address confidentiality'
+        = field_line 3, rr.existing_registration_address, 'previous registration address'
+      .row
+        .span3
+          .check Cancel my existing registrating
+
+    - if ac
+      .row
+        = field_line 3, rr.acp_reason, 'address confidentiality'
+        = field_line 3, rr.acp_pobox, 'P.O. box mailing address for voter lists'
 
       .row
-        - if er
-          .span3
-            .check Cancel my existing registrating
-        - if ac
-          .span3
-            .check I request that my home address not be released
+        .span3
+          .check I request that my home address not be released

@@ -45,7 +45,24 @@
 
         <!-- ko if: caType -->
         .additional
-          .important You must provide a mailing address that is a Virginia P.O. Box
+          .important In order to non-publish your residence address in voter lists, you must also provide an alternative post office box mailing address within Virginia to be used on the voter lists.
+          .row
+            .span5
+              %span P.O. Box
+              = f.text_field :ca_po_box, autocomplete: ac, placeholder: 'Box number', maxlength: 20, 'data-bind' => 'instantValidation: { accessor: "caPoBox" }'
+          .row
+            .span3.town
+              %span City / Town
+              = f.text_field :ca_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caCity" }'
+            .span1
+              %span State
+              VA
+            .span2.zip-field
+              %span Zip code
+              = f.text_field :ca_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "caZip5", validation: "zip5" }', placeholder: 'NNNNN'
+              .space &mdash;
+              = f.text_field :ca_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', placeholder: 'NNNN'
+
           <!-- ko if: caType() == 'in fear' -->
           .important You must attach copy of the complaint that you filed
           <!-- /ko -->

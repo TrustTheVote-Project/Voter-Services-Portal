@@ -91,6 +91,11 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     "#{key}: #{Dictionaries::ACP_REASONS[key]}"
   end
 
+  def acp_pobox(d = :data)
+    d = @reg.send(d)
+    [ d[:ca_po_box], d[:ca_city], [ d[:ca_zip5], d[:ca_zip4] ].reject(&:blank?).join('-') ].join(', ')
+  end
+
   # Military / overseas
 
   def residential?

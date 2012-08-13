@@ -37,7 +37,8 @@ class Registration < ActiveRecord::Base
 
   # Options
   serialized_attr :choose_party, :party, :other_party
-  serialized_attr :is_confidential_address, :ca_type
+  serialized_attr :is_confidential_address, :ca_type,
+                  :ca_po_box, :ca_city, :ca_zip5, :ca_zip4
   serialized_attr :requesting_absentee, :rab_election,
                   :rab_election_name, :rab_election_date,
                   :absentee_until

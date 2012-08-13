@@ -175,6 +175,10 @@ class window.Registration
 
     @caType                 = ko.observable()
     @isConfidentialAddress  = ko.observable()
+    @caPoBox                = ko.observable()
+    @caCity                 = ko.observable()
+    @caZip5                 = ko.observable()
+
     @requestingAbsentee     = ko.observable()
     @absenteeUntil          = ko.observable()
     @rabElection            = ko.observable()
@@ -273,6 +277,13 @@ class window.Registration
       if @chooseParty()
         if !filled(@party()) || (@party() == 'other' and !filled(@otherParty()))
           errors.push("Party preference")
+
+      if @isConfidentialAddress()
+        if !filled(@caType())
+          errors.push("Address confidentiality reason")
+        else
+          if !filled(@caPoBox()) || !filled(@caCity()) || !zip5(@caZip5())
+            errors.push("Correct P.O. Box")
 
       if @requestingAbsentee()
         if @overseas()
