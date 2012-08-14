@@ -143,14 +143,11 @@ body {
   }
 }
 
-$colWidth: 135px;
-$red: #d11242;
-$black: #000;
-$univers: 'UniversCo';
-$universBold: 'UniversCoBold';
+$colWidth:  135px;
+$red:       #d11242;
 
 .title_page {
-  font-family: $univers;
+  font-family: UniversCo;
   font-weight: normal;
   font-size: 14px;
   line-height: 15px;
@@ -166,7 +163,7 @@ $universBold: 'UniversCoBold';
     color: $red;
     font-size: 3.5em;
     line-height: 1.1em;
-    margin: 5px 0 5px;
+    margin: 0 0 5px;
     span {
       font-weight: normal;
       display: block;
@@ -183,10 +180,14 @@ $universBold: 'UniversCoBold';
       padding-top: 9px;
     }
   }
+  p, ul {
+    margin-top: 8px;
+    margin-bottom: 8px;
+  }
   article {
     font-size: 1.15em;
     line-height: 1.1em;
-    border-bottom: 1px solid $black;
+    border-bottom: 1px solid #000;
     header {
       display: block;
       float: left;
@@ -211,7 +212,7 @@ $universBold: 'UniversCoBold';
     }
   }
   .registrar {
-    margin: 5px 0 5px 5px;
+    margin: 9px 0 7px 5px;
     font-weight: bold;
   }
   .serial {
