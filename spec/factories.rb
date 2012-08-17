@@ -57,7 +57,6 @@ FactoryGirl.define do
       ca_zip5             '22801'
       ca_zip4             '7531'
 
-      has_existing_reg    '0'
       be_official         '1'
 
       existing            true
