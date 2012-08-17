@@ -17,9 +17,14 @@ class RegistrationSearch
       xml = search_by_data(search_query)
     end
 
+    puts xml.inspect
+
     rec = parse(xml)
     rec.existing = true;
     rec
+
+  rescue RecordNotFound
+    nil
   end
 
   def self.sample_record(vid)
@@ -47,7 +52,7 @@ class RegistrationSearch
       http.request(req)
     end
 
-    res.body
+    res.code == '200' && res.body || raise(RecordNotFound)
   end
 
   def self.search_by_data(query)
