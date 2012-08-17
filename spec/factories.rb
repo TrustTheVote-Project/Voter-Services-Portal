@@ -51,7 +51,11 @@ FactoryGirl.define do
       ma_zip4             '2445'
 
       is_confidential_address '1'
-      ca_type             'if'
+      ca_type             'TSC'
+      ca_po_box           '20031'
+      ca_city             'Harrisonburg'
+      ca_zip5             '22801'
+      ca_zip4             '7531'
 
       has_existing_reg    '0'
       be_official         '1'
