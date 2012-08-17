@@ -17,8 +17,6 @@ class RegistrationSearch
       xml = search_by_data(search_query)
     end
 
-    puts xml.inspect
-
     rec = parse(xml)
     rec.existing = true;
     rec
