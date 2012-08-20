@@ -14,7 +14,7 @@
         = field_line 6, rr.previous_name, 'previous name'
 
     .row
-      = field_line 1, rr.ssn, 'social security number'
+      = field_line 1, rr.voter_id, 'voter id'
       = field_line 1, rr.dob, 'date of birth'
       = field_line 1, rr.phone, 'new phone', if: rr.phone_changed?
       = field_line 1, :empty
