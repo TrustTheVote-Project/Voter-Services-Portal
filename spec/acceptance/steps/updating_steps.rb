@@ -43,6 +43,7 @@ steps_for :updating do
   step 'I proceed without making changes' do
     step 'I proceed'
     step 'I should see the addresses page'
+    step 'I choose no previous registration'
     step 'I proceed'
     step 'I should see the options page'
     step 'I proceed'
@@ -61,6 +62,10 @@ steps_for :updating do
   step 'I should see the addresses page' do
     should_be_visible "Registration address"
     should_be_visible "Mailing address"
+  end
+
+  step 'I choose no previous registration' do
+    choose "registration_has_existing_reg_0"
   end
 
   step 'I should see the options page' do
@@ -102,7 +107,8 @@ steps_for :updating do
     choose  "I prefer that voting materials be sent to me at an APO/DPO/FPO address"
     fill_in "registration_apo_address", with: "Sample address"
     fill_in "registration_apo_zip5", with: "12345"
-    step   "I proceed"
+    step    "I choose no previous registration"
+    step    "I proceed"
 
     step    "I should see the options page"
     choose  "Active Duty Merchant Marine or Armed Forces"
@@ -120,6 +126,7 @@ steps_for :updating do
     step    "I proceed"
 
     step    "I should see the addresses page"
+    step    "I choose no previous registration"
     step    "I proceed"
 
     step    "I should see the options page"
