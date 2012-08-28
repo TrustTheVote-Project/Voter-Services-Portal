@@ -44,7 +44,9 @@ FactoryGirl.define do
       vvr_zip4            '2445'
 
       ma_is_same          '0'
-      ma_address          '518 Vance St'
+      ma_street_number    '518'
+      ma_street_name      'Vance'
+      ma_street_type      'ST'
       ma_city             'Queensberry'
       ma_state            'VA'
       ma_zip5             '24201'

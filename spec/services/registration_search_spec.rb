@@ -22,7 +22,9 @@ describe RegistrationSearch do
     its(:rights_restored_on)      { should == Kronic.parse('2012-04-21') }
 
     its(:ma_is_same)              { should == "0" }
-    its(:ma_address)              { should == "3213 Gaulding LN" }
+    its(:ma_street_number)        { should == "3213" }
+    its(:ma_street_name)          { should == "Gaulding" }
+    its(:ma_street_type)          { should == "LN" }
     its(:ma_city)                 { should == "Henrico" }
     its(:ma_state)                { should == "VA" }
     its(:ma_zip5)                 { should == "23223" }
@@ -59,7 +61,9 @@ describe RegistrationSearch do
     its(:rights_restored)         { should == "0" }
 
     its(:ma_is_same)              { should == "0" }
-    its(:ma_address)              { should == "18108 Oak Ridge Dr" }
+    its(:ma_street_number)        { should == "18108" }
+    its(:ma_street_name)          { should == "Oak Ridge" }
+    its(:ma_street_type)          { should == "DR" }
     its(:ma_city)                 { should == "Purcellville" }
     its(:ma_state)                { should == "VA" }
     its(:ma_zip5)                 { should == "20132" }

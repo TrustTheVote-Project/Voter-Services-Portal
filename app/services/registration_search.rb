@@ -92,6 +92,8 @@ class RegistrationSearch
       end
     end
 
+    ma = doc.css('MailingAddress Thoroughfare').first
+
     options = {
       first_name:             doc.css('GivenName').try(:text),
       middle_name:            doc.css('MiddleName').try(:text),
@@ -105,7 +107,11 @@ class RegistrationSearch
       rights_restored_on:     rights_restored_on,
 
       ma_is_same:             "0",
-      ma_address:             doc.css('MailingAddress Thoroughfare').try(:text),
+
+      ma_street_number:       ma[:number],
+      ma_street_name:         ma[:name],
+      ma_street_type:         ma[:type],
+      ma_apt:                 doc.css('MailingAddress OtherDetail').try(:text),
       ma_city:                doc.css('MailingAddress Locality').try(:text),
       ma_state:               doc.css('MailingAddress AdministrativeArea[type="StateCode"]').try(:text),
       ma_zip5:                ma_zip5,

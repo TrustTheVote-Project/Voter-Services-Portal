@@ -18,11 +18,11 @@ class VoterCard
   end
 
   def address_line_1
-    [ @r.ma_address, @r.ma_address_2 ].reject(&:blank?).join(', ')
+    [ @r.ma_street_number, @r.ma_street_name, @r.ma_street_type ].rjoin(', ')
   end
 
   def address_line_2
-    "#{@r.ma_city}, #{@r.ma_state} #{[ @r.ma_zip5, @r.ma_zip4 ].reject(&:blank?).join('-')}"
+    "#{@r.ma_city}, #{@r.ma_state} #{[ @r.ma_zip5, @r.ma_zip4 ].rjoin('-')}"
   end
 
   def language

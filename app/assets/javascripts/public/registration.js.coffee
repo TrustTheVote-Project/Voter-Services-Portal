@@ -81,8 +81,10 @@ class window.Registration
     @vvrUocavaResidenceUnavailableSinceMonth = ko.observable()
     @vvrUocavaResidenceUnavailableSinceYear = ko.observable()
     @vvrUocavaResidenceUnavailableSince = ko.computed => pastDate(@vvrUocavaResidenceUnavailableSinceYear(), @vvrUocavaResidenceUnavailableSinceMonth(), @vvrUocavaResidenceUnavailableSinceDay())
-    @maAddress1             = ko.observable()
-    @maAddress2             = ko.observable()
+    @maStreetNumber         = ko.observable()
+    @maStreetName           = ko.observable()
+    @maStreetType           = ko.observable()
+    @maApt                  = ko.observable()
     @maCity                 = ko.observable()
     @maState                = ko.observable()
     @maZip5                 = ko.observable()
@@ -111,7 +113,9 @@ class window.Registration
 
     @domesticMAFilled = ko.computed =>
       @maIsSame() == '1' or
-      filled(@maAddress1()) and
+      filled(@maStreetNumber()) and
+      filled(@maStreetName()) and
+      filled(@maStreetType()) and
       filled(@maCity()) and
       filled(@maState()) and
       zip5(@maZip5())
@@ -374,8 +378,7 @@ class window.Registration
 
     @summaryDomesticMailingAddress = ko.computed =>
       join([
-        @maAddress1(),
-        @maAddress2(),
+        join([ join([ @maStreetNumber(), @maApt() ], '/'), @maStreetName(), @maStreetType() ], ' '),
         join([ @maCity(), join([ @maState(), join([ @maZip5(), @maZip4()], '-')], ' ')], ', ')
       ], "<br/>")
 
