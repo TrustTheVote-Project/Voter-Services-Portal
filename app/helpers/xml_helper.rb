@@ -32,10 +32,13 @@ module XmlHelper
         electoral_address(xml, r, 'MailingAddress')
       else
         xml.MailingAddress status: 'current' do
-          xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
-            # TODO implement. Asked John about this
-            # Problem is in collecting free-text two address lines, but using
-            # PostalAddress node with structured data.
+          xml.PostalAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
+            xml.Thoroughfare        r.ma_thoroughfare, type: r.ma_street_type, number: r.ma_street_number, name: r.ma_street_name
+            xml.OtherDetail         r.ma_apt unless r.ma_apt.blank?
+            xml.Locality            r.ma_city, type: 'Town'
+            xml.AdministrativeArea  r.ma_state, type: 'StateCode'
+            xml.PostCode            r.ma_zip, type: 'ZipCode'
+            xml.Country             'United States of America', code: 'USA'
           end
         end
       end

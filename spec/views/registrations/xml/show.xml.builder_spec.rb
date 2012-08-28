@@ -81,7 +81,17 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
         end
       end
 
-      it 'is different from registration'
+      it 'is different from registration' do
+        r = reg ma_is_same: '0', ma_street_number: '2', ma_street_name: 'SN', ma_street_type: 'ST', ma_apt: 'APT', ma_city: 'C', ma_state: 'MA', ma_zip5: '11111', ma_zip4: '2222'
+        xml.within "MailingAddress[status='current'] PostalAddress" do |a|
+          a.should have_selector "Thoroughfare[type='ST'][number='2'][name='SN']", text: "2 SN ST"
+          a.should have_selector "Locality[type='Town']", text: 'C'
+          a.should have_selector "AdministrativeArea[type='StateCode']", text: 'MA'
+          a.should have_selector "PostCode[type='ZipCode']", text: '111112222'
+          a.should have_selector "Country[code='USA']", text: 'United States of America'
+          a.should have_selector "OtherDetail", text: 'APT'
+        end
+      end
     end
 
     context 'overseas' do

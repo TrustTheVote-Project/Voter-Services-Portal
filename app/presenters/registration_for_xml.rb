@@ -9,6 +9,8 @@ class RegistrationForXML
                   :ca_type, :ca_po_box, :ca_city,
                   :vvr_street_number, :vvr_street_name, :vvr_street_type, :vvr_apt,
                   :vvr_town, :vvr_state, :vvr_state, :vvr_rural,
+                  :ma_street_number, :ma_street_name, :ma_street_type, :ma_apt,
+                  :ma_city, :ma_state,
                   :mau_type, :mau_address, :mau_address_2, :mau_city, :mau_city_2,
                   :mau_state, :mau_postal_code, :mau_country,
                   :apo_address, :apo_address_2, :apo_1, :apo_2, :apo_zip5,
@@ -69,12 +71,16 @@ class RegistrationForXML
     zip(@r.ca_zip5, @r.ca_zip4)
   end
 
+  def ma_zip
+    zip(@r.ma_zip5, @r.ma_zip4)
+  end
+
   def vvr_is_rural?
     @r.vvr_is_rural == '1'
   end
 
   def vvr_thoroughfare
-    rjoin([ @r.vvr_street_number, @r.vvr_street_name, @r.vvr_street_type ], ' ')
+    [ @r.vvr_street_number, @r.vvr_street_name, @r.vvr_street_type ].rjoin(' ')
   end
 
   def er_is_rural?
@@ -82,7 +88,7 @@ class RegistrationForXML
   end
 
   def er_thoroughfare
-    rjoin([ @r.er_street_number, @r.er_street_name, @r.er_street_type ], ' ')
+    [ @r.er_street_number, @r.er_street_name, @r.er_street_type ].rjoin(' ')
   end
 
   def vvr_zip
@@ -91,6 +97,10 @@ class RegistrationForXML
 
   def ma_is_same?
     @r.ma_is_same == '1'
+  end
+
+  def ma_thoroughfare
+    [ @r.ma_street_number, @r.ma_street_name, @r.ma_street_type ].rjoin(' ')
   end
 
   def rights_restored?
@@ -104,11 +114,7 @@ class RegistrationForXML
   private
 
   def zip(z5, z4)
-    rjoin([ z5, z4 ])
-  end
-
-  def rjoin(items, sep = '')
-    items.reject(&:blank?).join(sep)
+    [ z5, z4 ].rjoin
   end
 
 end
