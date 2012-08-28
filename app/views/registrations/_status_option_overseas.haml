@@ -2,7 +2,7 @@
   = radio_button_tag "status", "overseas", reg.status == "overseas"
   %label{ for: 'status_overseas' } Overseas/Military Absentee Voter
   %p
-    - if @registration.currently_residential_voter?
+    - if @registration.currently_residential?
       I have moved overseas or been deployed, and I need to update my information for
       %strong Absentee voting.
     - else

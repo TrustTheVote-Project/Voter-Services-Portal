@@ -1,7 +1,7 @@
 %li
   = radio_button_tag "status", "residential_voter", reg.status == "residential_voter"
   %label{ for: 'status_residential_voter' } Virginia Residential Voter
-  - if @registration.currently_residential_voter?
+  - if @registration.currently_residential?
     - af = @registration.absentee_for_elections || []
     %p
       - if af.empty?

@@ -55,6 +55,9 @@ class RegistrationsController < ApplicationController
           render_to_string(template: 'registrations/pdf/show', pdf: 'registration.pdf', layout: 'pdf'),
           margin: { top: 5, right: 5, bottom: 5, left: 5 })
       end
+      f.xml do
+        render 'registrations/xml/show', layout: false
+      end
     end
   rescue ActiveRecord::RecordNotFound
     redirect_to :root

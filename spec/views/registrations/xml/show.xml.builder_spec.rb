@@ -1,0 +1,293 @@
+require 'spec_helper'
+
+describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
+
+  describe 'general' do
+    before { reg }
+
+    it 'should render the header' do
+      xml.within 'EML EMLHeader' do |x|
+        x.should have_selector 'TransactionId', text: '310'
+        x.should have_selector 'SequenceNumber', text: '1'
+        x.should have_selector 'NumberInSequence', text: '1'
+        x.should have_selector 'SequencedElementName'
+      end
+    end
+
+    it 'should render the source' do
+      xml.within 'EML VoterRegistration Voter Source' do |s|
+        s.should have_selector 'Name', text: AppConfig['xml']['source_name']
+        s.should have_selector 'IdValue', text: '806000539'
+      end
+    end
+  end
+
+  describe 'voter name' do
+    it 'should output minimal version' do
+      reg first_name: 'FN', middle_name: nil, last_name: 'LN', suffix: nil
+      xml.within 'EML VoterRegistration Voter VoterIdentification VoterName' do |n|
+        n.should have_selector 'GivenName',       text: 'FN'
+        n.should have_selector 'MiddleName',      text: ''
+        n.should have_selector 'FamilyName',      text: 'LN'
+        n.should have_selector 'NameSuffixText',  text: ''
+      end
+    end
+
+    it 'should output maximal version' do
+      reg first_name: 'FN', middle_name: 'MN', last_name: 'LN', suffix: 'S'
+      xml.within 'EML VoterRegistration Voter VoterIdentification VoterName' do |n|
+        n.should have_selector 'GivenName',       text: 'FN'
+        n.should have_selector 'MiddleName',      text: 'MN'
+        n.should have_selector 'FamilyName',      text: 'LN'
+        n.should have_selector 'NameSuffixText',  text: 'S'
+      end
+    end
+  end
+
+  describe 'electoral address' do
+    it 'should render rural address' do
+      reg vvr_is_rural: '1', vvr_rural: 'Rural address'
+      xml.within 'EML VoterRegistration Voter VoterIdentification' do |x|
+        x.within "ElectoralAddress[type='Rural'][status='current'] FreeTextAddress" do |a|
+          a.should have_selector 'AddressLine', text: 'Rural address'
+        end
+      end
+    end
+
+    it 'should render local address' do
+      reg vvr_street_number: '1', vvr_street_name: 'SN', vvr_street_type: 'AVE', vvr_apt: '2', vvr_county_or_city: 'BRISTOL CITY', vvr_town: 'BRISTOL', vvr_state: 'VA', vvr_zip5: '12345', vvr_zip4: '6789'
+      xml.within "ElectoralAddress[status='current']:not([type='Rural']) PostalAddress" do |a|
+        a.should have_selector "Thoroughfare[type='AVE'][number='1'][name='SN']", text: "1 SN AVE"
+        a.should have_selector "OtherDetail", text: '2'
+        a.should have_selector "Locality[type='Town']", text: 'BRISTOL'
+        a.should have_selector "AdministrativeArea[type='StateCode']", text: 'VA'
+        a.should have_selector "PostCode[type='ZipCode']", text: '123456789'
+        a.should have_selector "Country[code='USA']", text: 'United States of America'
+      end
+    end
+  end
+
+  describe 'mailing address' do
+    context 'residential' do
+      it 'is the same as registration' do
+        r = reg ma_is_same: '1', vvr_zip5: 12345, vvr_zip4: nil, vvr_apt: nil
+        xml.within "MailingAddress[status='current'] PostalAddress" do |a|
+          a.should have_selector "Thoroughfare[type='#{r.vvr_street_type}'][number='#{r.vvr_street_number}'][name='#{r.vvr_street_name}']", text: "#{r.vvr_street_number} #{r.vvr_street_name} #{r.vvr_street_type}"
+          a.should have_selector "Locality[type='Town']", text: r.vvr_town
+          a.should have_selector "AdministrativeArea[type='StateCode']", text: r.vvr_state
+          a.should have_selector "PostCode[type='ZipCode']", text: '12345'
+          a.should have_selector "Country[code='USA']", text: 'United States of America'
+          a.should_not have_selector "OtherDetail"
+        end
+      end
+
+      it 'is different from registration'
+    end
+
+    context 'overseas' do
+      it 'is non-US' do
+        r = reg_overseas mau_type: 'non-us', mau_address: 'a1', mau_address_2: 'a2', mau_city: 'c', mau_city_2: 'c2', mau_state: 's', mau_postal_code: '12345', mau_country: 'country'
+        xml.within "MailingAddress[status='current'] FreeTextAddress" do |a|
+          a.should have_selector "AddressLine[seqn='0001']:not([type])", text: 'a1'
+          a.should have_selector "AddressLine[seqn='0002']:not([type])", text: 'a2'
+          a.should have_selector "AddressLine[seqn='0003'][type='City']", text: 'c c2'
+          a.should have_selector "AddressLine[seqn='0004'][type='State']", text: 's'
+          a.should have_selector "AddressLine[seqn='0005'][type='PostalCode']", text: '12345'
+          a.should have_selector "AddressLine[seqn='0006'][type='Country']", text: 'country'
+        end
+      end
+
+      it 'is APO/DPO/FPO' do
+        r = reg_overseas mau_type: 'apo', apo_address: 'a1', apo_address_2: 'a2', apo_1: '1', apo_2: '2', apo_zip5: '12345'
+        xml.within "MailingAddress[status='current'] FreeTextAddress" do |a|
+          a.should have_selector "AddressLine[seqn='0001']:not([type])", text: 'a1'
+          a.should have_selector "AddressLine[seqn='0002']:not([type])", text: 'a2'
+          a.should have_selector "AddressLine[seqn='0003'][type='City']", text: '1'
+          a.should have_selector "AddressLine[seqn='0004'][type='State']", text: '2'
+          a.should have_selector "AddressLine[seqn='0005'][type='PostalCode']", text: '12345'
+          a.should have_selector "AddressLine[seqn='0006'][type='Country']", text: 'United States'
+        end
+      end
+    end
+  end
+
+  describe 'existing registration' do
+    it 'should not render when none' do
+      reg
+      xml.should_not have_selector "PreviousElectoralAddress"
+    end
+
+    it 'should render non-rural' do
+      reg has_existing_reg: '1',
+          er_street_number: '1', er_street_name: 'SN', er_street_type: 'ST', er_apt: '23',
+          er_city: 'C', er_state: 'VA', er_zip5: '54321', er_zip4: '6789'
+
+      xml.within "PreviousElectoralAddress[status='previous'] PostalAddress" do |a|
+        a.should have_selector "Thoroughfare[type='ST'][name='SN'][number='1']", text: "1 SN ST"
+        a.should have_selector "Locality[type='Town']", text: 'C'
+        a.should have_selector "AdministrativeArea[type='StateCode']", text: 'VA'
+        a.should have_selector "PostCode[type='ZipCode']", text: '543216789'
+        a.should have_selector "Country[code='USA']", text: 'United States of America'
+      end
+    end
+
+    it 'should render rural' do
+      reg has_existing_reg: '1',
+        er_is_rural: '1', er_rural: 'Rural address'
+
+      xml.within "PreviousElectoralAddress[status='previous'][type='Rural']" do |a|
+        a.should have_selector "FreeTextAddress AddressLine", text: 'Rural address'
+      end
+    end
+  end
+
+  describe 'identification' do
+    it 'should render SSN if present' do
+      reg ssn: '123123123'
+      xml.should have_selector "VoterIdentification VoterPhysicalID[IdType='SSN']", text: '123123123'
+    end
+
+    it 'should not render SSN when missing' do
+      reg
+      xml.should_not have_selector "VoterIdentification VoterPhysicalID"
+    end
+  end
+
+  describe 'voter informaton' do
+    it 'should not render email / phone if none' do
+      reg email: nil, phone: nil
+      xml.should_not have_selector "Email"
+      xml.should_not have_selector "Telephone"
+    end
+
+    it 'should render email and phone' do
+      reg email: 'john@smith.com', phone: '1234567890'
+      xml.should have_selector "VoterInformation Contact Email", text: 'john@smith.com'
+      xml.should have_selector "VoterInformation Contact Telephone Number", text: '1234567890'
+    end
+  end
+
+  describe 'voter general' do
+    it 'should render DOB' do
+      reg
+      xml.should have_selector "VoterInformation DateOfBirth", text: '1950-11-06'
+    end
+
+    it 'should render gender' do
+      reg gender: 'Male'
+      xml.should have_selector "VoterInformation Gender", text: 'Male'
+    end
+
+    it 'should render eligibility flags' do
+      reg
+      xml.should have_selector "VoterInformation CheckBox[Type='Eighteenplus']", text: 'yes'
+      xml.should have_selector "VoterInformation CheckBox[Type='Citizen']", text: 'yes'
+      xml.should have_selector "VoterInformation CheckBox[Type='RegistrationStatement']", text: 'yes'
+      xml.should have_selector "VoterInformation CheckBox[Type='PrivacyNotice']", text: 'yes'
+    end
+
+    it 'should render election official flag' do
+      reg be_official: '1'
+      xml.should have_selector "VoterInformation CheckBox[Type='ElectionOfficialInterest']", text: 'yes'
+    end
+
+    describe 'rights' do
+      it 'should render when not revoked' do
+        reg rights_revoked: '0'
+        xml.should have_selector "VoterInformation CheckBox[Type='VotingRightsRevoked']", text: 'no'
+        xml.should_not have_selector "VoterInformation FurtherInformation Message[Type='Felony']"
+        xml.should_not have_selector "VoterInformation FurtherInformation Message[Type='Incapacitated']"
+      end
+
+      it 'should render when felony and restored' do
+        reg rights_revoked: '1', rights_revoked_reason: 'felony', rights_restored_in: 'MA', rights_restored_on: Kronic.parse('10 Dec, 2000'), rights_restored: '1'
+        xml.should have_selector "VoterInformation CheckBox[Type='VotingRightsRevoked']", text: 'yes'
+        xml.within "FurtherInformation Message[DisplayOrder='0001'][Type='Felony'][Seqn='1']" do |f|
+          f.should have_selector "Felony[RightsRestored='yes'][ConvictionState='MA'][RestoredDate='2000-12-10']", text: 'yes'
+        end
+      end
+
+      it 'should render when mental and restored' do
+        reg rights_revoked: '1', rights_revoked_reason: 'mental', rights_restored_on: Kronic.parse('10 Dec, 2000'), rights_restored: '1'
+        xml.should have_selector "VoterInformation CheckBox[Type='VotingRightsRevoked']", text: 'yes'
+        xml.within "FurtherInformation Message[DisplayOrder='0001'][Type='Incapacitated'][Seqn='1']" do |f|
+          f.should have_selector "Incapacitated[RightsRestored='yes'][RestoredDate='2000-12-10']", text: 'yes'
+        end
+      end
+
+      it 'should render when felony and not restored' do
+        reg rights_revoked: '1', rights_revoked_reason: 'felony'
+        xml.should have_selector "VoterInformation CheckBox[Type='VotingRightsRevoked']", text: 'yes'
+        xml.within "FurtherInformation Message[DisplayOrder='0001'][Type='Felony'][Seqn='1']" do |f|
+          f.should have_selector "Felony[RightsRestored='no']", text: 'yes'
+        end
+      end
+
+      it 'should render when mental and not restored' do
+        reg rights_revoked: '1', rights_revoked_reason: 'mental'
+        xml.should have_selector "VoterInformation CheckBox[Type='VotingRightsRevoked']", text: 'yes'
+        xml.within "FurtherInformation Message[DisplayOrder='0001'][Type='Incapacitated'][Seqn='1']" do |f|
+          f.should have_selector "Incapacitated[RightsRestored='no']", text: 'yes'
+        end
+      end
+    end
+
+    describe 'absentee fields' do
+      it 'should not render absentee fields' do
+        reg requesting_absentee: '0'
+        xml.should have_selector "VoterInformation CheckBox[Type='AbsenteeRequest']", text: 'no'
+        xml.should_not have_selector "Message[Type='AbsenteeRequest']"
+      end
+
+      it 'should render absentee fields' do
+        reg requesting_absentee: '1'
+        xml.should have_selector "VoterInformation CheckBox[Type='AbsenteeRequest']", text: 'yes'
+
+        pending "reason and supporting info"
+      end
+    end
+
+    describe 'ACP fields' do
+      it 'should not render ACP fields' do
+        reg is_confidential_address: '0'
+        xml.should have_selector "VoterInformation CheckBox[Type='AddressConfidentialityRequest']", text: 'no'
+        xml.should_not have_selector "Message[Type='Confidential']"
+      end
+
+      it 'should render ACP fields' do
+        r = reg is_confidential_address: '1', ca_type: 'LEO', ca_po_box: '1234', ca_city: 'Bristol', ca_zip5: '12345', ca_zip4: '6789'
+        xml.should have_selector "VoterInformation CheckBox[Type='AddressConfidentialityRequest']", text: 'yes'
+        xml.within "FurtherInformation Message[Type='Confidential'][DisplayOrder='0001'][Seqn='1']" do |m|
+          m.should have_selector "Confidentiality[type='LEO']", text: 'yes'
+          m.within "SubstitueAddress[status='previous'] PostalAddress" do |a|
+            a.should have_selector "Thoroughfare[type='PObox'][number='1234']", text: "P.O. Box 1234"
+            a.should have_selector "Locality[type='Town']", text: 'Bristol'
+            a.should have_selector "PostCode[type='ZipCode']", text: '123456789'
+            a.should have_selector "Country[code='USA']", text: 'United States of America'
+          end
+        end
+      end
+    end
+  end
+
+  private
+
+  def xml
+    @xml ||= begin
+      render
+      doc = Nokogiri::XML(rendered)
+      doc.remove_namespaces!
+      Capybara::Node::Simple.new(doc)
+     end
+  end
+
+
+  def reg(o = {})
+    @registration = FactoryGirl.build(:existing_residential_voter, o.merge(created_at: Time.now))
+  end
+
+  def reg_overseas(o = {})
+    @registration = FactoryGirl.build(:existing_overseas_voter, o.merge(created_at: Time.now, residence: 'outside'))
+  end
+
+end
