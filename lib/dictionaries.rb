@@ -95,6 +95,24 @@ module Dictionaries
     '8A' => 'Designated representative of candidate or party inside polls'
   }
 
+  ABSENCE_REASON_TO_EML310 = {
+    '1A' => 'Student',
+    '1B' => 'SpouseOfstudent',
+    '1C' => 'Business',
+    '1D' => 'Vacation',
+    '1E' => 'Commuting',
+    '1F' => 'FirstResponder',
+    '2A' => 'DisabilityOrIllness',
+    '2B' => 'CaringForDisabledorIllFamilyMember',
+    '2C' => 'Pregnancy',
+    '3A' => 'ConfinedAwaitingTrial',
+    '3B' => 'ConfinedMisdemeanorConviction',
+    '4A' => 'ElectoralService',
+    '5A' => 'ReligiousObligation',
+    '7A' => 'RequestPVPonly',
+    '8A' => 'PartyRepresentative'
+  }
+
   ABSENCE_F1_LABEL = {
     '1A' => 'Name of school',
     '1B' => 'Name of school',

@@ -108,7 +108,7 @@ class RegistrationForXML
   end
 
   def ab_type
-    residential? ? @r.ab_reason : @r.outside_type
+    residential? ? Dictionaries::ABSENCE_REASON_TO_EML310[@r.ab_reason] : @r.outside_type
   end
 
   def ab_info
