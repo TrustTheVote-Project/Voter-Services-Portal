@@ -49,8 +49,8 @@
                 <!-- /ko -->
 
           %table.table.properties
-            %tr{ 'data-bind' => 'if: summaryParty' }
-              %th Political party preference:
+            %tr{ 'data-bind' => 'if: summaryParty() && showingPartySummary()' }
+              %th #{party_preference_label}:
               %td
                 %span{ 'data-bind' => 'text: summaryParty' }
             %tr{ 'data-bind' => 'if: isConfidentialAddress' }

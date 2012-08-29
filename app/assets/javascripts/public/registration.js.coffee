@@ -391,6 +391,9 @@ class window.Registration
         else
           @summaryDomesticMailingAddress()
 
+    @showingPartySummary = ko.computed =>
+      @requestingAbsentee()
+
     @summaryParty = ko.computed =>
       if @chooseParty()
         if @party() == 'other'

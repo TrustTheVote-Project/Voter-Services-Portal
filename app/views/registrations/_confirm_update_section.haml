@@ -45,10 +45,12 @@
               %th Mailing Address:
               %td
                 %span{ 'data-bind' => 'html: summaryMailingAddress' }
+            <!-- ko if: showingPartySummary -->
             %tr
-              %th Political Party Preference:
+              %th #{party_preference_label}:
               %td
                 %span{ 'data-bind' => 'text: summaryParty' }
+            <!-- /ko -->
 
   .row
     .span10

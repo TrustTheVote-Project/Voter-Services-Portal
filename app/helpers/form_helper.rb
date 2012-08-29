@@ -90,4 +90,13 @@ module FormHelper
     address = Office.where(locality: locality).first.try(:address)
     address && address.gsub("\n", "<br/>").html_safe
   end
+
+  def party_preference_label
+    if AppConfig['registration']['absentee_party_preference']
+      "Party preference for absentee ballots"
+    else
+      "Political party preference"
+    end
+  end
+
 end
