@@ -249,11 +249,22 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
         xml.should_not have_selector "Message[Type='AbsenteeRequest']"
       end
 
-      it 'should render absentee fields' do
-        reg requesting_absentee: '1'
-        xml.should have_selector "VoterInformation CheckBox[Type='AbsenteeRequest']", text: 'yes'
+      it 'should render absentee fields for known election' do
+        reg_absentee rab_election: '2'
 
-        pending "reason and supporting info"
+        xml.should have_selector "VoterInformation CheckBox[Type='AbsenteeRequest']", text: 'yes'
+        xml.within "Message[Type='AbsenteeRequest']" do |a|
+          a.should have_selector "AbsenteeType", text: 'Student'
+          a.should have_selector "AbsenteeInfo", text: 'State Primary Election held on Tuesday, June 12, 2012. / 3 apt sn LN, c MA 333335555, co / fld1 / fld2 / 00:00 - 23:00'
+        end
+      end
+
+      it 'should render absentee fields for custom election' do
+        reg_absentee rab_election_name: 'name', rab_election_date: '12/10/2013'
+
+        xml.within "Message[Type='AbsenteeRequest']" do |a|
+          a.should have_selector "AbsenteeInfo", text: 'name on 12/10/2013 / 3 apt sn LN, c MA 333335555, co / fld1 / fld2 / 00:00 - 23:00'
+        end
       end
     end
 
@@ -300,4 +311,10 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
     @registration = FactoryGirl.build(:existing_overseas_voter, o.merge(created_at: Time.now, residence: 'outside'))
   end
 
+  def reg_absentee(o = {})
+    reg({ requesting_absentee: '1', ab_reason: 'Student',
+      ab_street_number: 3, ab_street_name: 'sn', ab_street_type: 'LN',
+      ab_apt: 'apt', ab_city: 'c', ab_state: 'MA', ab_zip5: '33333', ab_zip4: '5555', ab_country: 'co',
+      ab_field_1: 'fld1', ab_field_2: 'fld2', ab_time_1: '00:00', ab_time_2: '23:00' }.merge(o))
+  end
 end
