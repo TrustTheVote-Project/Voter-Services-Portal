@@ -26,3 +26,8 @@
         = field_line 3, aa, 'address'
       - unless tr.blank?
         = field_line 3, tr, 'time range'
+
+    - if AppConfig['registration']['absentee_party_preference']
+      .row
+        = field_line 6, rr.party_preference, 'party preference for absentee ballots'
+
