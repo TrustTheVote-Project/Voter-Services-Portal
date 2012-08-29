@@ -27,7 +27,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :vvr_county_or_city, :vvr_street_number, :vvr_street_name, :vvr_street_type, :vvr_street_suffix, :vvr_apt
   serialized_attr :vvr_town, :vvr_state, :vvr_zip5, :vvr_zip4
   serialized_attr :vvr_is_rural, :vvr_rural
-  serialized_attr :vvr_uocava_residence_available, :vvr_uocava_residence_unavailable, :vvr_uocava_residence_unavailable_since
+  serialized_attr :vvr_uocava_residence_available, :vvr_uocava_residence_unavailable_since
   serialized_attr :mau_address, :mau_address_2, :mau_city, :mau_city_2, :mau_state, :mau_postal_code, :mau_country, :mau_type
   serialized_attr :ma_street_number, :ma_street_name, :ma_street_type, :ma_apt, :ma_city, :ma_state, :ma_zip5, :ma_zip4, :ma_is_same
   serialized_attr :apo_address, :apo_address_2, :apo_1, :apo_2, :apo_zip5

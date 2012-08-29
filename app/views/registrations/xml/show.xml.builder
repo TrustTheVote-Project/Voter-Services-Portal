@@ -87,6 +87,7 @@ xml.EML 'SchemaVersion'  => "7.0",
         xml.CheckBox yn(r.military?), Type: 'Military'
         xml.CheckBox yn(r.absentee_request?), Type: 'AbsenteeRequest'
         xml.CheckBox yn(r.acp_request?), Type: 'AddressConfidentialityRequest'
+        xml.CheckBox yn(r.residence_still_available?), Type: 'ResidenceStillAvailable'
 
         xml.FurtherInformation do
           order = 1
@@ -133,12 +134,17 @@ xml.EML 'SchemaVersion'  => "7.0",
           end
 
           if r.absentee_request?
-            xml.Message DisplayOrder: order.to_s.rjust(4, '0'), Type: "AbsenteeRequest" do
+            xml.Message DisplayOrder: order.to_s.rjust(4, '0'), Type: "AbsenteeRequest", Seqn: order do
               xml.AbsenteeType r.ab_reason,
                 "xsi:schemaLocation" => "http://sbe.virginia.gov EmlExtension.xsd",
                 "xmlns"              => ""
               xml.AbsenteeInfo r.ab_info
             end
+            order += 1
+          end
+
+          unless r.residence_still_available?
+            xml.Message r.date_of_last_residence, DisplayOrder: order.to_s.rjust(4, '0'), Type: 'DateofLastResidence', Seqn: order
             order += 1
           end
         end

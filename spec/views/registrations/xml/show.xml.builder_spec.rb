@@ -196,6 +196,22 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
       xml.should have_selector "VoterInformation CheckBox[Type='PrivacyNotice']", text: 'yes'
     end
 
+    it 'should render residence still available for domestic voter' do
+      reg
+      xml.should have_selector "VoterInformation CheckBox[Type='ResidenceStillAvailable']", text: 'yes'
+    end
+
+    it 'should render residence still available for overseas voter' do
+      reg_overseas vvr_uocava_residence_available: '1'
+      xml.should have_selector "VoterInformation CheckBox[Type='ResidenceStillAvailable']", text: 'yes'
+    end
+
+    it 'should render residence unavailble for overseas voter' do
+      reg_overseas vvr_uocava_residence_available: '0', vvr_uocava_residence_unavailable_since: Kronic.parse('June 1, 2000')
+      xml.should have_selector "VoterInformation CheckBox[Type='ResidenceStillAvailable']", text: 'no'
+      xml.should have_selector "FurtherInformation Message[Type='DateofLastResidence'][DisplayOrder][Seqn]", text: '2000-06-01'
+    end
+
     it 'should render election official flag' do
       reg be_official: '1'
       xml.should have_selector "VoterInformation CheckBox[Type='ElectionOfficialInterest']", text: 'yes'

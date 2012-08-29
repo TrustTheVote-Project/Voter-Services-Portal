@@ -118,6 +118,14 @@ class RegistrationForXML
     [ election, address, @r.ab_field_1, @r.ab_field_2, time ].rjoin(' / ')
   end
 
+  def residence_still_available?
+    residential? || @r.vvr_uocava_residence_available == '1'
+  end
+
+  def date_of_last_residence
+    @r.vvr_uocava_residence_unavailable_since.strftime("%Y-%m-%d")
+  end
+
   private
 
   def zip(z5, z4)
