@@ -287,10 +287,23 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
         reg_overseas requesting_absentee: '1',
           outside_type: 'ActiveDutyMerchantMarineOrArmedForces',
           service_branch: 'Army', service_id: 'sid', rank: 'rank'
+        xml.should have_selector "VoterInformation CheckBox[Type='Military']", text: 'yes'
+        xml.should have_selector "VoterInformation CheckBox[Type='Overseas']", text: 'no'
         xml.should have_selector "VoterInformation CheckBox[Type='AbsenteeRequest']", text: 'yes'
         xml.within "Message[Type='AbsenteeRequest']" do |a|
           a.should have_selector "AbsenteeType", text: 'ActiveDutyMerchantMarineOrArmedForces'
           a.should have_selector "AbsenteeInfo", text: 'Army sid rank'
+        end
+      end
+
+      it 'should render overseas details' do
+        reg_overseas requesting_absentee: '1', outside_type: 'TemporaryResideOutside'
+        xml.should have_selector "VoterInformation CheckBox[Type='Military']", text: 'no'
+        xml.should have_selector "VoterInformation CheckBox[Type='Overseas']", text: 'yes'
+        xml.should have_selector "VoterInformation CheckBox[Type='AbsenteeRequest']", text: 'yes'
+        xml.within "Message[Type='AbsenteeRequest']" do |a|
+          a.should have_selector "AbsenteeType", text: 'TemporaryResideOutside'
+          a.should have_selector "AbsenteeInfo", text: ''
         end
       end
     end

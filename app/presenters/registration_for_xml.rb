@@ -44,11 +44,11 @@ class RegistrationForXML
   end
 
   def overseas?
-    @r.uocava?
+    @r.uocava? && (/temporary/i =~ @r.outside_type.to_s)
   end
 
   def military?
-    false
+    @r.uocava? && (/merchant/i =~ @r.outside_type.to_s)
   end
 
   def absentee_request?

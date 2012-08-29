@@ -150,7 +150,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
   end
 
   def outside_type_with_details?
-    %w( active_duty spouse_active_duty ).include?(@reg.outside_type)
+    /merchant/i =~ @reg.outside_type.to_s
   end
 
   def absence_reason
