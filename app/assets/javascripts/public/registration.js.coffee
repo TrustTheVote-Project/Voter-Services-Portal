@@ -189,7 +189,7 @@ class window.Registration
     @rabElectionName        = ko.observable()
     @rabElectionDate        = ko.observable()
     @outsideType            = ko.observable()
-    @needsServiceDetails    = ko.computed => @outsideType() && @outsideType().match(/duty/)
+    @needsServiceDetails    = ko.computed => @outsideType() && @outsideType().match(/MerchantMarine/)
     @serviceId              = ko.observable()
     @rank                   = ko.observable()
 

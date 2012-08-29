@@ -95,7 +95,7 @@ FactoryGirl.define do
       apo_2               'AA'
       apo_zip5            '23456'
 
-      outside_type        'active_duty'
+      outside_type        'ActiveDutyMerchantMarineOrArmedForces'
       service_branch      'Army'
       service_id          '112233'
       rank                'Major'

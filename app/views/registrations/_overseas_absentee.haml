@@ -23,16 +23,16 @@
     .span12
       .radio
         = f.radio_button :outside_type, 'ActiveDutyMerchantMarineOrArmedForces', { 'data-bind' => 'checkedWithInit: outsideType' }
-        %label{ for: 'registration_outside_type_active_duty' }= t 'outside_type.active_duty'
+        %label{ for: 'registration_outside_type_activedutymerchantmarineorarmedforces' }= t 'outside_type.active_duty'
       .radio
         = f.radio_button :outside_type, 'SpouseOrDependentActiveDutyMerchantMarineOrArmedForces', { 'data-bind' => 'checkedWithInit: outsideType' }
-        %label{ for: 'registration_outside_spouse_active_duty' }= t 'outside_type.spouse_active_duty'
+        %label{ for: 'registration_outside_type_spouseordependentactivedutymerchantmarineorarmedforces' }= t 'outside_type.spouse_active_duty'
       .radio
         = f.radio_button :outside_type, 'TemporaryResideOutside', { 'data-bind' => 'checkedWithInit: outsideType' }
-        %label{ for: 'registration_outside_type_temporarily' }= t 'outside_type.temporarily'
+        %label{ for: 'registration_outside_type_temporaryresideoutside' }= t 'outside_type.temporarily'
       .radio
         = f.radio_button :outside_type, 'TemporaryResideOutsideSpouse', { 'data-bind' => 'checkedWithInit: outsideType' }
-        %label{ for: 'registration_outside_type_spouse_temporarily' }= t 'outside_type.spouse_temporarily'
+        %label{ for: 'registration_outside_type_temporaryresideoutsidespouse' }= t 'outside_type.spouse_temporarily'
 
   <!-- ko if: needsServiceDetails -->
   .row
