@@ -297,7 +297,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
   end
 
   def military_prefix
-    @reg.outside_type == 'active_duty' ? 'active' : 'spouse'
+    @reg.outside_type == 'ActiveDutyMerchantMarineOrArmedForces' ? 'active' : 'spouse'
   end
 
   def previous_data

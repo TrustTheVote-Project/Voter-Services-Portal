@@ -282,6 +282,17 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
           a.should have_selector "AbsenteeInfo", text: 'name on 12/10/2013 / 3 apt sn LN, c MA 333335555, co / fld1 / fld2 / 00:00 - 23:00'
         end
       end
+
+      it 'should render military details' do
+        reg_overseas requesting_absentee: '1',
+          outside_type: 'ActiveDutyMerchantMarineOrArmedForces',
+          service_branch: 'Army', service_id: 'sid', rank: 'rank'
+        xml.should have_selector "VoterInformation CheckBox[Type='AbsenteeRequest']", text: 'yes'
+        xml.within "Message[Type='AbsenteeRequest']" do |a|
+          a.should have_selector "AbsenteeType", text: 'ActiveDutyMerchantMarineOrArmedForces'
+          a.should have_selector "AbsenteeInfo", text: 'Army sid rank'
+        end
+      end
     end
 
     describe 'ACP fields' do

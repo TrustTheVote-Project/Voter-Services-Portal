@@ -135,7 +135,7 @@ xml.EML 'SchemaVersion'  => "7.0",
 
           if r.absentee_request?
             xml.Message DisplayOrder: order.to_s.rjust(4, '0'), Type: "AbsenteeRequest", Seqn: order do
-              xml.AbsenteeType r.ab_reason,
+              xml.AbsenteeType r.ab_type,
                 "xsi:schemaLocation" => "http://sbe.virginia.gov EmlExtension.xsd",
                 "xmlns"              => ""
               xml.AbsenteeInfo r.ab_info
