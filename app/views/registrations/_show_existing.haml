@@ -44,9 +44,10 @@
             %td= reg.mailing_address
 
         %table.table.properties
-          %tr
-            %th Political party preference:
-            %td= reg.party
+          - if reg.showing_party_preference?
+            %tr
+              %th= reg.party_preference_label
+              %td= reg.party
           - if reg.address_confidentiality?
             %tr
               %th Address confidentiality:

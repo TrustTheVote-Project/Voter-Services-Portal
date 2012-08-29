@@ -158,6 +158,22 @@ class RegistrationDetailsPresenter
     @registration.send(d)[:residence] == 'outside'
   end
 
+  def party_preference_label
+    if AppConfig['registration']['absentee_party_preference']
+      "Party preference for absentee ballots"
+    else
+      "Political party preference"
+    end
+  end
+
+  def showing_party_preference?
+    if AppConfig['registration']['absentee_party_preference']
+      @registration.currently_overseas? || !@registration.absentee_for_elections.blank?
+    else
+      true
+    end
+  end
+
   protected
 
   def optional(v)
