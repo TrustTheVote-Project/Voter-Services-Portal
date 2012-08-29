@@ -1,26 +1,105 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>The page you were looking for doesn't exist (404)</title>
-  <style type="text/css">
-    body { background-color: #fff; color: #666; text-align: center; font-family: arial, sans-serif; }
-    div.dialog {
-      width: 25em;
-      padding: 0 4em;
-      margin: 4em auto 0 auto;
-      border: 1px solid #ccc;
-      border-right-color: #999;
-      border-bottom-color: #999;
-    }
-    h1 { font-size: 100%; color: #f00; line-height: 1.5em; }
-  </style>
+  <title>VA Voter Portal</title>
+  <link href="/assets/application.css" media="all" rel="stylesheet" type="text/css" />
 </head>
-
 <body>
-  <!-- This file lives in public/404.html -->
-  <div class="dialog">
-    <h1>The page you were looking for doesn't exist.</h1>
-    <p>You may have mistyped the address or the page may have moved.</p>
+<div class='container'>
+  <div class='content'>
+    <div id='header'>
+      <div id='menu'>
+        <a href="/">Home</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="/about">About</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="/faqs">FAQs</a>
+        &nbsp;&nbsp;|&nbsp;&nbsp;
+        <a href="/help">Help</a>
+      </div>
+      <img alt="Va_logo" height="60" src="/assets/VA_logo.png" width="90" />
+      <h1>Virginia Voter Registration</h1>
+    </div>
+
+
+    <div class='row not-found'>
+      <div class='padded_page_span section'>
+        <div>
+          <h3>Page Not Found</h3>
+          <div class='description'>
+            We were unable to find the page your requested. You can start by<br/>
+            <a href="/search">changing the information</a>, or you can instead
+            <a href="/registration/new" id="register">register to vote</a>.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id='footer'>
+      <div class='row'>
+        <div class='span4 upcoming'>
+          <h3>Upcoming Election</h3>
+          <h4>State Primary</h4>
+          <p>June 12, 2012</p>
+          <h4>Virginia polling times</h4>
+          <p>6:00am to 7:00pm</p>
+          <h4>Registration deadline</h4>
+          <p>June 5, 2012</p>
+        </div>
+        <div class='span8 additional-info'>
+          <div class='row'>
+            <div class='span4 howto'>
+              <h3>How to Register</h3>
+              <h4>Register online</h4>
+              <p>To register to vote, you must complete a voter registration application and mail it to your local election official. This website allows you to build a registration application PDF for mailing by providing information online.</p>
+              <p>You can also download a blank mail-in voter registration application and complete it by hand.</p>
+              <h4>Other ways to register</h4>
+              <p>Voters may complete registration applications in person at a local election official office, DMV, and other Virginia government agencies. Learn more.</p>
+            </div>
+            <div class='span4 contact'>
+              <h3>Contact</h3>
+              <h4>Virginia State Board of Elections</h4>
+              <p>
+              Washington Building<br/>
+              First Floor<br/>
+              1100 Bank Street<br/>
+              Richmond, VA 23219
+              </p>
+              <p>
+              (800) 552-9745 Phone<br/>
+              (804) 371-0194 Fax<br/>
+              info@sbe.virginia.gov Email<br/>
+              www.sbe.virginia.gov Web
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='row footer'>
+        <div class='span4'>&nbsp;</div>
+        <div class='span5'>
+          <a href="/">Home</a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a href="/about">About</a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a href="/faqs">FAQs</a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          <a href="/help">Help</a>
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          Elections
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          Security
+          &nbsp;&nbsp;|&nbsp;&nbsp;
+          Feedback
+        </div>
+        <div class='span3 powered'>
+          Powered by Open Source<br/>
+          Digital Voting Foundation
+        </div>
+      </div>
+    </div>
+
   </div>
+</div>
 </body>
 </html>
