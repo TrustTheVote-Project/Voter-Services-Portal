@@ -4,6 +4,7 @@
 .row#update_registration
   .padded_page_span
     = form_for @registration, url: :registration  do |f|
+      = hidden_field_tag 'kind', params[:kind]
       = f.hidden_field :residence
       = render partial: 'addresses_section',      locals: { f: f }
       = render partial: 'mailing_section',        locals: { f: f }

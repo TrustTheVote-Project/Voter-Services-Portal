@@ -85,6 +85,8 @@ class RegistrationsController < ApplicationController
       :ab_time_1, :ab_time_2)
 
     @registration = current_registration
+    @registration.init_update_to(params[:kind])
+
     unless @registration.update_attributes(data)
       redirect_to :edit_registration, alert: 'Please review your registration data and try again'
     end

@@ -130,7 +130,11 @@ class RegistrationForPdf < RegistrationDetailsPresenter
       end
     elsif requesting_absentee?
       # Domestic absentee
-      [ "Update Form and Absentee Request", nil ]
+      if no_form_changes?
+        [ "Absentee Request", nil ]
+      else
+        [ "Update Form and Absentee Request", nil ]
+      end
     else
       # Residential voter
       [ "Update Form", nil ]
@@ -139,6 +143,10 @@ class RegistrationForPdf < RegistrationDetailsPresenter
 
   def requesting_absentee?
     @reg.requesting_absentee == '1'
+  end
+
+  def no_form_changes?
+    (@reg.data_changes - Registration::ABSENTEE_REQUEST_FIELDS).empty?
   end
 
   def absentee_status_until

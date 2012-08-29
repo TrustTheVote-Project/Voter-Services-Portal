@@ -4,7 +4,24 @@ class Registration < ActiveRecord::Base
 
   scope :stale, lambda { where([ "created_at < ?", 1.day.ago ]) }
 
-  SERVICE_BRANCHES = [ 'Army', 'Air Force', 'Marines', 'Merchant Marine', 'Navy' ]
+  SERVICE_BRANCHES        = [ 'Army', 'Air Force', 'Marines', 'Merchant Marine', 'Navy' ]
+
+  # When checking for changes on the form to determine if that's a purely absentee request,
+  # ignore these keys.
+  IGNORE_CHANGES_IN_KEYS  = [ :voter_id, :current_residence, :current_absentee, :ssn4,
+                              :existing, :poll_locality, :poll_precinct, :poll_district,
+                              :information_correct, :privacy_agree ]
+
+  # All absentee request related fields. This list is used to determine
+  # if there are any form fields that have changed. If not, we use a different
+  # title for the PDF.
+  ABSENTEE_REQUEST_FIELDS = [ :requesting_absentee, :rab_election,
+                              :rab_election_name, :rab_election_date,
+                              :absentee_until,
+                              :ab_reason, :ab_street_number,
+                              :ab_street_name, :ab_street_type,
+                              :ab_apt, :ab_city, :ab_state, :ab_zip5, :ab_zip4, :ab_country,
+                              :ab_field_1, :ab_field_2, :ab_time_1, :ab_time_2 ]
 
   serialized_attr :voter_id
 
@@ -90,11 +107,14 @@ class Registration < ActiveRecord::Base
     !uocava?
   end
 
+  def update_attributes(d)
+    # Reset previous data storage to be able to track the most recent changes
+    self.previous_data = nil
+    super(d)
+  end
 
   # Initializes the record for the update workflow
   def init_update_to(kind)
-    was_uocava = uocava?
-
     unless kind.blank?
       self.residence           = kind == 'overseas' ? 'outside' : 'in'
       self.requesting_absentee = !!(kind =~ /absentee|overseas/) ? '1' : '0'
@@ -142,6 +162,19 @@ class Registration < ActiveRecord::Base
     else
       "Residential Voter"
     end
+  end
+
+  def data_changes
+    changed_keys = []
+
+    nd = self.data || {}
+    pd = self.previous_data || {}
+
+    pd.each do |k, v|
+      changed_keys << k unless nd[k].to_s == v.to_s
+    end
+
+    changed_keys.uniq - IGNORE_CHANGES_IN_KEYS
   end
 
   private

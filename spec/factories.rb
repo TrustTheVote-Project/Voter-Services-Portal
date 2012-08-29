@@ -42,6 +42,7 @@ FactoryGirl.define do
       vvr_state           'VA'
       vvr_zip5            '24201'
       vvr_zip4            '2445'
+      vvr_is_rural        '0'
 
       ma_is_same          '0'
       ma_street_number    '518'
@@ -51,6 +52,8 @@ FactoryGirl.define do
       ma_state            'VA'
       ma_zip5             '24201'
       ma_zip4             '2445'
+
+      has_existing_reg    '0'
 
       is_confidential_address '1'
       ca_type             'TSC'
@@ -85,6 +88,7 @@ FactoryGirl.define do
       vvr_state           'VA'
       vvr_zip5            '12345'
       vvr_zip4            ''
+      vvr_is_rural        '0'
 
       vvr_uocava_residence_available '0'
       vvr_uocava_residence_unavailable_since 5.years.ago

@@ -106,6 +106,8 @@ class RegistrationSearch
       rights_restored:        rights_restored,
       rights_restored_on:     rights_restored_on,
 
+      vvr_is_rural:           "0",
+      has_existing_reg:       "0",
       ma_is_same:             "0",
 
       ma_street_number:       ma[:number],
