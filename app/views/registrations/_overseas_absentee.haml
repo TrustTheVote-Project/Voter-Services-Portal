@@ -20,7 +20,7 @@
     = f.hidden_field :absentee_until
 
   .row
-    .span12
+    .span10.indented
       .radio
         = f.radio_button :outside_type, 'ActiveDutyMerchantMarineOrArmedForces', { 'data-bind' => 'checkedWithInit: outsideType' }
         %label{ for: 'registration_outside_type_activedutymerchantmarineorarmedforces' }= t 'outside_type.ActiveDutyMerchantMarineOrArmedForces'
@@ -46,5 +46,8 @@
       %span Rank / Grade / Rate
       = text_field :registration, :rank, placeholder: 'Rank / Grade / Rate', autocomplete: ac, class: 'span2 inline', 'data-bind' => 'valueWithInit: rank'
   <!-- /ko -->
+
+  - if AppConfig['registration']['absentee_party_preference']
+    = render partial: 'registrations/party_preference', locals: { f: f, indented: true }
   <!-- /ko -->
 <!-- /ko -->

@@ -6,26 +6,8 @@
     .description Select only applicable options (not required).
 
   .partition
-    .row
-      .span10
-        .checkbox
-          = f.check_box :choose_party, { 'data-bind' => 'checkedWithInit: chooseParty' }
-          %strong I want to choose a political party preference.
-
-    <!-- ko if: chooseParty -->
-    .row
-      .span3
-        %p My political party preference is
-
-        = f.select :party, Dictionaries::PARTIES + [ [ "Other", "other" ] ], { include_blank: true }, { autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "party" }' }
-
-      <!-- ko if: party() == 'other' -->
-      .span3
-        %span Political party preference name
-        = f.text_field :other_party, autocomplete: ac, 'data-bind' => 'valueWithInit: otherParty'
-      <!-- /ko -->
-
-    <!-- /ko -->
+    - unless AppConfig['registration']['absentee_party_preference']
+      = render partial: 'registrations/party_preference', locals: { f: f }
 
   .partition
     .row

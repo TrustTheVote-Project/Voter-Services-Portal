@@ -37,7 +37,8 @@
         required information to support the reason.
   .row
     .span12
-      %label{ for: 'registration_ab_reason' } I am unable to go to the polls on election day because
+      %label{ for: 'registration_ab_reason' }
+        %strong I am unable to go to the polls on election day because
       = f.select :ab_reason, Dictionaries::ABSENCE_REASONS.invert, { include_blank: true }, { autocomplete: ac, class: 'span10', 'data-bind' => 'instantValidation: { accessor: "abReason" }' }
 
   -# Fields to blank elements of the record that aren't on the form
@@ -123,5 +124,8 @@
       %label{ for: 'registration_ab_country' } Country
       = f.text_field :ab_country, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abCountry" }'
   <!-- /ko --> <!-- addressRequired -->
+
+  - if AppConfig['registration']['absentee_party_preference']
+    = render partial: 'registrations/party_preference', locals: { f: f, indented: true }
 <!-- /ko -->
 <!-- /ko --> <!-- domestic -->

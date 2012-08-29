@@ -1,0 +1,21 @@
+- indented ||= false
+- name = AppConfig['registration']['absentee_party_preference'] ? 'party preference for absentee ballots' : 'political party preference'
+.row
+  .span10{ class: indented ? 'indented' : nil }
+    .checkbox
+      = f.check_box :choose_party, { 'data-bind' => 'checkedWithInit: chooseParty' }
+      %strong I want to choose a #{name}.
+
+<!-- ko if: chooseParty -->
+.row
+  .span5
+    %p My #{name} is
+
+    = f.select :party, Dictionaries::PARTIES + [ [ "Other", "other" ] ], { include_blank: true }, { autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "party" }', class: 'span5' }
+
+  <!-- ko if: party() == 'other' -->
+  .span5
+    %span #{name.capitalize} name
+    = f.text_field :other_party, autocomplete: ac, 'data-bind' => 'valueWithInit: otherParty', class: 'span5'
+  <!-- /ko -->
+<!-- /ko -->
