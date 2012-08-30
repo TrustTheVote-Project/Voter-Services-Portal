@@ -10,9 +10,10 @@ xml.EML 'SchemaVersion'  => "7.0",
 
   xml.EMLHeader do
     xml.TransactionId 310
-    xml.SequenceNumber 1
-    xml.NumberInSequence 1
-    xml.SequencedElementName
+    xml.OfficialStatusDetail do
+      xml.OfficialStatus 'approved'
+      xml.StatusDate Date.today.strftime("%Y-%m-%d")
+    end
   end
 
   xml.VoterRegistration do

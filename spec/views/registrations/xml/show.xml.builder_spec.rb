@@ -8,9 +8,10 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
     it 'should render the header' do
       xml.within 'EML EMLHeader' do |x|
         x.should have_selector 'TransactionId', text: '310'
-        x.should have_selector 'SequenceNumber', text: '1'
-        x.should have_selector 'NumberInSequence', text: '1'
-        x.should have_selector 'SequencedElementName'
+        x.within 'OfficialStatusDetail' do |d|
+          d.should have_selector 'OfficialStatus', text: 'approved'
+          d.should have_selector 'StatusDate', text: Date.today.strftime("%Y-%m-%d")
+        end
       end
     end
 
@@ -352,7 +353,7 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
   end
 
   def reg_absentee(o = {})
-    reg({ requesting_absentee: '1', ab_reason: 'Student',
+    reg({ requesting_absentee: '1', ab_reason: '1A',
       ab_street_number: 3, ab_street_name: 'sn', ab_street_type: 'LN',
       ab_apt: 'apt', ab_city: 'c', ab_state: 'MA', ab_zip5: '33333', ab_zip4: '5555', ab_country: 'co',
       ab_field_1: 'fld1', ab_field_2: 'fld2', ab_time_1: '00:00', ab_time_2: '23:00' }.merge(o))
