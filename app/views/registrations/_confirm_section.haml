@@ -49,7 +49,7 @@
                 <!-- /ko -->
 
           %table.table.properties
-            %tr{ 'data-bind' => 'if: summaryParty() && showingPartySummary()' }
+            %tr{ 'data-bind' => 'if: showingPartySummary' }
               %th #{party_preference_label}:
               %td
                 %span{ 'data-bind' => 'text: summaryParty' }

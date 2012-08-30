@@ -392,7 +392,7 @@ class window.Registration
           @summaryDomesticMailingAddress()
 
     @showingPartySummary = ko.computed =>
-      @requestingAbsentee()
+      @requestingAbsentee() and @overseas() and @summaryParty()
 
     @summaryParty = ko.computed =>
       if @chooseParty()
@@ -401,7 +401,7 @@ class window.Registration
         else
           @party()
       else
-        'none'
+        null
 
     @summaryElection = ko.computed =>
       if @rabElection() == 'other'

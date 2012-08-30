@@ -11,10 +11,10 @@
       = field_line 1, rr.dob, 'date of birth'
       = field_line 1, rr.phone, 'phone'
       = field_line 1, rr.gender, 'gender'
-      - if AppConfig['registration']['absentee_party_preference']
-        = field_line 2, :empty
-      - else
+      - if !AppConfig['registration']['absentee_party_preference'] && rr.party_preference
         = field_line 2, rr.party_preference, 'party preference'
+      - else
+        = field_line 2, :empty
 
     - if rr.being_official?
       .row
