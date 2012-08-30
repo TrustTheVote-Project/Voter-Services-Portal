@@ -72,7 +72,7 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
     context 'residential' do
       it 'is the same as registration' do
         r = reg ma_is_same: '1', vvr_zip5: 12345, vvr_zip4: nil, vvr_apt: nil
-        xml.within "MailingAddress[status='current'] PostalAddress" do |a|
+        xml.within "VoterInformation Contact MailingAddress[status='current'] PostalAddress" do |a|
           a.should have_selector "Thoroughfare[type='#{r.vvr_street_type}'][number='#{r.vvr_street_number}'][name='#{r.vvr_street_name}']", text: "#{r.vvr_street_number} #{r.vvr_street_name} #{r.vvr_street_type}"
           a.should have_selector "Locality[type='Town']", text: r.vvr_town
           a.should have_selector "AdministrativeArea[type='StateCode']", text: r.vvr_state

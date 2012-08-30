@@ -35,7 +35,6 @@ xml.EML 'SchemaVersion'  => "7.0",
         end
 
         electoral_address xml, r
-        mailing_address   xml, r
 
         if r.has_existing_reg?
           o = { status: 'previous' }
@@ -66,6 +65,7 @@ xml.EML 'SchemaVersion'  => "7.0",
 
       xml.VoterInformation do
         xml.Contact do
+          mailing_address xml, r
           xml.Email r.email unless r.email.blank?
 
           unless r.email.blank?
