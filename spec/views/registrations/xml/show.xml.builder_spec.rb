@@ -186,7 +186,7 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
 
     it 'should render gender' do
       reg gender: 'Male'
-      xml.should have_selector "VoterInformation Gender", text: 'Male'
+      xml.should have_selector "VoterInformation Gender", text: 'male'
     end
 
     it 'should render eligibility flags' do

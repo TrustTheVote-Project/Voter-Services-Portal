@@ -76,7 +76,7 @@ xml.EML 'SchemaVersion'  => "7.0",
         end
 
         xml.DateOfBirth r.dob.try(:strftime, "%Y-%m-%d")
-        xml.Gender r.gender
+        xml.Gender r.gender.try(:downcase)
         xml.CheckBox 'yes', Type: 'Eighteenplus'
         xml.CheckBox 'yes', Type: 'Citizen'
         xml.CheckBox yn(r.be_official?), Type: 'ElectionOfficialInterest'
@@ -100,7 +100,7 @@ xml.EML 'SchemaVersion'  => "7.0",
                           "RightsRestored"     => yn(r.rights_restored?),
                           "ConvictionState"    => r.rights_restored_in,
                           "RestoredDate"       => r.rights_restored_on,
-                          "xmlns"              => ''
+                          "xmlns"              => 'http://sbe.virginia.gov/EmlExtension'
             end
             order += 1
           end
@@ -111,7 +111,7 @@ xml.EML 'SchemaVersion'  => "7.0",
                                 "xsi:schemaLocation" => "http://sbe.virginia.gov EmlExtension.xsd",
                                 "RightsRestored"     => yn(r.rights_restored?),
                                 "RestoredDate"       => r.rights_restored_on,
-                                "xmlns"              => ""
+                                "xmlns"              => "http://sbe.virginia.gov/EmlExtension"
             end
             order += 1
           end
@@ -121,7 +121,7 @@ xml.EML 'SchemaVersion'  => "7.0",
               xml.Confidentiality "yes",
                 "xsi:schemaLocation" => "http://sbe.virginia.gov EmlExtension.xsd",
                 "type"               => r.ca_type,
-                "xmlns"              => ""
+                "xmlns"              => "http://sbe.virginia.gov/EmlExtension"
               xml.SubstitueAddress status: "previous" do
                 xml.PostalAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
                   xml.Thoroughfare "P.O. Box #{r.ca_po_box}", type: "PObox", number: r.ca_po_box
@@ -138,7 +138,7 @@ xml.EML 'SchemaVersion'  => "7.0",
             xml.Message DisplayOrder: order.to_s.rjust(4, '0'), Type: "AbsenteeRequest", Seqn: order do
               xml.AbsenteeType r.ab_type,
                 "xsi:schemaLocation" => "http://sbe.virginia.gov EmlExtension.xsd",
-                "xmlns"              => ""
+                "xmlns"              => "http://sbe.virginia.gov/EmlExtension"
               xml.AbsenteeInfo r.ab_info
             end
             order += 1
