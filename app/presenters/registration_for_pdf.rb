@@ -104,7 +104,8 @@ class RegistrationForPdf < RegistrationDetailsPresenter
 
   def acp_pobox(d = :data)
     d = @reg.send(d)
-    [ d[:ca_po_box], d[:ca_city], [ d[:ca_zip5], d[:ca_zip4] ].reject(&:blank?).join('-') ].join(', ')
+    po = d[:ca_po_box].blank? ? '' : "P.O. Box #{d[:ca_po_box]}"
+    [ po, d[:ca_city], [ d[:ca_zip5], d[:ca_zip4] ].reject(&:blank?).join('-') ].join(', ')
   end
 
   # Military / overseas
