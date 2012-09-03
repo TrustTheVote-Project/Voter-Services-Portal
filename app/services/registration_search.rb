@@ -11,7 +11,7 @@ class RegistrationSearch
       if search_query.first_name == 'vasample'
         return sample_record(search_query.voter_id)
       else
-        xml = search_by_voter_id(search_query.voter_id)
+        xml = search_by_voter_id(search_query.voter_id, search_query.locality)
       end
     else
       xml = search_by_data(search_query)
@@ -42,9 +42,10 @@ class RegistrationSearch
     end
   end
 
-  def self.search_by_voter_id(vid)
+  def self.search_by_voter_id(vid, locality)
     vid = vid.to_s.gsub(/[^\d]/, '')
-    uri = URI("https://wscp.sbe.virginia.gov/ElectionList.svc/#{vid}")
+    locality = URI.escape(locality)
+    uri = URI("https://wscp.sbe.virginia.gov/ElectionList.svc/#{locality}/#{vid}")
     req = Net::HTTP::Get.new(uri.request_uri)
     res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
       http.request(req)
@@ -92,8 +93,6 @@ class RegistrationSearch
       end
     end
 
-    ma = doc.css('MailingAddress Thoroughfare').first
-
     options = {
       first_name:             doc.css('GivenName').try(:text),
       middle_name:            doc.css('MiddleName').try(:text),
@@ -109,11 +108,7 @@ class RegistrationSearch
       vvr_is_rural:           "0",
       has_existing_reg:       "0",
       ma_is_same:             "0",
-
-      ma_street_number:       ma[:number],
-      ma_street_name:         ma[:name],
-      ma_street_type:         ma[:type],
-      ma_apt:                 doc.css('MailingAddress OtherDetail').try(:text),
+      ma_address:             doc.css('MailingAddress Thoroughfare').try(:text),
       ma_city:                doc.css('MailingAddress Locality').try(:text),
       ma_state:               doc.css('MailingAddress AdministrativeArea[type="StateCode"]').try(:text),
       ma_zip5:                ma_zip5,

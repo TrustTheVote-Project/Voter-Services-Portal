@@ -18,7 +18,7 @@ class VoterCard
   end
 
   def address_line_1
-    [ @r.ma_street_number, @r.ma_street_name, @r.ma_street_type ].rjoin(', ')
+    [ @r.ma_address, @r.ma_address_2 ].rjoin(', ')
   end
 
   def address_line_2

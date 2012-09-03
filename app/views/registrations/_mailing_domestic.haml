@@ -10,22 +10,11 @@
   <!-- ko if: maIsSame() == '0' -->
   .row
     .span3
-      %span
-        Street number
-      = f.text_field :ma_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "maStreetNumber" }'
-    .span3
-      %span
-        Street name
-      = f.text_field :ma_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "maStreetName" }'
-    .span2.street-type-field
-      %span
-        Street type
-      = f.select :ma_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'instantValidation: { accessor: "maStreetType" }' }
-    .span2.lot-field
-      %span
-        Apt/Lot
-        %label (optional)
-      = f.text_field :ma_apt, autocomplete: ac, 'data-bind' => 'valueWithInit: maApt'
+      .address-field
+        %span Address
+        = f.text_field :ma_address, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "maAddress1" }'
+      .address-field
+        = f.text_field :ma_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: maAddress2'
   .row
     .span3
       %span City
