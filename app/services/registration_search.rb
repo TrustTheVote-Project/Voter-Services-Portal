@@ -187,6 +187,9 @@ class RegistrationSearch
           mau_postal_code:    ma_zip,
           mau_country:        doc.css('MailingAddress AddressLine[type="MailingCountry"]').try(:text) })
       end
+
+      # We don't have info about this, so always available for now
+      options[:vvr_uocava_residence_available] = '1'
     end
     Registration.new(options.merge(existing: true))
   end
