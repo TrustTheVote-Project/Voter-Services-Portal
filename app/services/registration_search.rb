@@ -29,7 +29,6 @@ class RegistrationSearch
     if vid =~ /12312312\d/
       r = FactoryGirl.build(:existing_residential_voter)
       if vid == "123123124"
-        r.current_absentee = "1"
         r.absentee_for_elections = [ "Election 1", "Election 2" ]
       end
       r
@@ -69,27 +68,50 @@ class RegistrationSearch
     doc = Nokogiri::XML::Document.parse(xml)
     doc.remove_namespaces!
 
-    ma_zip = doc.css('MailingAddress AddressLine[type="MailingZip"]').try(:text) || ""
-    ma_zip5, ma_zip4 = ma_zip.scan(/(\d{5})(\d{4})?/).flatten
+    # John: Consider address_confidential == "yes" an internal error and
+    # return record-not-found.
+    if doc.css('CheckBox[Type="AddressConfidential"]').try(:text) == "yes"
+      raise RecordNotFound
+    end
 
-    rights                = doc.css('Felony, Incapacitated')
+    vvr = doc.css('ElectoralAddress PostalAddress').first
+    vvr_thoroughfare = vvr.css('Thoroughfare').first
+    vvr_zip = vvr.css('PostCode').try(:text) || ""
+    vvr_zip5, vvr_zip4 = vvr_zip.scan(/(\d{5})(\d{4})?/).flatten
+
+    felony                = doc.css('CheckBox[Type="Felony"]').try(:text) == 'yes'
+    incapacitated         = doc.css('CheckBox[Type="Incapacitated"]').try(:text) == 'yes'
     rights_revoked        = "0"
     rights_revoked_reason = nil
     rights_restored       = nil
     rights_restored_on    = nil
 
-    if rights.any?
-      rights_revoked = "1"
+    # John: Ignoring incapacitated / felony until we get samples of restored rights
+    #
+    # if felony || incapacitated
+    #   rights_revoked_reason = felony ? 'felony' : 'mental'
+    #   rights_revoked  = "1"
+    #   rights_restored = "0"
+    # end
 
-      pending = rights.select { |e| e["RightsRestored"] == "no" }.last
-      if pending
-        rights_revoked_reason = pending.name == "Felony" ? "felony" : "mental"
-        rights_restored = "0"
+    military = doc.css("CheckBox[Type='Military']").try(:text) == 'yes'
+    overseas = doc.css("CheckBox[Type='Overseas']").try(:text) == 'yes'
+    current_absentee_until = doc.css('Message AbsenteeExpiritionDate').try(:text)
+    if current_absentee_until.blank?
+      if military || overseas
+        current_absentee_until = Date.today.advance(years: 1).end_of_year
       else
-        rights_revoked_reason = rights.last.name == "Felony" ? "felony" : "mental"
-        rights_restored = "1"
-        rights_restored_on = Kronic.parse(rights.last.css("RestoreDate").text)
+        current_absentee_until = nil
       end
+    else
+      current_absentee_until = Date.parse(current_absentee_until)
+    end
+
+    absentee_for_elections = []
+    if doc.css("CheckBox[Type='ElectionLevelAbsentee']").try(:text) == 'yes'
+      absentee_for_elections = doc.css("Election").map do |e|
+        e.css("Absentee").any? ? e.css("ElectionName").text : nil
+      end.compact
     end
 
     options = {
@@ -105,27 +127,67 @@ class RegistrationSearch
       rights_restored_on:     rights_restored_on,
 
       vvr_is_rural:           "0",
+      vvr_street_number:      vvr_thoroughfare['number'],
+      vvr_street_name:        vvr_thoroughfare['name'],
+      vvr_street_type:        vvr_thoroughfare['type'],
+      vvr_apt:                nil,
+      vvr_town:               vvr.css('Locality').try(:text),
+      vvr_zip5:               vvr_zip5,
+      vvr_zip4:               vvr_zip4,
       has_existing_reg:       "0",
       ma_is_same:             "0",
-      ma_address:             doc.css('MailingAddress AddressLine[type="MailingAddressLine1"]').try(:text),
-      ma_address_2:           doc.css('MailingAddress AddressLine[type="MailingAddressLine2"]').try(:text),
-      ma_city:                doc.css('MailingAddress AddressLine[type="MailingCity"]').try(:text),
-      ma_state:               doc.css('MailingAddress AddressLine[type="MailingState"]').try(:text),
-      ma_zip5:                ma_zip5,
-      ma_zip4:                ma_zip4 || "",
 
-      is_confidential_address: doc.css('Confidentiality').try(:text) == "yes" ? "1" : "0",
+      # Every record that comes from the DB has this set to 'no',
+      # otherwise it's an error
+      is_confidential_address: '0',
 
       poll_precinct:          doc.css('PollingDistrict Association[Id="PrecinctName"]').try(:text),
       poll_locality:          doc.css('PollingDistrict Association[Id="LocalityName"]').try(:text),
       poll_district:          doc.css('PollingDistrict Association[Id="ElectoralDistrict"]').try(:text),
 
       ssn4:                   "XXXX",
-      current_residence:      "in",
-      current_absentee:       doc.css('CheckBox[Type="AbsenteeStatus"]').try(:text) == 'yes' ? "1" : "0",
-      absentee_for_elections: []
+      current_residence:      military || overseas ? "outside" : "in",
+      current_absentee_until: current_absentee_until,
+      absentee_for_elections: absentee_for_elections
     }
 
+    ma_address    = doc.css('MailingAddress AddressLine[type="MailingAddressLine1"]').try(:text)
+    ma_address_2  = doc.css('MailingAddress AddressLine[type="MailingAddressLine2"]').try(:text)
+    ma_city       = doc.css('MailingAddress AddressLine[type="MailingCity"]').try(:text)
+    ma_state      = doc.css('MailingAddress AddressLine[type="MailingState"]').try(:text)
+    ma_zip        = doc.css('MailingAddress AddressLine[type="MailingZip"]').try(:text) || ""
+    ma_zip5, ma_zip4 = ma_zip.scan(/(\d{5})(\d{4})?/).flatten
+
+
+    if !military && !overseas
+      options.merge!({
+        ma_address:           ma_address,
+        ma_address_2:         ma_address_2,
+        ma_city:              ma_city,
+        ma_state:             ma_state,
+        ma_zip5:              ma_zip5,
+        ma_zip4:              ma_zip4 || "" })
+    else
+      if %w( APO DPO FPO ).include?(ma_city.upcase)
+        options.merge!({
+          mau_type:           'apo',
+          apo_address:        ma_address,
+          apo_address_2:      ma_address_2,
+          apo_1:              ma_city.upcase,
+          apo_2:              ma_state.upcase,
+          apo_zip5:           ma_zip5 })
+      else
+        options.merge!({
+          mau_type:           'non-us',
+          mau_address:        ma_address,
+          mau_address_2:      ma_address_2,
+          mau_city:           ma_city,
+          mau_city_2:         nil,
+          mau_state:          ma_state,
+          mau_postal_code:    ma_zip,
+          mau_country:        doc.css('MailingAddress AddressLine[type="MailingCountry"]').try(:text) })
+      end
+    end
     Registration.new(options.merge(existing: true))
   end
 

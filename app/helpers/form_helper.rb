@@ -63,10 +63,6 @@ module FormHelper
     suffixes.sort
   end
 
-  def changing_status_to_domestic_absentee?(reg = @registration)
-    reg.currently_overseas? || !reg.currently_absentee?
-  end
-
   def field_line(span, value, label = '&nbsp;', options = {})
     if value == :empty || (options.has_key?(:if) && !options[:if])
       label = value = "&nbsp;".html_safe

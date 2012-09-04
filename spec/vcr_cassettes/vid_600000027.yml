@@ -1,0 +1,85 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://wscp.sbe.virginia.gov/electionlist.svc/v1/2897AAFA-6C5E-4AEE-B405-E3768212C34A/FAIRFAX%20COUNTY/600000027
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Tue, 04 Sep 2012 10:09:47 GMT
+      Server:
+      - Microsoft-IIS/6.0
+      X-Powered-By:
+      - ASP.NET
+      X-Aspnet-Version:
+      - 4.0.30319
+      Content-Length:
+      - '5379'
+      Cache-Control:
+      - private
+      Content-Type:
+      - application/xml; charset=utf-8
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0" encoding="utf-8"?><EML SchemaVersion="7.0" Id="330"
+        xmlns="urn:oasis:names:tc:evs:schema:eml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"><EMLHeader><TransactionId>330</TransactionId><OfficialStatusDetail><OfficialStatus>approved</OfficialStatus><StatusDate>2012-09-04</StatusDate></OfficialStatusDetail></EMLHeader><ElectionList><VoterDetails><VoterRegistration><Voter><Source
+        Role="sender"><Name>Virginia</Name></Source><VoterIdentification Id="600000027"><VoterName><PersonFullName
+        xmlns="urn:oasis:names:tc:ciq:xnl:4">RICHARD NICOLE BOWEN </PersonFullName><PersonNameDetail
+        xmlns="urn:oasis:names:tc:ciq:xnl:4"><GivenName>RICHARD</GivenName><MiddleName>NICOLE</MiddleName><FamilyName>BOWEN</FamilyName></PersonNameDetail></VoterName><ElectoralAddress><PostalAddress
+        xmlns="urn:oasis:names:tc:ciq:xal:4"><Thoroughfare type="DR" number="3500"
+        name="Tilton Valley">3500 Tilton Valley DR</Thoroughfare><Locality type="Town">Fairfax</Locality><AdministrativeArea
+        type="StateCode">VA</AdministrativeArea><PostCode type="ZipCode">22033</PostCode><Country/></PostalAddress></ElectoralAddress></VoterIdentification><VoterInformation><Contact><MailingAddress
+        usage="Mailing"><FreeTextAddress xmlns="urn:oasis:names:tc:ciq:xal:4"><AddressLine
+        type="MailingAddressLine1" seqn="0001">3500 Tilton Valley DR</AddressLine><AddressLine
+        type="MailingCity" seqn="0002">Fairfax</AddressLine><AddressLine type="MailingState"
+        seqn="0003">VA</AddressLine><AddressLine type="MailingZip" seqn="0004">22033</AddressLine></FreeTextAddress></MailingAddress><Email/><Telephone/></Contact><EffectiveDateAdded>1987-09-11</EffectiveDateAdded><PreferredLanguage>English</PreferredLanguage><CheckBox
+        Type="ActiveRegistration">no</CheckBox><CheckBox Type="OngoingAbsentee">no</CheckBox><CheckBox
+        Type="ElectionLevelAbsentee">yes</CheckBox><CheckBox Type="Felony">no</CheckBox><CheckBox
+        Type="Incapacitated">no</CheckBox><CheckBox Type="AddressConfidential">no</CheckBox><CheckBox
+        Type="Military">no</CheckBox><CheckBox Type="Overseas">no</CheckBox><CheckBox
+        Type="Disabled">no</CheckBox><CheckBox Type="Federal Only">no</CheckBox><PollingDistrict><Association
+        Id="PrecinctSplitUID">87143b6d-91ce-49d4-a69e-0c4de7d9c53a</Association><Association
+        Id="PrecinctName">916 - WAPLES MILL</Association><Association Id="LocalityName">FAIRFAX
+        COUNTY</Association><Association Id="ElectoralDistrict">SULLY DISTRICT</Association><Association
+        Id="CongressionalDistrictCode">10</Association><Association Id="CongressionalDistrict">10th
+        District</Association><Association Id="SenateDistrictCode">032</Association><Association
+        Id="SenateDistrict">32nd District</Association><Association Id="StateHouseDistrictCode">067</Association><Association
+        Id="StateHouseDistrict">67th District</Association></PollingDistrict><Gender>male</Gender><FurtherInformation/></VoterInformation></Voter></VoterRegistration><Election><ElectionIdentifier
+        IdNumber="952d18a9-be40-422c-aed9-826370a9340b" DisplayOrder="0001"><ElectionName>2019
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">FAIRFAX COUNTY</Name></PollingDistrict><CheckBox Type="Voted">no</CheckBox><CheckBox
+        Type="Permitted">yes</CheckBox></Election><Election><ElectionIdentifier IdNumber="d984ff7e-140b-4847-bf0e-37e171384950"
+        DisplayOrder="0002"><ElectionName>2015 November General</ElectionName><ElectionCategory>Full
+        Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name divisionType="locality">FAIRFAX
+        COUNTY</Name></PollingDistrict><CheckBox Type="Voted">no</CheckBox><CheckBox
+        Type="Permitted">yes</CheckBox></Election><Election><ElectionIdentifier IdNumber="5044a1d3-ca7f-48b1-9cc6-ea33e8f26e60"
+        DisplayOrder="0003"><ElectionName>2014 November General</ElectionName><ElectionCategory>Full
+        Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name divisionType="locality">FAIRFAX
+        COUNTY</Name></PollingDistrict><CheckBox Type="Voted">no</CheckBox><CheckBox
+        Type="Permitted">yes</CheckBox></Election><Election><ElectionIdentifier IdNumber="6002fdb4-fc9c-4f36-a418-c0bdfff2e579"
+        DisplayOrder="0004"><ElectionName>2013 November General</ElectionName><ElectionCategory>Full
+        Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name divisionType="locality">FAIRFAX
+        COUNTY</Name></PollingDistrict><CheckBox Type="Voted">no</CheckBox><CheckBox
+        Type="Permitted">yes</CheckBox></Election><Election><ElectionIdentifier IdNumber="68c30477-aaf2-46dd-994e-5d3be8a89c9b"
+        DisplayOrder="0005"><ElectionName>2012 November General</ElectionName><ElectionCategory>Full
+        Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name divisionType="locality">FAIRFAX
+        COUNTY</Name></PollingDistrict><CheckBox Type="Voted">no</CheckBox><CheckBox
+        Type="Permitted">yes</CheckBox><Absentee xmlns="https://wscp.virginia.gov/voter"><AbsenteeApplicationType>Virginia
+        Specific Application - SBE 701</AbsenteeApplicationType><ApplicationReceived>2012-08-06</ApplicationReceived><EffectiveDate>2012-08-06</EffectiveDate><IsOngoing>false</IsOngoing><EmailAddress>can.patricia76@gmail.com</EmailAddress><AbsenteeBallotStatusCode>Not
+        Issued</AbsenteeBallotStatusCode><AbsenteeBallotStatus>Ballot Not Yet Issued.
+        </AbsenteeBallotStatus></Absentee></Election></VoterDetails></ElectionList></EML>
+    http_version: 
+  recorded_at: Tue, 04 Sep 2012 10:09:48 GMT
+recorded_with: VCR 2.2.4

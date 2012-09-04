@@ -8,7 +8,7 @@ class Registration < ActiveRecord::Base
 
   # When checking for changes on the form to determine if that's a purely absentee request,
   # ignore these keys.
-  IGNORE_CHANGES_IN_KEYS  = [ :voter_id, :current_residence, :current_absentee, :ssn4,
+  IGNORE_CHANGES_IN_KEYS  = [ :voter_id, :current_residence, :ssn4,
                               :existing, :poll_locality, :poll_precinct, :poll_district,
                               :information_correct, :privacy_agree ]
 
@@ -72,7 +72,6 @@ class Registration < ActiveRecord::Base
   serialized_attr :existing
   serialized_attr :ssn4
   serialized_attr :current_residence
-  serialized_attr :current_absentee
   serialized_attr :absentee_for_elections
   serialized_attr :current_absentee_until           # overseas absentee
   serialized_attr :poll_precinct, :poll_locality, :poll_district
@@ -89,10 +88,6 @@ class Registration < ActiveRecord::Base
 
   def currently_overseas?
     self.current_residence == 'outside'
-  end
-
-  def currently_absentee?
-    self.current_absentee == '1'
   end
 
   def currently_residential?

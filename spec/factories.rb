@@ -22,7 +22,6 @@ FactoryGirl.define do
     factory :existing_residential_voter do
       voter_id            '123123123'
       current_residence   'in'
-      current_absentee    '0'
       first_name          'Wanda'
       middle_name         'Hunt'
       last_name           'Phepts'
@@ -72,7 +71,6 @@ FactoryGirl.define do
     factory :existing_overseas_voter do
       voter_id            '111222333'
       current_residence   'outside'
-      current_absentee    '1'
       first_name          'Overseas'
       last_name           'Marine'
       gender              'Male'

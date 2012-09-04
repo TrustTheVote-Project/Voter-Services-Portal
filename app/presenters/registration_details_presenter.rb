@@ -93,8 +93,8 @@ class RegistrationDetailsPresenter
     end
   end
 
-  def mailing_address
-    if overseas?
+  def mailing_address(os = overseas?)
+    if os
       overseas_mailing_address
     else
       domestic_mailing_address
