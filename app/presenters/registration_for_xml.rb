@@ -9,9 +9,7 @@ class RegistrationForXML
                   :ca_type, :ca_po_box, :ca_city,
                   :vvr_street_number, :vvr_street_name, :vvr_street_type, :vvr_apt,
                   :vvr_town, :vvr_state, :vvr_state, :vvr_rural,
-                  :ma_street_number, :ma_street_name, :ma_street_type, :ma_apt,
-                  :ma_city, :ma_state,
-                  :mau_type, :mau_address, :mau_address_2, :mau_city, :mau_city_2,
+                  :ma_address, :ma_address_2, :ma_city, :ma_state, :mau_type, :mau_address, :mau_address_2, :mau_city, :mau_city_2,
                   :mau_state, :mau_postal_code, :mau_country,
                   :apo_address, :apo_address_2, :apo_1, :apo_2, :apo_zip5,
                   :has_existing_reg,
@@ -97,10 +95,6 @@ class RegistrationForXML
 
   def ma_is_same?
     @r.ma_is_same == '1'
-  end
-
-  def ma_thoroughfare
-    [ @r.ma_street_number, @r.ma_street_name, @r.ma_street_type ].rjoin(' ')
   end
 
   def rights_restored?

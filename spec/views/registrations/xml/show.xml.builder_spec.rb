@@ -83,14 +83,13 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
       end
 
       it 'is different from registration' do
-        r = reg ma_is_same: '0', ma_street_number: '2', ma_street_name: 'SN', ma_street_type: 'ST', ma_apt: 'APT', ma_city: 'C', ma_state: 'MA', ma_zip5: '11111', ma_zip4: '2222'
-        xml.within "MailingAddress[status='current'] PostalAddress" do |a|
-          a.should have_selector "Thoroughfare[type='ST'][number='2'][name='SN']", text: "2 SN ST"
-          a.should have_selector "Locality[type='Town']", text: 'C'
-          a.should have_selector "AdministrativeArea[type='StateCode']", text: 'MA'
-          a.should have_selector "PostCode[type='ZipCode']", text: '111112222'
-          a.should have_selector "Country[code='USA']", text: 'United States of America'
-          a.should have_selector "OtherDetail", text: 'APT'
+        r = reg ma_is_same: '0', ma_address: '518 Vance ST', ma_address_2: 'Apt 12', ma_city: 'C', ma_state: 'MA', ma_zip5: '11111', ma_zip4: '2222'
+        xml.within "MailingAddress[status='current'] FreeTextAddress" do |a|
+          a.should have_selector "AddressLine[seqn='0001'][type='MailingAddressLine1']", text: "518 Vance ST"
+          a.should have_selector "AddressLine[seqn='0002'][type='MailingAddressLine2']", text: "Apt 12"
+          a.should have_selector "AddressLine[seqn='0003'][type='MailingCity']", text: 'C'
+          a.should have_selector "AddressLine[seqn='0004'][type='MailingState']", text: 'MA'
+          a.should have_selector "AddressLine[seqn='0005'][type='MailingZip']", text: '111112222'
         end
       end
     end

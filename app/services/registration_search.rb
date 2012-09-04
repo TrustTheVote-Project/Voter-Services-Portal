@@ -45,7 +45,16 @@ class RegistrationSearch
   def self.search_by_voter_id(vid, locality)
     vid = vid.to_s.gsub(/[^\d]/, '')
     locality = URI.escape(locality)
-    uri = URI("https://wscp.sbe.virginia.gov/ElectionList.svc/#{locality}/#{vid}")
+    uri = URI("https://wscp.sbe.virginia.gov/electionlist.svc/v1/#{AppConfig['api_key']}/#{locality}/#{vid}")
+    parse_uri(uri)
+  end
+
+  def self.search_by_data(query)
+    uri = URI("https://wscp.sbe.virginia.gov/electionlist.svc/v1/#{AppConfig['api_key']}/search/?lastName=#{lastName}")
+    parse_uri(uri)
+  end
+
+  def self.parse_uri(uri)
     req = Net::HTTP::Get.new(uri.request_uri)
     res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
       http.request(req)
@@ -54,23 +63,13 @@ class RegistrationSearch
     res.code == '200' && res.body || raise(RecordNotFound)
   end
 
-  def self.search_by_data(query)
-    k, v = SEED_DATA.to_a.find do |vid, data|
-      data[:last_name].to_s.downcase == query.last_name.to_s.downcase &&
-      data[:ssn4].to_s == query.ssn4.to_s &&
-      data[:dob] == query.dob
-    end
-
-    v
-  end
-
   def self.parse(xml)
     raise RecordNotFound if /Voter Record not found/ =~ xml
 
     doc = Nokogiri::XML::Document.parse(xml)
     doc.remove_namespaces!
 
-    ma_zip = doc.css('MailingAddress PostCode[type="ZipCode"]').try(:text) || ""
+    ma_zip = doc.css('MailingAddress AddressLine[type="MailingZip"]').try(:text) || ""
     ma_zip5, ma_zip4 = ma_zip.scan(/(\d{5})(\d{4})?/).flatten
 
     rights                = doc.css('Felony, Incapacitated')
@@ -108,9 +107,10 @@ class RegistrationSearch
       vvr_is_rural:           "0",
       has_existing_reg:       "0",
       ma_is_same:             "0",
-      ma_address:             doc.css('MailingAddress Thoroughfare').try(:text),
-      ma_city:                doc.css('MailingAddress Locality').try(:text),
-      ma_state:               doc.css('MailingAddress AdministrativeArea[type="StateCode"]').try(:text),
+      ma_address:             doc.css('MailingAddress AddressLine[type="MailingAddressLine1"]').try(:text),
+      ma_address_2:           doc.css('MailingAddress AddressLine[type="MailingAddressLine2"]').try(:text),
+      ma_city:                doc.css('MailingAddress AddressLine[type="MailingCity"]').try(:text),
+      ma_state:               doc.css('MailingAddress AddressLine[type="MailingState"]').try(:text),
       ma_zip5:                ma_zip5,
       ma_zip4:                ma_zip4 || "",
 

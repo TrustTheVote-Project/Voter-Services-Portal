@@ -114,11 +114,7 @@ class RegistrationDetailsPresenter
     if data[:ma_is_same] == '1'
       registration_address(d)
     else
-      zip = [ data[:ma_zip5], data[:ma_zip4] ].rjoin('-')
-      [ [ [ data[:ma_street_number], data[:ma_apt] ].rjoin(' / '),
-          data[:ma_street_name], data[:ma_street_type] ].rjoin(' '),
-        data[:ma_city],
-        [ data[:ma_state], zip ].join(' ') ].rjoin(', ')
+      us_address_no_rural(:ma, d)
     end
   end
 

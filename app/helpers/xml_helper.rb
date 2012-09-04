@@ -32,13 +32,13 @@ module XmlHelper
         electoral_address(xml, r, 'MailingAddress')
       else
         xml.MailingAddress status: 'current' do
-          xml.PostalAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
-            xml.Thoroughfare        r.ma_thoroughfare, type: r.ma_street_type, number: r.ma_street_number, name: r.ma_street_name
-            xml.OtherDetail         r.ma_apt unless r.ma_apt.blank?
-            xml.Locality            r.ma_city, type: 'Town'
-            xml.AdministrativeArea  r.ma_state, type: 'StateCode'
-            xml.PostCode            r.ma_zip, type: 'ZipCode'
-            xml.Country             'United States of America', code: 'USA'
+          xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
+            address_lines xml, [
+              [ 'MailingAddressLine1',  r.ma_address ],
+              [ 'MailingAddressLine2',  r.ma_address_2 ],
+              [ 'MailingCity',          r.ma_city ],
+              [ 'MailingState',         r.ma_state ],
+              [ 'MailingZip',           r.ma_zip ] ]
           end
         end
       end
