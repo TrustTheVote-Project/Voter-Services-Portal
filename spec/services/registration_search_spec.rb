@@ -6,6 +6,7 @@ describe RegistrationSearch do
     subject { search(8, 'TAZEWELL COUNTY') }
 
     it { should be_kind_of Registration }
+    its(:voter_id)                { should == "600000008" }
     its(:first_name)              { should == "MOHAMED" }
     its(:middle_name)             { should == "ASHLEY" }
     its(:last_name)               { should == "halperin" }

@@ -115,11 +115,13 @@ class RegistrationSearch
     end
 
     options = {
+      voter_id:               doc.css('VoterIdentification').first.try(:[], 'Id'),
       first_name:             doc.css('GivenName').try(:text),
       middle_name:            doc.css('MiddleName').try(:text),
       last_name:              doc.css('FamilyName').try(:text),
       phone:                  doc.css('Contact Telephone Number').try(:text),
       gender:                 doc.css('Gender').try(:text).to_s.capitalize,
+      lang_preference:        doc.css('PreferredLanguage').try(:text),
 
       rights_revoked:         rights_revoked,
       rights_revoked_reason:  rights_revoked_reason,
