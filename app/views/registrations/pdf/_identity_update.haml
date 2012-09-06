@@ -17,7 +17,7 @@
       = field_line 1, rr.voter_id, 'voter id'
       = field_line 1, rr.dob, 'date of birth'
       = field_line 1, rr.phone, 'new phone', if: rr.phone_changed?
-      - if !AppConfig['registration']['absentee_party_preference'] && rr.party_preference
+      - if rr.overseas? && !AppConfig['registration']['absentee_party_preference'] && rr.party_preference
         = field_line 1, :empty
         = field_line 2, rr.party_preference, 'new party preference', if: rr.party_changed?
       - else

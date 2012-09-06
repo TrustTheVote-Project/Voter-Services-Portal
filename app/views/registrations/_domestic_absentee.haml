@@ -124,8 +124,5 @@
       %label{ for: 'registration_ab_country' } Country
       = f.text_field :ab_country, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abCountry" }'
   <!-- /ko --> <!-- addressRequired -->
-
-  - if AppConfig['registration']['absentee_party_preference']
-    = render partial: 'registrations/party_preference', locals: { f: f, indented: true }
 <!-- /ko -->
 <!-- /ko --> <!-- domestic -->
