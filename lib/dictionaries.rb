@@ -139,11 +139,11 @@ module Dictionaries
     '5A' => 'Nature of obligation'
   }
 
-  ELECTIONS = {
-    '1' => 'Presidential Primary Election held on Tuesday, March 6, 2012.',
-    '2' => 'State Primary Election held on Tuesday, June 12, 2012.',
-    '3' => 'General Election held on Tuesday, November 6, 2012.'
-  }
+  ELECTIONS = [
+    'Presidential Primary Election held on Tuesday, March 6, 2012.',
+    'State Primary Election held on Tuesday, June 12, 2012.',
+    'General Election held on Tuesday, November 6, 2012.'
+  ]
 
   ACP_REASONS = {
     'LEO' => 'active or retired law enforcement officer, judge, U.S. or Virginia Attorney General attorney',

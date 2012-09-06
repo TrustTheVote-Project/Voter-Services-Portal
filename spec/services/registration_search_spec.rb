@@ -95,6 +95,18 @@ describe RegistrationSearch do
     end
   end
 
+  describe 'elections for absentee request' do
+    subject { search(9, "NEWPORT NEWS CITY") }
+    its(:upcoming_elections) { should == [
+      "2012 November General",
+      "2013 November General",
+      "2014 May City General",
+      "2014 November General",
+      "2015 November General",
+      "2019 November General"
+    ] }
+  end
+
   private
 
   def search(n, loc)

@@ -107,7 +107,7 @@ class RegistrationForXML
 
   def ab_info
     if residential?
-      election = @r.rab_election.blank? ? "#{@r.rab_election_name} on #{@r.rab_election_date}" : Dictionaries::ELECTIONS[@r.rab_election.to_s]
+      election = @r.rab_election.blank? ? "#{@r.rab_election_name} on #{@r.rab_election_date}" : @r.rab_election
       address  = [
         [ @r.ab_street_number, @r.ab_apt, @r.ab_street_name, @r.ab_street_type ].rjoin(' '),
         [ @r.ab_city, @r.ab_state, zip(@r.ab_zip5, @r.ab_zip4) ].rjoin(' '),

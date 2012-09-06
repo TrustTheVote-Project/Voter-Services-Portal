@@ -6,11 +6,11 @@ describe RegistrationForPdf do
     let(:r) { Registration.new }
 
     it 'should return election name if chosen' do
-      e = Dictionaries::ELECTIONS.to_a.first
-      r.rab_election = e[0]
+      e = Dictionaries::ELECTIONS.first
+      r.rab_election = e
 
       rr = RegistrationForPdf.new(r)
-      rr.absentee_election.should == e[1]
+      rr.absentee_election.should == e
     end
 
     it 'should return custom election name' do

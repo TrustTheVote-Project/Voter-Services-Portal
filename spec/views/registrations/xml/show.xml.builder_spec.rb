@@ -266,12 +266,12 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
       end
 
       it 'should render absentee fields for known election' do
-        reg_absentee rab_election: '2'
+        reg_absentee rab_election: 'Election Name'
 
         xml.should have_selector "VoterInformation CheckBox[Type='AbsenteeRequest']", text: 'yes'
         xml.within "Message[Type='AbsenteeRequest']" do |a|
           a.should have_selector "AbsenteeType", text: 'Student'
-          a.should have_selector "AbsenteeInfo", text: 'State Primary Election held on Tuesday, June 12, 2012. / 3 apt sn LN, c MA 333335555, co / fld1 / fld2 / 00:00 - 23:00'
+          a.should have_selector "AbsenteeInfo", text: 'Election Name / 3 apt sn LN, c MA 333335555, co / fld1 / fld2 / 00:00 - 23:00'
         end
       end
 

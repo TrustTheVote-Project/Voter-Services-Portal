@@ -114,6 +114,14 @@ class RegistrationSearch
       end.compact
     end
 
+    upcoming_elections = []
+    nowy = Date.today.year
+    doc.css("Election").each do |e|
+      name = e.css("ElectionName").text.strip
+      year = name[0, 4].to_i
+      upcoming_elections.unshift(name) if year >= nowy
+    end
+
     options = {
       voter_id:               doc.css('VoterIdentification').first.try(:[], 'Id'),
       first_name:             doc.css('GivenName').try(:text),
@@ -150,7 +158,8 @@ class RegistrationSearch
       ssn4:                   "XXXX",
       current_residence:      military || overseas ? "outside" : "in",
       current_absentee_until: current_absentee_until,
-      absentee_for_elections: absentee_for_elections
+      absentee_for_elections: absentee_for_elections,
+      upcoming_elections:     upcoming_elections
     }
 
     ma_address    = doc.css('MailingAddress AddressLine[type="MailingAddressLine1"]').try(:text)

@@ -177,7 +177,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     if @reg.rab_election == 'other'
       "#{@reg.rab_election_name} on #{@reg.rab_election_date}"
     else
-      Dictionaries::ELECTIONS[@reg.rab_election]
+      @reg.rab_election
     end
   end
 
