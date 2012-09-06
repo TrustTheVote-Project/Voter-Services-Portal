@@ -125,20 +125,20 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     elsif was_overseas?
       # Was overseas/military
       if requesting_absentee?
-        [ "Update Form and Absentee Request", "Returning Overseas/Military Voter" ]
+        [ "Abstentee Request and Voter Record Update Request", "Returning Overseas/Military Voter" ]
       else
-        [ "Update Form", "Returning Overseas/Military Voter" ]
+        [ "Voter Record Update Request", "Returning Overseas/Military Voter" ]
       end
     elsif requesting_absentee?
       # Domestic absentee
       if no_form_changes?
         [ "Absentee Request", nil ]
       else
-        [ "Update Form and Absentee Request", nil ]
+        [ "Absentee Request and Voter Record Update Request", nil ]
       end
     else
       # Residential voter
-      [ "Update Form", nil ]
+      [ "Voter Record Update Request", nil ]
     end
   end
 
