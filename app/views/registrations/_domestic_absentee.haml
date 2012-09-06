@@ -14,7 +14,7 @@
     .span12
       %h4
         %label{ for: 'registration_rab_election' }
-          %strong I am applying to vote absentee for
+          %strong I am applying to vote absentee in:
       - elections = (f.object.upcoming_elections || Dictionaries::ELECTIONS) + [ [ "Other", "other" ] ]
       = f.select :rab_election, elections, { include_blank: true }, { autocomplete: ac, class: 'span6', 'data-bind' => 'instantValidation: { accessor: "rabElection" }' }
   <!-- ko if: rabElection() == 'other' -->
