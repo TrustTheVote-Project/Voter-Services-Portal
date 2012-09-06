@@ -166,6 +166,11 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     Dictionaries::ABSENCE_REASONS[@reg.ab_reason]
   end
 
+  def absence_locality
+    cc = @reg.vvr_county_or_city
+    cc.blank? ? @reg.vvr_town : cc
+  end
+
   def absentee_election
     if @reg.rab_election == 'other'
       "#{@reg.rab_election_name} on #{@reg.rab_election_date}"
