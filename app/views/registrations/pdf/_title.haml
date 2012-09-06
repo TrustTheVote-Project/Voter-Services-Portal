@@ -1,6 +1,12 @@
 .title_page
   %header
-    %h1 <span>Virginia</span> Voter Registration<br/>Application Form
+    %h1
+      <span>Virginia</span>
+      Voter Registration<br/>
+      - if rr.overseas?
+        Alternative FPCA
+      - else
+        Application Form
   %article
     %header
       %h2 Instructions
@@ -41,4 +47,7 @@
   %p.warning Warning: intentionally voting more than once in an election or making a materially false statement on this form constitutes the crime of election fraud, which is punishable under virginia law as a felony. violators may be sentenced to up to 10 years in prison, or up to 12 months in jail and/or fined up to $2,500.
 
   .serial
-    VA-NVRA-1-www 09/12
+    - if rr.overseas?
+      VA-FPCA-alt-www-1-9/12
+    - else
+      VA-NVRA-1-www 09/12

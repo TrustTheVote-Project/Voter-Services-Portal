@@ -121,7 +121,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
   def subheaders
     if overseas?
       # Became overseas/military
-      [ "Update Form and Absentee Request", "Overseas/Military Voter" ]
+      [ "Alternative Federal Postcard Application", "Overseas/Military Voter" ]
     elsif was_overseas?
       # Was overseas/military
       if requesting_absentee?
