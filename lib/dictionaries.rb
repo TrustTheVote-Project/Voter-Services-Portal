@@ -77,6 +77,13 @@ module Dictionaries
     "Republican Party"
   ]
 
+  OVERSEAS_ABSENCE_CODES = {
+    "ActiveDutyMerchantMarineOrArmedForces" => "6A",
+    "SpouseOrDependentActiveDutyMerchantMarineOrArmedForces" => "6B",
+    "TemporaryResideOutside"                => "6C",
+    "TemporaryResideOutsideSpouse"          => "6D"
+  }
+
   ABSENCE_REASONS = {
     '1A' => 'Student',
     '1B' => 'Spouse of student',

@@ -155,7 +155,9 @@ class RegistrationForPdf < RegistrationDetailsPresenter
   end
 
   def absentee_type
-    I18n.t "outside_type.#{@reg.outside_type}"
+    t = I18n.t "outside_type.#{@reg.outside_type}"
+    c = Dictionaries::OVERSEAS_ABSENCE_CODES[@reg.outside_type]
+    "#{t} (#{c})"
   end
 
   def outside_type_with_details?
