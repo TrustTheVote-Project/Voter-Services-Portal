@@ -9,7 +9,7 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
       xml.within 'EML EMLHeader' do |x|
         x.should have_selector 'TransactionId', text: '310'
         x.within 'OfficialStatusDetail' do |d|
-          d.should have_selector 'OfficialStatus', text: 'approved'
+          d.should have_selector 'OfficialStatus', text: 'submitted'
           d.should have_selector 'StatusDate', text: Date.today.strftime("%Y-%m-%d")
         end
       end

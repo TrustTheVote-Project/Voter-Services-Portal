@@ -11,7 +11,7 @@ xml.EML 'SchemaVersion'  => "7.0",
   xml.EMLHeader do
     xml.TransactionId 310
     xml.OfficialStatusDetail do
-      xml.OfficialStatus 'approved'
+      xml.OfficialStatus 'submitted'
       xml.StatusDate Date.today.strftime("%Y-%m-%d")
     end
   end
