@@ -163,7 +163,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
   end
 
   def absence_reason
-    Dictionaries::ABSENCE_REASONS[@reg.ab_reason]
+    "#{Dictionaries::ABSENCE_REASONS[@reg.ab_reason]} (#{@reg.ab_reason})"
   end
 
   def absence_locality
