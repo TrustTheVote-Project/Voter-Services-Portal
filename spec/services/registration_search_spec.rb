@@ -56,6 +56,15 @@ describe RegistrationSearch do
   #   its(:rights_restored)         { should == '0' }
   # end
 
+  describe 'districts' do
+    subject { search(8, 'TAZEWELL COUNTY') }
+    its(:districts) { should == [
+      [ 'Electoral', 'SOUTHERN DISTRICT' ],
+      [ 'Congressional', '9th District' ],
+      [ 'Senate', '38th District' ],
+      [ 'State House', '3rd District' ] ] }
+  end
+
   describe 'ongoing absentee' do
     subject { search(24, 'ALEXANDRIA CITY') }
     its(:current_absentee_until)  { should == Date.parse('2012-12-31') }

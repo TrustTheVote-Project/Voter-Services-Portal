@@ -74,7 +74,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :current_residence
   serialized_attr :absentee_for_elections
   serialized_attr :current_absentee_until           # overseas absentee
-  serialized_attr :poll_precinct, :poll_locality, :poll_district
+  serialized_attr :poll_precinct, :poll_locality, :poll_district, :districts
   serialized_attr :lang_preference
   serialized_attr :upcoming_elections
 

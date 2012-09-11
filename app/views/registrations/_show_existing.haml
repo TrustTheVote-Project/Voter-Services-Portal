@@ -45,6 +45,17 @@
               %th Address confidentiality:
               %td Active
 
+    %p= link_to "Show districts", '#', class: 'show-districts'
+
+    .summary.hide.districts
+      .body
+        %h3 Districts
+        %table.table#districts
+          - (reg.districts || []).each do |label, v|
+            %tr
+              %td= label
+              %td= v
+
     .head.light
       %h3 Voting Status
 

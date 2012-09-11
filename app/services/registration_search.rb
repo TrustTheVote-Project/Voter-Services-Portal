@@ -169,6 +169,15 @@ class RegistrationSearch
     ma_zip        = doc.css('MailingAddress AddressLine[type="MailingZip"]').try(:text) || ""
     ma_zip5, ma_zip4 = ma_zip.scan(/(\d{5})(\d{4})?/).flatten
 
+    districts = []
+    [ [ 'Electoral', 'ElectoralDistrict' ],
+      [ 'Congressional', 'CongressionalDistrict' ],
+      [ 'Senate', 'SenateDistrict' ],
+      [ 'State House', 'StateHouseDistrict' ] ].each do |key, id|
+      v = doc.css('PollingDistrict Association[Id="' + id + '"]').try(:text)
+      districts.push([ key, v ]) unless v.blank?
+    end
+    options[:districts] = districts
 
     if !military && !overseas
       options.merge!({

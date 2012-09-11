@@ -66,6 +66,8 @@ FactoryGirl.define do
       poll_locality       "BRUNSWICK COUNTY"
       poll_precinct       "220 - RATCLIFFE"
       poll_district       "FAIRFIELD DISTRICT"
+
+      districts           [ [ 'Electoral', 'NORTHERN DISTRICT' ], [ 'Senate', '9th District' ] ]
     end
 
     factory :existing_overseas_voter do
