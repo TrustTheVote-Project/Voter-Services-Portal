@@ -49,5 +49,7 @@
   .serial
     - if rr.overseas?
       VA-FPCA-alt-www-1-9/12
-    - else
+    - elsif rr.requesting_absentee?
       VA-701-www-9/12
+    - else
+      VA-NVRA-1-www 09/12
