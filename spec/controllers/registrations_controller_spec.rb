@@ -6,9 +6,16 @@ describe RegistrationsController do
   before { controller.stub(:current_registration).and_return(current_registration) }
 
   describe 'new' do
+    before  { controller.should_receive(:no_forms?).and_return(false) }
     before  { RegistrationRepository.should_receive(:pop_search_query).and_return({ first_name: 'Tester' }) }
     before  { get :new }
     specify { assigns(:registration).first_name.should == 'Tester' }
+  end
+
+  describe 'new when no forms is set' do
+    before  { controller.should_receive(:no_forms?).and_return(true) }
+    before  { get :new }
+    it      { should redirect_to :about_registration_page }
   end
 
   describe 'create' do

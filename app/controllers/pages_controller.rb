@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
 
   def front
-    if AppConfig['no_forms']
+    if no_forms?
       redirect_to :search
       return
     end

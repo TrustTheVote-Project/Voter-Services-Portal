@@ -3,7 +3,7 @@ class RegistrationsController < ApplicationController
   before_filter :requires_registration, except: [ :new, :create ]
 
   def new
-    if AppConfig['no_forms']
+    if no_forms?
       redirect_to :about_registration_page
       return
     end

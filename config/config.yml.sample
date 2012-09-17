@@ -31,3 +31,7 @@ api_key: your_sbe_server_key
 
 # Disables forms functionality
 no_forms: false
+
+# Test environment overrides
+test:
+  no_forms: false

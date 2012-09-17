@@ -9,6 +9,12 @@ class ApplicationController < ActionController::Base
 
   protected
 
+  # TRUE when forms are disabled
+  def no_forms?
+    AppConfig['no_forms']
+  end
+  helper_method :no_forms?
+
   # Filter that makes sure there's a registration object
   # available, otherwise redirects to the front page.
   def requires_registration

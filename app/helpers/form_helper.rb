@@ -1,10 +1,5 @@
 module FormHelper
 
-  # Checks the config and returns true / false.
-  def no_forms?
-    AppConfig['no_forms']
-  end
-
   # TRUE if online balloting is enabled
   def online_balloting?
     AppConfig['dl']['enabled']
