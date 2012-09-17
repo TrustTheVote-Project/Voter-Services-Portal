@@ -80,6 +80,16 @@ describe RegistrationSearch do
     its(:absentee_for_elections)  { should == [ '2012 November General' ] }
   end
 
+  describe 'registration address' do
+    subject { search(6, 'ALEXANDRIA CITY') }
+    its(:vvr_street_number) { should == "5562" }
+    its(:vvr_street_name)   { should == "Ascot" }
+    its(:vvr_street_type)   { should == "CT" }
+    its(:vvr_town)          { should == "Alexandria" }
+    its(:vvr_zip5)          { should == "22311" }
+    its(:vvr_zip4)          { should == "5562" }
+  end
+
   describe 'overseas mailing address' do
     context 'non-apo' do
       subject { search(36, 'CHESAPEAKE CITY') }

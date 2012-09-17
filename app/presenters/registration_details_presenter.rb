@@ -76,15 +76,17 @@ class RegistrationDetailsPresenter
       data = @registration.send(d)
 
       if !data[:vvr_is_rural] || data[:vvr_is_rural] != '1'
-        if data[:vvr_county_or_city].to_s.downcase.include?('county')
+        city = data[:vvr_county_or_city]
+        if city.blank? || city.to_s.downcase.include?('county')
           city = data[:vvr_town]
-        else
-          city = data[:vvr_county_or_city]
         end
 
         zip = [ data[:vvr_zip5], data[:vvr_zip4] ].rjoin('-')
         [ [ [ data[:vvr_street_number], data[:vvr_apt] ].rjoin(' / '),
-            data[:vvr_street_name], data[:vvr_street_suffix] ].rjoin(' '),
+            data[:vvr_street_name],
+            data[:vvr_street_suffix],
+            data[:vvr_street_type]
+          ].rjoin(' '),
           city,
           [ 'VA', zip ].join(' ') ].rjoin(', ')
       else
@@ -123,8 +125,9 @@ class RegistrationDetailsPresenter
     [ data[:"#{prefix}_address"],
       data[:"#{prefix}_address_2"],
       data[:"#{prefix}_city"],
-      data[:"#{prefix}_state"],
-      [ data[:"#{prefix}_zip5"], data[:"#{prefix}_zip4"] ].rjoin('-')
+      [ data[:"#{prefix}_state"],
+       [ data[:"#{prefix}_zip5"], data[:"#{prefix}_zip4"] ].rjoin('-')
+      ].rjoin(' ')
     ].rjoin(', ')
   end
 
