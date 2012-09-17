@@ -1,4 +1,5 @@
 rvm use 1.9.3
 
 alias t="bundle exec guard"
+alias ss="r s"
 alias rake="bundle exec rake"
