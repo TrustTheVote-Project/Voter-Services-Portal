@@ -18,6 +18,7 @@ choose_absentee_until: false
 
 # Server for online ballot marking
 dl:
+  enabled: true
   url:
   access_token:
   account_id:

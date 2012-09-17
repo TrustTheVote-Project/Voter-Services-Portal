@@ -5,6 +5,11 @@ module FormHelper
     AppConfig['no_forms']
   end
 
+  # TRUE if online balloting is enabled
+  def online_balloting?
+    AppConfig['dl']['enabled']
+  end
+
   # Checks if we are collecting a certain field for a given form.
   def collecting?(form, field, app_config = AppConfig)
     !!app_config[form.to_s]["collect_#{field}"]
