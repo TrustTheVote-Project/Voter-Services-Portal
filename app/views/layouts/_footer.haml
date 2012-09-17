@@ -17,7 +17,10 @@
         .span4.howto
           %h3 How to Register
           %h4 Register online
-          %p To register to vote, you must complete a voter registration application and mail it to your local election official. This website allows you to build a registration application PDF for mailing by providing information online.
+          %p
+            To register to vote, you must complete a voter registration application and mail it to your local election official.
+            - unless AppConfig['no_forms']
+              This website allows you to build a registration application PDF for mailing by providing information online.
 
           %p You can also download a blank mail-in voter registration application and complete it by hand.
 
