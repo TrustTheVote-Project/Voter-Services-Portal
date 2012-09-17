@@ -1,4 +1,17 @@
-= render partial: 'steps'
+- unless AppConfig['no_forms']
+  = render partial: 'steps'
+- else
+  .row
+    .padded_page_span.welcome
+      .head
+        %h2 Welcome
+        %p
+          We've created this service to help all Virginia voters -- domestic, military, and overseas --
+          by providing you with access to your voter record, and information about voter registration,
+          updating your record, and your options for how to vote.
+        %p
+          To get started, use the form below to check whether you are registered to vote, and to view your voter information if so.
+
 
 .row
   .padded_page_span.section
