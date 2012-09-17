@@ -15,7 +15,7 @@ describe RegistrationSearch do
     its(:rights_revoked)          { should == "0" }
 
     its(:vvr_street_number)       { should == "507" }
-    its(:vvr_street_name)         { should == "4th" }
+    its(:vvr_street_name)         { should == "Back woods" }
     its(:vvr_street_type)         { should == "ST" }
     its(:vvr_apt)                 { should == nil }
     its(:vvr_town)                { should == "N Tazewell" }

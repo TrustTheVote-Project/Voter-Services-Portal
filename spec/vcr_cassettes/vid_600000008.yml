@@ -17,7 +17,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 04 Sep 2012 08:32:34 GMT
+      - Mon, 17 Sep 2012 17:44:14 GMT
       Server:
       - Microsoft-IIS/6.0
       X-Powered-By:
@@ -25,7 +25,7 @@ http_interactions:
       X-Aspnet-Version:
       - 4.0.30319
       Content-Length:
-      - '6368'
+      - '6621'
       Cache-Control:
       - private
       Content-Type:
@@ -34,24 +34,24 @@ http_interactions:
       encoding: US-ASCII
       string: <?xml version="1.0" encoding="utf-8"?><EML SchemaVersion="7.0" Id="330"
         xmlns="urn:oasis:names:tc:evs:schema:eml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"><EMLHeader><TransactionId>330</TransactionId><OfficialStatusDetail><OfficialStatus>approved</OfficialStatus><StatusDate>2012-09-04</StatusDate></OfficialStatusDetail></EMLHeader><ElectionList><VoterDetails><VoterRegistration><Voter><Source
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"><EMLHeader><TransactionId>330</TransactionId><OfficialStatusDetail><OfficialStatus>approved</OfficialStatus><StatusDate>2012-09-17</StatusDate></OfficialStatusDetail></EMLHeader><ElectionList><VoterDetails><VoterRegistration><Voter><Source
         Role="sender"><Name>Virginia</Name></Source><VoterIdentification Id="600000008"><VoterName><PersonFullName
         xmlns="urn:oasis:names:tc:ciq:xnl:4">MOHAMED ASHLEY halperin </PersonFullName><PersonNameDetail
         xmlns="urn:oasis:names:tc:ciq:xnl:4"><GivenName>MOHAMED</GivenName><MiddleName>ASHLEY</MiddleName><FamilyName>halperin</FamilyName></PersonNameDetail></VoterName><ElectoralAddress><PostalAddress
         xmlns="urn:oasis:names:tc:ciq:xal:4"><Thoroughfare type="ST" number="507"
-        name="4th">PO Box 870</Thoroughfare><Locality type="Town">N Tazewell</Locality><AdministrativeArea
-        type="StateCode">VA</AdministrativeArea><PostCode type="ZipCode">24630</PostCode><Country>US</Country></PostalAddress></ElectoralAddress></VoterIdentification><VoterInformation><Contact><MailingAddress
+        name="Back woods">RR 507 Back woods</Thoroughfare><Locality type="Town">N
+        Tazewell</Locality><AdministrativeArea type="StateCode">VA</AdministrativeArea><PostCode
+        type="ZipCode">24630</PostCode><Country>US</Country></PostalAddress></ElectoralAddress></VoterIdentification><VoterInformation><Contact><MailingAddress
         usage="Mailing"><FreeTextAddress xmlns="urn:oasis:names:tc:ciq:xal:4"><AddressLine
         type="MailingAddressLine1" seqn="0001">PO Box 870</AddressLine><AddressLine
         type="MailingCity" seqn="0002">North Tazewell</AddressLine><AddressLine type="MailingCountry"
         seqn="0003">US</AddressLine><AddressLine type="MailingState" seqn="0004">VA</AddressLine><AddressLine
         type="MailingZip" seqn="0005">246300870</AddressLine></FreeTextAddress></MailingAddress><Email/><Telephone><Number>2769882415</Number></Telephone></Contact><EffectiveDateAdded>2000-03-23</EffectiveDateAdded><PreferredLanguage>English</PreferredLanguage><CheckBox
         Type="ActiveRegistration">yes</CheckBox><CheckBox Type="OngoingAbsentee">no</CheckBox><CheckBox
-        Type="ElectionLevelAbsentee">no</CheckBox><CheckBox Type="Felony">no</CheckBox><CheckBox
-        Type="Incapacitated">no</CheckBox><CheckBox Type="AddressConfidential">no</CheckBox><CheckBox
-        Type="Military">no</CheckBox><CheckBox Type="Overseas">no</CheckBox><CheckBox
-        Type="Disabled">no</CheckBox><CheckBox Type="Federal Only">no</CheckBox><PollingDistrict><Association
-        Id="PrecinctSplitUID">26161b72-080a-4af6-9e12-b596bd6db037</Association><Association
+        Type="ElectionLevelAbsentee">no</CheckBox><CheckBox Type="Eighteenplus">yes</CheckBox><CheckBox
+        Type="AddressConfidential">no</CheckBox><CheckBox Type="Military">no</CheckBox><CheckBox
+        Type="Overseas">no</CheckBox><CheckBox Type="Disabled">no</CheckBox><CheckBox
+        Type="Federal Only">no</CheckBox><PollingDistrict><Association Id="PrecinctSplitUID">26161b72-080a-4af6-9e12-b596bd6db037</Association><Association
         Id="PrecinctName">209 - JEFFERSONVILLE</Association><Association Id="LocalityName">TAZEWELL
         COUNTY</Association><Association Id="ElectoralDistrict">SOUTHERN DISTRICT</Association><Association
         Id="CongressionalDistrictCode">09</Association><Association Id="CongressionalDistrict">9th
@@ -70,27 +70,33 @@ http_interactions:
         IdNumber="952d18a9-be40-422c-aed9-826370a9340b" DisplayOrder="0001"><ElectionName>2019
         November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
         divisionType="locality">TAZEWELL COUNTY</Name></PollingDistrict><CheckBox
-        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox></Election><Election><ElectionIdentifier
+        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
+        Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
         IdNumber="bd8b6304-14a1-478c-879f-d28494e4ef74" DisplayOrder="0002"><ElectionName>2016
         November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
         divisionType="locality">TAZEWELL COUNTY</Name></PollingDistrict><CheckBox
-        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox></Election><Election><ElectionIdentifier
+        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
+        Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
         IdNumber="d984ff7e-140b-4847-bf0e-37e171384950" DisplayOrder="0003"><ElectionName>2015
         November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
         divisionType="locality">TAZEWELL COUNTY</Name></PollingDistrict><CheckBox
-        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox></Election><Election><ElectionIdentifier
+        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
+        Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
         IdNumber="5044a1d3-ca7f-48b1-9cc6-ea33e8f26e60" DisplayOrder="0004"><ElectionName>2014
         November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
         divisionType="locality">TAZEWELL COUNTY</Name></PollingDistrict><CheckBox
-        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox></Election><Election><ElectionIdentifier
+        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
+        Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
         IdNumber="6002fdb4-fc9c-4f36-a418-c0bdfff2e579" DisplayOrder="0005"><ElectionName>2013
         November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
         divisionType="locality">TAZEWELL COUNTY</Name></PollingDistrict><CheckBox
-        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox></Election><Election><ElectionIdentifier
+        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
+        Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
         IdNumber="68c30477-aaf2-46dd-994e-5d3be8a89c9b" DisplayOrder="0006"><ElectionName>2012
         November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
         divisionType="locality">TAZEWELL COUNTY</Name></PollingDistrict><CheckBox
-        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox></Election></VoterDetails></ElectionList></EML>
+        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
+        Type="FutureElection">yes</CheckBox></Election></VoterDetails></ElectionList></EML>
     http_version: 
-  recorded_at: Tue, 04 Sep 2012 08:32:34 GMT
+  recorded_at: Mon, 17 Sep 2012 17:44:14 GMT
 recorded_with: VCR 2.2.4

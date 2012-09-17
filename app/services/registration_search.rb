@@ -110,7 +110,7 @@ class RegistrationSearch
     absentee_for_elections = []
     if doc.css("CheckBox[Type='ElectionLevelAbsentee']").try(:text) == 'yes'
       absentee_for_elections = doc.css("Election").map do |e|
-        e.css("Absentee").any? ? e.css("ElectionName").text : nil
+        e.css("Absentee").any? && e.css("FutureElection").text == 'yes' ? e.css("ElectionName").text : nil
       end.compact
     end
 
