@@ -3,6 +3,11 @@ class RegistrationsController < ApplicationController
   before_filter :requires_registration, except: [ :new, :create ]
 
   def new
+    if AppConfig['no_forms']
+      redirect_to :about_registration_page
+      return
+    end
+
     LogRecord.log('VoterRegistrationRequest', 'start')
 
     options = RegistrationRepository.pop_search_query(session)

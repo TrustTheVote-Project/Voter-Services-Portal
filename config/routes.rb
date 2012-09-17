@@ -13,6 +13,7 @@ VaVote::Application.routes.draw do
       get :faqs
       get :security
       get :feedback
+      get :about_registration
     end
   end
 
