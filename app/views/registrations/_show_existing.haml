@@ -24,10 +24,6 @@
           %tr
             %th Gender:
             %td= reg.gender
-          - unless reg.ssn.blank?
-            %tr
-              %th Social security number:
-              %td= reg.ssn
           - unless reg.optional_phone.blank?
             %tr
               %th Phone:
