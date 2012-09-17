@@ -21,3 +21,12 @@ dl:
   url:
   access_token:
   account_id:
+
+xml:
+  source_name: Virginia SBE Voter Services Portal
+
+# SBE database API key
+api_key: your_sbe_server_key
+
+# Disables forms functionality
+no_forms: false
