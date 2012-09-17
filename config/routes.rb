@@ -14,6 +14,7 @@ VaVote::Application.routes.draw do
       get :security
       get :feedback
       get :about_registration
+      get :about_update_absentee
     end
   end
 

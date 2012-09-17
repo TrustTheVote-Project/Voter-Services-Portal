@@ -1,5 +1,10 @@
 module FormHelper
 
+  # Checks the config and returns true / false.
+  def no_forms?
+    AppConfig['no_forms']
+  end
+
   # Checks if we are collecting a certain field for a given form.
   def collecting?(form, field, app_config = AppConfig)
     !!app_config[form.to_s]["collect_#{field}"]

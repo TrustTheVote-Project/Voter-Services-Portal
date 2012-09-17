@@ -1,5 +1,7 @@
 - reg = RegistrationDetailsPresenter.new(@registration)
-= render partial: "search/steps", locals: { step: 'view' }
+
+- unless no_forms?
+  = render partial: "search/steps", locals: { step: 'view' }
 
 .padded_page_span.section#overview
   = render partial: 'head'
@@ -59,9 +61,14 @@
     .head.light
       %h3 Voting Status
 
-    %ul.status_options
-      - reg.status_options.each do |opt|
+    %ul.status_options{ class: no_forms? ? 'no_forms' : nil }
+      - (no_forms? ? [ reg.status ] : reg.status_options).each do |opt|
         = render partial: "status_option_#{opt}", locals: { reg: reg }
 
-    .form-actions
-      = link_to "Next &rarr;".html_safe, :edit_registration, class: 'next btn', id: 'edit_registration'
+    - if no_forms?
+      .info
+        %p Need to change your address, name, or contact information? Or learn about absentee voting options?
+        %p= link_to "Learn more about updates and absentee", :about_update_absentee_page
+    - else
+      .form-actions
+        = link_to "Next &rarr;".html_safe, :edit_registration, class: 'next btn', id: 'edit_registration'

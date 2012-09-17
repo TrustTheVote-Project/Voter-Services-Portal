@@ -28,4 +28,10 @@
     margin-left: 20px;
     margin-bottom: 0;
   }
+
+  &.no_forms {
+    label, p {
+      margin-left: 0;
+    }
+  }
 }
