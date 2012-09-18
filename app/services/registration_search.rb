@@ -171,10 +171,10 @@ class RegistrationSearch
     ma_zip5, ma_zip4 = ma_zip.scan(/(\d{5})(\d{4})?/).flatten
 
     districts = []
-    [ [ 'Electoral', 'ElectoralDistrict' ],
-      [ 'Congressional', 'CongressionalDistrict' ],
+    [ [ 'Congressional', 'CongressionalDistrict' ],
       [ 'Senate', 'SenateDistrict' ],
-      [ 'State House', 'StateHouseDistrict' ] ].each do |key, id|
+      [ 'State House', 'StateHouseDistrict' ],
+      [ 'Local', 'ElectoralDistrict' ] ].each do |key, id|
       v = doc.css('PollingDistrict Association[Id="' + id + '"]').try(:text)
       districts.push([ key, v ]) unless v.blank?
     end
