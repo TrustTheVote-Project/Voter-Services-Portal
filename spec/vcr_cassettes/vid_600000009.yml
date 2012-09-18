@@ -17,7 +17,7 @@ http_interactions:
       message: Contact Office
     headers:
       Date:
-      - Mon, 17 Sep 2012 17:47:26 GMT
+      - Tue, 18 Sep 2012 04:46:36 GMT
       Server:
       - Microsoft-IIS/6.0
       X-Powered-By:
@@ -50,5 +50,5 @@ http_interactions:
         border-bottom: 2px white solid; background-color: #e5e5cc;}</style></head><body><div
         id=''content''><h1>Request Failed</h1><h3>Contact Office</h3></div></body></html>'
     http_version: 
-  recorded_at: Mon, 17 Sep 2012 17:47:26 GMT
+  recorded_at: Tue, 18 Sep 2012 04:46:36 GMT
 recorded_with: VCR 2.2.4

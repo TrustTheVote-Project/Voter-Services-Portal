@@ -40,6 +40,30 @@ describe RegistrationSearch do
     its(:absentee_for_elections)  { should == [] }
   end
 
+  describe 'polling location' do
+    context 'given' do
+      let(:r) { search(8, 'TAZEWELL COUNTY') }
+      it 'should have ppl_* set' do
+        r.ppl_location_name.should  == "NUCKOLLS HALL"
+        r.ppl_address.should        == "515 FAIRGROUND RD"
+        r.ppl_city.should           == "N TAZEWELL"
+        r.ppl_state.should          == "VA"
+        r.ppl_zip.should            == "24630"
+      end
+    end
+
+    context 'not given' do
+      let(:r) { search(27, 'FAIRFAX COUNTY') }
+      it 'should have blank ppl_*' do
+        r.ppl_location_name.should  be_blank
+        r.ppl_address.should        be_blank
+        r.ppl_city.should           be_blank
+        r.ppl_state.should          be_blank
+        r.ppl_zip.should            be_blank
+      end
+    end
+  end
+
   # John: Ignoring incapacitated / felony until we get samples of restored rights
   #
   # describe 'incapacitated' do
@@ -59,10 +83,10 @@ describe RegistrationSearch do
   describe 'districts' do
     subject { search(8, 'TAZEWELL COUNTY') }
     its(:districts) { should == [
-      [ 'Electoral', 'SOUTHERN DISTRICT' ],
       [ 'Congressional', '9th District' ],
       [ 'Senate', '38th District' ],
-      [ 'State House', '3rd District' ] ] }
+      [ 'State House', '3rd District' ],
+      [ 'Electoral', 'SOUTHERN DISTRICT' ] ] }
   end
 
   describe 'ongoing absentee' do

@@ -163,6 +163,15 @@ class RegistrationSearch
       upcoming_elections:     upcoming_elections
     }
 
+    ppl = doc.css('PollingPlace[Channel="polling"] FreeTextAddress').first
+    if ppl
+      options[:ppl_location_name] = ppl.css('AddressLine[type="LocationName"]').try(:text)
+      options[:ppl_address]       = ppl.css('AddressLine[type="Address"]').try(:text)
+      options[:ppl_city]          = ppl.css('AddressLine[type="City"]').try(:text)
+      options[:ppl_state]         = ppl.css('AddressLine[type="State"]').try(:text)
+      options[:ppl_zip]           = ppl.css('AddressLine[type="Zip"]').try(:text)
+    end
+
     ma_address    = doc.css('MailingAddress AddressLine[type="MailingAddressLine1"]').try(:text)
     ma_address_2  = doc.css('MailingAddress AddressLine[type="MailingAddressLine2"]').try(:text)
     ma_city       = doc.css('MailingAddress AddressLine[type="MailingCity"]').try(:text)

@@ -17,7 +17,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Tue, 18 Sep 2012 03:48:05 GMT
+      - Tue, 18 Sep 2012 04:46:33 GMT
       Server:
       - Microsoft-IIS/6.0
       X-Powered-By:
@@ -34,7 +34,7 @@ http_interactions:
       encoding: US-ASCII
       string: <?xml version="1.0" encoding="utf-8"?><EML SchemaVersion="7.0" Id="330"
         xmlns="urn:oasis:names:tc:evs:schema:eml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"><EMLHeader><TransactionId>330</TransactionId><OfficialStatusDetail><OfficialStatus>approved</OfficialStatus><StatusDate>2012-09-17</StatusDate></OfficialStatusDetail></EMLHeader><ElectionList><VoterDetails><VoterRegistration><Voter><Source
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"><EMLHeader><TransactionId>330</TransactionId><OfficialStatusDetail><OfficialStatus>approved</OfficialStatus><StatusDate>2012-09-18</StatusDate></OfficialStatusDetail></EMLHeader><ElectionList><VoterDetails><VoterRegistration><Voter><Source
         Role="sender"><Name>Virginia</Name></Source><VoterIdentification Id="600000006"><VoterName><PersonFullName
         xmlns="urn:oasis:names:tc:ciq:xnl:4">JENNIFER PAIGE NAHLEY </PersonFullName><PersonNameDetail
         xmlns="urn:oasis:names:tc:ciq:xnl:4"><GivenName>JENNIFER</GivenName><MiddleName>PAIGE</MiddleName><FamilyName>NAHLEY</FamilyName></PersonNameDetail></VoterName><ElectoralAddress><PostalAddress
@@ -108,5 +108,5 @@ http_interactions:
         Type="Voted">yes</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
         Type="FutureElection">no</CheckBox></Election></VoterDetails></ElectionList></EML>
     http_version: 
-  recorded_at: Tue, 18 Sep 2012 03:48:05 GMT
+  recorded_at: Tue, 18 Sep 2012 04:46:33 GMT
 recorded_with: VCR 2.2.4
