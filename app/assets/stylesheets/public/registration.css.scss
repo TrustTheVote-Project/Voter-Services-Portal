@@ -347,3 +347,16 @@ table.properties {
 .info {
   margin-top: 60px;
 }
+
+.accordion {
+  margin-top: 10px;
+  .toggle {
+    font-size: 15px;
+    font-weight: normal;
+    text-transform: uppercase;
+    float: right;
+  }
+  .area {
+    display: none;
+  }
+}

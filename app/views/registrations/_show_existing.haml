@@ -43,15 +43,15 @@
               %th Address confidentiality:
               %td Active
 
-    %p= link_to "Show districts", '#', class: 'show-districts'
-
-    .summary.hide.districts
+    .accordion.summary.districts
       .body
-        %h3 Districts
-        %table.table#districts
+        %h3
+          = link_to "Show", '#', class: 'toggle'
+          Districts
+        %table.table.area
           - (reg.districts || []).each do |label, v|
             %tr
-              %td= label
+              %th #{label}:
               %td= v
 
     .head.light
