@@ -22,6 +22,7 @@ dl:
   url:
   access_token:
   account_id:
+  uid:
 
 xml:
   source_name: Virginia SBE Voter Services Portal
