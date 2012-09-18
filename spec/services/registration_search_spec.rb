@@ -17,7 +17,7 @@ describe RegistrationSearch do
     its(:vvr_street_number)       { should == "507" }
     its(:vvr_street_name)         { should == "Back woods" }
     its(:vvr_street_type)         { should == "ST" }
-    its(:vvr_apt)                 { should == nil }
+    its(:vvr_apt)                 { should == "" }
     its(:vvr_town)                { should == "N Tazewell" }
     its(:vvr_zip5)                { should == "24630" }
     its(:vvr_zip4)                { should == nil }
@@ -85,6 +85,7 @@ describe RegistrationSearch do
     its(:vvr_street_number) { should == "5562" }
     its(:vvr_street_name)   { should == "Ascot" }
     its(:vvr_street_type)   { should == "CT" }
+    its(:vvr_apt)           { should == "Apt A" }
     its(:vvr_town)          { should == "Alexandria" }
     its(:vvr_zip5)          { should == "22311" }
     its(:vvr_zip4)          { should == "5562" }

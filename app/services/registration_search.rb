@@ -76,6 +76,7 @@ class RegistrationSearch
 
     vvr = doc.css('ElectoralAddress PostalAddress').first
     vvr_thoroughfare = vvr.css('Thoroughfare').first
+    vvr_apt = vvr.css('OtherDetail[type="ApartmentNumber"]').try(:text)
     vvr_zip = vvr.css('PostCode').try(:text) || ""
     vvr_zip5, vvr_zip4 = vvr_zip.scan(/(\d{5})(\d{4})?/).flatten
 
@@ -140,7 +141,7 @@ class RegistrationSearch
       vvr_street_number:      vvr_thoroughfare['number'],
       vvr_street_name:        vvr_thoroughfare['name'],
       vvr_street_type:        vvr_thoroughfare['type'],
-      vvr_apt:                nil,
+      vvr_apt:                vvr_apt,
       vvr_town:               vvr.css('Locality').try(:text),
       vvr_zip5:               vvr_zip5,
       vvr_zip4:               vvr_zip4,
