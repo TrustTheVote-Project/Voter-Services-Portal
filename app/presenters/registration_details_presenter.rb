@@ -165,6 +165,17 @@ class RegistrationDetailsPresenter
     end
   end
 
+  def voting_location_given?
+    @registration.ppl_address.present?
+  end
+
+  def voting_location
+    [ @registration.ppl_location_name,
+      @registration.ppl_address,
+      [ @registration.ppl_city, [ @registration.ppl_state, @registration.ppl_zip ] ].rjoin(', ')
+    ].rjoin('<br>').html_safe
+  end
+
   protected
 
   def optional(v)

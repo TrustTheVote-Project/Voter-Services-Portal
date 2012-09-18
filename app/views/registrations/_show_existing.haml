@@ -43,6 +43,15 @@
               %th Address confidentiality:
               %td Active
 
+    - if reg.voting_location_given?
+      .accordion.summary.voting-location
+        .body
+          %h3
+            = link_to "Show", '#', class: 'toggle'
+            Voting Location
+          .area
+            %p= reg.voting_location
+
     .accordion.summary.districts
       .body
         %h3

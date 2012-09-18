@@ -350,12 +350,23 @@ table.properties {
 
 .accordion {
   margin-top: 10px;
+  margin-bottom: 0;
+
+  &.voting-location {
+    p {
+      margin-top: 10px;
+      margin-bottom: 0;
+      margin-left: 8px;
+    }
+  }
+
   .toggle {
     font-size: 15px;
     font-weight: normal;
     text-transform: uppercase;
     float: right;
   }
+
   .area {
     display: none;
   }
