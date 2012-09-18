@@ -63,6 +63,18 @@
               %th #{label}:
               %td= v
 
+    - if reg.has_election_participation_history?
+      .accordion.summary
+        .body
+          %h3
+            = link_to "Show", '#', class: 'toggle'
+            Election Participation History
+          %table.table.area
+            - reg.past_elections.each do |e, s|
+              %tr
+                %th= s
+                %td= e
+
     .head.light
       %h3 Voting Status
 

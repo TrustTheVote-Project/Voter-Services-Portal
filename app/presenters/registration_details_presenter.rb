@@ -4,7 +4,8 @@ class RegistrationDetailsPresenter
   extend Forwardable
 
   def_delegators :@registration, :full_name, :voting_address,
-                 :absentee?, :uocava?, :voter_id, :districts
+                 :absentee?, :uocava?, :voter_id, :districts,
+                 :past_elections
 
   def initialize(reg)
     @registration = reg
@@ -50,6 +51,10 @@ class RegistrationDetailsPresenter
     else
       @registration.party
     end
+  end
+
+  def has_election_participation_history?
+    past_elections.any?
   end
 
   def address_confidentiality?

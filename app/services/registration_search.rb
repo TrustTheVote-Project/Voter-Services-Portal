@@ -108,11 +108,21 @@ class RegistrationSearch
       current_absentee_until = Date.parse(current_absentee_until)
     end
 
+    past_elections = []
     absentee_for_elections = []
-    if doc.css("CheckBox[Type='ElectionLevelAbsentee']").try(:text) == 'yes'
-      absentee_for_elections = doc.css("Election").map do |e|
-        e.css("Absentee").any? && e.css("FutureElection").text == 'yes' ? e.css("ElectionName").text : nil
-      end.compact
+    ela = doc.css("CheckBox[Type='ElectionLevelAbsentee']").try(:text) == 'yes'
+
+    doc.css("Election").map do |e|
+      absentee = e.css("Absentee").any?
+      name = e.css("ElectionName").text.strip
+
+
+      if e.css("CheckBox[Type='FutureElection']").text == 'no'
+        type = absentee ? "Absentee" : e.css("CheckBox[Type='Voted']").text == "yes" ? "Voted in person" : "Did not vote"
+        past_elections.push([ name, type ])
+      elsif ela && absentee
+        absentee_for_elections.push(name)
+      end
     end
 
     upcoming_elections = []
@@ -160,6 +170,7 @@ class RegistrationSearch
       current_residence:      military || overseas ? "outside" : "in",
       current_absentee_until: current_absentee_until,
       absentee_for_elections: absentee_for_elections,
+      past_elections:         past_elections,
       upcoming_elections:     upcoming_elections
     }
 
