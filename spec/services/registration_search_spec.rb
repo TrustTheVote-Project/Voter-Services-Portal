@@ -83,10 +83,10 @@ describe RegistrationSearch do
   describe 'districts' do
     subject { search(8, 'TAZEWELL COUNTY') }
     its(:districts) { should == [
-      [ 'Congressional', '9th District' ],
-      [ 'Senate', '38th District' ],
-      [ 'State House', '3rd District' ],
-      [ 'Electoral', 'SOUTHERN DISTRICT' ] ] }
+      [ 'Congressional',  [ '09', '9th District' ] ],
+      [ 'Senate',         [ '038', '38th District' ] ],
+      [ 'State House',    [ '003', '3rd District' ] ],
+      [ 'Local',          [ '', 'SOUTHERN DISTRICT' ] ] ] }
   end
 
   describe 'ongoing absentee' do

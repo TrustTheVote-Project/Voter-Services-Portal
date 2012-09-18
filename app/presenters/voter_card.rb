@@ -1,5 +1,10 @@
 class VoterCard
 
+  DISTRICT_KEYS = {
+    'Congressional' => 'CONG',
+    'Senate'        => 'SEN',
+    'State House'   => 'HSE' }
+
   def initialize(registration)
     @r = registration
   end
@@ -45,14 +50,13 @@ class VoterCard
     @r.lang_preference || "Eng"
   end
 
-  def voting_location_line_1
-    # TODO implement
-    "FIRST BAPTIST CHURCH CENTRALIA"
+  def voting_location_given?
+    !!@r.ppl_address
   end
 
-  def voting_location_line_2
-    # TODO implement
-    "2920 KINGSDALE RD"
+  def voting_location
+    [ @r.ppl_location_name,
+      @r.ppl_address ].join("<br/>").html_safe
   end
 
   def locality
@@ -64,8 +68,10 @@ class VoterCard
   end
 
   def districts
-    # TODO ???
-    [ ].join(" &nbsp ")
+    @r.districts.map do |d, (c, v)|
+      k = DISTRICT_KEYS[d]
+      k.blank? ? nil : "#{k} #{c}"
+    end.compact.join(" &nbsp;&nbsp; ").html_safe
   end
 
   def local

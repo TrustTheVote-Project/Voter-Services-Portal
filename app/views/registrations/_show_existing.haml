@@ -58,7 +58,7 @@
           = link_to "Show", '#', class: 'toggle'
           Districts
         %table.table.area
-          - (reg.districts || []).each do |label, v|
+          - (reg.districts || []).each do |label, (c, v)|
             %tr
               %th #{label}:
               %td= v

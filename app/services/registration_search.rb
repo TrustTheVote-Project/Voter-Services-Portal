@@ -184,8 +184,11 @@ class RegistrationSearch
       [ 'Senate', 'SenateDistrict' ],
       [ 'State House', 'StateHouseDistrict' ],
       [ 'Local', 'ElectoralDistrict' ] ].each do |key, id|
+
       v = doc.css('PollingDistrict Association[Id="' + id + '"]').try(:text)
-      districts.push([ key, v ]) unless v.blank?
+      c = doc.css('PollingDistrict Association[Id="' + id + 'Code"]').try(:text)
+
+      districts.push([ key, [ c, v ] ]) unless v.blank?
     end
     options[:districts] = districts
 

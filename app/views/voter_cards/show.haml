@@ -21,19 +21,28 @@
 
       %p.id= r.id.to_s.split(//).map { |l| "<span>#{l}</span>" }.join.html_safe
 
-      .voting_location
-        %h3 VOTING LOCATION:
-        %p
+      - if r.voting_location_given?
+        .voting_location
+          %h3 VOTING LOCATION:
+          %p= r.voting_location
 
     %td.fold
       F o l d &nbsp; h e r e
 
     %td.section.middle
-      %p LOCALITY: #{r.locality}
-      %p PRECINCT: #{r.precinct}
-
-      %p DISTRICTS: #{r.districts}
-      %p LOCAL: #{r.local}
+      %table.districts
+        %tr
+          %td LOCALITY:
+          %td= r.locality
+        %tr
+          %td PRECINCT:
+          %td= r.precinct
+        %tr
+          %td DISTRICTS:
+          %td= r.districts
+        %tr
+          %td LOCAL:
+          %td= r.local
 
       .voter_office
         %h3 Voter Registration Office
