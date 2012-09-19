@@ -49,7 +49,14 @@ class RegistrationSearch
   end
 
   def self.search_by_data(query)
-    uri = URI("https://wscp.sbe.virginia.gov/electionlist.svc/v1/#{AppConfig['api_key']}/search/?lastName=#{lastName}")
+    first_name = URI.escape(query.first_name.to_s)
+    last_name  = URI.escape(query.last_name.to_s)
+    dob        = query.dob.blank? ? '' : query.dob.strftime('%m/%d/%Y')
+    ssn4       = URI.escape(query.ssn4.to_s)
+    locality   = URI.escape(query.locality.to_s)
+
+    uri = URI("https://wscp.sbe.virginia.gov/electionlist.svc/v1/#{AppConfig['api_key']}/search/?firstName=#{first_name}&lastName=#{last_name}&dob=#{dob}&ssn4=#{ssn4}&localityName=#{locality}")
+
     parse_uri(uri)
   end
 

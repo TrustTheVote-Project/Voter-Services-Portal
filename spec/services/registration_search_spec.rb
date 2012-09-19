@@ -156,6 +156,19 @@ describe RegistrationSearch do
     ] }
   end
 
+  it 'should search by data', :focus do
+    VCR.use_cassette("vid_data") do
+      query = SearchQuery.new(
+        locality:   'NORFOLK CITY',
+        first_name: 'FRANKIE',
+        last_name:  'STEMPINSKI',
+        dob:        Date.parse('1959-04-22'),
+        ssn4:       '0000')
+
+      res = RegistrationSearch.perform(query)
+      res.should be_kind_of Registration
+    end
+  end
   private
 
   def search(n, loc)
