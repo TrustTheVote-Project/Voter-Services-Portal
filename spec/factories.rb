@@ -67,7 +67,12 @@ FactoryGirl.define do
       poll_precinct       "220 - RATCLIFFE"
       poll_district       "FAIRFIELD DISTRICT"
 
-      districts           [ [ 'Electoral', 'NORTHERN DISTRICT' ], [ 'Senate', '9th District' ] ]
+      districts           [ [ 'Congressional',  [ '09', '9th District' ] ],
+                            [ 'Senate',         [ '038', '38th District' ] ],
+                            [ 'State House',    [ '003', '3rd District' ] ],
+                            [ 'Local',          [ '', 'SOUTHERN DISTRICT' ] ] ]
+
+      past_elections      [ [ '2007 November', 'Absentee' ] ]
     end
 
     factory :existing_overseas_voter do
@@ -110,6 +115,13 @@ FactoryGirl.define do
       poll_locality       "LOUDOUN COUNTY"
       poll_precinct       "301 - PURCELLVILLE ONE"
       poll_district       "BLUE RIDGE DISTRICT"
+
+      districts           [ [ 'Congressional',  [ '09', '9th District' ] ],
+                            [ 'Senate',         [ '038', '38th District' ] ],
+                            [ 'State House',    [ '003', '3rd District' ] ],
+                            [ 'Local',          [ '', 'SOUTHERN DISTRICT' ] ] ]
+
+      past_elections      [ [ '2007 November', 'Absentee' ] ]
     end
   end
 end

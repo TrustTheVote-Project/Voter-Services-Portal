@@ -54,7 +54,7 @@ class RegistrationDetailsPresenter
   end
 
   def has_election_participation_history?
-    past_elections.any?
+    (past_elections || []).any?
   end
 
   def address_confidentiality?
