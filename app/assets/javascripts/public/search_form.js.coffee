@@ -21,19 +21,21 @@ class SearchForm
     @errors = ko.computed =>
       errors = []
 
-      unless filled(@firstName())
-        errors.push("First name")
-      unless filled(@lastName())
-        errors.push("Last name")
       unless filled(@locality())
         errors.push("Locality")
-      unless present(@dob())
-        errors.push("Date of birth")
 
-      if !filled(@voterId()) and !filled(@ssn4())
-        errors.push("Voter ID or SSN")
-      else if filled(@voterId()) and !voterId(@voterId())
-        errors.push("Voter ID (9 digits)")
+      if @lookupType() == 'ssn4'
+        unless filled(@firstName())
+          errors.push("First name")
+        unless filled(@lastName())
+          errors.push("Last name")
+        unless present(@dob())
+          errors.push("Date of birth")
+        unless filled(@ssn4())
+          errors.push("SSN4")
+      else
+        unless filled(@voterId())
+          errors.push("Voter ID")
 
       unless @swear()
         errors.push("Affirmation")
