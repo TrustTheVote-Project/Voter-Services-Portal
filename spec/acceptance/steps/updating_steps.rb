@@ -15,13 +15,8 @@ steps_for :updating do
 
     RegistrationSearch.should_receive(:perform).and_return(rec)
 
-    fill_in "search_query_first_name", with: 'First'
-    fill_in "search_query_last_name",  with: 'Last'
-    select  "1",       from: "search_query_dob_3i_"
-    select  "January", from: "search_query_dob_2i_"
-    select  "1995",    from: "search_query_dob_1i_"
+    choose  "lookup_type_vid"
     select  "ACCOMACK COUNTY", from: "search_query_locality"
-
     fill_in "search_query_voter_id", with: '111222333'
     check   "swear"
 
