@@ -271,7 +271,7 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
         xml.should have_selector "VoterInformation CheckBox[Type='AbsenteeRequest']", text: 'yes'
         xml.within "Message[Type='AbsenteeRequest']" do |a|
           a.should have_selector "AbsenteeType", text: 'Student'
-          a.should have_selector "AbsenteeInfo", text: 'Election Name / 3 apt sn LN, c MA 333335555, co / fld1 / fld2 / 00:00 - 23:00'
+          a.should have_selector "AbsenteeInfo", text: 'Election Name / 3 sn LN, apt, c MA 333335555, co / fld1 / fld2 / 00:00 - 23:00'
         end
       end
 
@@ -279,7 +279,7 @@ describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
         reg_absentee rab_election_name: 'name', rab_election_date: '12/10/2013'
 
         xml.within "Message[Type='AbsenteeRequest']" do |a|
-          a.should have_selector "AbsenteeInfo", text: 'name on 12/10/2013 / 3 apt sn LN, c MA 333335555, co / fld1 / fld2 / 00:00 - 23:00'
+          a.should have_selector "AbsenteeInfo", text: 'name on 12/10/2013 / 3 sn LN, apt, c MA 333335555, co / fld1 / fld2 / 00:00 - 23:00'
         end
       end
 

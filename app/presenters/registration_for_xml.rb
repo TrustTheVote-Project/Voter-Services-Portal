@@ -109,9 +109,10 @@ class RegistrationForXML
     if residential?
       election = @r.rab_election.blank? ? "#{@r.rab_election_name} on #{@r.rab_election_date}" : @r.rab_election
       address  = [
-        [ @r.ab_street_number, @r.ab_apt, @r.ab_street_name, @r.ab_street_type ].rjoin(' '),
+        [ @r.ab_street_number, @r.ab_street_name, @r.ab_street_type ].rjoin(' '),
+        @r.ab_apt,
         [ @r.ab_city, @r.ab_state, zip(@r.ab_zip5, @r.ab_zip4) ].rjoin(' '),
-        @r.ab_country ].join(', ')
+        @r.ab_country ].rjoin(', ')
       time = [ @r.ab_time_1, @r.ab_time_2 ].join(' - ')
 
       [ election, address, @r.ab_field_1, @r.ab_field_2, time ].rjoin(' / ')

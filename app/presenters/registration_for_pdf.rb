@@ -85,10 +85,11 @@ class RegistrationForPdf < RegistrationDetailsPresenter
       if data[:er_is_rural] == '1'
         data[:er_rural]
       else
-        zip = [ data[:er_zip5], data[:er_zip4] ].reject(&:blank?).join('-')
-        [ [ [ data[:er_street_number], data[:er_apt] ].reject(&:blank?).join(' / '), data[:er_street_name] ].reject(&:blank?).join(' '),
+        zip = [ data[:er_zip5], data[:er_zip4] ].rjoin('-')
+        [ [ data[:er_street_number], data[:er_street_name] ].rjoin(' '),
+          data[:er_apt],
           data[:er_city],
-          [ data[:er_state], zip ].join(' ') ].reject(&:blank?).join(', ')
+          [ data[:er_state], zip ].join(' ') ].rjoin(', ')
       end
     end
   end
@@ -199,10 +200,11 @@ class RegistrationForPdf < RegistrationDetailsPresenter
   def absence_address
     data = @reg.data
 
-    zip = [ data[:ab_zip5], data[:ab_zip4] ].reject(&:blank?).join('-')
-    [ [ [ data[:ab_street_number], data[:ab_apt] ].reject(&:blank?).join(' / '), data[:ab_street_name], data[:ab_street_type] ].reject(&:blank?).join(' '),
+    zip = [ data[:ab_zip5], data[:ab_zip4] ].rjoin('-')
+    [ [ data[:ab_street_number], data[:ab_street_name], data[:ab_street_type] ].rjoin(' '),
+      data[:ab_apt],
       data[:ab_city],
-      [ data[:ab_state], zip, data[:ab_country] ].join(' ') ].reject(&:blank?).join(', ')
+      [ data[:ab_state], zip, data[:ab_country] ].join(' ') ].rjoin(', ')
   end
 
   def absence_time_range

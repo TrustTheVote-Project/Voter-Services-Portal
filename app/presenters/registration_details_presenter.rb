@@ -87,11 +87,12 @@ class RegistrationDetailsPresenter
         end
 
         zip = [ data[:vvr_zip5], data[:vvr_zip4] ].rjoin('-')
-        [ [ [ data[:vvr_street_number], data[:vvr_apt] ].rjoin(' / '),
+        [ [ data[:vvr_street_number],
             data[:vvr_street_name],
             data[:vvr_street_suffix],
             data[:vvr_street_type]
           ].rjoin(' '),
+          data[:vvr_apt],
           city,
           [ 'VA', zip ].join(' ') ].rjoin(', ')
       else
