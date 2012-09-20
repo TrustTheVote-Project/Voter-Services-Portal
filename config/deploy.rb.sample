@@ -32,6 +32,12 @@ task :deploy_shared, :roles => :app do
   run "cp #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
 end
 
+namespace :db do
+  task :seed, :roles => :app do
+    run "cd #{latest_release} && RAILS_ENV=#{rails_env} bundle exec rake db:seed"
+  end
+end
+
 # Passenger tasks
 namespace :deploy do
   task :start do ; end

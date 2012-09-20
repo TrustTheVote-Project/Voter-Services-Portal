@@ -52,6 +52,10 @@ Deployment prerequisites
 Deployment
 ----------
 
+NOTE: Deployment is usually performed from the *local* workstation. Capistrano
+(the tool that is used to deploy the application) uses SSH to connect to
+the remote server.
+
 * Copy `config/deploy.rb.sample` to `config/deploy.rb`
 
 * Update 'Location configuration' section with:
@@ -63,9 +67,14 @@ Deployment
   * _deploy_to_ -- path to the deployment directory
 
 * If it's the first deployment:
-  * Check that everything is configured correctly with `cap
-    deploy:check` from the root of the project.
-  * Setup the deployment location with `cap deploy:setup`
+  * Check that everything is configured correctly:
+ 
+      $ cap deploy:check
+
+  * Setup the deployment location:
+    
+      $ cap deploy:setup
+
   * Log into the remote system and go to `/<deploy_to>/shared` and
     create `config` directory with two files:
     * _database.yml_ (see sample in `config/database.yml.sample`) with
@@ -75,7 +84,16 @@ Deployment
       * update the online ballot marking server section for "Mark Your
         Ballot Online" feature to work properly
 
-  * Make the initial deployment with `cap deploy:cold`.
+  * Make the initial deployment with:
+
+      $ cap deploy:cold
+
+      $ cap deploy
+
+  * Seed dictionary data with:
+  
+      $ cap db:seed
+
   * Configure Apache virtual host. Here's the sample configuration
     ('server.com' is your server name, 'DocumentRoot' points to the
     `:deploy_to/current/public` where `:deploy_to` is from capistrano
@@ -86,8 +104,16 @@ Deployment
               DocumentRoot  /home/deploy/server.com/current/public
             </VirtualHost>
 
-* If it's not the first deployment, make it with `cap
-  deploy:migrations`.
+Updating the deployment
+-----------------------
+
+* Update the source code:
+
+    $ git pull
+
+* Deploy code and migrations:
+  
+    $ cap deploy:migrations
 
 
 Installing Ruby
