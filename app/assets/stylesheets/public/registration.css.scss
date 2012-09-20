@@ -360,8 +360,14 @@ table.properties {
     }
   }
 
-  .toggle {
+  h3 {
     font-size: 15px;
+    color: #222;
+    padding-left: 8px;
+  }
+
+  .toggle {
+    font-size: 13px;
     font-weight: normal;
     text-transform: uppercase;
     float: right;
