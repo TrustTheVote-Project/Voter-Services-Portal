@@ -10,6 +10,9 @@ registration:
   # Enable collection of title on the registration request form
   collect_title:  false
 
+  # Collect party preference only for absentees
+  absentee_party_preference: true
+
 # enables / disables form field autocompletion
 autocomplete: off
 
@@ -31,7 +34,7 @@ xml:
 api_key: your_sbe_server_key
 
 # Disables forms functionality
-no_forms: false
+no_forms: true
 
 # Test environment overrides
 test:
