@@ -16,6 +16,8 @@
       .row
         .span4.howto
           %h3 How to Register
+          - unless no_forms?
+            %h4 Register online
           %p
             To #{link_to "register to vote", :about_registration_page}, you must complete a voter registration application and mail it to your local election official.
             - unless no_forms?
