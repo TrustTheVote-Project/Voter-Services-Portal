@@ -1,5 +1,6 @@
 %li
-  = radio_button_tag "status", "overseas", reg.status == "overseas"
+  - unless no_forms?
+    = radio_button_tag "status", "overseas", reg.status == "overseas"
   %label{ for: 'status_overseas' } Overseas/Military Absentee Voter
   %p
     - if @registration.currently_residential?
