@@ -21,10 +21,20 @@
 
     %p
       To look-up your Virginia Voter Record, you'll need to provide your first name,
-      last name, date of birth, locality, and either your Virginia Voter Card Number OR
-      the last 4 digits of your Social Security Number.
+      last name, date of birth, locality, and the last 4 digits of your
+      Social Security Number. You can also identify using the voter identification
+      number on your voter card, by selecting "Use Voter ID" below.
+
+    .row
+      .radio
+        = radio_button_tag :lookup_type, 'ssn4', true, 'data-bind' => 'checked: lookupType'
+        %label( for='lookup_type_ssn4' ) Use SSN4
+      .radio
+        = radio_button_tag :lookup_type, 'vid',  false, 'data-bind' => 'checked: lookupType'
+        %label( for='lookup_type_vid' ) Use Voter ID
 
     = form_for @search_query, url: search_path do |f|
+      <!-- ko if: lookupType() == "ssn4" -->
       .partition
         .row
           .span3
@@ -36,24 +46,26 @@
           .span4
             %label Date of birth
             = bound_date f, :dob, { object_name: 'search_query', start_year: Date.today.year - 120, end_year: Date.today.year - 17 }, { class: 'date' }
+
         .row
-          .span3
-            %label Locality
-            = f.select :locality, Office.localities, { include_blank: true }, 'data-bind' => 'instantValidation: { accessor: "locality" }'
-
-      .partition
-        .row
-          .span4.numbers
-            %span Voter ID
-            = f.text_field :voter_id, label: 'Voter ID', placeholder: 'NNNNNNNNN', maxlength: 9, 'data-bind' => 'instantValidation: { accessor: "voterId", validation: "voterId", resetAlso: ".numbers" }'
-
-          .span2
-            %br
-            %span OR
-
           .span3.numbers
             %label Last 4 digits of SSN
             = f.text_field :ssn4, placeholder: 'NNNN', maxlength: 4, class: 'span1', 'data-bind' => 'instantValidation: { accessor: "ssn4", validation: "ssn4OrVoterId", resetAlso: ".numbers" }'
+          .span3
+            %label Locality
+            = f.select :locality, Office.localities, { include_blank: true }, 'data-bind' => 'instantValidation: { accessor: "locality" }'
+      <!-- /ko -->
+
+      <!-- ko if: lookupType() == "vid" -->
+      .partition{ 'data-bind' => 'if: lookupType() == "vid"' }
+        .row
+          .span3.numbers
+            %span Voter ID
+            = f.text_field :voter_id, label: 'Voter ID', placeholder: 'NNNNNNNNN', maxlength: 9, 'data-bind' => 'instantValidation: { accessor: "voterId", validation: "voterId", resetAlso: ".numbers" }'
+          .span3
+            %label Locality
+            = f.select :locality, Office.localities, { include_blank: true }, 'data-bind' => 'instantValidation: { accessor: "locality" }'
+      <!-- /ko -->
 
       .partition
         .checkbox

@@ -7,11 +7,13 @@ class RegistrationSearch
   class RecordNotFound < StandardError; end
 
   def self.perform(search_query)
-    unless search_query.voter_id.blank?
-      if search_query.first_name == 'vasample'
-        return sample_record(search_query.voter_id)
+    vid = search_query.voter_id
+
+    unless vid.blank?
+      if vid.to_s =~ /^1/
+        return sample_record(vid)
       else
-        xml = search_by_voter_id(search_query.voter_id, search_query.locality)
+        xml = search_by_voter_id(vid, search_query.locality)
       end
     else
       xml = search_by_data(search_query)

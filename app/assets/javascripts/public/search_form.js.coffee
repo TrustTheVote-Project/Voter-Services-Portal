@@ -2,6 +2,7 @@ window.ssn4OrVoterId = (s) -> filled($("#search_query_voter_id").val()) || (fill
 
 class SearchForm
   constructor: ->
+    @lookupType = ko.observable('ssn4')
     @voterId    = ko.observable()
     @locality   = ko.observable()
     @firstName  = ko.observable()
