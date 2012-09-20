@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://wscp.sbe.virginia.gov/electionlist.svc/v1/2897AAFA-6C5E-4AEE-B405-E3768212C34A/NEWPORT%20NEWS%20CITY/600000009
+    uri: https://wscp.sbe.virginia.gov/electionlist.svc/v1/2897AAFA-6C5E-4AEE-B405-E3768212C34A/VIRGINIA%20BEACH%20CITY/600000018
     body:
       encoding: US-ASCII
       string: ''
@@ -14,11 +14,11 @@ http_interactions:
   response:
     status:
       code: 400
-      message: Your voter information cannot be displayed.  Please contact the State
-        Board of Elections for more information.
+      message: Your voter registration is not active.  Please contact the State Board
+        of Elections for more information.
     headers:
       Date:
-      - Thu, 20 Sep 2012 13:40:23 GMT
+      - Thu, 20 Sep 2012 13:40:24 GMT
       Server:
       - Microsoft-IIS/6.0
       X-Powered-By:
@@ -26,7 +26,7 @@ http_interactions:
       X-Aspnet-Version:
       - 4.0.30319
       Content-Length:
-      - '1405'
+      - '1400'
       Cache-Control:
       - private
       Content-Type:
@@ -49,8 +49,8 @@ http_interactions:
         th { border-right: 2px white solid; border-bottom: 2px white solid; font-weight:
         bold; background-color: #cecf9c;} table td { border-right: 2px white solid;
         border-bottom: 2px white solid; background-color: #e5e5cc;}</style></head><body><div
-        id=''content''><h1>Request Failed</h1><h3>Your voter information cannot be
-        displayed.  Please contact the State Board of Elections for more information.</h3></div></body></html>'
+        id=''content''><h1>Request Failed</h1><h3>Your voter registration is not active.  Please
+        contact the State Board of Elections for more information.</h3></div></body></html>'
     http_version: 
-  recorded_at: Thu, 20 Sep 2012 13:40:23 GMT
+  recorded_at: Thu, 20 Sep 2012 13:40:24 GMT
 recorded_with: VCR 2.2.4

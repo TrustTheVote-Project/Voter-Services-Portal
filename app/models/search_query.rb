@@ -16,7 +16,7 @@ class SearchQuery
   validates :voter_id,    presence: {     if: :using_voter_id? }
 
   def initialize(attrs = {})
-    assign_attributes(attrs)
+    assign_attributes(attrs) unless attrs.blank?
   end
 
   # Secure mass attribute assignment

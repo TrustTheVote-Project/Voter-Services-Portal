@@ -9,22 +9,21 @@ class SearchController < ApplicationController
 
   def create
     @search_query = SearchQuery.new(params[:search_query])
-    unless @search_query.valid?
-      flash[:error] = "Form is incomplete."
-      return new
-    end
+    return new unless @search_query.valid?
 
     reg = RegistrationSearch.perform(@search_query)
 
-    if reg
-      LogRecord.log("", "identify", reg, "Match for #{@search_query.to_log_details}")
-      RegistrationRepository.store_registration(session, reg)
-      redirect_to :registration
-    else
-      LogRecord.log("", "identify", reg, "No match for #{@search_query.to_log_details}")
+    LogRecord.log("", "identify", reg, "Match for #{@search_query.to_log_details}")
+    RegistrationRepository.store_registration(session, reg)
+
+    redirect_to :registration
+  rescue RegistrationSearch::SearchError => @error
+    if @error.kind_of? RegistrationSearch::RecordNotFound
+      LogRecord.log("", "identify", nil, "No match for #{@search_query.to_log_details}")
       RegistrationRepository.store_search_query(session, @search_query)
-      render :not_found
     end
+
+    render :error
   end
 
 end

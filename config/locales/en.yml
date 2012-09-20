@@ -10,3 +10,16 @@ en:
     TemporaryResideOutside: Temporarily residing outside U.S.
     TemporaryResideOutsideSpouse: Temporarily residing outside U.S. for employment, or spouse or dependent residing with employee
 
+  search:
+    record_not_found:
+      title:  "Record Not Found"
+      body:   "We were unable to find an existing voter record with the information you provided."
+    timeout:
+      title:  "Server Overload"
+      body:   "Our servers are busy right now. Please try again later or contact the State Board of Elections at info@sbe.virginia.gov or at 1-800-552-9745"
+    record_is_confidential:
+      title:  "Confidential Record"
+      body:   "We are sorry, but for confidentiality reasons, the requested record cannot be displayed. To review or update your record, please contact your local general registrar or the State Board of Elections at 1-800-552-9745. If you are attempting to submit an absentee ballot application, please visit the SBE website to get the PDF version of the form or contact or visit your local general registrar's office."
+    record_is_inactive:
+      title:  "Inactive Record"
+      body:   "We are sorry, but we are unable to process your request based on the information you have provided.  Please contact your local general registrar or the State Board of Elections at info@sbe.virginia.gov or at 1-800-552-9745 for assistance."

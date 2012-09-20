@@ -95,14 +95,15 @@ describe RegistrationSearch do
   end
 
   describe 'military ongoing absentee' do
-    subject { search(36, 'CHESAPEAKE CITY') }
+    subject { search(47, 'FAIRFAX COUNTY') }
     its(:current_absentee_until)  { should == Date.today.advance(years: 1).end_of_year }
   end
 
-  describe 'election-level absentee' do
-    subject { search(27, 'FAIRFAX COUNTY') }
-    its(:absentee_for_elections)  { should == [ '2012 November General' ] }
-  end
+  # Aleksey Sep 20, 2012: There's no sample of this
+  # describe 'election-level absentee' do
+  #   subject { search(22, 'STAFFORD COUNTY') }
+  #   its(:absentee_for_elections) { should == [ '2010 November General' ] }
+  # end
 
   describe 'past elections' do
     subject { search(21, 'ALEXANDRIA CITY') }
@@ -122,15 +123,15 @@ describe RegistrationSearch do
 
   describe 'overseas mailing address' do
     context 'non-apo' do
-      subject { search(36, 'CHESAPEAKE CITY') }
+      subject { search(48, 'ALBEMARLE COUNTY') }
       its(:mau_type)        { should == "non-us" }
-      its(:mau_address)     { should == "1417 Great Bridge Blvd" }
+      its(:mau_address)     { should == "335 Portico Bay flat 1" }
       its(:mau_address_2)   { should == "" }
-      its(:mau_city)        { should == "Chesapeake" }
+      its(:mau_city)        { should == "Rome" }
       its(:mau_city_2)      { should == nil }
-      its(:mau_state)       { should == "VA" }
-      its(:mau_postal_code) { should == "233206421" }
-      its(:mau_country)     { should == "US" }
+      its(:mau_state)       { should == "" }
+      its(:mau_postal_code) { should == "123ERTv3" }
+      its(:mau_country)     { should == "IT" }
     end
 
     context 'apo/dpo/fpo' do
@@ -145,11 +146,10 @@ describe RegistrationSearch do
   end
 
   describe 'elections for absentee request' do
-    subject { search(9, "NEWPORT NEWS CITY") }
+    subject { search(6, 'ALEXANDRIA CITY') }
     its(:upcoming_elections) { should == [
       "2012 November General",
       "2013 November General",
-      "2014 May City General",
       "2014 November General",
       "2015 November General",
       "2019 November General"
@@ -169,6 +169,34 @@ describe RegistrationSearch do
       res.should be_kind_of Registration
     end
   end
+
+  describe 'error handling' do
+    it 'should return not found when the record is not found' do
+      lambda {
+        search(1, 'UNKNOWN')
+      }.should raise_error RegistrationSearch::RecordNotFound
+    end
+
+    it 'should raise error when times out' do
+      lambda {
+        RegistrationSearch.should_receive(:parse_uri_without_timeout).and_raise(Timeout::Error)
+        search(9, 'NEWPORT NEWS CITY')
+      }.should raise_error RegistrationSearch::LookupTimeout
+    end
+
+    it 'should handle confidental records' do
+      lambda {
+        search(9, 'NEWPORT NEWS CITY')
+      }.should raise_error RegistrationSearch::RecordIsConfidential
+    end
+
+    it 'should handle inactive records' do
+      lambda {
+        search(18, 'VIRGINIA BEACH CITY')
+      }.should raise_error RegistrationSearch::RecordIsInactive
+    end
+  end
+
   private
 
   def search(n, loc)

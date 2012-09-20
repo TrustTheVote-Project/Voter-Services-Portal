@@ -3,8 +3,41 @@ require 'net/http'
 # Searches for existing registrations with given attributes
 class RegistrationSearch
 
+  class SearchError < StandardError
+    attr_reader :title
+    def initialize(key)
+      super I18n.t("search.#{key}.body")
+      @title = I18n.t("search.#{key}.title")
+    end
+  end
+
   # Raised when no record was found
-  class RecordNotFound < StandardError; end
+  class RecordNotFound < SearchError
+    def initialize
+      super 'record_not_found'
+    end
+  end
+
+  # Lookup times out
+  class LookupTimeout < SearchError
+    def initialize
+      super 'timeout'
+    end
+  end
+
+  # Confidential record found
+  class RecordIsConfidential < SearchError
+    def initialize
+      super 'record_is_confidential'
+    end
+  end
+
+  # Inactive record found
+  class RecordIsInactive < SearchError
+    def initialize
+      super 'record_is_inactive'
+    end
+  end
 
   def self.perform(search_query)
     vid = search_query.voter_id
@@ -23,8 +56,6 @@ class RegistrationSearch
     rec.existing = true;
     rec
 
-  rescue RecordNotFound
-    nil
   end
 
   def self.sample_record(vid)
@@ -63,12 +94,30 @@ class RegistrationSearch
   end
 
   def self.parse_uri(uri)
+    parse_uri_without_timeout(uri)
+  rescue Timeout::Error
+    raise LookupTimeout
+  end
+
+  def self.parse_uri_without_timeout(uri)
     req = Net::HTTP::Get.new(uri.request_uri)
-    res = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true, verify_mode: OpenSSL::SSL::VERIFY_NONE) do |http|
+    res = Net::HTTP.start(uri.hostname, uri.port,
+                          use_ssl:      true,
+                          open_timeout: 5,
+                          read_timeout: 15,
+                          verify_mode:  OpenSSL::SSL::VERIFY_NONE) do |http|
       http.request(req)
     end
 
-    res.code == '200' && res.body || raise(RecordNotFound)
+    if res.code == '200'
+      res.body
+    elsif res.code == '400'
+      raise RecordIsConfidential if /cannot be displayed/ =~ res.body
+      raise RecordIsInactive if /is not active/ =~ res.body
+      raise RecordNotFound
+    else
+      raise RecordNotFound
+    end
   end
 
   def self.parse(xml)
@@ -118,6 +167,7 @@ class RegistrationSearch
     end
 
     past_elections = []
+    upcoming_elections = []
     absentee_for_elections = []
     ela = doc.css("CheckBox[Type='ElectionLevelAbsentee']").try(:text) == 'yes'
 
@@ -125,21 +175,16 @@ class RegistrationSearch
       absentee = e.css("Absentee").any?
       name = e.css("ElectionName").text.strip
 
-
       if e.css("CheckBox[Type='FutureElection']").text == 'no'
         type = absentee ? "Absentee" : e.css("CheckBox[Type='Voted']").text == "yes" ? "Voted in person" : "Did not vote"
         past_elections.push([ name, type ])
-      elsif ela && absentee
-        absentee_for_elections.push(name)
-      end
-    end
+      else
+        upcoming_elections.unshift(name)
 
-    upcoming_elections = []
-    nowy = Date.today.year
-    doc.css("Election").each do |e|
-      name = e.css("ElectionName").text.strip
-      year = name[0, 4].to_i
-      upcoming_elections.unshift(name) if year >= nowy
+        if ela && absentee
+          absentee_for_elections.push(name)
+        end
+      end
     end
 
     options = {

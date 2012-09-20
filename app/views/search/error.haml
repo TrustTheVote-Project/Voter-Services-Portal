@@ -3,10 +3,10 @@
 .row
   .padded_page_span.section
     .head
-      %h3 Record Not Found
+      %h3= @error.title
       .description
-        We were unable to find an existing voter record with the
-        information you provided. You can try again by<br/>
+        #{@error.message}
+        You can try again by<br/>
         #{link_to "changing the information", :search}, or you can instead
         #{link_to "register to vote", :new_registration, id: "register"}.
 
