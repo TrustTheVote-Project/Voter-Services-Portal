@@ -156,7 +156,7 @@ describe RegistrationSearch do
     ] }
   end
 
-  it 'should search by data', :focus do
+  it 'should search by data' do
     VCR.use_cassette("vid_data") do
       query = SearchQuery.new(
         locality:   'NORFOLK CITY',
