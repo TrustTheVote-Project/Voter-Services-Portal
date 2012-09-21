@@ -43,7 +43,7 @@ class RegistrationSearch
     vid = search_query.voter_id
 
     unless vid.blank?
-      if vid.to_s =~ /^1/
+      if vid.to_s =~ /^a/
         return sample_record(vid)
       else
         xml = search_by_voter_id(vid, search_query.locality)
