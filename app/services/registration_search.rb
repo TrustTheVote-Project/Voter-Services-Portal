@@ -168,8 +168,10 @@ class RegistrationSearch
 
     past_elections = []
     upcoming_elections = []
+    absentee_for_elections_uids = []
     absentee_for_elections = []
     ela = doc.css("CheckBox[Type='ElectionLevelAbsentee']").try(:text) == 'yes'
+    oa  = doc.css("CheckBox[Type='OngoingAbsentee']").try(:text) == 'yes'
 
     doc.css("Election").map do |e|
       absentee = e.css("Absentee").any?
@@ -183,6 +185,7 @@ class RegistrationSearch
 
         if ela && absentee
           absentee_for_elections.push(name)
+          absentee_for_elections_uids.push((e.css("ElectionIdentifier").first)["IdNumber"]);
         end
       end
     end
@@ -225,7 +228,8 @@ class RegistrationSearch
       current_absentee_until: current_absentee_until,
       absentee_for_elections: absentee_for_elections,
       past_elections:         past_elections,
-      upcoming_elections:     upcoming_elections
+      upcoming_elections:     upcoming_elections,
+      ready_for_online_balloting: (military || overseas) && (oa || absentee_for_elections_uids.include?(AppConfig['current_election_uid']))
     }
 
     ppl = doc.css('PollingPlace[Channel="polling"] FreeTextAddress').first

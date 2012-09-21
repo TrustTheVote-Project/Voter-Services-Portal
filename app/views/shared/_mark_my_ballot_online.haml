@@ -1,8 +1,6 @@
-- vid ||= '3581995'
-
-- if Setting.marking_ballot_online?
-  %form{ action: AppConfig['dl']['url'], 'accept-charset' => "utf-8", target: '_blank' }
-    = hidden_field_tag "search[vid]", vid
+- if online_balloting? && @registration.ready_for_online_balloting?
+  %form{ action: AppConfig['dl']['url'], 'accept-charset' => "utf-8", target: '_blank', class: 'mark-online' }
+    = hidden_field_tag "search[vid]", @registration.voter_id
     = hidden_field_tag "token", AppConfig['dl']['access_token']
     = hidden_field_tag "account", AppConfig['dl']['account_id']
-    = submit_tag "Mark My Ballot Online", class: 'btn'
+    = link_to "Mark My Ballot Online", '#', id: 'mark-online'

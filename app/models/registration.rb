@@ -77,9 +77,11 @@ class Registration < ActiveRecord::Base
   serialized_attr :poll_precinct, :poll_locality, :poll_district, :districts
   serialized_attr :ppl_location_name, :ppl_address, :ppl_city, :ppl_state, :ppl_zip
   serialized_attr :lang_preference
-  serialized_attr :upcoming_elections
+  serialized_attr :upcoming_elections, :ready_for_online_balloting
 
   before_create :review_absentee_until
+
+  alias :ready_for_online_balloting? :ready_for_online_balloting
 
   def full_name
     [ first_name, middle_name, last_name, suffix ].delete_if(&:blank?).join(' ')

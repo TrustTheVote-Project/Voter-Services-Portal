@@ -25,7 +25,9 @@ dl:
   url:
   access_token:
   account_id:
-  uid:
+
+# Current election UID as in the EML 330 for the upcoming election
+current_election_uid:
 
 xml:
   source_name: Virginia SBE Voter Services Portal

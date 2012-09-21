@@ -99,6 +99,25 @@ describe RegistrationSearch do
     its(:current_absentee_until)  { should == Date.today.advance(years: 1).end_of_year }
   end
 
+  # Aleksey Sep 21, 2012: No test records
+  # describe 'online ballot' do
+  #   it 'should be ready for ongoing military or overseas absentee' do
+  #     search(1111, '...').should be_ready_for_online_balloting
+  #   end
+  #
+  #   context 'election-level absentee' do
+  #     it 'should allow w/ approved election' do
+  #       AppConfig['current_election_uid'] = '123123'
+  #       search(1111, '...').should be_ready_for_online_balloting
+  #     end
+  #
+  #     it 'should disallow w/o approved election' do
+  #       AppConfig['current_election_uid'] = 'unknown'
+  #       search(1111, '...').should_not be_ready_for_online_balloting
+  #     end
+  #   end
+  # end
+
   # Aleksey Sep 20, 2012: There's no sample of this
   # describe 'election-level absentee' do
   #   subject { search(22, 'STAFFORD COUNTY') }

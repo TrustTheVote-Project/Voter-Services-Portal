@@ -86,6 +86,9 @@
       .info
         %p Need to change your address, name, or contact information? Or learn about absentee voting options?
         %p= link_to "Learn more about updates and absentee", :about_update_absentee_page
+
+      .form_action
+        = render partial: 'shared/mark_my_ballot_online'
     - else
       .form-actions
         = link_to "Next &rarr;".html_safe, :edit_registration, class: 'next btn', id: 'edit_registration'
