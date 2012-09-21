@@ -26,6 +26,9 @@ dl:
   access_token:
   account_id:
 
+# Base for the URLs of the static pages
+static_page_url_base: 
+
 # Current election UID as in the EML 330 for the upcoming election
 current_election_uid:
 
