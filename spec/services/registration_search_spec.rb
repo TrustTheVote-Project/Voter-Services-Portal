@@ -40,6 +40,10 @@ describe RegistrationSearch do
     its(:absentee_for_elections)  { should == [] }
   end
 
+  describe 'gender parsing' do
+    specify { search(1, 'FAIRFAX COUNTY').gender.should == 'Female' }
+  end
+
   describe 'polling location' do
     context 'given' do
       let(:r) { search(8, 'TAZEWELL COUNTY') }
@@ -192,7 +196,7 @@ describe RegistrationSearch do
   describe 'error handling' do
     it 'should return not found when the record is not found' do
       lambda {
-        search(1, 'UNKNOWN')
+        search(2, 'UNKNOWN')
       }.should raise_error RegistrationSearch::RecordNotFound
     end
 

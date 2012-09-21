@@ -34,7 +34,7 @@ class RegistrationDetailsPresenter
   end
 
   def gender
-    @registration.gender == 'f' ? 'Female' : 'Male'
+    @registration.gender =~ /^f/i ? 'Female' : 'Male'
   end
 
   def ssn
