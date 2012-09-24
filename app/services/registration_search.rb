@@ -75,7 +75,7 @@ class RegistrationSearch
   end
 
   def self.search_by_voter_id(vid, locality)
-    vid = vid.to_s.gsub(/[^\d]/, '')
+    vid = vid.to_s.gsub(/[^\d]/, '').rjust(9, '0')
     locality = URI.escape(locality)
     uri = URI("https://wscp.sbe.virginia.gov/electionlist.svc/v1/#{AppConfig['api_key']}/#{locality}/#{vid}")
     parse_uri(uri)
