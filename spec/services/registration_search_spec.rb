@@ -3,7 +3,7 @@ require 'spec_helper'
 describe RegistrationSearch do
 
   describe 'general' do
-    subject { search(8, 'TAZEWELL COUNTY') }
+    subject { search(600000008, 'TAZEWELL COUNTY') }
 
     it { should be_kind_of Registration }
     its(:voter_id)                { should == "600000008" }
@@ -41,12 +41,12 @@ describe RegistrationSearch do
   end
 
   describe 'gender parsing' do
-    specify { search(1, 'FAIRFAX COUNTY').gender.should == 'Female' }
+    specify { search(600000001, 'FAIRFAX COUNTY').gender.should == 'Female' }
   end
 
   describe 'polling location' do
     context 'given' do
-      let(:r) { search(8, 'TAZEWELL COUNTY') }
+      let(:r) { search(600000008, 'TAZEWELL COUNTY') }
       it 'should have ppl_* set' do
         r.ppl_location_name.should  == "NUCKOLLS HALL"
         r.ppl_address.should        == "515 FAIRGROUND RD"
@@ -57,7 +57,7 @@ describe RegistrationSearch do
     end
 
     context 'not given' do
-      let(:r) { search(27, 'FAIRFAX COUNTY') }
+      let(:r) { search(600000027, 'FAIRFAX COUNTY') }
       it 'should have blank ppl_*' do
         r.ppl_location_name.should  be_blank
         r.ppl_address.should        be_blank
@@ -71,21 +71,21 @@ describe RegistrationSearch do
   # John: Ignoring incapacitated / felony until we get samples of restored rights
   #
   # describe 'incapacitated' do
-  #   subject { search(11, 'HARRISONBURG CITY') }
+  #   subject { search(600000011, 'HARRISONBURG CITY') }
   #   its(:rights_revoked)          { should == '1' }
   #   its(:rights_revoked_reason)   { should == 'mental' }
   #   its(:rights_restored)         { should == '0' }
   # end
   #
   # describe 'convicted' do
-  #   subject { search(18, 'VIRGINIA BEACH CITY') }
+  #   subject { search(600000018, 'VIRGINIA BEACH CITY') }
   #   its(:rights_revoked)          { should == '1' }
   #   its(:rights_revoked_reason)   { should == 'felony' }
   #   its(:rights_restored)         { should == '0' }
   # end
 
   describe 'districts' do
-    subject { search(8, 'TAZEWELL COUNTY') }
+    subject { search(600000008, 'TAZEWELL COUNTY') }
     its(:districts) { should == [
       [ 'Congressional',  [ '09', '9th District' ] ],
       [ 'Senate',         [ '038', '38th District' ] ],
@@ -94,20 +94,19 @@ describe RegistrationSearch do
   end
 
   describe 'ongoing absentee' do
-    subject { search(24, 'ALEXANDRIA CITY') }
+    subject { search(600000024, 'ALEXANDRIA CITY') }
     its(:current_absentee_until)  { should == Date.parse('2012-12-31') }
   end
 
   describe 'military ongoing absentee' do
-    subject { search(47, 'FAIRFAX COUNTY') }
+    subject { search(600000047, 'FAIRFAX COUNTY') }
     its(:current_absentee_until)  { should == Date.today.advance(years: 1).end_of_year }
   end
 
-  # Aleksey Sep 21, 2012: No test records
-  # describe 'online ballot' do
-  #   it 'should be ready for ongoing military or overseas absentee' do
-  #     search(1111, '...').should be_ready_for_online_balloting
-  #   end
+  describe 'online ballot' do
+    it 'should be ready for ongoing military or overseas absentee' do
+      search(1070343, 'ARLINGTON COUNTY').should be_ready_for_online_balloting
+    end
   #
   #   context 'election-level absentee' do
   #     it 'should allow w/ approved election' do
@@ -120,21 +119,21 @@ describe RegistrationSearch do
   #       search(1111, '...').should_not be_ready_for_online_balloting
   #     end
   #   end
-  # end
+  end
 
   # Aleksey Sep 20, 2012: There's no sample of this
   # describe 'election-level absentee' do
-  #   subject { search(22, 'STAFFORD COUNTY') }
+  #   subject { search(600000022, 'STAFFORD COUNTY') }
   #   its(:absentee_for_elections) { should == [ '2010 November General' ] }
   # end
 
   describe 'past elections' do
-    subject { search(21, 'ALEXANDRIA CITY') }
+    subject { search(600000021, 'ALEXANDRIA CITY') }
     its(:past_elections) { should == [ [ "2008 November General", "Absentee" ] ] }
   end
 
   describe 'registration address' do
-    subject { search(6, 'ALEXANDRIA CITY') }
+    subject { search(600000006, 'ALEXANDRIA CITY') }
     its(:vvr_street_number) { should == "5562" }
     its(:vvr_street_name)   { should == "Ascot" }
     its(:vvr_street_type)   { should == "CT" }
@@ -146,7 +145,7 @@ describe RegistrationSearch do
 
   describe 'overseas mailing address' do
     context 'non-apo' do
-      subject { search(48, 'ALBEMARLE COUNTY') }
+      subject { search(600000048, 'ALBEMARLE COUNTY') }
       its(:mau_type)        { should == "non-us" }
       its(:mau_address)     { should == "335 Portico Bay flat 1" }
       its(:mau_address_2)   { should == "" }
@@ -158,7 +157,7 @@ describe RegistrationSearch do
     end
 
     context 'apo/dpo/fpo' do
-      subject { search(38, 'ARLINGTON COUNTY') }
+      subject { search(600000038, 'ARLINGTON COUNTY') }
       its(:mau_type)        { should == "apo" }
       its(:apo_address)     { should == "UNIT 3050 Box 63" }
       its(:apo_address_2)   { should == "" }
@@ -169,7 +168,7 @@ describe RegistrationSearch do
   end
 
   describe 'elections for absentee request' do
-    subject { search(6, 'ALEXANDRIA CITY') }
+    subject { search(600000006, 'ALEXANDRIA CITY') }
     its(:upcoming_elections) { should == [
       "2012 November General",
       "2013 November General",
@@ -196,26 +195,26 @@ describe RegistrationSearch do
   describe 'error handling' do
     it 'should return not found when the record is not found' do
       lambda {
-        search(2, 'UNKNOWN')
+        search(600000002, 'UNKNOWN')
       }.should raise_error RegistrationSearch::RecordNotFound
     end
 
     it 'should raise error when times out' do
       lambda {
         RegistrationSearch.should_receive(:parse_uri_without_timeout).and_raise(Timeout::Error)
-        search(9, 'NEWPORT NEWS CITY')
+        search(600000009, 'NEWPORT NEWS CITY')
       }.should raise_error RegistrationSearch::LookupTimeout
     end
 
     it 'should handle confidental records' do
       lambda {
-        search(9, 'NEWPORT NEWS CITY')
+        search(600000009, 'NEWPORT NEWS CITY')
       }.should raise_error RegistrationSearch::RecordIsConfidential
     end
 
     it 'should handle inactive records' do
       lambda {
-        search(18, 'VIRGINIA BEACH CITY')
+        search(600000018, 'VIRGINIA BEACH CITY')
       }.should raise_error RegistrationSearch::RecordIsInactive
     end
   end
@@ -223,13 +222,13 @@ describe RegistrationSearch do
   private
 
   def search(n, loc)
-    VCR.use_cassette("vid_#{600000000 + n}") do
+    VCR.use_cassette("vid_#{n}") do
       RegistrationSearch.perform(query_for(n, loc))
     end
   end
 
   def query_for(n, loc)
-    stub(voter_id: 600000000 + n, locality: loc, first_name: '1')
+    stub(voter_id: n, locality: loc, first_name: '1')
   end
 
 end
