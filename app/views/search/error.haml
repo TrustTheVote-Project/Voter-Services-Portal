@@ -6,8 +6,9 @@
       %h3= @error.title
       .description
         #{@error.message}
-        %p
-          You can try again by
-          #{link_to "changing the information", :search}, or you can instead
-          #{link_to "register to vote", :new_registration, id: "register"}.
+        - if @error.can_retry?
+          %p
+            You can try again by
+            #{link_to "changing the information", :search}, or you can instead
+            #{link_to "register to vote", :new_registration, id: "register"}.
 

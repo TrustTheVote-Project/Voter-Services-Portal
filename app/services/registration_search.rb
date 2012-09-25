@@ -5,9 +5,15 @@ class RegistrationSearch
 
   class SearchError < StandardError
     attr_reader :title
-    def initialize(key)
+
+    def initialize(key, fatal = false)
       super I18n.t("search.#{key}.body")
+      @fatal = fatal
       @title = I18n.t("search.#{key}.title")
+    end
+
+    def can_retry?
+      !@fatal
     end
   end
 
@@ -28,7 +34,7 @@ class RegistrationSearch
   # Confidential record found
   class RecordIsConfidential < SearchError
     def initialize
-      super 'record_is_confidential'
+      super 'record_is_confidential', true
     end
   end
 
