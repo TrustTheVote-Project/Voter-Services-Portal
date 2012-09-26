@@ -8,7 +8,8 @@
 
   .row
     .head.light
-      = link_to "Download Voter Card", voter_card_path, class: 'download voter_card'
+      - unless no_forms?
+        = link_to "Download Voter Card", voter_card_path, class: 'download voter_card'
       %h3 Voter Information
 
     .summary
