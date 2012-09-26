@@ -86,7 +86,7 @@
           %strong Virginial Residential Voter
 
         - unless af.blank?
-          %p Approved for Absentee Ballot for #{af.join(', ')}
+          %p Approved for Absentee Ballot: #{af.humanized_list_join}
 
         %p{ 'data-bind' => 'if: requestingAbsentee' }
           Requesting an <strong>Absentee Ballot</strong> for <span data-bind='html: summaryElection'></span>
