@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://www.sbe.virginia.gov/portal/unknown.htm
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Content-Length:
+      - '1635'
+      Content-Type:
+      - text/html
+      Server:
+      - Microsoft-IIS/6.0
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Wed, 26 Sep 2012 06:50:40 GMT
+    body:
+      encoding: US-ASCII
+      string: ! "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\r\n<HTML><HEAD><TITLE>The
+        page cannot be found</TITLE>\r\n<META HTTP-EQUIV=\"Content-Type\" Content=\"text/html;
+        charset=Windows-1252\">\r\n<STYLE type=\"text/css\">\r\n  BODY { font: 8pt/12pt
+        verdana }\r\n  H1 { font: 13pt/15pt verdana }\r\n  H2 { font: 8pt/12pt verdana
+        }\r\n  A:link { color: red }\r\n  A:visited { color: maroon }\r\n</STYLE>\r\n</HEAD><BODY><TABLE
+        width=500 border=0 cellspacing=10><TR><TD>\r\n\r\n<h1>The page cannot be found</h1>\r\nThe
+        page you are looking for might have been removed, had its name changed, or
+        is temporarily unavailable.\r\n<hr>\r\n<p>Please try the following:</p>\r\n<ul>\r\n<li>Make
+        sure that the Web site address displayed in the address bar of your browser
+        is spelled and formatted correctly.</li>\r\n<li>If you reached this page by
+        clicking a link, contact\r\n the Web site administrator to alert them that
+        the link is incorrectly formatted.\r\n</li>\r\n<li>Click the <a href=\"javascript:history.back(1)\">Back</a>
+        button to try another link.</li>\r\n</ul>\r\n<h2>HTTP Error 404 - File or
+        directory not found.<br>Internet Information Services (IIS)</h2>\r\n<hr>\r\n<p>Technical
+        Information (for support personnel)</p>\r\n<ul>\r\n<li>Go to <a href=\"http://go.microsoft.com/fwlink/?linkid=8180\">Microsoft
+        Product Support Services</a> and perform a title search for the words <b>HTTP</b>
+        and <b>404</b>.</li>\r\n<li>Open <b>IIS Help</b>, which is accessible in IIS
+        Manager (inetmgr),\r\n and search for topics titled <b>Web Site Setup</b>,
+        <b>Common Administrative Tasks</b>, and <b>About Custom Error Messages</b>.</li>\r\n</ul>\r\n\r\n</TD></TR></TABLE></BODY></HTML>\r\n"
+    http_version: 
+  recorded_at: Wed, 26 Sep 2012 06:50:40 GMT
+recorded_with: VCR 2.2.4

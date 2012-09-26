@@ -1,0 +1,41 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://www.sbe.virginia.gov/portal/about.htm
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Length:
+      - '146'
+      Content-Type:
+      - text/html
+      Last-Modified:
+      - Mon, 17 Sep 2012 15:23:30 GMT
+      Accept-Ranges:
+      - bytes
+      Etag:
+      - ! '"2c7c5b64e894cd1:5897"'
+      Server:
+      - Microsoft-IIS/6.0
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Wed, 26 Sep 2012 06:46:26 GMT
+    body:
+      encoding: US-ASCII
+      string: ! "<html>\r\n<head>\r\n<link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.sbe.virginia.gov/portal/portal.css\"
+        />\r\n</head>\r\n<body>TBD</body>\r\n</html>"
+    http_version: 
+  recorded_at: Wed, 26 Sep 2012 06:46:26 GMT
+recorded_with: VCR 2.2.4
