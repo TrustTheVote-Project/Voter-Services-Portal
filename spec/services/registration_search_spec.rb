@@ -129,7 +129,7 @@ describe RegistrationSearch do
 
   describe 'past elections' do
     subject { search(600000021, 'ALEXANDRIA CITY') }
-    its(:past_elections) { should == [ [ "2008 November General", "Absentee" ] ] }
+    its(:past_elections) { should == [ [ "2008 November General", "Voted absentee" ] ] }
   end
 
   describe 'registration address' do

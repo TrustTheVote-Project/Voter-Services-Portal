@@ -184,7 +184,7 @@ class RegistrationSearch
       name = e.css("ElectionName").text.strip
 
       if e.css("CheckBox[Type='FutureElection']").text == 'no'
-        type = absentee ? "Absentee" : e.css("CheckBox[Type='Voted']").text == "yes" ? "Voted in person" : "Did not vote"
+        type = absentee ? "Voted absentee" : e.css("CheckBox[Type='Voted']").text == "yes" ? "Voted in person" : "Did not vote"
         past_elections.push([ name, type ])
       else
         upcoming_elections.unshift(name)

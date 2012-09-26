@@ -69,12 +69,13 @@
         .body
           %h3
             = link_to "Show", '#', class: 'toggle'
-            Election Participation History
+            Election Participation<br>History
           %table.table.area
             - reg.past_elections.each do |e, s|
               %tr
-                %th= s
-                %td= e
+                %th &nbsp;
+                %td= s
+                %td <em>#{e}</em>
 
     .head.light
       %h3 Voting Status
