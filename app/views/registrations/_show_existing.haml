@@ -50,8 +50,10 @@
           %h3
             = link_to "Show", '#', class: 'toggle'
             Voting Location
-          .area
-            %p= reg.voting_location
+          %table.table.area
+            %tr
+              %th &nbsp;
+              %td= reg.voting_location
 
     .accordion.summary.districts
       .body
@@ -61,8 +63,9 @@
         %table.table.area
           - (reg.districts || []).each do |label, (c, v)|
             %tr
-              %th #{label}:
-              %td= v
+              %th &nbsp;
+              %td.l #{label}:
+              %td <em>#{v}</em>
 
     - if reg.has_election_participation_history?
       .accordion.summary
@@ -74,7 +77,7 @@
             - reg.past_elections.each do |e, s|
               %tr
                 %th &nbsp;
-                %td= s
+                %td.l= s
                 %td <em>#{e}</em>
 
     .head.light
