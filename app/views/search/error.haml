@@ -5,7 +5,7 @@
     .head
       %h3= @error.title
       .description
-        #{@error.message}
+        #{@error.message.html_safe}
         - if @error.can_retry?
           %p
             You can try again by
