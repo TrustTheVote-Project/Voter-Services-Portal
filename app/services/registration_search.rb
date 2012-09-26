@@ -41,7 +41,7 @@ class RegistrationSearch
   # Inactive record found
   class RecordIsInactive < SearchError
     def initialize
-      super 'record_is_inactive'
+      super 'record_is_inactive', true
     end
   end
 
