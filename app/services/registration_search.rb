@@ -235,7 +235,7 @@ class RegistrationSearch
       absentee_for_elections: absentee_for_elections,
       past_elections:         past_elections,
       upcoming_elections:     upcoming_elections,
-      ready_for_online_balloting: (military || overseas) && (oa || absentee_for_elections_uids.include?(AppConfig['current_election_uid']))
+      ready_for_online_balloting: (military || overseas) && (oa || absentee_for_elections_uids.include?(AppConfig['current_election']['uid']))
     }
 
     ppl = doc.css('PollingPlace[Channel="polling"] FreeTextAddress').first

@@ -8,3 +8,4 @@
       %strong Absentee voting.
     - else
       Receiving an absentee ballot for elections through #{@registration.current_absentee_until.strftime("%b %d, %Y")}.
+    = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Eligible for #{link_to 'online ballot marking', '#', class: 'submit'} in #{AppConfig['current_election']['name']} Election" }

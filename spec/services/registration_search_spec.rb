@@ -110,12 +110,12 @@ describe RegistrationSearch do
   #
   #   context 'election-level absentee' do
   #     it 'should allow w/ approved election' do
-  #       AppConfig['current_election_uid'] = '123123'
+  #       AppConfig['current_election']['uid'] = '123123'
   #       search(1111, '...').should be_ready_for_online_balloting
   #     end
   #
   #     it 'should disallow w/o approved election' do
-  #       AppConfig['current_election_uid'] = 'unknown'
+  #       AppConfig['current_election']['uid'] = 'unknown'
   #       search(1111, '...').should_not be_ready_for_online_balloting
   #     end
   #   end

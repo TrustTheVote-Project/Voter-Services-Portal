@@ -86,10 +86,10 @@
     - if no_forms?
       .info
         %p Need to change your address, name, or contact information? Or learn about absentee voting options?
-        %p= link_to "Learn more about updates and absentee", :about_update_absentee_page
+        %p= link_to "Learn more about updates and absentee", :about_update_absentee_page, target: '_blank'
 
       .form_action
-        = render partial: 'shared/mark_my_ballot_online'
+        = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Mark Your Absentee Ballot Online: #{link_to 'learn more', :online_balloting_page, target: '_blank'} or #{link_to 'get started now', '#', class: 'submit'}" }
     - else
       .form-actions
         = link_to "Next &rarr;".html_safe, :edit_registration, class: 'next btn', id: 'edit_registration'
