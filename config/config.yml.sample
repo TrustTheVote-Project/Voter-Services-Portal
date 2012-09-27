@@ -30,7 +30,9 @@ dl:
 static_page_url_base: 
 
 # Current election UID as in the EML 330 for the upcoming election
-current_election_uid:
+current_election:
+  name: "November 2012 General"
+  uid:  "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx"
 
 xml:
   source_name: Virginia SBE Voter Services Portal
