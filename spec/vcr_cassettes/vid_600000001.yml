@@ -17,7 +17,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Fri, 21 Sep 2012 10:00:36 GMT
+      - Thu, 27 Sep 2012 12:02:52 GMT
       Server:
       - Microsoft-IIS/6.0
       X-Powered-By:
@@ -34,7 +34,7 @@ http_interactions:
       encoding: US-ASCII
       string: <?xml version="1.0" encoding="utf-8"?><EML SchemaVersion="7.0" Id="330"
         xmlns="urn:oasis:names:tc:evs:schema:eml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"><EMLHeader><TransactionId>330</TransactionId><OfficialStatusDetail><OfficialStatus>approved</OfficialStatus><StatusDate>2012-09-21</StatusDate></OfficialStatusDetail></EMLHeader><ElectionList><VoterDetails><VoterRegistration><Voter><Source
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"><EMLHeader><TransactionId>330</TransactionId><OfficialStatusDetail><OfficialStatus>approved</OfficialStatus><StatusDate>2012-09-27</StatusDate></OfficialStatusDetail></EMLHeader><ElectionList><VoterDetails><VoterRegistration><Voter><Source
         Role="sender"><Name>Virginia</Name></Source><VoterIdentification Id="600000001"><VoterName><PersonFullName
         xmlns="urn:oasis:names:tc:ciq:xnl:4">MARY NORRIS CHRIEST </PersonFullName><PersonNameDetail
         xmlns="urn:oasis:names:tc:ciq:xnl:4"><GivenName>MARY</GivenName><MiddleName>NORRIS</MiddleName><FamilyName>CHRIEST</FamilyName></PersonNameDetail></VoterName><ElectoralAddress><PostalAddress
@@ -79,5 +79,5 @@ http_interactions:
         divisionType="locality">FAIRFAX COUNTY</Name></PollingDistrict><CheckBox Type="Voted">no</CheckBox><CheckBox
         Type="Permitted">yes</CheckBox><CheckBox Type="FutureElection">yes</CheckBox></Election></VoterDetails></ElectionList></EML>
     http_version: 
-  recorded_at: Fri, 21 Sep 2012 10:00:37 GMT
+  recorded_at: Thu, 27 Sep 2012 12:02:52 GMT
 recorded_with: VCR 2.2.4

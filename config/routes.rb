@@ -11,11 +11,11 @@ VaVote::Application.routes.draw do
       get :front, path: ''
       get :help
       get :about
-      get :faqs
+      get :faq
       get :security
       get :feedback
       get :about_registration
-      get :about_update_absentee
+      get :about_absentee_ballots
       get :online_balloting
     end
   end

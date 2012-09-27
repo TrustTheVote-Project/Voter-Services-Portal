@@ -159,29 +159,35 @@ class RegistrationSearch
     #   rights_restored = "0"
     # end
 
+    ela      = doc.css("CheckBox[Type='ElectionLevelAbsentee']").try(:text) == 'yes'
+    oa       = doc.css("CheckBox[Type='OngoingAbsentee']").try(:text) == 'yes'
     military = doc.css("CheckBox[Type='Military']").try(:text) == 'yes'
     overseas = doc.css("CheckBox[Type='Overseas']").try(:text) == 'yes'
-    current_absentee_until = doc.css('Message AbsenteeExpiritionDate').try(:text)
-    if current_absentee_until.blank?
-      if military || overseas
-        current_absentee_until = Date.today.advance(years: 1).end_of_year
-      else
-        current_absentee_until = nil
-      end
+
+    if !oa
+      current_absentee_until = nil
     else
-      current_absentee_until = Date.parse(current_absentee_until)
+      current_absentee_until = doc.css('Message AbsenteeExpiritionDate').try(:text)
+      if current_absentee_until.blank?
+        if military || overseas
+          current_absentee_until = Date.today.advance(years: 1).end_of_year
+        else
+          current_absentee_until = nil
+        end
+      else
+        current_absentee_until = Date.parse(current_absentee_until)
+      end
     end
 
     past_elections = []
     upcoming_elections = []
     absentee_for_elections_uids = []
     absentee_for_elections = []
-    ela = doc.css("CheckBox[Type='ElectionLevelAbsentee']").try(:text) == 'yes'
-    oa  = doc.css("CheckBox[Type='OngoingAbsentee']").try(:text) == 'yes'
 
     doc.css("Election").map do |e|
       absentee = e.css("Absentee").any?
       name = e.css("ElectionName").text.strip
+      approved = absentee && e.css("AbsenteeStatus").text.strip == 'Approved'
 
       if e.css("CheckBox[Type='FutureElection']").text == 'no'
         type = absentee ? "Voted absentee" : e.css("CheckBox[Type='Voted']").text == "yes" ? "Voted in person" : "Did not vote"
@@ -189,12 +195,16 @@ class RegistrationSearch
       else
         upcoming_elections.unshift(name)
 
-        if ela && absentee
+        if ela && approved
           absentee_for_elections.push(name)
           absentee_for_elections_uids.push((e.css("ElectionIdentifier").first)["IdNumber"]);
         end
       end
     end
+
+    ceid  = AppConfig['current_election']['uid']
+    obe_1 = oa || (ela && absentee_for_elections_uids.include?(ceid))
+    obe_2 = military || overseas
 
     options = {
       voter_id:               doc.css('VoterIdentification').first.try(:[], 'Id'),
@@ -235,7 +245,7 @@ class RegistrationSearch
       absentee_for_elections: absentee_for_elections,
       past_elections:         past_elections,
       upcoming_elections:     upcoming_elections,
-      ready_for_online_balloting: (military || overseas) && (oa || absentee_for_elections_uids.include?(AppConfig['current_election']['uid']))
+      ob_eligible:            obe_1 && obe_2
     }
 
     ppl = doc.css('PollingPlace[Channel="polling"] FreeTextAddress').first

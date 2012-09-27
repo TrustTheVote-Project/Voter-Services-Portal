@@ -73,7 +73,7 @@ FactoryGirl.define do
                             [ 'Local',          [ '', 'SOUTHERN DISTRICT' ] ] ]
 
       past_elections      [ [ '2007 November', 'Absentee' ] ]
-      ready_for_online_balloting true
+      ob_eligible         true
     end
 
     factory :existing_overseas_voter do

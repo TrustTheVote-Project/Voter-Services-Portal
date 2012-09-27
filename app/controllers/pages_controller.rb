@@ -7,4 +7,9 @@ class PagesController < ApplicationController
     end
   end
 
+  def method_missing(name, *args)
+    @page = name
+    render :external_page
+  end
+
 end

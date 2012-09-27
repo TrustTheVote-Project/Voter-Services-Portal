@@ -93,39 +93,44 @@ describe RegistrationSearch do
       [ 'Local',          [ '', 'SOUTHERN DISTRICT' ] ] ] }
   end
 
-  describe 'ongoing absentee' do
-    subject { search(600000024, 'ALEXANDRIA CITY') }
-    its(:current_absentee_until)  { should == Date.parse('2012-12-31') }
-  end
-
-  describe 'military ongoing absentee' do
-    subject { search(600000047, 'FAIRFAX COUNTY') }
-    its(:current_absentee_until)  { should == Date.today.advance(years: 1).end_of_year }
-  end
-
-  describe 'online ballot' do
-    it 'should be ready for ongoing military or overseas absentee' do
-      search(1070343, 'ARLINGTON COUNTY').should be_ready_for_online_balloting
+  describe 'online balloting eligibility' do
+    describe 'ongoing=no, electionlevel=no' do
+      it 'should not be eligible' do
+        r = search(600000000, 'NORFOLK CITY')
+        r.should_not be_ob_eligible
+        r.current_absentee_until.should be_nil
+      end
     end
-  #
-  #   context 'election-level absentee' do
-  #     it 'should allow w/ approved election' do
-  #       AppConfig['current_election']['uid'] = '123123'
-  #       search(1111, '...').should be_ready_for_online_balloting
-  #     end
-  #
-  #     it 'should disallow w/o approved election' do
-  #       AppConfig['current_election']['uid'] = 'unknown'
-  #       search(1111, '...').should_not be_ready_for_online_balloting
-  #     end
-  #   end
-  end
 
-  # Aleksey Sep 20, 2012: There's no sample of this
-  # describe 'election-level absentee' do
-  #   subject { search(600000022, 'STAFFORD COUNTY') }
-  #   its(:absentee_for_elections) { should == [ '2010 November General' ] }
-  # end
+    describe 'ongoing=yes' do
+      it 'should be eligible' do
+        r = search(600000035, 'ARLINGTON COUNTY')
+        r.should be_ob_eligible
+        r.current_absentee_until.should == Date.parse('2012-12-31')
+      end
+    end
+
+    describe 'electionlevel=yes' do
+      it 'should be eligible if current election has approved Absentee section' do
+        for_election('68c30477-aaf2-46dd-994e-5d3be8a89c9b') do
+          r = search(600000021, 'ALEXANDRIA CITY')
+          r.should be_ob_eligible
+          r.current_absentee_until.should be_nil
+        end
+      end
+
+      it 'should not be eligible if current election has non-approved Absentee section' do
+        # no test case
+      end
+
+      it 'should not be eligible if current election is undefined' do
+        for_election(nil) do
+          r = search(600000031, 'MECKLENBURG COUNTY')
+          r.should_not be_ob_eligible
+        end
+      end
+    end
+  end
 
   describe 'past elections' do
     subject { search(600000021, 'ALEXANDRIA CITY') }
@@ -229,6 +234,15 @@ describe RegistrationSearch do
 
   def query_for(n, loc)
     stub(voter_id: n, locality: loc, first_name: '1')
+  end
+
+  def for_election(id)
+    old = AppConfig['current_election']['uid']
+    AppConfig['current_election']['uid'] = id
+
+    yield
+
+    AppConfig['current_election']['uid'] = old
   end
 
 end

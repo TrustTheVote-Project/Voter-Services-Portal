@@ -18,7 +18,7 @@ http_interactions:
         of Elections for more information.
     headers:
       Date:
-      - Thu, 20 Sep 2012 13:40:24 GMT
+      - Thu, 27 Sep 2012 12:03:04 GMT
       Server:
       - Microsoft-IIS/6.0
       X-Powered-By:
@@ -52,5 +52,5 @@ http_interactions:
         id=''content''><h1>Request Failed</h1><h3>Your voter registration is not active.  Please
         contact the State Board of Elections for more information.</h3></div></body></html>'
     http_version: 
-  recorded_at: Thu, 20 Sep 2012 13:40:24 GMT
+  recorded_at: Thu, 27 Sep 2012 12:03:04 GMT
 recorded_with: VCR 2.2.4

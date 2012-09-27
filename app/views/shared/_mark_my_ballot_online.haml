@@ -1,5 +1,5 @@
 - link_text ||= nil
-- if online_balloting? && @registration.ready_for_online_balloting?
+- if online_balloting? && @registration.ob_eligible?
   %form{ action: AppConfig['dl']['url'], 'accept-charset' => "utf-8", target: '_blank', class: 'mark-online' }
     = hidden_field_tag "search[vid]", @registration.voter_id
     = hidden_field_tag "token", AppConfig['dl']['access_token']

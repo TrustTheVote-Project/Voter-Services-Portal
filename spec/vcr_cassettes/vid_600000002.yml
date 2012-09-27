@@ -17,7 +17,7 @@ http_interactions:
       message: Voter Record not found.
     headers:
       Date:
-      - Fri, 21 Sep 2012 10:01:20 GMT
+      - Thu, 27 Sep 2012 12:03:02 GMT
       Server:
       - Microsoft-IIS/6.0
       X-Powered-By:
@@ -50,5 +50,5 @@ http_interactions:
         border-bottom: 2px white solid; background-color: #e5e5cc;}</style></head><body><div
         id=''content''><h1>Request Failed</h1><h3>Voter Record not found.</h3></div></body></html>'
     http_version: 
-  recorded_at: Fri, 21 Sep 2012 10:01:20 GMT
+  recorded_at: Thu, 27 Sep 2012 12:03:02 GMT
 recorded_with: VCR 2.2.4
