@@ -14,4 +14,14 @@ class LogRecord < ActiveRecord::Base
       notes:      notes)
   end
 
+  # Parsing error logging
+  def self.parsing_error(voter_id, details)
+    LogRecord.create(
+      doctype:    'Internal error',
+      action:     '',
+      voter_id:   voter_id,
+      voter_type: '',
+      notes:      details)
+  end
+
 end

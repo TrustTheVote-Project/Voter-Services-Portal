@@ -138,6 +138,8 @@ class RegistrationSearch
       raise RecordNotFound
     end
 
+    voter_id = doc.css('VoterIdentification').first.try(:[], 'Id')
+
     vvr = doc.css('ElectoralAddress PostalAddress').first
     vvr_thoroughfare = vvr.css('Thoroughfare').first
     vvr_apt = vvr.css('OtherDetail[type="ApartmentNumber"]').try(:text)
@@ -170,6 +172,7 @@ class RegistrationSearch
       current_absentee_until = doc.css('Message AbsenteeExpiritionDate').try(:text)
       if current_absentee_until.blank?
         if military || overseas
+          LogRecord.parsing_error(voter_id, "AbsenteeExpiritionDate is missing")
           current_absentee_until = Date.today.advance(years: 1).end_of_year
         else
           current_absentee_until = nil
@@ -207,7 +210,7 @@ class RegistrationSearch
     obe_2 = military || overseas
 
     options = {
-      voter_id:               doc.css('VoterIdentification').first.try(:[], 'Id'),
+      voter_id:               voter_id,
       first_name:             doc.css('GivenName').try(:text),
       middle_name:            doc.css('MiddleName').try(:text),
       last_name:              doc.css('FamilyName').try(:text),
