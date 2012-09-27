@@ -27,7 +27,7 @@ class RegistrationSearch
   # Lookup times out
   class LookupTimeout < SearchError
     def initialize
-      super 'timeout'
+      super 'timeout', true
     end
   end
 
