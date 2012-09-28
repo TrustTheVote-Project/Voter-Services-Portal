@@ -101,6 +101,27 @@ class RegistrationDetailsPresenter
     end
   end
 
+  def registration_address_line_1
+    r = @registration
+    if r.vvr_is_rural || r.vvr_is_rural != '1'
+      [ r.vvr_street_number,
+        r.vvr_street_name,
+        r.vvr_street_suffix,
+        r.vvr_street_type ].rjoin(' ')
+    else
+      nil
+    end
+  end
+
+  def registration_address_line_2
+    r = @registration
+    if r.vvr_is_rural || r.vvr_is_rural != '1'
+      r.vvr_apt
+    else
+      nil
+    end
+  end
+
   def mailing_address(os = overseas?)
     if os
       overseas_mailing_address

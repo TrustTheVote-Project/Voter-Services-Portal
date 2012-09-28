@@ -34,6 +34,7 @@ describe RegistrationSearch do
     its(:poll_precinct)           { should == "209 - JEFFERSONVILLE" }
     its(:poll_locality)           { should == "TAZEWELL COUNTY" }
     its(:poll_district)           { should == "SOUTHERN DISTRICT" }
+    its(:poll_pricinct_split)     { should == "26161b72-080a-4af6-9e12-b596bd6db037" }
 
     its(:ssn4)                    { should == "XXXX" }
     its(:current_residence)       { should == "in" }

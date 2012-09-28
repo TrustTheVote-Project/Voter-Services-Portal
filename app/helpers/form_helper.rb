@@ -10,6 +10,11 @@ module FormHelper
     !dl['account_id'].blank?
   end
 
+  def online_ballot_url(r = @registration)
+    dl = AppConfig['dl']
+    "#{dl['url']}/?search[vid]=#{r.voter_id}&token=#{dl['access_token']}&account=#{dl['account_id']}"
+  end
+
   # Checks if we are collecting a certain field for a given form.
   def collecting?(form, field, app_config = AppConfig)
     !!app_config[form.to_s]["collect_#{field}"]
