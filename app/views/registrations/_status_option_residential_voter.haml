@@ -8,7 +8,7 @@
       - if af.empty?
         Resident able to go to polls for the upcoming elections.
       - else
-        Approved for Absentee Ballot: #{af.humanized_list_join}.
+        Approved for Absentee Ballot: #{af.humanized_list_join}  #{pluralize(af.size, 'Election')}.
   - else
     %p
       I now reside Virginia, and need to update my registration to vote in the
