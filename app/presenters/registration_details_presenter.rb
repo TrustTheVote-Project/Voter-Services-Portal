@@ -34,7 +34,9 @@ class RegistrationDetailsPresenter
   end
 
   def gender
-    @registration.gender =~ /^f/i ? 'Female' : 'Male'
+    g = @registration.gender
+    return 'Female' if g =~ /^f/i
+    return 'Male'   if g =~ /^m/i
   end
 
   def ssn

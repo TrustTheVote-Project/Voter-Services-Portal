@@ -225,6 +225,12 @@ describe RegistrationSearch do
     end
   end
 
+  it 'should log the error when there is no gender' do
+    RegistrationSearch.should_receive(:parse).and_return(Registration.new(voter_id: 123))
+    LogRecord.should_receive(:parsing_error).with(123, "No gender")
+    search(600000006, 'ALEXANDRIA CITY')
+  end
+
   private
 
   def search(n, loc)

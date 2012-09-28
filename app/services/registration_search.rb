@@ -59,9 +59,11 @@ class RegistrationSearch
     end
 
     rec = parse(xml)
+
+    LogRecord.parsing_error(rec.voter_id, "No gender") if rec.gender.blank?
+
     rec.existing = true;
     rec
-
   end
 
   def self.sample_record(vid)
