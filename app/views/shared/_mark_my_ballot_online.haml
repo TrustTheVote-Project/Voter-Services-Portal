@@ -1,6 +1,6 @@
 - r = RegistrationDetailsPresenter.new(@registration)
 - link_text ||= nil
-- if online_balloting? && @registration.ready_for_online_balloting?
+- if online_balloting? && @registration.ob_eligible?
   %form{ action: online_ballot_url(@registration), method: 'post', 'accept-charset' => "utf-8", target: '_blank', class: 'mark-online' }
     = hidden_field_tag "fname",     @registration.first_name
     = hidden_field_tag "mname",     @registration.middle_name
