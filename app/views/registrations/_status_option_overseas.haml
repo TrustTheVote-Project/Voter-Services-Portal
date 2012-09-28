@@ -9,4 +9,9 @@
     - else
       - if @registration.current_absentee_until
         Receiving an absentee ballot for elections through #{@registration.current_absentee_until.strftime("%b %d, %Y")}.
+
+    - af = @registration.absentee_for_elections || []
+    - if af.any?
+      Approved for Absentee Ballot: #{af.humanized_list_join}  #{pluralize(af.size, 'Election')}.
+
     = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Eligible for #{link_to 'online ballot marking', '#', class: 'submit'} in #{AppConfig['current_election']['name']} Election" }
