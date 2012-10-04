@@ -50,7 +50,7 @@
         .row
           .span3.numbers
             %label Last 4 digits of SSN
-            = f.text_field :ssn4, placeholder: 'NNNN', maxlength: 4, class: 'span1', 'data-bind' => 'instantValidation: { accessor: "ssn4", validation: "ssn4OrVoterId", resetAlso: ".numbers" }'
+            = f.text_field :ssn4, placeholder: 'NNNN', maxlength: 4, class: 'span1', 'data-bind' => 'instantValidation: { accessor: "ssn4", validation: "ssn4", resetAlso: ".numbers" }'
           .span3
             %label Locality
             = f.select :locality, Office.localities, { include_blank: true }, 'data-bind' => 'instantValidation: { accessor: "locality" }'

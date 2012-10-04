@@ -10,10 +10,13 @@ window.present = (v) ->
   else
     !!(v)
 
-window.filled = (v) -> v && !v.match(/^\s*$/)
-window.join   = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
-window.zip5   = (v) -> filled(v) && v.match(/^\d{5}$/)
-window.ssn    = (v) -> filled(v) && v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){9}$/)
+window.filled  = (v) -> v && !v.match(/^\s*$/)
+window.join    = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
+window.zip5    = (v) -> filled(v) && v.match(/^\d{5}$/)
+window.ssn     = (v) -> filled(v) && v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){9}$/)
+window.ssn4    = (s) -> filled(s) && s.match(/^\d{4}$/)
+window.voterId = (s) -> filled(s) && s.match(/^\d{9}$/)
+
 
 window.date = (y, m, d) ->
   str = "#{y}-#{m}-#{d}"
@@ -26,7 +29,6 @@ window.pastDate = (y, m, d) ->
 
 window.phone  = (v) -> v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){10}$/)
 window.email  = (v) -> v.match(/^\S+@\S+\.\S+$/)
-window.voterId= (v) -> filled(v) && v.replace(/[^\d]/g, '').match(/^\d{1,9}$/)
 
 window.stepClass = (current, idx, def) ->
   def = def || 'span2'

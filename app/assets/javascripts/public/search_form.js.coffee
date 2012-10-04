@@ -1,5 +1,3 @@
-window.ssn4OrVoterId = (s) -> filled($("#search_query_voter_id").val()) || (filled(s) && s.replace(/[^\d]/g, '').match(/^\d{4}$/))
-
 class SearchForm
   constructor: ->
     @lookupType = ko.observable('ssn4')
@@ -31,10 +29,10 @@ class SearchForm
           errors.push("Last name")
         unless present(@dob())
           errors.push("Date of birth")
-        unless filled(@ssn4())
+        unless ssn4(@ssn4())
           errors.push("SSN4")
       else
-        unless filled(@voterId())
+        unless voterId(@voterId())
           errors.push("Voter ID")
 
       unless @swear()
