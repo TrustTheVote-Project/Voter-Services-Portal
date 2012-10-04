@@ -16,8 +16,8 @@ VaVote::Application.routes.draw do
       get :security
       get :feedback
       get :about_registration
-      get :about_absentee_ballots
-      get :online_balloting
+      get :about_update_absentee
+      get :online_ballot_marking
     end
   end
 

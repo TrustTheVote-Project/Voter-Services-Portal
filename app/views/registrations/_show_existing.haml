@@ -91,13 +91,13 @@
       .info
         %p
           Need to change your address, name, or contact information?
-          = link_to "Learn more about updating your voter record", :about_registration_page, target: '_blank'
+          = link_to "Learn more about updating your voter record", :about_update_absentee_page, target: '_blank'
         %p
           Need to understand your options for voting absentee?
-          = link_to "Learn more about absentee ballots", :about_absentee_ballots_page, target: '_blank'
+          = link_to "Learn more about absentee ballots", :about_update_absentee_page, target: '_blank'
 
       .form_action
-        = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Mark Your Absentee Ballot Online: #{link_to 'learn more', :online_balloting_page, target: '_blank'} or #{link_to 'get started now', '#', class: 'submit'}" }
+        = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Mark Your Absentee Ballot Online: #{link_to 'learn more', :online_ballot_marking_page, target: '_blank'} or #{link_to 'get started now', '#', class: 'submit'}" }
     - else
       .form-actions
         = link_to "Next &rarr;".html_safe, :edit_registration, class: 'next btn', id: 'edit_registration'

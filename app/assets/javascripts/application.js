@@ -20,7 +20,6 @@
 //= require jquery.ba-hashchange.min
 //= require feedback
 //= require jquery-ui-1.8.21.custom.min
-//= require spin
 //= require public/helpers
 //= require public/popover
 //= require public/registration
