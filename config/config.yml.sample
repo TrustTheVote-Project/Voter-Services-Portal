@@ -29,6 +29,13 @@ dl:
 # Base for the URLs of the static pages
 static_page_url_base: 
 
+# Details of the election displayed in the footer
+upcoming_election:
+  name:           "State General Election"
+  date:           "November 6, 2012"
+  polling_times:  "6:00am to 7:00pm"
+  reg_deadline:   "October 15, 2012"
+
 # Current election UID as in the EML 330 for the upcoming election
 current_election:
   name: "November 2012 General"

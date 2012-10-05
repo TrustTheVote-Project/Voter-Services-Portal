@@ -1,16 +1,17 @@
 #footer
   .row
     .span4.upcoming
+      - ue = AppConfig['upcoming_election']
       %h3 Upcoming Election
 
-      %h4 State Primary
-      %p June 12, 2012
+      %h4= ue['name']
+      %p=  ue['date']
 
       %h4 Virginia polling times
-      %p 6:00am to 7:00pm
+      %p=  ue['polling_times']
 
       %h4 Registration deadline
-      %p June 5, 2012
+      %p=  ue['reg_deadline']
 
     .span8.additional-info
       .row
