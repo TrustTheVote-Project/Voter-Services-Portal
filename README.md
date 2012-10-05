@@ -68,11 +68,11 @@ the remote server.
 
 * If it's the first deployment:
   * Check that everything is configured correctly:
- 
+
       $ cap deploy:check
 
   * Setup the deployment location:
-    
+
       $ cap deploy:setup
 
   * Log into the remote system and go to `/<deploy_to>/shared` and
@@ -81,8 +81,14 @@ the remote server.
       database configuration.
     * _config.yml_ (see sample in `config/config.yml.sample`) with
       application configuration:
-      * update the online ballot marking server section for "Mark Your
-        Ballot Online" feature to work properly
+
+      * set fields in `dl` section to online balloting server details
+      * set `static_page_url_base`
+      * set `upcoming_election` details to be displayed in the footers
+      * set `current_election` name and UID (from the EML330 data files)
+      * set lookup_url to the URL of the lookup server, i.e.
+
+          https://wscp.sbe.virginia.gov/.../v1/YOUR_KEY
 
   * Make the initial deployment with:
 
@@ -91,7 +97,7 @@ the remote server.
       $ cap deploy
 
   * Seed dictionary data with:
-  
+
       $ cap db:seed
 
   * Configure Apache virtual host. Here's the sample configuration
@@ -112,7 +118,7 @@ Updating the deployment
     $ git pull
 
 * Deploy code and migrations:
-  
+
     $ cap deploy:migrations
 
 

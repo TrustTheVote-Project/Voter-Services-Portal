@@ -85,7 +85,7 @@ class RegistrationSearch
   def self.search_by_voter_id(vid, locality)
     vid = vid.to_s.gsub(/[^\d]/, '').rjust(9, '0')
     locality = URI.escape(locality)
-    uri = URI("https://wscp.sbe.virginia.gov/electionlist.svc/v1/#{AppConfig['api_key']}/#{locality}/#{vid}")
+    uri = URI("#{AppConfig['lookup_url']}/#{locality}/#{vid}")
     parse_uri(uri)
   end
 
@@ -96,7 +96,7 @@ class RegistrationSearch
     ssn4       = URI.escape(query.ssn4.to_s)
     locality   = URI.escape(query.locality.to_s)
 
-    uri = URI("https://wscp.sbe.virginia.gov/electionlist.svc/v1/#{AppConfig['api_key']}/search/?firstName=#{first_name}&lastName=#{last_name}&dob=#{dob}&ssn4=#{ssn4}&localityName=#{locality}")
+    uri = URI("#{AppConfig['lookup_url']}/search/?firstName=#{first_name}&lastName=#{last_name}&dob=#{dob}&ssn4=#{ssn4}&localityName=#{locality}")
 
     parse_uri(uri)
   end
@@ -110,7 +110,7 @@ class RegistrationSearch
   def self.parse_uri_without_timeout(uri)
     req = Net::HTTP::Get.new(uri.request_uri)
     res = Net::HTTP.start(uri.hostname, uri.port,
-                          use_ssl:      true,
+                          use_ssl:      uri.scheme == 'https',
                           open_timeout: 5,
                           read_timeout: 15,
                           verify_mode:  OpenSSL::SSL::VERIFY_NONE) do |http|
