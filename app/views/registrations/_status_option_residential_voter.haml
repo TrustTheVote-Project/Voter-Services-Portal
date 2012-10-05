@@ -6,7 +6,7 @@
     - af = @registration.absentee_for_elections || []
     %p
       - if af.empty?
-        Resident able to go to polls for the upcoming elections.
+        Voter able to go to polls for the upcoming elections.
       - else
         Approved for Absentee Ballot: #{af.humanized_list_join}  #{pluralize(af.size, 'Election')}.
   - else
