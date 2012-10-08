@@ -44,26 +44,30 @@ class RegistrationsController < ApplicationController
   def show
     @registration = current_registration
     @update       = !@registration.previous_data.blank?
+
+    # Disallow rendering of PDF and EML310 in no-forms version
+    return if no_forms?
+
     respond_to do |f|
       f.html
 
-      # f.pdf do
-      #   doctype = 'VoterRegistrationRequest'
+      f.pdf do
+        doctype = 'VoterRegistrationRequest'
 
-      #   if @update
-      #     doctype = @registration.requesting_absentee == '1' ? 'AbsenteeRequest+VoterRegistrationUpdateRequest' : 'VoterRegistrationUpdateRequest'
-      #   end
+        if @update
+          doctype = @registration.requesting_absentee == '1' ? 'AbsenteeRequest+VoterRegistrationUpdateRequest' : 'VoterRegistrationUpdateRequest'
+        end
 
-      #   LogRecord.log(doctype, 'complete', @registration)
+        LogRecord.log(doctype, 'complete', @registration)
 
-      #   # Doing it in such a weird way because of someone stealing render / render_to_string method from wicked_pdf
-      #   render text: WickedPdf.new.pdf_from_string(
-      #     render_to_string(template: 'registrations/pdf/show', pdf: 'registration.pdf', layout: 'pdf'),
-      #     margin: { top: 5, right: 5, bottom: 5, left: 5 })
-      # end
-      # f.xml do
-      #   render 'registrations/xml/show', layout: false
-      # end
+        # Doing it in such a weird way because of someone stealing render / render_to_string method from wicked_pdf
+        render text: WickedPdf.new.pdf_from_string(
+          render_to_string(template: 'registrations/pdf/show', pdf: 'registration.pdf', layout: 'pdf'),
+          margin: { top: 5, right: 5, bottom: 5, left: 5 })
+      end
+      f.xml do
+        render 'registrations/xml/show', layout: false
+      end
     end
   rescue ActiveRecord::RecordNotFound
     redirect_to :root
