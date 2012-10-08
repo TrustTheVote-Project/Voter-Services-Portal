@@ -30,7 +30,7 @@ If you need to change source files, you need to:
 *Getting the sources* is as easy as the command below. This will create
 the directory `vvsp` with the project.
 
-  $ git clone git@github.com:trustthevote/Virginia-Voter-Services-Portal.git vvsp
+    $ git clone git@github.com:trustthevote/Virginia-Voter-Services-Portal.git vvsp
 
 *Changes* can be applied to several places -- HAML files `app/views` and
 `config/locales/en.yml`. Please be extra careful changing HAML files.
@@ -44,30 +44,30 @@ repository, and then check the batch in.
 
 Check that you are about to commit correct files:
 
-  $ git status
+    $ git status
 
 Add them to your batch:
 
-  $ git add .
+    $ git add .
 
 Check again that now everything is in the list of files about to be
 committed:
 
-  $ git status
+    $ git status
 
 Commit with "your message":
 
-  $ git commit -m "your message"
+    $ git commit -m "your message"
 
 *Pushing to remote repository* is done like this:
 
-  $ git push origin master
+    $ git push origin master
 
 Optionally you may want to *tag a release* and then push the tags to the
 remote repository for everyone else to see them:
 
-  $ git tag 1.3
-  $ git push --tags
+    $ git tag 1.3
+    $ git push --tags
 
 
 
