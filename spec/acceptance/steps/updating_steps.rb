@@ -15,7 +15,7 @@ steps_for :updating do
 
     RegistrationSearch.should_receive(:perform).and_return(rec)
 
-    choose  "lookup_type_vid"
+    choose  "search_query_lookup_type_vid"
     select  "ACCOMACK COUNTY", from: "search_query_locality"
     fill_in "search_query_voter_id", with: '111222333'
     check   "swear"

@@ -2,7 +2,7 @@
 class SearchController < ApplicationController
 
   def new
-    options = Rails.env.development? ? { first_name: '1', last_name: '1', dob: 20.years.ago, locality: 'ACCOMACK COUNTY' } : {}
+    options = RegistrationRepository.pop_search_query(session)
     @search_query ||= SearchQuery.new(options)
     render :new
   end
@@ -20,8 +20,9 @@ class SearchController < ApplicationController
   rescue RegistrationSearch::SearchError => @error
     if @error.kind_of? RegistrationSearch::RecordNotFound
       LogRecord.log("", "identify", nil, "No match for #{@search_query.to_log_details}")
-      RegistrationRepository.store_search_query(session, @search_query)
     end
+
+    RegistrationRepository.store_search_query(session, @search_query)
 
     render :error
   end

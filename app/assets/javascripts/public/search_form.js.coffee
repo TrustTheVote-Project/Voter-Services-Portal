@@ -1,6 +1,6 @@
 class SearchForm
   constructor: ->
-    @lookupType = ko.observable('ssn4')
+    @lookupType = ko.observable()
     @voterId    = ko.observable()
     @locality   = ko.observable()
     @firstName  = ko.observable()

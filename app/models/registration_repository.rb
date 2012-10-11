@@ -29,14 +29,22 @@ class RegistrationRepository
     session[:s_first_name]  = query.first_name
     session[:s_last_name]   = query.last_name
     session[:s_dob]         = query.dob.try(:strftime, "%Y-%m-%d")
+    session[:s_ssn4]        = query.ssn4
+    session[:s_locality]    = query.locality
+    session[:s_voter_id]    = query.voter_id
+    session[:s_lookup_type] = query.lookup_type
   end
 
   # Gets stored search query params
   def self.pop_search_query(session)
     dob = session.delete(:s_dob)
-    { first_name: session.delete(:s_first_name),
-      last_name:  session.delete(:s_last_name),
-      dob:        dob.blank? ? nil : Date.parse(dob) }
+    { lookup_type:  session.delete(:s_lookup_type),
+      first_name:   session.delete(:s_first_name),
+      last_name:    session.delete(:s_last_name),
+      dob:          dob.blank? ? nil : Date.parse(dob),
+      ssn4:         session.delete(:s_ssn4),
+      locality:     session.delete(:s_locality),
+      voter_id:     session.delete(:s_voter_id) }
   end
 
 end

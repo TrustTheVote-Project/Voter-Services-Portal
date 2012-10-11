@@ -25,15 +25,15 @@
       Social Security Number. You can also identify using the voter identification
       number on your voter card, by selecting "Use Voter ID" below.
 
-    .row
-      .radio
-        = radio_button_tag :lookup_type, 'ssn4', true, 'data-bind' => 'checked: lookupType'
-        %label( for='lookup_type_ssn4' ) Use SSN4
-      .radio
-        = radio_button_tag :lookup_type, 'vid',  false, 'data-bind' => 'checked: lookupType'
-        %label( for='lookup_type_vid' ) Use Voter ID
-
     = form_for @search_query, url: search_path do |f|
+      .row
+        .radio
+          = f.radio_button :lookup_type, 'ssn4', 'data-bind' => 'checkedWithInit: lookupType'
+          %label( for='search_query_lookup_type_ssn4' ) Use SSN4
+        .radio
+          = f.radio_button :lookup_type, 'vid', 'data-bind' => 'checkedWithInit: lookupType'
+          %label( for='search_query_lookup_type_vid' ) Use Voter ID
+
       <!-- ko if: lookupType() == "ssn4" -->
       .partition
         .row

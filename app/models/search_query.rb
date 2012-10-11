@@ -3,10 +3,11 @@ class SearchQuery
   include ActiveModel::Validations
   include ActiveModel::MassAssignmentSecurity
 
+  attr_accessor :lookup_type
   attr_accessor :voter_id
   attr_accessor :locality, :first_name, :last_name, :dob, :ssn4
 
-  attr_accessible :voter_id, :locality, :first_name, :last_name, :dob, :ssn4
+  attr_accessible :voter_id, :locality, :first_name, :last_name, :dob, :ssn4, :lookup_type
 
   validates :locality,    presence: true
   validates :first_name,  presence: { unless: :using_voter_id? }
@@ -21,7 +22,7 @@ class SearchQuery
 
   # Secure mass attribute assignment
   def assign_attributes(at)
-    at = SearchQuery.convert_date(at, :dob)
+    at = SearchQuery.convert_date(at, :dob) if at[:dob].blank?
 
     sanitize_for_mass_assignment(at).each do |k, v|
       send("#{k.to_s.gsub(%r{\(\)}, '')}=", v)
