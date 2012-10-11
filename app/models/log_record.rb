@@ -24,4 +24,22 @@ class LogRecord < ActiveRecord::Base
       notes:      details)
   end
 
+  def self.lookup_timeout(uri)
+    LogRecord.create(
+      doctype:    'Internal error',
+      action:     '',
+      voter_id:   '',
+      voter_type: '',
+      notes:      "Lookup timeout: #{uri.to_s}")
+  end
+
+  def self.lookup_error(body)
+    LogRecord.create(
+      doctype:    'Internal error',
+      action:     '',
+      voter_id:   '',
+      voter_type: '',
+      notes:      "Unknown lookup error: #{body}")
+  end
+
 end

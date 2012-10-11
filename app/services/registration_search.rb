@@ -60,7 +60,10 @@ class RegistrationSearch
 
     rec = parse(xml)
 
-    LogRecord.parsing_error(rec.voter_id, "No gender") if rec.gender.blank?
+    if rec.gender.blank?
+      ErrorLogRecord.log("Parsing: no gender", voter_id: rec.voter_id)
+      LogRecord.parsing_error(rec.voter_id, "No gender")
+    end
 
     rec.existing = true;
     rec
@@ -104,6 +107,9 @@ class RegistrationSearch
   def self.parse_uri(uri)
     parse_uri_without_timeout(uri)
   rescue Timeout::Error
+    ErrorLogRecord.log("Lookup: timeout", uri: uri)
+    LogRecord.lookup_timeout(uri)
+
     raise LookupTimeout
   end
 
@@ -117,15 +123,26 @@ class RegistrationSearch
       http.request(req)
     end
 
-    if res.code == '200'
-      res.body
-    elsif res.code == '400'
+    handle_response(res)
+  end
+
+  # handles the response
+  def self.handle_response(res)
+    return res.body if res.code == '200'
+
+    # raise known errors
+    if res.code == '400'
       raise RecordIsConfidential if /cannot be displayed/ =~ res.body
       raise RecordIsInactive if /is not active/ =~ res.body
-      raise RecordNotFound
-    else
-      raise RecordNotFound
     end
+
+    # log unknown errors
+    if res.code != '404'
+      ErrorLogRecord.log("Lookup: unknown error", code: res.code, body: res.body)
+      LogRecord.lookup_error(res.body)
+    end
+
+    raise RecordNotFound
   end
 
   def self.parse(xml)
@@ -174,6 +191,7 @@ class RegistrationSearch
       current_absentee_until = doc.css('Message AbsenteeExpiritionDate').try(:text)
       if current_absentee_until.blank?
         if military || overseas
+          ErrorLogRecord.log("Parsing: AbsenteeExpiritionDate is missing", voter_id: voter_id)
           LogRecord.parsing_error(voter_id, "AbsenteeExpiritionDate is missing")
           current_absentee_until = Date.today.advance(years: 1).end_of_year
         else

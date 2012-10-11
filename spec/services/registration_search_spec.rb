@@ -227,8 +227,42 @@ describe RegistrationSearch do
 
   it 'should log the error when there is no gender' do
     RegistrationSearch.should_receive(:parse).and_return(Registration.new(voter_id: 123))
+    ErrorLogRecord.should_receive(:log).with("Parsing: no gender", voter_id: 123)
     LogRecord.should_receive(:parsing_error).with(123, "No gender")
     search(600000006, 'ALEXANDRIA CITY')
+  end
+
+  describe 'handle_response' do
+    let(:c) { "400" }
+    let(:b) { "error body" }
+
+    it 'should handle 200' do
+      RegistrationSearch.handle_response(stub(code: "200", body: "xml")).should == "xml"
+    end
+
+    it 'should handle unknown 400 error code' do
+      ErrorLogRecord.should_receive(:log).with("Lookup: unknown error", code: c, body: b)
+      LogRecord.should_receive(:lookup_error).with(b)
+      lambda {
+        RegistrationSearch.handle_response(stub(code: c, body: b))
+      }.should raise_error RegistrationSearch::RecordNotFound
+    end
+
+    it 'should handle unknown 401' do
+      ErrorLogRecord.should_receive(:log).with("Lookup: unknown error", code: "401", body: b)
+      LogRecord.should_receive(:lookup_error).with(b)
+      lambda {
+        RegistrationSearch.handle_response(stub(code: "401", body: b))
+      }.should raise_error RegistrationSearch::RecordNotFound
+    end
+
+    it 'should handle 404 w/o logging' do
+      ErrorLogRecord.should_not_receive(:log)
+      LogRecord.should_not_receive(:lookup_error)
+      lambda {
+        RegistrationSearch.handle_response(stub(code: "404", body: b))
+      }.should raise_error RegistrationSearch::RecordNotFound
+    end
   end
 
   private
