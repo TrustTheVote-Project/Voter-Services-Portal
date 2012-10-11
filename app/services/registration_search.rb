@@ -84,17 +84,17 @@ class RegistrationSearch
 
   def self.search_by_voter_id(vid, locality)
     vid = vid.to_s.gsub(/[^\d]/, '').rjust(9, '0')
-    locality = URI.escape(locality)
+    locality = escape(locality)
     uri = URI("#{AppConfig['lookup_url']}/#{locality}/#{vid}")
     parse_uri(uri)
   end
 
   def self.search_by_data(query)
-    first_name = URI.escape(query.first_name.to_s)
-    last_name  = URI.escape(query.last_name.to_s)
+    first_name = escape(query.first_name.to_s)
+    last_name  = escape(query.last_name.to_s)
     dob        = query.dob.blank? ? '' : query.dob.strftime('%m/%d/%Y')
-    ssn4       = URI.escape(query.ssn4.to_s)
-    locality   = URI.escape(query.locality.to_s)
+    ssn4       = escape(query.ssn4.to_s)
+    locality   = escape(query.locality.to_s)
 
     uri = URI("#{AppConfig['lookup_url']}/search/?firstName=#{first_name}&lastName=#{last_name}&dob=#{dob}&ssn4=#{ssn4}&localityName=#{locality}")
 
@@ -316,6 +316,13 @@ class RegistrationSearch
       options[:vvr_uocava_residence_available] = '1'
     end
     Registration.new(options.merge(existing: true))
+  end
+
+  private
+
+  # slightly better escaping
+  def self.escape(s)
+    s ? URI.escape(s).gsub('&', '%26') : s
   end
 
 end
