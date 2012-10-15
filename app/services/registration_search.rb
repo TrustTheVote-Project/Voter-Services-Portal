@@ -281,8 +281,9 @@ class RegistrationSearch
       options[:ppl_zip]           = ppl.css('AddressLine[type="Zip"]').try(:text)
     end
 
-    ma_address    = doc.css('MailingAddress AddressLine[type="MailingAddressLine1"]').try(:text)
-    ma_address_2  = doc.css('MailingAddress AddressLine[type="MailingAddressLine2"]').try(:text)
+    addresses = doc.css('MailingAddress AddressLine[type^="MailingAddressLine"]')
+    addresses = addresses.sort { |a1, a2| a1['seqn'] <=> a2['seqn'] }.map(&:text)
+    ma_address, ma_address_2 = *addresses
     ma_city       = doc.css('MailingAddress AddressLine[type="MailingCity"]').try(:text)
     ma_state      = doc.css('MailingAddress AddressLine[type="MailingState"]').try(:text)
     ma_zip        = doc.css('MailingAddress AddressLine[type="MailingZip"]').try(:text) || ""
@@ -310,7 +311,7 @@ class RegistrationSearch
         ma_zip5:              ma_zip5,
         ma_zip4:              ma_zip4 || "" })
     else
-      if %w( APO DPO FPO ).include?(ma_city.upcase)
+      if %w( APO DPO FPO ).include?(ma_city.upcase) || (ma_address_2.to_s =~ /\b(apo|dpo|fpo)\b/i)
         options.merge!({
           mau_type:           'apo',
           apo_address:        ma_address,

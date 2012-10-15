@@ -154,7 +154,7 @@ describe RegistrationSearch do
       subject { search(600000048, 'ALBEMARLE COUNTY') }
       its(:mau_type)        { should == "non-us" }
       its(:mau_address)     { should == "335 Portico Bay flat 1" }
-      its(:mau_address_2)   { should == "" }
+      its(:mau_address_2)   { should == nil }
       its(:mau_city)        { should == "Rome" }
       its(:mau_city_2)      { should == nil }
       its(:mau_state)       { should == "" }
@@ -166,10 +166,16 @@ describe RegistrationSearch do
       subject { search(600000038, 'ARLINGTON COUNTY') }
       its(:mau_type)        { should == "apo" }
       its(:apo_address)     { should == "UNIT 3050 Box 63" }
-      its(:apo_address_2)   { should == "" }
+      its(:apo_address_2)   { should == nil }
       its(:apo_1)           { should == "DPO" }
       its(:apo_2)           { should == "AA" }
       its(:apo_zip5)        { should == "34025" }
+    end
+
+    it 'should parse address line types 1 and 3' do
+      s = search(999999998, 'FAIRFAX COUNTY')
+      s.apo_address.should    == "UNIT 45004 Box 201"
+      s.apo_address_2.should  == "Apo, AP 963375004"
     end
   end
 
