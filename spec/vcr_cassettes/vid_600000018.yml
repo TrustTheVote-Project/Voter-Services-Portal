@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://wscp.sbe.virginia.gov/electionlist.svc/v1/2897AAFA-6C5E-4AEE-B405-E3768212C34A/VIRGINIA%20BEACH%20CITY/600000018
+    uri: http://salty-earth-4856.herokuapp.com//VIRGINIA%20BEACH%20CITY/600000018
     body:
       encoding: US-ASCII
       string: ''
@@ -14,23 +14,22 @@ http_interactions:
   response:
     status:
       code: 400
-      message: Your voter registration is not active.  Please contact the State Board
-        of Elections for more information.
+      message: ! 'Bad Request '
     headers:
-      Date:
-      - Thu, 27 Sep 2012 12:03:04 GMT
-      Server:
-      - Microsoft-IIS/6.0
-      X-Powered-By:
-      - ASP.NET
-      X-Aspnet-Version:
-      - 4.0.30319
-      Content-Length:
-      - '1400'
-      Cache-Control:
-      - private
       Content-Type:
-      - text/html
+      - text/xml;charset=utf-8
+      Date:
+      - Mon, 15 Oct 2012 07:41:59 GMT
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      X-Frame-Options:
+      - sameorigin
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '1401'
+      Connection:
+      - keep-alive
     body:
       encoding: US-ASCII
       string: ! '<html><head><title>Request Failed</title><style>BODY { color: #000000;
@@ -50,7 +49,9 @@ http_interactions:
         bold; background-color: #cecf9c;} table td { border-right: 2px white solid;
         border-bottom: 2px white solid; background-color: #e5e5cc;}</style></head><body><div
         id=''content''><h1>Request Failed</h1><h3>Your voter registration is not active.  Please
-        contact the State Board of Elections for more information.</h3></div></body></html>'
+        contact the State Board of Elections for more information.</h3></div></body></html>
+
+'
     http_version: 
-  recorded_at: Thu, 27 Sep 2012 12:03:04 GMT
+  recorded_at: Mon, 15 Oct 2012 07:41:59 GMT
 recorded_with: VCR 2.2.4

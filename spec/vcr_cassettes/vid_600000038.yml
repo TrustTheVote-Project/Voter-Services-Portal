@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: https://wscp.sbe.virginia.gov/electionlist.svc/v1/2897AAFA-6C5E-4AEE-B405-E3768212C34A/ARLINGTON%20COUNTY/600000038
+    uri: http://salty-earth-4856.herokuapp.com//ARLINGTON%20COUNTY/600000038
     body:
       encoding: US-ASCII
       string: ''
@@ -14,30 +14,22 @@ http_interactions:
   response:
     status:
       code: 200
-      message: !binary |-
-        T0s=
+      message: ! 'OK '
     headers:
-      !binary "RGF0ZQ==":
-      - !binary |-
-        VGh1LCAyNyBTZXAgMjAxMiAxMjowMzowMSBHTVQ=
-      !binary "U2VydmVy":
-      - !binary |-
-        TWljcm9zb2Z0LUlJUy82LjA=
-      !binary "WC1Qb3dlcmVkLUJ5":
-      - !binary |-
-        QVNQLk5FVA==
-      !binary "WC1Bc3BuZXQtVmVyc2lvbg==":
-      - !binary |-
-        NC4wLjMwMzE5
-      !binary "Q29udGVudC1MZW5ndGg=":
-      - !binary |-
-        ODc3Ng==
-      !binary "Q2FjaGUtQ29udHJvbA==":
-      - !binary |-
-        cHJpdmF0ZQ==
-      !binary "Q29udGVudC1UeXBl":
-      - !binary |-
-        YXBwbGljYXRpb24veG1sOyBjaGFyc2V0PXV0Zi04
+      Content-Type:
+      - text/xml;charset=utf-8
+      Date:
+      - Mon, 15 Oct 2012 07:41:57 GMT
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      X-Frame-Options:
+      - sameorigin
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '8776'
+      Connection:
+      - keep-alive
     body:
       encoding: ASCII-8BIT
       string: !binary |-
@@ -48,7 +40,7 @@ http_interactions:
         dHRwOi8vd3d3LnczLm9yZy8yMDAxL1hNTFNjaGVtYSI+PEVNTEhlYWRlcj48
         VHJhbnNhY3Rpb25JZD4zMzA8L1RyYW5zYWN0aW9uSWQ+PE9mZmljaWFsU3Rh
         dHVzRGV0YWlsPjxPZmZpY2lhbFN0YXR1cz5hcHByb3ZlZDwvT2ZmaWNpYWxT
-        dGF0dXM+PFN0YXR1c0RhdGU+MjAxMi0wOS0yNzwvU3RhdHVzRGF0ZT48L09m
+        dGF0dXM+PFN0YXR1c0RhdGU+MjAxMi0xMC0wNTwvU3RhdHVzRGF0ZT48L09m
         ZmljaWFsU3RhdHVzRGV0YWlsPjwvRU1MSGVhZGVyPjxFbGVjdGlvbkxpc3Q+
         PFZvdGVyRGV0YWlscz48Vm90ZXJSZWdpc3RyYXRpb24+PFZvdGVyPjxTb3Vy
         Y2UgUm9sZT0ic2VuZGVyIj48TmFtZT5WaXJnaW5pYTwvTmFtZT48L1NvdXJj
@@ -238,5 +230,5 @@ http_interactions:
         L0VsZWN0aW9uPjwvVm90ZXJEZXRhaWxzPjwvRWxlY3Rpb25MaXN0PjwvRU1M
         Pg==
     http_version: 
-  recorded_at: Thu, 27 Sep 2012 12:03:01 GMT
+  recorded_at: Mon, 15 Oct 2012 07:41:57 GMT
 recorded_with: VCR 2.2.4
