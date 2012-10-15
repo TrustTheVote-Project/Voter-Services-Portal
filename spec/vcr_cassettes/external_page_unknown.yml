@@ -25,7 +25,7 @@ http_interactions:
       X-Powered-By:
       - ASP.NET
       Date:
-      - Wed, 26 Sep 2012 06:50:40 GMT
+      - Mon, 15 Oct 2012 07:41:40 GMT
     body:
       encoding: US-ASCII
       string: ! "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.01//EN\" \"http://www.w3.org/TR/html4/strict.dtd\">\r\n<HTML><HEAD><TITLE>The
@@ -48,5 +48,5 @@ http_interactions:
         Manager (inetmgr),\r\n and search for topics titled <b>Web Site Setup</b>,
         <b>Common Administrative Tasks</b>, and <b>About Custom Error Messages</b>.</li>\r\n</ul>\r\n\r\n</TD></TR></TABLE></BODY></HTML>\r\n"
     http_version: 
-  recorded_at: Wed, 26 Sep 2012 06:50:40 GMT
+  recorded_at: Mon, 15 Oct 2012 07:41:40 GMT
 recorded_with: VCR 2.2.4

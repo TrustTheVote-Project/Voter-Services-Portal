@@ -17,25 +17,37 @@ http_interactions:
       message: OK
     headers:
       Content-Length:
-      - '146'
+      - '1062'
       Content-Type:
       - text/html
       Last-Modified:
-      - Mon, 17 Sep 2012 15:23:30 GMT
+      - Fri, 05 Oct 2012 13:16:18 GMT
       Accept-Ranges:
       - bytes
       Etag:
-      - ! '"2c7c5b64e894cd1:5897"'
+      - ! '"9b10479bfba2cd1:5897"'
       Server:
       - Microsoft-IIS/6.0
       X-Powered-By:
       - ASP.NET
       Date:
-      - Wed, 26 Sep 2012 06:46:26 GMT
+      - Mon, 15 Oct 2012 07:41:40 GMT
     body:
       encoding: US-ASCII
-      string: ! "<html>\r\n<head>\r\n<link rel=\"stylesheet\" type=\"text/css\" href=\"http://www.sbe.virginia.gov/portal/portal.css\"
-        />\r\n</head>\r\n<body>TBD</body>\r\n</html>"
+      string: ! "<html>\n<body>\t\n<p>\nThe Virginia Voter Services online system
+        is a Web-based service that the Virginia State Board of Elections (SBE) has
+        created to help all Virginia voters -- domestic, military, and overseas --
+        with access to voter services and information about voter registration, updating
+        your record, and your options for how to vote.\n</p>\n<p>\nIf you are a registered
+        voter in Virginia, you can view your voter record after identifying yourself
+        with your voter identification number, or your name, date of birth, and the
+        first 4 digits of your social security number, and selecting the locality
+        that you reside in. Your voter information includes the name and address that
+        SBE currently has on file, as well as your election participation history,
+        your electoral districts, and your polling place location. In addition, overseas
+        and military voters may be eligible to use another SBE service, online ballot
+        marking.\n</p>\n<p>\nWe welcome your <a href=\"https://www.vote.virginia.gov/feedback\">feedback</a>
+        about this site and our services.\n</p>\n</body>\n</html>"
     http_version: 
-  recorded_at: Wed, 26 Sep 2012 06:46:26 GMT
+  recorded_at: Mon, 15 Oct 2012 07:41:40 GMT
 recorded_with: VCR 2.2.4

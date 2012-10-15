@@ -5,7 +5,7 @@ describe ExternalPagesController do
   it 'should load an external page' do
     VCR.use_cassette('external_page_about') do
       get :show, id: 'about'
-      response.body.should == 'TBD'
+      response.body.should include "Voter Services"
     end
   end
 
