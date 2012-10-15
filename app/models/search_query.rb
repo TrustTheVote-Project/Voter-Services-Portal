@@ -18,6 +18,7 @@ class SearchQuery
 
   def initialize(attrs = {})
     assign_attributes(attrs) unless attrs.blank?
+    self.lookup_type ||= 'ssn4'
   end
 
   # Secure mass attribute assignment
