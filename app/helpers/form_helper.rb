@@ -33,14 +33,15 @@ module FormHelper
     day     = value && value.day
     year    = value && value.year
 
-    months  = options_for_select([ nil ] + 12.times.map { |i| [ dts.send(:month_name, i + 1), i + 1 ] }, month)
-    days    = options_for_select([ nil ] + (1 .. 31).to_a, day)
-    years   = options_for_select([ nil ] + (start_year .. end_year).to_a.reverse, year)
+    months  = options_for_select(12.times.map { |i| [ dts.send(:month_name, i + 1), i + 1 ] }, month)
+    days    = options_for_select((1 .. 31).to_a, day)
+    years   = options_for_select((start_year .. end_year).to_a.reverse, year)
     jsfield = field.to_s.camelcase(:lower)
 
-    [ select_tag("#{object_name}[#{field}(3i)]", days,   html_options.merge('data-bind' => "instantValidation: { accessor: '#{jsfield}Day', attribute: '#{jsfield}', complex: true }")),
-      select_tag("#{object_name}[#{field}(2i)]", months, html_options.merge('data-bind' => "instantValidation: { accessor: '#{jsfield}Month', attribute: '#{jsfield}', complex: true }")),
-      select_tag("#{object_name}[#{field}(1i)]", years,  html_options.merge('data-bind' => "instantValidation: { accessor: '#{jsfield}Year', attribute: '#{jsfield}', complex: true }"))
+    [
+      select_tag("#{object_name}[#{field}(2i)]", months, html_options.merge('data-bind' => "instantValidation: { accessor: '#{jsfield}Month', attribute: '#{jsfield}', complex: true }", prompt: 'Month', include_blank: false)),
+      select_tag("#{object_name}[#{field}(3i)]", days,   html_options.merge('data-bind' => "instantValidation: { accessor: '#{jsfield}Day', attribute: '#{jsfield}', complex: true }", prompt: 'Day')),
+      select_tag("#{object_name}[#{field}(1i)]", years,  html_options.merge('data-bind' => "instantValidation: { accessor: '#{jsfield}Year', attribute: '#{jsfield}', complex: true }", prompt: 'Year'))
     ].join(' ').html_safe
   end
 
