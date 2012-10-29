@@ -15,6 +15,10 @@ class RegistrationsController < ApplicationController
       residence:            params[:residence],
       requesting_absentee:  params[:residence] == 'outside' ? '1' : '0')
 
+    # remove unrelated fields
+    options.delete(:lookup_type)
+    options.delete(:locality)
+
     @registration = Registration.new(options)
     @registration.init_absentee_until
   end
