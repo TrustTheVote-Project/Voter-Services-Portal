@@ -59,6 +59,9 @@ ko.bindingHandlers.checkedWithInit = {
         property(checked)
       else
         property(value)
+
+  update: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
+    ko.bindingHandlers.checked.update(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext)
 }
 
 # Value handler that hides / shows the section depending on

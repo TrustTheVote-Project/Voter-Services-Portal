@@ -109,6 +109,9 @@ class window.Registration
     @erRural                = ko.observable()
     @erCancel               = ko.observable()
 
+    @vvrIsRural.subscribe (v) =>
+      @maIsSame('0') if v
+
     @domesticMAFilled = ko.computed =>
       @maIsSame() == '1' or
       filled(@maAddress1()) and
