@@ -1,6 +1,6 @@
 - rr = RegistrationForPdf.new(@registration)
 
-= render partial: 'registrations/pdf/title', locals: { rr: rr }
+= render partial: 'registrations/pdf/cover_registration', locals: { rr: rr }
 = render partial: 'registrations/pdf/header', locals: { rr: rr }
 = render partial: 'registrations/pdf/eligibility', locals: { rr: rr }
 
@@ -14,6 +14,8 @@
 
 - if rr.overseas? || rr.requesting_absentee?
   - partial = rr.overseas? ? "overseas" : "domestic"
+  = render partial: 'registrations/pdf/cover_absentee_request', locals: { rr: rr }
   = render partial: "registrations/pdf/absentee_request_#{partial}", locals: { rr: rr }
 
 = render partial: 'registrations/pdf/oath', locals: { rr: rr }
+
