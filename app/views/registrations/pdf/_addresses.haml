@@ -1,10 +1,14 @@
+- ma_same = @registration.ma_is_same == '1'
+- instructions ||= false
+
 .section
   .border
     %h1 Addresses
 
     .row
-      = field_line 3, rr.registration_address, 'registration address'
-      = field_line 3, rr.mailing_address, 'mailing address'
+      = field_line ma_same ? 6 : 3, rr.registration_address, 'registration address'
+      - unless ma_same
+        = field_line 3, rr.mailing_address, 'mailing address'
 
     - if rr.existing_registration?
       .row
@@ -20,3 +24,12 @@
       .row
         .span3
           .check I request that my home address not be released
+
+    - if instructions
+      .row
+        .span3
+          .check
+            - if ma_same
+              Send my ballot to my registration address
+            - else
+              Send my ballot to my mailing address
