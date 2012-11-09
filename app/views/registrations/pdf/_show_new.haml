@@ -10,7 +10,7 @@
 - if rr.overseas? || rr.requesting_absentee?
   - partial = rr.overseas? ? "overseas" : "domestic"
   = render partial: 'registrations/pdf/cover_absentee_request', locals: { rr: rr }
-  = render partial: 'registrations/pdf/header', locals: { rr: rr }
+  = render partial: 'registrations/pdf/header', locals: { rr: rr, update: true }
   = render partial: 'registrations/pdf/identity', locals: { rr: rr }
   = render partial: 'registrations/pdf/addresses', locals: { rr: rr, instructions: true }
   = render partial: "registrations/pdf/absentee_request_#{partial}", locals: { rr: rr }
