@@ -16,18 +16,18 @@
     <!-- ko if: hasExistingReg() == '1' -->
     <!-- ko ifnot: erIsRural -->
     .row
-      .span3
+      .span2
         %span
           Street number
-        = f.text_field :er_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erStreetNumber" }'
-      .span3
+        = f.text_field :er_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erStreetNumber" }', class: 'span2'
+      .span4
         %span
           Street name
-        = f.text_field :er_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erStreetName" }'
+        = f.text_field :er_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erStreetName" }', class: 'span4'
       .span2.street-type-field
         %span
           Street type
-        = f.select :er_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'instantValidation: { accessor: "erStreetType" }' }
+        = f.select :er_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'street-type', 'data-bind' => 'instantValidation: { accessor: "erStreetType" }' }
       .span2.lot-field
         %span
           Apt/Lot

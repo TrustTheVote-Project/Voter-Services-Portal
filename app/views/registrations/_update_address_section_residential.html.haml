@@ -4,18 +4,18 @@
     Please confirm your registration address. If it is not correct, please update now.
 
 .row
-  .span3
+  .span2
     %span
       Street number
-    = f.text_field :vvr_street_number, 'data-bind' => 'instantValidation: { accessor: "vvrStreetNumber" }'
-  .span3
+    = f.text_field :vvr_street_number, 'data-bind' => 'instantValidation: { accessor: "vvrStreetNumber" }', class: 'span2'
+  .span4
     %span
       Street name
-    = f.text_field :vvr_street_name, 'data-bind' => 'instantValidation: { accessor: "vvrStreetName" }'
+    = f.text_field :vvr_street_name, 'data-bind' => 'instantValidation: { accessor: "vvrStreetName" }', class: 'span4'
   .span2.street-type-field
     %span
       Street type
-    = f.select :vvr_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { class: 'span1', 'data-bind' => 'instantValidation: { accessor: "vvrStreetType" }' }
+    = f.select :vvr_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { class: 'street-type', 'data-bind' => 'instantValidation: { accessor: "vvrStreetType" }' }
   .span2.lot-field
     %span
       Apt/Lot

@@ -95,15 +95,15 @@
 
   <!-- ko if: abAddressRequired -->
   .row
-    .span3
+    .span2
       %label{ for: 'registration_ab_street_number' } Street number
-      = f.text_field :ab_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abStreetNumber" }'
-    .span3
+      = f.text_field :ab_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abStreetNumber" }', class: 'span2'
+    .span4
       %label{ for: 'registration_ab_street_name' } Street name
-      = f.text_field :ab_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abStreetName" }'
+      = f.text_field :ab_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abStreetName" }', class: 'span4'
     .span2.street-type-field
       %label{ for: 'registration_ab_street_type' } Street type
-      = f.select :ab_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'instantValidation: { accessor: "abStreetType" }' }
+      = f.select :ab_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'street-type', 'data-bind' => 'instantValidation: { accessor: "abStreetType" }' }
     .span2.lot-field
       %label{ for: 'registration_ab_apt' }
         Apt/Lot
