@@ -69,8 +69,12 @@ class RegistrationsController < ApplicationController
           render_to_string(template: 'registrations/pdf/show', pdf: 'registration.pdf', layout: 'pdf'),
           margin: { top: 5, right: 5, bottom: 5, left: 5 })
       end
-      f.xml do
-        render 'registrations/xml/show', layout: false
+
+      # EML310 debug rendering is enabled only in development
+      if App.env.development?
+        f.xml do
+          render 'registrations/eml310/show', layout: false
+        end
       end
     end
   rescue ActiveRecord::RecordNotFound
