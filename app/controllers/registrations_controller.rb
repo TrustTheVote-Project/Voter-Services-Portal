@@ -71,7 +71,7 @@ class RegistrationsController < ApplicationController
       end
 
       # EML310 debug rendering is enabled only in development
-      if App.env.development?
+      if Rails.env.development?
         f.xml do
           render 'registrations/eml310/show', layout: false
         end
