@@ -14,14 +14,13 @@ describe SearchController do
 
     context 'search without error' do
       before  { RegistrationSearch.should_receive(:perform).and_return(r) }
-      before  { LogRecord.should_receive(:log) }
+      before  { LogRecord.should_receive(:identify).with(r, 'A') }
       before  { post :create, search_query: q }
       it      { should redirect_to :registration }
     end
 
     context 'search with record not found error' do
       before  { RegistrationSearch.should_receive(:perform).and_raise(RegistrationSearch::RecordNotFound) }
-      before  { LogRecord.should_receive(:log) }
       before  { post :create, search_query: q }
       specify { assigns(:error).should be }
       it      { should render_template :error }
@@ -29,7 +28,6 @@ describe SearchController do
 
     context 'search with any other error' do
       before  { RegistrationSearch.should_receive(:perform).and_raise(RegistrationSearch::RecordIsConfidential) }
-      before  { LogRecord.should_not_receive(:log) }
       before  { post :create, search_query: q }
       specify { assigns(:error).should be }
       it      { should render_template :error }

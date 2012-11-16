@@ -1,4 +1,4 @@
-@logging @focus
+@logging
 Feature: Logging
 
   Scenario: successful lookup

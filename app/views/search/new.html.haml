@@ -52,7 +52,7 @@
             %label( for='search_query_ssn4' ) Last 4 digits of SSN
             = f.text_field :ssn4, placeholder: 'NNNN', maxlength: 4, class: 'span1', 'data-bind' => 'instantValidation: { accessor: "ssn4", validation: "ssn4", resetAlso: ".numbers" }'
           .span3
-            %label( for='search_query_locality' ) Locality
+            %label( for='locality_ssn' ) Locality
             = f.select :locality, Office.localities, { include_blank: true }, 'data-bind' => 'instantValidation: { accessor: "locality" }', id: 'locality_ssn'
       <!-- /ko -->
 
@@ -63,7 +63,7 @@
             %label( for='search_query_voter_id' ) Voter ID
             = f.text_field :voter_id, label: 'Voter ID', placeholder: 'NNNNNNNNN', maxlength: 9, 'data-bind' => 'instantValidation: { accessor: "voterId", validation: "voterId", resetAlso: ".numbers" }'
           .span3
-            %label( for='search_query_locality' ) Locality
+            %label( for='locality_vid' ) Locality
             = f.select :locality, Office.localities, { include_blank: true }, 'data-bind' => 'instantValidation: { accessor: "locality" }', id: 'locality_vid'
       <!-- /ko -->
 

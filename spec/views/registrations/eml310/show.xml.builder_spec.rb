@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "registrations/xml/show", formats: [ :xml ], handlers: [ :builder ] do
+describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] do
 
   describe 'general' do
     before { reg }
