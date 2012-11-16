@@ -1,6 +1,7 @@
 class Admin::LogRecordsController < Admin::BaseController
 
   inherit_resources
+  respond_to :xml, :html
 
   protected
 

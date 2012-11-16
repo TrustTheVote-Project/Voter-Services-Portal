@@ -52,3 +52,11 @@ lookup_url: "https://wscp.sbe.virginia.gov/electionlist.svc/v1/_your_API_key_"
 
 # Disables forms functionality
 no_forms: true
+
+# Record log configuration
+log:
+  origin:       'Virginia Voter Services Portal'
+  origin_uniq:  'AA:BB:CC:DD:EE:FF'
+
+  # Voter IDs will be SHA-1 hashed if TRUE
+  hashalg:      true
