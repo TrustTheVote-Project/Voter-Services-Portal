@@ -2,13 +2,15 @@ class ActiveForm < ActiveRecord::Base
 
   class Expired < StandardError; end
 
-  EXPIRY_PERIOD = 1.hour
-
   validates :form, presence: true
 
-  scope :expired, lambda { where([ "updated_at < ?", EXPIRY_PERIOD.ago ]) }
+  scope :expired, lambda { where([ "updated_at < ?", ActiveForm.expiry_period.ago ]) }
 
   attr_accessor :session
+
+  def self.expiry_period
+    AppConfig['form_expiry'].to_i.minutes
+  end
 
   # marks the session with the given action
   def self.mark!(session, registration)

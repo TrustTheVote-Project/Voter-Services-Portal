@@ -19,6 +19,9 @@ autocomplete: off
 # Toggles if we let absentees to choose the end date
 choose_absentee_until: false
 
+# Minutes given to finish registration / update form
+form_expiry: 60
+
 # Server for online ballot marking
 dl:
   enabled: true
