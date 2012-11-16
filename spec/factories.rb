@@ -125,4 +125,8 @@ FactoryGirl.define do
       past_elections      [ [ '2007 November', 'Absentee' ] ]
     end
   end
+
+  factory :active_form do
+    form 'F'
+  end
 end

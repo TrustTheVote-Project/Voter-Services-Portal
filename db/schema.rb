@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121115131211) do
+ActiveRecord::Schema.define(:version => 20121116121810) do
+
+  create_table "active_forms", :force => true do |t|
+    t.string   "voter_id"
+    t.string   "form",         :null => false
+    t.string   "jurisdiction"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "error_log_records", :force => true do |t|
     t.string   "message",    :null => false

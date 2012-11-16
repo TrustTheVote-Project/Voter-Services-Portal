@@ -1,0 +1,6 @@
+- start_over_url = params[:action] == 'create' ? :root : edit_registration_path
+
+.row
+  %p We are sorry, but the form has expired.
+
+  %p Please #{link_to 'start over', start_over_url} or go to the #{link_to 'home page', :root}.

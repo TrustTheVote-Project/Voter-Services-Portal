@@ -31,10 +31,10 @@ class LogRecord < ActiveRecord::Base
       jurisdiction: reg.poll_locality)
   end
 
-  def self.start_new(overseas)
+  def self.start_new(reg)
     LogRecord.create(
       action:     'start',
-      form:       overseas ? 'VoterRecordUpdateAbsenteeRequest' : 'VoterRegistration',
+      form:       reg.uocava? ? 'VoterRecordUpdateAbsenteeRequest' : 'VoterRegistration',
       form_note:  'onlineGenerated')
   end
 
@@ -71,6 +71,15 @@ class LogRecord < ActiveRecord::Base
       form:       form,
       form_note:  'onlineGenerated',
       jurisdiction: reg.vvr_county_or_city)
+  end
+
+  def self.discard(active_form)
+    LogRecord.create(
+      action:       'discard',
+      voter_id:     active_form.voter_id,
+      form:         active_form.form,
+      form_note:    'onlineGenerated',
+      jurisdiction: active_form.jurisdiction)
   end
 
   # Parsing error logging

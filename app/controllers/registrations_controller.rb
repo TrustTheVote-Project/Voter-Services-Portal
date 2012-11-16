@@ -8,13 +8,10 @@ class RegistrationsController < ApplicationController
       return
     end
 
-    overseas = params[:residence] == 'outside'
-    LogRecord.start_new(overseas)
-
     options = RegistrationRepository.pop_search_query(session)
     options.merge!(
       residence:            params[:residence],
-      requesting_absentee:  overseas ? '1' : '0')
+      requesting_absentee:  params[:residence] == 'outside' ? '1' : '0')
 
     # remove unrelated fields
     options.delete(:lookup_type)
@@ -22,9 +19,14 @@ class RegistrationsController < ApplicationController
 
     @registration = Registration.new(options)
     @registration.init_absentee_until
+
+    LogRecord.start_new(@registration)
+    ActiveForm.mark!(session, @registration)
   end
 
   def create
+    active_form = ActiveForm.find_for_session!(session)
+
     data = params[:registration]
     Converter.params_to_date(data,
       :vvr_uocava_residence_unavailable_since,
@@ -38,13 +40,17 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new(data)
 
     if @registration.save
+      active_form.unmark!
       LogRecord.complete_new(@registration)
       RegistrationRepository.store_registration(session, @registration)
       render :show
     else
+      active_form.touch
       flash.now[:error] = 'Please review your request data and try submitting again'
       render :new
     end
+  rescue ActiveForm::Expired
+    render :expired
   end
 
   def show
@@ -87,6 +93,7 @@ class RegistrationsController < ApplicationController
     @registration = current_registration
 
     LogRecord.start_update(@registration)
+    ActiveForm.mark!(session, @registration)
 
     # "kind" comes from the review form where we either maintain or
     # change the status.
@@ -94,6 +101,8 @@ class RegistrationsController < ApplicationController
   end
 
   def update
+    active_form = ActiveForm.find_for_session!(session)
+
     data = params[:registration]
     Converter.params_to_date(data,
       :vvr_uocava_residence_unavailable_since,
@@ -108,13 +117,18 @@ class RegistrationsController < ApplicationController
     @registration.init_update_to(params[:kind])
 
     unless @registration.update_attributes(data)
+      active_form.touch
       redirect_to :edit_registration, alert: 'Please review your registration data and try again'
     else
+      active_form.unmark!
+
       LogRecord.complete_update(@registration)
       if @registration.requesting_absentee?
         LogRecord.absentee_request(@registration)
       end
     end
+  rescue ActiveForm::Expired
+    render :expired
   end
 
 end

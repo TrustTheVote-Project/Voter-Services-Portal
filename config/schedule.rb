@@ -22,3 +22,7 @@
 every :day do
   rake 'va:clean_sessions'
 end
+
+every 10.minutes do
+  runner 'ActiveForm.sweep'
+end
