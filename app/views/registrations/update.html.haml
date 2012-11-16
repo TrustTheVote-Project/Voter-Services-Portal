@@ -1,6 +1,8 @@
+- @page_id = 'update_finalization'
+
 = render partial: "search/steps", locals: { step: 'download' }
 
 .row
   .padded_page_span
-    = render partial: 'download_section'
+    = render partial: 'download', locals: { update: true }
     = render partial: 'complete_section'

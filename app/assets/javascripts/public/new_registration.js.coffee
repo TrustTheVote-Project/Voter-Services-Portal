@@ -45,49 +45,9 @@ class NewRegistration extends Registration
       location.hash = pages[newIdx]
       @initAbsenteeUntilSlider() if newIdx == optionsPageIdx
 
-
-class DownloadRegistration
-  constructor: ->
-    $(".section").show()
-
-    @downloaded = ko.observable(false)
-    @downloadSection()
-
-    # Navigation
-    @currentPageIdx         = ko.observable(downloadPageIdx)
-    @page                   = ko.computed(=> pages[@currentPageIdx()])
-
-    $(window).hashchange =>
-      hash = location.hash
-      newIdx = $.inArray(hash.replace('#', ''), pages)
-      newIdx = downloadPageIdx if newIdx == -1
-      @currentPageIdx(newIdx)
-
-  markAsDownloaded: =>
-    @downloaded(true)
-    true
-
-  downloadSection: ->
-    downloadErrors = ko.computed =>
-      errors = []
-      errors.push("Download your PDF please") unless @downloaded()
-      errors
-
-    @downloadInvalid = ko.computed => downloadErrors().length > 0
-    new Popover('#download .next.btn', downloadErrors)
-
-  # --- Navigation
-
-  prevPage: => window.history.back()
-  nextPage: (_, a) =>
-    return if $(a.target).hasClass('disabled')
-    newIdx = @currentPageIdx() + 1
-    location.hash = pages[newIdx]
-
 $ ->
   if $('form#new_registration').length > 0
     ko.applyBindings(new NewRegistration(0))
 
-  if $('#registration #download').length > 0
-    ko.applyBindings(new DownloadRegistration())
-
+  if $("#new_registration_finalization").length > 0
+    ko.applyBindings(new Finalization(pages))

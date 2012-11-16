@@ -5,44 +5,44 @@
 
   .row.personal-info
     .span3
-      %span
+      %label{ for: 'registration_first_name' }
         First name
-        %label (optional)
+        %span (optional)
       = f.text_field :first_name, autocomplete: ac, 'data-bind' => 'valueWithInit: firstName'
     .span3
-      %span
+      %label{ for: 'registration_middle_name' }
         Full middle
-        %label (optional)
+        %span (optional)
       = f.text_field :middle_name, autocomplete: ac, 'data-bind' => 'value: middleName'
     .span3
-      %span Last name
+      %label{ for: 'registration_last_name' } Last name
       = f.text_field :last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "lastName" }'
     .span2
-      %span
+      %label{ for: 'registration_suffix' }
         Suffix
-        %label (optional)
+        %span (optional)
       = f.select :suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'value: suffix' }
 
   .row
     .span12.date
-      %label Date of birth
+      %label{ for: 'registration_dob_2i_' } Date of birth
       = bound_date f, :dob, :start_year => Date.today.year - 120, :end_year => Date.today.year - 17
 
   - if collecting? :registration, :gender
     .row
       .span12
-        %label Gender
+        %label{ for: 'registration_gender' } Gender
         = f.select :gender, [ 'Male', 'Female' ], { include_blank: true }, { autocomplete: ac, class: 'span2', 'data-bind' => 'instantValidation: { accessor: "gender" }' }
 
   .row
     .span12.security-number
-      %label Social Security Number
+      %label{ for: 'registration_ssn' } Social Security Number
       <!-- ko if: !noSSN() -->
       = f.text_field :ssn, autocomplete: ac, placeholder: 'NNNNNNNNN', maxlength: 9, 'data-bind' => 'instantValidation: { accessor: "ssn", validation: "ssn" }'
       <!-- /ko -->
       .checkbox
         = f.check_box :no_ssn, 'data-bind' => 'checked: noSSN'
-        %label
+        %label{ for: 'registration_no_ssn' }
           I do not have a Social Security Number.
           <!-- ko if: noSSN -->
           %br/
@@ -56,14 +56,14 @@
 
   .row
     .span3.phone-field
-      %span
+      %label{ for: 'registration_phone' }
         Phone
-        %label (optional)
+        %span (optional)
       = f.text_field :phone, autocomplete: ac, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'instantValidation: { accessor: "phone", attribute: "validPhone" }'
     .span3.email-field
-      %span
+      %label{ for: 'registration_email' }
         Email
-        %label (optional)
+        %span (optional)
       = f.text_field :email, autocomplete: ac, placeholder: 'john@smith.com', 'data-bind' => 'instantValidation: { accessor: "email", attribute: "validEmail" }'
 
   .form-actions

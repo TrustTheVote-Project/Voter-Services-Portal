@@ -11,57 +11,56 @@
   .partition
     .checkbox
       = f.check_box :citizen, 'data-bind' => 'instantValidation: { accessor: "isCitizen" }'
-      %label I am a citizen of the United States of America.
+      %label{ for: 'registration_citizen' } I am a citizen of the United States of America.
 
   .partition
     .checkbox
       = f.check_box :old_enough, 'data-bind' => 'instantValidation: { accessor: "isOldEnough" }'
-      %label I will be at least 18 years of age on or before the next Election Day.
+      %label{ for: 'registration_old_enough' } I will be at least 18 years of age on or before the next Election Day.
 
   .partition
     .radio
       = f.radio_button :residence, 'in', 'data-bind' => 'checked: residence'
-      %label I am currently a resident of Virginia
+      %label{ for: 'registration_residence_in' } I am currently a resident of Virginia
     .radio
       = f.radio_button :residence, 'outside', 'data-bind' => 'checked: residence'
-      %label I live outside of the U.S., but the most recent U.S. residence was in Virginia
+      %label{ for: 'registration_residence_outside' } I live outside of the U.S., but the most recent U.S. residence was in Virginia
 
   .partition
     %h4 Have your voting rights been revoked in the past?
     .radio
       = f.radio_button :rights_revoked, '0', 'data-bind' => 'checked: rightsWereRevoked'
-      %label No
+      %label{ for: 'registration_rights_revoked_0' } No
     .radio
       = f.radio_button :rights_revoked, '1', 'data-bind' => 'checked: rightsWereRevoked'
-      %label Yes
+      %label{ for: 'registration_rights_revoked_1' } Yes
 
     .block.revoked{ 'data-bind' => "visible: rightsWereRevoked() == '1'" }
       %h4 Why were your voting rights revoked?
       .radio
         = f.radio_button :rights_revoked_reason, 'felony', 'data-bind' => 'checked: rightsRevokationReason'
-        %label Due to Felony
+        %label{ for: 'registration_rights_revoked_reason_felony' } Due to Felony
       .radio
         = f.radio_button :rights_revoked_reason, 'mental', 'data-bind' => 'checked: rightsRevokationReason'
-        %label Due to mental incapacity
+        %label{ for: 'registration_rights_revoked_reason_mental' } Due to mental incapacity
 
       .block
         %h4 Were your voting rights restored?
         .radio
           = f.radio_button :rights_restored, '1', 'data-bind' => 'checked: rightsWereRestored'
-          %label Yes
+          %label{ for: 'registration_rights_restored_1' } Yes
         .radio
           = f.radio_button :rights_restored, '0', 'data-bind' => 'checked: rightsWereRestored'
-          %label No
+          %label{ for: 'registration_rights_restored_0' } No
 
       <!-- ko if: rightsWereRestored() == '1' -->
       .block{ 'data-bind' => "visible: rightsRevokationReason" }
-        %h4 In what state were your voting rights restored?
-        .select
-          = f.select :rights_restored_in, Dictionaries::STATES, { class: 'span3' }
+        %label{ for: 'registration_rights_restored_in' } In what state were your voting rights restored?
+        .select= f.select :rights_restored_in, Dictionaries::STATES, { class: 'span3' }
 
       .block
         .date
-          %h4 On what date were your voting rights restored?
+          %label{ for: 'registration_rights_restored_on_2i_' } On what date were your voting rights restored?
           = bound_date f, :rights_restored_on, :end_year => Date.today.year
       <!-- /ko -->
 

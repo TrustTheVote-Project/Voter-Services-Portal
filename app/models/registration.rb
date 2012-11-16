@@ -107,6 +107,14 @@ class Registration < ActiveRecord::Base
     !uocava?
   end
 
+  def requesting_absentee?
+    self.requesting_absentee == '1'
+  end
+
+  def no_form_changes?
+    (self.data_changes - ABSENTEE_REQUEST_FIELDS).empty?
+  end
+
   def update_attributes(d)
     # Reset previous data storage to be able to track the most recent changes
     self.previous_data = nil

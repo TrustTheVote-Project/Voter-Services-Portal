@@ -5,30 +5,27 @@
 
 .row
   .span2
-    %span
-      Street number
+    %label{ for: 'registration_vvr_street_number' } Street number
     = f.text_field :vvr_street_number, 'data-bind' => 'instantValidation: { accessor: "vvrStreetNumber" }', class: 'span2'
   .span4
-    %span
-      Street name
+    %label{ for: 'registration_vvr_street_name' } Street name
     = f.text_field :vvr_street_name, 'data-bind' => 'instantValidation: { accessor: "vvrStreetName" }', class: 'span4'
   .span2.street-type-field
-    %span
-      Street type
+    %label{ for: 'registration_vvr_street_type' } Street type
     = f.select :vvr_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { class: 'street-type', 'data-bind' => 'instantValidation: { accessor: "vvrStreetType" }' }
   .span2.lot-field
-    %span
+    %label{ for: 'registration_vvr_apt' }
       Apt/Lot
-      %label (optional)
+      %span (optional)
     = f.text_field :vvr_apt, { 'data-bind' => 'value: vvrApt' }
 
 .row
   .span3
-    %span County or city
+    %label{ for: 'registration_vvr_county_or_city' } County or city
     = f.select :vvr_county_or_city, Office.localities, { include_blank: true }, { class: 'span3', 'data-bind' => 'instantValidation: { accessor: "vvrCountyOrCity" }' }
   .span3
     <!-- ko if: vvrCountySelected -->
-    %span Town
+    %label{ for: 'registration_vvr_town' } Town
     = f.text_field :vvr_town, { 'data-bind' => 'instantValidation: { accessor: "vvrTown" }' }
     <!-- /ko -->
     <!-- ko if: !vvrCountySelected() -->
@@ -39,7 +36,7 @@
     VA
     = f.hidden_field :vvr_state, 'data-bind' => 'instantValidation: { accessor: "vvrState" }'
   .span2.zip-field
-    %span Zip code
+    %label{ for: 'registration_vvr_zip5' } Zip code
     = f.text_field :vvr_zip5, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "vvrZip5" }', placeholder: 'NNNNN', maxlength: 5
     .space &mdash;
     = f.text_field :vvr_zip4, class: 'second-zip', 'data-bind' => 'value: vvrZip4', placeholder: 'NNNN', maxlength: 4

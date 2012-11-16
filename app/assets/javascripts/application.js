@@ -23,4 +23,5 @@
 //= require public/helpers
 //= require public/popover
 //= require public/registration
+//= require public/finalization
 //= require_tree ./public

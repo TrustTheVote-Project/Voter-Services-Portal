@@ -5,43 +5,40 @@
   = render partial: 'mailing_domestic', locals: { f: f }
   = render partial: 'mailing_overseas', locals: { f: f }
 
-  .partition
+  .partition.existing_registration
     %h4 Are you currently registered to vote at another address in Virginia or in another state?
     .radio
       = f.radio_button :has_existing_reg, '0', { 'data-bind' => 'checked: hasExistingReg' }
-      %label No
+      %label{ for: 'registration_has_existing_reg_0' } No
     .radio
       = f.radio_button :has_existing_reg, '1', { 'data-bind' => 'checked: hasExistingReg' }
-      %label Yes
+      %label{ for: 'registration_has_existing_reg_1' } Yes
     <!-- ko if: hasExistingReg() == '1' -->
     <!-- ko ifnot: erIsRural -->
     .row
       .span2
-        %span
-          Street number
+        %label{ for: 'registration_er_street_number' } Street number
         = f.text_field :er_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erStreetNumber" }', class: 'span2'
       .span4
-        %span
-          Street name
+        %label{ for: 'registration_er_street_name' } Street name
         = f.text_field :er_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erStreetName" }', class: 'span4'
       .span2.street-type-field
-        %span
-          Street type
+        %label{ for: 'registration_er_street_type' } Street type
         = f.select :er_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'street-type', 'data-bind' => 'instantValidation: { accessor: "erStreetType" }' }
       .span2.lot-field
-        %span
+        %label{ for: 'registration_er_apt' }
           Apt/Lot
-          %label (optional)
+          %span (optional)
         = f.text_field :er_apt, autocomplete: ac
     .row
       .span3
-        %span City
+        %label{ for: 'registration_er_city' } City
         = f.text_field :er_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erCity" }'
       .span2.state-field
-        %span State
+        %label{ for: 'registration_er_state' } State
         = f.select :er_state, Dictionaries::STATES_WITHOUT_VA, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "erState" }' }
       .span3.zip-field
-        %span Zip code
+        %label{ for: 'registration_er_zip5' } Zip code
         = f.text_field :er_zip5, class: 'first-zip', autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erZip5", validation: "zip5" }', placeholder: 'NNNNN', maxlength: 5
         .space &mdash;
         = f.text_field :er_zip4, class: 'second-zip', autocomplete: ac, placeholder: 'NNNN', maxlength: 4

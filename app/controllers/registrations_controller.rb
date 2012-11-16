@@ -8,12 +8,13 @@ class RegistrationsController < ApplicationController
       return
     end
 
-    LogRecord.log('VoterRegistrationRequest', 'start')
+    overseas = params[:residence] == 'outside'
+    LogRecord.start_new(overseas)
 
     options = RegistrationRepository.pop_search_query(session)
     options.merge!(
       residence:            params[:residence],
-      requesting_absentee:  params[:residence] == 'outside' ? '1' : '0')
+      requesting_absentee:  overseas ? '1' : '0')
 
     # remove unrelated fields
     options.delete(:lookup_type)
@@ -37,6 +38,7 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new(data)
 
     if @registration.save
+      LogRecord.complete_new(@registration)
       RegistrationRepository.store_registration(session, @registration)
       render :show
     else
@@ -84,7 +86,7 @@ class RegistrationsController < ApplicationController
   def edit
     @registration = current_registration
 
-    LogRecord.log("VoterRegistrationUpdateRequest", "start", @registration)
+    LogRecord.start_update(@registration)
 
     # "kind" comes from the review form where we either maintain or
     # change the status.
@@ -107,6 +109,11 @@ class RegistrationsController < ApplicationController
 
     unless @registration.update_attributes(data)
       redirect_to :edit_registration, alert: 'Please review your registration data and try again'
+    else
+      LogRecord.complete_update(@registration)
+      if @registration.requesting_absentee?
+        LogRecord.absentee_request(@registration)
+      end
     end
   end
 

@@ -1,9 +1,9 @@
-#registration {
-  .disclaimer {
-    color: #ccc;
-    margin: 0 80px 24px;
-  }
+.disclaimer {
+  color: #ccc;
+  margin: 0 80px 24px;
+}
 
+#registration {
   .section {
     display: none;
     &#eligibility { display: block; }
@@ -121,7 +121,7 @@ select {
     display: inline;
   }
 
-  label label, span label {
+  label label, label span {
     color: #c8c7c7;
     margin: 0;
     display: inline;

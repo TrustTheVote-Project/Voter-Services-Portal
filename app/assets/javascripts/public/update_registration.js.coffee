@@ -1,14 +1,13 @@
 pages  = [ 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
 optionsPageIdx  = pages.indexOf('options')
 oathPageIdx     = pages.indexOf('oath')
-downloadPageIdx = pages.indexOf('download')
 
 class UpdateRegistration extends Registration
   constructor: (initPage = 0) ->
     super($('input#registration_residence').val())
 
     @initConfirmFields()
-    
+
     new Popover('#mailing .next.btn', @addressesErrors)
     new Popover('#options .next.btn', @optionsErrors)
     new Popover('#oath .next.btn', @oathErrors)
@@ -54,36 +53,6 @@ class UpdateRegistration extends Registration
       @initAbsenteeUntilSlider() if newIdx == optionsPageIdx
 
 
-class DownloadRegistration
-  constructor: (initPage) ->
-    @downloaded = ko.observable(false)
-    @downloadSection()
-    @sectionComplete = $("#complete.section")
-    @currentPageIdx  = ko.observable(initPage)
-
-  markAsDownloaded: =>
-    @downloaded(true)
-    true
-
-  downloadSection: ->
-    @sectionDownload = $("#download.update.section")
-
-    downloadErrors = ko.computed =>
-      errors = []
-      errors.push("Download your PDF please") unless @downloaded()
-      errors
-
-    @downloadInvalid = ko.computed => downloadErrors().length > 0
-    new Popover('#download.update .next.btn', downloadErrors)
-
-  gotoComplete: =>
-    @sectionDownload.hide()
-    @sectionComplete.show()
-
-  gotoDownload: =>
-    @sectionComplete.hide()
-    @sectionDownload.show()
-
 updateEditLink = ->
   editLink = $("a#edit_registration")
   st = $('input:checked[name="status"]').val()
@@ -95,8 +64,8 @@ $ ->
   if $("#update_registration").length > 0
     ko.applyBindings(new UpdateRegistration())
 
-  if $("#download.section").length > 0
-    ko.applyBindings(new DownloadRegistration(downloadPageIdx))
+  if $("#update_finalization").length > 0
+    ko.applyBindings(new Finalization(pages))
 
   editLink = $("a#edit_registration")
   if editLink.length > 0

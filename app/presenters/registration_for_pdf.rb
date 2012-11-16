@@ -1,5 +1,7 @@
 class RegistrationForPdf < RegistrationDetailsPresenter
 
+  def_delegators :@reg, :requesting_absentee?, :no_form_changes?
+
   def initialize(reg)
     super reg
     @reg = reg
@@ -141,14 +143,6 @@ class RegistrationForPdf < RegistrationDetailsPresenter
       # Residential voter
       [ "Voter Record Update Request", nil ]
     end
-  end
-
-  def requesting_absentee?
-    @reg.requesting_absentee == '1'
-  end
-
-  def no_form_changes?
-    (@reg.data_changes - Registration::ABSENTEE_REQUEST_FIELDS).empty?
   end
 
   def absentee_status_until
