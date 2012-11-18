@@ -69,10 +69,6 @@ module XmlHelper
     end
   end
 
-  def hash_voter_id(voter_id)
-    voter_id.blank? ? voter_id : Digest::SHA1.hexdigest(voter_id)
-  end
-
   private
 
   def address_lines(xml, lines)

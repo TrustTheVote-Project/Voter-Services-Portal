@@ -1,3 +1,5 @@
+require 'builder'
+
 class LogExporter
 
   def self.export(d1, t1, d2, t2)
@@ -8,7 +10,8 @@ class LogExporter
     records = records.where([ "created_at >= ?", start_date ]) if start_date
     records = records.where([ "created_at <= ?", end_date ]) if end_date
 
-    puts records.to_xml(only: [ :voter_id, :voter_type, :doctype, :action, :notes, :created_at ])
+    xml = Builder::XmlMarkup.new
+    puts LogXmlBuilder.build(records, xml)
   end
 
   private
