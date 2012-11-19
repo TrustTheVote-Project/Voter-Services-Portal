@@ -172,3 +172,24 @@ To export all records since July 5, 2012 5pm to July 8, 2012 21:35 UTC:
     $ rake va:export_log start_date=2012-07-05 start_time=17:00 \
                            end_date=2012-07-08   end_time=21:35Z
 
+
+Error log
+---------
+
+There's an error log that is used to track internal errors -- parsing
+problems, unexpected formats of replies etc.
+
+To export all records:
+
+    $ rake va:error_log
+
+Optional data range:
+
+    $ rake va:error_log start_date=2012-07-05 start_time=17:00 \
+                          end_date=2012-07-08   end_time=21:35Z
+
+Optional flag to export each record on its own line (best for `tail` /
+`head` post-processing):
+
+    $ rake va:error_log ... separate_lines=1
+

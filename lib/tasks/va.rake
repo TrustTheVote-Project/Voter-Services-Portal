@@ -26,7 +26,18 @@ namespace :va do
     d2 = ENV['end_date']
     t2 = ENV['end_time']
 
-    LogExporter.export(d1, t1, d2, t2)
+    LogExporter.acrivity(d1, t1, d2, t2)
+  end
+
+  desc 'Exports error log'
+  task error_log: :environment do
+    d1 = ENV['start_date']
+    t1 = ENV['start_time']
+    d2 = ENV['end_date']
+    t2 = ENV['end_time']
+    sl = (ENV['separate_lines'] || '0') == '1'
+
+    LogExporter.errors(d1, t1, d2, t2, sl)
   end
 
 end
