@@ -61,8 +61,7 @@ class RegistrationSearch
     rec = parse(xml)
 
     if rec.gender.blank?
-      ErrorLogRecord.log("Parsing: no gender", voter_id: rec.voter_id)
-      LogRecord.parsing_error(rec.voter_id, "No gender")
+      ErrorLogRecord.log("Parsing error", error: "no gender", voter_id: rec.voter_id)
     end
 
     rec.existing = true;
@@ -191,8 +190,7 @@ class RegistrationSearch
       current_absentee_until = doc.css('Message AbsenteeExpiritionDate').try(:text)
       if current_absentee_until.blank?
         if military || overseas
-          ErrorLogRecord.log("Parsing: AbsenteeExpiritionDate is missing", voter_id: voter_id)
-          LogRecord.parsing_error(voter_id, "AbsenteeExpiritionDate is missing")
+          ErrorLogRecord.log("Parsing error", error: "AbsenteeExpiritionDate is missing", voter_id: voter_id)
           current_absentee_until = Date.today.advance(years: 1).end_of_year
         else
           current_absentee_until = nil
