@@ -31,6 +31,7 @@ gem 'kronic'
 gem 'wicked_pdf', git: 'git://github.com/alg/wicked_pdf.git', branch: 'issue-114'
 gem 'nokogiri'
 gem 'factory_girl_rails'
+gem 'sidekiq'
 
 group :development do
   gem 'capistrano'

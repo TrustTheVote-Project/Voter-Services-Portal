@@ -60,3 +60,6 @@ log:
 
   # Voter IDs will be SHA-1 hashed if TRUE
   hashalg:      true
+
+# The place where to submit EML310 data
+eml310_submit_url:

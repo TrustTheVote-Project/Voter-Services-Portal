@@ -28,18 +28,13 @@ class RegistrationsController < ApplicationController
     active_form = ActiveForm.find_for_session!(session)
 
     data = params[:registration]
-    Converter.params_to_date(data,
-      :vvr_uocava_residence_unavailable_since,
-      :dob,
-      :absentee_until,
-      :rights_restored_on)
-
-    Converter.params_to_time(data,
-      :ab_time_1, :ab_time_2)
-
+    Converter.params_to_date(data, :vvr_uocava_residence_unavailable_since, :dob, :absentee_until, :rights_restored_on)
+    Converter.params_to_time(data, :ab_time_1, :ab_time_2)
     @registration = Registration.new(data)
 
     if @registration.save
+      SubmitEml310.schedule(@registration)
+
       active_form.unmark!
       LogRecord.complete_new(@registration)
       RegistrationRepository.store_registration(session, @registration)
@@ -104,14 +99,8 @@ class RegistrationsController < ApplicationController
     active_form = ActiveForm.find_for_session!(session)
 
     data = params[:registration]
-    Converter.params_to_date(data,
-      :vvr_uocava_residence_unavailable_since,
-      :dob,
-      :absentee_until,
-      :rights_restored_on)
-
-    Converter.params_to_time(data,
-      :ab_time_1, :ab_time_2)
+    Converter.params_to_date(data, :vvr_uocava_residence_unavailable_since, :dob, :absentee_until, :rights_restored_on)
+    Converter.params_to_time(data, :ab_time_1, :ab_time_2)
 
     @registration = current_registration
     @registration.init_update_to(params[:kind])
@@ -120,6 +109,8 @@ class RegistrationsController < ApplicationController
       active_form.touch
       redirect_to :edit_registration, alert: 'Please review your registration data and try again'
     else
+      SubmitEml310.schedule(@registration)
+
       active_form.unmark!
 
       LogRecord.complete_update(@registration)

@@ -32,7 +32,9 @@ describe RegistrationsController do
         ActiveForm.should_receive(:find_for_session!).and_return(af)
       end
 
-      it 'should save successfully' do
+      it 'should save and submit successfully' do
+        SubmitEml310.should_receive(:schedule).with(kind_of(Registration))
+
         af.should_receive(:unmark!)
         post :create, registration: {}
         should render_template :show
@@ -40,6 +42,8 @@ describe RegistrationsController do
       end
 
       it 'should return to the form on failure' do
+        SubmitEml310.should_not_receive(:schedule)
+
         af.should_not_receive(:unmark!)
         af.should_receive(:touch)
         req = mock(save: false)
@@ -91,6 +95,8 @@ describe RegistrationsController do
       end
 
       it 'should save valid data' do
+        SubmitEml310.should_receive(:schedule).with(kind_of(Registration))
+
         af.should_receive(:unmark!)
         current_registration.should_receive(:update_attributes).and_return(true)
         put :update, registration: {}
@@ -99,6 +105,8 @@ describe RegistrationsController do
       end
 
       it 'should redirect to the form on invalid data' do
+        SubmitEml310.should_not_receive(:schedule)
+
         af.should_not_receive(:unmark!)
         af.should_receive(:touch)
         current_registration.should_receive(:update_attributes).and_return(false)
