@@ -48,6 +48,7 @@ Deployment prerequisites
 * MySQL 5+
 * Ruby 1.9.3-p0 (see Installing Ruby section)
 * Apache 2 with Passenger 3.0.11 (see Installing Passenger section)
+* Redis server (see Installing Redis section)
 
 Deployment
 ----------
@@ -146,6 +147,71 @@ and the configuration script will show which of them are missing.
 Upon installation, you need to add Passenger module configuration to
 your httpd.conf or a separate file in `/etc/httpd/conf.d/passenger.conf`
 (recommended).
+
+
+Installing Redis
+----------------
+
+Redis is a key-store value necessary for running background tasks --
+submitting EML310 data to remote systems.
+
+    (as root or with sudo)
+
+    $ cd /opt
+    $ wget http://redis.googlecode.com/files/redis-2.6.4.tar.gz
+    $ tar zxf redis-2.6.4.tar.gz
+    $ cd redis-2.6.4
+    $ make
+    $ cd /opt
+    $ mkdir redis
+    $ cp redis-2.6.4/src/redis-benchmark redis/
+    $ cp redis-2.6.4/src/redis-cli redis/
+    $ cp redis-2.6.4/src/redis-server redis/
+    $ cp redis-2.6.4/src/redis-check-aof redis/
+    $ cp redis-2.6.4/src/redis-check-dump redis/
+    $ cat > redis/redis.conf
+
+        daemonize yes
+        pidfile /var/run/redis.pid
+        logfile /var/log/redis.log
+
+        port 6379
+        bind 127.0.0.1
+        timeout 300
+
+        loglevel notice
+
+        databases 16
+
+        save 900 1
+        save 300 10
+        save 60 10000
+
+        rdbcompression yes
+        dbfilename dump.rdb
+
+        dir /opt/redis/
+        appendonly no
+
+        glueoutputbuf yes
+
+Install init script:
+
+    $ cd /opt/
+    $ wget -O init-rpm.sh http://library.linode.com/assets/631-redis-init-rpm.sh
+    $ useradd -M -r --home-dir /opt/redis redis
+    $ mv /opt/init-rpm.sh /etc/init.d/redis
+    $ chmod +x /etc/init.d/redis
+    $ chown -R redis:redis /opt/redis
+    $ touch /var/log/redis.log
+    $ chown redis:redis /var/log/redis.log
+    $ chkconfig --add redis
+    $ chkconfig redis on
+
+Start / stop Redis server:
+
+    $ /etc/init.d/redis start
+    $ /etc/init.d/redis stop
 
 
 Marking ballots online

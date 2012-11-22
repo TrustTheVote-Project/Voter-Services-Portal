@@ -1,3 +1,5 @@
+require 'sidekiq/capistrano'
+
 # Location configuration
 set :domain,      "server.com"                    # Domain name or IP address of the server
 set :user,        "deploy"                        # Unix user to own the deployment
