@@ -40,6 +40,10 @@ VaVote::Application.routes.draw do
     resources :log_records, only: [ :index, :show ]
   end
 
+  namespace :api do
+    get '/search' => 'registrations#show'
+  end
+
   root to: "pages#front"
 
 end
