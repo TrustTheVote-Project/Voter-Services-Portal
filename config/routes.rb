@@ -41,7 +41,7 @@ VaVote::Application.routes.draw do
   end
 
   namespace :api do
-    get '/search' => 'registrations#show'
+    get '/search' => 'registrations#show', format: 'json'
   end
 
   root to: "pages#front"

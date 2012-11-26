@@ -1,15 +1,20 @@
-class Api::RegistrationsController < ActionController::Metal
+class Api::RegistrationsController < ActionController::Base
 
   class InvalidSearchQuery < StandardError; end
 
-  include ActionController::Rendering
-
   # searches for registrations
   def show
+    cb = params.delete(:cb)
+    params[:lookup_type] = params[:voter_id].present? ? 'voter_id' : 'ssn4'
+
     @query = build_search_query
-    render_json success: true, record: ''
+    @reg = RegistrationSearch.perform(@query)
+
+    render_response cb, render_to_string(:show)
   rescue InvalidSearchQuery
-    render_error 'Invalid search parameters'
+    render_error cb, 'Invalid search parameters'
+  rescue RegistrationSearch::RecordNotFound
+    render_error cb, 'Record not found'
   end
 
   private
@@ -26,15 +31,15 @@ class Api::RegistrationsController < ActionController::Metal
   end
 
   # renders the error
-  def render_error(msg)
+  def render_error(cb, msg)
     @json_response = { success: false, error: msg }
-    render text: @json_response.to_json, status: 500
+    json = @json_response.to_json
+    render text: (cb ? "#{cb}(#{json})" : json), status: (cb ? 200 : 500)
   end
 
   # renders json
-  def render_json(hash)
-    @json_response = hash
-    render text: @json_response.to_json
+  def render_response(cb, json)
+    render text: (cb ? "#{cb}(#{json})" : json)
   end
 
 end
