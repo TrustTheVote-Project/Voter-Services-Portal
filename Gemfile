@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.2'
+gem 'rails', '3.2.9'
 
 gem 'mysql2'
 
@@ -32,6 +32,7 @@ gem 'wicked_pdf', git: 'git://github.com/alg/wicked_pdf.git', branch: 'issue-114
 gem 'nokogiri'
 gem 'factory_girl_rails'
 gem 'sidekiq'
+gem 'jbuilder'
 
 group :development do
   gem 'capistrano'
