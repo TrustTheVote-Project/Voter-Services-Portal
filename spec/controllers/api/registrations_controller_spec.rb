@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Api::RegistrationsController, :focus do
+describe Api::RegistrationsController do
 
   let(:r) { FactoryGirl.build(:existing_residential_voter) }
 
