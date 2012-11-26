@@ -1,0 +1,10 @@
+# Sample configuration file for Sidekiq.
+# Options here can still be overridden by cmd line args.
+#   sidekiq -C config.yml
+---
+:verbose:       false
+:pidfile:       ./tmp/pids/sidekiq.pid
+:namespace:     va_vote
+:concurrency:   3
+:queues:
+  - [default, 2]
