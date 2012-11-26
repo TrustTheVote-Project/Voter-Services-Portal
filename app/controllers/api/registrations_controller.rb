@@ -8,7 +8,7 @@ class Api::RegistrationsController < ActionController::Base
     params[:lookup_type] = params[:voter_id].present? ? 'voter_id' : 'ssn4'
 
     @query = build_search_query
-    @reg = RegistrationSearch.perform(@query)
+    @reg   = RegistrationSearch.perform(@query)
 
     render_response cb, render_to_string(:show)
   rescue InvalidSearchQuery
@@ -23,7 +23,8 @@ class Api::RegistrationsController < ActionController::Base
   # raises the #InvalidSearchQuery# if parameters are incomplete.
   def build_search_query
     p     = params.except('action', 'controller')
-    query = SearchQuery.new(p)
+    dob   = (d = params.delete(:dob)).present? ? Date.parse(d) : nil
+    query = SearchQuery.new(p.merge(dob: dob))
 
     raise InvalidSearchQuery unless query.valid?
 

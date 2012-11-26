@@ -2,26 +2,19 @@ require 'spec_helper'
 
 describe Api::RegistrationsController, :focus do
 
-  let(:r) { FactoryGirl.create(:existing_residential_voter) }
+  let(:r) { FactoryGirl.build(:existing_residential_voter) }
 
   it 'should return existing record by voter ID' do
     RegistrationSearch.should_receive(:perform).and_return(r)
     get :show, voter_id: 600000000, locality: 'NORFOLK CITY', format: 'json'
     response.should be_success
-
-    r = assigns(:json_response)
-    r['success'].should be_true
-    r['record'].should be
   end
 
   it 'should return existing record by SSN' do
     RegistrationSearch.should_receive(:perform).and_return(r)
     get :show, ssn4: '1234', first_name: 'F', last_name: 'L', dob: '1979-10-24', locality: 'NORFOLK CITY', format: 'json'
-
+    assigns(:query).dob.strftime("%Y-%m-%d").should == "1979-10-24"
     response.should be_success
-    r = assigns(:json_response)
-    r['success'].should be_true
-    r['record'].should be
   end
 
   it 'should incomplete search' do
