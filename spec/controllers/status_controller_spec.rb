@@ -8,7 +8,7 @@ describe StatusController do
     it 'should render the search form if there is no registration to display' do
       get :show
       assigns(:search_query).should be
-      should render_template :search_form
+      should render_template :show
     end
 
     it 'should render the registration data' do
@@ -24,7 +24,7 @@ describe StatusController do
     it 'should render the search form if query is invalid' do
       post :search
       assigns(:search_query).should be
-      should render_template :search_form
+      should render_template :show
     end
 
     it 'should render the registration data upon successful search' do
@@ -39,8 +39,9 @@ describe StatusController do
       SearchQuery.any_instance.stub(valid?: true)
       RegistrationSearch.should_receive(:perform).and_raise(RegistrationSearch::RecordNotFound)
       post :search
+      assigns(:search_query).should be
       assigns(:error).should be
-      should render_template :error
+      should render_template :show
     end
   end
 

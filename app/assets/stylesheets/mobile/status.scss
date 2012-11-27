@@ -1,0 +1,21 @@
+#status {
+  #search form {
+    display: none;
+  }
+
+  .no-reg #search {
+    .new_lookup {
+      display: none;
+    }
+    form {
+      display: block;
+    }
+  }
+
+  #record {
+    label {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  }
+}

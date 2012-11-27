@@ -3,7 +3,7 @@
   %head
     %title VA Voter Portal
     = stylesheet_link_tag     "mobile", :media => "all"
-    = javascript_include_tag  "head.min.js"
+    %meta( content='width=device-width,initial-scale=1' name='viewport' )
     = csrf_meta_tags
 
   %body{ id: @page_id }
@@ -11,3 +11,4 @@
       .content
         = yield
 
+    = javascript_include_tag  "mobile"

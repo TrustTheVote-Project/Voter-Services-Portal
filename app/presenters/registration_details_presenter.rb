@@ -199,6 +199,13 @@ class RegistrationDetailsPresenter
     @registration.ppl_address.present?
   end
 
+  def voting_location_for_directions
+    [ @registration.ppl_address,
+      [ @registration.ppl_city, [ @registration.ppl_state, @registration.ppl_zip ] ].rjoin(', '),
+      'USA'
+    ].rjoin(', ')
+  end
+
   def voting_location
     [ @registration.ppl_location_name,
       @registration.ppl_address,

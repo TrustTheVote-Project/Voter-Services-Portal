@@ -1,9 +1,4 @@
-# Sample localization file for English. Add more files in this directory for other locales.
-# See https://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
-
 en:
-  hello: "Hello world"
-
   outside_type:
     ActiveDutyMerchantMarineOrArmedForces: Active Duty Merchant Marine or Armed Forces
     SpouseOrDependentActiveDutyMerchantMarineOrArmedForces: Spouse or dependent living with a member of an active duty Merchant Marine or Armed Forces
@@ -23,3 +18,7 @@ en:
     record_is_inactive:
       title:  "Inactive Record"
       body:   "We are sorry, but we are unable to process your request based on the information you have provided.  Please contact your local general registrar or the State Board of Elections at info@sbe.virginia.gov or at 1-800-552-9745 for assistance."
+
+  voting_status:
+    residential_voter: "Virginia Residential Voter"
+    overseas: "Overseas/Military Absentee Voter"

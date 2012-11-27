@@ -1,0 +1,25 @@
+- if @registration.present?
+  - r = @registration
+  - p = RegistrationDetailsPresenter.new(r)
+
+  %section#record
+    %label Name
+    .name
+      = r.full_name
+
+    %label Registration address
+    .reg_address
+      = p.registration_address
+
+    %label Your status
+    .voter_status
+      = t "voting_status.#{p.status}"
+
+    %label Voting location
+    .voting_location
+      = p.voting_location
+
+    %label Directions
+    - saddr = CGI::escape(p.registration_address)
+    - daddr = CGI::escape(p.voting_location_for_directions)
+    = link_to "Google maps", "http://maps.google.com/maps?saddr=#{saddr}&daddr=#{daddr}", class: 'directions'

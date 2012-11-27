@@ -1,0 +1,19 @@
+%section#search
+  = link_to "#", class: 'new_lookup' do
+    %i.icon-search
+    New lookup
+  = form_for @search_query, url: status_path do |f|
+    = f.hidden_field :lookup_type
+
+    .partition
+      .row
+        .span3.numbers
+          %label( for='search_query_voter_id' ) Voter ID
+          = f.text_field :voter_id, label: 'Voter ID', placeholder: 'NNNNNNNNN', maxlength: 9, class: 'span3'
+        .span3
+          %label( for='locality_vid' ) Locality
+          = f.select :locality, Office.localities, { include_blank: true }, id: 'locality_vid', class: 'span3'
+
+    .row
+      .span10
+        = f.submit 'Lookup record', class: 'btn'

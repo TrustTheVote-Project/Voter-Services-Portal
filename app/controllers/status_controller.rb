@@ -16,7 +16,8 @@ class StatusController < ApplicationController
   # renders the search form
   def search_form
     @search_query ||= SearchQuery.new(params[:search_query])
-    render :search_form
+    @search_query.lookup_type = 'vid'
+    render :show
   end
 
   # searches for the record and shows status
@@ -29,7 +30,7 @@ class StatusController < ApplicationController
 
     render :show
   rescue RegistrationSearch::SearchError => @error
-    render :error
+    search_form
   end
 
 end

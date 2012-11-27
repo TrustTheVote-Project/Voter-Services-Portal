@@ -13,4 +13,4 @@
 //= require public/html5shiv
 //= require jquery
 //= require bootstrap
-//= require bootstrap-responsive
+//= require_tree ./mobile
