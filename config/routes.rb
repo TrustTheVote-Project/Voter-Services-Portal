@@ -1,10 +1,13 @@
 VaVote::Application.routes.draw do
 
-  get   '/not_found' => 'pages#not_found', as: 'not_found'
-  get   '/p/:id'     => 'external_pages#show'
+  get   '/not_found'  => 'pages#not_found', as: 'not_found'
+  get   '/p/:id'      => 'external_pages#show'
 
-  get   '/search' => 'search#new', as: :search_form
-  post  '/search' => 'search#create', as: :search
+  get   '/search'     => 'search#new', as: :search_form
+  post  '/search'     => 'search#create', as: :search
+
+  get   '/status'     => 'status#show', as: :status
+  post  '/status'     => 'status#search'
 
   resource :page, only: [], path: '' do
     member do

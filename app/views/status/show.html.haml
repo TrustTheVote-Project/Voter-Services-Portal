@@ -1,0 +1,53 @@
+.row
+  .span12
+    %h2 Registration Status
+
+.row
+  .span12
+    %p= link_to "New Lookup", "#"
+
+= form_for @search_query, url: search_path do |f|
+  .row
+    .span3
+      .radio
+        = f.radio_button :lookup_type, 'ssn4'
+        %label( for='search_query_lookup_type_ssn4' ) Use SSN4
+      .radio
+        = f.radio_button :lookup_type, 'vid'
+        %label( for='search_query_lookup_type_vid' ) Use Voter ID
+
+  .partition
+    .row
+      .span3
+        %label( for='search_query_first_name' ) First name
+        = f.text_field :first_name, class: 'span3'
+      .span3
+        %label( for='search_query_last_name' ) Last name
+        = f.text_field :last_name, class: 'span3'
+      .span4
+        %label( for='search_query_dob' ) Date of birth
+        = bound_date f, :dob, { object_name: 'search_query', start_year: Date.today.year - 120, end_year: Date.today.year - 17 }, { class: 'date' }
+
+    .row
+      .span3.numbers
+        %label( for='search_query_ssn4' ) Last 4 digits of SSN
+        = f.text_field :ssn4, placeholder: 'NNNN', maxlength: 4, class: 'span1'
+      .span3
+        %label( for='locality_ssn' ) Locality
+        = f.select :locality, Office.localities, { include_blank: true }, id: 'locality_ssn', class: 'span3'
+
+  .partition
+    .row
+      .span3.numbers
+        %label( for='search_query_voter_id' ) Voter ID
+        = f.text_field :voter_id, label: 'Voter ID', placeholder: 'NNNNNNNNN', maxlength: 9, class: 'span3'
+      .span3
+        %label( for='locality_vid' ) Locality
+        = f.select :locality, Office.localities, { include_blank: true }, id: 'locality_vid', class: 'span3'
+
+  .partition
+    .checkbox
+      = check_box_tag :swear, 1, false
+      %label{ for: 'swear' }
+        I swear/affirm, under felony penalty for making willfully false material statements or entries, that the
+        information provided to access my voter registration record are my own.

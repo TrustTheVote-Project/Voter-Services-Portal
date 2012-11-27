@@ -1,0 +1,13 @@
+!!!
+%html
+  %head
+    %title VA Voter Portal
+    = stylesheet_link_tag     "mobile", :media => "all"
+    = javascript_include_tag  "head.min.js"
+    = csrf_meta_tags
+
+  %body{ id: @page_id }
+    .container
+      .content
+        = yield
+
