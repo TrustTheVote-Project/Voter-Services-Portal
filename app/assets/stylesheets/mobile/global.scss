@@ -1,3 +1,58 @@
+#header {
+  h1 {
+    padding-top: 10pt;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  body {
+    background-image: none;
+    background-color: #fff;
+  }
+
+  #header {
+    margin-left: -20px;
+    margin-right: -20px;
+    img {
+      padding-left: 10px;
+    }
+
+    h1 {
+      padding-top: 10pt;
+      font-size: 21pt;
+      padding-right: 10px;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  #header {
+    height: 45px;
+    padding: 12px 10px;
+
+    img {
+      width: 67.5px;
+      height: 45px;
+    }
+
+    h1 {
+      padding-top: 3pt;
+      font-size: 13pt;
+    }
+  }
+}
+
+@media (min-width: 960px) {
+  .container {
+    width: 960px;
+  }
+}
+
+.content {
+  background: #fff;
+}
+
 select.date {
   width: auto;
 }

@@ -9,6 +9,9 @@
   %body{ id: @page_id }
     .container
       .content
+        #header
+          = image_tag 'VA_logo.png', size: '90x60'
+          %h1 Virginia Voter Registration
         = yield
 
     = javascript_include_tag  "mobile"

@@ -11,5 +11,7 @@
  *= require_self
  *= require bootstrap
  *= require bootstrap-responsive
+ *= require public/header
+ *= require common_page
  *= require_tree ./mobile
-*/
+ */
