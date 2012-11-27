@@ -1,7 +1,7 @@
 class window.Popover
   constructor: (id, errors) ->
     @errors = errors
-    @el = $(id).popover(content: @popoverContent, title: 'Please review', html: 'html')
+    @el = $(id).popover(content: @popoverContent, title: 'Please review', html: true, trigger: 'hover')
     @po = @el.data().popover
 
     errors.subscribe @update

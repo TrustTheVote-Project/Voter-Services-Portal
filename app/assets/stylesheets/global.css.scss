@@ -1,4 +1,4 @@
-@import "compass_twitter_bootstrap";
+//= require bootstrap
 
 body {
   padding: 20px 0;
@@ -60,4 +60,9 @@ table.properties {
   label, span, p, h4, strong, label strong {
     color: #E9322D;
   }
+}
+
+h3 {
+  font-size: 18px;
+  line-height: 27px;
 }

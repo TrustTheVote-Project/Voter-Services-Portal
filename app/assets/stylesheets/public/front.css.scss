@@ -7,6 +7,7 @@
     font-size: 23pt;
     padding: 0;
     margin-top: 36pt;
+    margin-bottom: 0;
   }
 
   small {
@@ -63,14 +64,21 @@
     h3 {
       color: #cf2145;
       padding-bottom: 5px;
+      font-size: 18px;
       font-family: Georgia, serif;
       border-bottom: 1px solid #4d4a4c;
       margin-bottom: 10px;
+      margin-top: 0;
     }
   }
 
   .options-details {
     margin-bottom: 25px;
+
+    h4 {
+      font-size: 14px;
+      margin-bottom: 0;
+    }
   }
 
   .options-links {

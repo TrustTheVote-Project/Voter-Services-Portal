@@ -12,15 +12,5 @@
 //
 //= require public/html5shiv
 //= require jquery
-//= require jquery_ujs
 //= require bootstrap
-//= require knockout-2.1.0
-//= require moment.min
-//= require jquery.ba-hashchange.min
-//= require feedback
-//= require jquery-ui-1.8.21.custom.min
-//= require public/helpers
-//= require public/popover
-//= require public/registration
-//= require public/finalization
-//= require_tree ./public
+//= require bootstrap-responsive
