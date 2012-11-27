@@ -1,8 +1,10 @@
 - @page_id = 'status'
 
 .row{ class: @registration.blank? ? 'no-reg' : nil }
-  .span10.offset1
-    %h2 Status Check
+  .span8.offset1
+    .page-header
+      %h1 Status Check
+
     = render 'errors'
     = render 'search'
     = render 'record'

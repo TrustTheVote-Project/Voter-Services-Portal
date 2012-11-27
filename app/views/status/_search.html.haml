@@ -2,6 +2,7 @@
   = link_to "#", class: 'new_lookup' do
     %i.icon-search
     New lookup
+
   = form_for @search_query, url: status_path do |f|
     = f.hidden_field :lookup_type
 

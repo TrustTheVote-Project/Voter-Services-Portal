@@ -2,9 +2,9 @@ class StatusLookup
   constructor: ->
     lookupLink = $("a.new_lookup")
     lookupLink.click ->
+      lookupLink.fadeOut()
       $("#record").fadeOut ->
-        $("#search form").fadeIn ->
-          lookupLink.hide()
+        $("#search form").fadeIn()
 
   lookup: =>
     @recordSection.hide()
@@ -12,4 +12,3 @@ class StatusLookup
 $ ->
   if $("#status").length > 0
     new StatusLookup()
-
