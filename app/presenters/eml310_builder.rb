@@ -220,8 +220,8 @@ class Eml310Builder
             address_lines xml, [
               [ nil,          r.apo_address ],
               [ nil,          r.apo_address_2 ],
-              [ 'City',       r.apo_1 ],
-              [ 'State',      r.apo_2 ],
+              [ 'City',       r.apo_city ],
+              [ 'State',      r.apo_state ],
               [ 'PostalCode', r.apo_zip5 ],
               [ 'Country',    'United States' ] ]
           end

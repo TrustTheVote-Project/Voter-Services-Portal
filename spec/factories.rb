@@ -99,8 +99,8 @@ FactoryGirl.define do
 
       mau_type            'apo'
       apo_address         'Apo street'
-      apo_1               'APO'
-      apo_2               'AA'
+      apo_city            'APO'
+      apo_state           'AA'
       apo_zip5            '23456'
 
       outside_type        'ActiveDutyMerchantMarineOrArmedForces'

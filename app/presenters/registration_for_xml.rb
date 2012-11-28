@@ -11,7 +11,7 @@ class RegistrationForXML
                   :vvr_town, :vvr_state, :vvr_state, :vvr_rural,
                   :ma_address, :ma_address_2, :ma_city, :ma_state, :mau_type, :mau_address, :mau_address_2, :mau_city, :mau_city_2,
                   :mau_state, :mau_postal_code, :mau_country,
-                  :apo_address, :apo_address_2, :apo_1, :apo_2, :apo_zip5,
+                  :apo_address, :apo_address_2, :apo_city, :apo_state, :apo_zip5,
                   :has_existing_reg,
                   :er_street_number, :er_street_name, :er_street_type, :er_apt,
                   :er_city, :er_state, :er_zip5, :er_zip4, :er_is_rural, :er_rural,

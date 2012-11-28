@@ -37,7 +37,7 @@ class VoterCard
   def address_line_2
     if @r.currently_overseas?
       if @r.mau_type == 'apo'
-        [ @r.apo_1, @r.apo_2, @r.apo_zip5 ].rjoin(', ')
+        [ @r.apo_city, @r.apo_state, @r.apo_zip5 ].rjoin(', ')
       else
         [ @r.mau_city, @r.mau_city_2, @r.mau_state, @r.mau_postal_code, @r.mau_country ].rjoin(", ")
       end

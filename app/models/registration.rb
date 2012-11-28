@@ -47,7 +47,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :vvr_uocava_residence_available, :vvr_uocava_residence_unavailable_since
   serialized_attr :mau_address, :mau_address_2, :mau_city, :mau_city_2, :mau_state, :mau_postal_code, :mau_country, :mau_type
   serialized_attr :ma_address, :ma_address_2, :ma_apt, :ma_city, :ma_state, :ma_zip5, :ma_zip4, :ma_is_same
-  serialized_attr :apo_address, :apo_address_2, :apo_1, :apo_2, :apo_zip5
+  serialized_attr :apo_address, :apo_address_2, :apo_city, :apo_state, :apo_zip5
   serialized_attr :has_existing_reg, :er_cancel
   serialized_attr :er_street_number, :er_street_name, :er_street_type, :er_apt,
                   :er_city, :er_state, :er_zip5, :er_zip4, :er_is_rural, :er_rural
@@ -71,7 +71,7 @@ class Registration < ActiveRecord::Base
   # Current status fields (from server)
   serialized_attr :existing
   serialized_attr :ssn4
-  serialized_attr :current_residence
+  serialized_attr :current_residence, :military, :overseas
   serialized_attr :absentee_for_elections, :past_elections
   serialized_attr :current_absentee_until           # overseas absentee
   serialized_attr :poll_precinct, :poll_locality, :poll_district, :districts, :poll_pricinct_split

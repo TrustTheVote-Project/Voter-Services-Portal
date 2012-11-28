@@ -167,8 +167,8 @@ class RegistrationDetailsPresenter
     else
       [ data[:apo_address],
         data[:apo_address_2],
-        data[:apo_1],
-        data[:apo_2],
+        data[:apo_city],
+        data[:apo_state],
         data[:apo_zip5] ].rjoin(', ')
     end
   end

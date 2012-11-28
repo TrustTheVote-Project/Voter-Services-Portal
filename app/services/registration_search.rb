@@ -262,6 +262,8 @@ class RegistrationSearch
       poll_pricinct_split:    doc.css('PollingDistrict Association[Id="PrecinctSplitUID"]').try(:text),
 
       ssn4:                   "XXXX",
+      military:               military,
+      overseas:               overseas,
       current_residence:      military || overseas ? "outside" : "in",
       current_absentee_until: current_absentee_until,
       absentee_for_elections: absentee_for_elections,
@@ -314,8 +316,8 @@ class RegistrationSearch
           mau_type:           'apo',
           apo_address:        ma_address,
           apo_address_2:      ma_address_2,
-          apo_1:              ma_city.upcase,
-          apo_2:              ma_state.upcase,
+          apo_city:           ma_city.upcase,
+          apo_state:          ma_state.upcase,
           apo_zip5:           ma_zip5 })
       else
         options.merge!({

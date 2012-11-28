@@ -167,8 +167,8 @@ describe RegistrationSearch do
       its(:mau_type)        { should == "apo" }
       its(:apo_address)     { should == "UNIT 3050 Box 63" }
       its(:apo_address_2)   { should == nil }
-      its(:apo_1)           { should == "DPO" }
-      its(:apo_2)           { should == "AA" }
+      its(:apo_city)        { should == "DPO" }
+      its(:apo_state)       { should == "AA" }
       its(:apo_zip5)        { should == "34025" }
     end
 

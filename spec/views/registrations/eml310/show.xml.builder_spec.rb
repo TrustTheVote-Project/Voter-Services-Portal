@@ -108,7 +108,7 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
       end
 
       it 'is APO/DPO/FPO' do
-        r = reg_overseas mau_type: 'apo', apo_address: 'a1', apo_address_2: 'a2', apo_1: '1', apo_2: '2', apo_zip5: '12345'
+        r = reg_overseas mau_type: 'apo', apo_address: 'a1', apo_address_2: 'a2', apo_city: '1', apo_state: '2', apo_zip5: '12345'
         xml.within "MailingAddress[status='current'] FreeTextAddress" do |a|
           a.should have_selector "AddressLine[seqn='0001']:not([type])", text: 'a1'
           a.should have_selector "AddressLine[seqn='0002']:not([type])", text: 'a2'
