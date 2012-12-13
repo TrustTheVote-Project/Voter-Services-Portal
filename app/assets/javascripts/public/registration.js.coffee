@@ -357,7 +357,7 @@ class window.Registration
       if @vvrIsRural()
         @vvrRural()
       else
-        join([ join([ @vvrStreetNumber(), @vvrApt() ], '/'), @vvrStreetName(), @vvrStreetType() ], ' ') + "<br/>" +
+        join([ @vvrStreetNumber(), @vvrStreetName(), @vvrStreetType(), (if filled(@vvrApt()) then "##{@vvrApt()}" else null) ], ' ') + "<br/>" +
         join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
 
     @summaryOverseasMailingAddress = ko.computed =>
