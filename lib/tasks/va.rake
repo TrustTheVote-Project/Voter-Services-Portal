@@ -26,7 +26,7 @@ namespace :va do
     d2 = ENV['end_date']
     t2 = ENV['end_time']
 
-    LogExporter.acrivity(d1, t1, d2, t2)
+    LogExporter.activity(d1, t1, d2, t2)
   end
 
   desc 'Exports error log'
