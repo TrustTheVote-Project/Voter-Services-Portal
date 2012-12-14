@@ -18,6 +18,7 @@ describe RegistrationSearch do
     its(:vvr_street_name)         { should == "Back woods" }
     its(:vvr_street_type)         { should == "ST" }
     its(:vvr_apt)                 { should == "" }
+    its(:vvr_county_or_city)      { should == "TAZEWELL COUNTY" }
     its(:vvr_town)                { should == "N Tazewell" }
     its(:vvr_zip5)                { should == "24630" }
     its(:vvr_zip4)                { should == nil }

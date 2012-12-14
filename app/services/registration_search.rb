@@ -227,6 +227,8 @@ class RegistrationSearch
     obe_1 = oa || (ela && absentee_for_elections_uids.include?(ceid))
     obe_2 = military || overseas
 
+    poll_locality = doc.css('PollingDistrict Association[Id="LocalityName"]').try(:text)
+
     options = {
       voter_id:               voter_id,
       first_name:             doc.css('GivenName').try(:text),
@@ -246,6 +248,7 @@ class RegistrationSearch
       vvr_street_name:        vvr_thoroughfare['name'],
       vvr_street_type:        vvr_thoroughfare['type'],
       vvr_apt:                vvr_apt,
+      vvr_county_or_city:     poll_locality,
       vvr_town:               vvr.css('Locality').try(:text),
       vvr_zip5:               vvr_zip5,
       vvr_zip4:               vvr_zip4,
@@ -257,7 +260,7 @@ class RegistrationSearch
       is_confidential_address: '0',
 
       poll_precinct:          doc.css('PollingDistrict Association[Id="PrecinctName"]').try(:text),
-      poll_locality:          doc.css('PollingDistrict Association[Id="LocalityName"]').try(:text),
+      poll_locality:          poll_locality,
       poll_district:          doc.css('PollingDistrict Association[Id="ElectoralDistrict"]').try(:text),
       poll_pricinct_split:    doc.css('PollingDistrict Association[Id="PrecinctSplitUID"]').try(:text),
 
