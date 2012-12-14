@@ -20,7 +20,10 @@
 
       - if mac
         .row
-          = field_line 3, rr.registration_address, 'registration address'
+          - if rac
+            .span3 &nbsp;
+          - else
+            = field_line 3, rr.registration_address, 'registration address'
           = field_line 3, rr.update_mailing_address, 'new mailing address'
 
     - if er
