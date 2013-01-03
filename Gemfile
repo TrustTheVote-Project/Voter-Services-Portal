@@ -36,8 +36,8 @@ group :development do
 end
 
 group :test do
-  gem 'rspec'
-  gem 'rspec-rails'
+  gem 'rspec',        '~> 2.12.0'
+  gem 'rspec-rails',  '~> 2.12.0'
   gem 'turnip'
   gem 'poltergeist'
   gem 'faker'
@@ -53,4 +53,7 @@ end
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'pry-rails'
+  gem 'pry-debugger'
+  gem 'better_errors'
 end
