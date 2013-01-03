@@ -31,4 +31,14 @@ describe RegistrationRepository do
     end
   end
 
+  describe 'query data' do
+    let(:dob) { 48.years.ago.to_date }
+    let(:ssn4) { '1234' }
+    let(:data) { { dob: dob, ssn4: ssn4 } }
+
+    before  { RegistrationRepository.store_lookup_data(session, SearchQuery.new(data)) }
+    specify { RegistrationRepository.get_lookup_ssn4(session).should == ssn4 }
+    specify { RegistrationRepository.pop_lookup_data(session).should == data }
+  end
+
 end

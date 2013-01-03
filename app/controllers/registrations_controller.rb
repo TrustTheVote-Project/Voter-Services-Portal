@@ -93,6 +93,10 @@ class RegistrationsController < ApplicationController
     # "kind" comes from the review form where we either maintain or
     # change the status.
     @registration.init_update_to(params[:kind].to_s)
+
+    # Take SSN4 from the stored lookup data if it's not there
+    ssn4 = RegistrationRepository.get_lookup_ssn4(session)
+    @registration.ssn4 = ssn4 if @registration.ssn4.blank?
   end
 
   def update
@@ -104,7 +108,9 @@ class RegistrationsController < ApplicationController
 
     @registration = current_registration
     @registration.init_update_to(params[:kind])
-    @registration.dob = RegistrationRepository.pop_lookup_dob(session)
+
+    lookup_data = RegistrationRepository.pop_lookup_data(session)
+    @registration.dob = lookup_data[:dob]
 
     unless @registration.update_attributes(data)
       active_form.touch

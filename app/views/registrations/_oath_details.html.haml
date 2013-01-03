@@ -1,6 +1,19 @@
+- updating ||= false
+
 .head
   %h3 Oath
   .description Read the Registration Statement and Privacy Act.
+
+- if updating
+  .partition#ssn4_details
+    %p
+      Please provide the last four digits of your Social Security Number (required),
+      and read the Registration Statement and Privacy Act.
+
+    .row
+      .span2
+        = f.text_field :ssn4, autocomplete: ac, placeholder: 'NNNN', maxlength: 4, 'data-bind' => 'instantValidation: { accessor: "ssn4", validation: "ssn4" }', class: 'span1'
+
 .partition
   .row
     .span10

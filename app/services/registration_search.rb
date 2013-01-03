@@ -264,7 +264,6 @@ class RegistrationSearch
       poll_district:          doc.css('PollingDistrict Association[Id="ElectoralDistrict"]').try(:text),
       poll_pricinct_split:    doc.css('PollingDistrict Association[Id="PrecinctSplitUID"]').try(:text),
 
-      ssn4:                   "XXXX",
       military:               military,
       overseas:               overseas,
       current_residence:      military || overseas ? "outside" : "in",

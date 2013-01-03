@@ -1,5 +1,6 @@
+- updating ||= false
 #oath.section{ 'data-bind' => 'vis: page() == "oath"' }
-  = render partial: 'oath_details'
+  = render partial: 'oath_details', locals: { f: f, updating: updating }
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: oathInvalid }'

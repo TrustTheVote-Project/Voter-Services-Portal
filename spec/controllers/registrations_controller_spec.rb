@@ -76,10 +76,24 @@ describe RegistrationsController do
   end
 
   describe 'edit' do
-    before  { ActiveForm.should_receive(:mark!) }
-    before  { get :edit }
-    specify { assigns(:registration).should == current_registration }
-    it      { should render_template :edit }
+    describe 'basics' do
+      before  { ActiveForm.should_receive(:mark!) }
+      before  { get :edit }
+      specify { assigns(:registration).should == current_registration }
+      it      { should render_template :edit }
+    end
+
+    context 'w/ SSN4' do
+      before  { current_registration.ssn4 = '1111' }
+      before  { get :edit }
+      specify { assigns(:registration).ssn4.should == '1111' }
+    end
+
+    context 'w/o SSN4' do
+      before  { RegistrationRepository.store_lookup_data(session, SearchQuery.new(ssn4: '2222')) }
+      before  { get :edit }
+      specify { assigns(:registration).ssn4.should == '2222' }
+    end
   end
 
   describe 'update' do
@@ -97,7 +111,7 @@ describe RegistrationsController do
       it 'should set saved lookup DOB' do
         dob = 40.years.ago
         af.should_receive(:unmark!)
-        RegistrationRepository.should_receive(:pop_lookup_dob).and_return(dob)
+        RegistrationRepository.should_receive(:pop_lookup_data).and_return({ dob: dob })
         put :update, registration: {}
         assigns(:registration).dob.should == dob
       end
