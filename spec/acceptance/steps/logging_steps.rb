@@ -113,8 +113,13 @@ steps_for :logging do
     visit search_path
 
     choose  'Use Voter ID'
-    fill_in 'Voter ID', with: '600000000'
-    select  'NORFOLK CITY', from: 'locality_vid'
+    within "#vid" do
+      fill_in 'Voter ID', with: '600000000'
+      select  'NORFOLK CITY', from: 'locality_vid'
+      select  "January",  from: "search_query_dob_2i_"
+      select  "1",        from: "search_query_dob_3i_"
+      select  "1996",     from: "search_query_dob_1i_"
+    end
     check   'swear'
 
     VCR.use_cassette("logging_search") do

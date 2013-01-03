@@ -22,13 +22,14 @@ class SearchForm
       unless filled(@locality())
         errors.push("Locality")
 
+      unless present(@dob())
+        errors.push("Date of birth")
+
       if @lookupType() == 'ssn4'
         unless filled(@firstName())
           errors.push("First name")
         unless filled(@lastName())
           errors.push("Last name")
-        unless present(@dob())
-          errors.push("Date of birth")
         unless ssn4(@ssn4())
           errors.push("SSN4")
       else
