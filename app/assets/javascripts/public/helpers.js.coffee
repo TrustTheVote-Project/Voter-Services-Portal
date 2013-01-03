@@ -44,6 +44,9 @@ ko.bindingHandlers.valueWithInit = {
 
     ko.bindingHandlers.value.init(element, valueAccessor, allBindingsAccessor, context)
     property(value)
+
+  update: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
+    ko.bindingHandlers.value.update(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext)
 }
 
 ko.bindingHandlers.checkedWithInit = {
@@ -109,4 +112,12 @@ ko.bindingHandlers.instantValidation = {
       else
         elementAcceptor.addClass(errorClass)
     )
+
+  update: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
+    toggleElement = $(element).is(':checkbox, :radio')
+    va = viewModel[valueAccessor().accessor]
+    if toggleElement
+      ko.bindingHandlers.checked.update(element, va, allBindingsAccessor, viewModel, bindingContext)
+    else
+      ko.bindingHandlers.value.update(element, va, allBindingsAccessor, viewModel, bindingContext)
 }
