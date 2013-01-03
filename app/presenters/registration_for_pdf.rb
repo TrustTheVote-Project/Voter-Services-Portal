@@ -1,6 +1,6 @@
 class RegistrationForPdf < RegistrationDetailsPresenter
 
-  def_delegators :@reg, :requesting_absentee?, :no_form_changes?
+  def_delegators :@reg, :requesting_absentee?, :no_form_changes?, :ssn4
 
   def initialize(reg)
     super reg

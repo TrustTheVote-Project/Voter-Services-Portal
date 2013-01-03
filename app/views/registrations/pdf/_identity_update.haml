@@ -14,13 +14,18 @@
         = field_line 6, rr.previous_name, 'previous name'
 
     .row
-      = field_line 2, rr.voter_id, 'voter id'
-      = field_line 1, rr.phone, 'new phone', if: rr.phone_changed?
-      - if rr.overseas? && !AppConfig['registration']['absentee_party_preference'] && rr.party_preference
-        = field_line 1, :empty
-        = field_line 2, rr.party_preference, 'new party preference', if: rr.party_changed?
+      = field_line 1, rr.voter_id, 'voter id'
+      = field_line 1, rr.ssn4, 'ssn4'
+      = field_line 1, rr.dob, 'date of birth'
+
+      - if rr.phone_changed?
+        = field_line 3, rr.phone, 'new phone'
       - else
         = field_line 3, :empty
+
+    - if rr.overseas? && !AppConfig['registration']['absentee_party_preference'] && rr.party_preference && rr.party_changed?
+      .row
+        = field_line 6, rr.party_preference, 'new party preference'
 
     - if rr.being_official?
       .row
