@@ -291,22 +291,6 @@ select {
   }
 }
 
-#identity {
-  .security-number {
-    input#registration_ssn {
-      width: 130px;
-    }
-  }
-
-  .phone-field {
-    width: 150px;
-
-    input {
-      width: 140px;
-    }
-  }
-}
-
 .notice {
   border: 1px solid #d2d1d2;
   padding: 5px 8px;

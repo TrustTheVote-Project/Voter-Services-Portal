@@ -38,12 +38,12 @@
     .span12.security-number
       %label{ for: 'registration_ssn' } Social Security Number
       <!-- ko if: !noSSN() -->
-      = f.text_field :ssn, autocomplete: ac, placeholder: 'NNNNNNNNN', maxlength: 9, 'data-bind' => 'instantValidation: { accessor: "ssn", validation: "ssn" }'
+      = f.text_field :ssn, autocomplete: ac, placeholder: 'NNNNNNNNN', maxlength: 9, 'data-bind' => 'instantValidation: { accessor: "ssn", validation: "ssn" }', class: 'span2'
       <!-- /ko -->
       .checkbox
         = f.check_box :no_ssn, 'data-bind' => 'checked: noSSN'
         %label{ for: 'registration_no_ssn' }
-          I do not have a Social Security Number.
+          I do not have a Social Security Number
           <!-- ko if: noSSN -->
           %br/
           To register without a Social Security Number you will have to contact your
@@ -55,11 +55,11 @@
           <!-- /ko -->
 
   .row
-    .span3.phone-field
+    .span2.phone-field
       %label{ for: 'registration_phone' }
         Phone
         %span (optional)
-      = f.text_field :phone, autocomplete: ac, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'instantValidation: { accessor: "phone", attribute: "validPhone" }'
+      = f.text_field :phone, autocomplete: ac, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'instantValidation: { accessor: "phone", attribute: "validPhone" }', class: 'span2'
     .span3.email-field
       %label{ for: 'registration_email' }
         Email
