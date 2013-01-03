@@ -104,6 +104,7 @@ class RegistrationsController < ApplicationController
 
     @registration = current_registration
     @registration.init_update_to(params[:kind])
+    @registration.dob = RegistrationRepository.pop_lookup_dob(session)
 
     unless @registration.update_attributes(data)
       active_form.touch

@@ -94,6 +94,14 @@ describe RegistrationsController do
         ActiveForm.should_receive(:find_for_session!).and_return(af)
       end
 
+      it 'should set saved lookup DOB' do
+        dob = 40.years.ago
+        af.should_receive(:unmark!)
+        RegistrationRepository.should_receive(:pop_lookup_dob).and_return(dob)
+        put :update, registration: {}
+        assigns(:registration).dob.should == dob
+      end
+
       it 'should save valid data' do
         SubmitEml310.should_receive(:schedule).with(kind_of(Registration))
 

@@ -47,4 +47,15 @@ class RegistrationRepository
       voter_id:     session.delete(:s_voter_id) }
   end
 
+  # Stores DOB used in lookup in session
+  def self.store_lookup_dob(session, dob)
+    session[:l_dob] = dob.try(:strftime, "%Y-%m-%d")
+  end
+
+  # Pops lookup DOB from session
+  def self.pop_lookup_dob(session)
+    dob = session.delete(:l_dob)
+    dob.blank? ? nil : Date.parse(dob)
+  end
+
 end

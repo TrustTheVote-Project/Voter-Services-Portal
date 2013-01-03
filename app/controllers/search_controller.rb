@@ -15,6 +15,7 @@ class SearchController < ApplicationController
 
     LogRecord.identify(reg, @search_query.locality)
     RegistrationRepository.store_registration(session, reg)
+    RegistrationRepository.store_lookup_dob(session, @search_query.dob)
 
     redirect_to :registration
   rescue RegistrationSearch::SearchError => @error
