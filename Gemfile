@@ -49,6 +49,7 @@ group :test do
   gem 'capybara'
   gem 'vcr'
   gem 'webmock'
+  gem 'rb-fsevent', '~> 0.9.1'
 end
 
 group :development, :test do
