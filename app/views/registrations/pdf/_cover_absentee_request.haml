@@ -1,1 +1,69 @@
-.title_page.absentee_request
+- pb ||= false
+.title_page{ class: pb ? 'page_break' : nil }
+  %header
+    %h1
+      <span>Virginia<br/>
+      Voter Registration</span>
+      Absentee Ballot<br/>
+      Application Form
+  %article
+    %header
+      %h2 Instructions
+    %p
+      Apply early! You can apply to vote absentee as early as one year from the
+      election. You can apply in person at your city or county voter
+      registration office, or by sending a completed application by mail, fax,
+      or a scanned copy. Allow enough time for your application to the
+      processed and your ballot mailed to you. The deadline for applying to
+      vote absentee by mail is 5:00 PM the Tuesday before the election.
+
+  %article
+    %header
+      %h2 Eligibility
+    %p
+      To vote absentee, you must be a registered voter in the city/county where
+      you are applying, and you must identify the election for which you are
+      applying. You must select one of the allowed reasons for being unable to
+      go to the polls on election day.
+
+  %article
+    %header
+      %h2 Voting
+    %p
+      If your application is approved, your city or county Electoral Board will
+      mail your absentee ballot to you. All ballots must be received by the
+      Electoral Board by 7:00 PM on election day. You may also return your
+      ballot to the Electoral Board in person, but only you may return your
+      ballot.
+    %p
+      You may also apply and vote in-person at your local voter registration
+      office, on or before the Saturday before the election. If your
+      application is approved in-person, you will receive your ballot, and may
+      cast it at the voter registration office.
+
+  %article.last
+    %header
+      %h2 Mailing Instructions
+    %ul
+      %li Place signed and dated application form in an envelope
+      %li Write your name and return address on the envelope
+      %li
+        Write the name and address of your voter registration office:
+        <br/>
+        .registrar= rr.registrar_address
+      %li Your application must be received by 5:00 PM the Tuesday before the election.
+  %p.first
+    %strong Privacy Act Notice:
+    = "Article II, Section 2 of the Constitution of Virginia (1971) requires that a person registering to vote provide his or her social security number, if any. Therefore, if you do not provide your social security number, your application for voter registration will be denied. Section 7 of the Federal Privacy Act (Public Law Number 93-579) allows the Commonwealth to enforce this requirement, but also requires that you be advised that state and local voting officials will use the social security number as a unique identifier to ensure that no person is registered in more than one place. This registration card will not be open to inspection by the public. Your social security number will appear on reports produced only for official use by voter registration and election officials, and for jury selection purposes by courts."
+  %p
+    %strong Bilingual Election Requirements:
+    = "Section 203 of the Voting Rights Act of 1965, Title 42, United States Code (U.S.C.), §, 1973AA-1A mandates that a state or political subdivision must provide language assistance to voters if more than five (5) percent or more than 10,000 of voting age citizens are members of a single-language minority group and are limited-English proficient; and the illiteracy rate of such language minority citizen in the political subdivision is higher than the national illiteracy rate. Only those localities in Virginia meeting this threshold are required to provide bilingual language assistance for qualifying languages under Section 203. Localities covered: Fairfax County (Spanish)."
+  %p.warning Warning: intentionally voting more than once in an election or making a materially false statement on this form constitutes the crime of election fraud, which is punishable under virginia law as a felony. violators may be sentenced to up to 10 years in prison, or up to 12 months in jail and/or fined up to $2,500.
+
+  .serial
+    - if rr.overseas?
+      VA-FPCA-alt-www-1-9/12
+    - elsif rr.requesting_absentee?
+      VA-701-www-9/12
+    - else
+      VA-NVRA-1-www 09/12

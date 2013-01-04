@@ -1,0 +1,8 @@
+- combined ||= false
+- title, subheader = rr.absentee_request_page_headers(combined)
+
+#header
+  %h1 Virginia Voter Registration
+  %h2= title
+  - if subheader
+    .overseas= subheader

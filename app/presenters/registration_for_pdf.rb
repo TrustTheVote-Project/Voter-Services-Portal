@@ -121,28 +121,37 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     previous_data[:residence] == 'outside'
   end
 
-  def subheaders
+  def data_update_page_headers
     if overseas?
       # Became overseas/military
       [ "Alternative Federal Postcard Application", "Overseas/Military Voter" ]
     elsif was_overseas?
       # Was overseas/military
-      if requesting_absentee?
-        [ "Abstentee Request and Voter Record Update Request", "Returning Overseas/Military Voter" ]
-      else
-        [ "Voter Record Update Request", "Returning Overseas/Military Voter" ]
-      end
-    elsif requesting_absentee?
-      # Domestic absentee
-      if no_form_changes?
-        [ "Absentee Request", nil ]
-      else
-        [ "Absentee Request and Voter Record Update Request", nil ]
-      end
+      [ "Voter Record Update Request", "Returning Overseas/Military Voter" ]
     else
       # Residential voter
       [ "Voter Record Update Request", nil ]
     end
+  end
+
+  def absentee_request_page_headers(combined = false)
+    if overseas?
+      # Overseas/military
+      return [ "Alternative Federal Postcard Application", "Overseas/Military Voter" ]
+    end
+
+    sh = was_overseas? ? "Returning Overseas/Military Voter" : nil
+    h  = "Absentee Request"
+
+    if combined
+      if !requesting_absentee?
+        h = "Voter Record Update Request"
+      elsif !no_form_changes?
+        h = "Absentee Request and Voter Record Update Request"
+      end
+    end
+
+    [ h, sh ]
   end
 
   def absentee_status_until

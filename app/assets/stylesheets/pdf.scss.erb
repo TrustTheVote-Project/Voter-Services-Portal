@@ -150,6 +150,10 @@ body {
 $colWidth:  135px;
 $red:       #d11242;
 
+.page_break {
+  page-break-before: always;
+}
+
 .title_page {
   font-family: UniversCo;
   font-weight: normal;
@@ -157,10 +161,6 @@ $red:       #d11242;
   line-height: 15px;
   overflow: hidden;
   page-break-after: always;
-
-  &.absentee_request {
-    page-break-before: always;
-  }
 
   & > header {
     border-bottom: 4px solid $red;
