@@ -2,7 +2,10 @@
 - wabs = rr.overseas? || rr.requesting_absentee?
 
 - if wabs
-  = render partial: 'registrations/pdf/cover_absentee_request', locals: { rr: rr, pb: false }
+  - if rr.overseas?
+    = render partial: 'registrations/pdf/cover_registration', locals: { rr: rr, pb: false }
+  - else
+    = render partial: 'registrations/pdf/cover_absentee_request', locals: { rr: rr, pb: false }
   = render partial: 'registrations/pdf/absentee_request_page_header', locals: { rr: rr, combined: true }
 - else
   = render partial: 'registrations/pdf/cover_registration', locals: { rr: rr }
