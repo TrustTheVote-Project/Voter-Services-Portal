@@ -133,7 +133,7 @@ class RegistrationDetailsPresenter
   end
 
   def update_mailing_address(d = :data)
-    if d == :data ? @registration.currently_overseas? : overseas?(d)
+    if overseas?(d)
       overseas_mailing_address(d)
     else
       domestic_mailing_address(d)
