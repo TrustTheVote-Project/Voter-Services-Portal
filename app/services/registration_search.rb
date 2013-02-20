@@ -250,6 +250,7 @@ class RegistrationSearch
       vvr_apt:                vvr_apt,
       vvr_county_or_city:     poll_locality,
       vvr_town:               vvr.css('Locality').try(:text),
+      vvr_state:              "VA",
       vvr_zip5:               vvr_zip5,
       vvr_zip4:               vvr_zip4,
       has_existing_reg:       "0",
@@ -271,7 +272,9 @@ class RegistrationSearch
       absentee_for_elections: absentee_for_elections,
       past_elections:         past_elections,
       upcoming_elections:     upcoming_elections,
-      ob_eligible:            obe_1 && obe_2
+      ob_eligible:            obe_1 && obe_2,
+
+      be_official:            "0"
     }
 
     ppl = doc.css('PollingPlace[Channel="polling"] FreeTextAddress').first
