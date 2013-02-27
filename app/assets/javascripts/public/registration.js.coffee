@@ -109,6 +109,10 @@ class window.Registration
     @erRural                = ko.observable()
     @erCancel               = ko.observable()
 
+    @vvrCountyOrCity.subscribe (v) =>
+      if v.match(/\s+city$/i)
+        @vvrTown(v.replace(/\s+city$/i, ''))
+
     @vvrIsRural.subscribe (v) =>
       @maIsSame('0') if v
 
