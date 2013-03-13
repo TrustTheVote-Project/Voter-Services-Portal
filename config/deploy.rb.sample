@@ -22,11 +22,14 @@ set :rake,                  "bundle exec rake"
 set :whenever_command,      "bundle exec whenever"
 set :whenever_environment,  "production"
 
-# Bundled gems
-task :bundle_gems, :roles => :app do
-  run "mkdir -p #{shared_path}/bundle && ln -s #{shared_path}/bundle #{release_path}/vendor/bundle"
-  run "cd #{latest_release}; bundle install --deployment --without development test"
-end
+set :default_shell, "/bin/bash"
+ssh_options[:user] = "deploy"
+ssh_options[:keys] = [ "~/.ssh/osdv-aws.pem" ]
+default_run_options[:pty] = true
+
+set :default_environment, {
+  BASH_ENV: '~/.bashrc.cap'
+}
 
 # Create uploads directory and link
 task :deploy_shared, :roles => :app do
@@ -50,16 +53,9 @@ namespace :deploy do
   end
 end
 
-# Asset pipeline
-namespace :assets do
-  task :precompile, :roles => :app do
-    run "cd #{current_path} && RAILS_ENV=#{rails_env} bundle exec rake assets:precompile"
-  end
-end
-
-after  "deploy:update_code", "deploy_shared"
-after  "deploy:update_code", "bundle_gems"
-before "deploy:restart", "assets:precompile"
+after  "deploy:finalize_update", "deploy_shared"
 after  "deploy:restart", "deploy:cleanup"
 
+require 'bundler/capistrano'
+require 'sidekiq/capistrano'
 require 'whenever/capistrano'
