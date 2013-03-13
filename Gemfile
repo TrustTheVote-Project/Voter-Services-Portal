@@ -30,6 +30,7 @@ gem 'nokogiri'
 gem 'factory_girl_rails'
 gem 'sidekiq'
 gem 'jbuilder'
+gem 'therubyracer'
 
 group :development do
   gem 'capistrano'

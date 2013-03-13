@@ -133,6 +133,7 @@ GEM
     kronic (1.1.3)
     launchy (2.0.5)
       addressable (~> 2.2.6)
+    libv8 (3.11.8.13)
     listen (0.7.0)
     lumberjack (1.0.2)
     mail (2.4.4)
@@ -197,6 +198,7 @@ GEM
     redis (3.0.1)
     redis-namespace (1.2.0)
       redis (~> 3.0.0)
+    ref (1.0.2)
     responders (0.9.0)
       railties (~> 3.1)
     rspec (2.12.0)
@@ -247,6 +249,9 @@ GEM
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.5)
     state_select (0.1.0)
+    therubyracer (0.11.4)
+      libv8 (~> 3.11.8.12)
+      ref
     thin (1.3.1)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -312,6 +317,7 @@ DEPENDENCIES
   simple_form
   sqlite3
   state_select
+  therubyracer
   thin
   timecop
   turnip
