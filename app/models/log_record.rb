@@ -23,40 +23,66 @@ class LogRecord < ActiveRecord::Base
   end
 
   def self.start_update(reg)
-    LogRecord.create(
+    return LogRecord.create(
       action:     'start',
-      form:       'VoterRegistration',
+      form:       'VoterRecordUpdate',
       form_note:  'onlineGenerated',
       voter_id:   reg.voter_id,
       jurisdiction: reg.poll_locality)
   end
 
   def self.start_new(reg)
-    LogRecord.create(
+    return LogRecord.create(
       action:     'start',
       form:       reg.uocava? ? 'VoterRegistrationAbsenteeRequest' : 'VoterRegistration',
       form_note:  'onlineGenerated')
   end
 
-  def self.complete_update(reg)
+  def self.complete_update(reg, start_log_record_id)
+    if reg.uocava? || !reg.requesting_absentee?
+      form = 'VoterRecordUpdate'
+    else
+      form = reg.no_form_changes? ? 'AbsenteeRequest' : 'VoterRecordUpdateAbsenteeRequest'
+    end
+
+    if !reg.uocava? && reg.requesting_absentee?
+      update_start_record(start_log_record_id, form)
+    end
+
     LogRecord.create(
       action:     'complete',
-      form:       reg.uocava? ? 'AbsenteeRequest' : 'VoterRecordUpdate',
+      form:       form,
       form_note:  'onlineGenerated',
       voter_id:   reg.voter_id,
       jurisdiction: reg.vvr_county_or_city)
   end
 
-  def self.complete_new(reg)
+  def self.complete_new(reg, start_log_record_id)
+    form = reg.uocava? ? 'VoterRegistrationAbsenteeRequest' : 'VoterRegistration'
+
+    # update start record
+    update_start_record(start_log_record_id, form)
+
+    if !reg.uocava? && reg.requesting_absentee?
+      LogRecord.absentee_request(reg, :new_record)
+    end
+
+    # log completion record
     LogRecord.create(
       action:     'complete',
-      form:       reg.uocava? ? 'VoterRecordUpdateAbsenteeRequest' : 'VoterRecordUpdate',
+      form:       form,
       form_note:  'onlineGenerated',
       jurisdiction: reg.vvr_county_or_city)
   end
 
-  def self.absentee_request(reg)
-    form = reg.uocava? || !reg.no_form_changes? ? 'VoterRecordUpdateAbsenteeRequest' : 'AbsenteeRequest'
+  def self.absentee_request(reg, new_record = false)
+    if new_record
+      form = 'AbsenteeRequest'
+    elsif reg.uocava? || !reg.no_form_changes?
+      form = 'VoterRecordUpdateAbsenteeRequest'
+    else
+      form = 'AbsenteeRequest'
+    end
 
     LogRecord.create(
       action:     'start',
@@ -105,4 +131,11 @@ class LogRecord < ActiveRecord::Base
     #   notes:      "Unknown lookup error: #{body}")
   end
 
+  def self.update_start_record(start_log_record_id, form)
+    start_record = LogRecord.where(id: start_log_record_id).first
+    if start_record
+      start_record.form = form
+      start_record.save
+    end
+  end
 end

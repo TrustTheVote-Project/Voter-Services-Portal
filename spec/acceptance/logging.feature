@@ -2,36 +2,74 @@
 Feature: Logging
 
   Scenario: successful lookup
-    When the record lookup is successful
-    Then an identify record should be created
+    When record lookup is successful
+    Then identify record should be created
 
-  Scenario: existing voter begins to change their record
-    When voter begins changing their record
-    Then an update start record should be created
+  # --- NEW REGISTRATION ---
 
-  Scenario: voter starts filling new form
-    When voter begins filling new form
-    Then a creation start record should be created
+  Scenario: start domestic registration
+    When started domestic registration
+    Then start "VoterRegistration" should be logged
 
-  @javascript
-  Scenario: user finishes the updates form
-    When voter submits the domestic form update
-    Then an update completion record should be created
+  Scenario: start overseas registration
+    When started overseas registration
+    Then start "VoterRegistrationAbsenteeRequest" should be logged
 
   @javascript
-  Scenario: user finishes new registration
-    When voter submits the new form
-    Then a new registration completion record should be created
+  Scenario: complete domestic registration
+    When completed domestic registration
+    Then complete "VoterRegistration" should be logged
+     And start "AbsenteeRequest" should not be logged
+     And complete "AbsenteeRequest" should not be logged
 
   @javascript
-  Scenario: domestic user updates the record and requests absentee
-    When voter submits the domestic absentee request
-    Then an additional start / complete record should be created
+  Scenario: complete overseas registration
+    When completed overseas registration
+    Then complete "VoterRegistrationAbsenteeRequest" should be logged
+     And start "AbsenteeRequest" should not be logged
+     And complete "AbsenteeRequest" should not be logged
 
-  Scenario: discarded sessions for new registration
-    When voter discards new registration session
-    Then a discard record for new registration should be created
+  @javascript
+  Scenario: complete domestic registration with absentee request
+    When completed domestic registration with absentee request
+    Then complete "VoterRegistration" should be logged
+     And start "AbsenteeRequest" should be logged
+     And complete "AbsenteeRequest" should be logged
 
-  Scenario: discarded sessions for registration update
-    When voter discards registration update session
-    Then a discard record for registration update should be created
+  # --- DOMESTIC UPDATES ---
+
+  Scenario: start domestic update
+    When started domestic update
+    Then start "VoterRecordUpdate" should be logged
+
+  @javascript
+  Scenario: complete domestic update with only form changes
+    When completed domestic update with only form changes
+    Then complete "VoterRecordUpdate" should be logged
+
+  @javascript
+  Scenario: complete domestic update with absentee request and no form changes
+    When completed domestic update with absentee request and no form changes
+    Then complete "AbsenteeRequest" should be logged
+     And start "AbsenteeRequest" should be logged
+     And start "VoterRecordUpdate" should not be logged
+
+  @javascript
+  Scenario: complete domestic update with absentee request and form changes
+    When completed domestic update with absentee request and form changes
+    Then complete "VoterRecordUpdateAbsenteeRequest" should be logged
+     And start "VoterRecordUpdateAbsenteeRequest" should be logged
+     And start "VoterRecordUpdate" should not be logged
+
+  # --- OVERSEAS UPDATES ---
+
+  Scenario: start overseas update
+    When started overseas update
+    Then start "VoterRecordUpdate" should be logged
+
+  @javascript
+  Scenario: complete overseas update
+    When completed overseas update
+    Then complete "VoterRecordUpdate" should be logged
+     And complete "AbsenteeRequest" should not be logged
+

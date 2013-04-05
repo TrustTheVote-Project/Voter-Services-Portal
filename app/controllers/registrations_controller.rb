@@ -20,7 +20,11 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new(options)
     @registration.init_absentee_until
 
-    LogRecord.start_new(@registration)
+    log_record = LogRecord.start_new(@registration)
+
+    # Remember this record id as we may need to update it later
+    session[:slr_id] = log_record.id
+
     ActiveForm.mark!(session, @registration)
   end
 
@@ -36,7 +40,11 @@ class RegistrationsController < ApplicationController
       SubmitEml310.schedule(@registration)
 
       active_form.unmark!
-      LogRecord.complete_new(@registration)
+
+      # Lod completion
+      LogRecord.complete_new(@registration, session[:slr_id])
+      session[:slr_id] = nil
+
       RegistrationRepository.store_registration(session, @registration)
       render :show
     else
@@ -87,7 +95,9 @@ class RegistrationsController < ApplicationController
   def edit
     @registration = current_registration
 
-    LogRecord.start_update(@registration)
+    record = LogRecord.start_update(@registration)
+    session[:slr_id] = record.id
+
     ActiveForm.mark!(session, @registration)
 
     # "kind" comes from the review form where we either maintain or
@@ -120,10 +130,8 @@ class RegistrationsController < ApplicationController
 
       active_form.unmark!
 
-      LogRecord.complete_update(@registration)
-      if @registration.requesting_absentee?
-        LogRecord.absentee_request(@registration)
-      end
+      LogRecord.complete_update(@registration, session[:slr_id])
+      session[:slr_id] = nil
     end
   rescue ActiveForm::Expired
     render :expired
