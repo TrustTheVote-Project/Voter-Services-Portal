@@ -62,7 +62,7 @@ class RegistrationsController < ApplicationController
         doctype = 'VoterRegistrationRequest'
 
         if @update
-          doctype = @registration.requesting_absentee == '1' ? 'AbsenteeRequest+VoterRegistrationUpdateRequest' : 'VoterRegistrationUpdateRequest'
+          doctype = @registration.requesting_absentee == '1' ? 'VoterRecordnUpdateAbsenteeRequest' : 'VoterRecordUpdate'
         end
 
         LogRecord.log(doctype, 'complete', @registration)

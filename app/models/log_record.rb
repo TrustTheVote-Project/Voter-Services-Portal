@@ -34,7 +34,7 @@ class LogRecord < ActiveRecord::Base
   def self.start_new(reg)
     LogRecord.create(
       action:     'start',
-      form:       reg.uocava? ? 'VoterRecordUpdateAbsenteeRequest' : 'VoterRegistration',
+      form:       reg.uocava? ? 'VoterRegistrationAbsenteeRequest' : 'VoterRegistration',
       form_note:  'onlineGenerated')
   end
 
@@ -84,25 +84,25 @@ class LogRecord < ActiveRecord::Base
 
   # Parsing error logging
   def self.parsing_error(voter_id, details)
-    LogRecord.create(
-      action:     'parsing',
-      form:       'InternalError',
-      voter_id:   voter_id,
-      notes:      details)
+    # LogRecord.create(
+    #   action:     'parsing',
+    #   form:       'InternalError',
+    #   voter_id:   voter_id,
+    #   notes:      details)
   end
 
   def self.lookup_timeout(uri)
-    LogRecord.create(
-      action:     'lookup',
-      form:       'InternalError',
-      notes:      "Lookup timeout: #{uri.to_s}")
+    # LogRecord.create(
+    #   action:     'lookup',
+    #   form:       'InternalError',
+    #   notes:      "Lookup timeout: #{uri.to_s}")
   end
 
   def self.lookup_error(body)
-    LogRecord.create(
-      action:     'lookup',
-      form:       'InternalError',
-      notes:      "Unknown lookup error: #{body}")
+    # LogRecord.create(
+    #   action:     'lookup',
+    #   form:       'InternalError',
+    #   notes:      "Unknown lookup error: #{body}")
   end
 
 end

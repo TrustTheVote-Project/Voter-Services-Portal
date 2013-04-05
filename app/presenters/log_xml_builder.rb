@@ -9,21 +9,21 @@ class LogXmlBuilder
       xml.header do
         xml.origin      AppConfig['log']['origin']
         xml.originUniq  AppConfig['log']['origin_uniq']
-        xml.hashAlg     hash ? 'SHA-1' : 'none'
-        xml.createDate  Time.now.utc
+        xml.hashAlg     hash ? 'SHA1' : 'none'
+        xml.createDate  Time.now.utc.strftime('%Y-%m-%dT%H:%M:%SZ')
       end
 
       log_records.each do |r|
         xml.voterTransactionRecord do
           xml.action        r.action
-          xml.voterid       hash ? hash_voter_id(r.voter_id) : r.voter_id
-          xml.form          r.form
-          xml.formNote      r.form_note
+          xml.voterid       (hash ? hash_voter_id(r.voter_id) : r.voter_id) || 'na'
+          xml.form          r.form unless r.form.blank?
+          xml.formNote      r.form_note unless r.form_note.blank?
           xml.jurisdiction  r.jurisdiction
           xml.leo           nil
-          xml.notes         nil
+          # xml.notes         nil
           xml.comment       nil
-          xml.date          r.created_at
+          xml.date          r.created_at.utc.strftime('%Y-%m-%dT%H:%M:%SZ')
         end
       end
     end
