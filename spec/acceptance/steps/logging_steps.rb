@@ -84,7 +84,7 @@ steps_for :logging do
   end
 
   step 'an additional start / complete record should be created' do
-    rs = LogRecord.where(voter_id: '600000000', form: 'VoterRecordUpdateAbsenteeRequest').order('id').all
+    rs = LogRecord.where(voter_id: '600000000', form: 'AbsenteeRequest').order('id').all
     rs.count.should == 2
 
     r = rs.first
@@ -159,6 +159,10 @@ steps_for :logging do
   end
 
   def sign_oath
+    if page.has_selector? '#registration_ssn4'
+      fill_in 'registration_ssn4', with: '1234'
+    end
+
     check 'registration_information_correct'
     check 'registration_privacy_agree'
     click_button 'Next'

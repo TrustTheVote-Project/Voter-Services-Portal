@@ -37,7 +37,6 @@ describe RegistrationSearch do
     its(:poll_district)           { should == "SOUTHERN DISTRICT" }
     its(:poll_pricinct_split)     { should == "26161b72-080a-4af6-9e12-b596bd6db037" }
 
-    its(:ssn4)                    { should == "XXXX" }
     its(:current_residence)       { should == "in" }
     its(:absentee_for_elections)  { should == [] }
   end
