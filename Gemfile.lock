@@ -324,5 +324,5 @@ DEPENDENCIES
   uglifier (>= 1.0.3)
   vcr
   webmock
-  whenever
+  whenever (= 0.7.3)
   wicked_pdf!
