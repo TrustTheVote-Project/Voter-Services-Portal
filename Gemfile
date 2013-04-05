@@ -16,7 +16,7 @@ end
 gem 'jquery-rails'
 gem 'haml-rails'
 gem 'rdiscount'
-gem 'whenever', '0.7.3', :require => false
+gem 'whenever', '0.8.0', :require => false
 gem 'inherited_resources'
 gem 'kaminari'
 gem 'country_select'
