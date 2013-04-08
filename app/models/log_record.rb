@@ -17,16 +17,15 @@ class LogRecord < ActiveRecord::Base
   def self.identify(reg, locality)
     LogRecord.create(
       action:     'identify',
+      form:       'VoterRegistration', # using this to match the schema. shouldn't be any
       voter_id:   reg.voter_id,
-      jurisdiction: locality,
-      notes:      'onlineVoterReg')
+      jurisdiction: locality)
   end
 
   def self.start_update(reg)
     return LogRecord.create(
       action:     'start',
       form:       'VoterRecordUpdate',
-      form_note:  'onlineGenerated',
       voter_id:   reg.voter_id,
       jurisdiction: reg.poll_locality)
   end
@@ -34,8 +33,7 @@ class LogRecord < ActiveRecord::Base
   def self.start_new(reg)
     return LogRecord.create(
       action:     'start',
-      form:       reg.uocava? ? 'VoterRegistrationAbsenteeRequest' : 'VoterRegistration',
-      form_note:  'onlineGenerated')
+      form:       reg.uocava? ? 'VoterRegistrationAbsenteeRequest' : 'VoterRegistration')
   end
 
   def self.complete_update(reg, start_log_record_id)
@@ -52,7 +50,6 @@ class LogRecord < ActiveRecord::Base
     LogRecord.create(
       action:     'complete',
       form:       form,
-      form_note:  'onlineGenerated',
       voter_id:   reg.voter_id,
       jurisdiction: reg.vvr_county_or_city)
   end
@@ -71,7 +68,6 @@ class LogRecord < ActiveRecord::Base
     LogRecord.create(
       action:     'complete',
       form:       form,
-      form_note:  'onlineGenerated',
       jurisdiction: reg.vvr_county_or_city)
   end
 
@@ -88,14 +84,12 @@ class LogRecord < ActiveRecord::Base
       action:     'start',
       voter_id:   reg.voter_id,
       form:       form,
-      form_note:  'onlineGenerated',
       jurisdiction: reg.vvr_county_or_city)
 
     LogRecord.create(
       action:     'complete',
       voter_id:   reg.voter_id,
       form:       form,
-      form_note:  'onlineGenerated',
       jurisdiction: reg.vvr_county_or_city)
   end
 
@@ -104,7 +98,6 @@ class LogRecord < ActiveRecord::Base
       action:       'discard',
       voter_id:     active_form.voter_id,
       form:         active_form.form,
-      form_note:    'onlineGenerated',
       jurisdiction: active_form.jurisdiction)
   end
 

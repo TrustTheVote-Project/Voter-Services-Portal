@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121116121810) do
+ActiveRecord::Schema.define(:version => 20130408062530) do
 
   create_table "active_forms", :force => true do |t|
     t.string   "voter_id"
@@ -35,9 +35,7 @@ ActiveRecord::Schema.define(:version => 20121116121810) do
     t.string   "voter_id"
     t.string   "form"
     t.string   "form_type"
-    t.string   "form_note"
     t.string   "jurisdiction"
-    t.string   "notes"
   end
 
   add_index "log_records", ["created_at"], :name => "index_log_records_on_created_at"
