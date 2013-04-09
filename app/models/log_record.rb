@@ -9,9 +9,7 @@ class LogRecord < ActiveRecord::Base
     LogRecord.create(
       form:       form,
       action:     action,
-      voter_id:   reg.try(:voter_id),
-      form_type:  reg.try(:voter_type),
-      notes:      notes)
+      voter_id:   reg.try(:voter_id))
   end
 
   def self.identify(reg, locality)
