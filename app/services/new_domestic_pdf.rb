@@ -85,8 +85,7 @@ class NewDomesticPdf
 
   def self.setOptionalQuestions(pdf, reg)
     if reg.is_confidential_address == '1'
-      key = reg.ca_type
-      setDigitalField(pdf, 'CODE', 3, Dictionaries::ACP_REASONS[key].to_s.upcase)
+      setDigitalField(pdf, 'CODE', 3, reg.ca_type.to_s.upcase)
     end
 
     pdf.set('BE_OFFICIAL', reg.be_official == '1' ? 'Y' : 'N')
