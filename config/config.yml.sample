@@ -30,7 +30,7 @@ dl:
   account_id:
 
 # Base for the URLs of the static pages
-static_page_url_base: 
+static_page_url_base:
 
 # Details of the election displayed in the footer
 upcoming_election:
@@ -52,6 +52,10 @@ lookup_url: "https://wscp.sbe.virginia.gov/electionlist.svc/v1/_your_API_key_"
 
 # Disables forms functionality
 no_forms: true
+
+# New forms (renders forms from templates in app/assets/pdf-templates)
+pdf_forms: true
+pdftk_path: /usr/local/bin/pdftk
 
 # Record log configuration
 log:

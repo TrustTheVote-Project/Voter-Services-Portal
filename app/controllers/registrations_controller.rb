@@ -67,18 +67,15 @@ class RegistrationsController < ApplicationController
       f.html
 
       f.pdf do
-        doctype = 'VoterRegistrationRequest'
-
-        if @update
-          doctype = @registration.requesting_absentee == '1' ? 'VoterRecordnUpdateAbsenteeRequest' : 'VoterRecordUpdate'
+        new_domestic = !@update && @registration.residential?
+        if new_domestic && AppConfig['pdf_forms']
+          render text: NewDomesticPdf.render(@registration).string
+        else
+          # Doing it in such a weird way because of someone stealing render / render_to_string method from wicked_pdf
+          render text: WickedPdf.new.pdf_from_string(
+            render_to_string(template: 'registrations/pdf/show', pdf: 'registration.pdf', layout: 'pdf'),
+            margin: { top: 5, right: 5, bottom: 5, left: 5 })
         end
-
-        LogRecord.log(doctype, 'complete', @registration)
-
-        # Doing it in such a weird way because of someone stealing render / render_to_string method from wicked_pdf
-        render text: WickedPdf.new.pdf_from_string(
-          render_to_string(template: 'registrations/pdf/show', pdf: 'registration.pdf', layout: 'pdf'),
-          margin: { top: 5, right: 5, bottom: 5, left: 5 })
       end
 
       # EML310 debug rendering is enabled only in development

@@ -31,6 +31,7 @@ gem 'factory_girl_rails'
 gem 'sidekiq'
 gem 'jbuilder'
 gem 'therubyracer'
+gem 'active_pdftk', git: 'git://github.com/tcocca/active_pdftk.git'
 
 group :development do
   gem 'capistrano'

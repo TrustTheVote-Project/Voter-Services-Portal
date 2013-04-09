@@ -5,6 +5,13 @@ GIT
   specs:
     wicked_pdf (0.7.9)
 
+GIT
+  remote: git://github.com/tcocca/active_pdftk.git
+  revision: 0a539f289fb73fb002a8fae591ceab57b7b6926c
+  specs:
+    active_pdftk (0.1.0)
+      builder (>= 2.1.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -284,6 +291,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_pdftk!
   better_errors
   capistrano
   capybara
