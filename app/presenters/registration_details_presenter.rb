@@ -155,7 +155,7 @@ class RegistrationDetailsPresenter
       data[:"#{prefix}_address_2"],
       data[:"#{prefix}_city"],
       [ data[:"#{prefix}_state"],
-       [ data[:"#{prefix}_zip5"], data[:"#{prefix}_zip4"] ].rjoin('-')
+        [ data[:"#{prefix}_zip5"], data[:"#{prefix}_zip4"] ].rjoin('-')
       ].rjoin(' ')
     ].rjoin(', ')
   end
