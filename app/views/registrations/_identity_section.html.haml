@@ -23,10 +23,6 @@
         %span (optional)
       = f.select :suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'value: suffix' }
 
-  .row
-    .span12.date
-      %label{ for: 'registration_dob_2i_' } Date of birth
-      = bound_date f, :dob, :start_year => Date.today.year - 120, :end_year => Date.today.year - 17
 
   - if collecting? :registration, :gender
     .row

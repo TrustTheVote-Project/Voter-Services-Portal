@@ -67,5 +67,10 @@
       .block.ineligible{ 'data-bind' => "visible: rightsWereRestored() == '0'" }
         %p You are not eligible to vote, if your voting rights have been revoked, and have not been restored.
 
+  .partition
+    .date
+      %label{ for: 'registration_dob_2i_' } Date of birth
+      = bound_date f, :dob, :start_year => Date.today.year - 120, :end_year => Date.today.year - 17
+
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: eligibilityInvalid }'
