@@ -25,6 +25,8 @@ class window.Registration
     @dobMonth               = ko.observable()
     @dobDay                 = ko.observable()
     @dob                    = ko.computed => pastDate(@dobYear(), @dobMonth(), @dobDay())
+    @ssn                    = ko.observable()
+    @noSSN                  = ko.observable()
 
     @eligibilityErrors = ko.computed =>
       errors = []
@@ -32,6 +34,7 @@ class window.Registration
       errors.push("Age criteria") unless @isOldEnough()
       errors.push("Voting rights criteria") unless (@rightsWereRevoked() == '0' or (@rightsRevokationReason() and @rightsWereRestored() == '1' and @rightsRestoredOn()))
       errors.push('Date of birth') unless @dob()
+      errors.push('Social Security #') unless ssn(@ssn()) and !@noSSN()
       errors
 
     @eligibilityInvalid = ko.computed => @eligibilityErrors().length > 0
@@ -42,8 +45,6 @@ class window.Registration
     @lastName               = ko.observable()
     @suffix                 = ko.observable()
     @gender                 = ko.observable()
-    @ssn                    = ko.observable()
-    @noSSN                  = ko.observable()
     @phone                  = ko.observable()
     @validPhone             = ko.computed => !filled(@phone()) or phone(@phone())
     @email                  = ko.observable()
@@ -53,7 +54,6 @@ class window.Registration
       errors = []
       errors.push('Last name') unless filled(@lastName())
       errors.push('Gender') unless filled(@gender())
-      errors.push('Social Security #') unless ssn(@ssn()) and !@noSSN()
       errors.push('Phone number') unless @validPhone()
       errors.push('Email address') unless @validEmail()
       errors
