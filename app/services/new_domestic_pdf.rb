@@ -4,7 +4,6 @@ class NewDomesticPdf
   def self.render(reg)
     pdf_path = "#{Rails.root}/app/assets/pdf-templates/va-new-domestic.pdf"
 
-    puts pdf_path
     pdf = ActivePdftk::Form.new(pdf_path, path: AppConfig['pdftk_path'])
 
     setEligibility(pdf, reg)
@@ -133,7 +132,7 @@ class NewDomesticPdf
     if city.blank? || city.to_s.downcase.include?('county')
       city = reg.vvr_town
     end
-    city.upcase
+    city.to_s.upcase
   end
 
 end

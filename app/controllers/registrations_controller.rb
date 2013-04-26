@@ -69,13 +69,15 @@ class RegistrationsController < ApplicationController
       f.pdf do
         new_domestic = !@update && @registration.residential?
         if new_domestic && AppConfig['pdf_forms']
-          render text: NewDomesticPdf.render(@registration).string
+          @pdf = NewDomesticPdf.render(@registration).string
         else
           # Doing it in such a weird way because of someone stealing render / render_to_string method from wicked_pdf
-          render text: WickedPdf.new.pdf_from_string(
+          @pdf = WickedPdf.new.pdf_from_string(
             render_to_string(template: 'registrations/pdf/show', pdf: 'registration.pdf', layout: 'pdf'),
             margin: { top: 5, right: 5, bottom: 5, left: 5 })
         end
+
+        render text: @pdf
       end
 
       # EML310 debug rendering is enabled only in development

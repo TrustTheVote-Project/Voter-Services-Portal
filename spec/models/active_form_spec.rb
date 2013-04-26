@@ -56,7 +56,6 @@ describe ActiveForm do
       r.action.should       == 'discard'
       r.form.should         == expired.form
       r.voter_id.should     == expired.voter_id
-      r.form_note.should    == 'onlineGenerated'
       r.jurisdiction.should == expired.jurisdiction
     end
 

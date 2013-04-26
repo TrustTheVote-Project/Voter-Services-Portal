@@ -84,7 +84,7 @@ steps_for :logging do
 
     r.action.should       == 'identify'
     r.voter_id.should     == '600000000'
-    r.form.should         be_nil
+    r.form.should         == 'VoterRegistration'
     r.form_note.should    be_nil
     r.jurisdiction.should == 'NORFOLK CITY'
     r.notes.should        == 'onlineVoterReg'
