@@ -56,7 +56,7 @@ describe RegistrationsController do
   end
 
   describe 'show' do
-    it 'should render template with saved registration', :focus do
+    it 'should render template with saved registration' do
       controller.should_receive(:current_registration).and_return(current_registration)
       get :show, format: 'pdf'
       assigns(:pdf).should be

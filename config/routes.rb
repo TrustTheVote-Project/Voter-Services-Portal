@@ -32,6 +32,8 @@ VaVote::Application.routes.draw do
   get '/register/residential' => 'registrations#new', defaults: { residence: 'in' }, as: 'register_residential'
   get '/register/overseas'    => 'registrations#new', defaults: { residence: 'outside' }, as: 'register_overseas'
 
+  get '/lookup/registration'  => 'lookup#registration'
+
   resource :form, only: [] do
     member do
       get :request_absentee_status
