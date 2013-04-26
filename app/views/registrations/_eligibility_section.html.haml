@@ -72,7 +72,8 @@
       %label{ for: 'registration_dob_2i_' } Date of birth
       = bound_date f, :dob, :start_year => Date.today.year - 120, :end_year => Date.today.year - 17
 
-    .security-number.block
+  .partition
+    .security-number
       %label{ for: 'registration_ssn' } Social Security Number
       <!-- ko if: !noSSN() -->
       = f.text_field :ssn, autocomplete: ac, placeholder: 'NNNNNNNNN', maxlength: 9, 'data-bind' => 'instantValidation: { accessor: "ssn", validation: "ssn" }', class: 'span3'
@@ -91,10 +92,16 @@
           %a{ :href => "#" }here.
           <!-- /ko -->
 
-    .dmv.block
+  .partition
+    .dmv
       %label{ for: 'registration_dmv_id' } Department of Motor Vehicles ID Number
-      = f.text_field :dmv_id, autocomplete: ac, maxlength: 12, 'data-bind' => 'instantValidation: { accessor: "dmvId" }', placeholder: 'From 9 to 12 letters or numbers', class: 'span3'
-
+      <!-- ko if: !noDmvId() -->
+      = f.text_field :dmv_id, autocomplete: ac, maxlength: 12, 'data-bind' => 'instantValidation: { accessor: "dmvId", validation: "isDmvId" }', placeholder: 'From 9 to 12 letters or numbers', class: 'span3'
+      <!-- /ko -->
+      .checkbox
+        = f.check_box :no_dmv_id, 'data-bind' => 'checked: noDmvId'
+        %label{ for: 'registration_no_dmv_id' }
+          I do not have a DMV ID number
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: eligibilityInvalid }'
