@@ -36,6 +36,7 @@ class window.Registration
       errors.push("Voting rights criteria") unless (@rightsWereRevoked() == '0' or (@rightsRevokationReason() and @rightsWereRestored() == '1' and @rightsRestoredOn()))
       errors.push('Date of birth') unless @dob()
       errors.push('Social Security #') unless ssn(@ssn()) and !@noSSN()
+      errors.push('DMV ID#') unless isDmvId(@dmvId())
       errors
 
     @eligibilityInvalid = ko.computed => @eligibilityErrors().length > 0
