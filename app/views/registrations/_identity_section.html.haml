@@ -31,26 +31,6 @@
         = f.select :gender, [ 'Male', 'Female' ], { include_blank: true }, { autocomplete: ac, class: 'span2', 'data-bind' => 'instantValidation: { accessor: "gender" }' }
 
   .row
-    .span12.security-number
-      %label{ for: 'registration_ssn' } Social Security Number
-      <!-- ko if: !noSSN() -->
-      = f.text_field :ssn, autocomplete: ac, placeholder: 'NNNNNNNNN', maxlength: 9, 'data-bind' => 'instantValidation: { accessor: "ssn", validation: "ssn" }', class: 'span2'
-      <!-- /ko -->
-      .checkbox
-        = f.check_box :no_ssn, 'data-bind' => 'checked: noSSN'
-        %label{ for: 'registration_no_ssn' }
-          I do not have a Social Security Number
-          <!-- ko if: noSSN -->
-          %br/
-          To register without a Social Security Number you will have to contact your
-          %br/
-          county’s local
-          %a{ :href => "#" }Voter Registration office.
-          Find out more
-          %a{ :href => "#" }here.
-          <!-- /ko -->
-
-  .row
     .span2.phone-field
       %label{ for: 'registration_phone' }
         Phone

@@ -72,10 +72,10 @@
       %label{ for: 'registration_dob_2i_' } Date of birth
       = bound_date f, :dob, :start_year => Date.today.year - 120, :end_year => Date.today.year - 17
 
-    .security-number
+    .security-number.block
       %label{ for: 'registration_ssn' } Social Security Number
       <!-- ko if: !noSSN() -->
-      = f.text_field :ssn, autocomplete: ac, placeholder: 'NNNNNNNNN', maxlength: 9, 'data-bind' => 'instantValidation: { accessor: "ssn", validation: "ssn" }', class: 'span2'
+      = f.text_field :ssn, autocomplete: ac, placeholder: 'NNNNNNNNN', maxlength: 9, 'data-bind' => 'instantValidation: { accessor: "ssn", validation: "ssn" }', class: 'span3'
       <!-- /ko -->
       .checkbox
         = f.check_box :no_ssn, 'data-bind' => 'checked: noSSN'
@@ -85,11 +85,15 @@
           %br/
           To register without a Social Security Number you will have to contact your
           %br/
-          county’s local
+          county's local
           %a{ :href => "#" }Voter Registration office.
           Find out more
           %a{ :href => "#" }here.
           <!-- /ko -->
+
+    .dmv.block
+      %label{ for: 'registration_dmv_id' } Department of Motor Vehicles ID Number
+      = f.text_field :dmv_id, autocomplete: ac, maxlength: 12, 'data-bind' => 'instantValidation: { accessor: "dmvId" }', placeholder: 'From 9 to 12 letters or numbers', class: 'span3'
 
 
   .form-actions

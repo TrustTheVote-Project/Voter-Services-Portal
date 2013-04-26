@@ -37,7 +37,7 @@ class Registration < ActiveRecord::Base
 
   # Identity
   serialized_attr :first_name, :middle_name, :last_name, :suffix
-  serialized_attr :dob, :gender, :ssn, :no_ssn
+  serialized_attr :dob, :gender, :ssn, :no_ssn, :dmv_id
   serialized_attr :phone, :email
 
   # Contact info
