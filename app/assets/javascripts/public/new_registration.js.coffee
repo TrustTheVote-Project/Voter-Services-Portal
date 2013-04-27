@@ -42,7 +42,7 @@ class NewRegistration extends Registration
     $("##{@page()} .next.btn").trigger('click')
 
   eligibilityPage: =>
-    @currentPageIdx(eligibilityPageIdx)
+    location.hash = 'eligibility'
 
   lookupRecord: =>
     @currentPageIdx(lookupRecordPageIdx)
@@ -65,7 +65,7 @@ class NewRegistration extends Registration
           @currentPageIdx(registeredInfoPageIdx)
         else
           @dmvMatch(data.dmv_match)
-          @currentPageIdx(identityPageIdx)
+          location.hash = 'identity'
 
   prevPage: => window.history.back()
   nextPage: (_, e) =>
