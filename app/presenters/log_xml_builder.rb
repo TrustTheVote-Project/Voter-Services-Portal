@@ -18,11 +18,11 @@ class LogXmlBuilder
           xml.action        r.action
           xml.voterid       (hash ? hash_voter_id(r.voter_id) : r.voter_id) || 'na'
           xml.form          r.form unless r.form.blank?
-          xml.formNote      'onlineGenerated'
+          xml.formNote      'onlineGenerated' unless r.action == 'identify'
           xml.jurisdiction  r.jurisdiction
-          xml.leo           nil
           xml.notes         'onlineVoterReg'
-          xml.comment       nil
+          # xml.comment       nil
+          # xml.leo           nil
           xml.date          r.created_at.utc.strftime('%Y-%m-%dT%H:%M:%SZ')
         end
       end
