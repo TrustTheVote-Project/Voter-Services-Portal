@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe RegistrationsController do
 
-  let(:af) { stub}
+  let(:af) { stub }
   let(:current_registration) { FactoryGirl.build(:registration) }
   before { controller.stub(:current_registration).and_return(current_registration) }
 
@@ -30,19 +30,38 @@ describe RegistrationsController do
     context 'with valid form session' do
       before do
         ActiveForm.should_receive(:find_for_session!).and_return(af)
+        af.stub(unmark!: true)
+        session[:slr_id] = 'slr_id'
       end
 
       it 'should save and submit successfully' do
-        SubmitEml310.should_receive(:schedule).with(kind_of(Registration))
-
+        SubmitEml310.should_receive(:submit_new).with(kind_of(Registration)).and_return({ success: true, voter_id: 'voter_id' })
         af.should_receive(:unmark!)
+        LogRecord.should_receive(:complete_new).with(kind_of(Registration), 'slr_id')
+
         post :create, registration: {}
         should render_template :create
         session[:registration_id].should == assigns(:registration).id
+        assigns(:registration).reload.submission_failed.should_not be_true
+        assigns(:submission_success).should be_true
+      end
+
+      it 'should mark the record as failed submission' do
+        SubmitEml310.should_receive(:submit_new).and_raise(SubmitEml310::SubmissionError)
+        post :create, registration: {}
+        assigns(:registration).reload.submission_failed.should be_true
+      end
+
+      it 'should log the submission of a record with DMV ID' do
+        SubmitEml310.stub(submit_new: { success: true, voter_id: 'voter_id' })
+        LogRecord.should_receive(:submit_new).with(kind_of(Registration), 'slr_id')
+        post :create, registration: { dmv_id: '123123123' }
+        assigns(:submission_success).should be_true
+        should render_template :create
       end
 
       it 'should return to the form on failure' do
-        SubmitEml310.should_not_receive(:schedule)
+        SubmitEml310.should_not_receive(:submit_new)
 
         af.should_not_receive(:unmark!)
         af.should_receive(:touch)
@@ -109,6 +128,7 @@ describe RegistrationsController do
       end
 
       it 'should set saved lookup DOB' do
+        SubmitEml310.stub(:submit_update)
         dob = 40.years.ago
         af.should_receive(:unmark!)
         RegistrationRepository.should_receive(:pop_lookup_data).and_return({ dob: dob })
@@ -117,7 +137,7 @@ describe RegistrationsController do
       end
 
       it 'should save valid data' do
-        SubmitEml310.should_receive(:schedule).with(kind_of(Registration))
+        SubmitEml310.should_receive(:submit_update).with(kind_of(Registration))
 
         af.should_receive(:unmark!)
         current_registration.should_receive(:update_attributes).and_return(true)
@@ -127,7 +147,7 @@ describe RegistrationsController do
       end
 
       it 'should redirect to the form on invalid data' do
-        SubmitEml310.should_not_receive(:schedule)
+        SubmitEml310.should_not_receive(:submit_update)
 
         af.should_not_receive(:unmark!)
         af.should_receive(:touch)

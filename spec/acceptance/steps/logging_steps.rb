@@ -73,9 +73,7 @@ steps_for :logging do
     choose  "Temporarily residing outside U.S."
     click_button "Next"
 
-    # Confirm
-    click_button "Next"
-
+    confirm
     sign_oath
   end
 
@@ -132,31 +130,6 @@ steps_for :logging do
     visit register_overseas_path
   end
 
-  def sign_oath
-    if page.has_selector? '#registration_ssn4'
-      fill_in 'registration_ssn4', with: '1234'
-    end
-
-    check 'registration_information_correct'
-    check 'registration_privacy_agree'
-    click_button 'Next'
-  end
-
-  def fill_eligibility
-    check  'I am a citizen of the United States of America.'
-    check  'I will be at least 18 years of age on or before the next Election Day.'
-    choose 'registration_rights_revoked_0'
-    fill_in 'Social Security Number', with: '123123123'
-    fill_in_date 'Date of birth', with: 30.years.ago
-    click_button 'Next'
-  end
-
-  def fill_identity
-    fill_in 'Last name', with: 'Smith'
-    select  'Male', from: 'Gender'
-    click_button 'Next'
-  end
-
   def fill_registration_address
     fill_in 'Street number', with: '1'
     fill_in 'Street name', with: 'Name'
@@ -166,8 +139,8 @@ steps_for :logging do
   end
 
   def fill_overseas_data
-    fill_eligibility
-    fill_identity
+    fill_eligibility_page
+    fill_identity_page
 
     # Addresses
     fill_registration_address
@@ -184,15 +157,13 @@ steps_for :logging do
     choose  'Temporarily residing outside U.S.'
     click_button 'Next'
 
-    # Confirm
-    click_button 'Next'
-
+    confirm
     sign_oath
   end
 
   def fill_domestic_data(option = nil)
-    fill_eligibility
-    fill_identity
+    fill_eligibility_page
+    fill_identity_page
 
     # Addresses
     fill_registration_address
@@ -236,9 +207,7 @@ steps_for :logging do
     end
     click_button 'Next'
 
-    # Confirm
-    click_button 'Next'
-
+    confirm
     sign_oath
   end
 

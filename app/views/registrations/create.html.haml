@@ -1,5 +1,5 @@
-- unregistered_dmv = @dmv_lookup[:dmv_match] && !@dmv_lookup[:registered]
-- @page_id = unregistered_dmv ? 'nr_unregistered_dmv' : 'nr_download'
+- registered_with_dmv = @submission_success && @voter_id.present? && @registration.dmv_id.present?
+- @page_id = registered_with_dmv ? 'nr_unregistered_dmv' : 'nr_download'
 
 = render partial: 'steps'
 
@@ -11,7 +11,10 @@
 
 .row
   .padded_page_span
-    - if unregistered_dmv
+    - if @registration.submission_failed
+      %p TBD 310 error
+
+    - if registered_with_dmv
       = render partial: 'unregistered_dmv'
     - else
       = render partial: 'download'

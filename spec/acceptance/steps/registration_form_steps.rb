@@ -14,6 +14,7 @@ steps_for :registration_form do
     select  '1', from: 'registration_dob_3i_'
     select  '1995', from: 'registration_dob_1i_'
     fill_in 'registration_ssn', with: '123123123'
+    check   'I do not have a DMV ID number'
     click_button 'Next'
 
     # fill identity page

@@ -53,6 +53,14 @@ class LogRecord < ActiveRecord::Base
   end
 
   def self.complete_new(reg, start_log_record_id)
+    complete(reg, start_log_record_id, 'complete')
+  end
+
+  def self.submit_new(reg, start_log_record_id)
+    complete(reg, start_log_record_id, 'submit')
+  end
+
+  def self.complete(reg, start_log_record_id, action)
     form = reg.uocava? ? 'VoterRegistrationAbsenteeRequest' : 'VoterRegistration'
 
     # update start record
@@ -64,7 +72,7 @@ class LogRecord < ActiveRecord::Base
 
     # log completion record
     LogRecord.create(
-      action:     'complete',
+      action:     action,
       form:       form,
       jurisdiction: reg.vvr_county_or_city)
   end

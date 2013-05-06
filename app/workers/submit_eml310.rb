@@ -2,37 +2,51 @@ require 'builder'
 
 class SubmitEml310
 
-  include Sidekiq::Worker
+  # Possible reasons: bad EML310, service unavailable
+  class SubmissionError < StandardError; end
 
-  # submits registration form to the remote service
-  def perform(reg_id)
-    reg = Registration.find(reg_id)
+  def self.submit_update(reg)
+    return submit(reg)
+  rescue SubmissionError
+    # Ignore the error as per https://www.pivotaltracker.com/story/show/49158483
+  end
 
+  def self.submit_new(reg)
+    return submit(reg)
+  end
+
+  private
+
+  def self.submit(reg)
+    # easter eggs
+    raise SubmissionError if reg.last_name == 'faileml310'
+    return { success: reg.dmv_id.size == 9, voter_id: '123456789' } if reg.dmv_id
+
+    # don't submit anything if disabled
+    return {} unless submission_enabled?
+
+    res = send_request(reg)
+
+    raise SubmissionError unless successful_response?(res)
+
+    return extract_voter_id(res)
+  rescue => e
+    ErrorLogRecord.log("Submit EML310", error: "Failed to submit", response: res)
+    raise SubmissionError
+  end
+
+  def self.send_request(reg)
     uri = URI(SubmitEml310.submission_url)
     req = Net::HTTP::Post.new(uri.path)
     req.body = registration_xml(reg)
     req.content_type = 'multipart/form-data'
 
-    res = Net::HTTP.start(uri.hostname, uri.port) do |http|
+    return Net::HTTP.start(uri.hostname, uri.port) do |http|
       http.request(req)
     end
-
-    unless successful_response?(res)
-      ErrorLogRecord.log("Submit EML310", error: "Failed to submit", response: res)
-    end
-  rescue ActiveRecord::RecordNotFound
-    ErrorLogRecord.log("Submit EML310", error: "Record not found", id: reg_id)
   end
 
-  # schedules the submission in background if the submission
-  # is enabled.
-  def self.schedule(reg)
-    SubmitEml310.perform_async(reg.id) if submission_enabled?
-  end
-
-  private
-
-  def successful_response?(res)
+  def self.successful_response?(res)
     res.kind_of? Net::HTTPSuccess
   end
 
@@ -45,9 +59,21 @@ class SubmitEml310
   end
 
   # returns registration EML310
-  def registration_xml(reg)
+  def self.registration_xml(reg)
     xml = Builder::XmlMarkup.new
     Eml310Builder.build(reg, xml)
   end
 
+  # parses the response and returns the voter ID
+  def self.extract_voter_id(res)
+    # TBD and implemented
+    # when registering new records. success=true means we added new record
+    # success=false means there was the record with this data already
+    voter_id = "123456789"
+    success  = true
+
+    raise SubmissionError.new("Voter ID is missing") if voter_id.blank?
+
+    return { success: success, voter_id: voter_id }
+  end
 end

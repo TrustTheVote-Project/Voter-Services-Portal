@@ -37,14 +37,22 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new(data)
 
     if @registration.save
-      @dmv_lookup = LookupService.registration_for_record(@registration)
-
-      SubmitEml310.schedule(@registration)
+      begin
+        res = SubmitEml310.submit_new(@registration)
+        @submission_success  = res[:success]
+        @voter_id            = res[:voter_id]
+      rescue SubmitEml310::SubmissionError
+        @registration.update_attributes!(submission_failed: true)
+      end
 
       active_form.unmark!
 
-      # Log completion
-      LogRecord.complete_new(@registration, session[:slr_id])
+      if @submission_success && @voter_id.present? && @registration.dmv_id.present?
+        LogRecord.submit_new(@registration, session[:slr_id])
+      else
+        LogRecord.complete_new(@registration, session[:slr_id])
+      end
+
       session[:slr_id] = nil
 
       RegistrationRepository.store_registration(session, @registration)
@@ -126,7 +134,7 @@ class RegistrationsController < ApplicationController
       active_form.touch
       redirect_to :edit_registration, alert: 'Please review your registration data and try again'
     else
-      SubmitEml310.schedule(@registration)
+      SubmitEml310.submit_update(@registration)
 
       active_form.unmark!
 

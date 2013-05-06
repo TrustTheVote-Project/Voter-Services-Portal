@@ -66,7 +66,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :be_official
 
   # Complete Registration
-  serialized_attr :information_correct, :privacy_agree
+  serialized_attr :information_correct, :privacy_agree, :submission_failed
 
   # Current status fields (from server)
   serialized_attr :existing
