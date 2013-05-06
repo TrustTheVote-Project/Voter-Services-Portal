@@ -10,26 +10,26 @@ steps_for :registration_form do
     check   'registration_old_enough'
     choose  'registration_residence_in'
     choose  'registration_rights_revoked_0'
+    select  'January', from: 'registration_dob_2i_'
+    select  '1', from: 'registration_dob_3i_'
+    select  '1995', from: 'registration_dob_1i_'
+    fill_in 'registration_ssn', with: '123123123'
     click_button 'Next'
 
     # fill identity page
     fill_in 'registration_last_name', with: 'Last name'
-    select  'January', from: 'registration_dob_2i_'
-    select  '1', from: 'registration_dob_3i_'
-    select  '1995', from: 'registration_dob_1i_'
     select  'Male', from: 'registration_gender'
-    fill_in 'registration_ssn', with: '123123123'
     click_button 'Next'
 
     check   'registration_vvr_is_rural'
   end
 
   step 'mailing address same as registration selector should disappear' do
-    find('.section#mailing input#registration_ma_is_same_0').should_not be_visible
+    page.should_not have_selector '.section#mailing input#registration_ma_is_same_0'
   end
 
   step 'mailing address form should be visible' do
-    find('.section#mailing .address-field').should be_visible
+    page.should have_selector '.section#mailing .address-field'
   end
 
   step 'unselect rural registration address' do

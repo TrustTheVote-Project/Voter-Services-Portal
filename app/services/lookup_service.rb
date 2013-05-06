@@ -11,4 +11,19 @@ class LookupService
     end
   end
 
+  # runs a lookup for the record
+  def self.registration_for_record(r)
+    rights_revoked = r.rights_revoked == '1'
+    revoked_felony = rights_revoked && r.rights_revoked_reason == 'felony'
+    revoked_competence = rights_revoked && r.rights_revoked_reason == 'mental'
+    return LookupService.registration({
+      eligible_citizen:             r.citizen,
+      eligible_18_next_election:    r.old_enough,
+      eligible_revoked_felony:      revoked_felony,
+      eligible_revoked_competence:  revoked_competence,
+      dob:                          r.dob ? r.dob.strftime("%m/%d/%Y") : '',
+      ssn:                          r.ssn,
+      dmv_id:                       r.dmv_id || ''
+    })
+  end
 end

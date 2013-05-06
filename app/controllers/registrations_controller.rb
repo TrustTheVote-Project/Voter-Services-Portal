@@ -37,6 +37,8 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new(data)
 
     if @registration.save
+      @dmv = LookupService.registration_for_record(@registration)
+
       SubmitEml310.schedule(@registration)
 
       active_form.unmark!
@@ -46,7 +48,6 @@ class RegistrationsController < ApplicationController
       session[:slr_id] = nil
 
       RegistrationRepository.store_registration(session, @registration)
-      render :show
     else
       active_form.touch
       flash.now[:error] = 'Please review your request data and try submitting again'

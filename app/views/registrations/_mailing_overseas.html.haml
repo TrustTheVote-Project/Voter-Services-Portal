@@ -14,7 +14,7 @@
   <!-- ko if: mauType() == 'apo' -->
   .row
     .span3.address-field
-      %span Address
+      %label{ for: 'registration_apo_address' } Address
       = f.text_field :apo_address,   autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "mauAPOAddress1" }'
       = f.text_field :apo_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: mauAPOAddress2'
   .row
@@ -23,7 +23,7 @@
     .span1
       = select :registration, :apo_state, options_for_select([ 'AA', 'AE', 'AP' ]), {}, autocomplete: ac, class: 'inline span1', 'data-bind' => 'valueWithInit: mauAPO2'
     .span1
-      = text_field :registration, :apo_zip5, placeholder: 'ZIP 5', maxlength: 5, autocomplete: ac, class: 'inline span1', 'data-bind' => 'instantValidation: { accessor: "mauAPOZip5", validation: "zip" }'
+      = text_field :registration, :apo_zip5, placeholder: 'ZIP 5', maxlength: 5, autocomplete: ac, class: 'inline span1', 'data-bind' => 'instantValidation: { accessor: "mauAPOZip5", validation: "zip5" }'
   <!-- /ko -->
 
 <!-- /ko -->

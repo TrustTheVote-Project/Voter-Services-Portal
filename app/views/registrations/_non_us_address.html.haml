@@ -1,19 +1,20 @@
+- lprefix = "registration_#{prefix}"
 .row
   .span3.address-field
-    %span Address
+    %label{ for: "#{lprefix}_address" } Address
     = f.text_field "#{prefix}_address", 'data-bind' => "instantValidation: { accessor: '#{prefix}Address' }"
     = f.text_field "#{prefix}_address_2", 'data-bind' => "valueWithInit: #{prefix}Address2"
 
 .row
   .span2
-    %span City or Town
+    %label{ for: "#{lprefix}_city" } City or Town
     = f.text_field "#{prefix}_city", 'data-bind' => "instantValidation: { accessor: '#{prefix}City' }", class: 'span2'
   .span2
-    %span State or Province
+    %label{ for: "#{lprefix}_state" } State or Province
     = f.text_field "#{prefix}_state", 'data-bind' => "instantValidation: { accessor: '#{prefix}State' }", class: 'span2'
   .span2
-    %span Postal Code
+    %label{ for: "#{lprefix}_postal_code" } Postal Code
     = f.text_field "#{prefix}_postal_code", class: 'span1', 'data-bind' => "instantValidation: { accessor: '#{prefix}PostalCode' }"
   .span2
-    %span Country
+    %label{ for: "#{lprefix}_country" } Country
     = f.text_field "#{prefix}_country", 'data-bind' => "instantValidation: { accessor: '#{prefix}Country' }", class: 'span2'

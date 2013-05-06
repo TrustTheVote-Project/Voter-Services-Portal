@@ -3,7 +3,7 @@ require 'spec_helper'
 describe RegistrationRepository do
 
   let(:session) { Hash.new }
-  let(:registration) { Factory.build(:registration) }
+  let(:registration) { FactoryGirl.build(:registration) }
 
   before  { RegistrationRepository.store_registration(session, registration) }
 

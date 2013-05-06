@@ -146,14 +146,14 @@ steps_for :logging do
     check  'I am a citizen of the United States of America.'
     check  'I will be at least 18 years of age on or before the next Election Day.'
     choose 'registration_rights_revoked_0'
+    fill_in 'Social Security Number', with: '123123123'
+    fill_in_date 'Date of birth', with: 30.years.ago
     click_button 'Next'
   end
 
   def fill_identity
     fill_in 'Last name', with: 'Smith'
-    fill_in_date 'Date of birth', with: 30.years.ago
     select  'Male', from: 'Gender'
-    fill_in 'Social Security Number', with: '123123123'
     click_button 'Next'
   end
 

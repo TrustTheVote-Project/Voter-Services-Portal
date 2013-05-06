@@ -10,6 +10,7 @@ Feature: requesting absentee
   Scenario: as residential voter becoming overseas absentee
     When I look up "residential voter" record
      And choose overseas absentee status option
+     And fill in missing overseas record address details
      And proceed to options page
     Then I should see read-only checked absentee request checkbox
 

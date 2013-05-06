@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
+gem 'rails', '3.2.13'
 gem 'rake', '10.0.3'
 
 gem 'mysql2'
@@ -8,7 +8,7 @@ gem 'mysql2'
 # Gems used only for assets and not required
 # in production environments by default.
 group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
+  gem 'sass-rails',   '~> 3.2.6'
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier',     '>= 1.0.3'
 end
@@ -39,9 +39,9 @@ group :development do
 end
 
 group :test do
-  gem 'rspec',        '~> 2.12.0'
-  gem 'rspec-rails',  '~> 2.12.0'
+  gem 'rspec-rails'
   gem 'turnip'
+  gem 'faye-websocket', '0.4.4'
   gem 'poltergeist'
   gem 'faker'
   gem 'timecop'

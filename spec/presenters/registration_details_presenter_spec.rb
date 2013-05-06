@@ -18,7 +18,7 @@ describe RegistrationDetailsPresenter do
 
   def rdp(data)
     data[:current_residence] = data.delete(:uocava) ? 'outside' : 'in'
-    RegistrationDetailsPresenter.new(Factory.build(:registration, data))
+    RegistrationDetailsPresenter.new(FactoryGirl.build(:registration, data))
   end
 
 end

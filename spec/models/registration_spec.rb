@@ -3,12 +3,12 @@ require 'spec_helper'
 describe Registration do
 
   describe 'full_name' do
-    specify { Factory.build(:registration, first_name: 'Wanda', middle_name: 'Hunt', last_name: 'Phelps', suffix: 'III').full_name.should == 'Wanda Hunt Phelps III' }
-    specify { Factory.build(:registration, first_name: 'John', last_name: 'Smith').full_name.should == 'John Smith' }
+    specify { FactoryGirl.build(:registration, first_name: 'Wanda', middle_name: 'Hunt', last_name: 'Phelps', suffix: 'III').full_name.should == 'Wanda Hunt Phelps III' }
+    specify { FactoryGirl.build(:registration, first_name: 'John', last_name: 'Smith').full_name.should == 'John Smith' }
   end
 
   describe 'saving previous data' do
-    let(:reg) { Factory(:registration) }
+    let(:reg) { FactoryGirl.create(:registration) }
 
     specify { reg.previous_data.should be_nil }
     it "should save previous value on update" do
@@ -72,23 +72,23 @@ describe Registration do
   describe 'verifying absentee until date on create' do
     it 'should not be farther than a year if letting to choose' do
       AppConfig['choose_absentee_until'] = true
-      r = Factory(:registration, absentee_until: 2.years.from_now)
+      r = FactoryGirl.create(:registration, absentee_until: 2.years.from_now)
       r.absentee_until.should be_within(1).of(1.year.from_now)
     end
 
     it 'should be set to the end of the current year if not choosing' do
       AppConfig['choose_absentee_until'] = false
-      r = Factory(:registration, absentee_until: 2.years.from_now)
+      r = FactoryGirl.create(:registration, absentee_until: 2.years.from_now)
       r.absentee_until.should be_within(1).of(1.year.from_now.end_of_year)
     end
 
     it 'should pass valid dates' do
       AppConfig['choose_absentee_until'] = true
-      r = Factory(:registration, absentee_until: 1.month.from_now)
+      r = FactoryGirl.create(:registration, absentee_until: 1.month.from_now)
       r.absentee_until.should be_within(1).of(1.month.from_now)
 
       AppConfig['choose_absentee_until'] = false
-      r = Factory(:registration, absentee_until: 1.month.from_now)
+      r = FactoryGirl.create(:registration, absentee_until: 1.month.from_now)
       r.absentee_until.should be_within(1).of(1.month.from_now)
     end
   end

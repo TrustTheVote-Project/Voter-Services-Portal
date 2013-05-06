@@ -16,6 +16,7 @@
 //= require bootstrap
 //= require knockout-2.2.0
 //= require moment.min
+//= require jquery-migrate-1.2.0
 //= require jquery.ba-hashchange.min
 //= require feedback
 //= require jquery-ui-1.8.21.custom.min

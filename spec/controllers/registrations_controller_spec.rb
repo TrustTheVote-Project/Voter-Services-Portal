@@ -3,7 +3,7 @@ require 'spec_helper'
 describe RegistrationsController do
 
   let(:af) { stub}
-  let(:current_registration) { Factory.build(:registration) }
+  let(:current_registration) { FactoryGirl.build(:registration) }
   before { controller.stub(:current_registration).and_return(current_registration) }
 
   describe 'new' do
@@ -37,7 +37,7 @@ describe RegistrationsController do
 
         af.should_receive(:unmark!)
         post :create, registration: {}
-        should render_template :show
+        should render_template :create
         session[:registration_id].should == assigns(:registration).id
       end
 

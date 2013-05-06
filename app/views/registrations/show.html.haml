@@ -1,4 +1,103 @@
-- if @registration.existing
-  = render partial: 'show_existing'
-- else
-  = render partial: 'show_new'
+- reg = RegistrationDetailsPresenter.new(@registration)
+
+- unless no_forms?
+  = render partial: "search/steps", locals: { step: 'view' }
+
+.padded_page_span.section#overview
+  = render partial: 'head'
+
+  .row
+    .head.light
+      - unless no_forms?
+        = link_to "Download Voter Card", voter_card_path, class: 'download voter_card'
+      %h3 Voter Information
+
+    .summary
+      .body
+        %table.table.properties
+          %tr
+            %th Name:
+            %td= reg.full_name
+          - if reg.dob
+            %tr
+              %th Date of birth:
+              %td= reg.dob
+          %tr
+            %th Gender:
+            %td= reg.gender
+          - unless reg.optional_phone.blank?
+            %tr
+              %th Phone:
+              %td= reg.optional_phone
+          - unless reg.optional_email.blank?
+            %tr
+              %th Email:
+              %td= reg.optional_email
+          %tr
+            %th Registration address:
+            %td= reg.registration_address
+          %tr
+            %th Mailing address:
+            %td= reg.mailing_address(@registration.currently_overseas?)
+          - if reg.address_confidentiality?
+            %tr
+              %th Address confidentiality:
+              %td Active
+
+    - if reg.voting_location_given?
+      .accordion.summary.voting-location
+        .body
+          %h3
+            = link_to "Show", '#', class: 'toggle'
+            Voting Location
+          %table.table.area
+            %tr
+              %th &nbsp;
+              %td= reg.voting_location
+
+    .accordion.summary.districts
+      .body
+        %h3
+          = link_to "Show", '#', class: 'toggle'
+          Districts
+        %table.table.area
+          - (reg.districts || []).each do |label, (c, v)|
+            %tr
+              %th &nbsp;
+              %td.l #{label}:
+              %td <em>#{v}</em>
+
+    - if reg.has_election_participation_history?
+      .accordion.summary
+        .body
+          %h3
+            = link_to "Show", '#', class: 'toggle'
+            Election Participation<br>History
+          %table.table.area
+            - reg.past_elections.each do |e, s|
+              %tr
+                %th &nbsp;
+                %td.l= s
+                %td <em>#{e}</em>
+
+    .head.light
+      %h3 Voting Status
+
+    %ul.status_options{ class: no_forms? ? 'no_forms' : nil }
+      - (no_forms? ? [ reg.status ] : reg.status_options).each do |opt|
+        = render partial: "status_option_#{opt}", locals: { reg: reg }
+
+    - if no_forms?
+      .info
+        %p
+          Need to change your address, name, or contact information?
+          = link_to "Learn more about updating your voter record", :about_update_absentee_page, target: '_blank'
+        %p
+          Need to understand your options for voting absentee?
+          = link_to "Learn more about absentee ballots", :about_update_absentee_page, target: '_blank'
+
+      .form_action
+        = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Mark Your Absentee Ballot Online: #{link_to 'learn more', :online_ballot_marking_page, target: '_blank'} or #{link_to 'get started now', '#', class: 'submit'}" }
+    - else
+      .form-actions
+        = link_to "Next &rarr;".html_safe, :edit_registration, class: 'next btn', id: 'edit_registration'
