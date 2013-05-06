@@ -41,7 +41,7 @@ class RegistrationsController < ApplicationController
 
       active_form.unmark!
 
-      # Lod completion
+      # Log completion
       LogRecord.complete_new(@registration, session[:slr_id])
       session[:slr_id] = nil
 
