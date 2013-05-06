@@ -18,20 +18,25 @@ class SubmitEml310
   private
 
   def self.submit(reg)
-    # easter eggs
+    response = nil
+    result = {}
+
+    # easter egg
     raise SubmissionError if reg.last_name == 'faileml310'
-    return { success: reg.dmv_id.size == 9, voter_id: '123456789' } if reg.dmv_id
 
     # don't submit anything if disabled
-    return {} unless submission_enabled?
+    if submission_enabled?
+      response = send_request(reg)
+      raise SubmissionError unless successful_response?(response)
+      result = extract_voter_id(response)
+    end
 
-    res = send_request(reg)
+    # easter eggs
+    result = { success: reg.dmv_id.size == 9, voter_id: '123456789' } if reg.dmv_id
 
-    raise SubmissionError unless successful_response?(res)
-
-    return extract_voter_id(res)
+    result
   rescue => e
-    ErrorLogRecord.log("Submit EML310", error: "Failed to submit", response: res)
+    ErrorLogRecord.log("Submit EML310", error: "Failed to submit", response: response)
     raise SubmissionError
   end
 
