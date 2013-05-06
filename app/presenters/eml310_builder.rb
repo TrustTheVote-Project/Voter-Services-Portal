@@ -66,7 +66,8 @@ class Eml310Builder
               end
             end
 
-            xml.VoterPhysicalID r.ssn, IdType: 'SSN' unless r.ssn.blank?
+            xml.VoterPhysicalID r.ssn, IdType: 'SSN' if r.ssn.present?
+            xml.VoterPhysicalID registration.dmv_id, IdType: 'DMVID' if registration.dmv_id.present? && !registration.existing
           end
 
           xml.VoterInformation do
