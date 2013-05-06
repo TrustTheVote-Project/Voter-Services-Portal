@@ -44,7 +44,8 @@ class NewRegistration extends Registration
   eligibilityPage: =>
     location.hash = 'eligibility'
 
-  lookupRecord: =>
+  lookupRecord: (_, e) =>
+    return if $(e.target).hasClass('disabled')
     @currentPageIdx(lookupRecordPageIdx)
 
     revoked = @rightsWereRevoked() && !@rightsWereRestored()
