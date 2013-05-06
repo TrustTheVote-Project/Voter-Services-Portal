@@ -1,9 +1,9 @@
-pages                 = [ 'eligibility', 'lookup_record', 'identity', 'address', 'options', 'confirm', 'oath', 'download', 'congratulations', 'registered_info' ]
+pages                 = [ 'eligibility', 'lookup_record', 'identity', 'address', 'options', 'confirm', 'oath', 'final', 'congratulations', 'registered_info' ]
 eligibilityPageIdx    = pages.indexOf('eligibility')
 lookupRecordPageIdx   = pages.indexOf('lookup_record')
 identityPageIdx       = pages.indexOf('identity')
 oathPageIdx           = pages.indexOf('oath')
-downloadPageIdx       = pages.indexOf('download')
+finalPageIdx          = pages.indexOf('final')
 optionsPageIdx        = pages.indexOf('options')
 registeredInfoPageIdx = pages.indexOf('registered_info')
 
@@ -81,5 +81,5 @@ $ ->
   if $('form#new_registration').length > 0
     ko.applyBindings(new NewRegistration(0))
 
-  if $("#new_registration_finalization").length > 0
+  if $("#nr_download").length > 0
     ko.applyBindings(new Finalization(pages))

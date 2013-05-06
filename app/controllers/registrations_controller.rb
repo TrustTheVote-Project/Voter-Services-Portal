@@ -37,7 +37,7 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new(data)
 
     if @registration.save
-      @dmv = LookupService.registration_for_record(@registration)
+      @dmv_lookup = LookupService.registration_for_record(@registration)
 
       SubmitEml310.schedule(@registration)
 

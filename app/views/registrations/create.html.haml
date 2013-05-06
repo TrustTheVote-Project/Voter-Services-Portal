@@ -1,4 +1,5 @@
-- @page_id = 'new_registration_finalization'
+- unregistered_dmv = @dmv_lookup[:dmv_match] && !@dmv_lookup[:registered]
+- @page_id = unregistered_dmv ? 'nr_unregistered_dmv' : 'nr_download'
 
 = render partial: 'steps'
 
@@ -8,10 +9,11 @@
       All information in this online experience is required by state or federal
       law, unless specifically marked optional.
 
-    = debug @dmv_lookup
-
 .row
   .padded_page_span
-    = render partial: 'download'
-    = render partial: 'congratulations'
+    - if unregistered_dmv
+      = render partial: 'unregistered_dmv'
+    - else
+      = render partial: 'download'
+      = render partial: 'congratulations'
 

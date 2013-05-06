@@ -1,8 +1,8 @@
 class window.Finalization
   constructor: (pages) ->
     @pages          = pages
-    @currentPageIdx = ko.observable(pages.indexOf("download"))
-    @page           = ko.observable("download")
+    @currentPageIdx = ko.observable(pages.indexOf("final"))
+    @page           = ko.observable("final")
     @downloaded     = ko.observable(false)
     @downloadSection()
 
