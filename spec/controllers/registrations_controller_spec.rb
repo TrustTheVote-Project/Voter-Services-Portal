@@ -35,7 +35,7 @@ describe RegistrationsController do
       end
 
       it 'should save and submit successfully' do
-        SubmitEml310.should_receive(:submit_new).with(kind_of(Registration)).and_return({ success: true, voter_id: 'voter_id' })
+        SubmitEml310.should_receive(:submit_new).with(kind_of(Registration)).and_return(true)
         af.should_receive(:unmark!)
         LogRecord.should_receive(:complete_new).with(kind_of(Registration), 'slr_id')
 
@@ -43,7 +43,7 @@ describe RegistrationsController do
         should render_template :create
         session[:registration_id].should == assigns(:registration).id
         assigns(:registration).reload.submission_failed.should_not be_true
-        assigns(:submission_success).should be_true
+        assigns(:submitted).should be_true
       end
 
       it 'should mark the record as failed submission' do
@@ -53,10 +53,10 @@ describe RegistrationsController do
       end
 
       it 'should log the submission of a record with DMV ID' do
-        SubmitEml310.stub(submit_new: { success: true, voter_id: 'voter_id' })
+        SubmitEml310.stub(submit_new: true)
         LogRecord.should_receive(:submit_new).with(kind_of(Registration), 'slr_id')
         post :create, registration: { dmv_id: '123123123' }
-        assigns(:submission_success).should be_true
+        assigns(:submitted).should be_true
         should render_template :create
       end
 

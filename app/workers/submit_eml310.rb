@@ -28,11 +28,11 @@ class SubmitEml310
     if submission_enabled?
       response = send_request(reg)
       raise SubmissionError unless successful_response?(response)
-      result = extract_voter_id(response)
+      result = parse(response)
     end
 
     # easter eggs
-    result = { success: reg.dmv_id.size == 9, voter_id: '123456789' } if reg.dmv_id
+    result = (reg.dmv_id.size == 9) if reg.dmv_id
 
     result
   rescue => e
@@ -69,16 +69,12 @@ class SubmitEml310
     Eml310Builder.build(reg, xml)
   end
 
-  # parses the response and returns the voter ID
-  def self.extract_voter_id(res)
+  # parses the response
+  def self.parse(res)
     # TBD and implemented
-    # when registering new records. success=true means we added new record
-    # success=false means there was the record with this data already
-    voter_id = "123456789"
-    success  = true
+    # when registering new records. 'true' means we added new record
+    # 'false' means there was the record with this data already
 
-    raise SubmissionError.new("Voter ID is missing") if voter_id.blank?
-
-    return { success: success, voter_id: voter_id }
+    true
   end
 end

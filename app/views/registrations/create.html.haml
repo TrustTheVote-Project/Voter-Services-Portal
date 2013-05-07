@@ -1,5 +1,5 @@
-- registered_with_dmv = @submission_success && @voter_id.present? && @registration.dmv_id.present?
-- @page_id = registered_with_dmv ? 'nr_unregistered_dmv' : 'nr_download'
+- submitted_with_dmvid = @submitted && @registration.dmv_id.present?
+- @page_id = submitted_with_dmvid ? 'nr_submitted_with_dmvid' : 'nr_download'
 
 = render partial: 'steps'
 
@@ -14,8 +14,8 @@
     - if @registration.submission_failed
       %p TBD 310 error
 
-    - if registered_with_dmv
-      = render partial: 'unregistered_dmv'
+    - if submitted_with_dmvid
+      = render partial: 'submitted_with_dmvid'
     - else
       = render partial: 'download'
       = render partial: 'congratulations'

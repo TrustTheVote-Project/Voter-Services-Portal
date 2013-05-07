@@ -21,7 +21,7 @@ feature 'New registration', :js do
   scenario 'w/ d/l screen for normal records' do
     visit '/register/residential'
 
-    fill_eligibility_page dmv_id: '0123456789'
+    fill_eligibility_page dmv_id: '1234567890'
     fill_identity_page
     fill_address_page
     skip_options_page

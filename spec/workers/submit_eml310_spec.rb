@@ -20,21 +20,26 @@ describe SubmitEml310 do
   it 'should submit' do
     SubmitEml310.should_receive(:successful_response?).with(res).and_return(true)
     Net::HTTP.should_receive(:start).and_return(res)
-    SubmitEml310.submit_new(reg).should == { success: true, voter_id: '123456789' }
+    SubmitEml310.submit_new(reg).should be_true
   end
 
+
   describe 'easter eggs' do
-    before do
+    it 'should fail update when last name is "faileml310"' do
       reg.last_name = "faileml310"
       SubmitEml310.should_not_receive(:send_request)
-    end
-
-    it 'should fail update when last name is "faileml310"' do
       SubmitEml310.submit_update(reg)
     end
 
     it 'should fail new reg when last name is "faileml310"' do
+      reg.last_name = "faileml310"
+      SubmitEml310.should_not_receive(:send_request)
       expect { SubmitEml310.submit_new(reg) }.to raise_error SubmitEml310::SubmissionError
+    end
+
+    it 'should not submit records with non-9-digit DMVID' do
+      reg.dmv_id = "1234567890"
+      SubmitEml310.submit_new(reg).should be_false
     end
   end
 end

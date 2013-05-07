@@ -38,16 +38,14 @@ class RegistrationsController < ApplicationController
 
     if @registration.save
       begin
-        res = SubmitEml310.submit_new(@registration)
-        @submission_success  = res[:success]
-        @voter_id            = res[:voter_id]
+        @submitted = SubmitEml310.submit_new(@registration)
       rescue SubmitEml310::SubmissionError
         @registration.update_attributes!(submission_failed: true)
       end
 
       active_form.unmark!
 
-      if @submission_success && @voter_id.present? && @registration.dmv_id.present?
+      if @submitted && @registration.dmv_id.present?
         LogRecord.submit_new(@registration, session[:slr_id])
       else
         LogRecord.complete_new(@registration, session[:slr_id])
