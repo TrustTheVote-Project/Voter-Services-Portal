@@ -43,7 +43,7 @@ class window.Registration
            !filledRightsRestorationBlock))
 
       errors.push('Date of birth') unless @dob()
-      errors.push('Social Security #') unless ssn(@ssn()) and !@noSSN()
+      errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
       errors.push('DMV ID#') if !isDmvId(@dmvId()) and !@noDmvId()
       errors
 
