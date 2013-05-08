@@ -12,8 +12,8 @@ class window.Registration
     @initOathFields()
 
   initEligibilityFields: ->
-    @isCitizen              = ko.observable()
-    @isOldEnough            = ko.observable()
+    @citizen                = ko.observable()
+    @oldEnough              = ko.observable()
     @rightsWereRevoked      = ko.observable()
     @rightsRevokationReason = ko.observable()
     @rightsWereRestored     = ko.observable()
@@ -32,9 +32,16 @@ class window.Registration
 
     @eligibilityErrors = ko.computed =>
       errors = []
-      errors.push("Citizenship criteria") unless @isCitizen()
-      errors.push("Age criteria") unless @isOldEnough()
-      errors.push("Voting rights criteria") unless (@rightsWereRevoked() == '0' or (@rightsRevokationReason() and @rightsWereRestored() == '1' and @rightsRestoredOn()))
+      errors.push("Citizenship criteria") unless @citizen()
+      errors.push("Age criteria") unless @oldEnough()
+
+      rwr = @rightsWereRestored()
+      filledRightsRestorationBlock = filled(rwr) and (rwr == '0' or @rightsRestoredOn())
+      errors.push("Voting rights criteria") if !filled(@rightsWereRevoked()) or
+        (@rightsWereRevoked() == '1' and
+          (!filled(@rightsRevokationReason()) or
+           !filledRightsRestorationBlock))
+
       errors.push('Date of birth') unless @dob()
       errors.push('Social Security #') unless ssn(@ssn()) and !@noSSN()
       errors.push('DMV ID#') if !isDmvId(@dmvId()) and !@noDmvId()

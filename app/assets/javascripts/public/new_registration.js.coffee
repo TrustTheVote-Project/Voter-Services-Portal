@@ -54,8 +54,8 @@ class NewRegistration extends Registration
     rmental = revoked && reason == 'mental'
 
     $.getJSON '/lookup/registration', { record: {
-        eligible_citizen:             if @isCitizen() then '1' else '0',
-        eligible_18_next_election:    if @isOldEnough() then '1' else '0',
+        eligible_citizen:             @citizen(),
+        eligible_18_next_election:    @oldEnough(),
         eligible_revoked_felony:      if rfelony then '1' else '0',
         eligible_revoked_competence:  if rmental then '1' else '0',
         dob:                          "#{@dobMonth()}/#{@dobDay()}/#{@dobYear()}",
