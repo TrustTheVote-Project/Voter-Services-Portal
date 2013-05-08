@@ -34,30 +34,42 @@ describe RegistrationsController do
         session[:slr_id] = 'slr_id'
       end
 
-      it 'should save and submit successfully' do
-        SubmitEml310.should_receive(:submit_new).with(kind_of(Registration)).and_return(true)
-        af.should_receive(:unmark!)
-        LogRecord.should_receive(:complete_new).with(kind_of(Registration), 'slr_id')
+      context 'eligible record' do
+        before { Registration.any_instance.should_receive(:eligible?).and_return(true) }
 
-        post :create, registration: {}
-        should render_template :create
-        session[:registration_id].should == assigns(:registration).id
-        assigns(:registration).reload.submission_failed.should_not be_true
-        assigns(:submitted).should be_true
+        it 'should save and submit successfully' do
+          SubmitEml310.should_receive(:submit_new).with(kind_of(Registration)).and_return(true)
+          af.should_receive(:unmark!)
+          LogRecord.should_receive(:complete_new).with(kind_of(Registration), 'slr_id')
+
+          post :create, registration: {}
+          should render_template :create
+          session[:registration_id].should == assigns(:registration).id
+          assigns(:registration).reload.submission_failed.should_not be_true
+          assigns(:submitted).should be_true
+        end
+
+        it 'should mark the record as failed submission' do
+          SubmitEml310.should_receive(:submit_new).and_raise(SubmitEml310::SubmissionError)
+          post :create, registration: {}
+          assigns(:registration).reload.submission_failed.should be_true
+        end
+
+        it 'should log the submission of a record with DMV ID' do
+          SubmitEml310.stub(submit_new: true)
+          LogRecord.should_receive(:submit_new).with(kind_of(Registration), 'slr_id')
+          post :create, registration: { dmv_id: '123123123' }
+          assigns(:submitted).should be_true
+          should render_template :create
+        end
       end
 
-      it 'should mark the record as failed submission' do
-        SubmitEml310.should_receive(:submit_new).and_raise(SubmitEml310::SubmissionError)
-        post :create, registration: {}
-        assigns(:registration).reload.submission_failed.should be_true
-      end
-
-      it 'should log the submission of a record with DMV ID' do
-        SubmitEml310.stub(submit_new: true)
-        LogRecord.should_receive(:submit_new).with(kind_of(Registration), 'slr_id')
-        post :create, registration: { dmv_id: '123123123' }
-        assigns(:submitted).should be_true
-        should render_template :create
+      context 'ineligible record' do
+        before { Registration.any_instance.should_receive(:eligible?).and_return(false) }
+        it 'should mark the record as failed submission' do
+          SubmitEml310.should_not_receive(:submit_new)
+          post :create, registration: {}
+        end
       end
 
       it 'should return to the form on failure' do

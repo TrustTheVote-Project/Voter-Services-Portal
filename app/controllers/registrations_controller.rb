@@ -37,10 +37,12 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new(data)
 
     if @registration.save
-      begin
-        @submitted = SubmitEml310.submit_new(@registration)
-      rescue SubmitEml310::SubmissionError
-        @registration.update_attributes!(submission_failed: true)
+      if @registration.eligible?
+        begin
+          @submitted = SubmitEml310.submit_new(@registration)
+        rescue SubmitEml310::SubmissionError
+          @registration.update_attributes!(submission_failed: true)
+        end
       end
 
       active_form.unmark!

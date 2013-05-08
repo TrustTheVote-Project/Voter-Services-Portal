@@ -83,6 +83,19 @@ class Registration < ActiveRecord::Base
 
   alias :ob_eligible? :ob_eligible
 
+  # TRUE if new registration is eligible
+  def eligible?
+    self.citizen == '1' &&
+    self.old_enough == '1' &&
+    self.dob && self.dob.past? &&
+    self.ssn.present? &&
+    (self.rights_revoked == '0' ||
+     (self.rights_revoked == '1' &&
+      self.rights_revoked_reason.present? &&
+      self.rights_restored == '1' &&
+      self.rights_restored_on && self.rights_restored_on.past?))
+  end
+
   def full_name
     [ first_name, middle_name, last_name, suffix ].delete_if(&:blank?).join(' ')
   end
