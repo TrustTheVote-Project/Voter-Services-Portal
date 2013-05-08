@@ -30,6 +30,14 @@ class window.Registration
     @dmvId                  = ko.observable()
     @noDmvId                = ko.observable()
 
+    @isEligible = ko.computed =>
+      @citizen() == '1' and
+      @oldEnough() == '1' and
+      !!@dob() and
+      !@noSSN() and filled(@ssn()) and
+      (@rightsWereRevoked() == '0' or
+       filled(@rightsRevokationReason()) and @rightsWereRestored() == '1' and !!@rightsRestoredOn())
+
     @eligibilityErrors = ko.computed =>
       errors = []
       errors.push("Citizenship criteria") unless @citizen()

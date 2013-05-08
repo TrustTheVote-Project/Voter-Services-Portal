@@ -1,5 +1,6 @@
-pages                 = [ 'eligibility', 'lookup_record', 'identity', 'address', 'options', 'confirm', 'oath', 'final', 'congratulations', 'registered_info' ]
+pages                 = [ 'eligibility', 'ineligible', 'lookup_record', 'identity', 'address', 'options', 'confirm', 'oath', 'final', 'congratulations', 'registered_info' ]
 eligibilityPageIdx    = pages.indexOf('eligibility')
+ineligiblePageIdx     = pages.indexOf('ineligible')
 lookupRecordPageIdx   = pages.indexOf('lookup_record')
 identityPageIdx       = pages.indexOf('identity')
 oathPageIdx           = pages.indexOf('oath')
@@ -41,8 +42,16 @@ class NewRegistration extends Registration
   submit: (f) =>
     $("##{@page()} .next.btn").trigger('click')
 
-  eligibilityPage: =>
-    location.hash = 'eligibility'
+  eligibilityPage: => location.hash = 'eligibility'
+  ineligiblePage: => location.hash = 'ineligible'
+  identityPage: => location.hash = 'identity'
+
+  checkEligibility: (_, e) =>
+    return if $(e.target).hasClass('disabled')
+    if @isEligible()
+      @lookupRecord(_, e)
+    else
+      @ineligiblePage()
 
   lookupRecord: (_, e) =>
     return if $(e.target).hasClass('disabled')

@@ -5,22 +5,8 @@ steps_for :registration_form do
   end
 
   step 'choose rural registration address' do
-    # fill eligibility page
-    check   'registration_citizen'
-    check   'registration_old_enough'
-    choose  'registration_residence_in'
-    choose  'registration_rights_revoked_0'
-    select  'January', from: 'registration_dob_2i_'
-    select  '1', from: 'registration_dob_3i_'
-    select  '1995', from: 'registration_dob_1i_'
-    fill_in 'registration_ssn', with: '123123123'
-    check   'I do not have a DMV ID number'
-    click_button 'Next'
-
-    # fill identity page
-    fill_in 'registration_last_name', with: 'Last name'
-    select  'Male', from: 'registration_gender'
-    click_button 'Next'
+    fill_eligibility_page
+    fill_identity_page
 
     check   'registration_vvr_is_rural'
   end

@@ -3,21 +3,20 @@ def seed_offices
 end
 
 def fill_eligibility_page(options = {})
-  check   "I am a citizen of the United States of America."
-  check   "I will be at least 18 years of age on or before the next Election Day."
-  choose  "No"
+  within('.citizen') { choose options[:citizen] || 'Yes' }
+  within('.old_enough') { choose options[:old_enough] || 'Yes' }
+  within('.rights_revoked') { choose 'No' }
   select  "January",  from: "registration_dob_2i_"
   select  "1",        from: "registration_dob_3i_"
   select  "1996",     from: "registration_dob_1i_"
   fill_in "Social Security Number", with: "123123123"
-
   if options[:dmv_id]
     fill_in "Department of Motor Vehicles ID Number", with: options[:dmv_id]
   else
     check   "I do not have a DMV ID number"
   end
 
-  click_button "Next"
+  click_button 'Next'
 end
 
 def fill_identity_page

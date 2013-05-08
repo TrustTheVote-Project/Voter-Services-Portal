@@ -1,4 +1,4 @@
-#eligibility.section{ 'data-bind' => 'visible: page() == "eligibility"' }
+#eligibility.section{ 'data-bind' => 'vis: page() == "eligibility"' }
   .head
     %h3 Eligibility
     .description Eligibility to vote in Virginia.
@@ -103,4 +103,4 @@
           I do not have a DMV ID number
 
   .form-actions
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: lookupRecord, css: { disabled: eligibilityInvalid }'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: checkEligibility, css: { disabled: eligibilityInvalid }'

@@ -13,6 +13,7 @@
     = form_for @registration, url: :registration, html: { 'data-bind' => 'submit: submit' } do |f|
       = hidden_field_tag :residence, params[:residence]
       = render partial: 'eligibility_section',  locals: { f: f }
+      = render partial: 'ineligible_section',   locals: { f: f }
       = render partial: 'identity_section',     locals: { f: f }
       = render partial: 'addresses_section',    locals: { f: f }
       = render partial: 'mailing_section',      locals: { f: f }
