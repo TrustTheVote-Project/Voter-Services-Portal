@@ -72,7 +72,7 @@ class NewRegistration extends Registration
         dmv_id:                       if @noDmvId() then '' else @dmvId()
       }}, (data) =>
         if data.registered
-          @currentPageIdx(registeredInfoPageIdx)
+          location.hash = "registered_info"
         else
           @dmvMatch(data.dmv_match)
           location.hash = 'identity'

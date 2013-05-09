@@ -1,6 +1,9 @@
 #registered_info.section{ 'data-bind' => 'vis: page() == "registered_info"' }
   .head
     %h3 Registered
-    .description some wording here
-  %p
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc condimentum sagittis malesuada. Cras pulvinar lacus sed tellus scelerisque vehicula. Pellentesque tempor turpis id magna tincidunt in consectetur arcu fermentum. Quisque placerat suscipit urna at condimentum. In hac habitasse platea dictumst. Aliquam nunc lorem, commodo vitae euismod tempus, blandit a odio. Curabitur et ipsum in enim vehicula tristique a luctus leo. Morbi scelerisque nulla sit amet neque fermentum in cursus nunc posuere. Vestibulum euismod, nisl non viverra congue, mauris nunc fermentum ligula, in suscipit arcu purus ut ipsum. Integer hendrerit, quam vel lobortis euismod, magna odio convallis justo, in sodales leo velit ut ante. Sed consequat eleifend nisl vitae varius. Nunc porttitor imperdiet posuere. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec sed mi quis nisi posuere gravida. Aenean lectus lacus, commodo at scelerisque in, bibendum ut tortor.
+    .description You are already registered to vote.
+  %p= I18n.t("registered.details")
+
+  .form-actions
+    -# = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: identityInvalid }'
+    = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: eligibilityPage'

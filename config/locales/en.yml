@@ -29,3 +29,6 @@ en:
 
   dmv:
     match: "Because you have a current DMV ID, you are eligible to submit your voter registration application online, without the need to print sign and mail a paper application form."
+  
+  registered:
+    details: "You are already registered to vote. To view your existing voter registration information, simply click \"Next\" below. From there, you can make any needed corrections your name, address, or contact information."
