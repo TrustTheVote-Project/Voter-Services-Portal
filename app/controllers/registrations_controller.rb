@@ -76,8 +76,11 @@ class RegistrationsController < ApplicationController
       f.html
 
       f.pdf do
-        new_domestic = !@update && @registration.residential?
-        if new_domestic && AppConfig['pdf_forms']
+        render_form = @registration.residential? && (
+          (@update && !@registration.requesting_absentee?) ||
+          !@update)
+
+        if render_form && AppConfig['pdf_forms']
           @pdf = NewDomesticPdf.render(@registration).string
         else
           # Doing it in such a weird way because of someone stealing render / render_to_string method from wicked_pdf
