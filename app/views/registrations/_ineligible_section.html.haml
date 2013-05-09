@@ -2,7 +2,7 @@
   .head
     %h3 Eligibility
     .description Eligibility to vote in Virginia.
-  %p= I18n.t("ineligible")
+  %p= I18n.t("ineligible.details")
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: identityPage, css: { disabled: eligibilityInvalid }'

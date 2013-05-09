@@ -73,7 +73,7 @@
       <!-- /ko -->
 
       .block.ineligible{ 'data-bind' => "visible: rightsWereRestored() == '0'" }
-        %p You are not eligible to vote, if your voting rights have been revoked, and have not been restored.
+        %p= I18n.t("ineligible.rights")
 
   .partition
     .date
