@@ -22,3 +22,5 @@ en:
   voting_status:
     residential_voter: "Virginia Residential Voter"
     overseas: "Overseas/Military Absentee Voter"
+
+  ineligible: "Based on the information you provided, you may not be eligible to vote. You may go back to correct your information, or proceed to complete your voter registration application as is. If you proceed,  and mail your completed application to your county registrar, then the registrar may reject your application if you are not a citizen of the U.S., will not be 18 by the next election, have had your voting rights revoked but not restored, or do not have a Social Security Number. For more information on eligibility, see http://sbe.virginia.gov."

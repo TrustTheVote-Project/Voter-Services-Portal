@@ -2,8 +2,7 @@
   .head
     %h3 Eligibility
     .description Eligibility to vote in Virginia.
-  %p
-    Basing on the data you provided, you may be found ineligible for voting.
+  %p= I18n.t("ineligible")
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: identityPage, css: { disabled: eligibilityInvalid }'

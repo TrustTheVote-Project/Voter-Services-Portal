@@ -7,7 +7,7 @@ feature 'Showing may not be eligible page', :js do
 
     fill_eligibility_page(citizen: 'No')
 
-    expect(page).to have_text "you may be found ineligible"
+    expect(page).to have_text "you may not be eligible"
 
     # going back should bring eligibility page
     click_button 'Back'
