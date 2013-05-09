@@ -5,7 +5,15 @@ class LookupService
     if record[:dmv_id].size == 12
       { registered: true }
     elsif record[:dmv_id].size == 9
-      { registered: false, dmv_match: true }
+      { registered: false, dmv_match: true,
+        address: {
+          street_number:  "123",
+          street_name:    "WannaVote",
+          street_type:    "DR",
+          county_or_city: "ALEXANDRIA CITY",
+          zip5:           "12345"
+        }
+      }
     else
       { registered: false, dmv_match: false }
     end

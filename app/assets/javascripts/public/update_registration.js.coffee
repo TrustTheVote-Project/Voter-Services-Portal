@@ -18,6 +18,9 @@ class UpdateRegistration extends Registration
     rau = moment().add('days', 45).format("YYYY-MM-DD") if !filled(rau)
     @setAbsenteeUntil(rau)
 
+    # There's no DMV matching in update workflow
+    @dmvMatch = ko.observable(false)
+
     # Navigation
     @currentPageIdx         = ko.observable(initPage)
     @page                   = ko.computed(=> pages[@currentPageIdx()])

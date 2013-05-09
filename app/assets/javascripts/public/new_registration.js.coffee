@@ -75,6 +75,13 @@ class NewRegistration extends Registration
           location.hash = "registered_info"
         else
           @dmvMatch(data.dmv_match)
+          if @dmvMatch()
+            a = data.address
+            @vvrStreetNumber(a.street_number)
+            @vvrStreetName(a.street_name)
+            @vvrStreetType(a.street_type)
+            @vvrCountyOrCity(a.county_or_city)
+            @vvrZip5(a.zip5)
           location.hash = 'identity'
 
   prevPage: => window.history.back()

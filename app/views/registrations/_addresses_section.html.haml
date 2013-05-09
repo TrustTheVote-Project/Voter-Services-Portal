@@ -1,7 +1,12 @@
 #address.section{ 'data-bind' => "vis: page() == 'address'" }
   .head
     %h3 Registration address
-    .description Registration address is your Home address in Virginia or your most recent Virginia residence.
+    .description
+      Registration address is your Home address in Virginia or your most recent Virginia residence.
+      <!-- ko if: dmvMatch -->
+      <br/>
+      #{I18n.t("dmv.address_info")}
+      <!-- /ko -->
   <!-- ko ifnot: vvrIsRural -->
   .row
     .span2
