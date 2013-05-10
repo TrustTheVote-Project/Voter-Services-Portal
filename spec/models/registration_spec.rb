@@ -2,6 +2,10 @@ require 'spec_helper'
 
 describe Registration do
 
+  it 'should cleanup ssn' do
+    FactoryGirl.create(:registration, ssn: '123-45-6789').ssn.should == '123456789'
+  end
+
   describe 'full_name' do
     specify { FactoryGirl.build(:registration, first_name: 'Wanda', middle_name: 'Hunt', last_name: 'Phelps', suffix: 'III').full_name.should == 'Wanda Hunt Phelps III' }
     specify { FactoryGirl.build(:registration, first_name: 'John', last_name: 'Smith').full_name.should == 'John Smith' }

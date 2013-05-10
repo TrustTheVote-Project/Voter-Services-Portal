@@ -79,6 +79,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :upcoming_elections, :ob_eligible
 
   before_create :review_absentee_until
+  before_save   :cleanup_ssn
 
   alias :ob_eligible? :ob_eligible
 
@@ -215,4 +216,7 @@ class Registration < ActiveRecord::Base
     self.absentee_until = max_date if self.absentee_until.to_i > max_date.to_i
   end
 
+  def cleanup_ssn
+    self.ssn.gsub!(/[^0-9]/, '') if self.ssn.present?
+  end
 end
