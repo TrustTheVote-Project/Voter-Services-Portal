@@ -4,5 +4,8 @@
 
 .row
   .padded_page_span
-    = render partial: 'download', locals: { update: true }
-    = render partial: 'complete_section'
+    - if @submitted && @registration.dmv_id.present?
+      = render partial: 'submitted_with_dmvid'
+    - else
+      = render partial: 'download', locals: { update: true }
+      = render partial: 'complete_section'

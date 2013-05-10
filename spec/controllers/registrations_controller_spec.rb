@@ -123,20 +123,18 @@ describe RegistrationsController do
     context 'with valid form session' do
       before do
         ActiveForm.should_receive(:find_for_session!).and_return(af)
+        SubmitEml310.stub(:submit_update)
       end
 
       it 'should set saved lookup DOB' do
-        SubmitEml310.stub(:submit_update)
         dob = 40.years.ago
-        af.should_receive(:unmark!)
+        controller.should_receive(:finalize_update)
         RegistrationRepository.should_receive(:pop_lookup_data).and_return({ dob: dob })
         put :update, registration: {}
         assigns(:registration).dob.should == dob
       end
 
       it 'should save valid data' do
-        SubmitEml310.should_receive(:submit_update).with(kind_of(Registration))
-
         af.should_receive(:unmark!)
         current_registration.should_receive(:update_attributes).and_return(true)
         put :update, registration: {}
@@ -145,14 +143,42 @@ describe RegistrationsController do
       end
 
       it 'should redirect to the form on invalid data' do
-        SubmitEml310.should_not_receive(:submit_update)
-
-        af.should_not_receive(:unmark!)
         af.should_receive(:touch)
+        controller.should_not_receive(:finalize_update)
         current_registration.should_receive(:update_attributes).and_return(false)
         put :update, registration: {}
         should redirect_to :edit_registration
       end
+    end
+  end
+
+  describe 'submitting update EML310' do
+    let(:ses) { {} }
+    let(:reg) { Registration.new }
+
+    before do
+      af.stub(:unmark!)
+    end
+
+    it 'should not submit if SSN is missing' do
+      SubmitEml310.should_not_receive(:submit_update)
+      controller.send(:finalize_update, af, reg, ses).should be_false
+    end
+
+    it 'should submit if SSN is present' do
+      reg.ssn = "123456789"
+      SubmitEml310.should_receive(:submit_update).with(reg).and_return(true)
+      controller.send(:finalize_update, af, reg, ses).should be_true
+    end
+
+    # Internal error log should contain the error code from the API, and the voter ID, but no other information about the voter.
+    it 'should log error if submission failed' do
+      reg.ssn = "123456789"
+      SubmitEml310.should_receive(:submit_update).and_raise(SubmitEml310::SubmissionError)
+      controller.send(:finalize_update, af, reg, ses)
+
+      reg.reload.submission_failed.should be_true
+      pending
     end
   end
 end

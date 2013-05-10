@@ -8,7 +8,7 @@ class Registration < ActiveRecord::Base
 
   # When checking for changes on the form to determine if that's a purely absentee request,
   # ignore these keys.
-  IGNORE_CHANGES_IN_KEYS  = [ :voter_id, :current_residence, :ssn,
+  IGNORE_CHANGES_IN_KEYS  = [ :voter_id, :current_residence, :ssn, :no_ssn, :dmv_id, :no_dmv_id,
                               :existing, :poll_locality, :poll_precinct, :poll_district,
                               :information_correct, :privacy_agree ]
 

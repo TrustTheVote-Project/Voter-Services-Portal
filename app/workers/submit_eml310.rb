@@ -7,8 +7,6 @@ class SubmitEml310
 
   def self.submit_update(reg)
     return submit(reg)
-  rescue SubmissionError
-    # Ignore the error as per https://www.pivotaltracker.com/story/show/49158483
   end
 
   def self.submit_new(reg)

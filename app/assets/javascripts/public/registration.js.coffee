@@ -440,7 +440,8 @@ class window.Registration
       errors = []
       errors.push("Confirm that information is correct") unless @infoCorrect()
       errors.push("Agree with privacy terms") unless @privacyAgree()
-      errors.push("Social Security #") unless ssn(@ssn()) and !@noSSN()
+      errors.push("Social Security #") if !ssn(@ssn()) and !@noSSN()
+      errors.push('DMV ID#') if !@noSSN() and !isDmvId(@dmvId()) and !@noDmvId()
       errors
 
     @oathInvalid = ko.computed => @oathErrors().length > 0

@@ -134,15 +134,31 @@ class RegistrationsController < ApplicationController
       active_form.touch
       redirect_to :edit_registration, alert: 'Please review your registration data and try again'
     else
-      SubmitEml310.submit_update(@registration)
-
-      active_form.unmark!
-
-      LogRecord.complete_update(@registration, session[:slr_id])
-      session[:slr_id] = nil
+      @submitted = finalize_update(active_form)
     end
   rescue ActiveForm::Expired
     render :expired
+  end
+
+  private
+
+  def finalize_update(active_form, reg = @registration, ses = session)
+    submitted = false
+
+    if reg.ssn.present?
+      begin
+        submitted = SubmitEml310.submit_update(reg)
+      rescue SubmitEml310::SubmissionError
+        reg.update_attributes!(submission_failed: true)
+      end
+    end
+
+    active_form.unmark!
+
+    LogRecord.complete_update(reg, ses[:slr_id])
+    ses[:slr_id] = nil
+
+    return submitted
   end
 
 end

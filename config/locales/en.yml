@@ -33,3 +33,5 @@ en:
   
   registered:
     details: "You are already registered to vote. To view your existing voter registration information, simply click \"Next\" below. From there, you can make any needed corrections your name, address, or contact information."
+
+  nossn: "Without providing you SSN, you will need to print, sign, and mail your application form to your General Registrar, who may reject your application for lack of an SSN. For more information For more information on eligibility, see http://sbe.virginia.gov."

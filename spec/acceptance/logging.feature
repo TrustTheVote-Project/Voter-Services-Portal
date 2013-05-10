@@ -50,6 +50,9 @@ Feature: Logging
   @javascript
   Scenario: complete domestic update with absentee request and no form changes
     When completed domestic update with absentee request and no form changes
+
+    # If this one fails, check that you are ignoring all necessary fields when
+    # checking if this is an absentee request only (Registration#IGNORE_CHANGES_IN_KEYS)
     Then complete "AbsenteeRequest" should be logged
      And start "AbsenteeRequest" should be logged
      And start "VoterRecordUpdate" should not be logged

@@ -28,7 +28,17 @@ describe SubmitEml310 do
     it 'should fail update when last name is "faileml310"' do
       reg.last_name = "faileml310"
       SubmitEml310.should_not_receive(:send_request)
-      SubmitEml310.submit_update(reg)
+      expect { SubmitEml310.submit_update(reg) }.to raise_error SubmitEml310::SubmissionError
+    end
+
+    it 'should not submit records with non-9-digit DMVID' do
+      reg.dmv_id = "1234567890"
+      SubmitEml310.submit_update(reg).should be_false
+    end
+
+    it 'should submit records with 9-digit DMVID' do
+      reg.dmv_id = "123456789"
+      SubmitEml310.submit_update(reg).should be_true
     end
 
     it 'should fail new reg when last name is "faileml310"' do
@@ -40,6 +50,11 @@ describe SubmitEml310 do
     it 'should not submit records with non-9-digit DMVID' do
       reg.dmv_id = "1234567890"
       SubmitEml310.submit_new(reg).should be_false
+    end
+
+    it 'should submit records with 9-digit DMVID' do
+      reg.dmv_id = "123456789"
+      SubmitEml310.submit_new(reg).should be_true
     end
   end
 end
