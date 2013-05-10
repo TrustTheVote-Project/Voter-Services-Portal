@@ -28,7 +28,7 @@ class window.Registration
     @ssn                    = ko.observable()
     @noSSN                  = ko.observable()
     @dmvId                  = ko.observable()
-    @noDmvId                = ko.observable()
+    @noDmvId                = ko.observable($("meta[name=dmv-id-submission]").attr('content') == '0')
 
     @isEligible = ko.computed =>
       @citizen() == '1' and

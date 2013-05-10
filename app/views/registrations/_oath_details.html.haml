@@ -1,4 +1,5 @@
 - updating ||= false
+- dmv_id_submission = AppConfig['dmv_id_submission']
 
 .head
   %h3 Oath
@@ -10,9 +11,10 @@
       Please provide the your Social Security Number,
       and read the Registration Statement and Privacy Act.
 
-    %p
-      In addition, if you provide a valid DMV ID number, you may be eligible to submit
-      your application online, without the requirement to print, sign, and mail an application form.
+    - if dmv_id_submission
+      %p
+        In addition, if you provide a valid DMV ID number, you may be eligible to submit
+        your application online, without the requirement to print, sign, and mail an application form.
 
     .row
       .span10
@@ -28,18 +30,19 @@
         %p= I18n.t("nossn")
         <!-- /ko -->
 
-    <!-- ko if: !noSSN() -->
-    .row
-      .span10
-        %label{ for: 'registration_dmv_id' } Department of Motor Vehicles ID Number
-        <!-- ko if: !noDmvId() -->
-        = f.text_field :dmv_id, autocomplete: ac, maxlength: 12, 'data-bind' => 'instantValidation: { accessor: "dmvId", validation: "isDmvId" }', placeholder: 'From 9 to 12 letters or numbers', class: 'span3'
-        <!-- /ko -->
-        .checkbox
-          = f.check_box :no_dmv_id, 'data-bind' => 'checked: noDmvId'
-          %label{ for: 'registration_no_dmv_id' }
-            I do not have a DMV ID number
-    <!-- /ko -->
+    - if dmv_id_submission
+      <!-- ko if: !noSSN() -->
+      .row
+        .span10
+          %label{ for: 'registration_dmv_id' } Department of Motor Vehicles ID Number
+          <!-- ko if: !noDmvId() -->
+          = f.text_field :dmv_id, autocomplete: ac, maxlength: 12, 'data-bind' => 'instantValidation: { accessor: "dmvId", validation: "isDmvId" }', placeholder: 'From 9 to 12 letters or numbers', class: 'span3'
+          <!-- /ko -->
+          .checkbox
+            = f.check_box :no_dmv_id, 'data-bind' => 'checked: noDmvId'
+            %label{ for: 'registration_no_dmv_id' }
+              I do not have a DMV ID number
+      <!-- /ko -->
 
 
 .partition
