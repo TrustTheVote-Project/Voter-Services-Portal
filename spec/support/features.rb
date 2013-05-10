@@ -46,8 +46,8 @@ def confirm
 end
 
 def sign_oath
-  if page.has_selector? '#registration_ssn4'
-    fill_in 'registration_ssn4', with: '1234'
+  if page.has_selector? '#registration_ssn'
+    fill_in 'Social Security Number', with: '123456789'
   end
 
   check "Registration Statement"

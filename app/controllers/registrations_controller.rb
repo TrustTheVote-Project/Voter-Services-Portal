@@ -16,6 +16,7 @@ class RegistrationsController < ApplicationController
     # remove unrelated fields
     options.delete(:lookup_type)
     options.delete(:locality)
+    options.delete(:ssn4)
 
     @registration = Registration.new(options)
     @registration.init_absentee_until
@@ -114,10 +115,6 @@ class RegistrationsController < ApplicationController
     # "kind" comes from the review form where we either maintain or
     # change the status.
     @registration.init_update_to(params[:kind].to_s)
-
-    # Take SSN4 from the stored lookup data if it's not there
-    ssn4 = RegistrationRepository.get_lookup_ssn4(session)
-    @registration.ssn4 = ssn4 if @registration.ssn4.blank?
   end
 
   def update

@@ -31,7 +31,6 @@ FactoryGirl.define do
       dob                 Date.parse('1950-11-06 00:00:00.000')
       choose_party        '1'
       party               'Democratic Party'
-      ssn4                '6789'
 
       vvr_street_number   '518'
       vvr_street_name     'Vance'
@@ -83,7 +82,6 @@ FactoryGirl.define do
       last_name           'Marine'
       gender              'Male'
       dob                 40.years.ago
-      ssn4                '1234'
 
       vvr_street_number   '5'
       vvr_street_name     'First'

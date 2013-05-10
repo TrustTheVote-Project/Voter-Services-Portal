@@ -83,6 +83,7 @@ steps_for :updating do
   end
 
   step 'I check boxes on the oath page' do
+    fill_in 'Social Security Number', with: '123456789'
     check "registration_information_correct"
     check "registration_privacy_agree"
   end

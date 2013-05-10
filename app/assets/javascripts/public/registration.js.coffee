@@ -433,7 +433,6 @@ class window.Registration
         $("#registration_rab_election option[value='#{v}']").text()
 
   initOathFields: ->
-    @ssn4         = ko.observable()
     @infoCorrect  = ko.observable()
     @privacyAgree = ko.observable()
 
@@ -441,7 +440,7 @@ class window.Registration
       errors = []
       errors.push("Confirm that information is correct") unless @infoCorrect()
       errors.push("Agree with privacy terms") unless @privacyAgree()
-      errors.push("Last four digits of your SSN") unless (ssn(@ssn()) and !@noSSN()) or ssn4(@ssn4())
+      errors.push("Social Security #") unless ssn(@ssn()) and !@noSSN()
       errors
 
     @oathInvalid = ko.computed => @oathErrors().length > 0

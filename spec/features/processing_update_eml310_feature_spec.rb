@@ -72,7 +72,7 @@ feature 'Processing update EML310 submission', :js do
     click_button 'Next' # skip options
     click_button 'Next' # confirm
 
-    fill_in "registration_ssn4", with: "1234"
+    fill_in "Social Security Number", with: "123456789"
     check   "Registration Statement"
     check   "I have read and agree with the terms of the Privacy Act Notice."
     click_button 'Next' # sign oath

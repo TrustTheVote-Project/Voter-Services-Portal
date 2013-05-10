@@ -8,7 +8,7 @@ class Registration < ActiveRecord::Base
 
   # When checking for changes on the form to determine if that's a purely absentee request,
   # ignore these keys.
-  IGNORE_CHANGES_IN_KEYS  = [ :voter_id, :current_residence, :ssn4,
+  IGNORE_CHANGES_IN_KEYS  = [ :voter_id, :current_residence, :ssn,
                               :existing, :poll_locality, :poll_precinct, :poll_district,
                               :information_correct, :privacy_agree ]
 
@@ -70,7 +70,6 @@ class Registration < ActiveRecord::Base
 
   # Current status fields (from server)
   serialized_attr :existing
-  serialized_attr :ssn4
   serialized_attr :current_residence, :military, :overseas
   serialized_attr :absentee_for_elections, :past_elections
   serialized_attr :current_absentee_until           # overseas absentee
@@ -98,6 +97,10 @@ class Registration < ActiveRecord::Base
 
   def full_name
     [ first_name, middle_name, last_name, suffix ].delete_if(&:blank?).join(' ')
+  end
+
+  def ssn4
+    self.ssn ? self.ssn.gsub(/[^0-9]/, '')[-4, 4] : nil
   end
 
   def absentee?

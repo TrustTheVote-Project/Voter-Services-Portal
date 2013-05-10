@@ -84,7 +84,7 @@
     .security-number
       %label{ for: 'registration_ssn' } Social Security Number
       <!-- ko if: !noSSN() -->
-      = f.text_field :ssn, autocomplete: ac, placeholder: 'NNNNNNNNN', maxlength: 9, 'data-bind' => 'instantValidation: { accessor: "ssn", validation: "ssn" }', class: 'span3'
+      = f.text_field :ssn, autocomplete: ac, placeholder: 'NNN-NN-NNNN', maxlength: 11, 'data-bind' => 'instantValidation: { accessor: "ssn", validation: "ssn" }', class: 'span3'
       <!-- /ko -->
       .checkbox
         = f.check_box :no_ssn, 'data-bind' => 'checked: noSSN'
