@@ -3,7 +3,14 @@ require 'builder'
 class SubmitEml310
 
   # Possible reasons: bad EML310, service unavailable
-  class SubmissionError < StandardError; end
+  class SubmissionError < StandardError
+    attr_reader :code
+
+    def initialize(code = nil)
+      super
+      @code = code
+    end
+  end
 
   def self.submit_update(reg)
     return submit(reg)
@@ -25,7 +32,6 @@ class SubmitEml310
     # don't submit anything if disabled
     if submission_enabled?
       response = send_request(reg)
-      raise SubmissionError unless successful_response?(response)
       result = parse(response)
     end
 
@@ -34,8 +40,11 @@ class SubmitEml310
 
     result
   rescue => e
-    ErrorLogRecord.log("Submit EML310", error: "Failed to submit", response: response)
-    raise SubmissionError
+    if e.kind_of? SubmissionError
+      raise e
+    else
+      raise SubmissionError
+    end
   end
 
   def self.send_request(reg)
@@ -47,10 +56,6 @@ class SubmitEml310
     return Net::HTTP.start(uri.hostname, uri.port) do |http|
       http.request(req)
     end
-  end
-
-  def self.successful_response?(res)
-    res.kind_of? Net::HTTPSuccess
   end
 
   def self.submission_enabled?
@@ -67,8 +72,14 @@ class SubmitEml310
     Eml310Builder.build(reg, xml)
   end
 
+  def self.successful_response?(res)
+    res.kind_of? Net::HTTPSuccess
+  end
+
   # parses the response
   def self.parse(res)
+    raise "Couldn't contact service" unless successful_response?(res)
+
     # TBD and implemented
     # when registering new records. 'true' means we added new record
     # 'false' means there was the record with this data already

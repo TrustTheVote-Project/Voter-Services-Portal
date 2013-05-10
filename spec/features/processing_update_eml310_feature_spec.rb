@@ -72,10 +72,7 @@ feature 'Processing update EML310 submission', :js do
     click_button 'Next' # skip options
     click_button 'Next' # confirm
 
-    fill_in "Social Security Number", with: "123456789"
-    check   "Registration Statement"
-    check   "I have read and agree with the terms of the Privacy Act Notice."
-    click_button 'Next' # sign oath
+    sign_oath
   end
 
   def submit_new_record(options = {})

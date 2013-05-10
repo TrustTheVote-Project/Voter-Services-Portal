@@ -4,7 +4,6 @@
     %title VA Voter Portal
     = stylesheet_link_tag     "application", :media => "all"
     = csrf_meta_tags
-    %meta{ name: 'dmv-id-submission', content: AppConfig['dmv_id_submission'] ? 1 : 0 }
 
   %body{ id: @page_id }
     .container

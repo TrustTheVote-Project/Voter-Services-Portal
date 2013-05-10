@@ -53,7 +53,6 @@ steps_for :updating do
     step 'I proceed'
     step 'I should see the oath page'
     step 'I check boxes on the oath page'
-    step 'I proceed'
   end
 
   step 'I proceed' do
@@ -83,9 +82,7 @@ steps_for :updating do
   end
 
   step 'I check boxes on the oath page' do
-    fill_in 'Social Security Number', with: '123456789'
-    check "registration_information_correct"
-    check "registration_privacy_agree"
+    sign_oath
   end
 
   step 'I should see the download page' do

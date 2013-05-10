@@ -41,8 +41,9 @@ class RegistrationsController < ApplicationController
       if @registration.eligible?
         begin
           @submitted = SubmitEml310.submit_new(@registration)
-        rescue SubmitEml310::SubmissionError
+        rescue SubmitEml310::SubmissionError => e
           @registration.update_attributes!(submission_failed: true)
+          ErrorLogRecord.log("Failed to submit update EML310", { code: e.code })
         end
       end
 
@@ -148,8 +149,9 @@ class RegistrationsController < ApplicationController
     if reg.ssn.present?
       begin
         submitted = SubmitEml310.submit_update(reg)
-      rescue SubmitEml310::SubmissionError
+      rescue SubmitEml310::SubmissionError => e
         reg.update_attributes!(submission_failed: true)
+        ErrorLogRecord.log("Failed to submit update EML310", { code: e.code, voter_id: reg.voter_id })
       end
     end
 

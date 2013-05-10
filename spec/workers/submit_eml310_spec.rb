@@ -10,7 +10,6 @@ describe SubmitEml310 do
   end
 
   it 'should report failure to submit' do
-    ErrorLogRecord.should_receive(:log).with("Submit EML310", { error: "Failed to submit", response: res })
     Net::HTTP.should_receive(:start).and_return(res)
     expect {
       SubmitEml310.submit_new(reg)

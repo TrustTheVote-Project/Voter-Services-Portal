@@ -174,11 +174,12 @@ describe RegistrationsController do
     # Internal error log should contain the error code from the API, and the voter ID, but no other information about the voter.
     it 'should log error if submission failed' do
       reg.ssn = "123456789"
-      SubmitEml310.should_receive(:submit_update).and_raise(SubmitEml310::SubmissionError)
+      reg.voter_id = 123
+      SubmitEml310.should_receive(:submit_update).and_raise(SubmitEml310::SubmissionError.new('code'))
+      ErrorLogRecord.should_receive(:log).with("Failed to submit update EML310", { code: 'code', voter_id: 123 })
       controller.send(:finalize_update, af, reg, ses)
 
       reg.reload.submission_failed.should be_true
-      pending
     end
   end
 end

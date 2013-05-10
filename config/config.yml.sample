@@ -53,6 +53,9 @@ lookup_url: "https://wscp.sbe.virginia.gov/electionlist.svc/v1/_your_API_key_"
 # Disables forms functionality
 no_forms: true
 
+# Enable DMV ID submission
+dmv_id_submission: true
+
 # New forms (renders forms from templates in app/assets/pdf-templates)
 pdf_forms: true
 pdftk_path: /usr/local/bin/pdftk
