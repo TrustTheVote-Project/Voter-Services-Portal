@@ -10,6 +10,21 @@ en:
       residential: I am a Virginia resident and want to register to vote.
       overseas: I am an active member of the Uniformed Services, the Merchant Marine, a family member, or a citizen of the the United States, that is residing outside of the United States, and I want to register to vote absentee on election day.
 
+  eligibility:
+    citizen:
+      question: Are you a citizen of the United States of America?
+      ineligible: To register, you must be a citizen of the United States of America.
+    residence:
+      in: I am currently a resident of Virginia
+      out: I live outside of the U.S., but the most recent U.S. residence was in Virginia
+    rights:
+      question: Have you been convicted of a felony or been adjudicated mentally incapacitated?
+      ineligible: To register, you must have your voting rights restored.
+    dmvid:
+      title: Department of Motor Vehicles Customer Number 
+      details: By providing a valid DMV Customer ID, you are eligible to submit your voter registration application online, without the need to print, sign and mail a paper application.
+
+ 
   outside_type:
     ActiveDutyMerchantMarineOrArmedForces: Active Duty Merchant Marine or Armed Forces
     SpouseOrDependentActiveDutyMerchantMarineOrArmedForces: Spouse or dependent living with a member of an active duty Merchant Marine or Armed Forces
@@ -33,10 +48,6 @@ en:
   voting_status:
     residential_voter: "Virginia Residential Voter"
     overseas: "Overseas/Military Absentee Voter"
-
-  ineligible:
-    details: "Based on the information you provided, you may not be eligible to vote. You may go back to correct your information, or proceed to complete your voter registration application as is. If you proceed,  and mail your completed application to your county registrar, then the registrar may reject your application if you are not a citizen of the U.S., will not be 18 by the next election, have had your voting rights revoked but not restored, or do not have a Social Security Number. For more information on eligibility, see http://sbe.virginia.gov."
-    rights:  "You are not eligible to vote, if your voting rights have been revoked but have not been restored."
 
   dmv:
     match: "Because you have a current DMV ID, you are eligible to submit your voter registration application online, without the need to print sign and mail a paper application form."

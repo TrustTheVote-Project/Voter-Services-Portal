@@ -50,10 +50,6 @@ def sign_oath
     fill_in 'Social Security Number', with: '123456789'
   end
 
-  if page.has_selector? '#registration_no_dmv_id'
-    check "I do not have a DMV ID number"
-  end
-
   check "Registration Statement"
   check "I have read and agree with the terms of the Privacy Act Notice."
   click_button "Next"

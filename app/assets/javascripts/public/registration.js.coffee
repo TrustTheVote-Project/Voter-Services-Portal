@@ -13,7 +13,7 @@ class window.Registration
 
   initEligibilityFields: ->
     @citizen                = ko.observable()
-    @oldEnough              = ko.observable(1)
+    @oldEnough              = ko.observable('1')
     @rightsWereRevoked      = ko.observable()
     @rightsRevokationReason = ko.observable()
     @rightsWereRestored     = ko.observable()
@@ -28,7 +28,6 @@ class window.Registration
     @ssn                    = ko.observable()
     @noSSN                  = ko.observable()
     @dmvId                  = ko.observable()
-    @noDmvId                = ko.observable($("#registration_no_dmv_id").length == 0)
 
     @isEligible = ko.computed =>
       @citizen() == '1' and
@@ -52,7 +51,6 @@ class window.Registration
 
       errors.push('Date of birth') unless @dob()
       errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
-      errors.push('DMV ID#') if !isDmvId(@dmvId()) and !@noDmvId()
       errors
 
     @eligibilityInvalid = ko.computed => @eligibilityErrors().length > 0
@@ -441,7 +439,7 @@ class window.Registration
       errors.push("Confirm that information is correct") unless @infoCorrect()
       errors.push("Agree with privacy terms") unless @privacyAgree()
       errors.push("Social Security #") if !ssn(@ssn()) and !@noSSN()
-      errors.push('DMV ID#') if !@noSSN() and !isDmvId(@dmvId()) and !@noDmvId()
+      # errors.push('DMV ID#') if !@noSSN() and !isDmvId(@dmvId()) and !@noDmvId()
       errors
 
     @oathInvalid = ko.computed => @oathErrors().length > 0

@@ -35,13 +35,7 @@
       .row
         .span10
           %label{ for: 'registration_dmv_id' } Department of Motor Vehicles ID Number
-          <!-- ko if: !noDmvId() -->
           = f.text_field :dmv_id, autocomplete: ac, maxlength: 12, 'data-bind' => 'instantValidation: { accessor: "dmvId", validation: "isDmvId" }', placeholder: 'From 9 to 12 letters or numbers', class: 'span3'
-          <!-- /ko -->
-          .checkbox
-            = f.check_box :no_dmv_id, 'data-bind' => 'checked: noDmvId'
-            %label{ for: 'registration_no_dmv_id' }
-              I do not have a DMV ID number
       <!-- /ko -->
 
 

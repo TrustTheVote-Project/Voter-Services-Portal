@@ -9,26 +9,28 @@
     current name and address, you do not need to re-register.
 
   .partition.citizen
-    %h4 Are you a citizen of the United States of America?
+    %h4= I18n.t('eligibility.citizen.question')
     .radio
       = f.radio_button :citizen, '1', 'data-bind' => 'checked: citizen'
       %label{ for: 'registration_citizen_1' } Yes
     .radio
       = f.radio_button :citizen, '0', 'data-bind' => 'checked: citizen'
       %label{ for: 'registration_citizen_0' } No
+    .block.ineligible{ 'data-bind' => "visible: citizen() == '0'" }
+      %p= I18n.t("eligibility.citizen.ineligible")
 
   = hidden_field_tag "registration[old_enough]", 1
 
   .partition
     .radio
       = f.radio_button :residence, 'in', 'data-bind' => 'checked: residence'
-      %label{ for: 'registration_residence_in' } I am currently a resident of Virginia
+      %label{ for: 'registration_residence_in' } #{I18n.t('eligibility.residence.in')}
     .radio
       = f.radio_button :residence, 'outside', 'data-bind' => 'checked: residence'
-      %label{ for: 'registration_residence_outside' } I live outside of the U.S., but the most recent U.S. residence was in Virginia
+      %label{ for: 'registration_residence_outside' } #{I18n.t('eligibility.residence.out')}
 
   .partition.rights_revoked
-    %h4 Have your voting rights been revoked in the past?
+    %h4= I18n.t('eligibility.rights.question')
     .radio
       = f.radio_button :rights_revoked, '0', 'data-bind' => 'checked: rightsWereRevoked'
       %label{ for: 'registration_rights_revoked_0' } No
@@ -66,7 +68,7 @@
       <!-- /ko -->
 
       .block.ineligible{ 'data-bind' => "visible: rightsWereRestored() == '0'" }
-        %p= I18n.t("ineligible.rights")
+        %p= I18n.t("eligibility.rights.ineligible")
 
   .partition
     .date
@@ -86,14 +88,9 @@
 
   .partition
     .dmv
-      %label{ for: 'registration_dmv_id' } Department of Motor Vehicles ID Number
-      <!-- ko if: !noDmvId() -->
+      %label{ for: 'registration_dmv_id' } #{I18n.t("eligibility.dmvid.title")}
       = f.text_field :dmv_id, autocomplete: ac, maxlength: 12, 'data-bind' => 'instantValidation: { accessor: "dmvId", validation: "isDmvId" }', placeholder: 'From 9 to 12 letters or numbers', class: 'span3'
-      <!-- /ko -->
-      .checkbox
-        = f.check_box :no_dmv_id, 'data-bind' => 'checked: noDmvId'
-        %label{ for: 'registration_no_dmv_id' }
-          I do not have a DMV ID number
+      %p= I18n.t('eligibility.dmvid.details')
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: checkEligibility, css: { disabled: eligibilityInvalid }'
