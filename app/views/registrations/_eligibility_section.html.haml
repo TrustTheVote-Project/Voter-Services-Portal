@@ -17,14 +17,7 @@
       = f.radio_button :citizen, '0', 'data-bind' => 'checked: citizen'
       %label{ for: 'registration_citizen_0' } No
 
-  .partition.old_enough
-    %h4 Will you be at least 18 years of age on or before the next Election Day?
-    .radio
-      = f.radio_button :old_enough, '1', 'data-bind' => 'checked: oldEnough'
-      %label{ for: 'registration_old_enough_1' } Yes
-    .radio
-      = f.radio_button :old_enough, '0', 'data-bind' => 'checked: oldEnough'
-      %label{ for: 'registration_old_enough_0' } No
+  = hidden_field_tag "registration[old_enough]", 1
 
   .partition
     .radio
