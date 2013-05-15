@@ -1,5 +1,11 @@
 en:
   title: Virginian Voter Registration
+  front:
+    welcome:
+      line1: "We've created this service to help all Virginia voters—"
+      line2: "domestic, military, and overseas—register to vote and"
+      line3: "keep their voter information up-to-date."
+
   outside_type:
     ActiveDutyMerchantMarineOrArmedForces: Active Duty Merchant Marine or Armed Forces
     SpouseOrDependentActiveDutyMerchantMarineOrArmedForces: Spouse or dependent living with a member of an active duty Merchant Marine or Armed Forces
