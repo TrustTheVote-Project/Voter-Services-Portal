@@ -1,7 +1,7 @@
 - @page_id = 'front'
 
 #hero
-  .row
+  .row.w
     .span12
       %h2 Welcome.
       %small
@@ -9,31 +9,32 @@
         domestic, military, and overseas—register to vote and<br/>
         keep their voter information up-to-date.
 
-  .row.steps
-    .span4.info
-      .line1 5
-      .line2 simple steps
-      .line3 to register to vote
-    .span8
-      %table
-        %tr.step-numbers
-          %th 1
-          %th 2
-          %th 3
-          %th 4
-          %th 5
-        %tr.step-names
-          %td Enter information<hr>
-          %td Download<hr>
-          %td Print<hr>
-          %td Sign &amp; Date<hr>
-          %td Mail<hr>
-        %tr.step-icons
-          %td= image_tag 'icon_enterinformation.png', size: "60x60"
-          %td= image_tag 'icon_download.png', size: "60x60"
-          %td= image_tag 'icon_print.png', size: "60x60"
-          %td= image_tag 'icon_sign.png', size: "60x60"
-          %td.mail= image_tag 'icon_mail.png', size: "60x60"
+  - if AppConfig['dmv_id_submission']
+    .row.steps
+      .span4.info
+        .line1 5
+        .line2 simple steps
+        .line3 to register to vote
+      .span8
+        %table
+          %tr.step-numbers
+            %th 1
+            %th 2
+            %th 3
+            %th 4
+            %th 5
+          %tr.step-names
+            %td Enter information<hr>
+            %td Download<hr>
+            %td Print<hr>
+            %td Sign &amp; Date<hr>
+            %td Mail<hr>
+          %tr.step-icons
+            %td= image_tag 'icon_enterinformation.png', size: "60x60"
+            %td= image_tag 'icon_download.png', size: "60x60"
+            %td= image_tag 'icon_print.png', size: "60x60"
+            %td= image_tag 'icon_sign.png', size: "60x60"
+            %td.mail= image_tag 'icon_mail.png', size: "60x60"
 
 .row.options
   .span8
