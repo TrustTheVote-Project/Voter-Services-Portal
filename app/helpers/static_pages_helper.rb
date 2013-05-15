@@ -8,4 +8,8 @@ module StaticPagesHelper
     ].join.html_safe, class: 'padded_page_span')
   end
 
+  def render_static_section(name)
+    content_tag(:div, image_tag('spinner.gif', size: '36x39'), class: 'external-page', 'data-external' => name).html_safe
+  end
+
 end
