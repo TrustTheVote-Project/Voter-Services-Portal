@@ -50,7 +50,6 @@ en:
     overseas: "Overseas/Military Absentee Voter"
 
   dmv:
-    match: "Because you have a current DMV ID, you are eligible to submit your voter registration application online, without the need to print sign and mail a paper application form."
     address_info: "The address shown below is derived from your DMV record. You may correct any inaccurate information."
   
   registered:

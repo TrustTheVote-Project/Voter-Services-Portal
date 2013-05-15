@@ -68,6 +68,7 @@ class window.Registration
 
     @identityErrors = ko.computed =>
       errors = []
+      errors.push('First name') unless filled(@firstName())
       errors.push('Last name') unless filled(@lastName())
       errors.push('Gender') unless filled(@gender())
       errors.push('Phone number') unless @validPhone()

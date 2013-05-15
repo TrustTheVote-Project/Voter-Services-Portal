@@ -7,8 +7,7 @@
     .span3
       %label{ for: 'registration_first_name' }
         First name
-        %span (optional)
-      = f.text_field :first_name, autocomplete: ac, 'data-bind' => 'valueWithInit: firstName'
+      = f.text_field :first_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "firstName" }'
     .span3
       %label{ for: 'registration_middle_name' }
         Full middle
@@ -41,12 +40,6 @@
         Email
         %span (optional)
       = f.text_field :email, autocomplete: ac, placeholder: 'john@smith.com', 'data-bind' => 'instantValidation: { accessor: "email", attribute: "validEmail" }'
-
-
-  <!-- ko if: dmvMatch() -->
-  .row
-    .span10= I18n.t("dmv.match")
-  <!-- /ko -->
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: identityInvalid }'
