@@ -6,6 +6,9 @@ en:
       line1: "We've created this service to help all Virginians—"
       line2: "domestic, military, and overseas—register to vote and"
       line3: "keep their voter information up-to-date."
+    options:
+      residential: I am a Virginia resident and want to register to vote.
+      overseas: I am an active member of the Uniformed Services, the Merchant Marine, a family member, or a citizen of the the United States, that is residing outside of the United States, and I want to register to vote absentee on election day.
 
   outside_type:
     ActiveDutyMerchantMarineOrArmedForces: Active Duty Merchant Marine or Armed Forces
