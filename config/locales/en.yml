@@ -21,10 +21,10 @@ en:
       question: Have you been convicted of a felony or been adjudicated mentally incapacitated?
       ineligible: To register, you must have your voting rights restored.
     dmvid:
-      title: Department of Motor Vehicles Customer Number 
+      title: Department of Motor Vehicles Customer Number
       details: By providing a valid DMV Customer ID, you are eligible to submit your voter registration application online, without the need to print, sign and mail a paper application.
 
- 
+
   outside_type:
     ActiveDutyMerchantMarineOrArmedForces: Active Duty Merchant Marine or Armed Forces
     SpouseOrDependentActiveDutyMerchantMarineOrArmedForces: Spouse or dependent living with a member of an active duty Merchant Marine or Armed Forces
@@ -51,7 +51,7 @@ en:
 
   dmv:
     address_info: "The address shown below is derived from your DMV record. You may correct any inaccurate information."
-  
+
   registered:
     details: "You are already registered to vote. To view your existing voter registration information, simply click \"Next\" below. From there, you can make any needed corrections your name, address, or contact information."
 
