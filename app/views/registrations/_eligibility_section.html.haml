@@ -78,9 +78,7 @@
   .partition
     .security-number
       %label{ for: 'registration_ssn' } Social Security Number
-      <!-- ko if: !noSSN() -->
-      = f.text_field :ssn, autocomplete: ac, placeholder: "NNN-NN-NNNN", maxlength: 11, 'data-bind' => 'instantValidation: { accessor: "ssn", validation: "ssn" }', class: 'span3 ssn'
-      <!-- /ko -->
+      = f.text_field :ssn, autocomplete: ac, placeholder: "NNN-NN-NNNN", maxlength: 11, 'data-bind' => 'visible: !noSSN(), instantValidation: { accessor: "ssn", validation: "ssn" }', class: 'span3 ssn'
       .checkbox
         = f.check_box :no_ssn, 'data-bind' => 'checked: noSSN'
         %label{ for: 'registration_no_ssn' }
