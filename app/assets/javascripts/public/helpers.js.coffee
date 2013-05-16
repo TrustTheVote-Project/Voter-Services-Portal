@@ -16,7 +16,7 @@ window.zip5    = (v) -> filled(v) && v.match(/^\d{5}$/)
 window.ssn     = (v) -> filled(v) && v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){9}$/)
 window.ssn4    = (s) -> filled(s) && s.match(/^\d{4}$/)
 window.voterId = (s) -> filled(s) && s.match(/^\d{9}$/)
-window.isDmvId = (s) -> !!(filled(s) && s.replace(/[ \-]/g, '').match(/^[0-9a-z]{9,12}$/i))
+window.isDmvId = (s) -> !filled(s) or s.replace(/[ \-]/g, '').match(/^[0-9a-z]{9,12}$/i)
 
 
 window.date = (y, m, d) ->
@@ -97,13 +97,15 @@ ko.bindingHandlers.instantValidation = {
     else
       ko.bindingHandlers.valueWithInit.init(element, newValueAccessor, allBindingsAccessor, viewModel)
 
-    $(element).bind(event, =>
+    validate = =>
+      $e = $(element)
+      $p = $e.parent()
       if options.complex
-        $(element).attr('data-touched', true)
-        allCount = $(element).parent().children('[data-bind]').length
-        touchedCount = $(element).parent().children('[data-touched]').length
+        $e.attr('data-touched', true)
+        allCount = $p.children('[data-bind]').length
+        touchedCount = $p.children('[data-touched]').length
         return if touchedCount < allCount
-      elementAcceptor = $(element).parent()
+      elementAcceptor = $p
       errorClass = 'field-invalid'
       attributeValue = viewModel[attribute]()
 
@@ -112,7 +114,8 @@ ko.bindingHandlers.instantValidation = {
         $(options.resetAlso).removeClass(errorClass) if options.resetAlso
       else
         elementAcceptor.addClass(errorClass)
-    )
+
+    $(element).bind(event, validate).bind("validate", validate)
 
   update: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
     toggleElement = $(element).is(':checkbox, :radio')

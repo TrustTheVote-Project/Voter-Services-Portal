@@ -20,6 +20,10 @@ class NewRegistration extends Registration
     new Popover('#options .next.btn', @optionsErrors)
     new Popover('#oath .next.btn', @oathErrors)
 
+    $(".next.btn").on 'click', (e) ->
+      btn = $(this)
+      $("input, select", btn.parents(".section")).trigger("validate") if btn.hasClass('disabled')
+
     $(".section").show()
 
     # Navigation
