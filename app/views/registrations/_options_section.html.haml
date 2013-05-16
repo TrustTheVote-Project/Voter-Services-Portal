@@ -30,8 +30,11 @@
           .important= I18n.t("options.ac.type")
           .row
             .span5
-              %span P.O. Box
-              = f.text_field :ca_po_box, autocomplete: ac, placeholder: 'Box number', maxlength: 20, 'data-bind' => 'instantValidation: { accessor: "caPoBox" }'
+              .address-field
+                %label{ for: 'registration_ca_address' } Address
+                = f.text_field :ca_address, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddress1" }'
+              .address-field
+                = f.text_field :ca_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: caAddress2'
           .row
             .span3.town
               %span City / Town
@@ -51,18 +54,9 @@
         <!-- /ko -->
     <!-- /ko -->
 
+  = hidden_field_tag 'registration[be_official]', '0'
   = render partial: 'domestic_absentee', locals: { f: f, updating: updating }
   = render partial: 'overseas_absentee', locals: { f: f, updating: updating }
-
-  = hidden_field_tag 'registration[be_official]', '0'
-  <!-- ko if: domestic -->
-  .partition
-    .row
-      .span12
-        .checkbox
-          = f.check_box :be_official, autocomplete: ac
-          %strong= I18n.t('options.being_official')
-  <!-- /ko -->
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: optionsInvalid }'

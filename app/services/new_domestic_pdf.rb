@@ -87,6 +87,7 @@ class NewDomesticPdf
       setDigitalField(pdf, 'CODE', 3, reg.ca_type.to_s.upcase)
     end
 
+    pdf.set('NEED_ASSISTANT', reg.need_assistance == '1' ? 'Y' : 'N')
     pdf.set('BE_OFFICIAL', reg.be_official == '1' ? 'Y' : 'N')
   end
 

@@ -39,9 +39,10 @@ en:
       type: In order to non-publish your residence address in voter lists, you must also provide a mailing address within Virginia, to be used on the voter lists, and for mail to you from your local registrar.
     domestic:
       requesting_absentee: I am not able to go to the polls on election day and would like an Absentee Ballot Application.
+      need_assistance: "I have a disability that requires assistance to vote."
     overseas:
       requesting_absentee: I will not be able to vote in person, and would like to vote absentee until #{ " #{f.object.absentee_until.strftime("%B %d, %Y")}" unless AppConfig['choose_absentee_until']}:
-    being_official: I'm interested in being an Election Official on Election Day. Please send me information.
+    being_official: "I'm interested in being an Election Official on Election Day. Please send me information."
 
   outside_type:
     ActiveDutyMerchantMarineOrArmedForces: Active Duty Merchant Marine or Armed Forces

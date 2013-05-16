@@ -316,7 +316,7 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
       end
 
       it 'should render ACP fields' do
-        r = reg is_confidential_address: '1', ca_type: 'LEO', ca_po_box: '1234', ca_city: 'Bristol', ca_zip5: '12345', ca_zip4: '6789'
+        r = reg is_confidential_address: '1', ca_type: 'LEO', ca_address: '123', ca_address_2: 'High St', ca_city: 'Bristol', ca_zip5: '12345', ca_zip4: '6789'
         xml.should have_selector "VoterInformation CheckBox[Type='AddressConfidentialityRequest']", text: 'yes'
         xml.within "FurtherInformation Message[Type='Confidential'][DisplayOrder='0001'][Seqn='1']" do |m|
           m.should have_selector "Confidentiality[type='LEO']", text: 'yes'

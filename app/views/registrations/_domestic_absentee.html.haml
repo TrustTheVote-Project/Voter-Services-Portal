@@ -3,6 +3,14 @@
   .row
     .span12
       .checkbox
+        = f.check_box :need_assistance
+        %label{ for: 'registration_need_assistance' }
+          %strong= I18n.t('options.domestic.need_assistance')
+
+.partition
+  .row
+    .span12
+      .checkbox
         = f.check_box :requesting_absentee, 'data-bind' => 'checked: requestingAbsentee', autocomplete: ac
         %label{ for: 'registration_requesting_absentee' }
           %strong= I18n.t('options.domestic.requesting_absentee')
@@ -126,4 +134,11 @@
       = f.text_field :ab_country, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abCountry" }'
   <!-- /ko --> <!-- addressRequired -->
 <!-- /ko -->
+
+.partition
+  .row
+    .span12
+      .checkbox
+        = f.check_box :be_official, autocomplete: ac
+        %strong= I18n.t('options.being_official')
 <!-- /ko --> <!-- domestic -->

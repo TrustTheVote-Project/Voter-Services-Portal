@@ -6,7 +6,7 @@ class RegistrationForXML
                   :er_street_number, :er_street_name, :er_street_type, :er_city,
                   :er_zip5, :er_zip4, :er_state,
                   :ssn, :created_at, :email, :phone, :dob, :gender,
-                  :ca_type, :ca_po_box, :ca_city,
+                  :ca_type, :ca_address, :ca_address_2, :ca_city,
                   :vvr_street_number, :vvr_street_name, :vvr_street_type, :vvr_apt,
                   :vvr_town, :vvr_state, :vvr_state, :vvr_rural,
                   :ma_address, :ma_address_2, :ma_city, :ma_state, :mau_type, :mau_address, :mau_address_2, :mau_city, :mau_city_2,

@@ -199,7 +199,8 @@ class window.Registration
 
     @caType                 = ko.observable()
     @isConfidentialAddress  = ko.observable()
-    @caPoBox                = ko.observable()
+    @caAddress1             = ko.observable()
+    @caAddress2             = ko.observable()
     @caCity                 = ko.observable()
     @caZip5                 = ko.observable()
 
@@ -306,8 +307,8 @@ class window.Registration
         if !filled(@caType())
           errors.push("Address confidentiality reason")
         else
-          if !filled(@caPoBox()) || !filled(@caCity()) || !zip5(@caZip5())
-            errors.push("Correct P.O. Box")
+          if !filled(@caAddress1()) || !filled(@caCity()) || !zip5(@caZip5())
+            errors.push("Protected voter mailing address")
 
       if @requestingAbsentee()
         if @overseas()
