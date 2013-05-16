@@ -218,6 +218,7 @@ class window.Registration
     @rabElectionDate        = ko.observable()
     @outsideType            = ko.observable()
     @needsServiceDetails    = ko.computed => @outsideType() && @outsideType().match(/MerchantMarine/)
+    @serviceBranch          = ko.observable()
     @serviceId              = ko.observable()
     @rank                   = ko.observable()
 
@@ -419,11 +420,19 @@ class window.Registration
         "Unspecified"
 
     @summaryRegistrationAddress = ko.computed =>
-      if @vvrIsRural()
-        @vvrRural()
+      address = if @vvrIsRural()
+          @vvrRural()
+        else
+          join([ @vvrStreetNumber(), @vvrStreetName(), @vvrStreetType(), (if filled(@vvrApt()) then "##{@vvrApt()}" else null) ], ' ') + "<br/>" +
+            join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
+
+      if @overseas()
+        lines = [ address ]
+        if @vvrOverseasRA() == '0'
+          lines.push "Last day available: #{moment(@vvrUocavaResidenceUnavailableSince()).format("MMMM Do, YYYY")}"
+        lines.join "<br/>"
       else
-        join([ @vvrStreetNumber(), @vvrStreetName(), @vvrStreetType(), (if filled(@vvrApt()) then "##{@vvrApt()}" else null) ], ' ') + "<br/>" +
-        join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
+        address
 
     @summaryOverseasMailingAddress = ko.computed =>
       if @mauType() == 'apo'
@@ -454,6 +463,7 @@ class window.Registration
           lines.push "Authorized cancelation"
          
         lines.join "<br/>"
+
     @summaryDomesticMailingAddress = ko.computed =>
       join([
         @maAddress1(),
@@ -482,31 +492,43 @@ class window.Registration
     @summaryAbsenteeRequest = ko.computed =>
       lines = []
 
-      if @rabElection() != 'other'
-        election = @rabElection()
+      if @overseas()
+        lines = []
+        type = $("label", $(".overseas_outside_type input[value='#{@outsideType()}']").parent()).text()
+        lines.push "Reason: #{type}"
+
+        if @needsServiceDetails()
+          branch = $("#registration_service_branch option[value='#{@serviceBranch()}']").text()
+          lines.push "Service details: #{branch} - #{@serviceId()} - #{@rank()}"
+
       else
-        election = "#{@rabElectionName()} held on #{@rabElectionDate()}"
-      lines.push "Applying to vote abstentee in #{election}"
+        # domestic
+        if @rabElection() != 'other'
+          election = @rabElection()
+        else
+          election = "#{@rabElectionName()} held on #{@rabElectionDate()}"
+        lines.push "Applying to vote abstentee in #{election}"
 
-      if filled(@abReason())
-        lines.push "Reason: #{$("#registration_ab_reason option[value='#{@abReason()}']").text()}"
+        if filled(@abReason())
+          lines.push "Reason: #{$("#registration_ab_reason option[value='#{@abReason()}']").text()}"
 
-      if @abField1Required() and filled(@abField1())
-        v = @abField1()
-        if @abPartyLookupRequired()
-          v = $("#registration_ab_field_1 option[value='#{v}']").text()
-        lines.push "#{@abField1Label()}: #{v}"
-      if @abField2Required() and filled(@abField2())
-        lines.push "#{@abField2Label()}: #{@abField2()}"
-      if @abTimeRangeRequired()
-        h1 = @abTime1Hour()
-        m1 = @abTime1Minute()
-        h2 = @abTime2Hour()
-        m2 = @abTime2Minute()
-        lines.push "Time: #{time(h1, m1)} - #{time(h2, m2)}"
-      if @abAddressRequired()
-        lines.push join([ @abStreetNumber(), @abStreetName(), @abStreetType(), (if filled(@abApt()) then "##{@abApt()}" else null) ], ' ') + "<br/>" +
-          join([ @abCity(), join([ @abState(), join([ @abZip5(), @abZip4() ], '-'), @abCountry() ], ' ') ], ', ')
+        if @abField1Required() and filled(@abField1())
+          v = @abField1()
+          if @abPartyLookupRequired()
+            v = $("#registration_ab_field_1 option[value='#{v}']").text()
+          lines.push "#{@abField1Label()}: #{v}"
+        if @abField2Required() and filled(@abField2())
+          lines.push "#{@abField2Label()}: #{@abField2()}"
+        if @abTimeRangeRequired()
+          h1 = @abTime1Hour()
+          m1 = @abTime1Minute()
+          h2 = @abTime2Hour()
+          m2 = @abTime2Minute()
+          lines.push "Time: #{time(h1, m1)} - #{time(h2, m2)}"
+        if @abAddressRequired()
+          lines.push join([ @abStreetNumber(), @abStreetName(), @abStreetType(), (if filled(@abApt()) then "##{@abApt()}" else null) ], ' ') + "<br/>" +
+            join([ @abCity(), join([ @abState(), join([ @abZip5(), @abZip4() ], '-'), @abCountry() ], ' ') ], ', ')
+
       lines.join "<br/>"
 
     @showingPartySummary = ko.computed =>

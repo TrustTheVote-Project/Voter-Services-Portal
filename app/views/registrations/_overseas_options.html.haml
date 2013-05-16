@@ -20,7 +20,7 @@
     = f.hidden_field :absentee_until
 
   .row
-    .span10.indented
+    .span10.indented.overseas_outside_type
       .radio
         = f.radio_button :outside_type, 'ActiveDutyMerchantMarineOrArmedForces', { 'data-bind' => 'checkedWithInit: outsideType' }
         %label{ for: 'registration_outside_type_activedutymerchantmarineorarmedforces' }= t 'outside_type.ActiveDutyMerchantMarineOrArmedForces'
@@ -38,7 +38,7 @@
   .row
     .span2
       %span Service Branch
-      = select     :registration, :service_branch, options_for_select(Registration::SERVICE_BRANCHES), {}, autocomplete: ac, class: 'span2 inline'
+      = select     :registration, :service_branch, options_for_select(Registration::SERVICE_BRANCHES), {}, autocomplete: ac, class: 'span2 inline', 'data-bind' => 'valueWithInit: serviceBranch'
     .span2
       %span Service ID
       = text_field :registration, :service_id, placeholder: 'Service ID', autocomplete: ac, class: 'span1 inline', 'data-bind' => 'valueWithInit: serviceId'
