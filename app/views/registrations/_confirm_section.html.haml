@@ -44,7 +44,8 @@
             %tr
               %th Registration address:
               %td{ 'data-bind' => 'html: summaryRegistrationAddress' }
-            %tr
+
+            %tr{ 'data-bind' => 'if: overseas() || maIsSame() == "0"' }
               %th Mailing address:
               %td
                 %p{ 'data-bind' => 'html: summaryMailingAddress' }
