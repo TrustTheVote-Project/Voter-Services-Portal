@@ -13,7 +13,7 @@ class window.Registration
 
   initEligibilityFields: ->
     @citizen                = ko.observable()
-    @oldEnough              = ko.observable('1')
+    @oldEnough              = ko.observable()
     @rightsWereRevoked      = ko.observable()
     @rightsRevokationReason = ko.observable()
     @rightsWereRestored     = ko.observable()

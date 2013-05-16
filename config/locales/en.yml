@@ -14,6 +14,8 @@ en:
     citizen:
       question: Are you a citizen of the United States of America?
       ineligible: To register, you must be a citizen of the United States of America.
+    old_enough:
+      question: Will you be at least 18 years of age on or before the next Election Day?
     residence:
       in: I am currently a resident of Virginia
       out: I live outside of the U.S., but the most recent U.S. residence was in Virginia
