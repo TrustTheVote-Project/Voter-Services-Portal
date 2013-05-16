@@ -9,7 +9,7 @@
         #{I18n.t('front.welcome.line2')}<br/>
         #{I18n.t('front.welcome.line3')}
 
-  - if AppConfig['dmv_id_submission']
+  - if !AppConfig['dmv_id_submission']
     .row.steps
       .span4.info
         .line1 5
