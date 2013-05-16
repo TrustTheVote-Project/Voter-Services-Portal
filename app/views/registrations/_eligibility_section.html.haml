@@ -2,11 +2,7 @@
   .head
     %h3 Eligibility
     .description Eligibility to vote in Virginia.
-  %p
-    To be eligible to vote, you must meet the requirements for citizenship, age,
-    qualification, and residence. To proceed with registering to vote, you must indicate
-    whether you meet each of these requirements. If you are already registered with your
-    current name and address, you do not need to re-register.
+  %p= I18n.t('eligibility.details')
 
   .partition.citizen
     %h4= I18n.t('eligibility.citizen.question')

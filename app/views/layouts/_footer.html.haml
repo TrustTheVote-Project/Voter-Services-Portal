@@ -21,7 +21,7 @@
 
         .span4.contact
           %h3 Contact
-          %h4 Virginia State Board of Elections
+          %h4= I18n.t("contact.organization")
           %p
             Washington Building<br/>
             First Floor<br/>
@@ -47,7 +47,7 @@
       &nbsp;&nbsp;|&nbsp;&nbsp;
       = link_to 'Elections', :elections_page
       &nbsp;&nbsp;|&nbsp;&nbsp;
-      = link_to 'Security', :security_page
+      = link_to 'Security & Privacy', :security_page
       &nbsp;&nbsp;|&nbsp;&nbsp;
       = link_to 'Feedback', :feedback_page
     .span3.powered
