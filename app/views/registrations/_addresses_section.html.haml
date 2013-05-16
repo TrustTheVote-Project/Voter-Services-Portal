@@ -8,7 +8,8 @@
       #{I18n.t("dmv.address_info")}
       <!-- /ko -->
 
-  .row{ 'data-bind' => 'visible: !vvrIsRural()' }
+  <!-- ko ifnot: vvrIsRural -->
+  .row
     .span2
       = f.label :vvr_street_number, "Street number"
       = f.text_field :vvr_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrStreetNumber" }', class: 'span2'
@@ -23,7 +24,7 @@
         Apt/Lot
         %span (optional)
       = f.text_field :vvr_apt, autocomplete: ac, 'data-bind' => 'valueWithInit: vvrApt'
-  .row{ 'data-bind' => 'visible: !vvrIsRural()' }
+  .row
     .span3
       = f.label :vvr_county_or_city, "County or city"
       = f.select :vvr_county_or_city, Office.localities, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "vvrCountyOrCity", resetAlso: ".town" }' }
@@ -44,13 +45,16 @@
       = f.text_field :vvr_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "vvrZip5", validation: "zip5" }', placeholder: 'NNNNN'
       .space &mdash;
       = f.text_field :vvr_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: vvrZip4', placeholder: 'NNNN'
+  <!-- /ko -->
 
   .row
     .span12
       .checkbox
         = f.check_box :vvr_is_rural, 'data-bind' => 'instantValidation: { accessor: "vvrIsRural" }'
         Rural address or homeless? Please check the box and describe where you reside.
-      = f.text_area :vvr_rural, cols: "10", rows: "10", autocomplete: ac, 'data-bind' => 'visible: vvrIsRural, instantValidation: { accessor: "vvrRural" }'
+      <!-- ko if: vvrIsRural -->
+      = f.text_area :vvr_rural, cols: "10", rows: "10", autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrRural" }'
+      <!-- /ko -->
 
   <!-- ko if: overseas -->
   .row

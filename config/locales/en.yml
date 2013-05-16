@@ -44,6 +44,9 @@ en:
       requesting_absentee: I will not be able to vote in person, and would like to vote absentee until #{ " #{f.object.absentee_until.strftime("%B %d, %Y")}" unless AppConfig['choose_absentee_until']}:
     being_official: "I'm interested in being an Election Official on Election Day. Please send me information."
 
+  confirm:
+    details: Please confirm that your information is accurate. If any information is not correct, please click the "Edit" button next to it, in order to go back to the page where you can make corrections.
+
   outside_type:
     ActiveDutyMerchantMarineOrArmedForces: Active Duty Merchant Marine or Armed Forces
     SpouseOrDependentActiveDutyMerchantMarineOrArmedForces: Spouse or dependent living with a member of an active duty Merchant Marine or Armed Forces

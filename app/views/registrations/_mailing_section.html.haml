@@ -14,50 +14,55 @@
       = f.radio_button :has_existing_reg, '1', { 'data-bind' => 'checkedWithInit: hasExistingReg' }
       %label{ for: 'registration_has_existing_reg_1' } Yes
 
-    %div{ 'data-bind' => 'visible: hasExistingReg() == "1"' }
-      %div{ 'data-bind' => 'visible: !erIsRural()' }
-        .row
-          .span2
-            = f.label :er_street_number, "Street number"
-            = f.text_field :er_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erStreetNumber" }', class: 'span2'
-          .span4
-            = f.label :er_street_name, "Street name"
-            = f.text_field :er_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erStreetName" }', class: 'span4'
-          .span2.street-type-field
-            = f.label :er_street_type, "Street type"
-            = f.select :er_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'street-type', 'data-bind' => 'instantValidation: { accessor: "erStreetType" }' }
-          .span2.lot-field
-            = f.label :er_apt do
-              Apt/Lot
-              %span (optional)
-            = f.text_field :er_apt, autocomplete: ac, 'data-bind' => 'valueWithInit: erApt'
-        .row
-          .span3
-            = f.label :er_city, "City"
-            = f.text_field :er_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erCity" }'
-          .span2.state-field
-            = f.label :er_state, "State"
-            = f.select :er_state, Dictionaries::STATES_WITHOUT_VA, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "erState" }' }
-          .span3.zip-field
-            = f.label :er_zip5, "Zip code"
-            = f.text_field :er_zip5, class: 'first-zip', autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erZip5", validation: "zip5" }', placeholder: 'NNNNN', maxlength: 5
-            .space &mdash;
-            = f.text_field :er_zip4, class: 'second-zip', autocomplete: ac, placeholder: 'NNNN', maxlength: 4, 'data-bind' => 'valueWithInit: erZip4'
+    <!-- ko if: hasExistingReg() == "1" -->
+    <!-- ko ifnot: erIsRural -->
+    .row
+      .span2
+        = f.label :er_street_number, "Street number"
+        = f.text_field :er_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erStreetNumber" }', class: 'span2'
+      .span4
+        = f.label :er_street_name, "Street name"
+        = f.text_field :er_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erStreetName" }', class: 'span4'
+      .span2.street-type-field
+        = f.label :er_street_type, "Street type"
+        = f.select :er_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'street-type', 'data-bind' => 'instantValidation: { accessor: "erStreetType" }' }
+      .span2.lot-field
+        = f.label :er_apt do
+          Apt/Lot
+          %span (optional)
+        = f.text_field :er_apt, autocomplete: ac, 'data-bind' => 'valueWithInit: erApt'
+    .row
+      .span3
+        = f.label :er_city, "City"
+        = f.text_field :er_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erCity" }'
+      .span2.state-field
+        = f.label :er_state, "State"
+        = f.select :er_state, Dictionaries::STATES_WITHOUT_VA, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "erState" }' }
+      .span3.zip-field
+        = f.label :er_zip5, "Zip code"
+        = f.text_field :er_zip5, class: 'first-zip', autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erZip5", validation: "zip5" }', placeholder: 'NNNNN', maxlength: 5
+        .space &mdash;
+        = f.text_field :er_zip4, class: 'second-zip', autocomplete: ac, placeholder: 'NNNN', maxlength: 4, 'data-bind' => 'valueWithInit: erZip4'
+    <!-- /ko --> <!-- !erIsRural -->
 
+    .row
+      .span12
+        .checkbox
+          = f.check_box :er_is_rural, { 'data-bind' => 'checkedWithInit: erIsRural' }
+          Rural address or homeless? Please check the box and describe where you reside.
+        <!-- ko if: erIsRural -->
+        = f.text_area :er_rural, cols: "10", rows: "10", autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erRural" }'
+        <!-- /ko -->
+
+    .partition
       .row
         .span12
           .checkbox
-            = f.check_box :er_is_rural, { 'data-bind' => 'checkedWithInit: erIsRural' }
-            Rural address or homeless? Please check the box and describe where you reside.
-          = f.text_area :er_rural, cols: "10", rows: "10", autocomplete: ac, 'data-bind' => 'visible: erIsRural, instantValidation: { accessor: "erRural" }'
+            = f.check_box :er_cancel, 'data-bind' => 'instantValidation: { accessor: "erCancel" }'
+            = f.label :er_cancel do
+              %strong I authorize cancellation of my existing registration.
 
-      .partition
-        .row
-          .span12
-            .checkbox
-              = f.check_box :er_cancel, 'data-bind' => 'instantValidation: { accessor: "erCancel" }'
-              = f.label :er_cancel do
-                %strong I authorize cancellation of my existing registration.
+    <!-- /ko -->
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: addressesInvalid }'
