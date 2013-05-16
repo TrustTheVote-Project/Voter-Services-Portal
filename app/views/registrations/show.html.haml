@@ -1,8 +1,5 @@
 - reg = RegistrationDetailsPresenter.new(@registration)
 
-- unless no_forms?
-  = render partial: "search/steps", locals: { step: 'view' }
-
 .padded_page_span.section#overview
   = render partial: 'head'
 

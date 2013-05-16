@@ -1,6 +1,6 @@
 .disclaimer {
   color: #ccc;
-  margin: 0 80px 24px;
+  margin: 28px 80px 0;
 }
 
 #registration {
@@ -11,7 +11,7 @@
 }
 
 .welcome {
-  margin: 30px 0;
+  margin: 28px 0;
   h2 {
     font-family: Georgia, serif;
     margin-bottom: 10px;
@@ -50,6 +50,8 @@ select {
 }
 
 .section {
+  margin-top: 28px;
+
   .head:first-child { margin-top: 0; }
   .head.simple {
     border-top: none;
