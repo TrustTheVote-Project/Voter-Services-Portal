@@ -20,6 +20,8 @@ class window.Registration
     @rightsRestoredOnMonth  = ko.observable()
     @rightsRestoredOnYear   = ko.observable()
     @rightsRestoredOnDay    = ko.observable()
+    @rightsRestoredIn       = ko.observable()
+    @rightsRestoredInText   = ko.computed => $("#registration_rights_restored_in option[value='#{@rightsRestoredIn()}']").text()
     @rightsRestoredOn       = ko.computed => pastDate(@rightsRestoredOnYear(), @rightsRestoredOnMonth(), @rightsRestoredOnDay())
     @dobYear                = ko.observable()
     @dobMonth               = ko.observable()
@@ -119,9 +121,11 @@ class window.Registration
     @erStreetNumber         = ko.observable()
     @erStreetName           = ko.observable()
     @erStreetType           = ko.observable()
+    @erApt                  = ko.observable()
     @erCity                 = ko.observable()
     @erState                = ko.observable()
     @erZip5                 = ko.observable()
+    @erZip4                 = ko.observable()
     @erIsRural              = ko.observable()
     @erRural                = ko.observable()
     @erCancel               = ko.observable()
@@ -203,6 +207,7 @@ class window.Registration
     @caAddress2             = ko.observable()
     @caCity                 = ko.observable()
     @caZip5                 = ko.observable()
+    @caZip4                 = ko.observable()
 
     @requestingAbsentee     = ko.observable()
     @absenteeUntil          = ko.observable()
@@ -369,11 +374,43 @@ class window.Registration
 
   initSummaryFields: ->
     @summaryFullName = ko.computed =>
-      join([ @firstName(), @middleName(), @lastName(), @suffix() ], ' ')
+      valueOrUnspecified(join([ @firstName(), @middleName(), @lastName(), @suffix() ], ' '))
 
+    @summaryCitizen   = ko.computed => yesNo(@citizen())
+    @summaryOldEnough = ko.computed => yesNo(@oldEnough())
+    @summaryGender    = ko.computed => valueOrUnspecified(@gender())
+
+    @summaryVotingRights = ko.computed =>
+      if @rightsWereRevoked() == '0'
+        "Haven't been convicted of a felony or adjudicated mentally incapacitated"
+      else
+        lines = [ ]
+        if @rightsRevokationReason() == 'felony'
+          lines.push "Have been convicted of a felony"
+        else
+          lines.push "Have been adjudicated mentally incapacitated"
+
+        if @rightsWereRestored() == '0'
+          lines.push "Voting rights were not restored"
+        else
+          lines.push "Voting rights were restored in #{@rightsRestoredInText()} on #{moment(@rightsRestoredOn()).format("MMMM Do, YYYY")}"
+
+        lines.join "<br/>"
+    @summarySSN = ko.computed =>
+      if @noSSN() || !filled(@ssn())
+        "No Social Security Number"
+      else
+        @ssn()
+    @summaryDMVID = ko.computed =>
+      if !filled(@dmvId())
+        "No DMV ID"
+      else
+        @dmvId()
     @summaryDOB = ko.computed =>
       if filled(@dobMonth()) && filled(@dobDay()) && filled(@dobYear())
         moment([ @dobYear(), parseInt(@dobMonth()) - 1, @dobDay() ]).format("MMMM D, YYYY")
+      else
+        "Unspecified"
 
     @summaryRegistrationAddress = ko.computed =>
       if @vvrIsRural()
@@ -397,6 +434,20 @@ class window.Registration
         ], "<br/>")
 
 
+    @summaryExistingRegistration = ko.computed =>
+      if @hasExistingReg() == '0'
+        false
+      else
+        lines = []
+        if @erIsRural()
+          lines.push @erRural()
+        else
+          lines.push join([ @erStreetNumber(), @erStreetName(), @erStreetType(), (if filled(@erApt()) then "##{@erApt()}" else null) ], ' ') + "<br/>" +
+            join([ @erCity(), join([ @erState(), join([ @erZip5(), @erZip4() ], '-') ], ' ') ], ', ')
+        if @erCancel()
+          lines.push "Authorized cancelation"
+         
+        lines.join "<br/>"
     @summaryDomesticMailingAddress = ko.computed =>
       join([
         @maAddress1(),
@@ -412,6 +463,15 @@ class window.Registration
           @summaryRegistrationAddress()
         else
           @summaryDomesticMailingAddress()
+
+    @summaryAddressConfidentiality = ko.computed =>
+      if @isConfidentialAddress()
+        "Code: #{@caType()}" + "<br/>" +
+        join([
+          @caAddress1(),
+          @caAddress2(),
+          join([ @caCity(), 'VA', join([ @caZip5(), @caZip4() ], '-') ], ' ')
+        ], "<br/>")
 
     @showingPartySummary = ko.computed =>
       @requestingAbsentee() and @overseas() and @summaryParty()

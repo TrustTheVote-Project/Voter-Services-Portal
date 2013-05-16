@@ -4,7 +4,7 @@
     .span12
       .checkbox
         = f.check_box :need_assistance
-        %label{ for: 'registration_need_assistance' }
+        = f.label :need_assistance do
           %strong= I18n.t('options.domestic.need_assistance')
 
 .partition
@@ -12,7 +12,7 @@
     .span12
       .checkbox
         = f.check_box :requesting_absentee, 'data-bind' => 'checked: requestingAbsentee', autocomplete: ac
-        %label{ for: 'registration_requesting_absentee' }
+        = f.label :requesting_absentee do
           %strong= I18n.t('options.domestic.requesting_absentee')
       <!-- ko if: requestingAbsentee -->
       %p To apply to vote absentee, you must identify the election for which you are applying.
@@ -21,62 +21,61 @@
   .row
     .span12
       %h4
-        %label{ for: 'registration_rab_election' }
+        = f.label :rab_election do
           %strong I am applying to vote absentee in:
       - elections = (f.object.upcoming_elections || Dictionaries::ELECTIONS) + [ [ "Other", "other" ] ]
       = f.select :rab_election, elections, { include_blank: true }, { autocomplete: ac, class: 'span6', 'data-bind' => 'instantValidation: { accessor: "rabElection" }' }
   <!-- ko if: rabElection() == 'other' -->
   .row
     .span6.election-name-field
-      %label{ for: 'registration_rab_election_name' } Election name
+      = f.label :rab_election_name, "Election name"
       = f.text_field :rab_election_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "rabElectionName" }'
     .span3
-      %label{ for: 'registration_rab_election_date' } Held on
+      = f.label :registration_rab_election_date, "Held on"
       = f.text_field :rab_election_date, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "rabElectionDate" }', placeholder: 'MM/DD/YYYY'
   <!-- /ko -->
-  <!-- /ko -->
+  <!-- /ko --> <!-- requestingAbsentee -->
 
 <!-- ko if: requestingAbsentee -->
 .partition
   .row
     .span12
       %p
-        Select only one reason to vote absentee from the list below and include any
-        %br/
+        Select only one reason to vote absentee from the list below and include any<br/>
         required information to support the reason.
   .row
     .span12
-      %label{ for: 'registration_ab_reason' }
+      = f.label :ab_reason do
         %strong I am unable to go to the polls on election day because
       = f.select :ab_reason, Dictionaries::ABSENCE_REASONS.invert, { include_blank: true }, { autocomplete: ac, class: 'span10', 'data-bind' => 'instantValidation: { accessor: "abReason" }' }
 
   -# Fields to blank elements of the record that aren't on the form
-  = hidden_field_tag "registration[ab_field_1]", ''
-  = hidden_field_tag "registration[ab_field_2]", ''
-  = hidden_field_tag "registration[ab_time_1(1i)]", ''
-  = hidden_field_tag "registration[ab_time_1(2i)]", ''
-  = hidden_field_tag "registration[ab_time_1(3i)]", ''
-  = hidden_field_tag "registration[ab_time_1(4i)]", ''
-  = hidden_field_tag "registration[ab_time_1(5i)]", ''
-  = hidden_field_tag "registration[ab_time_2(1i)]", ''
-  = hidden_field_tag "registration[ab_time_2(2i)]", ''
-  = hidden_field_tag "registration[ab_time_2(3i)]", ''
-  = hidden_field_tag "registration[ab_time_2(4i)]", ''
-  = hidden_field_tag "registration[ab_time_2(5i)]", ''
-  = hidden_field_tag "registration[ab_street_number]", ''
-  = hidden_field_tag "registration[ab_street_name]", ''
-  = hidden_field_tag "registration[ab_street_type]", ''
-  = hidden_field_tag "registration[ab_apt]", ''
-  = hidden_field_tag "registration[ab_city]", ''
-  = hidden_field_tag "registration[ab_state]", ''
-  = hidden_field_tag "registration[ab_zip5]", ''
-  = hidden_field_tag "registration[ab_zip4]", ''
-  = hidden_field_tag "registration[ab_country]", ''
+  = hidden_field_tag "registration[ab_field_1]", '', id: nil
+  = hidden_field_tag "registration[ab_field_2]", '', id: nil
+  = hidden_field_tag "registration[ab_time_1(1i)]", '', id: nil
+  = hidden_field_tag "registration[ab_time_1(2i)]", '', id: nil
+  = hidden_field_tag "registration[ab_time_1(3i)]", '', id: nil
+  = hidden_field_tag "registration[ab_time_1(4i)]", '', id: nil
+  = hidden_field_tag "registration[ab_time_1(5i)]", '', id: nil
+  = hidden_field_tag "registration[ab_time_2(1i)]", '', id: nil
+  = hidden_field_tag "registration[ab_time_2(2i)]", '', id: nil
+  = hidden_field_tag "registration[ab_time_2(3i)]", '', id: nil
+  = hidden_field_tag "registration[ab_time_2(4i)]", '', id: nil
+  = hidden_field_tag "registration[ab_time_2(5i)]", '', id: nil
+  = hidden_field_tag "registration[ab_street_number]", '', id: nil
+  = hidden_field_tag "registration[ab_street_name]", '', id: nil
+  = hidden_field_tag "registration[ab_street_type]", '', id: nil
+  = hidden_field_tag "registration[ab_apt]", '', id: nil
+  = hidden_field_tag "registration[ab_city]", '', id: nil
+  = hidden_field_tag "registration[ab_state]", '', id: nil
+  = hidden_field_tag "registration[ab_zip5]", '', id: nil
+  = hidden_field_tag "registration[ab_zip4]", '', id: nil
+  = hidden_field_tag "registration[ab_country]", '', id: nil
 
   <!-- ko if: abField1Required || abField2Required -->
   .row
     .span3
-      %label{ for: 'registration_ab_field_1', 'data-bind' => 'html: abField1Label' }
+      = f.label :ab_field_1, '', 'data-bind' => 'html: abField1Label'
       <!-- ko if: abPartyLookupRequired -->
       = f.select :ab_field_1, Dictionaries::PARTIES, { include_blank: true }, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abField1" }'
       <!-- /ko -->
@@ -96,7 +95,7 @@
 
     <!-- ko if: abField2Required -->
     .span3
-      %label{ for: 'registration_ab_field_2', 'data-bind' => 'html: abField2Label' }
+      = f.label :ab_field_2, '', 'data-bind' => 'html: abField2Label'
       = f.text_field :ab_field_2, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abField2" }'
     <!-- /ko -->
   <!-- /ko --> <!-- 1C -->
@@ -104,33 +103,33 @@
   <!-- ko if: abAddressRequired -->
   .row
     .span2
-      %label{ for: 'registration_ab_street_number' } Street number
+      = f.label :ab_street_number, "Street number"
       = f.text_field :ab_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abStreetNumber" }', class: 'span2'
     .span4
-      %label{ for: 'registration_ab_street_name' } Street name
+      = f.label :ab_street_name, "Street name"
       = f.text_field :ab_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abStreetName" }', class: 'span4'
     .span2.street-type-field
-      %label{ for: 'registration_ab_street_type' } Street type
+      = f.label :ab_street_type, "Street type"
       = f.select :ab_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'street-type', 'data-bind' => 'instantValidation: { accessor: "abStreetType" }' }
     .span2.lot-field
-      %label{ for: 'registration_ab_apt' }
+      = f.label :ab_apt do
         Apt/Lot
         %label (optional)
       = f.text_field :ab_apt, autocomplete: ac
   .row
     .span3
-      %label{ for: 'registration_ab_city' } City
+      = f.label :ab_city, "City"
       = f.text_field :ab_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abCity" }'
     .span3
-      %label{ for: 'registration_ab_state' } Province or State
+      = f.label :ab_state, "Province or State"
       = f.text_field :ab_state, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abState" }'
     .span3.postal-code-field
-      %label{ for: 'registration_ab_zip5' } Postal code
+      = f.label :ab_zip5, "Postal code"
       = f.text_field :ab_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "abZip5" }', placeholder: 'NNNNN'
       .space &mdash;
       = f.text_field :ab_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', placeholder: 'NNNN'
     .span2.country-field
-      %label{ for: 'registration_ab_country' } Country
+      = f.label :ab_country, "Country"
       = f.text_field :ab_country, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abCountry" }'
   <!-- /ko --> <!-- addressRequired -->
 <!-- /ko -->
@@ -140,5 +139,6 @@
     .span12
       .checkbox
         = f.check_box :be_official, autocomplete: ac
-        %strong= I18n.t('options.being_official')
+        = f.label :be_official do
+          %strong= I18n.t('options.being_official')
 <!-- /ko --> <!-- domestic -->

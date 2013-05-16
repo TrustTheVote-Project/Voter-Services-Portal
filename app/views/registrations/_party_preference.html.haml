@@ -4,7 +4,8 @@
   .span10{ class: indented ? 'indented' : nil }
     .checkbox
       = f.check_box :choose_party, { 'data-bind' => 'checkedWithInit: chooseParty' }
-      %strong I want to choose a #{name.downcase}.
+      = f.label :choose_party do
+        %strong I want to choose a #{name.downcase}.
 
 <!-- ko if: chooseParty -->
 .row

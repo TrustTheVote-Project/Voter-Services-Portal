@@ -17,7 +17,8 @@ window.ssn     = (v) -> filled(v) && v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){9}$/)
 window.ssn4    = (s) -> filled(s) && s.match(/^\d{4}$/)
 window.voterId = (s) -> filled(s) && s.match(/^\d{9}$/)
 window.isDmvId = (s) -> !filled(s) or s.replace(/[ \-]/g, '').match(/^[0-9a-z]{9,12}$/i)
-
+window.yesNo   = (v) -> if v == '1' then "Yes" else "No"
+window.valueOrUnspecified = (v) -> if filled(v) then v else "Unspecified"
 
 window.date = (y, m, d) ->
   str = "#{y}-#{m}-#{d}"

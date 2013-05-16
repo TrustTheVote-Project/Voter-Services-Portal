@@ -5,7 +5,8 @@
       .checkbox
         = f.check_box :requesting_absentee, autocomplete: ac, disabled: true
         = f.hidden_field :requesting_absentee, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "requestingAbsentee" }'
-        %strong= I18n.t('options.overseas.requesting_absentee')
+        = f.label :requesting_absentee do
+          %strong= I18n.t('options.overseas.requesting_absentee')
 
   <!-- ko if: requestingAbsentee -->
   - if AppConfig['choose_absentee_until']

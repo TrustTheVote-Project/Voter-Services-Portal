@@ -5,19 +5,18 @@
 
   .row.personal-info
     .span3
-      %label{ for: 'registration_first_name' }
-        First name
+      = f.label :first_name
       = f.text_field :first_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "firstName" }'
     .span3
-      %label{ for: 'registration_middle_name' }
+      = f.label :middle_name do
         Full middle
         %span (optional)
       = f.text_field :middle_name, autocomplete: ac, 'data-bind' => 'value: middleName'
     .span3
-      %label{ for: 'registration_last_name' } Last name
+      = f.label :last_name
       = f.text_field :last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "lastName" }'
     .span2
-      %label{ for: 'registration_suffix' }
+      = f.label :suffix do
         Suffix
         %span (optional)
       = f.select :suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'value: suffix' }
@@ -26,17 +25,17 @@
   - if collecting? :registration, :gender
     .row
       .span12
-        %label{ for: 'registration_gender' } Gender
+        = f.label :gender
         = f.select :gender, [ 'Male', 'Female' ], { include_blank: true }, { autocomplete: ac, class: 'span2', 'data-bind' => 'instantValidation: { accessor: "gender" }' }
 
   .row
     .span2.phone-field
-      %label{ for: 'registration_phone' }
+      = f.label :phone do
         Phone
         %span (optional)
       = f.text_field :phone, autocomplete: ac, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'instantValidation: { accessor: "phone", attribute: "validPhone" }', class: 'span2'
     .span3.email-field
-      %label{ for: 'registration_email' }
+      = f.label :email do
         Email
         %span (optional)
       = f.text_field :email, autocomplete: ac, placeholder: 'john@smith.com', 'data-bind' => 'instantValidation: { accessor: "email", attribute: "validEmail" }'

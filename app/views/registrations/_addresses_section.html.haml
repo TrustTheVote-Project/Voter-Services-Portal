@@ -7,29 +7,29 @@
       <br/>
       #{I18n.t("dmv.address_info")}
       <!-- /ko -->
-  <!-- ko ifnot: vvrIsRural -->
-  .row
+
+  .row{ 'data-bind' => 'visible: !vvrIsRural()' }
     .span2
-      %label{ for: 'registration_vvr_street_number' } Street number
+      = f.label :vvr_street_number, "Street number"
       = f.text_field :vvr_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrStreetNumber" }', class: 'span2'
     .span4
-      %label{ for: 'registration_vvr_street_name' } Street name
+      = f.label :vvr_street_name, "Street name"
       = f.text_field :vvr_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrStreetName" }', class: 'span4'
     .span2.street-type-field
-      %label{ for: 'registration_vvr_street_type' } Street type
+      = f.label :vvr_street_type, "Street type"
       = f.select :vvr_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'street-type', 'data-bind' => 'instantValidation: { accessor: "vvrStreetType" }' }
     .span2.lot-field
-      %label{ for: 'registration_vvr_apt' }
+      = f.label :vvr_apt do
         Apt/Lot
         %span (optional)
       = f.text_field :vvr_apt, autocomplete: ac, 'data-bind' => 'valueWithInit: vvrApt'
-  .row
+  .row{ 'data-bind' => 'visible: !vvrIsRural()' }
     .span3
-      %label{ for: 'registration_vvr_county_or_city' } County or city
+      = f.label :vvr_county_or_city, "County or city"
       = f.select :vvr_county_or_city, Office.localities, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "vvrCountyOrCity", resetAlso: ".town" }' }
     .span3.town
       <!-- ko if: vvrCountySelected -->
-      %label{ for: 'registration_vvr_town' } Town
+      = f.label :vvr_town, "Town"
       = f.text_field :vvr_town, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrTown" }'
       <!-- /ko -->
       <!-- ko if: !vvrCountySelected() -->
@@ -40,34 +40,31 @@
       VA
       = f.hidden_field :vvr_state, autocomplete: ac, 'data-bind' => 'value: vvrState'
     .span2.zip-field
-      %label{ for: 'registration_vvr_zip5' } Zip code
+      = f.label :vvr_zip5, "Zip code"
       = f.text_field :vvr_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "vvrZip5", validation: "zip5" }', placeholder: 'NNNNN'
       .space &mdash;
       = f.text_field :vvr_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: vvrZip4', placeholder: 'NNNN'
-  <!-- /ko -->
 
   .row
     .span12
       .checkbox
         = f.check_box :vvr_is_rural, 'data-bind' => 'instantValidation: { accessor: "vvrIsRural" }'
         Rural address or homeless? Please check the box and describe where you reside.
-      <!-- ko if: vvrIsRural -->
-      = f.text_area :vvr_rural, cols: "10", rows: "10", autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrRural" }'
-      <!-- /ko -->
+      = f.text_area :vvr_rural, cols: "10", rows: "10", autocomplete: ac, 'data-bind' => 'visible: vvrIsRural, instantValidation: { accessor: "vvrRural" }'
 
   <!-- ko if: overseas -->
   .row
     .span12
       .radio
         = radio_button :registration, :vvr_uocava_residence_available, '1', { autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrOverseasRA" }' }
-        %label{ for: 'registration_vvr_uocava_residence_available_1'} My Virginia residence is still available to me
+        %label{ for: 'registration_vvr_uocava_residence_available_1' } My Virginia residence is still available to me
       .radio
         = radio_button :registration, :vvr_uocava_residence_available, '0', { autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrOverseasRA" }' }
-        %label{ for: 'registration vvr_uocava_residence_available_0' }My Virginia residence is no longer available to me
+        %label{ for: 'registration vvr_uocava_residence_available_0' } My Virginia residence is no longer available to me
   <!-- ko if: vvrOverseasRA() == '0' -->
   .row
     .span12
       %span My last date of residence at the above address was:
       = bound_date f, :vvr_uocava_residence_unavailable_since, { end_year: Date.today.year }, class: 'date'
   <!-- /ko -->
-  <!-- /ko -->
+  <!-- /ko --> <!-- overseas -->

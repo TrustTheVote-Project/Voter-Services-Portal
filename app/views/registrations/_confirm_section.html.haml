@@ -14,16 +14,26 @@
               %th Name:
               %td{ 'data-bind' => 'text: summaryFullName' }
             %tr
+              %th Citizen?
+              %td{ 'data-bind' => 'text: summaryCitizen' }
+            %tr
+              %th Old enough?
+              %td{ 'data-bind' => 'text: summaryOldEnough' }
+            %tr
+              %th Voting rights summary:
+              %td{ 'data-bind' => 'html: summaryVotingRights' }
+            %tr
               %th Date of birth:
               %td{ 'data-bind' => 'text: summaryDOB' }
             %tr
-              %th Gender:
-              %td{ 'data-bind' => 'text: gender' }
-            <!-- ko if: ssn -->
-            %tr
               %th Social security number:
-              %td{ 'data-bind' => 'text: ssn' }
-            <!-- /ko -->
+              %td{ 'data-bind' => 'text: summarySSN' }
+            %tr
+              %th Department of Motor Vehicles ID:
+              %td{ 'data-bind' => 'text: summaryDMVID' }
+            %tr
+              %th Gender:
+              %td{ 'data-bind' => 'text: summaryGender' }
             <!-- ko if: phone -->
             %tr
               %th Phone:
@@ -45,14 +55,18 @@
                 <!-- ko if: overseas -->
                 (used for absentee ballot and other voting correspondence)
                 <!-- /ko -->
-
+            <!-- ko if: summaryExistingRegistration -->
+            %tr
+              %th Existing registration:
+              %td{ 'data-bind' => 'html: summaryExistingRegistration' }
+            <!-- /ko -->
             %tr{ 'data-bind' => 'if: showingPartySummary' }
               %th #{party_preference_label}:
               %td
                 %span{ 'data-bind' => 'text: summaryParty' }
             %tr{ 'data-bind' => 'if: isConfidentialAddress' }
               %th Address confidentiality:
-              %td Active
+              %td{ 'data-bind' => 'html: summaryAddressConfidentiality' }
 
   = render partial: 'confirm_absentee_status'
 
