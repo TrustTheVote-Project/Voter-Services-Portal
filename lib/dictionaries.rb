@@ -145,11 +145,4 @@ module Dictionaries
     'General Election held on Tuesday, November 6, 2012.'
   ]
 
-  ACP_REASONS = {
-    'LEO' => 'active or retired law enforcement officer, judge, U.S. or Virginia Attorney General attorney',
-    'CPO' => 'have a court issued protective order for my benefit',
-    'TSC' => 'have a complaint with law enforcement about being threatened or stalked',
-    'ACP' => 'registered with the Virginia Attorney General\'s Address Confidentiality Program'
-  }
-
 end

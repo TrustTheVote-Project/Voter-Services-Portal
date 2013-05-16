@@ -14,20 +14,20 @@
       .span12
         .checkbox
           = f.check_box :is_confidential_address, autocomplete: ac, 'data-bind' => 'checkedWithInit: isConfidentialAddress'
-          %strong I qualify for address confidentiality.
+          %strong= I18n.t('options.ac.requesting')
 
     <!-- ko if: isConfidentialAddress -->
     .row
       .span10
-        %span I request that my home address not be released because I or member of my household is
+        %span= I18n.t('options.ac.statement')
         - %w( LEO CPO TSC ACP ).each do |r|
           .radio
             = f.radio_button :ca_type, r, 'data-bind' => 'checkedWithInit: caType'
-            %label= Dictionaries::ACP_REASONS[r]
+            %label= I18n.t("options.ac.reasons.#{r}")
 
         <!-- ko if: caType -->
         .additional
-          .important In order to non-publish your residence address in voter lists, you must also provide an alternative post office box mailing address within Virginia to be used on the voter lists.
+          .important= I18n.t("options.ac.type")
           .row
             .span5
               %span P.O. Box
@@ -61,8 +61,7 @@
       .span12
         .checkbox
           = f.check_box :be_official, autocomplete: ac
-          %strong
-            I'm interested in being an Election Official on Election Day. Please send me information.
+          %strong= I18n.t('options.being_official')
   <!-- /ko -->
 
   .form-actions

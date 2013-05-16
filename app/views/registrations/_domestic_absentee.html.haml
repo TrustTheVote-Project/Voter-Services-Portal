@@ -5,7 +5,7 @@
       .checkbox
         = f.check_box :requesting_absentee, 'data-bind' => 'checked: requestingAbsentee', autocomplete: ac
         %label{ for: 'registration_requesting_absentee' }
-          %strong I am not able to go to the polls on election day and would like an Absentee Ballot Application.
+          %strong= I18n.t('options.domestic.requesting_absentee')
       <!-- ko if: requestingAbsentee -->
       %p To apply to vote absentee, you must identify the election for which you are applying.
       <!-- /ko -->

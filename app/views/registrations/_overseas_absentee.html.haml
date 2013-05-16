@@ -5,8 +5,7 @@
       .checkbox
         = f.check_box :requesting_absentee, autocomplete: ac, disabled: true
         = f.hidden_field :requesting_absentee, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "requestingAbsentee" }'
-        %strong
-          I will not be able to vote in person, and would like to vote absentee until #{ " #{f.object.absentee_until.strftime("%B %d, %Y")}" unless AppConfig['choose_absentee_until']}:
+        %strong= I18n.t('options.overseas.requesting_absentee')
 
   <!-- ko if: requestingAbsentee -->
   - if AppConfig['choose_absentee_until']

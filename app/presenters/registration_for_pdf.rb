@@ -102,7 +102,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
 
   def acp_reason(d = :data)
     key = @reg.send(d)[:ca_type]
-    "#{key}: #{Dictionaries::ACP_REASONS[key]}"
+    "#{key}: #{I18n.t("options.ac.reasons.#{key}")}"
   end
 
   def acp_pobox(d = :data)
