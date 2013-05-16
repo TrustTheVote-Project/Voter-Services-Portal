@@ -1,6 +1,4 @@
-- unless no_forms?
-  = render partial: 'steps'
-- else
+- if no_forms?
   .row
     .padded_page_span.welcome
       .head
@@ -14,7 +12,7 @@
 
 
 .row
-  .padded_page_span.section
+  .padded_page_span.section{ class: no_forms? ? nil : "welcome" }
     .head
       %h3 Identity
       .description Identify who you are to look-up your Virginia Voter Record.
@@ -69,9 +67,7 @@
       .partition
         .checkbox
           = check_box_tag :swear, 1, false, 'data-bind' => 'instantValidation: { accessor: "swear" }'
-          %label{ for: 'swear' }
-            I swear/affirm, under felony penalty for making willfully false material statements or entries, that the
-            information provided to access my voter registration record are my own.
+          %label{ for: 'swear' } #{I18n.t('search.affirmation').html_safe}
 
 
       .form-actions

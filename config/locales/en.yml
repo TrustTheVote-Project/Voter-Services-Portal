@@ -35,6 +35,7 @@ en:
     TemporaryResideOutsideSpouse: Temporarily residing outside U.S. for employment, or spouse or dependent residing with employee
 
   search:
+    affirmation: "I certify and affirm that the social security number and date of birth submitted to access my voter registration record are my own. I understand that it is unlawful to access the record of any other voter, punishable as computer fraud under Va. Code &sect; 18.2.152.3"
     record_not_found:
       title:  "Record Not Found"
       body:   "We were unable to find an existing voter record with the information you provided."
