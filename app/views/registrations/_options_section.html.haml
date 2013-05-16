@@ -56,8 +56,8 @@
     <!-- /ko -->
 
   = hidden_field_tag 'registration[be_official]', '0', id: nil
-  = render partial: 'domestic_absentee', locals: { f: f, updating: updating }
-  = render partial: 'overseas_absentee', locals: { f: f, updating: updating }
+  = render partial: 'domestic_options', locals: { f: f, updating: updating }
+  = render partial: 'overseas_options', locals: { f: f, updating: updating }
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextPage, css: { disabled: optionsInvalid }'

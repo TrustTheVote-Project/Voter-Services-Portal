@@ -34,16 +34,12 @@
             %tr
               %th Gender:
               %td{ 'data-bind' => 'text: summaryGender' }
-            <!-- ko if: phone -->
-            %tr
+            %tr{ 'data-bind' => 'if: phone' }
               %th Phone:
               %td{ 'data-bind' => 'text: phone' }
-            <!-- /ko -->
-            <!-- ko if: email -->
-            %tr
+            %tr{ 'data-bind' => 'if: email' }
               %th Email:
               %td{ 'data-bind' => 'text: email' }
-            <!-- /ko -->
 
             %tr
               %th Registration address:
@@ -55,18 +51,30 @@
                 <!-- ko if: overseas -->
                 (used for absentee ballot and other voting correspondence)
                 <!-- /ko -->
-            <!-- ko if: summaryExistingRegistration -->
-            %tr
+            %tr{ 'data-bind' => 'if: hasExistingReg' }
               %th Existing registration:
               %td{ 'data-bind' => 'html: summaryExistingRegistration' }
-            <!-- /ko -->
+
             %tr{ 'data-bind' => 'if: showingPartySummary' }
               %th #{party_preference_label}:
               %td
                 %span{ 'data-bind' => 'text: summaryParty' }
+
             %tr{ 'data-bind' => 'if: isConfidentialAddress' }
               %th Address confidentiality:
               %td{ 'data-bind' => 'html: summaryAddressConfidentiality' }
+
+            %tr{ 'data-bind' => 'if: needsAssistance' }
+              %th Assistance needed:
+              %td Yes
+
+            %tr{ 'data-bind' => 'if: requestingAbsentee' }
+              %th Absentee request:
+              %td{ 'data-bind' => 'html: summaryAbsenteeRequest' }
+
+            %tr{ 'data-bind' => 'if: beOfficial' }
+              %th Intrested in being official:
+              %td Yes
 
   = render partial: 'confirm_absentee_status'
 

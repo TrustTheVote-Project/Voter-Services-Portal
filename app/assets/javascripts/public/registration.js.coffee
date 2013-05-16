@@ -209,6 +209,8 @@ class window.Registration
     @caZip5                 = ko.observable()
     @caZip4                 = ko.observable()
 
+    @needsAssistance        = ko.observable()
+
     @requestingAbsentee     = ko.observable()
     @absenteeUntil          = ko.observable()
     @rabElection            = ko.observable()
@@ -228,9 +230,11 @@ class window.Registration
     @abStreetNumber         = ko.observable()
     @abStreetName           = ko.observable()
     @abStreetType           = ko.observable()
+    @abApt                  = ko.observable()
     @abCity                 = ko.observable()
     @abState                = ko.observable()
     @abZip5                 = ko.observable()
+    @abZip4                 = ko.observable()
     @abCountry              = ko.observable()
     @abTime1Hour            = ko.observable()
     @abTime1Minute          = ko.observable()
@@ -298,6 +302,8 @@ class window.Registration
         ""
       else
         moment(au).format("MMM D, YYYY")
+
+    @beOfficial = ko.observable()
 
     @overseas.subscribe (v) =>
       setTimeout((=> @requestingAbsentee(true)), 0) if v
@@ -472,6 +478,36 @@ class window.Registration
           @caAddress2(),
           join([ @caCity(), 'VA', join([ @caZip5(), @caZip4() ], '-') ], ' ')
         ], "<br/>")
+
+    @summaryAbsenteeRequest = ko.computed =>
+      lines = []
+
+      if @rabElection() != 'other'
+        election = @rabElection()
+      else
+        election = "#{@rabElectionName()} held on #{@rabElectionDate()}"
+      lines.push "Applying to vote abstentee in #{election}"
+
+      if filled(@abReason())
+        lines.push "Reason: #{$("#registration_ab_reason option[value='#{@abReason()}']").text()}"
+
+      if @abField1Required() and filled(@abField1())
+        v = @abField1()
+        if @abPartyLookupRequired()
+          v = $("#registration_ab_field_1 option[value='#{v}']").text()
+        lines.push "#{@abField1Label()}: #{v}"
+      if @abField2Required() and filled(@abField2())
+        lines.push "#{@abField2Label()}: #{@abField2()}"
+      if @abTimeRangeRequired()
+        h1 = @abTime1Hour()
+        m1 = @abTime1Minute()
+        h2 = @abTime2Hour()
+        m2 = @abTime2Minute()
+        lines.push "Time: #{time(h1, m1)} - #{time(h2, m2)}"
+      if @abAddressRequired()
+        lines.push join([ @abStreetNumber(), @abStreetName(), @abStreetType(), (if filled(@abApt()) then "##{@abApt()}" else null) ], ' ') + "<br/>" +
+          join([ @abCity(), join([ @abState(), join([ @abZip5(), @abZip4() ], '-'), @abCountry() ], ' ') ], ', ')
+      lines.join "<br/>"
 
     @showingPartySummary = ko.computed =>
       @requestingAbsentee() and @overseas() and @summaryParty()

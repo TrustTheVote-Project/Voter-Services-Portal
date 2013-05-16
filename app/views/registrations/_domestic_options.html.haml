@@ -3,7 +3,7 @@
   .row
     .span12
       .checkbox
-        = f.check_box :need_assistance
+        = f.check_box :need_assistance, 'data-bind' => 'checked: needsAssistance'
         = f.label :need_assistance do
           %strong= I18n.t('options.domestic.need_assistance')
 
@@ -115,7 +115,7 @@
       = f.label :ab_apt do
         Apt/Lot
         %label (optional)
-      = f.text_field :ab_apt, autocomplete: ac
+      = f.text_field :ab_apt, autocomplete: ac, 'data-bind' => 'valueWithInit: abApt'
   .row
     .span3
       = f.label :ab_city, "City"
@@ -127,7 +127,7 @@
       = f.label :ab_zip5, "Postal code"
       = f.text_field :ab_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "abZip5" }', placeholder: 'NNNNN'
       .space &mdash;
-      = f.text_field :ab_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', placeholder: 'NNNN'
+      = f.text_field :ab_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', placeholder: 'NNNN', 'data-bind' => 'valueWithInit: abZip4'
     .span2.country-field
       = f.label :ab_country, "Country"
       = f.text_field :ab_country, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abCountry" }'
@@ -138,7 +138,7 @@
   .row
     .span12
       .checkbox
-        = f.check_box :be_official, autocomplete: ac
+        = f.check_box :be_official, autocomplete: ac, 'data-bind' => 'checked: beOfficial'
         = f.label :be_official do
           %strong= I18n.t('options.being_official')
 <!-- /ko --> <!-- domestic -->

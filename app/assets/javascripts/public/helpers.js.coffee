@@ -19,6 +19,7 @@ window.voterId = (s) -> filled(s) && s.match(/^\d{9}$/)
 window.isDmvId = (s) -> !filled(s) or s.replace(/[ \-]/g, '').match(/^[0-9a-z]{9,12}$/i)
 window.yesNo   = (v) -> if v == '1' then "Yes" else "No"
 window.valueOrUnspecified = (v) -> if filled(v) then v else "Unspecified"
+window.time = (h, m) -> moment("#{h}:#{m}", "HH:mm").format("h:mm A")
 
 window.date = (y, m, d) ->
   str = "#{y}-#{m}-#{d}"
