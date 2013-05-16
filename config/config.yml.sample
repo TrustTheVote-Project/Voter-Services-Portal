@@ -56,6 +56,9 @@ no_forms: true
 # Enable DMV ID submission
 dmv_id_submission: true
 
+# Show voting status on confirmation page
+confirm_voting_status_display: true
+
 # Show age checkbox on eligibility screen (if not shown, results in TRUE)
 eligibility_18_display: false
 

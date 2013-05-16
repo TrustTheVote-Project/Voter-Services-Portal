@@ -77,7 +77,8 @@
               %th Intrested in being official:
               %td Yes
 
-  = render partial: 'confirm_absentee_status'
+  - if AppConfig['confirm_voting_status_display']
+    = render partial: 'confirm_absentee_status'
 
 
   .form-actions
