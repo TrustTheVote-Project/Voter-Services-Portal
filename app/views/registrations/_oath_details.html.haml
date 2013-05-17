@@ -40,10 +40,25 @@
 .partition
   .row
     .span10
-      %strong Registration Statement
+      %p
+        %strong Registration Statement
       .checkbox
         = check_box :registration, :information_correct, 'data-bind' => 'instantValidation: { accessor: "infoCorrect" }'
         = f.label :information_correct, I18n.t('oath.information_correct')
+
+.partition
+  .row
+    .span10
+      %p
+        %strong= I18n.t 'oath.assistance.title'
+      %p= I18n.t 'oath.assistance.info'
+  .row
+    .span4
+      = f.label :as_name_of_assistant, "Name of Assistant"
+      = f.text_field :as_name_of_assistant, autocomplete: ac, 'data-bind' => 'valueWithInit: asNameOfAssistant'
+    .span4
+      = f.label :as_address_of_assistant, "Address of Assistant"
+      = f.text_field :as_address_of_assistant, autocomplete: ac, 'data-bind' => 'valueWithInit: asAddressOfAssistant'
 
 .partition
   .row

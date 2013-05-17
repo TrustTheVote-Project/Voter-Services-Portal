@@ -50,6 +50,10 @@ en:
   oath:
     subheader: ""
     information_correct: "I swear/affirm, under felony penalty for making willfully false material statements or entries, that the information provided on this form is true."
+    assistance:
+      title: Assistance to Applicant
+      info: "If assistance for signature is provided to applicant due to disability, provide name and address of assistant:"
+
 
   outside_type:
     ActiveDutyMerchantMarineOrArmedForces: Active Duty Merchant Marine or Armed Forces

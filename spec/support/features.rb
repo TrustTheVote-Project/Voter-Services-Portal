@@ -48,7 +48,7 @@ def sign_oath
     fill_in 'Social Security Number', with: '123456789'
   end
 
-  check "Registration Statement"
+  check "registration_information_correct"
   check "I have read and agree with the terms of the Privacy Act Notice."
   click_button "Next"
 end

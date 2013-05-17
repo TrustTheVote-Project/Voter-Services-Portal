@@ -10,7 +10,7 @@ class Registration < ActiveRecord::Base
   # ignore these keys.
   IGNORE_CHANGES_IN_KEYS  = [ :voter_id, :current_residence, :ssn, :no_ssn, :dmv_id,
                               :existing, :poll_locality, :poll_precinct, :poll_district,
-                              :information_correct, :privacy_agree, :need_assistance ]
+                              :information_correct, :privacy_agree ]
 
   # All absentee request related fields. This list is used to determine
   # if there are any form fields that have changed. If not, we use a different
@@ -56,7 +56,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :choose_party, :party, :other_party
   serialized_attr :is_confidential_address, :ca_type,
                   :ca_address, :ca_address_2, :ca_city, :ca_zip5, :ca_zip4
-  serialized_attr :need_assistance
+  serialized_attr :need_assistance, :as_name_of_assistant, :as_address_of_assistant
   serialized_attr :requesting_absentee, :rab_election,
                   :rab_election_name, :rab_election_date,
                   :absentee_until
