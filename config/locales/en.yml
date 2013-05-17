@@ -54,6 +54,11 @@ en:
       title: Assistance to Applicant
       info: "If assistance for signature is provided to applicant due to disability, provide name and address of assistant:"
 
+  mailing_address:
+    different:
+      limit: "I am unable to physically receive mail at my residence address."
+      no_limit: "I get my mail at a different address than my Registration Address."
+
   submit:
     title: Submit Your Application Online
     subheader: ""

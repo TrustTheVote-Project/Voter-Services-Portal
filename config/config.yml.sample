@@ -62,6 +62,9 @@ confirm_voting_status_display: true
 # Show age checkbox on eligibility screen (if not shown, results in TRUE)
 eligibility_18_display: false
 
+# Domestic voter mailing address limit
+domestic_voter_mailing_address_limit: true
+
 # New forms (renders forms from templates in app/assets/pdf-templates)
 pdf_forms: true
 pdftk_path: /usr/local/bin/pdftk

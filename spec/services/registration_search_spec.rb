@@ -23,7 +23,7 @@ describe RegistrationSearch do
     its(:vvr_zip5)                { should == "24630" }
     its(:vvr_zip4)                { should == nil }
 
-    its(:ma_is_same)              { should == "0" }
+    its(:ma_is_different)         { should == "1" }
     its(:ma_address)              { should == "PO Box 870" }
     its(:ma_city)                 { should == "North Tazewell" }
     its(:ma_state)                { should == "VA" }

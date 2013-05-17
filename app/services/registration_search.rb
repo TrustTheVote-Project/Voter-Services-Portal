@@ -254,7 +254,7 @@ class RegistrationSearch
       vvr_zip5:               vvr_zip5,
       vvr_zip4:               vvr_zip4,
       has_existing_reg:       "0",
-      ma_is_same:             "0",
+      ma_is_different:        "1",
 
       # Every record that comes from the DB has this set to 'no',
       # otherwise it's an error

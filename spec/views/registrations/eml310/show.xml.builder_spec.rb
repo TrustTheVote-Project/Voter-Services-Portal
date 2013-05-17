@@ -71,7 +71,7 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
   describe 'mailing address' do
     context 'residential' do
       it 'is the same as registration' do
-        r = reg ma_is_same: '1', vvr_zip5: 12345, vvr_zip4: nil, vvr_apt: nil
+        r = reg ma_is_different: '0', vvr_zip5: 12345, vvr_zip4: nil, vvr_apt: nil
         xml.within "VoterInformation Contact MailingAddress[status='current'] PostalAddress" do |a|
           a.should have_selector "Thoroughfare[type='#{r.vvr_street_type}'][number='#{r.vvr_street_number}'][name='#{r.vvr_street_name}']", text: "#{r.vvr_street_number} #{r.vvr_street_name} #{r.vvr_street_type}"
           a.should have_selector "Locality[type='Town']", text: r.vvr_town
@@ -83,7 +83,7 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
       end
 
       it 'is different from registration' do
-        r = reg ma_is_same: '0', ma_address: '518 Vance ST', ma_address_2: 'Apt 12', ma_city: 'C', ma_state: 'MA', ma_zip5: '11111', ma_zip4: '2222'
+        r = reg ma_is_different: '1', ma_address: '518 Vance ST', ma_address_2: 'Apt 12', ma_city: 'C', ma_state: 'MA', ma_zip5: '11111', ma_zip4: '2222'
         xml.within "MailingAddress[status='current'] FreeTextAddress" do |a|
           a.should have_selector "AddressLine[seqn='0001'][type='MailingAddressLine1']", text: "518 Vance ST"
           a.should have_selector "AddressLine[seqn='0002'][type='MailingAddressLine2']", text: "Apt 12"

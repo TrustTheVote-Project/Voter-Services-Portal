@@ -56,6 +56,20 @@
       = f.text_area :vvr_rural, cols: "10", rows: "10", autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrRural" }'
       <!-- /ko -->
 
+  <!-- ko if: domestic -->
+  .row
+    .span10
+      .checkbox
+        <!-- ko if: vvrIsRural -->
+        = check_box_tag "registration[ma_is_different]", "1", true, autocomplete: ac, disabled: true
+        = f.hidden_field :ma_is_different, autocomplete: ac, 'data-bind' => 'checked: maIsDifferent'
+        <!-- /ko -->
+        <!-- ko ifnot: vvrIsRural -->
+        = f.check_box :ma_is_different, 'data-bind' => 'checkedWithInit: maIsDifferent'
+        <!-- /ko -->
+        = f.label :ma_is_different, I18n.t("mailing_address.different.#{AppConfig['domestic_voter_mailing_address_limit'] ? 'limit' : 'no_limit'}")
+  <!-- /ko --> <!-- domestic -->
+
   <!-- ko if: overseas -->
   .row
     .span12

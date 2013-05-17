@@ -196,7 +196,7 @@ class Eml310Builder
 
   def self.mailing_address(xml, r)
     if r.residential?
-      if r.ma_is_same?
+      unless r.ma_is_different?
         electoral_address(xml, r, 'MailingAddress')
       else
         xml.MailingAddress status: 'current' do

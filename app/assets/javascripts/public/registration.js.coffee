@@ -82,7 +82,7 @@ class window.Registration
   initAddressFields: ->
     @vvrIsRural             = ko.observable(false)
     @vvrRural               = ko.observable()
-    @maIsSame               = ko.observable('1')
+    @maIsDifferent          = ko.observable(false)
     @hasExistingReg         = ko.observable()
     @erIsRural              = ko.observable(false)
     @vvrStreetNumber        = ko.observable()
@@ -135,10 +135,10 @@ class window.Registration
         @vvrTown(v.replace(/\s+city$/i, ''))
 
     @vvrIsRural.subscribe (v) =>
-      @maIsSame('0') if v
+      @maIsDifferent(true) if v
 
     @domesticMAFilled = ko.computed =>
-      @maIsSame() == '1' or
+      !@maIsDifferent() or
       filled(@maAddress1()) and
       filled(@maCity()) and
       filled(@maState()) and
@@ -475,7 +475,7 @@ class window.Registration
       if @overseas()
         @summaryOverseasMailingAddress()
       else
-        if @maIsSame() == '1'
+        if !@maIsDifferent()
           @summaryRegistrationAddress()
         else
           @summaryDomesticMailingAddress()

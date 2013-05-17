@@ -1,34 +1,24 @@
-<!-- ko if: domestic -->
-.partition
-  = hidden_field_tag 'registration[ma_is_same]', '0'
-  %div{ 'data-bind' => 'visible: !vvrIsRural()' }
-    %h4 Is your Mailing address the same as your Registration address?
-    .radio
-      = f.radio_button :ma_is_same, '0', { 'data-bind' => 'checkedWithInit: maIsSame' }
-      %label No
-    .radio
-      = f.radio_button :ma_is_same, '1', { 'data-bind' => 'checkedWithInit: maIsSame' }
-      %label Yes
+<!-- ko if: domestic() && maIsDifferent() -->
+.head
+  %h3 Mailing address
 
-  <!-- ko if: maIsSame() == '0' -->
-  .row
-    .span3
-      .address-field
-        %label{ for: 'registration_ma_address' } Address
-        = f.text_field :ma_address, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "maAddress1" }'
-      .address-field
-        = f.text_field :ma_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: maAddress2'
-  .row
-    .span3
-      %label{ for: 'registration_ma_city' } City
-      = f.text_field :ma_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "maCity" }'
-    .span2.state-field
-      %label{ for: 'registration_ma_state' } State
-      = f.select :ma_state, Dictionaries::STATES, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "maState" }' }
-    .span3.zip-field
-      %label{ for: 'registration_ma_zip5' } Zip code
-      = f.text_field :ma_zip5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "maZip5", validation: "zip5" }', placeholder: 'NNNNN', maxlength: 5
-      .space &mdash;
-      = f.text_field :ma_zip4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: maZip4', placeholder: 'NNNN', maxlength: 4
-  <!-- /ko -->
+.row
+  .span3
+    .address-field
+      %label{ for: 'registration_ma_address' } Address
+      = f.text_field :ma_address, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "maAddress1" }'
+    .address-field
+      = f.text_field :ma_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: maAddress2'
+.row
+  .span3
+    %label{ for: 'registration_ma_city' } City
+    = f.text_field :ma_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "maCity" }'
+  .span2.state-field
+    %label{ for: 'registration_ma_state' } State
+    = f.select :ma_state, Dictionaries::STATES, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "maState" }' }
+  .span3.zip-field
+    %label{ for: 'registration_ma_zip5' } Zip code
+    = f.text_field :ma_zip5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "maZip5", validation: "zip5" }', placeholder: 'NNNNN', maxlength: 5
+    .space &mdash;
+    = f.text_field :ma_zip4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: maZip4', placeholder: 'NNNN', maxlength: 4
 <!-- /ko -->

@@ -1,12 +1,13 @@
 #mailing.section{ 'data-bind' => 'vis: page() == "address"' }
-  .head
-    %h3 Mailing address
 
   = render partial: 'mailing_domestic', locals: { f: f }
   = render partial: 'mailing_overseas', locals: { f: f }
 
-  .partition.existing_registration
-    %h4 Are you currently registered to vote at another address in Virginia or in another state?
+  .head
+    %h3 Previous registration
+
+  .existing_registration
+    %p Are you currently registered to vote at another address in Virginia or in another state?
     .radio
       = f.radio_button :has_existing_reg, '0', { 'data-bind' => 'checkedWithInit: hasExistingReg' }
       %label{ for: 'registration_has_existing_reg_0' } No

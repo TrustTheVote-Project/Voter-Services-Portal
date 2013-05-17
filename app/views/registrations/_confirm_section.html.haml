@@ -67,7 +67,7 @@
                 = link_to "Edit", "#address", class: 'edit'
                 %span{ 'data-bind' => 'html: summaryRegistrationAddress' }
 
-            %tr{ 'data-bind' => 'if: overseas() || maIsSame() == "0"' }
+            %tr{ 'data-bind' => 'if: overseas() || maIsDifferent()' }
               %th Mailing address:
               %td
                 = link_to "Edit", "#address", class: 'edit'

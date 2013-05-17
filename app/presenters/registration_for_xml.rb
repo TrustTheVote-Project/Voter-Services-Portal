@@ -97,8 +97,8 @@ class RegistrationForXML
     zip(@r.vvr_zip5, @r.vvr_zip4)
   end
 
-  def ma_is_same?
-    @r.ma_is_same == '1'
+  def ma_is_different?
+    @r.ma_is_different == '1'
   end
 
   def rights_restored?

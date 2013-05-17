@@ -142,7 +142,7 @@ class RegistrationDetailsPresenter
 
   def domestic_mailing_address(d = :data)
     data = @registration.send(d)
-    if data[:ma_is_same] == '1'
+    if data[:ma_is_different] == '1'
       registration_address(d)
     else
       us_address_no_rural(:ma, d)
