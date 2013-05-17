@@ -129,12 +129,15 @@ class Eml310Builder
                     "xsi:schemaLocation" => "http://sbe.virginia.gov EmlExtension.xsd",
                     "type"               => r.ca_type,
                     "xmlns"              => "http://sbe.virginia.gov/EmlExtension"
-                  xml.SubstitueAddress status: "previous" do
-                    xml.PostalAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
-                      xml.Thoroughfare "P.O. Box #{r.ca_po_box}", type: "PObox", number: r.ca_po_box
-                      xml.Locality r.ca_city, type: "Town"
-                      xml.PostCode r.ca_zip, type: "ZipCode"
-                      xml.Country "United States of America", code: "USA"
+
+                  xml.MailingAddress status: 'previous' do
+                    xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
+                      address_lines xml, [
+                        [ 'MailingAddressLine1',  r.ca_address ],
+                        [ 'MailingAddressLine2',  r.ca_address_2 ],
+                        [ 'MailingCity',          r.ca_city ],
+                        [ 'MailingState',         'VA' ],
+                        [ 'MailingZip',           r.ca_zip ] ]
                     end
                   end
                 end
