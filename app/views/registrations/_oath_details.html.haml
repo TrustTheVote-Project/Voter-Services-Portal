@@ -40,11 +40,11 @@
 .partition
   .row
     .span10
+      %strong Registration Statement
       .checkbox
         = check_box :registration, :information_correct, 'data-bind' => 'instantValidation: { accessor: "infoCorrect" }'
-        %label{ for: 'registration_information_correct' }
-          %strong Registration Statement
-        I swear/affirm, under felony penalty for making willfully false material statements or entries, that the information provided on this form is true.
+        = f.label :information_correct do
+          I swear/affirm, under felony penalty for making willfully false material statements or entries, that the information provided on this form is true.
 .partition
   .row
     .span10
