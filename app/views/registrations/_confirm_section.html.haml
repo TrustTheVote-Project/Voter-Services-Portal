@@ -12,70 +12,104 @@
           %table.table.properties
             %tr
               %th Name:
-              %td{ 'data-bind' => 'text: summaryFullName' }
+              %td
+                = link_to "Edit", "#identity", class: 'edit'
+                %span{ 'data-bind' => 'text: summaryFullName' }
             %tr
               %th Citizen?
-              %td{ 'data-bind' => 'text: summaryCitizen' }
+              %td
+                = link_to "Edit", "#eligibility", class: 'edit'
+                %span{ 'data-bind' => 'text: summaryCitizen' }
             %tr
               %th Old enough?
-              %td{ 'data-bind' => 'text: summaryOldEnough' }
+              %td
+                = link_to "Edit", "#eligibility", class: 'edit'
+                %span{ 'data-bind' => 'text: summaryOldEnough' }
             %tr
               %th Voting rights summary:
-              %td{ 'data-bind' => 'html: summaryVotingRights' }
+              %td
+                = link_to "Edit", "#eligibility", class: 'edit'
+                %span{ 'data-bind' => 'html: summaryVotingRights' }
             %tr
               %th Date of birth:
-              %td{ 'data-bind' => 'text: summaryDOB' }
+              %td
+                = link_to "Edit", "#eligibility", class: 'edit'
+                %span{ 'data-bind' => 'text: summaryDOB' }
             %tr
               %th Social security number:
-              %td{ 'data-bind' => 'text: summarySSN' }
+              %td
+                = link_to "Edit", "#eligibility", class: 'edit'
+                %span{ 'data-bind' => 'text: summarySSN' }
             %tr
               %th Department of Motor Vehicles ID:
-              %td{ 'data-bind' => 'text: summaryDMVID' }
+              %td
+                = link_to "Edit", "#eligibility", class: 'edit'
+                %span{ 'data-bind' => 'text: summaryDMVID' }
             %tr
               %th Gender:
-              %td{ 'data-bind' => 'text: summaryGender' }
+              %td
+                = link_to "Edit", "#identity", class: 'edit'
+                %span{ 'data-bind' => 'text: summaryGender' }
             %tr{ 'data-bind' => 'if: phone' }
               %th Phone:
-              %td{ 'data-bind' => 'text: phone' }
+              %td
+                = link_to "Edit", "#identity", class: 'edit'
+                %span{ 'data-bind' => 'text: phone' }
             %tr{ 'data-bind' => 'if: email' }
               %th Email:
-              %td{ 'data-bind' => 'text: email' }
+              %td
+                = link_to "Edit", "#identity", class: 'edit'
+                %span{ 'data-bind' => 'text: email' }
 
             %tr
               %th Registration address:
-              %td{ 'data-bind' => 'html: summaryRegistrationAddress' }
+              %td
+                = link_to "Edit", "#address", class: 'edit'
+                %span{ 'data-bind' => 'html: summaryRegistrationAddress' }
 
             %tr{ 'data-bind' => 'if: overseas() || maIsSame() == "0"' }
               %th Mailing address:
               %td
+                = link_to "Edit", "#address", class: 'edit'
                 %p{ 'data-bind' => 'html: summaryMailingAddress' }
                 <!-- ko if: overseas -->
                 (used for absentee ballot and other voting correspondence)
                 <!-- /ko -->
-            %tr{ 'data-bind' => 'if: hasExistingReg' }
+            %tr{ 'data-bind' => 'if: hasExistingReg() == "1"' }
               %th Existing registration:
-              %td{ 'data-bind' => 'html: summaryExistingRegistration' }
+              %td
+                = link_to "Edit", "#address", class: 'edit'
+                %span{ 'data-bind' => 'html: summaryExistingRegistration' }
 
             %tr{ 'data-bind' => 'if: showingPartySummary' }
               %th #{party_preference_label}:
               %td
+                = link_to "Edit", "#options", class: 'edit'
                 %span{ 'data-bind' => 'text: summaryParty' }
 
             %tr{ 'data-bind' => 'if: isConfidentialAddress' }
               %th Address confidentiality:
-              %td{ 'data-bind' => 'html: summaryAddressConfidentiality' }
+              %td
+                = link_to "Edit", "#options", class: 'edit'
+                %span{ 'data-bind' => 'html: summaryAddressConfidentiality' }
 
             %tr{ 'data-bind' => 'if: needsAssistance' }
               %th Assistance needed:
-              %td Yes
+              %td
+                = link_to "Edit", "#options", class: 'edit'
+                %span Yes
 
             %tr{ 'data-bind' => 'if: requestingAbsentee' }
               %th Absentee request:
-              %td{ 'data-bind' => 'html: summaryAbsenteeRequest' }
+              %td
+                = link_to "Edit", "#options", class: 'edit'
+                %span{ 'data-bind' => 'html: summaryAbsenteeRequest' }
 
             %tr{ 'data-bind' => 'if: beOfficial' }
               %th Intrested in being official:
-              %td Yes
+              %td
+                = link_to "Edit", "#options", class: 'edit'
+                %span Yes
 
   - if AppConfig['confirm_voting_status_display']
     = render partial: 'confirm_absentee_status'
