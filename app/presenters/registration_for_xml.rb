@@ -57,6 +57,10 @@ class RegistrationForXML
     @r.is_confidential_address == '1'
   end
 
+  def need_assistance?
+    @r.need_assistance == '1'
+  end
+
   def felony?
     @r.rights_revoked_reason == 'felony'
   end

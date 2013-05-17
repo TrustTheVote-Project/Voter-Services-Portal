@@ -330,6 +330,18 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
         end
       end
     end
+
+    describe 'Assistance needed' do
+      it 'should render "no"' do
+        reg need_assistance: '0'
+        xml.should have_selector "VoterInformation CheckBox[Type='RequiresAssistanceToVote']", text: 'no'
+      end
+
+      it 'should render "yes"' do
+        reg need_assistance: '1'
+        xml.should have_selector "VoterInformation CheckBox[Type='RequiresAssistanceToVote']", text: 'yes'
+      end
+    end
   end
 
   private
