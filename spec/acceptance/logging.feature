@@ -53,6 +53,7 @@ Feature: Logging
 
     # If this one fails, check that you are ignoring all necessary fields when
     # checking if this is an absentee request only (Registration#IGNORE_CHANGES_IN_KEYS)
+    # or check that you have this fields in RegistrationSearch
     Then complete "AbsenteeRequest" should be logged
      And start "AbsenteeRequest" should be logged
      And start "VoterRecordUpdate" should not be logged

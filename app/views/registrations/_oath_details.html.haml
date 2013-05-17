@@ -43,8 +43,8 @@
       %strong Registration Statement
       .checkbox
         = check_box :registration, :information_correct, 'data-bind' => 'instantValidation: { accessor: "infoCorrect" }'
-        = f.label :information_correct do
-          I swear/affirm, under felony penalty for making willfully false material statements or entries, that the information provided on this form is true.
+        = f.label :information_correct, I18n.t('oath.information_correct')
+
 .partition
   .row
     .span10

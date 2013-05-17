@@ -274,6 +274,10 @@ class RegistrationSearch
       upcoming_elections:     upcoming_elections,
       ob_eligible:            obe_1 && obe_2,
 
+      need_assistance:        "0",
+      as_name_of_assistant:   "",
+      as_address_of_assistant: "",
+
       be_official:            "0"
     }
 
