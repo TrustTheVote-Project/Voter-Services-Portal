@@ -47,6 +47,9 @@ en:
   confirm:
     details: Please confirm that your information is accurate. If any information is not correct, please click the "Edit" button next to it, in order to go back to the page where you can make corrections.
 
+  oath:
+    subheader: ""
+
   outside_type:
     ActiveDutyMerchantMarineOrArmedForces: Active Duty Merchant Marine or Armed Forces
     SpouseOrDependentActiveDutyMerchantMarineOrArmedForces: Spouse or dependent living with a member of an active duty Merchant Marine or Armed Forces
