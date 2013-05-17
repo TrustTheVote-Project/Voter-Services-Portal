@@ -78,7 +78,7 @@ steps_for :updating do
   end
 
   step 'I should see the oath page' do
-    should_be_visible "Oath"
+    should_be_visible "Complete Your Application"
   end
 
   step 'I check boxes on the oath page' do
