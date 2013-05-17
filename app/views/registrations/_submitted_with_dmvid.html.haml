@@ -1,10 +1,8 @@
 #final.section{ 'data-bind' => 'vis: page() == "final"' }
   .head
-    %h3 TBD
-    .description
-      Sub label TBD
+    %h3= I18n.t('submit.title')
+    .description= I18n.t('submit.subheader')
 
   .row
     .span10
-      %p TBD text for completing online submission with no paper form needed
-      %p TBD online submit
+      = I18n.t('submit.details').html_safe

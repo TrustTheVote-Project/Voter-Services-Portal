@@ -54,6 +54,10 @@ en:
       title: Assistance to Applicant
       info: "If assistance for signature is provided to applicant due to disability, provide name and address of assistant:"
 
+  submit:
+    title: Submit Your Application Online
+    subheader: ""
+    details: "<p>Your registration application is ready to be submitted online to the State Board of Elections.  You <span class='important'>must</span> click the \"Submit\" button below to complete the registration application.</p><p><strong>Note:</strong> The information you provided during this application has been confirmed with your record at the Department of Motor Vehicles.  By clicking submit, your registration application will be submitted to the State Board of Elections along with a digital representation of your signature from the Department of Motor Vehicles.</p>"
 
   outside_type:
     ActiveDutyMerchantMarineOrArmedForces: Active Duty Merchant Marine or Armed Forces

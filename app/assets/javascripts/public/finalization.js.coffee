@@ -3,8 +3,9 @@ class window.Finalization
     @pages          = pages
     @currentPageIdx = ko.observable(pages.indexOf("final"))
     @page           = ko.observable("final")
-    @downloaded     = ko.observable(false)
-    @downloadSection()
+    if $("#download.section").length > 0
+      @downloaded     = ko.observable(false)
+      @downloadSection()
 
   markAsDownloaded: =>
     @downloaded(true)
