@@ -70,7 +70,7 @@ steps_for :updating do
   end
 
   step 'I should see the options page' do
-    should_be_visible "Options"
+    should_be_visible "Optional Questions"
   end
 
   step 'I should see the confirmation page' do

@@ -34,7 +34,7 @@ def fill_address_page
 end
 
 def skip_options_page
-  expect(page).to have_text "Options"
+  expect(page).to have_text "Optional Questions"
   click_button "Next"
 end
 
