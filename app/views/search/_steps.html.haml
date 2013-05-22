@@ -3,12 +3,12 @@
   .span2{ class: %w( identity view ).include?(step) ? 'current' : 'done' }
     %h2 View &amp; Update
 
-  .span2{ 'data-bind' => "attr: { 'class': stepClass(currentPageIdx(), 0) }" }
+  .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 2) }" }
     %h2 Addresses
 
-  .span2{ 'data-bind' => "attr: { 'class': stepClass(currentPageIdx(), 1) }" }
+  .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 3) }" }
     %h2 Optional Questions
 
-  .span2{ 'data-bind' => "attr: { 'class': stepClass(currentPageIdx(), [ 2, 3, 4, 5 ], 'span2 last') }" }
+  .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 4, 'span2 last') }" }
     %h2 Complete
 

@@ -35,9 +35,12 @@ window.email  = (v) -> v.match(/^\S+@\S+\.\S+$/)
 
 window.stepClass = (current, idx, def) ->
   def = def || 'span2'
-  match = if $.isArray(idx) then $.inArray(current, idx) > -1 else idx == current
-  max   = if $.isArray(idx) then idx[idx.length - 1] else idx
-  (if match then 'current ' else if current > max then 'done ' else '') + def
+  if current == idx
+    "current #{def}"
+  else if current > idx
+    "done #{def}"
+  else
+    def
 
 # Value handler that respects the existing value
 ko.bindingHandlers.valueWithInit = {

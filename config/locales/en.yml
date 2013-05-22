@@ -63,10 +63,23 @@ en:
       limit: "I am unable to physically receive mail at my residence address."
       no_limit: "I get my mail at a different address than my Registration Address."
 
-  submit:
+  download:
+    title: "Submit Your Application"
+    subtitle: "The process has 4 steps: download, print, sign, and mail."
+    proof_of_identity: "Acceptable forms of proof of identity are a copy of: Valid photo ID, Utility bill, Bank statement, Government check, Paycheck, or other government document."
+
+  congratulations:
+    instructions: "Within 30 days of mailing your Virginia Voter Registration Application, you should receive a<br/>voter card by mail that will confirm you are registered to vote. If you do not receive a voter card<br/>within in that time, please contact the <strong>Virginia State Board or Elections.</strong><br/><br/>Thank you!"
+
+  submit_paperless:
     title: Submit Your Application Online
     subheader: ""
     details: "<p>Your registration application is ready to be submitted online to the State Board of Elections.  You <span class='important'>must</span> click the \"Submit\" button below to complete the registration application.</p><p><strong>Note:</strong> The information you provided during this application has been confirmed with your record at the Department of Motor Vehicles.  By clicking submit, your registration application will be submitted to the State Board of Elections along with a digital representation of your signature from the Department of Motor Vehicles.</p>"
+
+  submitted_paperless:
+    title: Registration Submitted
+    subheader: "Your registration application has been submitted."
+    details: You local General Registrar of Elections will review your form and notify you whether your application was accepted or rejected.
 
   outside_type:
     ActiveDutyMerchantMarineOrArmedForces: Active Duty Merchant Marine or Armed Forces

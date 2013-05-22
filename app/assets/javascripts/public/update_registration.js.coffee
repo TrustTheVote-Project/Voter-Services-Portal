@@ -1,6 +1,12 @@
-pages  = [ 'address', 'options', 'confirm', 'oath', 'download', 'congratulations' ]
-optionsPageIdx  = pages.indexOf('options')
-oathPageIdx     = pages.indexOf('oath')
+pageSteps = {
+  'address':          2,
+  'options':          3,
+  'confirm':          4,
+  'oath':             4,
+  'final':            4,
+  'download':         4,
+  'congratulations':  4
+}
 
 class UpdateRegistration extends Registration
   constructor: (initPage = 0) ->
@@ -19,21 +25,18 @@ class UpdateRegistration extends Registration
     @setAbsenteeUntil(rau)
 
     # There's no DMV matching in update workflow
-    @dmvMatch = ko.observable(false)
+    @paperlessSubmission = ko.observable(false)
 
     # Navigation
-    @currentPageIdx         = ko.observable(initPage)
-    @page                   = ko.computed(=> pages[@currentPageIdx()])
+    @page = ko.observable('address')
+    @step = ko.computed => pageSteps[@page()]
 
     # Reset any hash in the URL
     location.hash = ''
 
     # Watch for url changes
     $(window).hashchange =>
-      hash = location.hash
-      newIdx = $.inArray(hash.replace('#', ''), pages)
-      newIdx = 0 if newIdx == -1
-      @currentPageIdx(newIdx)
+      @gotoPage(location.hash.replace('#', ''))
 
   initConfirmFields: ->
     @confirmErrors = ko.computed =>
@@ -42,19 +45,23 @@ class UpdateRegistration extends Registration
       errors
     @confirmInvalid = ko.computed => @confirmErrors().length > 0
 
-  submit: ->
+  submitForm: ->
     $("form.edit_registration")[0].submit()
 
-  prevPage: -> window.history.back()
-  nextPage: (_, e) =>
-    return if $(e.target).hasClass('disabled')
-    newIdx = @currentPageIdx() + 1
-    if newIdx > oathPageIdx
-      @submit()
-    else
-      location.hash = pages[newIdx]
-      @initAbsenteeUntilSlider() if newIdx == optionsPageIdx
+  gotoPage: (page, e) =>
+    return if e && $(e.target).hasClass('disabled')
+    @page(page)
+    location.hash = page
 
+  prevPage: => window.history.back()
+  nextFromAddress: (_, e) => @gotoPage('options', e)
+  nextFromOptions: (_, e) => @gotoPage('confirm', e)
+  nextFromConfirm: (_, e) => @gotoPage('oath', e)
+  nextFromOath: (_, e) =>
+    if @paperlessSubmission()
+      @gotoPage('submit_online', e)
+    else
+      @submitForm()
 
 updateEditLink = ->
   editLink = $("a#edit_registration")
@@ -68,7 +75,7 @@ $ ->
     ko.applyBindings(new UpdateRegistration())
 
   if $("#update_finalization").length > 0
-    ko.applyBindings(new Finalization(pages))
+    ko.applyBindings(new Finalization(pageSteps))
 
   editLink = $("a#edit_registration")
   if editLink.length > 0

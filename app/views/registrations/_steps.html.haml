@@ -1,15 +1,15 @@
 .row#steps
-  .span2.current{ 'data-bind' => "attr: { 'class': stepClass(currentPageIdx(), [ 0, 1 ]) }" }
+  .span2.current{ 'data-bind' => "attr: { 'class': stepClass(step(), 1) }" }
     %h2 Eligibility
 
-  .span2{ 'data-bind' => "attr: { 'class': stepClass(currentPageIdx(), 2) }" }
+  .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 2) }" }
     %h2 Identity
 
-  .span2{ 'data-bind' => "attr: { 'class': stepClass(currentPageIdx(), 3) }" }
+  .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 3) }" }
     %h2 Addresses
 
-  .span2{ 'data-bind' => "attr: { 'class': stepClass(currentPageIdx(), 4) }" }
+  .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 4) }" }
     %h2 Optional Questions
 
-  .span2{ 'data-bind' => "attr: { 'class': stepClass(currentPageIdx(), [ 5, 6, 7 ], 'span2 last') }" }
+  .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 5, 'span2 last') }" }
     %h2 Complete

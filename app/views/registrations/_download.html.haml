@@ -7,16 +7,15 @@
 - approval_action = update ? "updated" : "approved"
 #final#download.section{ 'data-bind' => 'vis: page() == "final"' }
   .head
-    %h3 Download
-    .description
-      #{link_to "Download and view", pdf_url, 'data-bind' => 'click: markAsDownloaded', target: '_blank' } your #{acted_doc}.
+    %h3= I18n.t("download.title")
+    .description= I18n.t("download.subtitle")
 
   .row
     .span10
       = link_to "", pdf_url, class: 'download-link', target: '_blank', 'data-bind' => 'click: markAsDownloaded'
       %p
         We have #{acted_doc} using the
-        information you provided. Click the PDF icon below to download. The
+        information you provided. Click the PDF icon to download. The
         #{doc} PDF will open in your default
         PDF viewing application, or in your web browser.
 
@@ -56,15 +55,21 @@
     .description Mail your #{acted_doc}.
   .row
     .span10
-      %p
-        Mail your #{acted_doc} and
-        %a{ :href => "#" }
-          %strong proof of identity
-        to your local
-        %br/
-        Voter Registration Office.
+      - if update
+        %p
+          Mail your updated voter registration form to your local
+          Voter Registration office
+      - else
+        %p
+          Mail your voter registration form and proof of identity to your local
+          Voter Registration office
+
       %p
         %strong= office_address(@registration.vvr_county_or_city)
+
+      - if !update
+        %p= I18n.t('download.proof_of_identity')
+
       %p
         Your return envelope must be postmarked at least 22 days before the next Primary or
         %br/

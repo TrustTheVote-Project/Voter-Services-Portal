@@ -1,10 +1,10 @@
 class window.Finalization
-  constructor: (pages) ->
-    @pages          = pages
-    @currentPageIdx = ko.observable(pages.indexOf("final"))
-    @page           = ko.observable("final")
+  constructor: (@pageSteps) ->
+    @page = ko.observable("final")
+    @step = ko.computed => @pageSteps[@page()]
+
     if $("#download.section").length > 0
-      @downloaded     = ko.observable(false)
+      @downloaded = ko.observable(false)
       @downloadSection()
 
   markAsDownloaded: =>
@@ -20,11 +20,6 @@ class window.Finalization
     @downloadInvalid = ko.computed => downloadErrors().length > 0
     new Popover('#download.section .next.btn', downloadErrors)
 
-  gotoComplete: =>
-    @page('congratulations')
-    @currentPageIdx(@pages.indexOf(@page()))
-
-  gotoDownload: =>
-    @page('download')
-    @currentPageIdx(@pages.indexOf(@page()))
+  gotoComplete: => @page('congratulations')
+  gotoDownload: => @page('final')
 

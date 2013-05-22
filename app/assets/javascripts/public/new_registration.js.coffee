@@ -1,18 +1,21 @@
-pages                 = [ 'eligibility', 'lookup_record', 'identity', 'address', 'options', 'confirm', 'oath', 'final', 'congratulations', 'registered_info' ]
-eligibilityPageIdx    = pages.indexOf('eligibility')
-lookupRecordPageIdx   = pages.indexOf('lookup_record')
-identityPageIdx       = pages.indexOf('identity')
-oathPageIdx           = pages.indexOf('oath')
-finalPageIdx          = pages.indexOf('final')
-optionsPageIdx        = pages.indexOf('options')
-registeredInfoPageIdx = pages.indexOf('registered_info')
-
+pageSteps = {
+  'eligibility':      1,
+  'identity':         2,
+  'address':          3,
+  'options':          4,
+  'confirm':          5,
+  'oath':             5,
+  'submit_online':    5,
+  'final':            5,
+  'download':         5,
+  'congratulations':  5
+}
 
 class NewRegistration extends Registration
   constructor: (initPage = 0) ->
     super($('input#residence').val())
 
-    @dmvMatch = ko.observable()
+    @paperlessSubmission = ko.observable()
 
     new Popover('#eligibility .next.btn', @eligibilityErrors)
     new Popover('#identity .next.btn', @identityErrors)
@@ -27,37 +30,50 @@ class NewRegistration extends Registration
     $(".section").show()
 
     # Navigation
-    @currentPageIdx         = ko.observable(initPage)
-    @page                   = ko.computed(=> pages[@currentPageIdx()])
+    @page = ko.observable('eligibility')
+    @step = ko.computed => pageSteps[@page()]
 
     # Reset any hash in the URL
     location.hash = ''
 
     # Watch for URL changes
     $(window).hashchange =>
-      hash = location.hash
-      newIdx = $.inArray(hash.replace('#', ''), pages)
-      newIdx = 0 if newIdx == -1
-      @currentPageIdx(newIdx)
+      @gotoPage(location.hash.replace('#', ''))
 
   # --- Navigation
   #
   submit: (f) =>
     $("##{@page()} .next.btn").trigger('click')
 
-  eligibilityPage: => location.hash = 'eligibility'
-  identityPage: => location.hash = 'identity'
+  gotoPage: (page, e) =>
+    return if e && $(e.target).hasClass('disabled')
+    @page(page)
+    location.hash = page
+
+  prevPage: => window.history.back()
+  nextFromIdentity: (_, e) => @gotoPage('address', e)
+  nextFromAddress: (_, e) => @gotoPage('options', e)
+  nextFromOptions: (_, e) => @gotoPage('confirm', e)
+  nextFromConfirm: (_, e) => @gotoPage('oath', e)
+  nextFromOath: (_, e) =>
+    if @paperlessSubmission()
+      @gotoPage('submit_online', e)
+    else
+      @submitForm()
+
+  submitForm: =>
+    $("form#new_registration")[0].submit()
 
   checkEligibility: (_, e) =>
     return if $(e.target).hasClass('disabled')
     if @isEligible()
       @lookupRecord(_, e)
     else
-      @identityPage()
+      @gotoPage('identity')
 
   lookupRecord: (_, e) =>
     return if $(e.target).hasClass('disabled')
-    @currentPageIdx(lookupRecordPageIdx)
+    @page('lookup')
 
     revoked = @rightsWereRevoked() && !@rightsWereRestored()
     reason  = @rightsRevokationReason()
@@ -76,8 +92,8 @@ class NewRegistration extends Registration
         if data.registered
           location.hash = "registered_info"
         else
-          @dmvMatch(data.dmv_match)
-          if @dmvMatch()
+          @paperlessSubmission(data.dmv_match)
+          if @paperlessSubmission()
             a = data.address
             @vvrStreetNumber(a.street_number)
             @vvrStreetName(a.street_name)
@@ -86,19 +102,9 @@ class NewRegistration extends Registration
             @vvrZip5(a.zip5)
           location.hash = 'identity'
 
-  prevPage: => window.history.back()
-  nextPage: (_, e) =>
-    return if $(e.target).hasClass('disabled')
-    newIdx = @currentPageIdx() + 1
-    if newIdx > oathPageIdx
-      $('form#new_registration')[0].submit()
-    else
-      location.hash = pages[newIdx]
-      @initAbsenteeUntilSlider() if newIdx == optionsPageIdx
-
 $ ->
   if $('form#new_registration').length > 0
     ko.applyBindings(new NewRegistration(0))
 
   if $("#nr_download").length > 0
-    ko.applyBindings(new Finalization(pages))
+    ko.applyBindings(new Finalization(pageSteps))

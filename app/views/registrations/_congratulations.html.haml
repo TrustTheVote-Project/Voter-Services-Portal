@@ -19,15 +19,7 @@
   .partition
     .row
       .span10
-        %p
-          Within 30 days of mailing your Virginia Voter Registration Application, you should receive a
-          %br/
-          voter card by mail that will confirm you are registered to vote. If you do not receive a voter card
-          %br/
-          within in that time, please contact the
-          %a{ :href => "#" }
-            %strong Virginia State Board or Elections.
-        %p Thank you!
+        %p= I18n.t('congratulations.instructions').html_safe
 
   .form-actions
     = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: gotoDownload'
