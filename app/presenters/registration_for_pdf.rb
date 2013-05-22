@@ -77,21 +77,21 @@ class RegistrationForPdf < RegistrationDetailsPresenter
 
   # Addresses
 
-  def existing_registration?(d = :data)
-    @reg.send(d)[:has_existing_reg] == '1'
+  def previous_registration?(d = :data)
+    @reg.send(d)[:pr_status] == '1'
   end
 
-  def existing_registration_address(d = :data)
+  def previous_registration_address(d = :data)
     @er[d] ||= begin
       data = @reg.send(d)
-      if data[:er_is_rural] == '1'
-        data[:er_rural]
+      if data[:pr_is_rural] == '1'
+        data[:pr_rural]
       else
-        zip = [ data[:er_zip5], data[:er_zip4] ].rjoin('-')
-        [ [ data[:er_street_number], data[:er_street_name] ].rjoin(' '),
-          data[:er_apt],
-          data[:er_city],
-          [ data[:er_state], zip ].join(' ') ].rjoin(', ')
+        zip = [ data[:pr_zip5], data[:pr_zip4] ].rjoin('-')
+        [ [ data[:pr_street_number], data[:pr_street_name] ].rjoin(' '),
+          data[:pr_apt],
+          data[:pr_city],
+          [ data[:pr_state], zip ].join(' ') ].rjoin(', ')
       end
     end
   end
@@ -295,9 +295,9 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     mailing_address != previous_mailing_address
   end
 
-  def existing_registration_changed?
-    (existing_registration? && !existing_registration?(:previous_data)) ||
-    (existing_registration_address != existing_registration_address(:previous_data))
+  def previous_registration_changed?
+    (previous_registration? && !previous_registration?(:previous_data)) ||
+    (previous_registration_address != previous_registration_address(:previous_data))
   end
 
   def address_confidentiality_changed?

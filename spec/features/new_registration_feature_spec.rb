@@ -42,7 +42,7 @@ feature 'New registration', :js do
     confirm
     sign_oath
 
-    expect(page).to have_text "Download"
+    expect(page).to have_text "Submit Your Application"
   end
 
 end

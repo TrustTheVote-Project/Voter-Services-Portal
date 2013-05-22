@@ -65,7 +65,7 @@ steps_for :updating do
   end
 
   step 'I choose no previous registration' do
-    choose "registration_has_existing_reg_0"
+    choose "registration_pr_status_0"
   end
 
   step 'I should see the options page' do
@@ -85,7 +85,7 @@ steps_for :updating do
   end
 
   step 'I should see the download page' do
-    page.should have_content "Download"
+    page.should have_content "Submit Your Application"
   end
 
   step 'the next button should be disabled' do
@@ -145,7 +145,7 @@ steps_for :updating do
     step "I proceed"
     step 'I should see the oath page'
     step 'I check boxes on the oath page'
-    step 'I proceed'
+    # step 'I proceed'
     step 'I should see the download page'
   end
 

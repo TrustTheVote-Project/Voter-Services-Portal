@@ -92,17 +92,17 @@ class NewDomesticPdf
   end
 
   def self.setPreviousRegistrationInfo(pdf, reg)
-    if reg.has_existing_reg == '1'
+    if reg.pr_status == '1'
       pdf.set('PREV_REG', 'Y')
 
-      if reg.er_is_rural == '1'
-        pdf.set('PREV_REG_ADDRESS', reg.er_rural.to_s.upcase)
+      if reg.pr_is_rural == '1'
+        pdf.set('PREV_REG_ADDRESS', reg.pr_rural.to_s.upcase)
       else
-        pdf.set('PREV_REG_ADDRESS', [ [ reg.er_street_number, reg.er_street_name ].rjoin(' '), reg.er_apt ].rjoin(', ').to_s.upcase)
-        pdf.set('PREV_REG_CITY', reg.er_city.to_s.upcase)
-        pdf.set('PREV_REG_STATE', reg.er_state.to_s.upcase)
+        pdf.set('PREV_REG_ADDRESS', [ [ reg.pr_street_number, reg.pr_street_name ].rjoin(' '), reg.pr_apt ].rjoin(', ').to_s.upcase)
+        pdf.set('PREV_REG_CITY', reg.pr_city.to_s.upcase)
+        pdf.set('PREV_REG_STATE', reg.pr_state.to_s.upcase)
         pdf.set('FULLNAME', [ reg.first_name, reg.middle_name, reg.last_name, reg.suffix ].rjoin(' ').to_s.upcase)
-        setDigitalField(pdf, 'PREV_REG_ZIP', 5, reg.er_zip5)
+        setDigitalField(pdf, 'PREV_REG_ZIP', 5, reg.pr_zip5)
         setDigitalField(pdf, 'PREV_REG_SSN', 9, reg.ssn) unless reg.ssn.blank?
         setDigitalField(pdf, 'PREV_REG_DOB', 8, reg.dob.strftime('%m%d%Y')) unless reg.dob.blank?
       end

@@ -10,9 +10,9 @@
       - unless ma_same
         = field_line 3, rr.mailing_address, 'mailing address'
 
-    - if rr.existing_registration?
+    - if rr.previous_registration?
       .row
-        = field_line 3, rr.existing_registration_address, 'previous registration address'
+        = field_line 3, rr.previous_registration_address, 'previous registration address'
       .row
         .span3
           .check Cancel my existing registration

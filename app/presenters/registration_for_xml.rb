@@ -3,8 +3,6 @@ class RegistrationForXML
   extend Forwardable
 
   def_delegators  :@r, :full_name, :first_name, :middle_name, :last_name, :suffix,
-                  :er_street_number, :er_street_name, :er_street_type, :er_city,
-                  :er_zip5, :er_zip4, :er_state,
                   :ssn, :created_at, :email, :phone, :dob, :gender,
                   :ca_type, :ca_address, :ca_address_2, :ca_city,
                   :vvr_street_number, :vvr_street_name, :vvr_street_type, :vvr_apt,
@@ -12,9 +10,9 @@ class RegistrationForXML
                   :ma_address, :ma_address_2, :ma_city, :ma_state, :mau_type, :mau_address, :mau_address_2, :mau_city, :mau_city_2,
                   :mau_state, :mau_postal_code, :mau_country,
                   :apo_address, :apo_address_2, :apo_city, :apo_state, :apo_zip5,
-                  :has_existing_reg,
-                  :er_street_number, :er_street_name, :er_street_type, :er_apt,
-                  :er_city, :er_state, :er_zip5, :er_zip4, :er_is_rural, :er_rural,
+                  :pr_status,
+                  :pr_street_number, :pr_street_name, :pr_street_type, :pr_apt,
+                  :pr_city, :pr_state, :pr_zip5, :pr_zip4, :pr_is_rural, :pr_rural,
                   :rights_restored_in, :rights_restored_on,
                   :ab_reason,
                   :residential?
@@ -23,14 +21,10 @@ class RegistrationForXML
     @r = r
   end
 
-  def has_existing_reg?
-    @r.has_existing_reg == '1'
-  end
-
   def previous_registration_thoroughfare
-    return nil unless has_existing_reg?
+    return nil unless pr_status == '1'
 
-    [ @r.er_street_number, @r.er_street_name, @r.er_street_type ].reject(&:blank?).join(' ')
+    [ @r.pr_street_number, @r.pr_street_name, @r.pr_street_type ].reject(&:blank?).join(' ')
   end
 
   def be_official?
@@ -85,12 +79,12 @@ class RegistrationForXML
     [ @r.vvr_street_number, @r.vvr_street_name, @r.vvr_street_type ].rjoin(' ')
   end
 
-  def er_is_rural?
-    @r.er_is_rural == '1'
+  def pr_is_rural?
+    @r.pr_is_rural == '1'
   end
 
-  def er_thoroughfare
-    [ @r.er_street_number, @r.er_street_name, @r.er_street_type ].rjoin(' ')
+  def pr_thoroughfare
+    [ @r.pr_street_number, @r.pr_street_name, @r.pr_street_type ].rjoin(' ')
   end
 
   def vvr_zip

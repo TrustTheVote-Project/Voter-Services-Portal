@@ -75,7 +75,7 @@
                 <!-- ko if: overseas -->
                 (used for absentee ballot and other voting correspondence)
                 <!-- /ko -->
-            %tr{ 'data-bind' => 'if: hasExistingReg() == "1"' }
+            %tr{ 'data-bind' => 'if: prStatus() == "1"' }
               %th Existing registration:
               %td
                 = link_to "Edit", "#address", class: 'edit'

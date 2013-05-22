@@ -253,7 +253,7 @@ class RegistrationSearch
       vvr_state:              "VA",
       vvr_zip5:               vvr_zip5,
       vvr_zip4:               vvr_zip4,
-      has_existing_reg:       "0",
+      pr_status:              "0",
       ma_is_different:        "1",
 
       # Every record that comes from the DB has this set to 'no',

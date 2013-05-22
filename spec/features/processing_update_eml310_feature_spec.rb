@@ -10,13 +10,13 @@ feature 'Processing update EML310 submission', :js do
     scenario 'Sumission errors out' do
       SubmitEml310.should_receive(:submit).and_raise(SubmitEml310::SubmissionError)
       submit_record_update
-      expect(page).to have_text "Download"
+      expect(page).to have_text "Submit Your Application"
     end
 
     scenario 'Submission succeeds' do
       SubmitEml310.should_receive(:submit_update).and_return(true)
       submit_record_update
-      expect(page).to have_text "Download"
+      expect(page).to have_text "Submit Your Application"
     end
   end
 
@@ -26,22 +26,23 @@ feature 'Processing update EML310 submission', :js do
     scenario 'Submission errors out' do
       SubmitEml310.should_receive(:submit).and_raise(SubmitEml310::SubmissionError)
       submit_new_record
-      expect(page).to have_text "Download"
+      expect(page).to have_text "Submit Your Application"
       expect(page).to have_text "TBD 310 error"
     end
 
     scenario 'Submission succeeds' do
       SubmitEml310.should_receive(:submit_new).and_return(true)
       submit_new_record
-      expect(page).to have_text "Download"
+      expect(page).to have_text "Submit Your Application"
       expect(page).not_to have_text "TBD 310 error"
     end
 
     scenario 'DMV included, successful submission' do
       SubmitEml310.should_receive(:submit_new).and_return(true)
-      submit_new_record dmv_id: "1234567890"
-      expect(page).not_to have_text "Download"
-      expect(page).to have_text "Submit Your Application Online"
+      submit_new_record dmv_id: "123456789"
+      click_button 'Submit'
+      expect(page).not_to have_text "Submit Your Application Online"
+      expect(page).to have_text "Registration Submitted"
     end
   end
 

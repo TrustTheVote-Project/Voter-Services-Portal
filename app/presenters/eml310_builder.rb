@@ -42,24 +42,24 @@ class Eml310Builder
 
             electoral_address xml, r
 
-            if r.has_existing_reg?
+            if r.pr_status == '1'
               o = { status: 'previous' }
-              o[:type] = 'Rural' if r.er_is_rural?
+              o[:type] = 'Rural' if r.pr_is_rural?
 
               xml.PreviousElectoralAddress o do
-                if r.er_is_rural?
+                if r.pr_is_rural?
                   xml.FreeTextAddress 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
-                    xml.AddressLine r.er_rural
+                    xml.AddressLine r.pr_rural
                   end
                 else
                   xml.PostalAddress 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
-                    xml.Thoroughfare r.er_thoroughfare,
-                      type:   r.er_street_type,
-                      number: r.er_street_number,
-                      name:   r.er_street_name
-                    xml.Locality r.er_city, type: 'Town'
-                    xml.AdministrativeArea r.er_state, type: 'StateCode'
-                    xml.PostCode [ r.er_zip5, r.er_zip4 ].join(''), type: 'ZipCode'
+                    xml.Thoroughfare r.pr_thoroughfare,
+                      type:   r.pr_street_type,
+                      number: r.pr_street_number,
+                      name:   r.pr_street_name
+                    xml.Locality r.pr_city, type: 'Town'
+                    xml.AdministrativeArea r.pr_state, type: 'StateCode'
+                    xml.PostCode [ r.pr_zip5, r.pr_zip4 ].join(''), type: 'ZipCode'
                     xml.Country "United States of America", code: "USA"
                   end
                 end

@@ -1,6 +1,6 @@
 - rac = rr.registration_address_changed?
 - mac = rr.mailing_address_changed?
-- er = rr.existing_registration_changed? && rr.existing_registration?
+- er = rr.previous_registration_changed? && rr.previous_registration?
 - ac = rr.address_confidentiality?
 
 .section
@@ -28,7 +28,7 @@
 
     - if er
       .row
-        = field_line 3, rr.existing_registration_address, 'previous registration address'
+        = field_line 3, rr.previous_registration_address, 'previous registration address'
       .row
         .span3
           .check Cancel my existing registrating

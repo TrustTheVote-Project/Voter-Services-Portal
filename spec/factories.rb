@@ -49,7 +49,7 @@ FactoryGirl.define do
       ma_zip5             '24201'
       ma_zip4             '2445'
 
-      has_existing_reg    '0'
+      pr_status           '0'
 
       is_confidential_address '1'
       ca_type             'TSC'
@@ -106,7 +106,7 @@ FactoryGirl.define do
       service_id          '112233'
       rank                'Major'
 
-      has_existing_reg    '0'
+      pr_status           '0'
       current_absentee_until 2.months.from_now
 
       existing            true

@@ -150,7 +150,7 @@ steps_for :logging do
     fill_in 'registration_mau_state', with: 'Victoria'
     fill_in 'registration_mau_postal_code', with: '3197'
     fill_in 'registration_mau_country', with: 'Australia'
-    choose  'registration_has_existing_reg_0'
+    choose  'registration_pr_status_0'
     click_button 'Next'
 
     # Options
@@ -167,7 +167,7 @@ steps_for :logging do
 
     # Addresses
     fill_registration_address
-    choose  'registration_has_existing_reg_0'
+    choose  'registration_pr_status_0'
     click_button 'Next'
 
     # Opions

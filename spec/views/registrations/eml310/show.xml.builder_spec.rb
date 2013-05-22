@@ -121,16 +121,16 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
     end
   end
 
-  describe 'existing registration' do
+  describe 'previous registration' do
     it 'should not render when none' do
       reg
       xml.should_not have_selector "PreviousElectoralAddress"
     end
 
     it 'should render non-rural' do
-      reg has_existing_reg: '1',
-          er_street_number: '1', er_street_name: 'SN', er_street_type: 'ST', er_apt: '23',
-          er_city: 'C', er_state: 'VA', er_zip5: '54321', er_zip4: '6789'
+      reg pr_status: '1',
+          pr_street_number: '1', pr_street_name: 'SN', pr_street_type: 'ST', pr_apt: '23',
+          pr_city: 'C', pr_state: 'VA', pr_zip5: '54321', pr_zip4: '6789'
 
       xml.within "PreviousElectoralAddress[status='previous'] PostalAddress" do |a|
         a.should have_selector "Thoroughfare[type='ST'][name='SN'][number='1']", text: "1 SN ST"
@@ -142,8 +142,8 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
     end
 
     it 'should render rural' do
-      reg has_existing_reg: '1',
-        er_is_rural: '1', er_rural: 'Rural address'
+      reg pr_status: '1',
+        pr_is_rural: '1', pr_rural: 'Rural address'
 
       xml.within "PreviousElectoralAddress[status='previous'][type='Rural']" do |a|
         a.should have_selector "FreeTextAddress AddressLine", text: 'Rural address'

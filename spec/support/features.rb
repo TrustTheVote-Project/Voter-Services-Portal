@@ -29,7 +29,7 @@ def fill_address_page
   fill_in "Zip code", with: "12345"
   select  "ST", from: "Street type"
   select  "ALEXANDRIA CITY", from: "County or city"
-  choose  "registration_has_existing_reg_0"
+  choose  "registration_pr_status_0"
   click_button "Next"
 end
 
