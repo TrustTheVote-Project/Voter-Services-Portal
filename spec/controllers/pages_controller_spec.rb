@@ -19,4 +19,24 @@ describe PagesController do
     end
   end
 
+  describe 'privacy' do
+    it 'should render template w/ search path' do
+      get :privacy, path: 'search_form'
+      should render_template :privacy
+      assigns(:redirect_path).should == search_form_path
+    end
+
+    it 'should render template w/ residential reg path' do
+      get :privacy, path: 'register_residential'
+      should render_template :privacy
+      assigns(:redirect_path).should == register_residential_path
+    end
+
+    it 'should render template w/ overseas reg path' do
+      get :privacy, path: 'register_overseas'
+      should render_template :privacy
+      assigns(:redirect_path).should == register_overseas_path
+    end
+  end
+
 end

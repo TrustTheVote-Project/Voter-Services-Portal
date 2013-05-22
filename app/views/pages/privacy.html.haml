@@ -1,0 +1,14 @@
+.row#privacy
+  .padded_page_span.section
+    .head
+      %h3= I18n.t('privacy.title')
+
+    = render_static_section :privacyactnotice
+
+    = label_tag :privacyAgree, class: 'checkbox' do
+      = check_box_tag :privacyAgree, '1'
+      = I18n.t('privacy.checkbox')
+
+
+    .form-actions
+      = link_to 'Next &rarr;'.html_safe, @redirect_path, class: 'next btn disabled'

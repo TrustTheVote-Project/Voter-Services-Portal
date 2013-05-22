@@ -552,14 +552,12 @@ class window.Registration
 
   initOathFields: ->
     @infoCorrect          = ko.observable()
-    @privacyAgree         = ko.observable()
     @asNameOfAssistant    = ko.observable()
     @asAddressOfAssistant = ko.observable()
 
     @oathErrors = ko.computed =>
       errors = []
       errors.push("Confirm that information is correct") unless @infoCorrect()
-      errors.push("Agree with privacy terms") unless @privacyAgree()
       errors.push("Social Security #") if !ssn(@ssn()) and !@noSSN()
       errors.push("Assistant details") unless (filled(@asNameOfAssistant()) and filled(@asAddressOfAssistant())) or (!filled(@asNameOfAssistant()) and !filled(@asAddressOfAssistant()))
       # errors.push('DMV ID#') if !@noSSN() and !isDmvId(@dmvId()) and !@noDmvId()

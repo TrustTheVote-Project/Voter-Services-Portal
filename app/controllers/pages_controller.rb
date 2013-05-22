@@ -17,6 +17,10 @@ class PagesController < ApplicationController
     render :external_page
   end
 
+  def privacy
+    @redirect_path = send("#{params[:path]}_path")
+  end
+
   def method_missing(name, *args)
     @page = name
     render :external_page

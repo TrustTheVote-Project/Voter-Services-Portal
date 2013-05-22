@@ -1,13 +1,20 @@
 VaVote::Application.routes.draw do
 
-  get   '/not_found'  => 'pages#not_found', as: 'not_found'
-  get   '/p/:id'      => 'external_pages#show'
+  get   '/not_found'                    => 'pages#not_found', as: 'not_found'
+  get   '/p/:id'                        => 'external_pages#show'
 
-  get   '/search'     => 'search#new', as: :search_form
-  post  '/search'     => 'search#create', as: :search
+  get   '/search/privacy'               => 'pages#privacy', defaults: { path: 'search_form' }, as: 'search_privacy'
+  get   '/register/residential/privacy' => 'pages#privacy', defaults: { path: 'register_residential' }, as: 'register_residential_privacy'
+  get   '/register/overseas/privacy'    => 'pages#privacy', defaults: { path: 'register_overseas' }, as: 'register_overseas_privacy'
 
-  get   '/status'     => 'status#show', as: :status
-  post  '/status'     => 'status#search'
+  get   '/search'                       => 'search#new', as: 'search_form'
+  post  '/search'                       => 'search#create', as: 'search'
+
+  get   '/register/residential'         => 'registrations#new', defaults: { residence: 'in' }, as: 'register_residential'
+  get   '/register/overseas'            => 'registrations#new', defaults: { residence: 'outside' }, as: 'register_overseas'
+
+  get   '/status'                       => 'status#show', as: 'status'
+  post  '/status'                       => 'status#search'
 
   resource :page, only: [], path: '' do
     member do
@@ -28,9 +35,6 @@ VaVote::Application.routes.draw do
     get '/edit/:kind' => 'registrations#edit'
   end
   get '/voter_card.pdf' => 'voter_cards#show', format: 'pdf', as: 'voter_card'
-
-  get '/register/residential' => 'registrations#new', defaults: { residence: 'in' }, as: 'register_residential'
-  get '/register/overseas'    => 'registrations#new', defaults: { residence: 'outside' }, as: 'register_overseas'
 
   get '/lookup/registration'  => 'lookup#registration'
 

@@ -10,40 +10,40 @@
 }
 
 .overseas.button:hover {
-  background: image-url('buttons.png') no-repeat 0 -37px;  
+  background: image-url('buttons.png') no-repeat 0 -37px;
 }
 
 .overseas.button:active {
-  background: image-url('buttons.png') no-repeat 0 0;  
+  background: image-url('buttons.png') no-repeat 0 0;
 }
 
 .residential.button {
-  background: image-url('buttons.png') no-repeat -166px -74px;  
+  background: image-url('buttons.png') no-repeat -166px -74px;
   width: 175px;
 }
 
 .residential.button:hover {
-  background: image-url('buttons.png') no-repeat -166px -37px;    
+  background: image-url('buttons.png') no-repeat -166px -37px;
 }
 
 .residential.button:active {
-  background: image-url('buttons.png') no-repeat -166px 0;    
+  background: image-url('buttons.png') no-repeat -166px 0;
 }
 
 .update.button {
-  background: image-url('buttons.png') no-repeat -339px -74px;  
+  background: image-url('buttons.png') no-repeat -339px -74px;
   width: 231px;
 }
 
 .update.button:hover {
-  background: image-url('buttons.png') no-repeat -339px -37px;    
+  background: image-url('buttons.png') no-repeat -339px -37px;
 }
 
 .update.button:active {
-  background: image-url('buttons.png') no-repeat -339px 0;    
+  background: image-url('buttons.png') no-repeat -339px 0;
 }
 
-.btn {
+.next.btn, .back.btn {
   border: none;
   text-indent: -999em;
   padding: 0;
@@ -61,7 +61,7 @@
     -webkit-transition: none;
   }
 
-  &.disabled, 
+  &.disabled,
   &[disabled] {
     cursor: default;
     background-image: none;
