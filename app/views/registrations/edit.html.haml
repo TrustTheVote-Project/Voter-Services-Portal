@@ -7,7 +7,7 @@
       = hidden_field_tag 'kind', params[:kind]
       = f.hidden_field :residence
       = render partial: 'addresses_section',      locals: { f: f }
-      = render partial: 'mailing_section',        locals: { f: f }
+      = render partial: 'mailing_section',        locals: { f: f, updating: true }
       = render partial: 'options_section',        locals: { f: f, updating: true }
       = render partial: 'confirm_update_section', locals: { f: f, requesting_absentee_status: requesting_absentee_status }
       = render partial: 'oath_section',           locals: { f: f, updating: true }

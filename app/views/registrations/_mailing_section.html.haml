@@ -1,3 +1,5 @@
+- updating ||= false
+
 #mailing.section{ 'data-bind' => 'vis: page() == "address"' }
 
   = render partial: 'mailing_domestic', locals: { f: f }
@@ -7,26 +9,24 @@
     .head
       %h3 Previous Voter Registration Information
 
-    <!-- ko if: domestic -->
-    .radio
-      = f.radio_button :pr_status, '0', { 'data-bind' => 'checkedWithInit: prStatus' }
-      %label{ for: 'registration_pr_status_0' } I am not currently registered to vote in Virginia or another state
-    .radio
-      = f.radio_button :pr_status, '2', { 'data-bind' => 'checkedWithInit: prStatus' }
-      %label{ for: 'registration_pr_status_2' } I am currently registered to vote at another address in Virginia
-    .radio
-      = f.radio_button :pr_status, '1', { 'data-bind' => 'checkedWithInit: prStatus' }
-      %label{ for: 'registration_pr_status_1' } I am currently registered to vote in another state
-    <!-- /ko -->
-    <!-- ko if: overseas -->
-    %p Are you currently registered to vote at another address in Virginia or in another state?
-    .radio
-      = f.radio_button :pr_status, '0', { 'data-bind' => 'checkedWithInit: prStatus' }
-      %label{ for: 'registration_pr_status_0' } No
-    .radio
-      = f.radio_button :pr_status, '1', { 'data-bind' => 'checkedWithInit: prStatus' }
-      %label{ for: 'registration_pr_status_1' } Yes
-    <!-- /ko -->
+    - if updating
+      %p Are you currently registered to vote at another address in Virginia or in another state?
+      .radio
+        = f.radio_button :pr_status, '0', { 'data-bind' => 'checkedWithInit: prStatus' }
+        %label{ for: 'registration_pr_status_0' } No
+      .radio
+        = f.radio_button :pr_status, '1', { 'data-bind' => 'checkedWithInit: prStatus' }
+        %label{ for: 'registration_pr_status_1' } Yes
+    - else
+      .radio
+        = f.radio_button :pr_status, '0', { 'data-bind' => 'checkedWithInit: prStatus' }
+        %label{ for: 'registration_pr_status_0' } I am not currently registered to vote in Virginia or another state
+      .radio
+        = f.radio_button :pr_status, '2', { 'data-bind' => 'checkedWithInit: prStatus' }
+        %label{ for: 'registration_pr_status_2' } I am currently registered to vote at another address in Virginia
+      .radio
+        = f.radio_button :pr_status, '1', { 'data-bind' => 'checkedWithInit: prStatus' }
+        %label{ for: 'registration_pr_status_1' } I am currently registered to vote in another state
 
     <!-- ko if: prStatus() == "1" -->
     <!-- ko ifnot: prIsRural -->
