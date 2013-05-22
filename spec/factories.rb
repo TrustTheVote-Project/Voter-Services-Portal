@@ -53,10 +53,6 @@ FactoryGirl.define do
 
       is_confidential_address '1'
       ca_type             'TSC'
-      ca_address          '123 High St'
-      ca_city             'Harrisonburg'
-      ca_zip5             '22801'
-      ca_zip4             '7531'
 
       be_official         '1'
 

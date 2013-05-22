@@ -4,7 +4,7 @@ class RegistrationForXML
 
   def_delegators  :@r, :full_name, :first_name, :middle_name, :last_name, :suffix,
                   :ssn, :created_at, :email, :phone, :dob, :gender,
-                  :ca_type, :ca_address, :ca_address_2, :ca_city,
+                  :ca_type,
                   :vvr_street_number, :vvr_street_name, :vvr_street_type, :vvr_apt,
                   :vvr_town, :vvr_state, :vvr_state, :vvr_rural,
                   :ma_address, :ma_address_2, :ma_city, :ma_state, :mau_type, :mau_address, :mau_address_2, :mau_city, :mau_city_2,

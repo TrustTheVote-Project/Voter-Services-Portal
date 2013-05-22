@@ -2,7 +2,12 @@
 
 #mailing.section{ 'data-bind' => 'vis: page() == "address"' }
 
+  <!-- ko if: domestic() && maIsDifferent() -->
+  .head
+    %h3 Mailing address
   = render partial: 'mailing_domestic', locals: { f: f }
+  <!-- /ko -->
+
   = render partial: 'mailing_overseas', locals: { f: f }
 
   .previous_registration

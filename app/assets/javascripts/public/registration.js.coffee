@@ -207,11 +207,6 @@ class window.Registration
 
     @caType                 = ko.observable()
     @isConfidentialAddress  = ko.observable()
-    @caAddress1             = ko.observable()
-    @caAddress2             = ko.observable()
-    @caCity                 = ko.observable()
-    @caZip5                 = ko.observable()
-    @caZip4                 = ko.observable()
 
     @needsAssistance        = ko.observable()
 
@@ -323,7 +318,7 @@ class window.Registration
         if !filled(@caType())
           errors.push("Address confidentiality reason")
         else
-          if !@maIsDifferent() and (!filled(@caAddress1()) || !filled(@caCity()) || !zip5(@caZip5()))
+          if !filled(@maAddress1()) || !filled(@maState()) || !filled(@maCity()) || !zip5(@maZip5())
             errors.push("Protected voter mailing address")
 
       if @requestingAbsentee()
@@ -482,22 +477,18 @@ class window.Registration
       if @overseas()
         @summaryOverseasMailingAddress()
       else
-        if !@maIsDifferent()
-          @summaryRegistrationAddress()
-        else
+        if @maIsDifferent()
           @summaryDomesticMailingAddress()
+        else
+          @summaryRegistrationAddress()
 
     @summaryAddressConfidentiality = ko.computed =>
       if @isConfidentialAddress()
         "Code: #{@caType()}" + "<br/>" +
-          if @domestic() and @maIsDifferent()
-            @summaryDomesticMailingAddress()
+          if @overseas()
+            @summaryOverseasMailingAddress()
           else
-            join([
-              @caAddress1(),
-              @caAddress2(),
-              join([ @caCity(), 'VA', join([ @caZip5(), @caZip4() ], '-') ], ' ')
-            ], "<br/>")
+            @summaryDomesticMailingAddress()
 
     @summaryAbsenteeRequest = ko.computed =>
       lines = []

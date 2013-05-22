@@ -137,19 +137,6 @@ class Eml310Builder
                     "xsi:schemaLocation" => "http://sbe.virginia.gov EmlExtension.xsd",
                     "type"               => r.ca_type,
                     "xmlns"              => "http://sbe.virginia.gov/EmlExtension"
-
-                  xml.MailingAddress status: 'previous' do
-                    xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
-                      a1, a2, c, s, z = registration.protected_voter_address
-
-                      address_lines xml, [
-                        [ 'MailingAddressLine1',  a1 ],
-                        [ 'MailingAddressLine2',  a2 ],
-                        [ 'MailingCity',          c ],
-                        [ 'MailingState',         s ],
-                        [ 'MailingZip',           z ] ]
-                    end
-                  end
                 end
                 order += 1
               end
@@ -205,7 +192,7 @@ class Eml310Builder
 
   def self.mailing_address(xml, r)
     if r.residential?
-      unless r.ma_is_different?
+      if !r.ma_is_different?
         electoral_address(xml, r, 'MailingAddress')
       else
         xml.MailingAddress status: 'current' do

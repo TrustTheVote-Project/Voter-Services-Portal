@@ -1,7 +1,3 @@
-<!-- ko if: domestic() && maIsDifferent() -->
-.head
-  %h3 Mailing address
-
 .row
   .span3
     .address-field
@@ -21,4 +17,3 @@
     = f.text_field :ma_zip5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "maZip5", validation: "zip5" }', placeholder: 'NNNNN', maxlength: 5
     .space &mdash;
     = f.text_field :ma_zip4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: maZip4', placeholder: 'NNNN', maxlength: 4
-<!-- /ko -->

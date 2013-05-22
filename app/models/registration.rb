@@ -54,8 +54,7 @@ class Registration < ActiveRecord::Base
 
   # Options
   serialized_attr :choose_party, :party, :other_party
-  serialized_attr :is_confidential_address, :ca_type,
-                  :ca_address, :ca_address_2, :ca_city, :ca_zip5, :ca_zip4
+  serialized_attr :is_confidential_address, :ca_type
   serialized_attr :need_assistance, :as_name_of_assistant, :as_address_of_assistant
   serialized_attr :requesting_absentee, :rab_election,
                   :rab_election_name, :rab_election_date,
@@ -106,10 +105,14 @@ class Registration < ActiveRecord::Base
   end
 
   def protected_voter_address
-    if ma_is_different == '1'
-      [ ma_address, ma_address_2, ma_city, ma_state, [ ma_zip5, ma_zip4 ].rjoin('-') ]
+    if uocava?
+      if mau_type == 'apo'
+        [ apo_address, apo_address_2, apo_city, apo_state, apo_zip5, nil ]
+      else
+        [ mau_address, mau_address_2, [ mau_city, mau_city_2 ].rjoin(' '), mau_state, mau_postal_code, mau_country ]
+      end
     else
-      [ ca_address, ca_address_2, 'VA', [ ca_zip5, ca_zip4 ].rjoin('-') ]
+      [ ma_address, ma_address_2, ma_city, ma_state, [ ma_zip5, ma_zip4 ].rjoin('-'), nil ]
     end
   end
 

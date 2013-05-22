@@ -26,28 +26,17 @@
             = f.radio_button :ca_type, r, 'data-bind' => 'checkedWithInit: caType'
             %label{ for: "registration_ca_type_#{r.downcase}" }= I18n.t("options.ac.reasons.#{r}")
 
-        <!-- ko if: caType() && !maIsDifferent() -->
+        <!-- ko if: caType() -->
         .additional
           .important= I18n.t("options.ac.type")
-          .row
-            .span5
-              .address-field
-                = f.label :ca_address, "Address"
-                = f.text_field :ca_address, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddress1" }'
-              .address-field
-                = f.text_field :ca_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: caAddress2'
-          .row
-            .span3.town
-              = f.label :ca_city, "City / Town"
-              = f.text_field :ca_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caCity" }'
-            .span1
-              %span State
-              VA
-            .span2.zip-field
-              = f.label :ca_zip5, "Zip code"
-              = f.text_field :ca_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "caZip5", validation: "zip5" }', placeholder: 'NNNNN'
-              .space &mdash;
-              = f.text_field :ca_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', placeholder: 'NNNN', 'data-bind' => 'value: caZip4'
+
+          <!-- ko if: domestic() && !maIsDifferent() -->
+          -# here we set ma_is_different as a field to let backend know
+          -# that we have explicit custom MA provided even though the user
+          -# didn't want to provide it in the addresses section
+          = hidden_field_tag 'registration[ma_is_different]', 1
+          = render partial: 'mailing_domestic', locals: { f: f }
+          <!-- /ko -->
 
           <!-- ko if: caType() == 'TSC' -->
           .important You must attach copy of the complaint that you filed

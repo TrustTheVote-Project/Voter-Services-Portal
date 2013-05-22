@@ -333,17 +333,10 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
       end
 
       it 'should render ACP fields' do
-        r = reg is_confidential_address: '1', ca_type: 'LEO', ca_address: '123', ca_address_2: 'High St', ca_city: 'Bristol', ca_zip5: '12345', ca_zip4: '6789'
+        r = reg is_confidential_address: '1', ca_type: 'LEO', ma_address: '123', ma_address_2: 'High St', ma_city: 'Bristol', ma_state: 'NY', ma_zip5: '12345', ma_zip4: '6789'
         xml.should have_selector "VoterInformation CheckBox[Type='AddressConfidentialityRequest']", text: 'yes'
         xml.within "FurtherInformation Message[Type='Confidential'][DisplayOrder='0001'][Seqn='1']" do |m|
           m.should have_selector "Confidentiality[type='LEO']", text: 'yes'
-          m.within "MailingAddress[status='previous'] FreeTextAddress" do |a|
-            pending "Format is about to change"
-            # a.should have_selector "Thoroughfare[type='PObox'][number='1234']", text: "P.O. Box 1234"
-            # a.should have_selector "Locality[type='Town']", text: 'Bristol'
-            # a.should have_selector "PostCode[type='ZipCode']", text: '123456789'
-            # a.should have_selector "Country[code='USA']", text: 'United States of America'
-          end
         end
       end
     end
