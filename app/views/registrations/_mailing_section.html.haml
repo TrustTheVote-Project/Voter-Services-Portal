@@ -30,6 +30,23 @@
 
     <!-- ko if: prStatus() == "1" -->
     <!-- ko ifnot: prIsRural -->
+    .row.personal-info
+      .span3
+        = f.label :pr_first_name, "First name"
+        = f.text_field :pr_first_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prFirstName" }'
+      .span3
+        = f.label :pr_middle_name do
+          Full middle
+          %span (optional)
+        = f.text_field :pr_middle_name, autocomplete: ac, 'data-bind' => 'value: prMiddleName'
+      .span3
+        = f.label :pr_last_name, "Last name"
+        = f.text_field :pr_last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prLastName" }'
+      .span2
+        = f.label :pr_suffix do
+          Suffix
+          %span (optional)
+        = f.select :pr_suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'value: prSuffix' }
     .row
       .span3
         .address-field

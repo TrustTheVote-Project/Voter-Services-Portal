@@ -127,6 +127,22 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
       xml.should_not have_selector "PreviousElectoralAddress"
     end
 
+    it 'should render name' do
+      reg pr_status: '1',
+          pr_first_name: 'Mark', pr_middle_name: 'Middle', pr_last_name: 'Smith', pr_suffix: 'Jr',
+          pr_is_rural: '1', pr_rural: 'a'
+
+      xml.within "PreviousElectoralAddress[status='previous'] VoterName" do |vn|
+        vn.should have_selector 'PersonFullName', text: 'Mark Middle Smith Jr'
+        vn.within "PersonNameDetail" do |n|
+          n.should have_selector 'GivenName',       text: 'Mark'
+          n.should have_selector 'MiddleName',      text: 'Middle'
+          n.should have_selector 'FamilyName',      text: 'Smith'
+          n.should have_selector 'NameSuffixText',  text: 'Jr'
+        end
+      end
+    end
+
     it 'should render non-rural' do
       reg pr_status: '1',
           pr_address: 'Line 1', pr_address_2: 'Line 2',

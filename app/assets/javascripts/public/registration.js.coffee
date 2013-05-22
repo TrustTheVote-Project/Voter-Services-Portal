@@ -118,6 +118,10 @@ class window.Registration
     @mauState               = ko.observable()
     @mauPostalCode          = ko.observable()
     @mauCountry             = ko.observable()
+    @prFirstName            = ko.observable()
+    @prMiddleName           = ko.observable()
+    @prLastName             = ko.observable()
+    @prSuffix               = ko.observable()
     @prAddress1             = ko.observable()
     @prAddress2             = ko.observable()
     @prCity                 = ko.observable()
@@ -177,6 +181,8 @@ class window.Registration
 
       previous =
         @prStatus() != '1' or
+        filled(@prFirstName()) and
+        filled(@prLastName()) and
         @prCancel() and
         if   @prIsRural()
         then filled(@prRural())
@@ -450,6 +456,9 @@ class window.Registration
         false
       else
         lines = []
+
+        lines.push valueOrUnspecified(join([ @prFirstName(), @prMiddleName(), @prLastName(), @prSuffix() ], ' '))
+
         if @prIsRural()
           lines.push @prRural()
         else
@@ -457,7 +466,7 @@ class window.Registration
             join([ @prCity(), join([ @prState(), join([ @prZip5(), @prZip4() ], '-') ], ' ') ], ', ')
         if @prCancel()
           lines.push "Authorized cancelation"
-         
+
         lines.join "<br/>"
 
     @summaryDomesticMailingAddress = ko.computed =>

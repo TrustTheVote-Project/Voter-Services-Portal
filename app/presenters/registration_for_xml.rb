@@ -11,6 +11,7 @@ class RegistrationForXML
                   :mau_state, :mau_postal_code, :mau_country,
                   :apo_address, :apo_address_2, :apo_city, :apo_state, :apo_zip5,
                   :pr_status,
+                  :pr_full_name, :pr_first_name, :pr_middle_name, :pr_last_name, :pr_suffix,
                   :pr_address, :pr_address_2, :pr_city, :pr_state, :pr_zip5, :pr_zip4, :pr_is_rural, :pr_rural,
                   :rights_restored_in, :rights_restored_on,
                   :ab_reason,

@@ -47,6 +47,15 @@ class Eml310Builder
               o[:type] = 'Rural' if r.pr_is_rural?
 
               xml.PreviousElectoralAddress o do
+                xml.VoterName do
+                  xml.PersonFullName    r.pr_full_name, { 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" }
+                  xml.PersonNameDetail 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
+                    xml.GivenName       r.pr_first_name
+                    xml.MiddleName      r.pr_middle_name
+                    xml.FamilyName      r.pr_last_name
+                    xml.NameSuffixText  r.pr_suffix
+                  end
+                end
                 if r.pr_is_rural?
                   xml.FreeTextAddress 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
                     xml.AddressLine r.pr_rural
