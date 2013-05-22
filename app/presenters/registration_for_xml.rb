@@ -11,20 +11,13 @@ class RegistrationForXML
                   :mau_state, :mau_postal_code, :mau_country,
                   :apo_address, :apo_address_2, :apo_city, :apo_state, :apo_zip5,
                   :pr_status,
-                  :pr_street_number, :pr_street_name, :pr_street_type, :pr_apt,
-                  :pr_city, :pr_state, :pr_zip5, :pr_zip4, :pr_is_rural, :pr_rural,
+                  :pr_address, :pr_address_2, :pr_city, :pr_state, :pr_zip5, :pr_zip4, :pr_is_rural, :pr_rural,
                   :rights_restored_in, :rights_restored_on,
                   :ab_reason,
                   :residential?
 
   def initialize(r)
     @r = r
-  end
-
-  def previous_registration_thoroughfare
-    return nil unless pr_status == '1'
-
-    [ @r.pr_street_number, @r.pr_street_name, @r.pr_street_type ].reject(&:blank?).join(' ')
   end
 
   def be_official?
@@ -83,8 +76,8 @@ class RegistrationForXML
     @r.pr_is_rural == '1'
   end
 
-  def pr_thoroughfare
-    [ @r.pr_street_number, @r.pr_street_name, @r.pr_street_type ].rjoin(' ')
+  def pr_zip
+    zip(@r.pr_zip5, @r.pr_zip4)
   end
 
   def vvr_zip

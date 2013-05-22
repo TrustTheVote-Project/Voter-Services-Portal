@@ -98,7 +98,7 @@ class NewDomesticPdf
       if reg.pr_is_rural == '1'
         pdf.set('PREV_REG_ADDRESS', reg.pr_rural.to_s.upcase)
       else
-        pdf.set('PREV_REG_ADDRESS', [ [ reg.pr_street_number, reg.pr_street_name ].rjoin(' '), reg.pr_apt ].rjoin(', ').to_s.upcase)
+        pdf.set('PREV_REG_ADDRESS', [ reg.pr_address, reg.pr_address_2 ].rjoin(', ').to_s.upcase)
         pdf.set('PREV_REG_CITY', reg.pr_city.to_s.upcase)
         pdf.set('PREV_REG_STATE', reg.pr_state.to_s.upcase)
         pdf.set('FULLNAME', [ reg.first_name, reg.middle_name, reg.last_name, reg.suffix ].rjoin(' ').to_s.upcase)

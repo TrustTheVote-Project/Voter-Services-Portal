@@ -118,10 +118,8 @@ class window.Registration
     @mauState               = ko.observable()
     @mauPostalCode          = ko.observable()
     @mauCountry             = ko.observable()
-    @prStreetNumber         = ko.observable()
-    @prStreetName           = ko.observable()
-    @prStreetType           = ko.observable()
-    @prApt                  = ko.observable()
+    @prAddress1             = ko.observable()
+    @prAddress2             = ko.observable()
     @prCity                 = ko.observable()
     @prState                = ko.observable()
     @prZip5                 = ko.observable()
@@ -178,14 +176,13 @@ class window.Registration
         mailing = @domesticMAFilled()
 
       previous =
-        @prStatus() == '0' or
+        @prStatus() != '1' or
         @prCancel() and
         if   @prIsRural()
         then filled(@prRural())
-        else filled(@prStreetNumber()) and
-             filled(@prStreetName()) and
-             filled(@prCity()) and
+        else filled(@prAddress1()) and
              filled(@prState()) and
+             filled(@prCity()) and
              zip5(@prZip5())
 
       errors.push("Registration address") unless residental
@@ -449,14 +446,14 @@ class window.Registration
 
 
     @summaryExistingRegistration = ko.computed =>
-      if @prStatus() == '0'
+      if @prStatus() != '1'
         false
       else
         lines = []
         if @prIsRural()
           lines.push @prRural()
         else
-          lines.push join([ @prStreetNumber(), @prStreetName(), @prStreetType(), (if filled(@prApt()) then "##{@prApt()}" else null) ], ' ') + "<br/>" +
+          lines.push join([ @prAddress1(), @prAddress2() ], ' ') + "<br/>" +
             join([ @prCity(), join([ @prState(), join([ @prZip5(), @prZip4() ], '-') ], ' ') ], ', ')
         if @prCancel()
           lines.push "Authorized cancelation"

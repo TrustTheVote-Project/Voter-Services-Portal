@@ -88,7 +88,8 @@ class RegistrationForPdf < RegistrationDetailsPresenter
         data[:pr_rural]
       else
         zip = [ data[:pr_zip5], data[:pr_zip4] ].rjoin('-')
-        [ [ data[:pr_street_number], data[:pr_street_name] ].rjoin(' '),
+        [ data[:pr_address],
+          data[:pr_address_2],
           data[:pr_apt],
           data[:pr_city],
           [ data[:pr_state], zip ].join(' ') ].rjoin(', ')

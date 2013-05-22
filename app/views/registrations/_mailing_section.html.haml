@@ -29,43 +29,35 @@
     <!-- /ko -->
 
     <!-- ko if: prStatus() == "1" -->
-    <!-- ko ifnot: erIsRural -->
+    <!-- ko ifnot: prIsRural -->
     .row
-      .span2
-        = f.label :pr_street_number, "Street number"
-        = f.text_field :pr_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erStreetNumber" }', class: 'span2'
-      .span4
-        = f.label :pr_street_name, "Street name"
-        = f.text_field :pr_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erStreetName" }', class: 'span4'
-      .span2.street-type-field
-        = f.label :pr_street_type, "Street type"
-        = f.select :pr_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'street-type', 'data-bind' => 'instantValidation: { accessor: "erStreetType" }' }
-      .span2.lot-field
-        = f.label :pr_apt do
-          Apt/Lot
-          %span (optional)
-        = f.text_field :pr_apt, autocomplete: ac, 'data-bind' => 'valueWithInit: erApt'
+      .span3
+        .address-field
+          %label{ for: 'registration_pr_address' } Address
+          = f.text_field :pr_address, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prAddress1" }'
+        .address-field
+          = f.text_field :pr_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: prAddress2'
     .row
       .span3
         = f.label :pr_city, "City"
-        = f.text_field :pr_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erCity" }'
+        = f.text_field :pr_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prCity" }'
       .span2.state-field
         = f.label :pr_state, "State"
-        = f.select :pr_state, Dictionaries::STATES_WITHOUT_VA, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "erState" }' }
+        = f.select :pr_state, Dictionaries::STATES_WITHOUT_VA, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "prState" }' }
       .span3.zip-field
         = f.label :pr_zip5, "Zip code"
-        = f.text_field :pr_zip5, class: 'first-zip', autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erZip5", validation: "zip5" }', placeholder: 'NNNNN', maxlength: 5
+        = f.text_field :pr_zip5, class: 'first-zip', autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prZip5", validation: "zip5" }', placeholder: 'NNNNN', maxlength: 5
         .space &mdash;
-        = f.text_field :pr_zip4, class: 'second-zip', autocomplete: ac, placeholder: 'NNNN', maxlength: 4, 'data-bind' => 'valueWithInit: erZip4'
-    <!-- /ko --> <!-- !erIsRural -->
+        = f.text_field :pr_zip4, class: 'second-zip', autocomplete: ac, placeholder: 'NNNN', maxlength: 4, 'data-bind' => 'valueWithInit: prZip4'
+    <!-- /ko --> <!-- !prIsRural -->
 
     .row
       .span12
         .checkbox
-          = f.check_box :pr_is_rural, { 'data-bind' => 'checkedWithInit: erIsRural' }
+          = f.check_box :pr_is_rural, { 'data-bind' => 'checkedWithInit: prIsRural' }
           Rural address or homeless? Please check the box and describe where you reside.
-        <!-- ko if: erIsRural -->
-        = f.text_area :pr_rural, cols: "10", rows: "10", autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "erRural" }'
+        <!-- ko if: prIsRural -->
+        = f.text_area :pr_rural, cols: "10", rows: "10", autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prRural" }'
         <!-- /ko -->
 
     .partition

@@ -46,10 +46,11 @@ class Registration < ActiveRecord::Base
   serialized_attr :vvr_is_rural, :vvr_rural
   serialized_attr :vvr_uocava_residence_available, :vvr_uocava_residence_unavailable_since
   serialized_attr :mau_address, :mau_address_2, :mau_city, :mau_city_2, :mau_state, :mau_postal_code, :mau_country, :mau_type
-  serialized_attr :ma_address, :ma_address_2, :ma_apt, :ma_city, :ma_state, :ma_zip5, :ma_zip4, :ma_is_different
+  serialized_attr :ma_address, :ma_address_2, :ma_city, :ma_state, :ma_zip5, :ma_zip4, :ma_is_different
   serialized_attr :apo_address, :apo_address_2, :apo_city, :apo_state, :apo_zip5
   serialized_attr :pr_status, :pr_cancel
-  serialized_attr :pr_street_number, :pr_street_name, :pr_street_type, :pr_apt,
+  serialized_attr :pr_address, :pr_address_2,
+   # :pr_street_number, :pr_street_name, :pr_street_type, :pr_apt,
                   :pr_city, :pr_state, :pr_zip5, :pr_zip4, :pr_is_rural, :pr_rural
 
   # Options

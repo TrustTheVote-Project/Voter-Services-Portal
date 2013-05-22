@@ -53,14 +53,12 @@ class Eml310Builder
                   end
                 else
                   xml.PostalAddress 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
-                    xml.Thoroughfare r.pr_thoroughfare,
-                      type:   r.pr_street_type,
-                      number: r.pr_street_number,
-                      name:   r.pr_street_name
-                    xml.Locality r.pr_city, type: 'Town'
-                    xml.AdministrativeArea r.pr_state, type: 'StateCode'
-                    xml.PostCode [ r.pr_zip5, r.pr_zip4 ].join(''), type: 'ZipCode'
-                    xml.Country "United States of America", code: "USA"
+                    address_lines xml, [
+                      [ 'MailingAddressLine1',  r.pr_address ],
+                      [ 'MailingAddressLine2',  r.pr_address_2 ],
+                      [ 'MailingCity',          r.pr_city ],
+                      [ 'MailingState',         r.pr_state ],
+                      [ 'MailingZip',           r.pr_zip ] ]
                   end
                 end
               end
