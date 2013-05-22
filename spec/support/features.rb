@@ -49,6 +49,5 @@ def sign_oath
   end
 
   check "registration_information_correct"
-  check "I have read and agree with the terms of the Privacy Act Notice."
   click_button "Next"
 end

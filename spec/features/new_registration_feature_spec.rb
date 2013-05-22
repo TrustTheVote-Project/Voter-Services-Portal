@@ -29,7 +29,7 @@ feature 'New registration', :js do
     sign_oath
 
     expect(page).not_to have_text "Download"
-    expect(page).to have_text "TBD text for completing online submission with no paper form needed"
+    expect(page).to have_text "Submit Your Application Online"
   end
 
   scenario 'w/ d/l screen for normal records' do

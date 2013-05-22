@@ -12,7 +12,7 @@ steps_for :registration_form do
   end
 
   step 'mailing address same as registration selector should disappear' do
-    page.should_not have_selector '.section#mailing input#registration_ma_is_same_0'
+    page.should_not have_selector '.section#address input#registration_ma_is_different'
   end
 
   step 'mailing address form should be visible' do
@@ -24,10 +24,10 @@ steps_for :registration_form do
   end
 
   step 'mailing address selector should appear' do
-    find('.section#mailing input#registration_ma_is_same_0').should be_visible
+    find('.section#address input#registration_ma_is_different').should be_visible
   end
 
   step 'mailing address should be marked as not being the same as registration address' do
-    find('.section#mailing input#registration_ma_is_same_0').should be_checked
+    find('.section#address input#registration_ma_is_different').should be_checked
   end
 end

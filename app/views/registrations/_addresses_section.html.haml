@@ -49,7 +49,7 @@
 
   .row
     .span12
-      .checkbox
+      = f.label :vvr_is_rural, class: 'checkbox' do
         = f.check_box :vvr_is_rural, 'data-bind' => 'instantValidation: { accessor: "vvrIsRural" }'
         Rural address or homeless? Please check the box and describe where you reside.
       <!-- ko if: vvrIsRural -->

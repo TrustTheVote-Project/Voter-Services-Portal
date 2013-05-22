@@ -41,7 +41,7 @@ feature 'Processing update EML310 submission', :js do
       SubmitEml310.should_receive(:submit_new).and_return(true)
       submit_new_record dmv_id: "1234567890"
       expect(page).not_to have_text "Download"
-      expect(page).to have_text "TBD online submit"
+      expect(page).to have_text "Submit Your Application Online"
     end
   end
 

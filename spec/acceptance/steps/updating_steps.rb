@@ -62,7 +62,6 @@ steps_for :updating do
 
   step 'I should see the addresses page' do
     should_be_visible "Registration address"
-    should_be_visible "Mailing address"
   end
 
   step 'I choose no previous registration' do
