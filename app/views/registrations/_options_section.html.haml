@@ -26,7 +26,7 @@
             = f.radio_button :ca_type, r, 'data-bind' => 'checkedWithInit: caType'
             %label{ for: "registration_ca_type_#{r.downcase}" }= I18n.t("options.ac.reasons.#{r}")
 
-        <!-- ko if: caType -->
+        <!-- ko if: caType() && !maIsDifferent() -->
         .additional
           .important= I18n.t("options.ac.type")
           .row

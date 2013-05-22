@@ -105,6 +105,14 @@ class Registration < ActiveRecord::Base
     [ pr_first_name, pr_middle_name, pr_last_name, pr_suffix ].delete_if(&:blank?).join(' ')
   end
 
+  def protected_voter_address
+    if ma_is_different == '1'
+      [ ma_address, ma_address_2, ma_city, ma_state, [ ma_zip5, ma_zip4 ].rjoin('-') ]
+    else
+      [ ca_address, ca_address_2, 'VA', [ ca_zip5, ca_zip4 ].rjoin('-') ]
+    end
+  end
+
   def ssn4
     self.ssn ? self.ssn.gsub(/[^0-9]/, '')[-4, 4] : nil
   end

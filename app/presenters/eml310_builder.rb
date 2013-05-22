@@ -140,12 +140,14 @@ class Eml310Builder
 
                   xml.MailingAddress status: 'previous' do
                     xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
+                      a1, a2, c, s, z = registration.protected_voter_address
+
                       address_lines xml, [
-                        [ 'MailingAddressLine1',  r.ca_address ],
-                        [ 'MailingAddressLine2',  r.ca_address_2 ],
-                        [ 'MailingCity',          r.ca_city ],
-                        [ 'MailingState',         'VA' ],
-                        [ 'MailingZip',           r.ca_zip ] ]
+                        [ 'MailingAddressLine1',  a1 ],
+                        [ 'MailingAddressLine2',  a2 ],
+                        [ 'MailingCity',          c ],
+                        [ 'MailingState',         s ],
+                        [ 'MailingZip',           z ] ]
                     end
                   end
                 end

@@ -180,16 +180,18 @@ class window.Registration
         mailing = @domesticMAFilled()
 
       previous =
-        @prStatus() != '1' or
-        filled(@prFirstName()) and
-        filled(@prLastName()) and
-        @prCancel() and
-        if   @prIsRural()
-        then filled(@prRural())
-        else filled(@prAddress1()) and
-             filled(@prState()) and
-             filled(@prCity()) and
-             zip5(@prZip5())
+        filled(@prStatus()) and (
+          @prStatus() != '1' or
+          filled(@prFirstName()) and
+          filled(@prLastName()) and
+          @prCancel() and
+          if   @prIsRural()
+          then filled(@prRural())
+          else filled(@prAddress1()) and
+               filled(@prState()) and
+               filled(@prCity()) and
+               zip5(@prZip5())
+        )
 
       errors.push("Registration address") unless residental
       errors.push("Mailing address") unless mailing
@@ -321,7 +323,7 @@ class window.Registration
         if !filled(@caType())
           errors.push("Address confidentiality reason")
         else
-          if !filled(@caAddress1()) || !filled(@caCity()) || !zip5(@caZip5())
+          if !@maIsDifferent() and (!filled(@caAddress1()) || !filled(@caCity()) || !zip5(@caZip5()))
             errors.push("Protected voter mailing address")
 
       if @requestingAbsentee()
@@ -488,11 +490,14 @@ class window.Registration
     @summaryAddressConfidentiality = ko.computed =>
       if @isConfidentialAddress()
         "Code: #{@caType()}" + "<br/>" +
-        join([
-          @caAddress1(),
-          @caAddress2(),
-          join([ @caCity(), 'VA', join([ @caZip5(), @caZip4() ], '-') ], ' ')
-        ], "<br/>")
+          if @domestic() and @maIsDifferent()
+            @summaryDomesticMailingAddress()
+          else
+            join([
+              @caAddress1(),
+              @caAddress2(),
+              join([ @caCity(), 'VA', join([ @caZip5(), @caZip4() ], '-') ], ' ')
+            ], "<br/>")
 
     @summaryAbsenteeRequest = ko.computed =>
       lines = []

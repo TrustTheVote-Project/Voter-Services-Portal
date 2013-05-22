@@ -108,9 +108,11 @@ class RegistrationForPdf < RegistrationDetailsPresenter
 
   def acp_pobox(d = :data)
     d = @reg.send(d)
-    [ d[:ca_address],
-      d[:ca_address_2],
-      [ d[:ca_city], 'VA', [ d[:ca_zip5], d[:ca_zip4] ].rjoin('-') ].rjoin(' ')
+
+    a1, a2, c, s, z = @reg.protected_voter_address
+    [ a1,
+      a2,
+      [ c, s, z ].rjoin(' ')
     ].join(', ')
   end
 
