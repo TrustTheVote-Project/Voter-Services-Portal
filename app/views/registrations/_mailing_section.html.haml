@@ -10,7 +10,7 @@
       %h3 Previous Voter Registration Information
 
     - if updating
-      %p Are you currently registered to vote at another address in Virginia or in another state?
+      %p I am currently registered to vote in another state
       .radio
         = f.radio_button :pr_status, '0', { 'data-bind' => 'checkedWithInit: prStatus' }
         %label{ for: 'registration_pr_status_0' } No
