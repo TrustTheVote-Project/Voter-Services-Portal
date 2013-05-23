@@ -11,6 +11,14 @@
   .row
     .span12
       .checkbox
+        = f.check_box :be_official, autocomplete: ac, 'data-bind' => 'checked: beOfficial'
+        = f.label :be_official do
+          %strong= I18n.t('options.being_official')
+
+.partition
+  .row
+    .span12
+      .checkbox
         = f.check_box :requesting_absentee, 'data-bind' => 'checked: requestingAbsentee', autocomplete: ac
         = f.label :requesting_absentee do
           %strong= I18n.t('options.domestic.requesting_absentee')
@@ -133,12 +141,4 @@
       = f.text_field :ab_country, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abCountry" }'
   <!-- /ko --> <!-- addressRequired -->
 <!-- /ko -->
-
-.partition
-  .row
-    .span12
-      .checkbox
-        = f.check_box :be_official, autocomplete: ac, 'data-bind' => 'checked: beOfficial'
-        = f.label :be_official do
-          %strong= I18n.t('options.being_official')
 <!-- /ko --> <!-- domestic -->
