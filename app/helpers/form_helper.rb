@@ -105,9 +105,9 @@ module FormHelper
 
   def party_preference_label
     if AppConfig['registration']['absentee_party_preference']
-      I18n.t('confirm.row.party_preference.absentee')
+      I18n.t('confirm.rows.party_preference.absentee')
     else
-      I18n.t('confirm.row.party_preference.non_absentee')
+      I18n.t('confirm.rows.party_preference.non_absentee')
     end
   end
 
