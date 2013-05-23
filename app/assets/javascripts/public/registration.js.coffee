@@ -4,6 +4,8 @@ class window.Registration
     @overseas   = ko.computed => @residence() == 'outside'
     @domestic   = ko.computed => !@overseas()
 
+    @paperlessSubmission = ko.observable()
+
     @initEligibilityFields()
     @initIdentityFields()
     @initAddressFields()
@@ -564,16 +566,43 @@ class window.Registration
         $("#registration_rab_election option[value='#{v}']").text()
 
   initOathFields: ->
-    @infoCorrect          = ko.observable()
-    @asNameOfAssistant    = ko.observable()
-    @asAddressOfAssistant = ko.observable()
+    @infoCorrect  = ko.observable()
+    @asFirstName  = ko.observable()
+    @asMiddleName = ko.observable()
+    @asLastName   = ko.observable()
+    @asSuffix     = ko.observable()
+    @asAddress1   = ko.observable()
+    @asAddress2   = ko.observable()
+    @asCity       = ko.observable()
+    @asState      = ko.observable()
+    @asZip5       = ko.observable()
+    @asZip4       = ko.observable()
 
     @oathErrors = ko.computed =>
       errors = []
       errors.push("Confirm that information is correct") unless @infoCorrect()
       errors.push("Social Security #") if !ssn(@ssn()) and !@noSSN()
-      errors.push("Assistant details") unless (filled(@asNameOfAssistant()) and filled(@asAddressOfAssistant())) or (!filled(@asNameOfAssistant()) and !filled(@asAddressOfAssistant()))
-      # errors.push('DMV ID#') if !@noSSN() and !isDmvId(@dmvId()) and !@noDmvId()
+
+      unless @paperlessSubmission()
+        fn = filled(@asFirstName())
+        ln = filled(@asLastName())
+        a  = filled(@asAddress1())
+        c  = filled(@asCity())
+        s  = filled(@asState())
+        z  = filled(@asZip5())
+
+        reqAInfo = fn || ln || a || c || s || z ||
+                   filled(@asMiddleName()) ||
+                   filled(@asSuffix()) ||
+                   filled(@asAddress2()) ||
+                   filled(@asZip4())
+
+        if reqAInfo && (!fn || !ln)
+          errors.push("Assistant name")
+
+        if reqAInfo && (!a || !c || !s || !z)
+          errors.push("Assistant address")
+
       errors
 
     @oathInvalid = ko.computed => @oathErrors().length > 0

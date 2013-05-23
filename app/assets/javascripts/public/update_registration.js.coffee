@@ -25,7 +25,7 @@ class UpdateRegistration extends Registration
     @setAbsenteeUntil(rau)
 
     # There's no DMV matching in update workflow
-    @paperlessSubmission = ko.observable(false)
+    @paperlessSubmission(false)
 
     # Navigation
     @page = ko.observable('address')

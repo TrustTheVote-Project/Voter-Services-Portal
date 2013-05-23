@@ -55,7 +55,7 @@ class Registration < ActiveRecord::Base
   # Options
   serialized_attr :choose_party, :party, :other_party
   serialized_attr :is_confidential_address, :ca_type
-  serialized_attr :need_assistance, :as_name_of_assistant, :as_address_of_assistant
+  serialized_attr :need_assistance, :as_first_name, :as_middle_name, :as_last_name, :as_suffix, :as_address, :as_address_2, :as_city, :as_state, :as_zip5, :as_zip4
   serialized_attr :requesting_absentee, :rab_election,
                   :rab_election_name, :rab_election_date,
                   :absentee_until
@@ -102,6 +102,10 @@ class Registration < ActiveRecord::Base
 
   def pr_full_name
     [ pr_first_name, pr_middle_name, pr_last_name, pr_suffix ].delete_if(&:blank?).join(' ')
+  end
+
+  def as_full_name
+    [ as_first_name, as_middle_name, as_last_name, as_suffix ].delete_if(&:blank?).join(' ')
   end
 
   def protected_voter_address

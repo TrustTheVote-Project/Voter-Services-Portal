@@ -15,8 +15,6 @@ class NewRegistration extends Registration
   constructor: (initPage = 0) ->
     super($('input#residence').val())
 
-    @paperlessSubmission = ko.observable()
-
     new Popover('#eligibility .next.btn', @eligibilityErrors)
     new Popover('#identity .next.btn', @identityErrors)
     new Popover('#mailing .next.btn', @addressesErrors)

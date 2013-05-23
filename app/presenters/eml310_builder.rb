@@ -141,6 +141,31 @@ class Eml310Builder
                 order += 1
               end
 
+              if r.need_assistance?
+                xml.Message DisplayOrder: order.to_s.rjust(4, '0'), Type: "RegistrationAssistant", Seqn: order do
+                  xml.AssistantName do
+                    xml.PersonFullName    r.as_full_name, { 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" }
+                    xml.PersonNameDetail 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
+                      xml.GivenName       r.as_first_name
+                      xml.MiddleName      r.as_middle_name
+                      xml.FamilyName      r.as_last_name
+                      xml.NameSuffixText  r.as_suffix
+                    end
+                  end
+                  xml.AssistantAddress status: 'current' do
+                    xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
+                      address_lines xml, [
+                        [ 'MailingAddressLine1',  r.as_address ],
+                        [ 'MailingAddressLine2',  r.as_address_2 ],
+                        [ 'MailingCity',          r.as_city ],
+                        [ 'MailingState',         r.as_state ],
+                        [ 'MailingZip',           r.as_zip ] ]
+                    end
+                  end
+                end
+                order += 1
+              end
+
               if r.absentee_request?
                 xml.Message DisplayOrder: order.to_s.rjust(4, '0'), Type: "AbsenteeRequest", Seqn: order do
                   xml.AbsenteeType r.ab_type,

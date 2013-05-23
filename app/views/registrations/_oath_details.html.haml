@@ -46,32 +46,48 @@
         = check_box :registration, :information_correct, 'data-bind' => 'instantValidation: { accessor: "infoCorrect" }'
         = f.label :information_correct, I18n.t('oath.information_correct')
 
+<!-- ko ifnot: paperlessSubmission -->
 .partition
   .row
     .span10
       %p
         %strong= I18n.t 'oath.assistance.title'
       %p= I18n.t 'oath.assistance.info'
-  .row
-    .span4
-      = f.label :as_name_of_assistant, "Name of Assistant"
-      = f.text_field :as_name_of_assistant, autocomplete: ac, 'data-bind' => 'valueWithInit: asNameOfAssistant'
-    .span4
-      = f.label :as_address_of_assistant, "Address of Assistant"
-      = f.text_field :as_address_of_assistant, autocomplete: ac, 'data-bind' => 'valueWithInit: asAddressOfAssistant'
+  .row.personal-info
+    .span3
+      = f.label :as_first_name, 'Assistant first name'
+      = f.text_field :as_first_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "asFirstName" }'
+    .span3
+      = f.label :as_middle_name do
+        Full middle
+        %span (optional)
+      = f.text_field :as_middle_name, autocomplete: ac, 'data-bind' => 'value: asMiddleName'
+    .span3
+      = f.label :as_last_name, "Last name"
+      = f.text_field :as_last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "asLastName" }'
+    .span2
+      = f.label :as_suffix do
+        Suffix
+        %span (optional)
+      = f.select :as_suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'value: asSuffix' }
 
--# .partition
--#   .row
--#     .span10
--#       %span
--#         %strong Privacy Act Notice
--#   .row
--#     .span10
--#       .notice
--#         Privacy Act Notice: Article II, Section 2 of the Constitution of Virginia (1971) requires that a person registering to vote provide his or her social security number, if any. Therefore, if you do not provide your social security number, your application for voter registration will be denied. Section 7 of the Federal Privacy Act (Public Law Number 93-579) allows the Commonwealth to enforce this requirement, but also requires that you be advised that state and local voting officials will use the social security number as a unique identifier to ensure that no person is registered in more than one place. This registration card will not be open to inspection by the public. Your social security number will appear on reports produced only for official use by voter registration and election officials, and for jury selection purposes by courts.
--#   .row
--#     .span10
--#       .checkbox
--#         = check_box :registration, :privacy_agree, 'data-bind' => 'instantValidation: { accessor: "privacyAgree" }'
--#         %label{ for: 'registration_privacy_agree' }
--#           %strong I have read and agree with the terms of the Privacy Act Notice.
+  .row
+    .span3
+      .address-field
+        = f.label       :as_address, "Assistant address"
+        = f.text_field  :as_address, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "asAddress1" }'
+      .address-field
+        = f.text_field  :as_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: asAddress2'
+  .row
+    .span3
+      = f.label      :as_city, "City"
+      = f.text_field :as_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "asCity" }'
+    .span2.state-field
+      = f.label      :as_state, "State"
+      = f.select     :as_state, Dictionaries::STATES, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "asState" }' }
+    .span3.zip-field
+      = f.label      :as_zip5, "Zip code"
+      = f.text_field :as_zip5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "asZip5", validation: "zip5" }', placeholder: 'NNNNN', maxlength: 5
+      .space &mdash;
+      = f.text_field :as_zip4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: asZip4', placeholder: 'NNNN', maxlength: 4
+<!-- /ko --> <!-- !paperlessSubmission -->

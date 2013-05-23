@@ -275,8 +275,16 @@ class RegistrationSearch
       ob_eligible:            obe_1 && obe_2,
 
       need_assistance:        "0",
-      as_name_of_assistant:   "",
-      as_address_of_assistant: "",
+      as_first_name:          "",
+      as_middle_name:         "",
+      as_last_name:           "",
+      as_suffix:              "",
+      as_address:             "",
+      as_address_2:           "",
+      as_city:                "",
+      as_state:               "",
+      as_zip5:                "",
+      as_zip4:                "",
 
       be_official:            "0"
     }
