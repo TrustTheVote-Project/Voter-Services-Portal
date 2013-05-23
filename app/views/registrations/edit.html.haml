@@ -1,13 +1,21 @@
 - requesting_absentee_status = @registration.absentee?
-= render partial: "search/steps", locals: { step: 'update' }
+= render partial: "steps"
+
+%p{ 'data-bind' => 'text: paperlessSubmission' }
+%p{ 'data-bind' => 'text: isEligible' }
 
 .row#update_registration
   .padded_page_span
     = form_for @registration, url: :registration  do |f|
       = hidden_field_tag 'kind', params[:kind]
       = f.hidden_field :residence
-      = render partial: 'addresses_section',      locals: { f: f }
-      = render partial: 'mailing_section',        locals: { f: f, updating: true }
-      = render partial: 'options_section',        locals: { f: f, updating: true }
-      = render partial: 'confirm_update_section', locals: { f: f, requesting_absentee_status: requesting_absentee_status }
-      = render partial: 'oath_section',           locals: { f: f, updating: true }
+      = render partial: 'eligibility_update_section', locals: { f: f }
+      = render partial: 'identity_update_section',    locals: { f: f }
+      = render partial: 'addresses_section',          locals: { f: f }
+      = render partial: 'mailing_section',            locals: { f: f, updating: true }
+      = render partial: 'options_section',            locals: { f: f, updating: true }
+      = render partial: 'confirm_section',            locals: { f: f, updating: true }
+      = render partial: 'oath_section',               locals: { f: f, updating: true }
+      = render partial: 'submit_online_section',      locals: { f: f }
+      = render partial: 'lookup_record_section'
+      = render partial: 'registered_info_section'

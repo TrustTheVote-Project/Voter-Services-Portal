@@ -160,6 +160,8 @@ class Registration < ActiveRecord::Base
 
   # Initializes the record for the update workflow
   def init_update_to(kind)
+    self.residence = self.current_residence
+
     unless kind.blank?
       self.residence           = kind == 'overseas' ? 'outside' : 'in'
       self.requesting_absentee = !!(kind =~ /absentee|overseas/) ? '1' : '0'

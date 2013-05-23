@@ -24,6 +24,8 @@ en:
     residence:
       in: I am currently a resident of Virginia
       out: I live outside of the U.S., but the most recent U.S. residence was in Virginia
+      in_overseas: I have returned to reside in Virginia.
+      out_overseas: I am still residing abroad or deployed on military duty.
     rights:
       question: Have you been convicted of a felony or been adjudicated mentally incapacitated?
       ineligible: To register, you must have your voting rights restored.

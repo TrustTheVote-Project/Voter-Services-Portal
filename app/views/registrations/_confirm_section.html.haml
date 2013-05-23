@@ -1,3 +1,4 @@
+- updating ||= false
 #confirm.section{ 'data-bind' => 'vis: page() == "confirm"' }
   .head
     %h3 Confirm
@@ -15,16 +16,17 @@
               %td
                 = link_to "Edit", "#identity", class: 'edit'
                 %span{ 'data-bind' => 'text: summaryFullName' }
-            %tr
-              %th= I18n.t('confirm.rows.dob')
-              %td
-                = link_to "Edit", "#eligibility", class: 'edit'
-                %span{ 'data-bind' => 'text: summaryDOB' }
-            %tr
-              %th= I18n.t('confirm.rows.gender')
-              %td
-                = link_to "Edit", "#identity", class: 'edit'
-                %span{ 'data-bind' => 'text: summaryGender' }
+            - unless updating
+              %tr
+                %th= I18n.t('confirm.rows.dob')
+                %td
+                  = link_to "Edit", "#eligibility", class: 'edit'
+                  %span{ 'data-bind' => 'text: summaryDOB' }
+              %tr
+                %th= I18n.t('confirm.rows.gender')
+                %td
+                  = link_to "Edit", "#identity", class: 'edit'
+                  %span{ 'data-bind' => 'text: summaryGender' }
             %tr
               %th= I18n.t('confirm.rows.ssn')
               %td

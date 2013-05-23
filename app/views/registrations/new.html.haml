@@ -1,5 +1,4 @@
 - @page_id = 'registration'
-
 = render partial: 'steps'
 
 .row.disclaimer
@@ -12,14 +11,14 @@
   .padded_page_span
     = form_for @registration, url: :registration, html: { 'data-bind' => 'submit: submit' } do |f|
       = hidden_field_tag :residence, params[:residence]
-      = render partial: 'eligibility_section',  locals: { f: f }
-      = render partial: 'identity_section',     locals: { f: f }
-      = render partial: 'addresses_section',    locals: { f: f }
-      = render partial: 'mailing_section',      locals: { f: f }
-      = render partial: 'options_section',      locals: { f: f }
-      = render partial: 'confirm_section',      locals: { f: f }
-      = render partial: 'oath_section',         locals: { f: f }
-      = render partial: 'submit_online_section', locals: { f: f }
+      = render partial: 'eligibility_section',    locals: { f: f }
+      = render partial: 'identity_section',       locals: { f: f }
+      = render partial: 'addresses_section',      locals: { f: f }
+      = render partial: 'mailing_section',        locals: { f: f }
+      = render partial: 'options_section',        locals: { f: f }
+      = render partial: 'confirm_section',        locals: { f: f }
+      = render partial: 'oath_section',           locals: { f: f }
+      = render partial: 'submit_online_section',  locals: { f: f }
       = render partial: 'lookup_record_section'
       = render partial: 'registered_info_section'
 

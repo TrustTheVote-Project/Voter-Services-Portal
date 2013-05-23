@@ -1,19 +1,31 @@
 pageSteps = {
-  'address':          2,
-  'options':          3,
-  'confirm':          4,
-  'oath':             4,
-  'final':            4,
-  'download':         4,
-  'congratulations':  4
+  'eligibility':      1,
+  'identity':         2,
+  'address':          3,
+  'options':          4,
+  'confirm':          5,
+  'oath':             5,
+  'submit_online':    5,
+  'final':            5,
+  'download':         5,
+  'congratulations':  5
 }
 
 class UpdateRegistration extends Registration
   constructor: (initPage = 0) ->
     super($('input#registration_residence').val())
 
+    @augmentEligibilityFields()
+    @augmentIdentityFields()
     @initConfirmFields()
 
+    @isEligible = ko.computed =>
+      @citizen() == '1' and
+      @oldEnough() == '1' and
+      !@noSSN() and filled(@ssn())
+
+    new Popover('#eligibility .next.btn', @eligibilityErrors)
+    new Popover('#identity .next.btn', @identityErrors)
     new Popover('#mailing .next.btn', @addressesErrors)
     new Popover('#options .next.btn', @optionsErrors)
     new Popover('#oath .next.btn', @oathErrors)
@@ -24,15 +36,9 @@ class UpdateRegistration extends Registration
     rau = moment().add('days', 45).format("YYYY-MM-DD") if !filled(rau)
     @setAbsenteeUntil(rau)
 
-    # There's no DMV matching in update workflow
-    @paperlessSubmission(false)
-
     # Navigation
-    @page = ko.observable('address')
+    @page = ko.observable('eligibility')
     @step = ko.computed => pageSteps[@page()]
-
-    # Reset any hash in the URL
-    location.hash = ''
 
     # Watch for url changes
     $(window).hashchange =>
@@ -40,6 +46,23 @@ class UpdateRegistration extends Registration
 
     if $("#registration_requesting_absentee").is(":checked")
       @gotoPage('options')
+
+  augmentEligibilityFields: ->
+    @eligibilityErrors = ko.computed =>
+      errors = []
+      errors.push("Citizenship criteria") unless @citizen()
+      errors.push("Age criteria") unless @oldEnough()
+      errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
+      errors
+
+  augmentIdentityFields: ->
+    @identityErrors = ko.computed =>
+      errors = []
+      errors.push('First name') unless filled(@firstName())
+      errors.push('Last name') unless filled(@lastName())
+      errors.push('Phone number') unless @validPhone()
+      errors.push('Email address') unless @validEmail()
+      errors
 
   initConfirmFields: ->
     @confirmErrors = ko.computed =>
@@ -53,10 +76,13 @@ class UpdateRegistration extends Registration
 
   gotoPage: (page, e) =>
     return if e && $(e.target).hasClass('disabled')
+    page = 'eligibility' unless filled(page)
     @page(page)
     location.hash = page
 
   prevPage: => window.history.back()
+  eligibilityPage: (_, e) => @gotoPage('eligibility', e)
+  nextFromIdentity: (_, e) => @gotoPage('address', e)
   nextFromAddress: (_, e) => @gotoPage('options', e)
   nextFromOptions: (_, e) => @gotoPage('confirm', e)
   nextFromConfirm: (_, e) => @gotoPage('oath', e)

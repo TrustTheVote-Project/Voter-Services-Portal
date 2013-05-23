@@ -24,5 +24,6 @@ $ ->
   $("input.ssn").
     on("keydown", filter).
     on("keyup", ssnInput).
-    on("blur", ssnInput)
+    on("blur", ssnInput).
+    each(ssnInput)
 

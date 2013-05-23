@@ -1,0 +1,61 @@
+#eligibility.section{ 'data-bind' => 'vis: page() == "eligibility"' }
+  .head
+    %h3 Eligibility
+    .description Eligibility to vote in Virginia.
+  %p= I18n.t('eligibility.details')
+
+  .partition.citizen
+    %h4= I18n.t('eligibility.citizen.question')
+    .radio
+      = f.radio_button :citizen, '1', 'data-bind' => 'checkedWithInit: citizen'
+      %label{ for: 'registration_citizen_1' } Yes
+    .radio
+      = f.radio_button :citizen, '0', 'data-bind' => 'checkedWithInit: citizen'
+      %label{ for: 'registration_citizen_0' } No
+    .block.ineligible{ 'data-bind' => "visible: citizen() == '0'" }
+      %p= I18n.t("eligibility.citizen.ineligible")
+
+  - if AppConfig['eligibility_18_display']
+    .partition.old_enough
+      %h4= I18n.t('eligibility.old_enough.question')
+      .radio
+        = f.radio_button :old_enough, '1', 'data-bind' => 'checkedWithInit: oldEnough'
+        %label{ for: 'registration_old_enough_1' } Yes
+      .radio
+        = f.radio_button :old_enough, '0', 'data-bind' => 'checkedWithInit: oldEnough'
+        %label{ for: 'registration_old_enough_0' } No
+  - else
+    = hidden_field_tag "registration[old_enough]", 1, 'data-bind' => 'valueWithInit: oldEnough'
+
+  - if @registration.currently_residential?
+    - res_in_label = I18n.t('eligibility.residence.in')
+    - res_out_label = I18n.t('eligibility.residence.out')
+  - else
+    - res_in_label = I18n.t('eligibility.residence.in_overseas')
+    - res_out_label = I18n.t('eligibility.residence.out_overseas')
+
+  .partition
+    .radio
+      = f.radio_button :residence, 'in', 'data-bind' => 'checkedWithInit: residence'
+      %label{ for: 'registration_residence_in' } #{res_in_label}
+    .radio
+      = f.radio_button :residence, 'outside', 'data-bind' => 'checkedWithInit: residence'
+      %label{ for: 'registration_residence_outside' } #{res_out_label}
+
+
+  .partition
+    .security-number
+      = f.label :ssn, "Social Security Number"
+      = f.text_field :ssn, autocomplete: ac, placeholder: "NNN-NN-NNNN", maxlength: 11, 'data-bind' => 'visible: !noSSN(), instantValidation: { accessor: "ssn", validation: "ssn" }', class: 'span3 ssn'
+      .checkbox
+        = f.check_box :no_ssn, 'data-bind' => 'checked: noSSN'
+        = f.label :no_ssn, "I do not have a Social Security Number"
+
+  .partition
+    .dmv
+      = f.label :dmv_id, I18n.t("eligibility.dmvid.title")
+      = f.text_field :dmv_id, autocomplete: ac, maxlength: 12, 'data-bind' => 'instantValidation: { accessor: "dmvId", validation: "isDmvId" }', placeholder: 'From 9 to 12 letters or numbers', class: 'span3'
+    %p= I18n.t('eligibility.dmvid.details')
+
+  .form-actions
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: checkEligibility, css: { disabled: eligibilityInvalid }'

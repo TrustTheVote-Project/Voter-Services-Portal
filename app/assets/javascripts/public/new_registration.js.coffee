@@ -25,14 +25,9 @@ class NewRegistration extends Registration
       btn = $(this)
       $("input, select", btn.parents(".section")).trigger("validate") if btn.hasClass('disabled')
 
-    $(".section").show()
-
     # Navigation
     @page = ko.observable('eligibility')
     @step = ko.computed => pageSteps[@page()]
-
-    # Reset any hash in the URL
-    location.hash = ''
 
     # Watch for URL changes
     $(window).hashchange =>
@@ -45,10 +40,12 @@ class NewRegistration extends Registration
 
   gotoPage: (page, e) =>
     return if e && $(e.target).hasClass('disabled')
+    page = 'eligibility' unless filled(page)
     @page(page)
     location.hash = page
 
   prevPage: => window.history.back()
+  eligibilityPage: (_, e) => @gotoPage('eligibility', e)
   nextFromIdentity: (_, e) => @gotoPage('address', e)
   nextFromAddress: (_, e) => @gotoPage('options', e)
   nextFromOptions: (_, e) => @gotoPage('confirm', e)
@@ -61,44 +58,6 @@ class NewRegistration extends Registration
 
   submitForm: =>
     $("form#new_registration")[0].submit()
-
-  checkEligibility: (_, e) =>
-    return if $(e.target).hasClass('disabled')
-    if @isEligible()
-      @lookupRecord(_, e)
-    else
-      @gotoPage('identity')
-
-  lookupRecord: (_, e) =>
-    return if $(e.target).hasClass('disabled')
-    @page('lookup')
-
-    revoked = @rightsWereRevoked() && !@rightsWereRestored()
-    reason  = @rightsRevokationReason()
-    rfelony = revoked && reason == 'felony'
-    rmental = revoked && reason == 'mental'
-
-    $.getJSON '/lookup/registration', { record: {
-        eligible_citizen:             @citizen(),
-        eligible_18_next_election:    @oldEnough(),
-        eligible_revoked_felony:      if rfelony then '1' else '0',
-        eligible_revoked_competence:  if rmental then '1' else '0',
-        dob:                          "#{@dobMonth()}/#{@dobDay()}/#{@dobYear()}",
-        ssn:                          @ssn(),
-        dmv_id:                       @dmvId()
-      }}, (data) =>
-        if data.registered
-          location.hash = "registered_info"
-        else
-          @paperlessSubmission(data.dmv_match)
-          if @paperlessSubmission()
-            a = data.address
-            @vvrStreetNumber(a.street_number)
-            @vvrStreetName(a.street_name)
-            @vvrStreetType(a.street_type)
-            @vvrCountyOrCity(a.county_or_city)
-            @vvrZip5(a.zip5)
-          location.hash = 'identity'
 
 $ ->
   if $('form#new_registration').length > 0

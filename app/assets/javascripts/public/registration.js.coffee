@@ -607,3 +607,41 @@ class window.Registration
 
     @oathInvalid = ko.computed => @oathErrors().length > 0
 
+  checkEligibility: (_, e) =>
+    return if $(e.target).hasClass('disabled')
+    if @isEligible()
+      @lookupRecord(_, e)
+    else
+      @gotoPage('identity')
+
+  lookupRecord: (_, e) =>
+    return if $(e.target).hasClass('disabled')
+    @page('lookup')
+
+    revoked = @rightsWereRevoked() && !@rightsWereRestored()
+    reason  = @rightsRevokationReason()
+    rfelony = revoked && reason == 'felony'
+    rmental = revoked && reason == 'mental'
+
+    $.getJSON '/lookup/registration', { record: {
+        eligible_citizen:             @citizen(),
+        eligible_18_next_election:    @oldEnough(),
+        eligible_revoked_felony:      if rfelony then '1' else '0',
+        eligible_revoked_competence:  if rmental then '1' else '0',
+        dob:                          "#{@dobMonth()}/#{@dobDay()}/#{@dobYear()}",
+        ssn:                          @ssn(),
+        dmv_id:                       @dmvId()
+      }}, (data) =>
+        if data.registered
+          location.hash = "registered_info"
+        else
+          @paperlessSubmission(data.dmv_match)
+          if @paperlessSubmission()
+            a = data.address
+            @vvrStreetNumber(a.street_number)
+            @vvrStreetName(a.street_name)
+            @vvrStreetType(a.street_type)
+            @vvrCountyOrCity(a.county_or_city)
+            @vvrZip5(a.zip5)
+          location.hash = 'identity'
+
