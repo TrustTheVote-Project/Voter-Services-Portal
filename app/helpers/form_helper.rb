@@ -105,9 +105,9 @@ module FormHelper
 
   def party_preference_label
     if AppConfig['registration']['absentee_party_preference']
-      "Party preference for absentee ballots"
+      I18n.t('confirm.row.party_preference.absentee')
     else
-      "Political party preference"
+      I18n.t('confirm.row.party_preference.non_absentee')
     end
   end
 

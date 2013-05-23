@@ -50,6 +50,26 @@ en:
 
   confirm:
     details: Please confirm that your information is accurate. If any information is not correct, please click the "Edit" button next to it, in order to go back to the page where you can make corrections.
+    rows:
+      name: Name
+      eligibility: Eligibility
+      voting_rights: Voting Rights
+      dob: Date of Birth
+      ssn: Social Security Number
+      dmv_id: Department of Motor Vehicles ID
+      gender: Gender
+      phone: Phone
+      email: Email
+      registration_address: Registration Address
+      mailing_address: Mailing Address
+      previous_registration: Previous Registration
+      party_preference:
+        absentee: Party preference for absentee ballots
+        non_absentee: Political party preference
+      protected_voter: Protected Voter
+      absentee_request: Absentee Request
+      assistance_request: Assistance Request
+      volunteering: Volunteering
 
   oath:
     subheader: ""

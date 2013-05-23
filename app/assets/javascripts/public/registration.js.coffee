@@ -382,34 +382,46 @@ class window.Registration
     @summaryFullName = ko.computed =>
       valueOrUnspecified(join([ @firstName(), @middleName(), @lastName(), @suffix() ], ' '))
 
-    @summaryCitizen   = ko.computed => yesNo(@citizen())
-    @summaryOldEnough = ko.computed => yesNo(@oldEnough())
+    @summaryEligibility = ko.computed =>
+      items = []
+      if @citizen()
+        items.push "U.S. citizen"
+      else
+        items.push "Not a U.S. citizen"
+
+      if @domestic()
+        items.push "VA resident"
+
+      if @oldEnough()
+        items.push "Over 18 by next election"
+      else
+        items.push "Not over 18 by next election"
+
+      items.join(', ')
+
     @summaryGender    = ko.computed => valueOrUnspecified(@gender())
 
     @summaryVotingRights = ko.computed =>
-      if @rightsWereRevoked() == '0'
-        "Haven't been convicted of a felony or adjudicated mentally incapacitated"
+      if !filled(@rightsWereRevoked())
+        "Unspecified"
+      else if @rightsWereRevoked() == '0'
+        "Not revoked"
       else
         lines = [ ]
-        if @rightsRevokationReason() == 'felony'
-          lines.push "Have been convicted of a felony"
-        else
-          lines.push "Have been adjudicated mentally incapacitated"
-
         if @rightsWereRestored() == '0'
-          lines.push "Voting rights were not restored"
+          lines.push "Revoked"
         else
-          lines.push "Voting rights were restored in #{@rightsRestoredInText()} on #{moment(@rightsRestoredOn()).format("MMMM Do, YYYY")}"
+          lines.push "Restored"
 
         lines.join "<br/>"
     @summarySSN = ko.computed =>
       if @noSSN() || !filled(@ssn())
-        "No Social Security Number"
+        "none"
       else
         @ssn()
     @summaryDMVID = ko.computed =>
       if !filled(@dmvId())
-        "No DMV ID"
+        "none"
       else
         @dmvId()
     @summaryDOB = ko.computed =>
@@ -450,7 +462,7 @@ class window.Registration
 
     @summaryExistingRegistration = ko.computed =>
       if @prStatus() != '1'
-        false
+        "Not currently registered in another state"
       else
         lines = []
 

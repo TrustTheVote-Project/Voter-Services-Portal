@@ -11,102 +11,97 @@
         .body
           %table.table.properties
             %tr
-              %th Name:
+              %th= I18n.t('confirm.rows.name')
               %td
                 = link_to "Edit", "#identity", class: 'edit'
                 %span{ 'data-bind' => 'text: summaryFullName' }
             %tr
-              %th Citizen?
-              %td
-                = link_to "Edit", "#eligibility", class: 'edit'
-                %span{ 'data-bind' => 'text: summaryCitizen' }
-            %tr
-              %th Old enough?
-              %td
-                = link_to "Edit", "#eligibility", class: 'edit'
-                %span{ 'data-bind' => 'text: summaryOldEnough' }
-            %tr
-              %th Voting rights summary:
-              %td
-                = link_to "Edit", "#eligibility", class: 'edit'
-                %span{ 'data-bind' => 'html: summaryVotingRights' }
-            %tr
-              %th Date of birth:
+              %th= I18n.t('confirm.rows.dob')
               %td
                 = link_to "Edit", "#eligibility", class: 'edit'
                 %span{ 'data-bind' => 'text: summaryDOB' }
             %tr
-              %th Social security number:
+              %th= I18n.t('confirm.rows.gender')
+              %td
+                = link_to "Edit", "#identity", class: 'edit'
+                %span{ 'data-bind' => 'text: summaryGender' }
+            %tr
+              %th= I18n.t('confirm.rows.ssn')
               %td
                 = link_to "Edit", "#eligibility", class: 'edit'
                 %span{ 'data-bind' => 'text: summarySSN' }
             %tr
-              %th Department of Motor Vehicles ID:
+              %th= I18n.t('confirm.rows.dmv_id')
               %td
                 = link_to "Edit", "#eligibility", class: 'edit'
                 %span{ 'data-bind' => 'text: summaryDMVID' }
             %tr
-              %th Gender:
+              %th= I18n.t('confirm.rows.eligibility')
               %td
-                = link_to "Edit", "#identity", class: 'edit'
-                %span{ 'data-bind' => 'text: summaryGender' }
-            %tr{ 'data-bind' => 'if: phone' }
-              %th Phone:
-              %td
-                = link_to "Edit", "#identity", class: 'edit'
-                %span{ 'data-bind' => 'text: phone' }
-            %tr{ 'data-bind' => 'if: email' }
-              %th Email:
-              %td
-                = link_to "Edit", "#identity", class: 'edit'
-                %span{ 'data-bind' => 'text: email' }
-
+                = link_to "Edit", "#eligibility", class: 'edit'
+                %span{ 'data-bind' => 'text: summaryEligibility' }
             %tr
-              %th Registration address:
+              %th= I18n.t('confirm.rows.voting_rights')
+              %td
+                = link_to "Edit", "#eligibility", class: 'edit'
+                %span{ 'data-bind' => 'html: summaryVotingRights' }
+            %tr
+              %th= I18n.t('confirm.rows.registration_address')
               %td
                 = link_to "Edit", "#address", class: 'edit'
                 %span{ 'data-bind' => 'html: summaryRegistrationAddress' }
 
             %tr{ 'data-bind' => 'if: overseas() || maIsDifferent()' }
-              %th Mailing address:
+              %th= I18n.t('confirm.rows.mailing_address')
               %td
                 = link_to "Edit", "#address", class: 'edit'
                 %p{ 'data-bind' => 'html: summaryMailingAddress' }
+                <!-- ko if: domestic -->
+                (#{I18n.t("mailing_address.different.#{AppConfig['domestic_voter_mailing_address_limit'] ? 'limit' : 'no_limit'}")})
+                <!-- /ko -->
                 <!-- ko if: overseas -->
                 (used for absentee ballot and other voting correspondence)
                 <!-- /ko -->
-            %tr{ 'data-bind' => 'if: prStatus() == "1"' }
-              %th Existing registration:
+            %tr
+              %th= I18n.t('confirm.rows.previous_registration')
               %td
                 = link_to "Edit", "#address", class: 'edit'
                 %span{ 'data-bind' => 'html: summaryExistingRegistration' }
-
+            %tr{ 'data-bind' => 'if: isConfidentialAddress' }
+              %th= I18n.t('confirm.rows.protected_voter')
+              %td
+                = link_to "Edit", "#options", class: 'edit'
+                %span{ 'data-bind' => 'html: summaryAddressConfidentiality' }
+            %tr{ 'data-bind' => 'if: requestingAbsentee' }
+              %th= I18n.t('confirm.rows.absentee_request')
+              %td
+                = link_to "Edit", "#options", class: 'edit'
+                %span{ 'data-bind' => 'html: summaryAbsenteeRequest' }
             %tr{ 'data-bind' => 'if: showingPartySummary' }
-              %th #{party_preference_label}:
+              %th= party_preference_label
               %td
                 = link_to "Edit", "#options", class: 'edit'
                 %span{ 'data-bind' => 'text: summaryParty' }
 
-            %tr{ 'data-bind' => 'if: isConfidentialAddress' }
-              %th Address confidentiality:
+
+            %tr{ 'data-bind' => 'if: phone' }
+              %th= I18n.t('confirm.rows.phone')
               %td
-                = link_to "Edit", "#options", class: 'edit'
-                %span{ 'data-bind' => 'html: summaryAddressConfidentiality' }
+                = link_to "Edit", "#identity", class: 'edit'
+                %span{ 'data-bind' => 'text: phone' }
+            %tr{ 'data-bind' => 'if: email' }
+              %th= I18n.t('confirm.rows.email')
+              %td
+                = link_to "Edit", "#identity", class: 'edit'
+                %span{ 'data-bind' => 'text: email' }
 
             %tr{ 'data-bind' => 'if: needsAssistance' }
-              %th Assistance needed:
+              %th= I18n.t('confirm.rows.assistance_request')
               %td
                 = link_to "Edit", "#options", class: 'edit'
                 %span Yes
-
-            %tr{ 'data-bind' => 'if: requestingAbsentee' }
-              %th Absentee request:
-              %td
-                = link_to "Edit", "#options", class: 'edit'
-                %span{ 'data-bind' => 'html: summaryAbsenteeRequest' }
-
             %tr{ 'data-bind' => 'if: beOfficial' }
-              %th Intrested in being official:
+              %th= I18n.t('confirm.rows.volunteering')
               %td
                 = link_to "Edit", "#options", class: 'edit'
                 %span Yes
