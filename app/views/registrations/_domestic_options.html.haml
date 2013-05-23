@@ -19,7 +19,7 @@
   .row
     .span12
       .checkbox
-        = f.check_box :requesting_absentee, 'data-bind' => 'checked: requestingAbsentee', autocomplete: ac
+        = f.check_box :requesting_absentee, 'data-bind' => 'checkedWithInit: requestingAbsentee', autocomplete: ac
         = f.label :requesting_absentee do
           %strong= I18n.t('options.domestic.requesting_absentee')
       <!-- ko if: requestingAbsentee -->

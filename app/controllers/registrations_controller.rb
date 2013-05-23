@@ -113,9 +113,7 @@ class RegistrationsController < ApplicationController
 
     ActiveForm.mark!(session, @registration)
 
-    # "kind" comes from the review form where we either maintain or
-    # change the status.
-    @registration.init_update_to(params[:kind].to_s)
+    @registration.init_update_to(params[:request_absentee] ? 'absentee' : nil)
   end
 
   def update

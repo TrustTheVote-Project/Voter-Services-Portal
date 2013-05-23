@@ -9,6 +9,11 @@
         = link_to "Download Voter Card", voter_card_path, class: 'download voter_card'
       %h3 Voter Information
 
+      %p= I18n.t('view.info')
+      %p
+        You can also #{link_to 'update your voter information', :edit_registration} or
+        #{link_to 'apply for an absentee ballot', :request_absentee_registration}.
+
     .summary
       .body
         %table.table.properties
@@ -77,13 +82,6 @@
                 %td.l= s
                 %td <em>#{e}</em>
 
-    .head.light
-      %h3 Voting Status
-
-    %ul.status_options{ class: no_forms? ? 'no_forms' : nil }
-      - (no_forms? ? [ reg.status ] : reg.status_options).each do |opt|
-        = render partial: "status_option_#{opt}", locals: { reg: reg }
-
     - if no_forms?
       .info
         %p
@@ -97,4 +95,5 @@
         = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Mark Your Absentee Ballot Online: #{link_to 'learn more', :online_ballot_marking_page, target: '_blank'} or #{link_to 'get started now', '#', class: 'submit'}" }
     - else
       .form-actions
-        = link_to "Next &rarr;".html_safe, :edit_registration, class: 'next btn', id: 'edit_registration'
+        = link_to "Update Your Voter Information", :edit_registration, class: 'btn', id: 'edit_registration'
+        = link_to "Apply for an Absentee Ballot", :request_absentee_registration, class: 'btn pull-right'

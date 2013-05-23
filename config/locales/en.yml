@@ -137,3 +137,5 @@ en:
   contact:
     organization: Virginia State Board of Elections
 
+  view:
+    info: 'Your voter record is shown below, along with several kinds of additional information that you can view by clicking "SHOW"'

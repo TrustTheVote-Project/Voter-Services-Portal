@@ -38,6 +38,9 @@ class UpdateRegistration extends Registration
     $(window).hashchange =>
       @gotoPage(location.hash.replace('#', ''))
 
+    if $("#registration_requesting_absentee").is(":checked")
+      @gotoPage('options')
+
   initConfirmFields: ->
     @confirmErrors = ko.computed =>
       errors = []
@@ -63,12 +66,6 @@ class UpdateRegistration extends Registration
     else
       @submitForm()
 
-updateEditLink = ->
-  editLink = $("a#edit_registration")
-  st = $('input:checked[name="status"]').val()
-  path = editLink.attr('href').replace(/edit.*$/, 'edit')
-  editLink.attr('href', path + '/' + st)
-
 
 $ ->
   if $("#update_registration").length > 0
@@ -76,8 +73,3 @@ $ ->
 
   if $("#update_finalization").length > 0
     ko.applyBindings(new Finalization(pageSteps))
-
-  editLink = $("a#edit_registration")
-  if editLink.length > 0
-    $('input[name="status"]').change(updateEditLink)
-    updateEditLink()

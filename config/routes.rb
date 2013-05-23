@@ -32,7 +32,8 @@ VaVote::Application.routes.draw do
   end
 
   resource :registration, except: :destroy do
-    get '/edit/:kind' => 'registrations#edit'
+    get '/edit' => 'registrations#edit'
+    get '/request_absentee' => 'registrations#edit', defaults: { request_absentee: true }, as: 'request_absentee'
   end
   get '/voter_card.pdf' => 'voter_cards#show', format: 'pdf', as: 'voter_card'
 
