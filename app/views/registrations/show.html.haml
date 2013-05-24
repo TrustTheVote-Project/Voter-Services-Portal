@@ -1,4 +1,5 @@
 - reg = RegistrationDetailsPresenter.new(@registration)
+- show_missing = AppConfig['voter_info_show_missing_items']
 
 .padded_page_span.section#overview
   = render partial: 'head'
@@ -16,17 +17,55 @@
 
     .summary
       .body
-        %table.table.properties
+        %table.table.properties.table-condensed
           %tr
             %th Name:
             %td= reg.full_name
-          - if reg.dob
+          - if show_missing || reg.dob
             %tr
               %th Date of birth:
               %td= reg.dob
+          - if show_missing || reg.voter_id.present?
+            %tr
+              %th Voter ID:
+              %td= reg.voter_id
+          - if show_missing
+            %tr
+              %th Status:
+              %td
+          - if show_missing
+            %tr
+              %th Date of Status:
+              %td
           %tr
-            %th Gender:
-            %td= reg.gender
+            %th ID Requirement:
+            %td
+              State<br/>
+              = link_to "Click here for more information", "http://sbe.virginia.gov/", target: '_blank'
+          %tr
+            %th Residential address:
+            %td= reg.registration_address
+          - if @registration.ma_is_different == '1' || @registration.currently_overseas?
+            %tr
+              %th Mailing address:
+              %td= reg.mailing_address(@registration.currently_overseas?)
+          - if show_missing || @registration.poll_locality.present?
+            %tr
+              %th Locality:
+              %td= @registration.poll_locality
+          - if show_missing || @registration.poll_precinct.present?
+            %tr
+              %th Precinct:
+              %td= @registration.poll_precinct
+          - if show_missing
+            %tr
+              %th Town:
+              %td N/A
+          - if show_missing
+            %tr
+              %th Town precinct:
+              %td N/A
+
           - unless reg.optional_phone.blank?
             %tr
               %th Phone:
@@ -35,12 +74,6 @@
             %tr
               %th Email:
               %td= reg.optional_email
-          %tr
-            %th Registration address:
-            %td= reg.registration_address
-          %tr
-            %th Mailing address:
-            %td= reg.mailing_address(@registration.currently_overseas?)
           - if reg.address_confidentiality?
             %tr
               %th Address confidentiality:
@@ -52,35 +85,65 @@
           %h3
             = link_to "Show", '#', class: 'toggle'
             Voting Location
-          %table.table.area
-            %tr
-              %th &nbsp;
-              %td= reg.voting_location
+          .area
+            %table.table
+              %tr
+                %th &nbsp;
+                %td= reg.voting_location
 
     .accordion.summary.districts
+      - districts = reg.districts || []
       .body
         %h3
-          = link_to "Show", '#', class: 'toggle'
-          Districts
-        %table.table.area
-          - (reg.districts || []).each do |label, (c, v)|
-            %tr
-              %th &nbsp;
-              %td.l #{label}:
-              %td <em>#{v}</em>
-
-    - if reg.has_election_participation_history?
-      .accordion.summary
-        .body
-          %h3
+          - if districts.present?
             = link_to "Show", '#', class: 'toggle'
-            Election Participation<br>History
-          %table.table.area
-            - reg.past_elections.each do |e, s|
+          Districts
+        .area
+          %table.table
+            - districts.each do |label, (c, v)|
+              %tr
+                %th &nbsp;
+                %td.l #{label}:
+                %td <em>#{v}</em>
+
+    .accordion.summary
+      .body
+        %h3 Polling Place
+
+    .accordion.summary
+      .body
+        %h3 My Ballot
+
+    .accordion.summary
+      .body
+        %h3 Absentee
+
+    .accordion.summary
+      .body
+        %h3
+          Provisional Ballot
+
+    .accordion.summary
+      .body
+        %h3
+          - if reg.has_election_participation_history?
+            = link_to "Show", '#', class: 'toggle'
+          Voter History
+        .area
+          %table.table
+            - (reg.past_elections || []).each do |e, s|
               %tr
                 %th &nbsp;
                 %td.l= s
                 %td <em>#{e}</em>
+
+    .accordion.summary
+      .body
+        %h3 Locality Voter Registration Office Contact Information
+
+    .accordion.summary
+      .body
+        %h3 Locality Electoral Board Contact Information
 
     - if no_forms?
       .info

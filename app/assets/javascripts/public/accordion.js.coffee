@@ -8,8 +8,9 @@ $ ->
 
     (->
       visible = false
-      toggle.click ->
+      toggle.on 'click', (e) ->
+        e.preventDefault()
         visible = !visible
         toggle.text if visible then "HIDE" else "SHOW"
-        if visible then area.show() else area.hide()
+        if visible then area.slideDown('slow') else area.slideUp('slow')
     )()
