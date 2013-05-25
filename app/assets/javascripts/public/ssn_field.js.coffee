@@ -1,7 +1,8 @@
 filter = (e) ->
   # backspace, tab, enter, arrows, digits
-  allowed = [ 8, 9, 13, 37, 38, 39, 40, 48, 49, 50, 51, 52, 53, 54, 55, 56, 57, 58 ]
-  e.preventDefault() unless allowed.indexOf(e.keyCode) != -1
+  allowed = [ 8, 9, 13, 37, 38, 39, 40, 58 ]
+  kc = e.keyCode
+  e.preventDefault() if !((kc >= 48 && kc <= 57) || (kc >= 96 && kc <= 105) ||  allowed.indexOf(kc) != -1)
 
   # delete extra character if is standing on dash
   if e.keyCode == 8
