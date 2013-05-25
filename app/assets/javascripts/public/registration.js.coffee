@@ -589,18 +589,18 @@ class window.Registration
         a  = filled(@asAddress1())
         c  = filled(@asCity())
         s  = filled(@asState())
-        z  = filled(@asZip5())
 
-        reqAInfo = fn || ln || a || c || s || z ||
+        reqAInfo = fn || ln || a || c || s ||
                    filled(@asMiddleName()) ||
                    filled(@asSuffix()) ||
                    filled(@asAddress2()) ||
+                   filled(@asZip5()) ||
                    filled(@asZip4())
 
         if reqAInfo && (!fn || !ln)
           errors.push("Assistant name")
 
-        if reqAInfo && (!a || !c || !s || !z)
+        if reqAInfo && (!a || !c || !s || !zip5(@asZip5()))
           errors.push("Assistant address")
 
       errors

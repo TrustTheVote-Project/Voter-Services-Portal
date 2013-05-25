@@ -46,7 +46,7 @@
   .partition
     .security-number
       = f.label :ssn, "Social Security Number"
-      = f.text_field :ssn, autocomplete: ac, placeholder: "NNN-NN-NNNN", maxlength: 11, 'data-bind' => 'visible: !noSSN(), instantValidation: { accessor: "ssn", validation: "ssn" }', class: 'span3 ssn'
+      = f.text_field :ssn, autocomplete: ac, placeholder: "NNN-NN-NNNN", maxlength: 11, 'data-bind' => 'visible: !noSSN(), instantValidation: { accessor: "ssn", validation: "ssn" }, valueUpdate: "afterkeyup"', class: 'span3 ssn'
       .checkbox
         = f.check_box :no_ssn, 'data-bind' => 'checked: noSSN'
         = f.label :no_ssn, "I do not have a Social Security Number"
@@ -54,7 +54,7 @@
   .partition
     .dmv
       = f.label :dmv_id, I18n.t("eligibility.dmvid.title")
-      = f.text_field :dmv_id, autocomplete: ac, maxlength: 12, 'data-bind' => 'instantValidation: { accessor: "dmvId", validation: "isDmvId" }', placeholder: 'From 9 to 12 letters or numbers', class: 'span3'
+      = f.text_field :dmv_id, autocomplete: ac, maxlength: 12, 'data-bind' => 'instantValidation: { accessor: "dmvId", validation: "isDmvId" }, valueUpdate: "afterkeyup"', placeholder: 'From 9 to 12 letters or numbers', class: 'span3'
     %p= I18n.t('eligibility.dmvid.details')
 
   .form-actions

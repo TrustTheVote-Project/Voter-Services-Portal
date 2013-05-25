@@ -1,9 +1,6 @@
 - requesting_absentee_status = @registration.absentee?
 = render partial: "steps"
 
-%p{ 'data-bind' => 'text: paperlessSubmission' }
-%p{ 'data-bind' => 'text: isEligible' }
-
 .row#update_registration
   .padded_page_span
     = form_for @registration, url: :registration  do |f|

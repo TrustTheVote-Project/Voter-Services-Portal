@@ -2,19 +2,19 @@
 .row
   .span3.address-field
     %label{ for: "#{lprefix}_address" } Address
-    = f.text_field "#{prefix}_address", 'data-bind' => "instantValidation: { accessor: '#{prefix}Address' }"
-    = f.text_field "#{prefix}_address_2", 'data-bind' => "valueWithInit: #{prefix}Address2"
+    = f.text_field "#{prefix}_address", 'data-bind' => "instantValidation: { accessor: '#{prefix}Address' }, valueUpdate: 'afterkeyup'"
+    = f.text_field "#{prefix}_address_2", 'data-bind' => "valueWithInit: #{prefix}Address2, valueUpdate: 'afterkeyup'"
 
 .row
   .span2
     %label{ for: "#{lprefix}_city" } City or Town
-    = f.text_field "#{prefix}_city", 'data-bind' => "instantValidation: { accessor: '#{prefix}City' }", class: 'span2'
+    = f.text_field "#{prefix}_city", 'data-bind' => "instantValidation: { accessor: '#{prefix}City' }, valueUpdate: 'afterkeyup'", class: 'span2'
   .span2
     %label{ for: "#{lprefix}_state" } State or Province
-    = f.text_field "#{prefix}_state", 'data-bind' => "instantValidation: { accessor: '#{prefix}State' }", class: 'span2'
+    = f.text_field "#{prefix}_state", 'data-bind' => "instantValidation: { accessor: '#{prefix}State' }, valueUpdate: 'afterkeyup'", class: 'span2'
   .span2
     %label{ for: "#{lprefix}_postal_code" } Postal Code
-    = f.text_field "#{prefix}_postal_code", class: 'span1', 'data-bind' => "instantValidation: { accessor: '#{prefix}PostalCode' }"
+    = f.text_field "#{prefix}_postal_code", class: 'span1', 'data-bind' => "instantValidation: { accessor: '#{prefix}PostalCode' }, valueUpdate: 'afterkeyup'"
   .span2
     %label{ for: "#{lprefix}_country" } Country
-    = f.text_field "#{prefix}_country", 'data-bind' => "instantValidation: { accessor: '#{prefix}Country' }", class: 'span2'
+    = f.text_field "#{prefix}_country", 'data-bind' => "instantValidation: { accessor: '#{prefix}Country' }, valueUpdate: 'afterkeyup'", class: 'span2'

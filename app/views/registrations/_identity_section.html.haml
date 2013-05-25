@@ -6,7 +6,7 @@
   .row.personal-info
     .span3
       = f.label :first_name
-      = f.text_field :first_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "firstName" }'
+      = f.text_field :first_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "firstName" }, valueUpdate: "afterkeyup"'
     .span3
       = f.label :middle_name do
         Full middle
@@ -14,7 +14,7 @@
       = f.text_field :middle_name, autocomplete: ac, 'data-bind' => 'value: middleName'
     .span3
       = f.label :last_name
-      = f.text_field :last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "lastName" }'
+      = f.text_field :last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "lastName" }, valueUpdate: "afterkeyup"'
     .span2
       = f.label :suffix do
         Suffix

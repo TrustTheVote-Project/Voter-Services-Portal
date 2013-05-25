@@ -12,10 +12,10 @@
   .row
     .span2
       = f.label :vvr_street_number, "Street number"
-      = f.text_field :vvr_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrStreetNumber" }', class: 'span2'
+      = f.text_field :vvr_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrStreetNumber" }, valueUpdate: "afterkeyup"', class: 'span2'
     .span4
       = f.label :vvr_street_name, "Street name"
-      = f.text_field :vvr_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrStreetName" }', class: 'span4'
+      = f.text_field :vvr_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrStreetName" }, valueUpdate: "afterkeyup"', class: 'span4'
     .span2.street-type-field
       = f.label :vvr_street_type, "Street type"
       = f.select :vvr_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'street-type', 'data-bind' => 'instantValidation: { accessor: "vvrStreetType" }' }
@@ -31,7 +31,7 @@
     .span3.town
       %div{ 'data-bind' => 'visible: vvrCountySelected' }
         = f.label :vvr_town, "Town"
-        = f.text_field :vvr_town, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrTown" }'
+        = f.text_field :vvr_town, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrTown" }, valueUpdate: "afterkeyup"'
       &nbsp;
     .span2.state-field.short
       %span State
@@ -39,9 +39,9 @@
       = f.hidden_field :vvr_state, autocomplete: ac, 'data-bind' => 'value: vvrState'
     .span2.zip-field
       = f.label :vvr_zip5, "Zip code"
-      = f.text_field :vvr_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "vvrZip5", validation: "zip5" }', placeholder: 'NNNNN'
+      = f.text_field :vvr_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "vvrZip5", validation: "zip5" }, valueUpdate: "afterkeyup"', placeholder: 'NNNNN'
       .space &mdash;
-      = f.text_field :vvr_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: vvrZip4', placeholder: 'NNNN'
+      = f.text_field :vvr_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: vvrZip4, valueUpdate: "afterkeyup"', placeholder: 'NNNN'
   <!-- /ko -->
 
   .row

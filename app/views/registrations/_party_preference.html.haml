@@ -17,6 +17,6 @@
   <!-- ko if: party() == 'other' -->
   .span5
     %span #{name} name
-    = f.text_field :other_party, autocomplete: ac, 'data-bind' => 'valueWithInit: otherParty', class: 'span5'
+    = f.text_field :other_party, autocomplete: ac, 'data-bind' => 'valueWithInit: otherParty, valueUpdate: "afterkeyup"', class: 'span5'
   <!-- /ko -->
 <!-- /ko -->
