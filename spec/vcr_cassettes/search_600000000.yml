@@ -1,0 +1,103 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://vas.herokuapp.com//NORFOLK%20CITY/600000000
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Content-Type:
+      - text/xml;charset=utf-8
+      Date:
+      - Fri, 24 May 2013 07:26:25 GMT
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
+      X-Frame-Options:
+      - sameorigin
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '7461'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: <?xml version="1.0" encoding="utf-8"?><EML SchemaVersion="7.0" Id="330"
+        xmlns="urn:oasis:names:tc:evs:schema:eml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"><EMLHeader><TransactionId>330</TransactionId><OfficialStatusDetail><OfficialStatus>approved</OfficialStatus><StatusDate>2012-10-05</StatusDate></OfficialStatusDetail></EMLHeader><ElectionList><VoterDetails><VoterRegistration><Voter><Source
+        Role="sender"><Name>Virginia</Name></Source><VoterIdentification Id="600000000"><VoterName><PersonFullName
+        xmlns="urn:oasis:names:tc:ciq:xnl:4">FRANKIE LYNN STEMPINSKI </PersonFullName><PersonNameDetail
+        xmlns="urn:oasis:names:tc:ciq:xnl:4"><GivenName>FRANKIE</GivenName><MiddleName>LYNN</MiddleName><FamilyName>STEMPINSKI</FamilyName></PersonNameDetail></VoterName><ElectoralAddress><PostalAddress
+        xmlns="urn:oasis:names:tc:ciq:xal:4"><Thoroughfare type="ST" number="620"
+        name="Earl">620 Earl St</Thoroughfare><Locality type="Town">Norfolk</Locality><AdministrativeArea
+        type="StateCode">VA</AdministrativeArea><PostCode type="ZipCode">235035404</PostCode><Country/></PostalAddress></ElectoralAddress></VoterIdentification><VoterInformation><Contact><MailingAddress
+        usage="Mailing"><FreeTextAddress xmlns="urn:oasis:names:tc:ciq:xal:4"><AddressLine
+        type="MailingAddressLine1" seqn="0001">620 Earl St</AddressLine><AddressLine
+        type="MailingCity" seqn="0002">Norfolk</AddressLine><AddressLine type="MailingState"
+        seqn="0003">VA</AddressLine><AddressLine type="MailingZip" seqn="0004">235035404</AddressLine></FreeTextAddress></MailingAddress><Email/><Telephone/></Contact><EffectiveDateAdded>1994-01-26</EffectiveDateAdded><PreferredLanguage>English</PreferredLanguage><CheckBox
+        Type="ActiveRegistration">yes</CheckBox><CheckBox Type="OngoingAbsentee">no</CheckBox><CheckBox
+        Type="ElectionLevelAbsentee">no</CheckBox><CheckBox Type="Eighteenplus">yes</CheckBox><CheckBox
+        Type="AddressConfidential">no</CheckBox><CheckBox Type="Military">no</CheckBox><CheckBox
+        Type="Overseas">no</CheckBox><CheckBox Type="Disabled">no</CheckBox><CheckBox
+        Type="Federal Only">no</CheckBox><PollingDistrict><Association Id="PrecinctSplitUID">d0f077b7-4c1a-4df6-b606-26322af40084</Association><Association
+        Id="PrecinctName">511 - CROSSROADS</Association><Association Id="LocalityName">NORFOLK
+        CITY</Association><Association Id="TownshipName">WARD 5</Association><Association
+        Id="ElectoralDistrict">WARD 5</Association><Association Id="CongressionalDistrictCode">02</Association><Association
+        Id="CongressionalDistrict">2nd District</Association><Association Id="SenateDistrictCode">006</Association><Association
+        Id="SenateDistrict">6th District</Association><Association Id="StateHouseDistrictCode">100</Association><Association
+        Id="StateHouseDistrict">100th District</Association></PollingDistrict><PollingPlace
+        Channel="polling"><PhysicalLocation><Address><FreeTextAddress xmlns="urn:oasis:names:tc:ciq:xal:4"><AddressLine
+        type="LocationName" seqn="0001">CROSSROADS COMMUNITY CENTER</AddressLine><AddressLine
+        type="Address" seqn="0002">8019 OLD OCEAN VIEW ROAD</AddressLine><AddressLine
+        type="City" seqn="0003">NORFOLK</AddressLine><AddressLine type="State" seqn="0004">VA</AddressLine><AddressLine
+        type="Zip" seqn="0005">235035404</AddressLine></FreeTextAddress></Address></PhysicalLocation></PollingPlace><PollingPlace
+        Channel="postal"><PostalLocation><FreeTextAddress xmlns="urn:oasis:names:tc:ciq:xal:4"><AddressLine
+        type="Phone" seqn="0001">7576644353</AddressLine><AddressLine type="AddressLine1"
+        seqn="0002">810 UNION ST</AddressLine><AddressLine type="AddressLine2" seqn="0003">ROOM
+        808</AddressLine><AddressLine type="City" seqn="0004">NORFOLK</AddressLine><AddressLine
+        type="State" seqn="0005">VA</AddressLine><AddressLine type="Zip" seqn="0006">23510</AddressLine></FreeTextAddress></PostalLocation></PollingPlace><Gender>male</Gender><FurtherInformation/></VoterInformation></Voter></VoterRegistration><Election><ElectionIdentifier
+        IdNumber="952d18a9-be40-422c-aed9-826370a9340b" DisplayOrder="0001"><ElectionName>2019
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">NORFOLK CITY</Name></PollingDistrict><CheckBox Type="Voted">no</CheckBox><CheckBox
+        Type="Permitted">yes</CheckBox><CheckBox Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
+        IdNumber="d984ff7e-140b-4847-bf0e-37e171384950" DisplayOrder="0002"><ElectionName>2015
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">NORFOLK CITY</Name></PollingDistrict><CheckBox Type="Voted">no</CheckBox><CheckBox
+        Type="Permitted">yes</CheckBox><CheckBox Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
+        IdNumber="5044a1d3-ca7f-48b1-9cc6-ea33e8f26e60" DisplayOrder="0003"><ElectionName>2014
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">NORFOLK CITY</Name></PollingDistrict><CheckBox Type="Voted">no</CheckBox><CheckBox
+        Type="Permitted">yes</CheckBox><CheckBox Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
+        IdNumber="3d3db79f-07fb-46dd-b263-715b7b6a8cd2" DisplayOrder="0004"><ElectionName>2014
+        May City General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">NORFOLK CITY</Name></PollingDistrict><CheckBox Type="Voted">no</CheckBox><CheckBox
+        Type="Permitted">yes</CheckBox><CheckBox Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
+        IdNumber="6002fdb4-fc9c-4f36-a418-c0bdfff2e579" DisplayOrder="0005"><ElectionName>2013
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">NORFOLK CITY</Name></PollingDistrict><CheckBox Type="Voted">no</CheckBox><CheckBox
+        Type="Permitted">yes</CheckBox><CheckBox Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
+        IdNumber="68c30477-aaf2-46dd-994e-5d3be8a89c9b" DisplayOrder="0006"><ElectionName>2012
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">NORFOLK CITY</Name></PollingDistrict><CheckBox Type="Voted">no</CheckBox><CheckBox
+        Type="Permitted">yes</CheckBox><CheckBox Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
+        IdNumber="37c2edeb-facb-44c1-af70-05fb616dcd62" DisplayOrder="0007"><ElectionName>2009
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">NORFOLK CITY</Name></PollingDistrict><CheckBox Type="Voted">yes</CheckBox><CheckBox
+        Type="Permitted">yes</CheckBox><CheckBox Type="FutureElection">no</CheckBox></Election><Election><ElectionIdentifier
+        IdNumber="07261afc-9ed3-410f-b07d-84d014ab2c6b" DisplayOrder="0008"><ElectionName>2008
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">NORFOLK CITY</Name></PollingDistrict><CheckBox Type="Voted">yes</CheckBox><CheckBox
+        Type="Permitted">yes</CheckBox><CheckBox Type="FutureElection">no</CheckBox></Election></VoterDetails></ElectionList></EML>
+    http_version: 
+  recorded_at: Fri, 24 May 2013 07:26:25 GMT
+recorded_with: VCR 2.4.0

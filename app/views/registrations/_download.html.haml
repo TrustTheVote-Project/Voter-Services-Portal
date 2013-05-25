@@ -7,6 +7,7 @@
 - approval_action = update ? "updated" : "approved"
 #final#download.section{ 'data-bind' => 'vis: page() == "final"' }
   .head
+    %h3.important Congratulations! You're almost done.
     %h3= I18n.t("download.title")
     .description= I18n.t("download.subtitle")
 
@@ -74,6 +75,19 @@
         Your return envelope must be postmarked at least 22 days before the next Primary or
         %br/
         General Election in which you plan to vote.
+
+  .row
+    .span10
+      %p
+        You may complete registration applications in person at a
+        local election official office, DMV, and other
+        Virginia government agencies.
+      %p
+        Within 30 days of submitting or mailing your
+        Virginia Voter Registration Application, you should receive a
+        voter card by mail that will confirm you are registered to vote.
+        If you do not receive a voter card within that time, please contact the
+        #{link_to "Virginia State Board of Elections", '#', 'data-toggle' => 'popover', 'data-original-title' => "Contact information", 'data-content' => office_address(@registration.vvr_county_or_city), 'data-html' => true}.
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: gotoComplete, css: { disabled: downloadInvalid }'

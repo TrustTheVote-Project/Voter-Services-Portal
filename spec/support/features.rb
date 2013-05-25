@@ -1,5 +1,6 @@
 def seed_offices
   Office.create!(locality: "ALEXANDRIA CITY", address: "Some address")
+  Office.create!(locality: "NORFOLK CITY", address: "Some address")
 end
 
 def fill_eligibility_page(options = {})
