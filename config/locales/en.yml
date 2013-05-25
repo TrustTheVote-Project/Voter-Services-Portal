@@ -31,7 +31,7 @@ en:
       ineligible: To register, you must have your voting rights restored.
     dmvid:
       title: Department of Motor Vehicles Customer Number
-      details: By providing a valid DMV Customer ID, you are eligible to submit your voter registration application online, without the need to print, sign and mail a paper application.
+      details: By providing a valid DMV Customer Number, you may be eligible to submit your voter registration application online, without the need to print, sign and mail a paper application.
 
   options:
     ac:
