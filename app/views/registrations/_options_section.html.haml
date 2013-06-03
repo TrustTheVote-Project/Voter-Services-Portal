@@ -30,12 +30,11 @@
 
         <!-- ko if: caType() && isConfidentialAddress() -->
         .additional
-          .important= I18n.t("options.ac.type")
-
           <!-- ko if: domestic() && !maIsDifferent() -->
           -# here we set ma_is_different as a field to let backend know
           -# that we have explicit custom MA provided even though the user
           -# didn't want to provide it in the addresses section
+          .important= I18n.t("options.ac.type")
           = hidden_field_tag 'registration[ma_is_different]', 1
           = render partial: 'mailing_domestic', locals: { f: f }
           <!-- /ko -->
