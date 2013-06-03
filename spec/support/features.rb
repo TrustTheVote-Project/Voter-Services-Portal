@@ -11,7 +11,7 @@ def fill_eligibility_page(options = {})
   select  "1996",     from: "registration_dob_1i_"
   fill_in "Social Security Number", with: "123123123"
   if options[:dmv_id]
-    fill_in I18n.t('eligibility.dmvid.title'), with: options[:dmv_id]
+    fill_in I18n.t('dmvid'), with: options[:dmv_id]
   end
 
   click_button 'Next'

@@ -1,5 +1,6 @@
 en:
   title: Virginia Voter Registration
+  dmvid: Department of Motor Vehicles Customer Number
 
   front:
     welcome:
@@ -31,7 +32,6 @@ en:
       question: Have you been convicted of a felony or been adjudicated mentally incapacitated?
       ineligible: To register, you must have your voting rights restored.
     dmvid:
-      title: Department of Motor Vehicles Customer Number
       details: By providing a valid DMV Customer Number, you may be eligible to submit your voter registration application online, without the need to print, sign and mail a paper application.
 
   options:
@@ -59,7 +59,6 @@ en:
       voting_rights: Voting Rights
       dob: Date of Birth
       ssn: Social Security Number
-      dmv_id: Department of Motor Vehicles ID
       gender: Gender
       phone: Phone
       email: Email
