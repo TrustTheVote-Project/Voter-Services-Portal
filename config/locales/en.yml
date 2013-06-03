@@ -15,6 +15,7 @@ en:
     checkbox: "I have read the terms of the Privacy Act Notice."
 
   eligibility:
+    subtitle: "Re-confirm your eligibility and voter status"
     details: "To register you must be a US citizen, be a resident of Virginia, be 18 years old by the next general election, had voting rights restored (if convicted of a felony or declared mentally incapacitated)."
     citizen:
       question: Are you a citizen of the United States of America?

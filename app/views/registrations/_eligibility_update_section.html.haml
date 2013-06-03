@@ -1,7 +1,7 @@
 #eligibility.section{ 'data-bind' => 'vis: page() == "eligibility"' }
   .head
     %h3 Eligibility
-    .description Eligibility to vote in Virginia.
+    .description= I18n.t('eligibility.subtitle')
   %p= I18n.t('eligibility.details')
 
   .partition.citizen
