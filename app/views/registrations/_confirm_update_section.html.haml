@@ -52,52 +52,53 @@
                 %span{ 'data-bind' => 'text: summaryParty' }
             <!-- /ko -->
 
-  .row
-    .span10
-      .head.light
-        %h3 Voting Status
+  - if AppConfig['confirm_voting_status_display']
+    .row
+      .span10
+        .head.light
+          %h3 Voting Status
 
-      - af = @registration.absentee_for_elections || []
-      - if @registration.currently_overseas?
-        <!-- ko if: overseas -->
-        %p
-          %strong Overseas/Military Absentee Voter
+        - af = @registration.absentee_for_elections || []
+        - if @registration.currently_overseas?
+          <!-- ko if: overseas -->
+          %p
+            %strong Overseas/Military Absentee Voter
 
-        - if @registration.current_absentee_until
-          %p Receiving an absentee ballot for elections through #{@registration.current_absentee_until.strftime("%b %d, %Y")}.
+          - if @registration.current_absentee_until
+            %p Receiving an absentee ballot for elections through #{@registration.current_absentee_until.strftime("%b %d, %Y")}.
 
-        - if @registration.extending_absentee_period?
-          %p Requesting an absentee ballot for elections through <strong data-bind="text: absenteeUntilFormatted"></strong>
-        <!-- /ko --> <!-- overseas -->
+          - if @registration.extending_absentee_period?
+            %p Requesting an absentee ballot for elections through <strong data-bind="text: absenteeUntilFormatted"></strong>
+          <!-- /ko --> <!-- overseas -->
 
-        <!-- ko if: domestic -->
-        %p
-          %strong Returning Overseas/Military Absentee Voter
-        %p
-          Now residing in Virginia, and submitting registration update in order to vote
-          in the upcoming elections.
+          <!-- ko if: domestic -->
+          %p
+            %strong Returning Overseas/Military Absentee Voter
+          %p
+            Now residing in Virginia, and submitting registration update in order to vote
+            in the upcoming elections.
 
-        %p{ 'data-bind' => 'if: requestingAbsentee' }
-          Requesting an <strong>Absentee Ballot</strong> for <span data-bind='html: summaryElection'></span>
-        <!-- /ko -->
-      - else
-        <!-- ko if: domestic -->
-        %p
-          %strong Virginial Residential Voter
+          %p{ 'data-bind' => 'if: requestingAbsentee' }
+            Requesting an <strong>Absentee Ballot</strong> for <span data-bind='html: summaryElection'></span>
+          <!-- /ko -->
+        - else
+          <!-- ko if: domestic -->
+          %p
+            %strong Virginial Residential Voter
 
-        - unless af.blank?
-          %p Approved for Absentee Ballot: #{af.humanized_list_join} #{pluralize(af.size, 'Election')}
+          - unless af.blank?
+            %p Approved for Absentee Ballot: #{af.humanized_list_join} #{pluralize(af.size, 'Election')}
 
-        %p{ 'data-bind' => 'if: requestingAbsentee' }
-          Requesting an <strong>Absentee Ballot</strong> for <span data-bind='html: summaryElection'></span>
-        <!-- /ko -->
+          %p{ 'data-bind' => 'if: requestingAbsentee' }
+            Requesting an <strong>Absentee Ballot</strong> for <span data-bind='html: summaryElection'></span>
+          <!-- /ko -->
 
-        <!-- ko if: overseas -->
-        %p
-          %strong Overseas/Military Absentee Voter
-        %p
-          Requesting an absentee ballot for elections through <strong data-bind="text: absenteeUntilFormatted"></strong>
-        <!-- /ko -->
+          <!-- ko if: overseas -->
+          %p
+            %strong Overseas/Military Absentee Voter
+          %p
+            Requesting an absentee ballot for elections through <strong data-bind="text: absenteeUntilFormatted"></strong>
+          <!-- /ko -->
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextFromConfirm, css: { disabled: confirmInvalid }'
