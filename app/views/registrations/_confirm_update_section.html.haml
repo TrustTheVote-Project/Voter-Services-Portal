@@ -38,7 +38,7 @@
               %th Email:
               %td= f.text_field :email, autocomplete: ac, class: 'span2', placeholder: 'john@smith.com', 'data-bind' => 'valueWithInit: email'
             %tr
-              %th Registration Address:
+              %th #{I18n.t('residence_address')}:
               %td
                 %span{ 'data-bind' => 'html: summaryRegistrationAddress' }
             %tr

@@ -1,8 +1,8 @@
 #address.section{ 'data-bind' => "vis: page() == 'address'" }
   .head
-    %h3 Registration address
+    %h3 #{I18n.t('residence_address').capitalize}
     .description
-      Registration address is your Home address in Virginia or your most recent Virginia residence.
+      #{I18n.t('residence_address').capitalize} is your Home address in Virginia or your most recent Virginia residence.
       <!-- ko if: paperlessSubmission -->
       <br/>
       #{I18n.t("dmv.address_info")}
@@ -64,7 +64,7 @@
         <!-- ko ifnot: vvrIsRural -->
         = f.check_box :ma_is_different, 'data-bind' => 'checkedWithInit: maIsDifferent'
         <!-- /ko -->
-        = f.label :ma_is_different, I18n.t("mailing_address.different.#{AppConfig['domestic_voter_mailing_address_limit'] ? 'limit' : 'no_limit'}")
+        = f.label :ma_is_different, I18n.t("mailing_address.different.#{AppConfig['domestic_voter_mailing_address_limit'] ? 'limit' : 'no_limit'}", address: I18n.t('residence_address').downcase)
   <!-- /ko --> <!-- domestic -->
 
   <!-- ko if: overseas -->

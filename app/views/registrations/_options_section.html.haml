@@ -20,7 +20,7 @@
           %strong Protected Voter
         .checkbox
           = f.check_box :is_confidential_address, autocomplete: ac, 'data-bind' => 'checkedWithInit: isConfidentialAddress'
-          = f.label :is_confidential_address, I18n.t('options.ac.statement')
+          = f.label :is_confidential_address, I18n.t('options.ac.statement', address: I18n.t('residence_address').downcase)
     .row
       .span10
         - %w( LEO CPO TSC ACP ).each do |r|
@@ -34,7 +34,7 @@
           -# here we set ma_is_different as a field to let backend know
           -# that we have explicit custom MA provided even though the user
           -# didn't want to provide it in the addresses section
-          .important= I18n.t("options.ac.type")
+          .important= I18n.t("options.ac.type", address: I18n.t('residence_address').downcase)
           = hidden_field_tag 'registration[ma_is_different]', 1
           = render partial: 'mailing_domestic', locals: { f: f }
           <!-- /ko -->

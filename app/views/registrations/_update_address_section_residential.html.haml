@@ -1,7 +1,7 @@
 .head
-  %h3 Registration address
+  %h3= I18n.t('residence_address').capitalize
   .description
-    Please confirm your registration address. If it is not correct, please update now.
+    Please confirm your #{I18n.t('residence_address').downcase}. If it is not correct, please update now.
 
 .row
   .span2

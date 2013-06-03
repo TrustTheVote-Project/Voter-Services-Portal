@@ -48,7 +48,7 @@
                 = link_to "Edit", "#eligibility", class: 'edit'
                 %span{ 'data-bind' => 'html: summaryVotingRights' }
             %tr
-              %th= I18n.t('confirm.rows.registration_address')
+              %th= I18n.t('residence_address')
               %td
                 = link_to "Edit", "#address", class: 'edit'
                 %span{ 'data-bind' => 'html: summaryRegistrationAddress' }
@@ -59,7 +59,7 @@
                 = link_to "Edit", "#address", class: 'edit'
                 %p{ 'data-bind' => 'html: summaryMailingAddress' }
                 <!-- ko if: domestic -->
-                (#{I18n.t("mailing_address.different.#{AppConfig['domestic_voter_mailing_address_limit'] ? 'limit' : 'no_limit'}")})
+                (#{I18n.t("mailing_address.different.#{AppConfig['domestic_voter_mailing_address_limit'] ? 'limit' : 'no_limit'}", address: I18n.t("residence_address").downcase)})
                 <!-- /ko -->
                 <!-- ko if: overseas -->
                 (used for absentee ballot and other voting correspondence)
@@ -74,7 +74,7 @@
               %td
                 = link_to "Edit", "#options", class: 'edit'
                 %span
-                  = I18n.t('options.ac.statement')
+                  = I18n.t('options.ac.statement', address: I18n.t('residence_address').downcase)
                   - %w( LEO CPO TSC ACP ).each do |r|
                     <!-- ko if: caType() == '#{r}' -->
                     = I18n.t("options.ac.reasons.#{r}")

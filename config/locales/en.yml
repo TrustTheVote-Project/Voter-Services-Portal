@@ -1,6 +1,7 @@
 en:
   title: Virginia Voter Registration
   dmvid: Department of Motor Vehicles Customer Number
+  residence_address: Residence Address
 
   front:
     welcome:
@@ -37,13 +38,13 @@ en:
   options:
     ac:
       requesting: I qualify as a protected voter.
-      statement: I legally qualify to not have my residence address published on publicly released voter lists because I or a member of my household
+      statement: I legally qualify to not have my %{address} published on publicly released voter lists because I or a member of my household
       reasons:
         LEO: "is an active or retired law enforcement officer, judge, U.S. or Virginia Attorney General attorney"
         CPO: "has a court issued protective order for my benefit"
         TSC: "has a complaint with law enforcement about being threatened or stalked"
         ACP: "is registered with the Virginia Attorney General's Address Confidentiality Program"
-      type: In order to non-publish your residence address in voter lists, you must also provide a mailing address within Virginia, to be used on the voter lists, and for mail to you from your local registrar.
+      type: In order to non-publish your %{address} in voter lists, you must also provide a mailing address within Virginia, to be used on the voter lists, and for mail to you from your local registrar.
     domestic:
       requesting_absentee: I am not able to go to the polls on election day and would like an Absentee Ballot Application.
       need_assistance: "I have a disability that requires assistance to vote."
@@ -62,7 +63,6 @@ en:
       gender: Gender
       phone: Phone
       email: Email
-      registration_address: Registration Address
       mailing_address: Mailing Address
       previous_registration: Previous Registration
       party_preference:
@@ -82,8 +82,8 @@ en:
 
   mailing_address:
     different:
-      limit: "I am unable to physically receive mail at my residence address."
-      no_limit: "I get my mail at a different address than my Registration Address."
+      limit: "I am unable to physically receive mail at my %{address}."
+      no_limit: "I get my mail at a different address than my %{address}."
 
   download:
     title: "Submit Your Application"

@@ -31,7 +31,7 @@
           %th Email:
           %td= f.text_field :email, class: 'span2', placeholder: 'john@smith.com'
         %tr
-          %th Registration Address:
+          %th #{I18n.t('residence_address')}:
           %td
             .ra_summary= reg.registration_address
             -#= render partial: 'update_registration_address'
