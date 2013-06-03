@@ -498,7 +498,7 @@ class window.Registration
 
     @summaryAddressConfidentiality = ko.computed =>
       if @isConfidentialAddress()
-        "Code: #{@caType()}" + "<br/>" +
+        "<br/>" +
           if @overseas()
             @summaryOverseasMailingAddress()
           else

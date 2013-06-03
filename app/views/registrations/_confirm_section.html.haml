@@ -73,6 +73,12 @@
               %th= I18n.t('confirm.rows.protected_voter')
               %td
                 = link_to "Edit", "#options", class: 'edit'
+                %span
+                  = I18n.t('options.ac.statement')
+                  - %w( LEO CPO TSC ACP ).each do |r|
+                    <!-- ko if: caType() == '#{r}' -->
+                    = I18n.t("options.ac.reasons.#{r}")
+                    <!-- /ko -->
                 %span{ 'data-bind' => 'html: summaryAddressConfidentiality' }
             %tr{ 'data-bind' => 'if: requestingAbsentee' }
               %th= I18n.t('confirm.rows.absentee_request')
