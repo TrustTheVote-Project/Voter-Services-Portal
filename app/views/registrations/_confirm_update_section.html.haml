@@ -2,7 +2,7 @@
 #confirm.section{ 'data-bind' => 'vis: page() == "confirm"' }
   .head
     %h3 Confirm
-    .description Please confirm that your information is accurate. If the information is not correct, please go back and correct it.
+    .description= I18n.t('confirm.details')
 
   .row
     .span10

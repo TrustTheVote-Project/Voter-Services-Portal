@@ -52,7 +52,7 @@ en:
     being_official: "I'm interested in being an Election Official on Election Day. Please send me information."
 
   confirm:
-    details: Please confirm that your information is accurate. If any information is not correct, please click the "Edit" button next to it, in order to go back to the page where you can make corrections.
+    details: Please confirm that your information is accurate. If any information is not correct, click "Edit" beside the incorrect data to return to the page to make corrections.
     rows:
       name: Name
       eligibility: Eligibility
