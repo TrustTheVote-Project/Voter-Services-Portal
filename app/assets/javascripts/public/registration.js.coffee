@@ -225,6 +225,8 @@ class window.Registration
 
     @residence.subscribe (v) =>
       @requestingAbsentee(v == 'outside')
+    @isConfidentialAddress.subscribe (v) =>
+      @caType(null) unless @isConfidentialAddress()
 
     @abReason               = ko.observable()
     @abField1               = ko.observable()
