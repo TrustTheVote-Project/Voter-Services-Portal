@@ -141,7 +141,6 @@ class window.Registration
       @maIsDifferent(true) if v
 
     @domesticMAFilled = ko.computed =>
-      !@maIsDifferent() or
       filled(@maAddress1()) and
       filled(@maCity()) and
       filled(@maState()) and
@@ -156,7 +155,7 @@ class window.Registration
 
     @overseasMAFilled = ko.computed =>
       if   @mauType() == 'apo'
-      then filled(@mauAPO1()) and zip5(@mauAPOZip5())
+      then filled(@mauAPOAddress1()) and filled(@mauAPO1()) and zip5(@mauAPOZip5())
       else @nonUSMAFilled()
 
     @addressesErrors = ko.computed =>
@@ -179,7 +178,7 @@ class window.Registration
           (@vvrOverseasRA() == '1' or @vvrUocavaResidenceUnavailableSince())
         mailing = @overseasMAFilled()
       else
-        mailing = @domesticMAFilled()
+        mailing = !@maIsDifferent() or @domesticMAFilled()
 
       previous =
         filled(@prStatus()) and (
@@ -226,7 +225,7 @@ class window.Registration
     @residence.subscribe (v) =>
       @requestingAbsentee(v == 'outside')
     @isConfidentialAddress.subscribe (v) =>
-      @caType(null) unless @isConfidentialAddress()
+      @caType(null) unless v
 
     @abReason               = ko.observable()
     @abField1               = ko.observable()
@@ -322,12 +321,12 @@ class window.Registration
         if !filled(@caType())
           errors.push("Address confidentiality reason")
         else
-          if !filled(@maAddress1()) || !filled(@maState()) || !filled(@maCity()) || !zip5(@maZip5())
+          if (@overseas() and !@overseasMAFilled()) or (@domestic() and !@domesticMAFilled())
             errors.push("Protected voter mailing address")
 
       if @requestingAbsentee()
         if @overseas()
-          errors.push("Absense type") unless filled(@outsideType())
+          errors.push("Absence type") unless filled(@outsideType())
           errors.push("Service details") if @needsServiceDetails() and (!filled(@serviceId()) || !filled(@rank()))
         else
           if !filled(@rabElection()) or (@rabElection() == 'other' and (!filled(@rabElectionName()) or !filled(@rabElectionDate())))

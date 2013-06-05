@@ -3,7 +3,7 @@
   .row
     .span12
       .checkbox
-        = f.check_box :requesting_absentee, autocomplete: ac, disabled: true
+        = f.check_box :requesting_absentee, autocomplete: ac, disabled: true, checked: true
         = f.hidden_field :requesting_absentee, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "requestingAbsentee" }'
         = f.label :requesting_absentee do
           - until_date = f.object.absentee_until.strftime("%B %d, %Y") unless AppConfig['choose_absentee_until']
