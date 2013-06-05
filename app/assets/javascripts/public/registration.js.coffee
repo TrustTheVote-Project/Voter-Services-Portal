@@ -311,6 +311,10 @@ class window.Registration
     @overseas.subscribe (v) =>
       setTimeout((=> @requestingAbsentee(true)), 0) if v
 
+    @protectedVoterAdditionals = ko.computed =>
+      @isConfidentialAddress() and
+        (@caType() == 'TSC' or (@domestic() and !@maIsDifferent()))
+
     @optionsErrors = ko.computed =>
       errors = []
       if @chooseParty()

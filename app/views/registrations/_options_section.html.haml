@@ -28,7 +28,7 @@
             = f.radio_button :ca_type, r, 'data-bind' => 'checkedWithInit: caType, enable: isConfidentialAddress'
             %label{ for: "registration_ca_type_#{r.downcase}" }= I18n.t("options.ac.reasons.#{r}")
 
-        <!-- ko if: caType() && isConfidentialAddress() -->
+        <!-- ko if: protectedVoterAdditionals() -->
         .additional
           <!-- ko if: domestic() && !maIsDifferent() -->
           -# here we set ma_is_different as a field to let backend know
