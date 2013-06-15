@@ -388,3 +388,9 @@ table.properties {
   }
 }
 
+input[type="radio"][disabled], input[type="checkbox"][disabled], input[type="radio"][readonly], input[type="checkbox"][readonly] {
+  cursor: default;
+}
+label.disabled {
+  color: #888;
+}
