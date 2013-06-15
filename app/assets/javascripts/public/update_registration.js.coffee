@@ -11,6 +11,15 @@ pageSteps = {
   'congratulations':  5
 }
 
+finalizationPageSteps = {
+  'view':             1,
+  'address':          2,
+  'options':          3,
+  'final':            4,
+  'download':         4,
+  'congratulations':  4
+}
+
 class UpdateRegistration extends Registration
   constructor: (initPage = 0) ->
     super($('input#registration_residence').val())
@@ -98,4 +107,4 @@ $ ->
     ko.applyBindings(new UpdateRegistration())
 
   if $("#update_finalization").length > 0
-    ko.applyBindings(new Finalization(pageSteps))
+    ko.applyBindings(new Finalization(finalizationPageSteps))

@@ -1,7 +1,7 @@
 - submitted_with_dmvid = @submitted && @registration.dmv_id.present?
 - @page_id = submitted_with_dmvid ? 'nr_submitted_with_dmvid' : 'nr_download'
 
-= render partial: 'steps'
+= render partial: 'steps', locals: { complete: true }
 
 .row.disclaimer
   .span12
