@@ -9,8 +9,18 @@ en:
       line2: "domestic, military, and overseas—register to vote and"
       line3: "keep their voter information up-to-date."
     options:
-      residential: I am a Virginia resident and want to register to vote.
-      overseas: I am an active member of the Uniformed Services, the Merchant Marine, a family member, or a citizen of the the United States, that is residing outside of the United States, and I want to register to vote absentee on election day.
+      residential:
+        title: Residential Voter
+        text: I am a Virginia resident, and I want to register to vote, or to update my voter registration information.
+      overseas:
+        title: Overseas or military voter
+        text: I am an active member of the Uniformed Services, the Merchant Marine, a family member, or a citizen of the the United States, that is residing outside of the United States, and I want to register to vote absentee on election day.
+      update:
+        title: Update and View Voter Record
+        text: I am already registered to vote and want to view and update my Voter Record.
+      request_absentee:
+        title: Request Absentee Ballot
+        text: I need to request a domestic or overseas Absentee Ballot.
 
   privacy:
     title: Privacy Act Notice

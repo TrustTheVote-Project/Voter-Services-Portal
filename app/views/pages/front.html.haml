@@ -44,18 +44,18 @@
 
 .row.options-details
   .span4
-    %h4 Residential voter
-    %p= I18n.t('front.options.residential')
+    %h4= I18n.t('front.options.residential.title')
+    %p= I18n.t('front.options.residential.text')
 
   .span4
-    %h4 Overseas or military voter
-    %p= I18n.t('front.options.overseas')
+    %h4= I18n.t('front.options.overseas.title')
+    %p= I18n.t('front.options.overseas.text')
 
   .span4
-    %h4 Update or view Voter Record
-    %p I am already registered to vote and want to view or update my Voter Record.
-    %h4 Request Absentee Ballot
-    %p I need to request a domestic or overseas Absentee Ballot.
+    %h4= I18n.t('front.options.update.title')
+    %p= I18n.t('front.options.update.text')
+    %h4= I18n.t('front.options.request_absentee.title')
+    %p= I18n.t('front.options.request_absentee.text')
 
 .row.options-links
   .span4= link_to "", :register_residential_privacy, alt: "Register Resedential", class: "residential button"
