@@ -2,12 +2,13 @@ Virginia Voter Portal
 =====================
 
 
-Requirements
-------------
+Branches
+--------
 
-* Ruby 1.9.3
-* Sqlite3 (development), MySQL 5+ (production)
-* wkhtmltopdf (http://code.google.com/p/wkhtmltopdf/)
+* *master* - main development branch
+* *v1* - version 1
+* *v2* - version 2
+
 
 
 Installation
