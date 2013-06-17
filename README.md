@@ -42,6 +42,7 @@ Installation
         $ rails server
 
 
+
 Deployment prerequisites
 ------------------------
 
@@ -49,6 +50,10 @@ Deployment prerequisites
 * Ruby 1.9.3-p0 (see Installing Ruby section)
 * Apache 2 with Passenger 3.0.11 (see Installing Passenger section)
 * Redis server (see Installing Redis section)
+* wkhtmltopdf 0.9.9 (https://code.google.com/p/wkhtmltopdf/downloads/detail?name=wkhtmltopdf-0.9.9-installer.exe&can=2&q=)
+* PDFtk (see Installing PDFtk)
+
+
 
 Deployment
 ----------
@@ -110,6 +115,8 @@ the remote server.
               ServerName    server.com
               DocumentRoot  /home/deploy/server.com/current/public
             </VirtualHost>
+
+
 
 Updating the deployment
 -----------------------
@@ -212,6 +219,16 @@ Start / stop Redis server:
 
     $ /etc/init.d/redis start
     $ /etc/init.d/redis stop
+
+
+
+Installing PDFtk
+----------------
+
+Check out official page for installation instructions:
+
+http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/
+
 
 
 Marking ballots online

@@ -70,7 +70,7 @@ voter_info_show_missing_items: true
 
 # New forms (renders forms from templates in app/assets/pdf-templates)
 pdf_forms: true
-pdftk_path: /usr/local/bin/pdftk
+pdftk_path: "/usr/local/bin/pdftk"
 
 # Record log configuration
 log:

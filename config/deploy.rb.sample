@@ -4,11 +4,12 @@ require 'sidekiq/capistrano'
 set :domain,      "server.com"                    # Domain name or IP address of the server
 set :user,        "deploy"                        # Unix user to own the deployment
 set :runner,      "deploy"                        # Same as :user
-set :deploy_to,   "/home/deploy/server.com"       # Path to the deployment directory
+set :deploy_to,   "/home/deploy/va-portal"        # Path to the deployment directory
 
 # Common configuration
-set :application, "va-vote"
+set :application, "va-portal"
 set :repository,  "git://github.com/trustthevote/Virginia-Voter-Services-Portal.git"
+set :branch,      "v2"
 set :rails_env,   "production"
 
 role :web, domain
