@@ -5,9 +5,13 @@ Virginia Voter Portal
 Branches
 --------
 
-* *master* - main development branch
-* *v1* - version 1
-* *v2* - version 2
+* *master*  - main development branch. This is where all development
+              happens. Once the version is ready, it's forked into a
+              separate branch for releasing.
+
+* *v1*     - release branch for version 1
+* *v2*     - release branch for version 2
+
 
 
 
