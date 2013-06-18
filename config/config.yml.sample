@@ -48,7 +48,7 @@ xml:
   source_name: Virginia SBE Voter Services Portal
 
 # SBE database URL
-lookup_url: "https://wscp.sbe.virginia.gov/electionlist.svc/v1/_your_API_key_"
+lookup_url: "https://wscp.sbe.virginia.gov/electionlist.svc/v2/_your_API_key_"
 
 # Disables forms functionality
 no_forms: true

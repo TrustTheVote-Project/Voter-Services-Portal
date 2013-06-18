@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RegistrationSearch do
+describe RegistrationSearch, :focus do
 
   describe 'general' do
     subject { search(600000008, 'TAZEWELL COUNTY') }
@@ -279,7 +279,7 @@ describe RegistrationSearch do
   end
 
   def query_for(n, loc)
-    stub(voter_id: n, locality: loc, first_name: '1')
+    stub(voter_id: n, locality: loc, first_name: '1', dob: Date.today)
   end
 
   def for_election(id)

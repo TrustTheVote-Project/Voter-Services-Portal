@@ -52,7 +52,7 @@ class RegistrationSearch
       if vid.to_s =~ /^a/
         return sample_record(vid)
       else
-        xml = search_by_voter_id(vid, search_query.locality)
+        xml = search_by_voter_id(vid, search_query.locality, search_query.dob)
       end
     else
       xml = search_by_data(search_query)
@@ -84,23 +84,28 @@ class RegistrationSearch
     end
   end
 
-  def self.search_by_voter_id(vid, locality)
-    vid = vid.to_s.gsub(/[^\d]/, '').rjust(9, '0')
-    locality = escape(locality)
-    uri = URI("#{AppConfig['lookup_url']}/#{locality}/#{vid}")
-    parse_uri(uri)
+  def self.search_by_voter_id(vid, locality, dob)
+    q = {
+      voterIDnumber:  vid.to_s.gsub(/[^\d]/, '').rjust(9, '0'),
+      localityName:   locality,
+      dobMonth:       dob.month,
+      dobDay:         dob.day,
+      dobYear:        dob.year }
+
+    parse_uri(URI("#{AppConfig['lookup_url']}/voterByVID/?#{q.to_query}"))
   end
 
   def self.search_by_data(query)
-    first_name = escape(query.first_name.to_s)
-    last_name  = escape(query.last_name.to_s)
-    dob        = query.dob.blank? ? '' : query.dob.strftime('%m/%d/%Y')
-    ssn4       = escape(query.ssn4.to_s)
-    locality   = escape(query.locality.to_s)
+    q = {
+      ssn4:           query.ssn4,
+      localityName:   query.locality,
+      dobMonth:       query.dob.month,
+      dobDay:         query.dob.day,
+      dobYear:        query.dob.year,
+      firstName:      query.first_name,
+      lastName:       query.last_name }
 
-    uri = URI("#{AppConfig['lookup_url']}/search/?firstName=#{first_name}&lastName=#{last_name}&dob=#{dob}&ssn4=#{ssn4}&localityName=#{locality}")
-
-    parse_uri(uri)
+    parse_uri(URI("#{AppConfig['lookup_url']}/voterBySSN9/?#{q.to_query}"))
   end
 
   def self.parse_uri(uri)
