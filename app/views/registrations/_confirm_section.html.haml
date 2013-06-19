@@ -78,7 +78,7 @@
                   = link_to "Edit", "#address", class: 'edit'
                 %span{ 'data-bind' => 'html: summaryRegistrationAddress' }
 
-            %tr{ 'data-bind' => 'if: overseas() || maIsDifferent()' }
+            %tr{ 'data-bind' => 'if: overseas() || maIsDifferent() || (domestic() && isConfidentialAddress()) ' }
               %th= I18n.t('confirm.rows.mailing_address')
               - if !rj
                 %td.edit= link_to "Edit", "#address"
@@ -87,8 +87,13 @@
                   = link_to "Edit", "#address", class: 'edit'
                 %p{ 'data-bind' => 'html: summaryMailingAddress' }
                 <!-- ko if: domestic -->
+                <!-- ko if: maIsDifferent() -->
                 (#{I18n.t("mailing_address.different.#{AppConfig['domestic_voter_mailing_address_limit'] ? 'limit' : 'no_limit'}", address: I18n.t("residence_address").downcase)})
                 <!-- /ko -->
+                <!-- ko if: !maIsDifferent() && isConfidentialAddress() -->
+                (Protected Voter)
+                <!-- /ko -->
+                <!-- /ko --> <!-- domestic -->
                 <!-- ko if: overseas -->
                 (used for absentee ballot and other voting correspondence)
                 <!-- /ko -->
@@ -113,7 +118,6 @@
                     <!-- ko if: caType() == '#{r}' -->
                     = I18n.t("options.ac.reasons.#{r}")
                     <!-- /ko -->
-                %span{ 'data-bind' => 'html: summaryAddressConfidentiality' }
             %tr{ 'data-bind' => 'if: requestingAbsentee' }
               %th= I18n.t('confirm.rows.absentee_request')
               - if !rj

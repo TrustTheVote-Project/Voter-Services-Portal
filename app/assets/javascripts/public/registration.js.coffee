@@ -496,18 +496,10 @@ class window.Registration
       if @overseas()
         @summaryOverseasMailingAddress()
       else
-        if @maIsDifferent()
+        if @maIsDifferent() or @isConfidentialAddress()
           @summaryDomesticMailingAddress()
         else
           @summaryRegistrationAddress()
-
-    @summaryAddressConfidentiality = ko.computed =>
-      if @isConfidentialAddress()
-        "<br/>" +
-          if @overseas()
-            @summaryOverseasMailingAddress()
-          else
-            @summaryDomesticMailingAddress()
 
     @summaryAbsenteeRequest = ko.computed =>
       lines = []
