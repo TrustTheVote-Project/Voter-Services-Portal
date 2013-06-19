@@ -100,7 +100,7 @@ module FormHelper
 
   def office_address(locality)
     address = Office.where(locality: locality).first.try(:address)
-    address && address.gsub("\n", "<br/>").html_safe
+    address && "General Registrar\n#{address}".gsub("\n", "<br/>").html_safe
   end
 
   def party_preference_label

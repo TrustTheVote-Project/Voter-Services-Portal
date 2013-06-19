@@ -18,8 +18,8 @@ class window.Finalization
       errors
 
     @downloadInvalid = ko.computed => downloadErrors().length > 0
-    new Popover('#download.section .next.btn', downloadErrors)
+    new Popover('#download.section .done.btn', downloadErrors)
 
-  gotoComplete: => @page('congratulations')
-  gotoDownload: => @page('final')
-
+  gotoComplete: =>
+    return if @downloadInvalid()
+    document.location.href = "/"

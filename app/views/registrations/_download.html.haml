@@ -87,7 +87,7 @@
         Virginia Voter Registration Application, you should receive a
         voter card by mail that will confirm you are registered to vote.
         If you do not receive a voter card within that time, please contact the
-        #{link_to "Virginia State Board of Elections", '#', 'data-toggle' => 'popover', 'data-original-title' => "Contact information", 'data-content' => office_address(@registration.vvr_county_or_city), 'data-html' => true}.
+        Virginia State Board of Elections using the contact information provided below.
 
   .form-actions
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: gotoComplete, css: { disabled: downloadInvalid }'
+    = button_tag 'Done &rarr;'.html_safe, class: 'done btn', 'data-bind' => 'click: gotoComplete, css: { disabled: downloadInvalid }'
