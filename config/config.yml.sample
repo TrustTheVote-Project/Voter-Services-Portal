@@ -65,6 +65,9 @@ eligibility_18_display: true
 # When TRUE "edit" links are placed on the far right in the confirmation table
 right_justify_confirmation_table: false
 
+# When TRUE mailing address is editable on protected voter form
+edit_mailing_address_at_protected_voter: true
+
 # Domestic voter mailing address limit
 domestic_voter_mailing_address_limit: true
 

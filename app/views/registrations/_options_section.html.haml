@@ -30,7 +30,7 @@
 
         <!-- ko if: protectedVoterAdditionals() -->
         .additional
-          <!-- ko if: domestic() && !maIsDifferent() -->
+          <!-- ko if: domestic() #{"&& !maIsDifferent()".html_safe unless AppConfig['edit_mailing_address_at_protected_voter']} -->
           -# here we set ma_is_different as a field to let backend know
           -# that we have explicit custom MA provided even though the user
           -# didn't want to provide it in the addresses section
