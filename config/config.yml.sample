@@ -60,7 +60,7 @@ dmv_id_submission: true
 confirm_voting_status_display: false
 
 # Show age checkbox on eligibility screen (if not shown, results in TRUE)
-eligibility_18_display: false
+eligibility_18_display: true
 
 # Domestic voter mailing address limit
 domestic_voter_mailing_address_limit: true
