@@ -36,7 +36,7 @@
           -# didn't want to provide it in the addresses section
           .important= I18n.t("options.ac.type", address: I18n.t('residence_address').downcase)
           = hidden_field_tag 'registration[ma_is_different]', 1
-          = render partial: 'mailing_domestic', locals: { f: f }
+          = render partial: 'mailing_domestic', locals: { f: f, address_label: I18n.t('options.ac.mailing_address_label') }
           <!-- /ko -->
 
           <!-- ko if: caType() == 'TSC' -->

@@ -1,7 +1,8 @@
+- address_label ||= 'Address'
 .row
   .span3
     .address-field
-      %label{ for: 'registration_ma_address' } Address
+      %label{ for: 'registration_ma_address' } #{address_label}
       = f.text_field :ma_address, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "maAddress1" }, valueUpdate: "afterkeyup"'
     .address-field
       = f.text_field :ma_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: maAddress2, valueUpdate: "afterkeyup"'

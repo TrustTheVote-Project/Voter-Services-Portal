@@ -49,12 +49,13 @@ en:
     ac:
       requesting: I qualify as a protected voter.
       statement: I legally qualify to not have my %{address} published on publicly released voter lists because I or a member of my household
+      mailing_address_label: Mailing Address
       reasons:
         LEO: "is an active or retired law enforcement officer, judge, U.S. or Virginia Attorney General attorney"
         CPO: "have/has a court issued protective order for my benefit"
         TSC: "have/has a complaint with law enforcement about being threatened or stalked"
         ACP: "is registered with the Virginia Attorney General's Address Confidentiality Program"
-      type: In order to non-publish your %{address} in voter lists, you must also provide a mailing address within Virginia, to be used on the voter lists, and for mail to you from your local registrar.
+      type: "As a protected voter, you must supply a mailing address that is either a post office box provided by the United State Postal Service or a commercial mail receiving agency described in the United States Postal Service Domestic Mail Manual commonly referred to as a commercial mailing address."
     domestic:
       requesting_absentee: I am not able to go to the polls on election day and would like an Absentee Ballot Application.
       need_assistance: "I have a disability that requires assistance to vote."
