@@ -5,4 +5,6 @@
 
   .row
     .span10
-      = I18n.t('submitted_paperless.details').html_safe
+      %p= I18n.t('submitted_paperless.details').html_safe
+      %p.gr
+        %strong= office_address(@registration.vvr_county_or_city)

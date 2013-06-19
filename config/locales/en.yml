@@ -111,7 +111,7 @@ en:
   submitted_paperless:
     title: Registration Submitted
     subheader: "Your registration application has been submitted."
-    details: You local General Registrar of Elections will review your form and notify you whether your application was accepted or rejected.
+    details: "Your application has been submitted to your local voter registration office. You are not officially registered to vote until your application is approved by that office. You should receive a Voter Card in the mail. If you do not receive this acknowledgement within 30 days, contact your voter registration office (displayed below) or the State Board of Elections."
 
   outside_type:
     ActiveDutyMerchantMarineOrArmedForces: Active Duty Merchant Marine or Armed Forces
