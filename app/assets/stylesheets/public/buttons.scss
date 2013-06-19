@@ -48,12 +48,12 @@
   width: 73px;
 }
 
-.submit.btn {
+.submit.btn, .done.btn {
   height: 50px;
   width: 116px;
 }
 
-.next.btn, .back.btn, .submit.btn {
+.next.btn, .back.btn, .submit.btn, .done.btn {
   border: none;
   text-indent: -999em;
   padding: 0;

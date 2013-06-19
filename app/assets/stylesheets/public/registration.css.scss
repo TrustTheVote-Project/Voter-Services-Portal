@@ -288,6 +288,24 @@
   .submit:active {
     background: image-url('buttons.png') no-repeat -721px 0;
   }
+
+  .done {
+    float: right;
+    background: image-url('buttons.png') no-repeat -837px -100px;
+  }
+
+  .done:hover {
+    background: image-url('buttons.png') no-repeat -837px -50px;
+  }
+
+  .done:active {
+    background: image-url('buttons.png') no-repeat -837px 0;
+  }
+
+  .done.disabled {
+    float: right;
+    background: image-url('buttons.png') no-repeat -837px -150px;
+  }
 }
 
 .personal-info {
