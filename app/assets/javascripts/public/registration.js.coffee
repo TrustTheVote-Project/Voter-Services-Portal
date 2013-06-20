@@ -4,6 +4,7 @@ class window.Registration
     @overseas   = ko.computed => @residence() == 'outside'
     @domestic   = ko.computed => !@overseas()
 
+    @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
     @paperlessSubmission = ko.observable()
 
     @initEligibilityFields()
@@ -56,8 +57,6 @@ class window.Registration
       errors.push('Date of birth') unless @dob()
       errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
       errors
-
-    @eligibilityInvalid = ko.computed => @eligibilityErrors().length > 0
 
   initIdentityFields: ->
     @firstName              = ko.observable()
@@ -609,7 +608,10 @@ class window.Registration
     if @isEligible()
       @lookupRecord(_, e)
     else
-      @gotoPage('identity')
+      if @allowInelligibleToCompleteForm()
+        @gotoPage('identity')
+      else
+        @gotoPage('ineligible')
 
   lookupRecord: (_, e) =>
     return if $(e.target).hasClass('disabled')

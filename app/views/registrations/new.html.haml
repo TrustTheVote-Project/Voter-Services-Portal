@@ -9,6 +9,7 @@
 
 .row
   .padded_page_span
+    = hidden_field_tag :allow_ineligible_to_complete_form, AppConfig['allow_ineligible_to_complete_form']
     = form_for @registration, url: :registration, html: { 'data-bind' => 'submit: submit' } do |f|
       = hidden_field_tag :residence, params[:residence]
       = render partial: 'eligibility_section',    locals: { f: f }
@@ -21,4 +22,5 @@
       = render partial: 'submit_online_section',  locals: { f: f }
       = render partial: 'lookup_record_section'
       = render partial: 'registered_info_section'
+      = render partial: 'ineligible_section'
 

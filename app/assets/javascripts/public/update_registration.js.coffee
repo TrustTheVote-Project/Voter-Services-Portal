@@ -64,6 +64,8 @@ class UpdateRegistration extends Registration
       errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
       errors
 
+    @eligibilityInvalid = ko.computed => @eligibilityErrors().length > 0
+
   augmentIdentityFields: ->
     @identityErrors = ko.computed =>
       errors = []
