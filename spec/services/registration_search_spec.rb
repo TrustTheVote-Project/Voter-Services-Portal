@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe RegistrationSearch, :focus do
+describe RegistrationSearch do
 
   describe 'general' do
     subject { search(600000008, 'TAZEWELL COUNTY') }
@@ -68,22 +68,6 @@ describe RegistrationSearch, :focus do
       end
     end
   end
-
-  # John: Ignoring incapacitated / felony until we get samples of restored rights
-  #
-  # describe 'incapacitated' do
-  #   subject { search(600000011, 'HARRISONBURG CITY') }
-  #   its(:rights_revoked)          { should == '1' }
-  #   its(:rights_revoked_reason)   { should == 'mental' }
-  #   its(:rights_restored)         { should == '0' }
-  # end
-  #
-  # describe 'convicted' do
-  #   subject { search(600000018, 'VIRGINIA BEACH CITY') }
-  #   its(:rights_revoked)          { should == '1' }
-  #   its(:rights_revoked_reason)   { should == 'felony' }
-  #   its(:rights_restored)         { should == '0' }
-  # end
 
   describe 'districts' do
     subject { search(600000008, 'TAZEWELL COUNTY') }

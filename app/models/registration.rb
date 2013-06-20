@@ -31,9 +31,9 @@ class Registration < ActiveRecord::Base
   serialized_attr :outside_type
   serialized_attr :service_branch, :service_id, :rank
 
-  serialized_attr :rights_revoked, :rights_revoked_reason
-  serialized_attr :rights_restored, :rights_restored_on
-  serialized_attr :rights_restored_in
+  serialized_attr :rights_revoked
+  serialized_attr :rights_felony, :rights_felony_restored, :rights_felony_restored_in, :rights_felony_restored_on
+  serialized_attr :rights_mental, :rights_mental_restored, :rights_mental_restored_on
 
   # Identity
   serialized_attr :first_name, :middle_name, :last_name, :suffix
@@ -87,13 +87,12 @@ class Registration < ActiveRecord::Base
   def eligible?
     self.citizen == '1' &&
     self.old_enough == '1' &&
-    self.dob && self.dob.past? &&
+    self.dob.try(:past?) &&
     self.ssn.present? &&
     (self.rights_revoked == '0' ||
-     (self.rights_revoked == '1' &&
-      self.rights_revoked_reason.present? &&
-      self.rights_restored == '1' &&
-      self.rights_restored_on && self.rights_restored_on.past?))
+     ((self.rights_felony == '1' || self.rights_mental == '1') &&
+      (self.rights_felony == '0' || (self.rights_felony_restored == '1' && self.rights_felony_restored_in.present? && self.rights_felony_restored_on.try(:past?))) or
+      (self.rights_mental == '0' || (self.rights_mental_restored == '1' && self.rights_mental_restored_on.try(:past?)))))
   end
 
   def full_name

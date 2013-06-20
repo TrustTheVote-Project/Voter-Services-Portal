@@ -88,8 +88,8 @@ class RegistrationSearch
     q = {
       voterIDnumber:  vid.to_s.gsub(/[^\d]/, '').rjust(9, '0'),
       localityName:   locality,
-      dobMonth:       dob.month,
-      dobDay:         dob.day,
+      dobMonth:       dob.month.to_s.rjust(2, '0'),
+      dobDay:         dob.day.to_s.rjust(2, '0'),
       dobYear:        dob.year }
 
     parse_uri(URI("#{AppConfig['lookup_url']}/voterByVID/?#{q.to_query}"))
@@ -99,13 +99,13 @@ class RegistrationSearch
     q = {
       ssn4:           query.ssn4,
       localityName:   query.locality,
-      dobMonth:       query.dob.month,
-      dobDay:         query.dob.day,
+      dobMonth:       query.dob.month.to_s.rjust(2, '0'),
+      dobDay:         query.dob.day.to_s.rjust(2, '0'),
       dobYear:        query.dob.year,
       firstName:      query.first_name,
       lastName:       query.last_name }
 
-    parse_uri(URI("#{AppConfig['lookup_url']}/voterBySSN9/?#{q.to_query}"))
+    parse_uri(URI("#{AppConfig['lookup_url']}/voterBySSN4/?#{q.to_query}"))
   end
 
   def self.parse_uri(uri)
@@ -169,20 +169,16 @@ class RegistrationSearch
     vvr_zip = vvr.css('PostCode').try(:text) || ""
     vvr_zip5, vvr_zip4 = vvr_zip.scan(/(\d{5})(\d{4})?/).flatten
 
-    felony                = doc.css('CheckBox[Type="Felony"]').try(:text) == 'yes'
-    incapacitated         = doc.css('CheckBox[Type="Incapacitated"]').try(:text) == 'yes'
-    rights_revoked        = "0"
-    rights_revoked_reason = nil
-    rights_restored       = nil
-    rights_restored_on    = nil
-
-    # John: Ignoring incapacitated / felony until we get samples of restored rights
-    #
-    # if felony || incapacitated
-    #   rights_revoked_reason = felony ? 'felony' : 'mental'
-    #   rights_revoked  = "1"
-    #   rights_restored = "0"
-    # end
+    felony                    = doc.css('CheckBox[Type="Felony"]').try(:text) == 'yes'
+    incapacitated             = doc.css('CheckBox[Type="Incapacitated"]').try(:text) == 'yes'
+    rights_revoked            = "0"
+    rights_felony             = nil
+    rights_mental             = nil
+    rights_felony_restored    = nil
+    rights_felony_restored_on = nil
+    rights_felony_restored_in = nil
+    rights_mental_restored    = nil
+    rights_mental_restored_on = nil
 
     ela      = doc.css("CheckBox[Type='ElectionLevelAbsentee']").try(:text) == 'yes'
     oa       = doc.css("CheckBox[Type='OngoingAbsentee']").try(:text) == 'yes'
@@ -243,10 +239,13 @@ class RegistrationSearch
       gender:                 doc.css('Gender').try(:text).to_s.capitalize,
       lang_preference:        doc.css('PreferredLanguage').try(:text),
 
-      rights_revoked:         rights_revoked,
-      rights_revoked_reason:  rights_revoked_reason,
-      rights_restored:        rights_restored,
-      rights_restored_on:     rights_restored_on,
+      rights_revoked:             rights_revoked,
+      rights_felony:              rights_felony,
+      rights_felony_restored:     rights_felony_restored,
+      rights_felony_restored_on:  rights_felony_restored_on,
+      rights_felony_restored_in:  rights_felony_restored_in,
+      rights_mental_restored:     rights_mental_restored,
+      rights_mental_restored_on:  rights_mental_restored_on,
 
       vvr_is_rural:           "0",
       vvr_street_number:      vvr_thoroughfare['number'],

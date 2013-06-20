@@ -33,7 +33,7 @@ class RegistrationsController < ApplicationController
     active_form = ActiveForm.find_for_session!(session)
 
     data = params[:registration]
-    Converter.params_to_date(data, :vvr_uocava_residence_unavailable_since, :dob, :absentee_until, :rights_restored_on)
+    Converter.params_to_date(data, :vvr_uocava_residence_unavailable_since, :dob, :absentee_until, :rights_felony_restored_on, :rights_mental_restored_on)
     Converter.params_to_time(data, :ab_time_1, :ab_time_2)
     @registration = Registration.new(data)
 
@@ -120,7 +120,7 @@ class RegistrationsController < ApplicationController
     active_form = ActiveForm.find_for_session!(session)
 
     data = params[:registration]
-    Converter.params_to_date(data, :vvr_uocava_residence_unavailable_since, :dob, :absentee_until, :rights_restored_on)
+    Converter.params_to_date(data, :vvr_uocava_residence_unavailable_since, :dob, :absentee_until, :rights_felony_restored_on, :rights_mental_restored_on)
     Converter.params_to_time(data, :ab_time_1, :ab_time_2)
 
     @registration = current_registration

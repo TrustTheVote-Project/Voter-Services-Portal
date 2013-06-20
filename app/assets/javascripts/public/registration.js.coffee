@@ -15,24 +15,30 @@ class window.Registration
     @initOathFields()
 
   initEligibilityFields: ->
-    @citizen                = ko.observable()
-    @oldEnough              = ko.observable()
-    @rightsWereRevoked      = ko.observable()
-    @rightsRevokationReason = ko.observable()
-    @rightsWereRestored     = ko.observable()
-    @rightsRestoredOnMonth  = ko.observable()
-    @rightsRestoredOnYear   = ko.observable()
-    @rightsRestoredOnDay    = ko.observable()
-    @rightsRestoredIn       = ko.observable()
-    @rightsRestoredInText   = ko.computed => $("#registration_rights_restored_in option[value='#{@rightsRestoredIn()}']").text()
-    @rightsRestoredOn       = ko.computed => pastDate(@rightsRestoredOnYear(), @rightsRestoredOnMonth(), @rightsRestoredOnDay())
-    @dobYear                = ko.observable()
-    @dobMonth               = ko.observable()
-    @dobDay                 = ko.observable()
-    @dob                    = ko.computed => pastDate(@dobYear(), @dobMonth(), @dobDay())
-    @ssn                    = ko.observable()
-    @noSSN                  = ko.observable()
-    @dmvId                  = ko.observable()
+    @citizen                      = ko.observable()
+    @oldEnough                    = ko.observable()
+    @rightsWereRevoked            = ko.observable()
+    @rightsFelony                 = ko.observable()
+    @rightsMental                 = ko.observable()
+    @rightsFelonyRestored         = ko.observable()
+    @rightsMentalRestored         = ko.observable()
+    @rightsFelonyRestoredOnMonth  = ko.observable()
+    @rightsFelonyRestoredOnYear   = ko.observable()
+    @rightsFelonyRestoredOnDay    = ko.observable()
+    @rightsMentalRestoredOnMonth  = ko.observable()
+    @rightsMentalRestoredOnYear   = ko.observable()
+    @rightsMentalRestoredOnDay    = ko.observable()
+    @rightsRestoredIn             = ko.observable()
+    @rightsRestoredInText         = ko.computed => $("#registration_rights_felony_restored_in option[value='#{@rightsFelonyRestoredIn()}']").text()
+    @rightsFelonyRestoredOn       = ko.computed => pastDate(@rightsFelonyRestoredOnYear(), @rightsFelonyRestoredOnMonth(), @rightsFelonyRestoredOnDay())
+    @rightsMentalRestoredOn       = ko.computed => pastDate(@rightsMentalRestoredOnYear(), @rightsMentalRestoredOnMonth(), @rightsMentalRestoredOnDay())
+    @dobYear                      = ko.observable()
+    @dobMonth                     = ko.observable()
+    @dobDay                       = ko.observable()
+    @dob                          = ko.computed => pastDate(@dobYear(), @dobMonth(), @dobDay())
+    @ssn                          = ko.observable()
+    @noSSN                        = ko.observable()
+    @dmvId                        = ko.observable()
 
     @isEligible = ko.computed =>
       @citizen() == '1' and
@@ -40,19 +46,19 @@ class window.Registration
       !!@dob() and
       !@noSSN() and filled(@ssn()) and
       (@rightsWereRevoked() == '0' or
-       filled(@rightsRevokationReason()) and @rightsWereRestored() == '1' and !!@rightsRestoredOn())
+        (@rightsFelony() == '0' or (@rightsFelonyRestored() == '1' and filled(@rightsFelonyRestoredIn()) and !!@rightsFelonyRestoredOn())) or
+        (@rightsMental() == '0' or (@rightsMentalRestored() == '1' and !!@rightsMentalRestoredOn())))
 
     @eligibilityErrors = ko.computed =>
       errors = []
       errors.push("Citizenship criteria") unless @citizen()
       errors.push("Age criteria") unless @oldEnough()
 
-      rwr = @rightsWereRestored()
-      filledRightsRestorationBlock = filled(rwr) and (rwr == '0' or @rightsRestoredOn())
       errors.push("Voting rights criteria") if !filled(@rightsWereRevoked()) or
         (@rightsWereRevoked() == '1' and
-          (!filled(@rightsRevokationReason()) or
-           !filledRightsRestorationBlock))
+          ((@rightsFelony() != '1' and @rightsMental() != '1') or
+           (@rightsFelony() == '1' and (@rightsFelonyRestored() != '1' or !!@rightsFelonyRestoredOn())) or
+           (@rightsMental() == '1' and (@rightsMentalRestored() != '1' or !!@rightsMentalRestoredOn()))))
 
       errors.push('Date of birth') unless @dob()
       errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
@@ -617,16 +623,11 @@ class window.Registration
     return if $(e.target).hasClass('disabled')
     @page('lookup')
 
-    revoked = @rightsWereRevoked() && !@rightsWereRestored()
-    reason  = @rightsRevokationReason()
-    rfelony = revoked && reason == 'felony'
-    rmental = revoked && reason == 'mental'
-
     $.getJSON '/lookup/registration', { record: {
         eligible_citizen:             @citizen(),
         eligible_18_next_election:    @oldEnough(),
-        eligible_revoked_felony:      if rfelony then '1' else '0',
-        eligible_revoked_competence:  if rmental then '1' else '0',
+        eligible_revoked_felony:      @rightsFelony(),
+        eligible_revoked_competence:  @rightsMental(),
         dob:                          "#{@dobMonth()}/#{@dobDay()}/#{@dobYear()}",
         ssn:                          @ssn(),
         dmv_id:                       @dmvId()

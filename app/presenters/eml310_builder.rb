@@ -112,9 +112,9 @@ class Eml310Builder
                 xml.Message DisplayOrder: order.to_s.rjust(4, '0'), Type: 'Felony', Seqn: order do
                   xml.Felony  "yes",
                               "xsi:schemaLocation" => "http://sbe.virginia.gov EmlExtension.xsd",
-                              "RightsRestored"     => yn(r.rights_restored?),
-                              "ConvictionState"    => r.rights_restored_in,
-                              "RestoredDate"       => r.rights_restored_on,
+                              "RightsRestored"     => yn(r.rights_felony_restored?),
+                              "ConvictionState"    => r.rights_felony_restored_in,
+                              "RestoredDate"       => r.rights_felony_restored_on,
                               "xmlns"              => 'http://sbe.virginia.gov/EmlExtension'
                 end
                 order += 1
@@ -124,8 +124,8 @@ class Eml310Builder
                 xml.Message DisplayOrder: order.to_s.rjust(4, '0'), Type: "Incapacitated", Seqn: order do
                   xml.Incapacitated "yes",
                                     "xsi:schemaLocation" => "http://sbe.virginia.gov EmlExtension.xsd",
-                                    "RightsRestored"     => yn(r.rights_restored?),
-                                    "RestoredDate"       => r.rights_restored_on,
+                                    "RightsRestored"     => yn(r.rights_mental_restored?),
+                                    "RestoredDate"       => r.rights_mental_restored_on,
                                     "xmlns"              => "http://sbe.virginia.gov/EmlExtension"
                 end
                 order += 1

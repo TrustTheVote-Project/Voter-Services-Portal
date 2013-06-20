@@ -25,20 +25,22 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     @reg.rights_revoked == '1'
   end
 
-  def rights_restored_in
-    @reg.rights_restored_in
+  def rights_felony_restored_in
+    @reg.rights_felony_restored_in
   end
 
+  # TODO cleanup
   def rights_revokation_reason
     rights_revoked_felony? ? 'felony' : 'mental incapacitation'
   end
 
   def rights_revoked_felony?
-    @reg.rights_revoked_reason == 'felony'
+    @reg.rights_felony == '1'
   end
 
+  # TODO split for felony and mental
   def rights_restored_on
-    @reg.rights_restored_on.try(:strftime, "%m/%d/%Y")
+    @reg.rights_felony_restored_on.try(:strftime, "%m/%d/%Y")
   end
 
   # Identity

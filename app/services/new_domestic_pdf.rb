@@ -69,9 +69,12 @@ class NewDomesticPdf
 
   def self.setVoterRightsStatus(pdf, reg)
     if reg.rights_revoked == '1'
-      pdf.set('RIGHTS', reg.rights_revoked_reason == 'felony' ? 'F' : 'M')
-      pdf.set('RIGHTS_RESTORED', reg.rights_restored == '1' ? 'Y' : 'N')
-      setDigitalField(pdf, 'RIGHTS_RESTORED', 8, reg.rights_restored_on.strftime('%m%d%Y')) unless reg.rights_restored_on.blank?
+      felony      = reg.rights_felony == '1'
+      restored    = felony ? reg.rights_felony_restored : reg.rights_metal_restored
+      restored_on = felony ? reg.rights_felony_restored_on : reg.rights_mental_restored_on
+      pdf.set('RIGHTS', felony ? 'F' : 'M')
+      pdf.set('RIGHTS_RESTORED', restored == '1' ? 'Y' : 'N')
+      setDigitalField(pdf, 'RIGHTS_RESTORED', 8, restored_on.strftime('%m%d%Y')) unless restored_on.blank?
     else
       pdf.set('RIGHTS', 'N')
       pdf.set('RIGHTS_RESTORED', '')

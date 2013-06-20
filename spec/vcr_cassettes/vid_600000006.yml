@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://vas.herokuapp.com/voterByVID/?dobDay=18&dobMonth=6&dobYear=2013&localityName=ALEXANDRIA%20CITY&voterIDnumber=600000006
+    uri: http://vas.herokuapp.com/voterByVID/?dobDay=20&dobMonth=06&dobYear=2013&localityName=ALEXANDRIA%20CITY&voterIDnumber=600000006
     body:
       encoding: US-ASCII
       string: ''
@@ -13,28 +13,100 @@ http_interactions:
       - Ruby
   response:
     status:
-      code: 404
-      message: ! 'Not Found '
+      code: 200
+      message: ! 'OK '
     headers:
       Content-Type:
-      - text/html;charset=utf-8
+      - text/xml;charset=utf-8
       Date:
-      - Tue, 18 Jun 2013 10:19:41 GMT
+      - Thu, 20 Jun 2013 17:17:09 GMT
       Server:
-      - WEBrick/1.3.1 (Ruby/1.9.2/2011-07-09)
-      X-Cascade:
-      - pass
+      - WEBrick/1.3.1 (Ruby/1.9.2/2012-04-20)
       X-Frame-Options:
       - sameorigin
       X-Xss-Protection:
       - 1; mode=block
       Content-Length:
-      - '18'
+      - '7606'
       Connection:
       - keep-alive
     body:
       encoding: US-ASCII
-      string: <h1>Not Found</h1>
+      string: <?xml version="1.0" encoding="utf-8"?><EML SchemaVersion="7.0" Id="330"
+        xmlns="urn:oasis:names:tc:evs:schema:eml" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:xsd="http://www.w3.org/2001/XMLSchema"><EMLHeader><TransactionId>330</TransactionId><OfficialStatusDetail><OfficialStatus>approved</OfficialStatus><StatusDate>2012-10-05</StatusDate></OfficialStatusDetail></EMLHeader><ElectionList><VoterDetails><VoterRegistration><Voter><Source
+        Role="sender"><Name>Virginia</Name></Source><VoterIdentification Id="600000006"><VoterName><PersonFullName
+        xmlns="urn:oasis:names:tc:ciq:xnl:4">JENNIFER PAIGE NAHLEY </PersonFullName><PersonNameDetail
+        xmlns="urn:oasis:names:tc:ciq:xnl:4"><GivenName>JENNIFER</GivenName><MiddleName>PAIGE</MiddleName><FamilyName>NAHLEY</FamilyName></PersonNameDetail></VoterName><ElectoralAddress><PostalAddress
+        xmlns="urn:oasis:names:tc:ciq:xal:4"><Thoroughfare type="CT" number="5562"
+        name="Ascot">5562 Ascot Ct Apt A</Thoroughfare><OtherDetail type="ApartmentNumber">Apt
+        A</OtherDetail><Locality type="Town">Alexandria</Locality><AdministrativeArea
+        type="StateCode">VA</AdministrativeArea><PostCode type="ZipCode">223115562</PostCode><Country/></PostalAddress></ElectoralAddress></VoterIdentification><VoterInformation><Contact><MailingAddress
+        usage="Mailing"><FreeTextAddress xmlns="urn:oasis:names:tc:ciq:xal:4"><AddressLine
+        type="MailingAddressLine1" seqn="0001">103 Main Mailing</AddressLine><AddressLine
+        type="MailingCity" seqn="0002">Fairfax</AddressLine><AddressLine type="MailingState"
+        seqn="0003">VA</AddressLine><AddressLine type="MailingZip" seqn="0004">111111111</AddressLine></FreeTextAddress></MailingAddress><Email/><Telephone/></Contact><EffectiveDateAdded>1992-09-05</EffectiveDateAdded><PreferredLanguage>English</PreferredLanguage><CheckBox
+        Type="ActiveRegistration">yes</CheckBox><CheckBox Type="OngoingAbsentee">no</CheckBox><CheckBox
+        Type="ElectionLevelAbsentee">no</CheckBox><CheckBox Type="Eighteenplus">yes</CheckBox><CheckBox
+        Type="AddressConfidential">no</CheckBox><CheckBox Type="Military">no</CheckBox><CheckBox
+        Type="Overseas">no</CheckBox><CheckBox Type="Disabled">no</CheckBox><CheckBox
+        Type="Federal Only">no</CheckBox><PollingDistrict><Association Id="PrecinctSplitUID">cb1ff979-7864-4b19-ab98-2126e8a629ff</Association><Association
+        Id="PrecinctName">306 - WILLIAM RAMSAY SCHOOL</Association><Association Id="LocalityName">ALEXANDRIA
+        CITY</Association><Association Id="TownshipName">DISTRICT C</Association><Association
+        Id="ElectoralDistrict">DISTRICT C</Association><Association Id="CongressionalDistrictCode">08</Association><Association
+        Id="CongressionalDistrict">8th District</Association><Association Id="SenateDistrictCode">035</Association><Association
+        Id="SenateDistrict">35th District</Association><Association Id="StateHouseDistrictCode">046</Association><Association
+        Id="StateHouseDistrict">46th District</Association></PollingDistrict><PollingPlace
+        Channel="polling"><PhysicalLocation><Address><FreeTextAddress xmlns="urn:oasis:names:tc:ciq:xal:4"><AddressLine
+        type="LocationName" seqn="0001">WILLIAM RAMSAY REC CENTER</AddressLine><AddressLine
+        type="Address" seqn="0002">5650 SANGER AVE</AddressLine><AddressLine type="City"
+        seqn="0003">ALEXANDRIA</AddressLine><AddressLine type="State" seqn="0004">VA</AddressLine><AddressLine
+        type="Zip" seqn="0005">223115562</AddressLine></FreeTextAddress></Address></PhysicalLocation></PollingPlace><PollingPlace
+        Channel="postal"><PostalLocation><FreeTextAddress xmlns="urn:oasis:names:tc:ciq:xal:4"><AddressLine
+        type="Phone" seqn="0001">7037464050</AddressLine><AddressLine type="AddressLine1"
+        seqn="0002">132 NORTH ROYAL STREET</AddressLine><AddressLine type="AddressLine2"
+        seqn="0003">SUITE 100</AddressLine><AddressLine type="City" seqn="0004">ALEXANDRIA</AddressLine><AddressLine
+        type="State" seqn="0005">VA</AddressLine><AddressLine type="Zip" seqn="0006">22314</AddressLine></FreeTextAddress></PostalLocation></PollingPlace><Gender>male</Gender><FurtherInformation/></VoterInformation></Voter></VoterRegistration><Election><ElectionIdentifier
+        IdNumber="952d18a9-be40-422c-aed9-826370a9340b" DisplayOrder="0001"><ElectionName>2019
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">ALEXANDRIA CITY</Name></PollingDistrict><CheckBox
+        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
+        Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
+        IdNumber="d984ff7e-140b-4847-bf0e-37e171384950" DisplayOrder="0002"><ElectionName>2015
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">ALEXANDRIA CITY</Name></PollingDistrict><CheckBox
+        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
+        Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
+        IdNumber="5044a1d3-ca7f-48b1-9cc6-ea33e8f26e60" DisplayOrder="0003"><ElectionName>2014
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">ALEXANDRIA CITY</Name></PollingDistrict><CheckBox
+        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
+        Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
+        IdNumber="6002fdb4-fc9c-4f36-a418-c0bdfff2e579" DisplayOrder="0004"><ElectionName>2013
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">ALEXANDRIA CITY</Name></PollingDistrict><CheckBox
+        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
+        Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
+        IdNumber="68c30477-aaf2-46dd-994e-5d3be8a89c9b" DisplayOrder="0005"><ElectionName>2012
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">ALEXANDRIA CITY</Name></PollingDistrict><CheckBox
+        Type="Voted">no</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
+        Type="FutureElection">yes</CheckBox></Election><Election><ElectionIdentifier
+        IdNumber="eb24720d-f5c6-4880-8dc5-12ae4d0c3772" DisplayOrder="0006"><ElectionName>2010
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">ALEXANDRIA CITY</Name></PollingDistrict><CheckBox
+        Type="Voted">yes</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
+        Type="FutureElection">no</CheckBox></Election><Election><ElectionIdentifier
+        IdNumber="07261afc-9ed3-410f-b07d-84d014ab2c6b" DisplayOrder="0007"><ElectionName>2008
+        November General</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">ALEXANDRIA CITY</Name></PollingDistrict><CheckBox
+        Type="Voted">yes</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
+        Type="FutureElection">no</CheckBox></Election><Election><ElectionIdentifier
+        IdNumber="00af7740-6111-4dd4-8ea3-6a8833d5f660" DisplayOrder="0008"><ElectionName>11/7/2006
+        - NOVEMBER 7, 2006 GENERAL ELECTION</ElectionName><ElectionCategory>Full Ballot</ElectionCategory></ElectionIdentifier><PollingDistrict><Name
+        divisionType="locality">ALEXANDRIA CITY</Name></PollingDistrict><CheckBox
+        Type="Voted">yes</CheckBox><CheckBox Type="Permitted">yes</CheckBox><CheckBox
+        Type="FutureElection">no</CheckBox></Election></VoterDetails></ElectionList></EML>
     http_version: 
-  recorded_at: Tue, 18 Jun 2013 10:19:44 GMT
+  recorded_at: Thu, 20 Jun 2013 17:17:09 GMT
 recorded_with: VCR 2.4.0

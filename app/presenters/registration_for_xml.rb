@@ -15,7 +15,7 @@ class RegistrationForXML
                   :pr_status,
                   :pr_full_name, :pr_first_name, :pr_middle_name, :pr_last_name, :pr_suffix,
                   :pr_address, :pr_address_2, :pr_city, :pr_state, :pr_zip5, :pr_zip4, :pr_is_rural, :pr_rural,
-                  :rights_restored_in, :rights_restored_on,
+                  :rights_felony_restored_in, :rights_felony_restored_on, :rights_mental_restored_on,
                   :ab_reason,
                   :residential?
 
@@ -52,11 +52,11 @@ class RegistrationForXML
   end
 
   def felony?
-    @r.rights_revoked_reason == 'felony'
+    @r.rights_felony == '1'
   end
 
   def mental?
-    @r.rights_revoked_reason == 'mental'
+    @r.rights_mental == '1'
   end
 
   def ca_zip
@@ -95,8 +95,9 @@ class RegistrationForXML
     @r.ma_is_different == '1'
   end
 
+  # TODO should be for mental and felony separately
   def rights_restored?
-    @r.rights_restored == '1'
+    @r.rights_felony_restored == '1'
   end
 
   def ab_type

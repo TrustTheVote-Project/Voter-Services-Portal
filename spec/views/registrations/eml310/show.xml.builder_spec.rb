@@ -243,7 +243,7 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
       end
 
       it 'should render when felony and restored' do
-        reg rights_revoked: '1', rights_revoked_reason: 'felony', rights_restored_in: 'MA', rights_restored_on: Kronic.parse('10 Dec, 2000'), rights_restored: '1'
+        reg rights_revoked: '1', rights_felony: '1', rights_felony_restored_in: 'MA', rights_felony_restored_on: Kronic.parse('10 Dec, 2000'), rights_felony_restored: '1'
         xml.should have_selector "VoterInformation CheckBox[Type='VotingRightsRevoked']", text: 'yes'
         xml.within "FurtherInformation Message[DisplayOrder='0001'][Type='Felony'][Seqn='1']" do |f|
           f.should have_selector "Felony[RightsRestored='yes'][ConvictionState='MA'][RestoredDate='2000-12-10']", text: 'yes'
@@ -251,7 +251,7 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
       end
 
       it 'should render when mental and restored' do
-        reg rights_revoked: '1', rights_revoked_reason: 'mental', rights_restored_on: Kronic.parse('10 Dec, 2000'), rights_restored: '1'
+        reg rights_revoked: '1', rights_mental: '1', rights_mental_restored_on: Kronic.parse('10 Dec, 2000'), rights_mental_restored: '1'
         xml.should have_selector "VoterInformation CheckBox[Type='VotingRightsRevoked']", text: 'yes'
         xml.within "FurtherInformation Message[DisplayOrder='0001'][Type='Incapacitated'][Seqn='1']" do |f|
           f.should have_selector "Incapacitated[RightsRestored='yes'][RestoredDate='2000-12-10']", text: 'yes'
@@ -259,7 +259,7 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
       end
 
       it 'should render when felony and not restored' do
-        reg rights_revoked: '1', rights_revoked_reason: 'felony'
+        reg rights_revoked: '1', rights_felony: '1'
         xml.should have_selector "VoterInformation CheckBox[Type='VotingRightsRevoked']", text: 'yes'
         xml.within "FurtherInformation Message[DisplayOrder='0001'][Type='Felony'][Seqn='1']" do |f|
           f.should have_selector "Felony[RightsRestored='no']", text: 'yes'
@@ -267,7 +267,7 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
       end
 
       it 'should render when mental and not restored' do
-        reg rights_revoked: '1', rights_revoked_reason: 'mental'
+        reg rights_revoked: '1', rights_mental: '1'
         xml.should have_selector "VoterInformation CheckBox[Type='VotingRightsRevoked']", text: 'yes'
         xml.within "FurtherInformation Message[DisplayOrder='0001'][Type='Incapacitated'][Seqn='1']" do |f|
           f.should have_selector "Incapacitated[RightsRestored='no']", text: 'yes'

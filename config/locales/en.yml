@@ -42,6 +42,13 @@ en:
     rights:
       question: Have you been convicted of a felony or been adjudicated mentally incapacitated?
       ineligible: To register, you must have your voting rights restored.
+      felony:
+        question: "Have you every been convicted of a felony?"
+        state: "State where convicted:"
+        restored: "Have your voting rights been restored?"
+        date: "Date when restored:"
+      mental:
+        question: "Have you even been judged mentally incapacitated?"
     dmvid:
       details: By providing a valid DMV Customer Number, you may be eligible to submit your voter registration application online, without the need to print, sign and mail a paper application.
 

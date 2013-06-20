@@ -11,6 +11,7 @@
       - else
         .span4
           .check My voting rights were revoked in the past due to a #{rr.rights_revokation_reason}.
-        = field_line 1, rr.rights_restored_on, 'date when restored'
+        -# TODO should be for mental and felony separately
+        = field_line 1, rr.rights_felony_restored_on, 'date when restored'
         - if rr.rights_revoked_felony?
-          = field_line 1, rr.rights_restored_in, 'state where convicted'
+          = field_line 1, rr.rights_felony_restored_in, 'state where convicted'
