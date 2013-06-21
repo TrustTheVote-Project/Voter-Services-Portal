@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://vas.herokuapp.com/voterByVID/?dobDay=20&dobMonth=06&dobYear=2013&localityName=ARLINGTON%20COUNTY&voterIDnumber=600000035
+    uri: http://vas.herokuapp.com/voterByVID/?dobDay=21&dobMonth=6&dobYear=2013&localityName=ARLINGTON%20COUNTY&voterIDnumber=600000035
     body:
       encoding: US-ASCII
       string: ''
@@ -19,7 +19,7 @@ http_interactions:
       Content-Type:
       - text/xml;charset=utf-8
       Date:
-      - Thu, 20 Jun 2013 17:17:14 GMT
+      - Fri, 21 Jun 2013 04:32:24 GMT
       Server:
       - WEBrick/1.3.1 (Ruby/1.9.2/2012-04-20)
       X-Frame-Options:
@@ -217,5 +217,5 @@ http_interactions:
         L0VsZWN0aW9uPjwvVm90ZXJEZXRhaWxzPjwvRWxlY3Rpb25MaXN0PjwvRU1M
         Pg==
     http_version: 
-  recorded_at: Thu, 20 Jun 2013 17:17:14 GMT
+  recorded_at: Fri, 21 Jun 2013 04:32:23 GMT
 recorded_with: VCR 2.4.0

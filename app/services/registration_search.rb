@@ -88,8 +88,8 @@ class RegistrationSearch
     q = {
       voterIDnumber:  vid.to_s.gsub(/[^\d]/, '').rjust(9, '0'),
       localityName:   locality,
-      dobMonth:       dob.month.to_s.rjust(2, '0'),
-      dobDay:         dob.day.to_s.rjust(2, '0'),
+      dobMonth:       dob.month,
+      dobDay:         dob.day,
       dobYear:        dob.year }
 
     parse_uri(URI("#{AppConfig['lookup_url']}/voterByVID/?#{q.to_query}"))
@@ -99,8 +99,8 @@ class RegistrationSearch
     q = {
       ssn4:           query.ssn4,
       localityName:   query.locality,
-      dobMonth:       query.dob.month.to_s.rjust(2, '0'),
-      dobDay:         query.dob.day.to_s.rjust(2, '0'),
+      dobMonth:       query.dob.month,
+      dobDay:         query.dob.day,
       dobYear:        query.dob.year,
       firstName:      query.first_name,
       lastName:       query.last_name }

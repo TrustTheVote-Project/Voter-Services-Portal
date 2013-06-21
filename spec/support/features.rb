@@ -1,14 +1,23 @@
 def seed_offices
+  Office.delete_all
   Office.create!(locality: "ALEXANDRIA CITY", address: "Some address")
   Office.create!(locality: "NORFOLK CITY", address: "Some address")
 end
 
 def fill_eligibility_page(options = {})
   within('.citizen') { choose options[:citizen] || 'Yes' }
-  within('.rights_revoked') { choose 'No' }
-  select  "January",  from: "registration_dob_2i_"
-  select  "1",        from: "registration_dob_3i_"
-  select  "1996",     from: "registration_dob_1i_"
+  within('.old_enough') { choose options[:old_enough] || 'Yes' }
+
+  unless options[:skip_rights]
+    within('.rights_revoked') { choose 'No' }
+  end
+
+  unless options[:skip_dob]
+    select  "January",  from: "registration_dob_2i_"
+    select  "1",        from: "registration_dob_3i_"
+    select  "1996",     from: "registration_dob_1i_"
+  end
+
   fill_in "Social Security Number", with: "123123123"
   if options[:dmv_id]
     fill_in I18n.t('dmvid'), with: options[:dmv_id]

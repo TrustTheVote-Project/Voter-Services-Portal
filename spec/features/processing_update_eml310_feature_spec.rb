@@ -68,7 +68,9 @@ feature 'Processing update EML310 submission', :js do
   end
 
   def skip_and_confirm
-    click_link   'Next' # start editing
+    click_link   'Update Your Voter Information' # start editing
+    fill_eligibility_page skip_rights: true, skip_dob: true
+    click_button 'Next' # skip identity
     click_button 'Next' # skip address updates
     click_button 'Next' # skip options
     click_button 'Next' # confirm

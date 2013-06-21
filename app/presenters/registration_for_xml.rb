@@ -95,9 +95,12 @@ class RegistrationForXML
     @r.ma_is_different == '1'
   end
 
-  # TODO should be for mental and felony separately
-  def rights_restored?
+  def rights_felony_restored?
     @r.rights_felony_restored == '1'
+  end
+
+  def rights_mental_restored?
+    @r.rights_mental_restored == '1'
   end
 
   def ab_type
