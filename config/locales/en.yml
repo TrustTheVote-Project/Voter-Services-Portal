@@ -49,6 +49,7 @@ en:
         date: "Date when restored:"
       mental:
         question: "Have you even been judged mentally incapacitated?"
+        restored: "Has court restored you to capacity?"
     dmvid:
       details: By providing a valid DMV Customer Number, you may be eligible to submit your voter registration application online, without the need to print, sign and mail a paper application.
 

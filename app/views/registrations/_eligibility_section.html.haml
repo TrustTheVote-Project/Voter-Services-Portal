@@ -77,7 +77,7 @@
         = f.radio_button :rights_mental, '0', 'data-bind' => 'checkedWithInit: rightsMental'
         = f.label 'rights_mental_0', 'No'
 
-      .in
+      .in{ 'data-bind' => 'if: rightsMental() == "1"' }
         %h4= I18n.t('eligibility.rights.mental.restored')
         .radio
           = f.radio_button :rights_mental_restored, '1', 'data-bind' => 'checked: rightsMentalRestored'

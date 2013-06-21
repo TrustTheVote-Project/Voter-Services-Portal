@@ -70,7 +70,7 @@ class NewDomesticPdf
   def self.setVoterRightsStatus(pdf, reg)
     if reg.rights_revoked == '1'
       felony      = reg.rights_felony == '1'
-      restored    = felony ? reg.rights_felony_restored : reg.rights_metal_restored
+      restored    = felony ? reg.rights_felony_restored : reg.rights_mental_restored
       restored_on = felony ? reg.rights_felony_restored_on : reg.rights_mental_restored_on
       pdf.set('RIGHTS', felony ? 'F' : 'M')
       pdf.set('RIGHTS_RESTORED', restored == '1' ? 'Y' : 'N')
