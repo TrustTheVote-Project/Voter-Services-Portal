@@ -221,8 +221,10 @@ class Eml310Builder
       if !r.ma_is_different?
         if r.vvr_is_rural?
           # TODO needs review
-          xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
-            xml.AddressLine r.vvr_rural
+          xml.MailingAddress do
+            xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
+              xml.AddressLine r.vvr_rural
+            end
           end
         else
           xml.MailingAddress do
