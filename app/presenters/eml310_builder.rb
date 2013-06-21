@@ -194,22 +194,23 @@ class Eml310Builder
   end
 
   def self.electoral_address(xml, r, tag_name = 'ElectoralAddress')
-    o = { status: 'current' }
-    o[:type] = 'Rural' if r.vvr_is_rural?
+    # o = { status: 'current' }
+    # o[:type] = 'Rural' if r.vvr_is_rural?
 
-    xml.tag! tag_name, o do
+    xml.tag! tag_name do
       if r.vvr_is_rural?
+        # TODO needs review
         xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
           xml.AddressLine r.vvr_rural
         end
       else
         xml.PostalAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
-          xml.Thoroughfare        r.vvr_thoroughfare, type: r.vvr_street_type, number: r.vvr_street_number, name: r.vvr_street_name
-          xml.OtherDetail         r.vvr_apt unless r.vvr_apt.blank?
-          xml.Locality            r.vvr_town, type: 'Town'
+          xml.Thoroughfare        r.vvr_address_1
+          xml.OtherDetail         r.vvr_address_2 unless r.vvr_address_2.blank?
+          xml.Locality            r.vvr_town
           xml.AdministrativeArea  r.vvr_state, type: 'StateCode'
           xml.PostCode            r.vvr_zip, type: 'ZipCode'
-          xml.Country             'United States of America', code: 'USA'
+          xml.Country             'US'
         end
       end
     end
@@ -218,16 +219,32 @@ class Eml310Builder
   def self.mailing_address(xml, r)
     if r.residential?
       if !r.ma_is_different?
-        electoral_address(xml, r, 'MailingAddress')
+        if r.vvr_is_rural?
+          # TODO needs review
+          xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
+            xml.AddressLine r.vvr_rural
+          end
+        else
+          xml.MailingAddress do
+            xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
+              address_lines xml, [
+                [ 'AddressLine1',  r.vvr_address_1 ],
+                [ 'AddressLine2',  r.vvr_address_2 ],
+                [ 'City',          r.vvr_town ],
+                [ 'State',         r.vvr_state ],
+                [ 'Zip',           r.vvr_zip ] ]
+            end
+          end
+        end
       else
-        xml.MailingAddress status: 'current' do
+        xml.MailingAddress do
           xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
             address_lines xml, [
-              [ 'MailingAddressLine1',  r.ma_address ],
-              [ 'MailingAddressLine2',  r.ma_address_2 ],
-              [ 'MailingCity',          r.ma_city ],
-              [ 'MailingState',         r.ma_state ],
-              [ 'MailingZip',           r.ma_zip ] ]
+              [ 'AddressLine1',  r.ma_address ],
+              [ 'AddressLine2',  r.ma_address_2 ],
+              [ 'City',          r.ma_city ],
+              [ 'State',         r.ma_state ],
+              [ 'Zip',           r.ma_zip ] ]
           end
         end
       end
@@ -236,20 +253,20 @@ class Eml310Builder
         xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
           if r.mau_type == 'non-us'
             address_lines xml, [
-              [ nil,          r.mau_address ],
-              [ nil,          r.mau_address_2 ],
-              [ 'City',       [ r.mau_city, r.mau_city_2 ].reject(&:blank?).join(' ') ],
-              [ 'State',      r.mau_state ],
-              [ 'PostalCode', r.mau_postal_code ],
-              [ 'Country',    r.mau_country ] ]
+              [ 'AddressLine1',   r.mau_address ],
+              [ 'AddressLine2',   r.mau_address_2 ],
+              [ 'City',           [ r.mau_city, r.mau_city_2 ].reject(&:blank?).join(' ') ],
+              [ 'State',          r.mau_state ],
+              [ 'PostalCode',     r.mau_postal_code ],
+              [ 'Country',        r.mau_country ] ]
           else
             address_lines xml, [
-              [ nil,          r.apo_address ],
-              [ nil,          r.apo_address_2 ],
-              [ 'City',       r.apo_city ],
-              [ 'State',      r.apo_state ],
-              [ 'PostalCode', r.apo_zip5 ],
-              [ 'Country',    'United States' ] ]
+              [ 'AddressLine1',   r.apo_address ],
+              [ 'AddressLine2',   r.apo_address_2 ],
+              [ 'City',           r.apo_city ],
+              [ 'State',          r.apo_state ],
+              [ 'PostalCode',     r.apo_zip5 ],
+              [ 'Country',        'US' ] ]
           end
         end
       end

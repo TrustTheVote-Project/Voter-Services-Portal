@@ -41,7 +41,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :phone, :email
 
   # Contact info
-  serialized_attr :vvr_county_or_city, :vvr_street_number, :vvr_street_name, :vvr_street_type, :vvr_street_suffix, :vvr_apt
+  serialized_attr :vvr_county_or_city, :vvr_address_1, :vvr_address_2
   serialized_attr :vvr_town, :vvr_state, :vvr_zip5, :vvr_zip4
   serialized_attr :vvr_is_rural, :vvr_rural
   serialized_attr :vvr_uocava_residence_available, :vvr_uocava_residence_unavailable_since

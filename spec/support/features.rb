@@ -34,10 +34,8 @@ def fill_identity_page
 end
 
 def fill_address_page
-  fill_in "Street number", with: "12"
-  fill_in "Street name", with: "High"
+  fill_in "Address", with: "12 High St"
   fill_in "Zip code", with: "12345"
-  select  "ST", from: "Street type"
   select  "ALEXANDRIA CITY", from: "County or city"
   choose  "registration_pr_status_0"
   click_button "Next"

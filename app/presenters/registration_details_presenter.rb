@@ -89,12 +89,8 @@ class RegistrationDetailsPresenter
         end
 
         zip = [ data[:vvr_zip5], data[:vvr_zip4] ].rjoin('-')
-        [ [ data[:vvr_street_number],
-            data[:vvr_street_name],
-            data[:vvr_street_suffix],
-            data[:vvr_street_type]
-          ].rjoin(' '),
-          data[:vvr_apt],
+        [ data[:vvr_address_1],
+          data[:vvr_address_2],
           city,
           [ 'VA', zip ].join(' ') ].rjoin(', ')
       else
@@ -106,10 +102,7 @@ class RegistrationDetailsPresenter
   def registration_address_line_1
     r = @registration
     if r.vvr_is_rural || r.vvr_is_rural != '1'
-      [ r.vvr_street_number,
-        r.vvr_street_name,
-        r.vvr_street_suffix,
-        r.vvr_street_type ].rjoin(' ')
+      r.vvr_address_1
     else
       nil
     end
@@ -118,7 +111,7 @@ class RegistrationDetailsPresenter
   def registration_address_line_2
     r = @registration
     if r.vvr_is_rural || r.vvr_is_rural != '1'
-      r.vvr_apt
+      r.vvr_address_2
     else
       nil
     end

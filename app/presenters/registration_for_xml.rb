@@ -5,7 +5,7 @@ class RegistrationForXML
   def_delegators  :@r, :full_name, :first_name, :middle_name, :last_name, :suffix,
                   :ssn, :created_at, :email, :phone, :dob, :gender,
                   :ca_type,
-                  :vvr_street_number, :vvr_street_name, :vvr_street_type, :vvr_apt,
+                  :vvr_address_1, :vvr_address_2,
                   :vvr_town, :vvr_state, :vvr_state, :vvr_rural,
                   :ma_address, :ma_address_2, :ma_city, :ma_state, :mau_type, :mau_address, :mau_address_2, :mau_city, :mau_city_2,
                   :mau_state, :mau_postal_code, :mau_country,
@@ -69,10 +69,6 @@ class RegistrationForXML
 
   def vvr_is_rural?
     @r.vvr_is_rural == '1'
-  end
-
-  def vvr_thoroughfare
-    [ @r.vvr_street_number, @r.vvr_street_name, @r.vvr_street_type ].rjoin(' ')
   end
 
   def pr_is_rural?

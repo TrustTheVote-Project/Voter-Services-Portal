@@ -11,9 +11,8 @@ describe LookupService do
         registered: false,
         dmv_match:  true,
         address: {
-          street_number:  "123",
-          street_name:    "WannaVote",
-          street_type:    "DR",
+          address_1:      "123 WannaVote DR",
+          address_2:      "4",
           county_or_city: "ALEXANDRIA CITY",
           zip5:           "12345"
         }

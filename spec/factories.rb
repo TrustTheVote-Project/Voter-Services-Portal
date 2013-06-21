@@ -32,9 +32,7 @@ FactoryGirl.define do
       choose_party        '1'
       party               'Democratic Party'
 
-      vvr_street_number   '518'
-      vvr_street_name     'Vance'
-      vvr_street_type     'ST'
+      vvr_address_1       '518 Vance ST'
       vvr_county_or_city  'BRUNSWICK COUNTY'
       vvr_town            'Queensberry'
       vvr_state           'VA'
@@ -79,9 +77,7 @@ FactoryGirl.define do
       gender              'Male'
       dob                 40.years.ago
 
-      vvr_street_number   '5'
-      vvr_street_name     'First'
-      vvr_street_type     'ST'
+      vvr_address_1       '5 First ST'
       vvr_county_or_city  'BRISTOL CITY'
       vvr_state           'VA'
       vvr_zip5            '12345'

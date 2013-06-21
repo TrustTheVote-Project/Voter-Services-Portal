@@ -166,8 +166,8 @@ class RegistrationSearch
     voter_id = doc.css('VoterIdentification').first.try(:[], 'Id')
 
     vvr = doc.css('ElectoralAddress PostalAddress').first
-    vvr_thoroughfare = vvr.css('Thoroughfare').first
-    vvr_apt = vvr.css('OtherDetail[type="ApartmentNumber"]').try(:text)
+    vvr_address_1 = vvr.css('Thoroughfare').first.try(:text)
+    vvr_address_2 = vvr.css('OtherDetail').try(:text)
     vvr_zip = vvr.css('PostCode').try(:text) || ""
     vvr_zip5, vvr_zip4 = vvr_zip.scan(/(\d{5})(\d{4})?/).flatten
 
@@ -250,10 +250,8 @@ class RegistrationSearch
       rights_mental_restored_on:  rights_mental_restored_on,
 
       vvr_is_rural:           "0",
-      vvr_street_number:      vvr_thoroughfare['number'],
-      vvr_street_name:        vvr_thoroughfare['name'],
-      vvr_street_type:        vvr_thoroughfare['type'],
-      vvr_apt:                vvr_apt,
+      vvr_address_1:          vvr_address_1,
+      vvr_address_2:          vvr_address_2,
       vvr_county_or_city:     poll_locality,
       vvr_town:               vvr.css('Locality').try(:text),
       vvr_state:              "VA",

@@ -14,10 +14,8 @@ describe RegistrationSearch do
     its(:gender)                  { should == "Female" }
     its(:rights_revoked)          { should == "0" }
 
-    its(:vvr_street_number)       { should == "507" }
-    its(:vvr_street_name)         { should == "Back woods" }
-    its(:vvr_street_type)         { should == "ST" }
-    its(:vvr_apt)                 { should == "" }
+    its(:vvr_address_1)           { should == "RR 507 Back woods" }
+    its(:vvr_address_2)           { should == "" }
     its(:vvr_county_or_city)      { should == "TAZEWELL COUNTY" }
     its(:vvr_town)                { should == "N Tazewell" }
     its(:vvr_zip5)                { should == "24630" }
@@ -124,10 +122,8 @@ describe RegistrationSearch do
 
   describe 'registration address' do
     subject { search(600000006, 'ALEXANDRIA CITY') }
-    its(:vvr_street_number) { should == "5562" }
-    its(:vvr_street_name)   { should == "Ascot" }
-    its(:vvr_street_type)   { should == "CT" }
-    its(:vvr_apt)           { should == "Apt A" }
+    its(:vvr_address_1)     { should == "5562 Ascot Ct Apt A" }
+    its(:vvr_address_2)     { should == "Apt A" }
     its(:vvr_town)          { should == "Alexandria" }
     its(:vvr_zip5)          { should == "22311" }
     its(:vvr_zip4)          { should == "5562" }

@@ -49,21 +49,21 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
     it 'should render rural address' do
       reg vvr_is_rural: '1', vvr_rural: 'Rural address'
       xml.within 'EML VoterRegistration Voter VoterIdentification' do |x|
-        x.within "ElectoralAddress[type='Rural'][status='current'] FreeTextAddress" do |a|
+        x.within "ElectoralAddress FreeTextAddress" do |a|
           a.should have_selector 'AddressLine', text: 'Rural address'
         end
       end
     end
 
     it 'should render local address' do
-      reg vvr_street_number: '1', vvr_street_name: 'SN', vvr_street_type: 'AVE', vvr_apt: '2', vvr_county_or_city: 'BRISTOL CITY', vvr_town: 'BRISTOL', vvr_state: 'VA', vvr_zip5: '12345', vvr_zip4: '6789'
-      xml.within "ElectoralAddress[status='current']:not([type='Rural']) PostalAddress" do |a|
-        a.should have_selector "Thoroughfare[type='AVE'][number='1'][name='SN']", text: "1 SN AVE"
+      reg vvr_address_1: '1 SN AVE', vvr_address_2: '2', vvr_county_or_city: 'BRISTOL CITY', vvr_town: 'BRISTOL', vvr_state: 'VA', vvr_zip5: '12345', vvr_zip4: '6789'
+      xml.within "ElectoralAddress PostalAddress" do |a|
+        a.should have_selector "Thoroughfare", text: "1 SN AVE"
         a.should have_selector "OtherDetail", text: '2'
-        a.should have_selector "Locality[type='Town']", text: 'BRISTOL'
+        a.should have_selector "Locality", text: 'BRISTOL'
         a.should have_selector "AdministrativeArea[type='StateCode']", text: 'VA'
         a.should have_selector "PostCode[type='ZipCode']", text: '123456789'
-        a.should have_selector "Country[code='USA']", text: 'United States of America'
+        a.should have_selector "Country", text: 'US'
       end
     end
   end
@@ -71,25 +71,23 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
   describe 'mailing address' do
     context 'residential' do
       it 'is the same as registration' do
-        r = reg ma_is_different: '0', vvr_zip5: 12345, vvr_zip4: nil, vvr_apt: nil
-        xml.within "VoterInformation Contact MailingAddress[status='current'] PostalAddress" do |a|
-          a.should have_selector "Thoroughfare[type='#{r.vvr_street_type}'][number='#{r.vvr_street_number}'][name='#{r.vvr_street_name}']", text: "#{r.vvr_street_number} #{r.vvr_street_name} #{r.vvr_street_type}"
-          a.should have_selector "Locality[type='Town']", text: r.vvr_town
-          a.should have_selector "AdministrativeArea[type='StateCode']", text: r.vvr_state
-          a.should have_selector "PostCode[type='ZipCode']", text: '12345'
-          a.should have_selector "Country[code='USA']", text: 'United States of America'
-          a.should_not have_selector "OtherDetail"
+        r = reg ma_is_different: '0', vvr_zip5: 12345, vvr_zip4: nil, vvr_address_2: nil
+        xml.within "VoterInformation Contact MailingAddress FreeTextAddress" do |a|
+          a.should have_selector "AddressLine[seqn='0001'][type='AddressLine1']", text: r.vvr_address_1
+          a.should have_selector "AddressLine[seqn='0002'][type='City']", text: r.vvr_town
+          a.should have_selector "AddressLine[seqn='0003'][type='State']", text: r.vvr_state
+          a.should have_selector "AddressLine[seqn='0004'][type='Zip']", text: '12345'
         end
       end
 
       it 'is different from registration' do
         r = reg ma_is_different: '1', ma_address: '518 Vance ST', ma_address_2: 'Apt 12', ma_city: 'C', ma_state: 'MA', ma_zip5: '11111', ma_zip4: '2222'
-        xml.within "MailingAddress[status='current'] FreeTextAddress" do |a|
-          a.should have_selector "AddressLine[seqn='0001'][type='MailingAddressLine1']", text: "518 Vance ST"
-          a.should have_selector "AddressLine[seqn='0002'][type='MailingAddressLine2']", text: "Apt 12"
-          a.should have_selector "AddressLine[seqn='0003'][type='MailingCity']", text: 'C'
-          a.should have_selector "AddressLine[seqn='0004'][type='MailingState']", text: 'MA'
-          a.should have_selector "AddressLine[seqn='0005'][type='MailingZip']", text: '111112222'
+        xml.within "MailingAddress FreeTextAddress" do |a|
+          a.should have_selector "AddressLine[seqn='0001'][type='AddressLine1']", text: "518 Vance ST"
+          a.should have_selector "AddressLine[seqn='0002'][type='AddressLine2']", text: "Apt 12"
+          a.should have_selector "AddressLine[seqn='0003'][type='City']", text: 'C'
+          a.should have_selector "AddressLine[seqn='0004'][type='State']", text: 'MA'
+          a.should have_selector "AddressLine[seqn='0005'][type='Zip']", text: '111112222'
         end
       end
     end
@@ -97,9 +95,9 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
     context 'overseas' do
       it 'is non-US' do
         r = reg_overseas mau_type: 'non-us', mau_address: 'a1', mau_address_2: 'a2', mau_city: 'c', mau_city_2: 'c2', mau_state: 's', mau_postal_code: '12345', mau_country: 'country'
-        xml.within "MailingAddress[status='current'] FreeTextAddress" do |a|
-          a.should have_selector "AddressLine[seqn='0001']:not([type])", text: 'a1'
-          a.should have_selector "AddressLine[seqn='0002']:not([type])", text: 'a2'
+        xml.within "MailingAddress FreeTextAddress" do |a|
+          a.should have_selector "AddressLine[seqn='0001'][type='AddressLine1']", text: 'a1'
+          a.should have_selector "AddressLine[seqn='0002'][type='AddressLine2']", text: 'a2'
           a.should have_selector "AddressLine[seqn='0003'][type='City']", text: 'c c2'
           a.should have_selector "AddressLine[seqn='0004'][type='State']", text: 's'
           a.should have_selector "AddressLine[seqn='0005'][type='PostalCode']", text: '12345'
@@ -109,13 +107,13 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
 
       it 'is APO/DPO/FPO' do
         r = reg_overseas mau_type: 'apo', apo_address: 'a1', apo_address_2: 'a2', apo_city: '1', apo_state: '2', apo_zip5: '12345'
-        xml.within "MailingAddress[status='current'] FreeTextAddress" do |a|
-          a.should have_selector "AddressLine[seqn='0001']:not([type])", text: 'a1'
-          a.should have_selector "AddressLine[seqn='0002']:not([type])", text: 'a2'
+        xml.within "MailingAddress FreeTextAddress" do |a|
+          a.should have_selector "AddressLine[seqn='0001'][type='AddressLine1']", text: 'a1'
+          a.should have_selector "AddressLine[seqn='0002'][type='AddressLine2']", text: 'a2'
           a.should have_selector "AddressLine[seqn='0003'][type='City']", text: '1'
           a.should have_selector "AddressLine[seqn='0004'][type='State']", text: '2'
           a.should have_selector "AddressLine[seqn='0005'][type='PostalCode']", text: '12345'
-          a.should have_selector "AddressLine[seqn='0006'][type='Country']", text: 'United States'
+          a.should have_selector "AddressLine[seqn='0006'][type='Country']", text: 'US'
         end
       end
     end

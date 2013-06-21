@@ -64,7 +64,7 @@ namespace :analytics do
     reg = FactoryGirl.create(:existing_residential_voter, voter_id: 'update_domestic_form_complete')
     sr = LogRecord.start_update(reg)
 
-    reg.vvr_street_number = '123123'
+    reg.vvr_address = '12 New address St'
     LogRecord.complete_update(reg, sr.id)
   end
 
@@ -80,7 +80,7 @@ namespace :analytics do
     reg = FactoryGirl.create(:existing_residential_voter, voter_id: 'update_domestic_ar_form_complete')
     sr = LogRecord.start_update(reg)
 
-    reg.vvr_street_number = '123123'
+    reg.vvr_address = '12 New address St'
     reg.requesting_absentee = '1'
     LogRecord.complete_update(reg, sr.id)
   end

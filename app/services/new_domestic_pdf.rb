@@ -122,12 +122,8 @@ class NewDomesticPdf
   end
 
   def self.home_address(reg)
-    [ [ reg.vvr_street_number,
-        reg.vvr_street_name,
-        reg.vvr_street_suffix,
-        reg.vvr_street_type
-      ].rjoin(' '),
-      reg.vvr_apt
+    [ reg.vvr_address_1,
+      reg.vvr_address_2
     ].rjoin(', ').upcase
   end
 

@@ -99,9 +99,10 @@ class window.Registration
     @maIsDifferent          = ko.observable(false)
     @prStatus               = ko.observable()
     @prIsRural              = ko.observable(false)
-    @vvrStreetNumber        = ko.observable()
-    @vvrStreetName          = ko.observable()
-    @vvrStreetType          = ko.observable()
+    @vvrAddress1            = ko.observable()
+    @vvrAddress2            = ko.observable()
+    # TODO #rework
+    # @vvrStreetType          = ko.observable()
     @vvrApt                 = ko.observable()
     @vvrTown                = ko.observable()
     @vvrState               = ko.observable('VA')
@@ -176,9 +177,7 @@ class window.Registration
       residental =
         if   @vvrIsRural()
         then filled(@vvrRural())
-        else filled(@vvrStreetNumber()) and
-             filled(@vvrStreetName()) and
-             filled(@vvrStreetType()) and
+        else filled(@vvrAddress1()) and
              (!@vvrCountySelected() or filled(@vvrTown())) and
              filled(@vvrState()) and
              zip5(@vvrZip5()) and
@@ -454,8 +453,8 @@ class window.Registration
       address = if @vvrIsRural()
           @vvrRural()
         else
-          join([ @vvrStreetNumber(), @vvrStreetName(), @vvrStreetType(), (if filled(@vvrApt()) then "##{@vvrApt()}" else null) ], ' ') + "<br/>" +
-            join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
+          join([ @vvrAddress1(), @vvrAddress2() ], ' ') + "<br/>" +
+          join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
 
       if @overseas()
         lines = [ address ]
@@ -646,9 +645,8 @@ class window.Registration
           @paperlessSubmission(data.dmv_match)
           if @paperlessSubmission()
             a = data.address
-            @vvrStreetNumber(a.street_number)
-            @vvrStreetName(a.street_name)
-            @vvrStreetType(a.street_type)
+            @vvrAddress1(a.address_1)
+            @vvrAddress2(a.address_2)
             @vvrCountyOrCity(a.county_or_city)
             @vvrZip5(a.zip5)
           location.hash = 'identity'

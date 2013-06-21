@@ -10,9 +10,7 @@ feature 'New registration', :js do
     fill_eligibility_page dmv_id: '123456789'
     fill_identity_page
 
-    find_field("Street number").value.should  == "123"
-    find_field("Street name").value.should    == "WannaVote"
-    find_field("Street type").value.should    == "DR"
+    find_field("Address").value.should        == "123 WannaVote DR"
     find_field("Zip code").value.should       == "12345"
     find_field("County or city").value.should == "ALEXANDRIA CITY"
     expect(page).to have_text I18n.t("dmv.address_info")

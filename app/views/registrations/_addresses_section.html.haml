@@ -10,20 +10,12 @@
 
   <!-- ko ifnot: vvrIsRural -->
   .row
-    .span2
-      = f.label :vvr_street_number, "Street number"
-      = f.text_field :vvr_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrStreetNumber" }, valueUpdate: "afterkeyup"', class: 'span2'
-    .span4
-      = f.label :vvr_street_name, "Street name"
-      = f.text_field :vvr_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrStreetName" }, valueUpdate: "afterkeyup"', class: 'span4'
-    .span2.street-type-field
-      = f.label :vvr_street_type, "Street type"
-      = f.select :vvr_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'street-type', 'data-bind' => 'instantValidation: { accessor: "vvrStreetType" }' }
-    .span2.lot-field
-      = f.label :vvr_apt do
-        Apt/Lot
-        %span (optional)
-      = f.text_field :vvr_apt, autocomplete: ac, 'data-bind' => 'valueWithInit: vvrApt'
+    .span3
+      .address-field
+        = f.label :vvr_address_1, "Address"
+        = f.text_field :vvr_address_1, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }, valueUpdate: "afterkeyup"'
+      .address-field
+        = f.text_field :vvr_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: vvrAddress2'
   .row
     .span3
       = f.label :vvr_county_or_city, "County or city"
@@ -32,7 +24,9 @@
       %div{ 'data-bind' => 'visible: vvrCountySelected' }
         = f.label :vvr_town, "Town"
         = f.text_field :vvr_town, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrTown" }, valueUpdate: "afterkeyup"'
+      <!-- ko ifnot: vvrCountySelected -->
       &nbsp;
+      <!-- /ko -->
     .span2.state-field.short
       %span State
       = text_field_tag "state", "VA", disabled: true, class: 'span1'

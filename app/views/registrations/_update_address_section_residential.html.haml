@@ -4,20 +4,12 @@
     Please confirm your #{I18n.t('residence_address').downcase}. If it is not correct, please update now.
 
 .row
-  .span2
-    %label{ for: 'registration_vvr_street_number' } Street number
-    = f.text_field :vvr_street_number, 'data-bind' => 'instantValidation: { accessor: "vvrStreetNumber" }', class: 'span2'
-  .span4
-    %label{ for: 'registration_vvr_street_name' } Street name
-    = f.text_field :vvr_street_name, 'data-bind' => 'instantValidation: { accessor: "vvrStreetName" }', class: 'span4'
-  .span2.street-type-field
-    %label{ for: 'registration_vvr_street_type' } Street type
-    = f.select :vvr_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { class: 'street-type', 'data-bind' => 'instantValidation: { accessor: "vvrStreetType" }' }
-  .span2.lot-field
-    %label{ for: 'registration_vvr_apt' }
-      Apt/Lot
-      %span (optional)
-    = f.text_field :vvr_apt, { 'data-bind' => 'value: vvrApt' }
+  .span3
+    .address-field
+      = f.label :vvr_address_1, "Address"
+      = f.text_field :vvr_address_1, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }, valueUpdate: "afterkeyup"'
+    .address-field
+      = f.text_field :vvr_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: vvrAddress2'
 
 .row
   .span3
