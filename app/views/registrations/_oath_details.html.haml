@@ -15,7 +15,7 @@
         = check_box :registration, :information_correct, 'data-bind' => 'instantValidation: { accessor: "infoCorrect" }'
         = f.label :information_correct, I18n.t('oath.information_correct')
 
-<!-- ko ifnot: paperlessSubmission -->
+<!-- ko if: showAssistantDetails -->
 .partition
   .row
     .span10

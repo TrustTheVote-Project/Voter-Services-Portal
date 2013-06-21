@@ -4,6 +4,8 @@
 .row#update_registration
   .padded_page_span
     = hidden_field_tag :allow_ineligible_to_complete_form, AppConfig['allow_ineligible_to_complete_form']
+    - c = AppConfig['display_assistant_details']
+    = hidden_field_tag :display_assistant_details, '', 'data-paper' => c['paper'], 'data-paperless' => c['paperless']
     = form_for @registration, url: :registration  do |f|
       = hidden_field_tag 'kind', params[:kind]
       = f.hidden_field :residence

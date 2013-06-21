@@ -6,6 +6,12 @@ class window.Registration
 
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
     @paperlessSubmission = ko.observable()
+    @showAssistantDetails = ko.computed =>
+      el = $("input#display_assistant_details")
+      if @paperlessSubmission()
+        el.attr('data-paperless') == 'true'
+      else
+        el.attr('data-paper') == 'true'
 
     @initEligibilityFields()
     @initIdentityFields()

@@ -53,6 +53,11 @@ lookup_url: "https://wscp.sbe.virginia.gov/electionlist.svc/v2/_your_API_key_"
 # Disables forms functionality
 no_forms: true
 
+# Shows / hides the assistant details section on oath page
+display_assistant_details:
+  paperless: true
+  paper: true
+
 # When FALSE, showing the explanation page to ineligible
 allow_ineligible_to_complete_form: false
 
