@@ -302,12 +302,11 @@ class RegistrationSearch
       options[:ppl_zip]           = ppl.css('AddressLine[type="Zip"]').try(:text)
     end
 
-    addresses = doc.css('MailingAddress AddressLine[type^="MailingAddressLine"]')
-    addresses = addresses.sort { |a1, a2| a1['seqn'] <=> a2['seqn'] }.map(&:text)
-    ma_address, ma_address_2 = *addresses
-    ma_city       = doc.css('MailingAddress AddressLine[type="MailingCity"]').try(:text)
-    ma_state      = doc.css('MailingAddress AddressLine[type="MailingState"]').try(:text)
-    ma_zip        = doc.css('MailingAddress AddressLine[type="MailingZip"]').try(:text) || ""
+    ma_address    = doc.css('MailingAddress AddressLine[type="AddressLine1"]').try(:text)
+    ma_address_2  = doc.css('MailingAddress AddressLine[type="AddressLine2"]').try(:text)
+    ma_city       = doc.css('MailingAddress AddressLine[type="City"]').try(:text)
+    ma_state      = doc.css('MailingAddress AddressLine[type="State"]').try(:text)
+    ma_zip        = doc.css('MailingAddress AddressLine[type="Zip"]').try(:text) || ""
     ma_zip5, ma_zip4 = ma_zip.scan(/(\d{5})(\d{4})?/).flatten
 
     districts = []
