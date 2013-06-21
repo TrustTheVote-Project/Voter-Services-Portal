@@ -109,7 +109,8 @@ class RegistrationSearch
   end
 
   def self.parse_uri(uri)
-    Rails.logger.error "Lookup URL: #{uri}"
+    Rails.logger.info "Lookup URL: #{uri}"
+
     parse_uri_without_timeout(uri)
   rescue Timeout::Error
     ErrorLogRecord.log("Lookup: timeout", uri: uri)
