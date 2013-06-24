@@ -94,13 +94,12 @@ class window.Registration
     @identityInvalid = ko.computed => @identityErrors().length > 0
 
   initAddressFields: ->
+    @vvrIsRural             = ko.observable(false)
     @maIsDifferent          = ko.observable(false)
     @prStatus               = ko.observable()
     @prIsRural              = ko.observable(false)
     @vvrAddress1            = ko.observable()
     @vvrAddress2            = ko.observable()
-    # TODO #rework
-    # @vvrStreetType          = ko.observable()
     @vvrApt                 = ko.observable()
     @vvrTown                = ko.observable()
     @vvrState               = ko.observable('VA')
@@ -147,6 +146,9 @@ class window.Registration
     @vvrCountyOrCity.subscribe (v) =>
       if v.match(/\s+city$/i)
         @vvrTown(v.replace(/\s+city$/i, ''))
+
+    @vvrIsRural.subscribe (v) =>
+      @maIsDifferent(true) if v
 
     @domesticMAFilled = ko.computed =>
       filled(@maAddress1()) and
