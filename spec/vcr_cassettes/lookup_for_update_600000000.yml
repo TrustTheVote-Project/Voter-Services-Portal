@@ -17,33 +17,33 @@ http_interactions:
       message: OK
     headers:
       Content-Length:
-      - '659'
+      - '661'
       Content-Type:
       - text/html
       Last-Modified:
-      - Fri, 24 May 2013 17:22:13 GMT
+      - Mon, 24 Jun 2013 14:54:45 GMT
       Accept-Ranges:
       - bytes
       Etag:
-      - ! '"2de8f13aa358ce1:5897"'
+      - ! '"ce7a5cc4ea70ce1:5897"'
       Server:
       - Microsoft-IIS/6.0
       X-Powered-By:
       - ASP.NET
       Date:
-      - Fri, 21 Jun 2013 04:46:45 GMT
+      - Mon, 24 Jun 2013 20:27:01 GMT
     body:
       encoding: US-ASCII
-      string: ! "<p><strong>Register online </strong><br>\r\n  To <a href=\"http://www.sbe.virginia.gov/BecomeARegisteredVoter.html\"
+      string: ! "<p><strong>Register online </strong></p>\r\n  <p>To <a href=\"http://www.sbe.virginia.gov/BecomeARegisteredVoter.html\"
         target=\"new\">register to vote</a>,  you must complete a voter registration
-        application. Use this website to fill  out the online application form.</p>\r\n<p>You
+        application. Use this website to fill out the online application form.</p>\r\n<p>You
         can also download a blank mail-in voter registration  application and complete
         it by hand.</p>\r\n\r\n<p><strong>Other ways to register</strong></p>\r\n<p>Voters
         may complete registration applications in person at a  local election official
         office, DMV, and other Virginia government  agencies. <a href=\"http://sbe.virginia.gov/BecomeARegisteredVoter.html\"
         target=\"new\">Learn more.</a></p>\r\n\r\n"
     http_version: 
-  recorded_at: Fri, 21 Jun 2013 04:46:45 GMT
+  recorded_at: Mon, 24 Jun 2013 20:27:02 GMT
 - request:
     method: get
     uri: http://vas.herokuapp.com/voterByVID/?dobDay=1&dobMonth=1&dobYear=1996&localityName=NORFOLK%20CITY&voterIDnumber=600000000
@@ -63,7 +63,7 @@ http_interactions:
       Content-Type:
       - text/xml;charset=utf-8
       Date:
-      - Fri, 21 Jun 2013 04:46:46 GMT
+      - Mon, 24 Jun 2013 20:27:02 GMT
       Server:
       - WEBrick/1.3.1 (Ruby/1.9.2/2012-04-20)
       X-Frame-Options:
@@ -143,7 +143,7 @@ http_interactions:
         divisionType="locality">NORFOLK CITY</Name></PollingDistrict><CheckBox Type="Voted">yes</CheckBox><CheckBox
         Type="Permitted">yes</CheckBox><CheckBox Type="FutureElection">no</CheckBox></Election></VoterDetails></ElectionList></EML>
     http_version: 
-  recorded_at: Fri, 21 Jun 2013 04:46:46 GMT
+  recorded_at: Mon, 24 Jun 2013 20:27:02 GMT
 - request:
     method: get
     uri: http://www.sbe.virginia.gov/portal/howtoregister.htm
@@ -161,31 +161,31 @@ http_interactions:
       message: OK
     headers:
       Content-Length:
-      - '659'
+      - '661'
       Content-Type:
       - text/html
       Last-Modified:
-      - Fri, 24 May 2013 17:22:13 GMT
+      - Mon, 24 Jun 2013 14:54:45 GMT
       Accept-Ranges:
       - bytes
       Etag:
-      - ! '"2de8f13aa358ce1:5897"'
+      - ! '"ce7a5cc4ea70ce1:5897"'
       Server:
       - Microsoft-IIS/6.0
       X-Powered-By:
       - ASP.NET
       Date:
-      - Fri, 21 Jun 2013 04:46:47 GMT
+      - Mon, 24 Jun 2013 20:27:01 GMT
     body:
       encoding: US-ASCII
-      string: ! "<p><strong>Register online </strong><br>\r\n  To <a href=\"http://www.sbe.virginia.gov/BecomeARegisteredVoter.html\"
+      string: ! "<p><strong>Register online </strong></p>\r\n  <p>To <a href=\"http://www.sbe.virginia.gov/BecomeARegisteredVoter.html\"
         target=\"new\">register to vote</a>,  you must complete a voter registration
-        application. Use this website to fill  out the online application form.</p>\r\n<p>You
+        application. Use this website to fill out the online application form.</p>\r\n<p>You
         can also download a blank mail-in voter registration  application and complete
         it by hand.</p>\r\n\r\n<p><strong>Other ways to register</strong></p>\r\n<p>Voters
         may complete registration applications in person at a  local election official
         office, DMV, and other Virginia government  agencies. <a href=\"http://sbe.virginia.gov/BecomeARegisteredVoter.html\"
         target=\"new\">Learn more.</a></p>\r\n\r\n"
     http_version: 
-  recorded_at: Fri, 21 Jun 2013 04:46:46 GMT
+  recorded_at: Mon, 24 Jun 2013 20:27:03 GMT
 recorded_with: VCR 2.4.0

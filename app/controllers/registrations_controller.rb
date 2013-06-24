@@ -38,26 +38,7 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new(data)
 
     if @registration.save
-      if @registration.eligible?
-        begin
-          @submitted = SubmitEml310.submit_new(@registration)
-        rescue SubmitEml310::SubmissionError => e
-          @registration.update_attributes!(submission_failed: true)
-          ErrorLogRecord.log("Failed to submit update EML310", { code: e.code })
-        end
-      end
-
-      active_form.unmark!
-
-      if @submitted && @registration.dmv_id.present?
-        LogRecord.submit_new(@registration, session[:slr_id])
-      else
-        LogRecord.complete_new(@registration, session[:slr_id])
-      end
-
-      session[:slr_id] = nil
-
-      RegistrationRepository.store_registration(session, @registration)
+      @submitted = finalize_create(active_form)
     else
       active_form.touch
       flash.now[:error] = 'Please review your request data and try submitting again'
@@ -141,6 +122,34 @@ class RegistrationsController < ApplicationController
 
   private
 
+  # Finalizes the creation
+  def finalize_create(active_form, reg = @registration, ses = session)
+    submitted = false
+
+    if reg.eligible?
+      begin
+        submitted = SubmitEml310.submit_new(reg)
+      rescue SubmitEml310::SubmissionError => e
+        reg.update_attributes!(submission_failed: true)
+        ErrorLogRecord.log("Failed to submit new EML310", { code: e.code, message: e.message })
+        Rails.logger.error "SUBMIT_EML310_ERROR: CREATE #{e.code} - #{e.message}"
+      end
+    end
+
+    active_form.unmark!
+
+    if submitted && reg.dmv_id.present?
+      LogRecord.submit_new(reg, ses[:slr_id])
+    else
+      LogRecord.complete_new(reg, ses[:slr_id])
+    end
+
+    ses[:slr_id] = nil
+
+    RegistrationRepository.store_registration(ses, reg)
+  end
+
+  # Finalizes the update record
   def finalize_update(active_form, reg = @registration, ses = session)
     submitted = false
 
@@ -149,7 +158,8 @@ class RegistrationsController < ApplicationController
         submitted = SubmitEml310.submit_update(reg)
       rescue SubmitEml310::SubmissionError => e
         reg.update_attributes!(submission_failed: true)
-        ErrorLogRecord.log("Failed to submit update EML310", { code: e.code, voter_id: reg.voter_id })
+        ErrorLogRecord.log("Failed to submit update EML310", { code: e.code, message: e.message, voter_id: reg.voter_id })
+        Rails.logger.error "SUBMIT_EML310_ERROR: UPDATE #{reg.voter_id} #{e.code} - #{e.message}"
       end
     end
 

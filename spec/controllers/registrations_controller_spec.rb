@@ -175,8 +175,8 @@ describe RegistrationsController do
     it 'should log error if submission failed' do
       reg.ssn = "123456789"
       reg.voter_id = 123
-      SubmitEml310.should_receive(:submit_update).and_raise(SubmitEml310::SubmissionError.new('code'))
-      ErrorLogRecord.should_receive(:log).with("Failed to submit update EML310", { code: 'code', voter_id: 123 })
+      SubmitEml310.should_receive(:submit_update).and_raise(SubmitEml310::SubmissionError.new('code', 'msg'))
+      ErrorLogRecord.should_receive(:log).with("Failed to submit update EML310", { code: 'code', message: 'msg', voter_id: 123 })
       controller.send(:finalize_update, af, reg, ses)
 
       reg.reload.submission_failed.should be_true

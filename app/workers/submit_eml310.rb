@@ -6,37 +6,37 @@ class SubmitEml310
   class SubmissionError < StandardError
     attr_reader :code
 
-    def initialize(code = nil)
-      super
+    def initialize(code = nil, message = nil)
+      super message
       @code = code
     end
   end
 
   def self.submit_update(reg)
-    return submit(reg)
+    return submit(reg, "voterRecordUpdateRequest")
   end
 
   def self.submit_new(reg)
-    return submit(reg)
+    return submit(reg, "voterRegistrationRequest")
+  rescue SubmissionError => e
+    if e.message == 'already registered'
+      return submit_update(reg)
+    else
+      raise e
+    end
   end
 
   private
 
-  def self.submit(reg)
+  def self.submit(reg, method)
     response = nil
     result = {}
 
-    # easter egg
-    raise SubmissionError if reg.last_name == 'faileml310'
-
     # don't submit anything if disabled
     if submission_enabled?
-      response = send_request(reg)
+      response = send_request(reg, method)
       result = parse(response)
     end
-
-    # easter eggs
-    result = (reg.dmv_id.size == 9) if reg.dmv_id
 
     result
   rescue => e
@@ -47,8 +47,8 @@ class SubmitEml310
     end
   end
 
-  def self.send_request(reg)
-    uri = URI(SubmitEml310.submission_url)
+  def self.send_request(reg, method)
+    uri = URI("#{SubmitEml310.submission_url}/#{method}")
     req = Net::HTTP::Post.new(uri.path)
     req.body = registration_xml(reg)
     req.content_type = 'multipart/form-data'
@@ -78,12 +78,10 @@ class SubmitEml310
 
   # parses the response
   def self.parse(res)
-    raise "Couldn't contact service" unless successful_response?(res)
-
-    # TBD and implemented
-    # when registering new records. 'true' means we added new record
-    # 'false' means there was the record with this data already
-
-    true
+    if successful_response?(res)
+      return res.body !~ /pending signature/i
+    else
+      raise SubmissionError.new(res.code, res.body)
+    end
   end
 end
