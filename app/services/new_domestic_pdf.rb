@@ -58,13 +58,10 @@ class NewDomesticPdf
           [ reg.ma_zip5, reg.ma_zip4 ].rjoin('-')
         ].rjoin(' ')
       ].rjoin(', ')
-    else
-      line1 = home_address(reg)
-      line2 = "#{home_city(reg)}, VA #{[ reg.vvr_zip5, reg.vvr_zip4 ].rjoin('-')}"
-    end
 
-    pdf.set('MAILING_ADDRESS_1', line1.to_s.upcase)
-    pdf.set('MAILING_ADDRESS_2', line2.to_s.upcase)
+      pdf.set('MAILING_ADDRESS_1', line1.to_s.upcase)
+      pdf.set('MAILING_ADDRESS_2', line2.to_s.upcase)
+    end
   end
 
   def self.setVoterRightsStatus(pdf, reg)
