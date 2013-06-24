@@ -218,27 +218,7 @@ class Eml310Builder
 
   def self.mailing_address(xml, r)
     if r.residential?
-      if !r.ma_is_different?
-        if r.vvr_is_rural?
-          # TODO needs review
-          xml.MailingAddress do
-            xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
-              xml.AddressLine r.vvr_rural
-            end
-          end
-        else
-          xml.MailingAddress do
-            xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
-              address_lines xml, [
-                [ 'AddressLine1',  r.vvr_address_1 ],
-                [ 'AddressLine2',  r.vvr_address_2 ],
-                [ 'City',          r.vvr_town ],
-                [ 'State',         r.vvr_state ],
-                [ 'Zip',           r.vvr_zip ] ]
-            end
-          end
-        end
-      else
+      if r.ma_is_different?
         xml.MailingAddress do
           xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
             address_lines xml, [
