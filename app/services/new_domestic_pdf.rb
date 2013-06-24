@@ -39,13 +39,10 @@ class NewDomesticPdf
   end
 
   def self.setHomeAddress(pdf, reg)
-    if reg.vvr_is_rural != '1'
-      pdf.set('HOME_CITY', home_city(reg))
-      setDigitalField(pdf, 'HOME_ZIP', 5, reg.vvr_zip5)
-      pdf.set('HOME_ADDRESS', home_address(reg))
-    else
-      pdf.set('HOME_ADDRESS', reg.vvr_rural.to_s.upcase)
-    end
+    pdf.set('HOME_CITY', home_city(reg))
+    setDigitalField(pdf, 'HOME_ZIP', 5, reg.vvr_zip5)
+    pdf.set('HOME_ADDRESS', reg.vvr_address_1)
+    pdf.set('HOME_RURAL', reg.vvr_address_2) if reg.vvr_address_2.present?
   end
 
   def self.setMailingAddress(pdf, reg)

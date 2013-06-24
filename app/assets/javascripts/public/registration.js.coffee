@@ -94,8 +94,6 @@ class window.Registration
     @identityInvalid = ko.computed => @identityErrors().length > 0
 
   initAddressFields: ->
-    @vvrIsRural             = ko.observable(false)
-    @vvrRural               = ko.observable()
     @maIsDifferent          = ko.observable(false)
     @prStatus               = ko.observable()
     @prIsRural              = ko.observable(false)
@@ -150,9 +148,6 @@ class window.Registration
       if v.match(/\s+city$/i)
         @vvrTown(v.replace(/\s+city$/i, ''))
 
-    @vvrIsRural.subscribe (v) =>
-      @maIsDifferent(true) if v
-
     @domesticMAFilled = ko.computed =>
       filled(@maAddress1()) and
       filled(@maCity()) and
@@ -175,13 +170,11 @@ class window.Registration
       errors = []
 
       residental =
-        if   @vvrIsRural()
-        then filled(@vvrRural())
-        else filled(@vvrAddress1()) and
-             (!@vvrCountySelected() or filled(@vvrTown())) and
-             filled(@vvrState()) and
-             zip5(@vvrZip5()) and
-             filled(@vvrCountyOrCity())
+        filled(@vvrAddress1()) and
+         (!@vvrCountySelected() or filled(@vvrTown())) and
+         filled(@vvrState()) and
+         zip5(@vvrZip5()) and
+         filled(@vvrCountyOrCity())
 
       if @overseas()
         residental = residental and
@@ -450,11 +443,9 @@ class window.Registration
         "Unspecified"
 
     @summaryRegistrationAddress = ko.computed =>
-      address = if @vvrIsRural()
-          @vvrRural()
-        else
-          join([ @vvrAddress1(), @vvrAddress2() ], ' ') + "<br/>" +
-          join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
+      address =
+        join([ @vvrAddress1(), @vvrAddress2() ], ' ') + "<br/>" +
+        join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
 
       if @overseas()
         lines = [ address ]

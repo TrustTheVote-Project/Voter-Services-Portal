@@ -47,10 +47,15 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
 
   describe 'electoral address' do
     it 'should render rural address' do
-      reg vvr_is_rural: '1', vvr_rural: 'Rural address'
+      reg vvr_is_rural: '1', vvr_address_1: '1 SN AVE', vvr_address_2: '2', vvr_county_or_city: 'BRISTOL CITY', vvr_town: 'BRISTOL', vvr_state: 'VA', vvr_zip5: '12345', vvr_zip4: '6789'
       xml.within 'EML VoterRegistration Voter VoterIdentification' do |x|
-        x.within "ElectoralAddress FreeTextAddress" do |a|
-          a.should have_selector 'AddressLine', text: 'Rural address'
+        x.within "ElectoralAddress[type='rural'] PostalAddress" do |a|
+          a.should have_selector "Thoroughfare", text: "1 SN AVE"
+          a.should have_selector "OtherDetail", text: '2'
+          a.should have_selector "Locality", text: 'BRISTOL'
+          a.should have_selector "AdministrativeArea[type='StateCode']", text: 'VA'
+          a.should have_selector "PostCode[type='ZipCode']", text: '123456789'
+          a.should have_selector "Country", text: 'US'
         end
       end
     end
@@ -72,12 +77,7 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
     context 'residential' do
       it 'is the same as registration' do
         r = reg ma_is_different: '0', vvr_zip5: 12345, vvr_zip4: nil, vvr_address_2: nil
-        xml.within "VoterInformation Contact MailingAddress FreeTextAddress" do |a|
-          a.should have_selector "AddressLine[seqn='0001'][type='AddressLine1']", text: r.vvr_address_1
-          a.should have_selector "AddressLine[seqn='0002'][type='City']", text: r.vvr_town
-          a.should have_selector "AddressLine[seqn='0003'][type='State']", text: r.vvr_state
-          a.should have_selector "AddressLine[seqn='0004'][type='Zip']", text: '12345'
-        end
+        xml.should_not have_selector "MailingAddress"
       end
 
       it 'is different from registration' do

@@ -206,24 +206,17 @@ class Eml310Builder
   end
 
   def self.electoral_address(xml, r, tag_name = 'ElectoralAddress')
-    # o = { status: 'current' }
-    # o[:type] = 'Rural' if r.vvr_is_rural?
+    o = {}
+    o[:type] = 'rural' if r.vvr_is_rural?
 
-    xml.tag! tag_name do
-      if r.vvr_is_rural?
-        # TODO needs review
-        xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
-          xml.AddressLine r.vvr_rural
-        end
-      else
-        xml.PostalAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
-          xml.Thoroughfare        r.vvr_address_1
-          xml.OtherDetail         r.vvr_address_2 unless r.vvr_address_2.blank?
-          xml.Locality            r.vvr_town
-          xml.AdministrativeArea  r.vvr_state, type: 'StateCode'
-          xml.PostCode            r.vvr_zip, type: 'ZipCode'
-          xml.Country             'US'
-        end
+    xml.tag! tag_name, o do
+      xml.PostalAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
+        xml.Thoroughfare        r.vvr_address_1
+        xml.OtherDetail         r.vvr_address_2 unless r.vvr_address_2.blank?
+        xml.Locality            r.vvr_town
+        xml.AdministrativeArea  r.vvr_state, type: 'StateCode'
+        xml.PostCode            r.vvr_zip, type: 'ZipCode'
+        xml.Country             'US'
       end
     end
   end

@@ -43,7 +43,7 @@ class Registration < ActiveRecord::Base
   # Contact info
   serialized_attr :vvr_county_or_city, :vvr_address_1, :vvr_address_2
   serialized_attr :vvr_town, :vvr_state, :vvr_zip5, :vvr_zip4
-  serialized_attr :vvr_is_rural, :vvr_rural
+  serialized_attr :vvr_is_rural
   serialized_attr :vvr_uocava_residence_available, :vvr_uocava_residence_unavailable_since
   serialized_attr :mau_address, :mau_address_2, :mau_city, :mau_city_2, :mau_state, :mau_postal_code, :mau_country, :mau_type
   serialized_attr :ma_address, :ma_address_2, :ma_city, :ma_state, :ma_zip5, :ma_zip4, :ma_is_different

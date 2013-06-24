@@ -7,6 +7,10 @@
   .span3
     .address-field
       = f.label :vvr_address_1, "Address"
+    .checkbox
+      = f.check_box :vvr_is_rural
+      = f.label :vvr_is_rural, I18n.t('rural')
+    .address-field
       = f.text_field :vvr_address_1, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }, valueUpdate: "afterkeyup"'
     .address-field
       = f.text_field :vvr_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: vvrAddress2'
@@ -33,15 +37,6 @@
     .space &mdash;
     = f.text_field :vvr_zip4, class: 'second-zip', 'data-bind' => 'value: vvrZip4', placeholder: 'NNNN', maxlength: 4
 <!-- /ko -->
-
-.row
-  .span12
-    .checkbox
-      = f.check_box :vvr_is_rural, 'data-bind' => 'instantValidation: { accessor: "vvrIsRural" }'
-      Rural address or homeless? Please check the box and describe where you reside.
-    <!-- ko if: vvrIsRural -->
-    = f.text_area :vvr_rural, cols: "10", rows: "10", 'data-bind' => 'value: vvrRural'
-    <!-- /ko -->
 
 <!-- ko if: overseas -->
 .row

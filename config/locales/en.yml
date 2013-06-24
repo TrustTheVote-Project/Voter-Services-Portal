@@ -2,6 +2,7 @@ en:
   title: Virginia Voter Registration
   dmvid: Department of Motor Vehicles Customer Number
   residence_address: Residence Address
+  rural: "Check here if Rural Address or Homeless, and please describe where you reside"
 
   front:
     welcome:

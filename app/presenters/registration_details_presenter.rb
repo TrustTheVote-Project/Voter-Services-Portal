@@ -82,20 +82,16 @@ class RegistrationDetailsPresenter
     @vvr[d] ||= begin
       data = @registration.send(d)
 
-      if !data[:vvr_is_rural] || data[:vvr_is_rural] != '1'
-        city = data[:vvr_county_or_city]
-        if city.blank? || city.to_s.downcase.include?('county')
-          city = data[:vvr_town]
-        end
-
-        zip = [ data[:vvr_zip5], data[:vvr_zip4] ].rjoin('-')
-        [ data[:vvr_address_1],
-          data[:vvr_address_2],
-          city,
-          [ 'VA', zip ].join(' ') ].rjoin(', ')
-      else
-        data[:vvr_rural].to_s.gsub("\n", "<br/>").html_safe
+      city = data[:vvr_county_or_city]
+      if city.blank? || city.to_s.downcase.include?('county')
+        city = data[:vvr_town]
       end
+
+      zip = [ data[:vvr_zip5], data[:vvr_zip4] ].rjoin('-')
+      [ data[:vvr_address_1],
+        data[:vvr_address_2],
+        city,
+        [ 'VA', zip ].join(' ') ].rjoin(', ')
     end
   end
 

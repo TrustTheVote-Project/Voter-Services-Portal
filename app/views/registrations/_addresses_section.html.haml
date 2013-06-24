@@ -8,11 +8,14 @@
       #{I18n.t("dmv.address_info")}
       <!-- /ko -->
 
-  <!-- ko ifnot: vvrIsRural -->
   .row
-    .span3
+    .span10
       .address-field
         = f.label :vvr_address_1, "Address"
+      .checkbox
+        = f.check_box :vvr_is_rural
+        = f.label :vvr_is_rural, I18n.t('rural')
+      .address-field
         = f.text_field :vvr_address_1, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }, valueUpdate: "afterkeyup"'
       .address-field
         = f.text_field :vvr_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: vvrAddress2'
@@ -36,28 +39,11 @@
       = f.text_field :vvr_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "vvrZip5", validation: "zip5" }, valueUpdate: "afterkeyup"', placeholder: 'NNNNN'
       .space &mdash;
       = f.text_field :vvr_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: vvrZip4, valueUpdate: "afterkeyup"', placeholder: 'NNNN'
-  <!-- /ko -->
-
-  .row
-    .span12
-      = f.label :vvr_is_rural, class: 'checkbox' do
-        = f.check_box :vvr_is_rural, 'data-bind' => 'instantValidation: { accessor: "vvrIsRural" }'
-        Rural address or homeless? Please check the box and describe where you reside.
-      <!-- ko if: vvrIsRural -->
-      = f.text_area :vvr_rural, cols: "10", rows: "10", autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrRural" }'
-      <!-- /ko -->
 
   <!-- ko if: domestic -->
   .row
     .span10
       .checkbox
-        <!-- ko if: vvrIsRural -->
-        = check_box_tag "registration[ma_is_different]", "1", true, autocomplete: ac, disabled: true
-        = f.hidden_field :ma_is_different, autocomplete: ac, 'data-bind' => 'checked: maIsDifferent'
-        <!-- /ko -->
-        <!-- ko ifnot: vvrIsRural -->
-        = f.check_box :ma_is_different, 'data-bind' => 'checkedWithInit: maIsDifferent'
-        <!-- /ko -->
         = f.label :ma_is_different, I18n.t("mailing_address.different.#{AppConfig['domestic_voter_mailing_address_limit'] ? 'limit' : 'no_limit'}", address: I18n.t('residence_address').downcase)
   <!-- /ko --> <!-- domestic -->
 
