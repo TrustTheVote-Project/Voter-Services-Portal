@@ -19,7 +19,7 @@ http_interactions:
       Content-Type:
       - text/xml;charset=utf-8
       Date:
-      - Mon, 24 Jun 2013 20:26:46 GMT
+      - Mon, 24 Jun 2013 22:08:35 GMT
       Server:
       - WEBrick/1.3.1 (Ruby/1.9.2/2012-04-20)
       X-Frame-Options:
@@ -52,5 +52,5 @@ http_interactions:
 
 '
     http_version: 
-  recorded_at: Mon, 24 Jun 2013 20:26:46 GMT
+  recorded_at: Mon, 24 Jun 2013 22:08:35 GMT
 recorded_with: VCR 2.4.0

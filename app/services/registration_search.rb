@@ -166,9 +166,19 @@ class RegistrationSearch
     voter_id = doc.css('VoterIdentification').first.try(:[], 'Id')
 
     vvr = doc.css('ElectoralAddress PostalAddress').first
-    vvr_address_1 = vvr.css('Thoroughfare').first.try(:text)
-    vvr_address_2 = vvr.css('OtherDetail').try(:text)
-    vvr_zip = vvr.css('PostCode').try(:text) || ""
+    if vvr
+      vvr_address_1 = vvr.css('Thoroughfare').first.try(:text)
+      vvr_address_2 = vvr.css('OtherDetail').try(:text)
+      vvr_town      = vvr.css('Locality').try(:text)
+      vvr_zip       = vvr.css('PostCode').try(:text) || ""
+    else
+      vvr = doc.css('ElectoralAddress FreeTextAddress').first
+      vvr_address   = vvr.css('AddressLine[type="AddressLine1"]').try(:text)
+      vvr_address_2 = vvr.css('AddressLine[type="AddressLine2"]').try(:text)
+      vvr_city      = vvr.css('AddressLine[type="City"]').try(:text)
+      vvr_state     = vvr.css('AddressLine[type="State"]').try(:text)
+      vvr_zip       = vvr.css('AddressLine[type="Zip"]').try(:text) || ""
+    end
     vvr_zip5, vvr_zip4 = vvr_zip.scan(/(\d{5})(\d{4})?/).flatten
 
     felony                    = doc.css('CheckBox[Type="Felony"]').try(:text) == 'yes'
@@ -253,7 +263,7 @@ class RegistrationSearch
       vvr_address_1:          vvr_address_1,
       vvr_address_2:          vvr_address_2,
       vvr_county_or_city:     poll_locality,
-      vvr_town:               vvr.css('Locality').try(:text),
+      vvr_town:               vvr_town,
       vvr_state:              "VA",
       vvr_zip5:               vvr_zip5,
       vvr_zip4:               vvr_zip4,
@@ -302,11 +312,26 @@ class RegistrationSearch
       options[:ppl_zip]           = ppl.css('AddressLine[type="Zip"]').try(:text)
     end
 
-    ma_address    = doc.css('MailingAddress AddressLine[type="AddressLine1"]').try(:text)
-    ma_address_2  = doc.css('MailingAddress AddressLine[type="AddressLine2"]').try(:text)
-    ma_city       = doc.css('MailingAddress AddressLine[type="City"]').try(:text)
-    ma_state      = doc.css('MailingAddress AddressLine[type="State"]').try(:text)
-    ma_zip        = doc.css('MailingAddress AddressLine[type="Zip"]').try(:text) || ""
+    madft = doc.css('MailingAddress FreeTextAddress').first
+    if madft
+      ma_address      = madft.css('AddressLine[type="AddressLine1"]').try(:text)
+      ma_address      = madft.css('AddressLine[type="MailingAddressLine1"]').try(:text) if ma_address.blank?
+      ma_address_2    = madft.css('AddressLine[type="AddressLine2"]').try(:text)
+      ma_address_2    = madft.css('AddressLine[type="MailingAddressLine2"]').try(:text) if ma_address_2.blank?
+      ma_city         = madft.css('AddressLine[type="City"]').try(:text)
+      ma_city         = madft.css('AddressLine[type="MailingCity"]').try(:text) if ma_city.blank?
+      ma_state        = madft.css('AddressLine[type="State"]').try(:text)
+      ma_state        = madft.css('AddressLine[type="MailingState"]').try(:text) if ma_state.blank?
+      ma_zip          = madft.css('AddressLine[type="Zip"]').try(:text)
+      ma_zip          = madft.css('AddressLine[type="MailingZip"]').try(:text) || "" if ma_zip.blank?
+    else
+      madpa = doc.css('MailingAddress PostalAddress').first
+      ma_address      = madpa.css('Thoroughfare').first.try(:text)
+      ma_address_2    = madpa.css('OtherDetail').try(:text)
+      ma_city         = madpa.css('Locality').try(:text),
+      ma_state        = madpa.css('AdministrativeArea').try(:text)
+      ma_zip          = madpa.css('PostCode').try(:text) || ""
+    end
     ma_zip5, ma_zip4 = ma_zip.scan(/(\d{5})(\d{4})?/).flatten
 
     districts = []

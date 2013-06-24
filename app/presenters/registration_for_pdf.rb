@@ -86,16 +86,12 @@ class RegistrationForPdf < RegistrationDetailsPresenter
   def previous_registration_address(d = :data)
     @er[d] ||= begin
       data = @reg.send(d)
-      if data[:pr_is_rural] == '1'
-        data[:pr_rural]
-      else
-        zip = [ data[:pr_zip5], data[:pr_zip4] ].rjoin('-')
-        [ data[:pr_address],
-          data[:pr_address_2],
-          data[:pr_apt],
-          data[:pr_city],
-          [ data[:pr_state], zip ].join(' ') ].rjoin(', ')
-      end
+      zip = [ data[:pr_zip5], data[:pr_zip4] ].rjoin('-')
+      [ data[:pr_address],
+        data[:pr_address_2],
+        data[:pr_apt],
+        data[:pr_city],
+        [ data[:pr_state], zip ].join(' ') ].rjoin(', ')
     end
   end
 

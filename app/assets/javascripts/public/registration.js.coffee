@@ -94,7 +94,6 @@ class window.Registration
     @identityInvalid = ko.computed => @identityErrors().length > 0
 
   initAddressFields: ->
-    @vvrIsRural             = ko.observable(false)
     @maIsDifferent          = ko.observable(false)
     @prStatus               = ko.observable()
     @prIsRural              = ko.observable(false)
@@ -140,15 +139,11 @@ class window.Registration
     @prState                = ko.observable()
     @prZip5                 = ko.observable()
     @prZip4                 = ko.observable()
-    @prRural                = ko.observable()
     @prCancel               = ko.observable()
 
     @vvrCountyOrCity.subscribe (v) =>
       if v.match(/\s+city$/i)
         @vvrTown(v.replace(/\s+city$/i, ''))
-
-    @vvrIsRural.subscribe (v) =>
-      @maIsDifferent(true) if v
 
     @domesticMAFilled = ko.computed =>
       filled(@maAddress1()) and
@@ -192,12 +187,10 @@ class window.Registration
           filled(@prFirstName()) and
           filled(@prLastName()) and
           @prCancel() and
-          if   @prIsRural()
-          then filled(@prRural())
-          else filled(@prAddress1()) and
-               filled(@prState()) and
-               filled(@prCity()) and
-               zip5(@prZip5())
+          filled(@prAddress1()) and
+          filled(@prState()) and
+          filled(@prCity()) and
+          zip5(@prZip5())
         )
 
       errors.push("Registration address") unless residental
@@ -480,11 +473,8 @@ class window.Registration
 
         lines.push valueOrUnspecified(join([ @prFirstName(), @prMiddleName(), @prLastName(), @prSuffix() ], ' '))
 
-        if @prIsRural()
-          lines.push @prRural()
-        else
-          lines.push join([ @prAddress1(), @prAddress2() ], ' ') + "<br/>" +
-            join([ @prCity(), join([ @prState(), join([ @prZip5(), @prZip4() ], '-') ], ' ') ], ', ')
+        lines.push join([ @prAddress1(), @prAddress2() ], ' ') + "<br/>" +
+          join([ @prCity(), join([ @prState(), join([ @prZip5(), @prZip4() ], '-') ], ' ') ], ', ')
         if @prCancel()
           lines.push "Authorized cancelation"
 

@@ -50,7 +50,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :apo_address, :apo_address_2, :apo_city, :apo_state, :apo_zip5
   serialized_attr :pr_status, :pr_cancel
   serialized_attr :pr_first_name, :pr_middle_name, :pr_last_name, :pr_suffix
-  serialized_attr :pr_address, :pr_address_2, :pr_city, :pr_state, :pr_zip5, :pr_zip4, :pr_is_rural, :pr_rural
+  serialized_attr :pr_address, :pr_address_2, :pr_city, :pr_state, :pr_zip5, :pr_zip4, :pr_is_rural
 
   # Options
   serialized_attr :choose_party, :party, :other_party

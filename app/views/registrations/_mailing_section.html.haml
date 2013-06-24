@@ -31,7 +31,6 @@
         %label{ for: 'registration_pr_status_1' } I am currently registered to vote in Virginia or another state
 
     <!-- ko if: prStatus() == "1" -->
-    <!-- ko ifnot: prIsRural -->
     .row.personal-info
       .span3
         = f.label :pr_first_name, "First name"
@@ -49,6 +48,11 @@
           Suffix
           %span (optional)
         = f.select :pr_suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'value: prSuffix' }
+    .row
+      .span12
+        .checkbox
+          = f.check_box :pr_is_rural, { 'data-bind' => 'checkedWithInit: prIsRural' }
+          = f.label :pr_is_rural, I18n.t('rural')
     .row
       .span3
         .address-field
@@ -68,16 +72,7 @@
         = f.text_field :pr_zip5, class: 'first-zip', autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prZip5", validation: "zip5" }, valueUpdate: "afterkeyup"', placeholder: 'NNNNN', maxlength: 5
         .space &mdash;
         = f.text_field :pr_zip4, class: 'second-zip', autocomplete: ac, placeholder: 'NNNN', maxlength: 4, 'data-bind' => 'valueWithInit: prZip4, valueUpdate: "afterkeyup"'
-    <!-- /ko --> <!-- !prIsRural -->
 
-    .row
-      .span12
-        .checkbox
-          = f.check_box :pr_is_rural, { 'data-bind' => 'checkedWithInit: prIsRural' }
-          Rural address or homeless? Please check the box and describe where you reside.
-        <!-- ko if: prIsRural -->
-        = f.text_area :pr_rural, cols: "10", rows: "10", autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prRural" }'
-        <!-- /ko -->
 
     .partition
       .row

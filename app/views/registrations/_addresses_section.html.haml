@@ -1,8 +1,14 @@
 #address.section{ 'data-bind' => "vis: page() == 'address'" }
   .head
-    %h3 #{I18n.t('residence_address').capitalize}
+    %h3 #{I18n.t('residence_address')}
     .description
       #{I18n.t('residence_address').capitalize} is your Home address in Virginia or your most recent Virginia residence.
+
+  .row
+    .span10
+      .checkbox
+        = f.check_box :vvr_is_rural
+        = f.label :vvr_is_rural, I18n.t('rural')
       <!-- ko if: paperlessSubmission -->
       <br/>
       #{I18n.t("dmv.address_info")}
@@ -12,10 +18,6 @@
     .span10
       .address-field
         = f.label :vvr_address_1, "Address"
-      .checkbox
-        = f.check_box :vvr_is_rural, 'data-bind' => 'instantValidation: { accessor: "vvrIsRural" }'
-        = f.label :vvr_is_rural, I18n.t('rural')
-      .address-field
         = f.text_field :vvr_address_1, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }, valueUpdate: "afterkeyup"'
       .address-field
         = f.text_field :vvr_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: vvrAddress2'
@@ -47,13 +49,7 @@
   .row
     .span10
       .checkbox
-        <!-- ko if: vvrIsRural -->
-        = check_box_tag "registration[ma_is_different]", "1", true, autocomplete: ac, disabled: true
-        = f.hidden_field :ma_is_different, autocomplete: ac, 'data-bind' => 'checked: maIsDifferent'
-        <!-- /ko -->
-        <!-- ko ifnot: vvrIsRural -->
         = f.check_box :ma_is_different, 'data-bind' => 'checkedWithInit: maIsDifferent'
-        <!-- /ko -->
         = f.label :ma_is_different, I18n.t("mailing_address.different.#{AppConfig['domestic_voter_mailing_address_limit'] ? 'limit' : 'no_limit'}", address: I18n.t('residence_address').downcase)
   <!-- /ko --> <!-- domestic -->
 

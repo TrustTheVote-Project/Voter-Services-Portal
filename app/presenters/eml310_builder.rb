@@ -56,31 +56,25 @@ class Eml310Builder
 
             if r.pr_status == '1'
               o = { status: 'previous' }
-              o[:type] = 'Rural' if r.pr_is_rural?
+              o[:type] = 'rural' if r.pr_is_rural?
 
               xml.PreviousElectoralAddress o do
-                xml.VoterName do
-                  xml.PersonFullName    r.pr_full_name, { 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" }
-                  xml.PersonNameDetail 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
-                    xml.GivenName       r.pr_first_name
-                    xml.MiddleName      r.pr_middle_name
-                    xml.FamilyName      r.pr_last_name
-                    xml.NameSuffixText  r.pr_suffix
-                  end
-                end
-                if r.pr_is_rural?
-                  xml.FreeTextAddress 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
-                    xml.AddressLine r.pr_rural
-                  end
-                else
-                  xml.PostalAddress 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
-                    address_lines xml, [
-                      [ 'MailingAddressLine1',  r.pr_address ],
-                      [ 'MailingAddressLine2',  r.pr_address_2 ],
-                      [ 'MailingCity',          r.pr_city ],
-                      [ 'MailingState',         r.pr_state ],
-                      [ 'MailingZip',           r.pr_zip ] ]
-                  end
+                # xml.VoterName do
+                #   xml.PersonFullName    r.pr_full_name, { 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" }
+                #   xml.PersonNameDetail 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
+                #     xml.GivenName       r.pr_first_name
+                #     xml.MiddleName      r.pr_middle_name
+                #     xml.FamilyName      r.pr_last_name
+                #     xml.NameSuffixText  r.pr_suffix
+                #   end
+                # end
+                xml.PostalAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
+                  xml.Thoroughfare        r.pr_address
+                  xml.OtherDetail         r.pr_address_2 unless r.pr_address_2.blank?
+                  xml.Locality            r.pr_city
+                  xml.AdministrativeArea  r.pr_state, type: 'StateCode'
+                  xml.PostCode            r.pr_zip, type: 'ZipCode'
+                  xml.Country             'US'
                 end
               end
             end

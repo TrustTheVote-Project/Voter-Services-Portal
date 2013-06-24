@@ -128,9 +128,9 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
     it 'should render name' do
       reg pr_status: '1',
           pr_first_name: 'Mark', pr_middle_name: 'Middle', pr_last_name: 'Smith', pr_suffix: 'Jr',
-          pr_is_rural: '1', pr_rural: 'a'
+          pr_is_rural: '1'
 
-      xml.within "PreviousElectoralAddress[status='previous'] VoterName" do |vn|
+      xml.within "PreviousName" do |vn|
         vn.should have_selector 'PersonFullName', text: 'Mark Middle Smith Jr'
         vn.within "PersonNameDetail" do |n|
           n.should have_selector 'GivenName',       text: 'Mark'
@@ -147,21 +147,27 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
           pr_city: 'C', pr_state: 'VA', pr_zip5: '54321', pr_zip4: '6789'
 
       xml.within "PreviousElectoralAddress[status='previous'] PostalAddress" do |a|
-        pending "update checks when the format settles down"
-        # a.should have_selector "Thoroughfare[type='ST'][name='SN'][number='1']", text: "1 SN ST"
-        # a.should have_selector "Locality[type='Town']", text: 'C'
-        # a.should have_selector "AdministrativeArea[type='StateCode']", text: 'VA'
-        # a.should have_selector "PostCode[type='ZipCode']", text: '543216789'
-        # a.should have_selector "Country[code='USA']", text: 'United States of America'
+        a.should have_selector "Thoroughfare", text: "Line 1"
+        a.should have_selector "OtherDetail", text: 'Line 2'
+        a.should have_selector "Locality", text: 'C'
+        a.should have_selector "AdministrativeArea[type='StateCode']", text: 'VA'
+        a.should have_selector "PostCode[type='ZipCode']", text: '543216789'
+        a.should have_selector "Country", text: 'US'
       end
     end
 
     it 'should render rural' do
       reg pr_status: '1',
-        pr_is_rural: '1', pr_rural: 'Rural address'
+          pr_address: 'Line 1', pr_address_2: 'Line 2',
+          pr_city: 'C', pr_state: 'VA', pr_zip5: '54321', pr_zip4: '6789', pr_is_rural: '1'
 
-      xml.within "PreviousElectoralAddress[status='previous'][type='Rural']" do |a|
-        a.should have_selector "FreeTextAddress AddressLine", text: 'Rural address'
+      xml.within "PreviousElectoralAddress[status='previous'][type='rural'] PostalAddress" do |a|
+        a.should have_selector "Thoroughfare", text: "Line 1"
+        a.should have_selector "OtherDetail", text: 'Line 2'
+        a.should have_selector "Locality", text: 'C'
+        a.should have_selector "AdministrativeArea[type='StateCode']", text: 'VA'
+        a.should have_selector "PostCode[type='ZipCode']", text: '543216789'
+        a.should have_selector "Country", text: 'US'
       end
     end
   end
