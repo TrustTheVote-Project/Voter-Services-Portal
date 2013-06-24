@@ -59,6 +59,10 @@ class RegistrationForXML
     @r.rights_mental == '1'
   end
 
+  def changing_name?
+    @r.pr_status == '1' && @r.full_name != @r.pr_full_name
+  end
+
   def ca_zip
     zip(@r.ca_zip5, @r.ca_zip4)
   end
