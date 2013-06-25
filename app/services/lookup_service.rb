@@ -1,36 +1,79 @@
-class LookupService
+class LookupService < LookupApi
 
   # stub registration lookup
   def self.registration(record)
-    if record[:dmv_id].size == 12
-      { registered: true }
-    elsif record[:dmv_id].size == 9
-      { registered: false, dmv_match: true,
-        address: {
-          address_1:      "123 WannaVote DR",
-          address_2:      "4",
-          county_or_city: "ALEXANDRIA CITY",
-          zip5:           "12345"
-        }
-      }
-    else
-      { registered: false, dmv_match: false }
-    end
+    xml = send_request(record)
+    parse(xml)
   end
 
-  # runs a lookup for the record
-  def self.registration_for_record(r)
-    rights_revoked = r.rights_revoked == '1'
-    revoked_felony = rights_revoked && r.rights_revoked_reason == 'felony'
-    revoked_competence = rights_revoked && r.rights_revoked_reason == 'mental'
-    return LookupService.registration({
-      eligible_citizen:             r.citizen,
-      eligible_18_next_election:    r.old_enough,
-      eligible_revoked_felony:      revoked_felony,
-      eligible_revoked_competence:  revoked_competence,
-      dob:                          r.dob ? r.dob.strftime("%m/%d/%Y") : '',
-      ssn:                          r.ssn,
-      dmv_id:                       r.dmv_id || ''
-    })
+  private
+
+  def self.send_request(r)
+    q = {
+      DMVIDnumber:                  r[:dmv_id] || '',
+      ssn9:                         r[:ssn],
+      dobMonth:                     r[:dob_month],
+      dobDay:                       r[:dob_day],
+      dobYear:                      r[:dob_year],
+      eligibleCitizen:              r[:eligible_citizen],
+      eligible18nextElection:       r[:eligible_18_next_election],
+      eligibleVAresident:           r[:eligible_va_resident],
+      eligibleNotRevokedUnrestored: r[:eligible_unrevoked_or_restored],
+      hashType:                     "SHA-1"
+    }
+
+    parse_uri('voterByDMVIDnumber', q)
+  end
+
+
+  # handles the response
+  def self.handle_response(res, method = nil)
+    return res.body if res.code == '200'
+
+    # raise known errors
+    if res.code == '400'
+      raise RecordIsConfidential if /cannot be displayed/ =~ res.body
+      raise RecordIsInactive if /is not active/ =~ res.body
+    end
+
+    # log unknown errors
+    if res.code != '404'
+      ErrorLogRecord.log("Lookup: unknown error", code: res.code, body: res.body)
+      LogRecord.lookup_error(res.body)
+    end
+
+    raise RecordNotFound
+  end
+
+  def self.parse(xml)
+    doc = Nokogiri::XML::Document.parse(xml)
+    doc.remove_namespaces!
+
+    o = {
+      registered: doc.css('CheckBox[type="Registered"]').try(:text) == 'yes',
+      dmv_match:  doc.css('CheckBox[type="DMVMatch"]').try(:text) == 'yes'
+    }
+
+    ea = doc.css('ElectoralAddress').first
+    if ea
+      if ft = ea.css('FreeTextAddress').first
+        o[:address] = {
+          address_1:      ft.css("AddressLine[type='AddressLine1']").try(:text),
+          address_2:      ft.css("AddressLine[type='AddressLine2']").try(:text),
+          county_or_city: ft.css("AddressLine[type='Jurisdiction']").try(:text),
+          town:           ft.css("AddressLine[type='City']").try(:text),
+          zip5:           ft.css("AddressLine[type='Zip']").try(:text).to_s[0, 5]
+        }
+      elsif pa = ea.css('PostalAddress').first
+        o[:address] = {
+          address_1:      pa.css('Thoroughfare').first.try(:text),
+          address_2:      pa.css('OtherDetail').try(:text),
+          town:           pa.css('Locality').try(:text),
+          zip5:           (pa.css('PostCode').try(:text) || "")[0, 5]
+        }
+      end
+    end
+
+    o
   end
 end

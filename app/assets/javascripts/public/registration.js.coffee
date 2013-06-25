@@ -46,15 +46,18 @@ class window.Registration
     @noSSN                        = ko.observable()
     @dmvId                        = ko.observable()
 
+    @hasEligibleRights = ko.computed =>
+      (@rightsWereRevoked() == '0' or
+        ((@rightsFelony() == '1' or @rightsMental() == '1') and
+         (@rightsFelony() == '0' or (@rightsFelonyRestored() == '1' and filled(@rightsFelonyRestoredIn()) and !!@rightsFelonyRestoredOn())) and
+         (@rightsMental() == '0' or (@rightsMentalRestored() == '1' and !!@rightsMentalRestoredOn()))))
+
     @isEligible = ko.computed =>
       @citizen() == '1' and
       @oldEnough() == '1' and
       !!@dob() and
       !@noSSN() and filled(@ssn()) and
-      (@rightsWereRevoked() == '0' or
-        ((@rightsFelony() == '1' or @rightsMental() == '1') and
-         (@rightsFelony() == '0' or (@rightsFelonyRestored() == '1' and filled(@rightsFelonyRestoredIn()) and !!@rightsFelonyRestoredOn())) and
-         (@rightsMental() == '0' or (@rightsMentalRestored() == '1' and !!@rightsMentalRestoredOn()))))
+      @hasEligibleRights()
 
     @eligibilityErrors = ko.computed =>
       errors = []
@@ -614,13 +617,15 @@ class window.Registration
     @page('lookup')
 
     $.getJSON '/lookup/registration', { record: {
-        eligible_citizen:             @citizen(),
-        eligible_18_next_election:    @oldEnough(),
-        eligible_revoked_felony:      @rightsFelony(),
-        eligible_revoked_competence:  @rightsMental(),
-        dob:                          "#{@dobMonth()}/#{@dobDay()}/#{@dobYear()}",
-        ssn:                          @ssn(),
-        dmv_id:                       @dmvId()
+        eligible_citizen:               if @citizen() then 'T' else 'F',
+        eligible_18_next_election:      if @oldEnough() then 'T' else 'F',
+        eligible_va_resident:           if @residence() == 'in' then 'T' else 'F',
+        eligible_unrevoked_or_restored: if @hasEligibleRights() then 'T' else 'F',
+        dob_month:                      @dobMonth(),
+        dob_day:                        @dobDay(),
+        dob_year:                       @dobYear(),
+        ssn:                            @ssn(),
+        dmv_id:                         @dmvId()
       }}, (data) =>
         if data.registered
           location.hash = "registered_info"
