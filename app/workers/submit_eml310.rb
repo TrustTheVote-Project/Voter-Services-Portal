@@ -43,6 +43,7 @@ class SubmitEml310
     if e.kind_of? SubmissionError
       raise e
     else
+      Rails.logger.error("SUBMIT_310: Unknown error: #{e}")
       raise SubmissionError
     end
   end
