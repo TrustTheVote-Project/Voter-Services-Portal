@@ -2,8 +2,12 @@ class LookupService < LookupApi
 
   # stub registration lookup
   def self.registration(record)
-    xml = send_request(record)
-    parse(xml)
+    # xml = send_request(record)
+    # parse(xml)
+
+    # Temp measure until Joe enables the service
+    { registered: false,
+      dmv_match:  false }
   end
 
   private
