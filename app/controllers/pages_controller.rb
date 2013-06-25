@@ -8,12 +8,12 @@ class PagesController < ApplicationController
   end
 
   def security
-    @page = 'security-privacy'
+    @page = 'security_privacy'
     render :external_page
   end
 
   def online_ballot_marking
-    @page = 'online-ballot-marking'
+    @page = 'online_ballot_marking'
     render :external_page
   end
 

@@ -29,9 +29,6 @@ dl:
   access_token:
   account_id:
 
-# Base for the URLs of the static pages
-static_page_url_base:
-
 # Details of the election displayed in the footer
 upcoming_election:
   name:           "State General Election"
@@ -101,3 +98,21 @@ eml310_submit_url:
 logo:
   filename: 'VA_logo.png'
   size:     '90x60'
+
+# Static page mapping
+static_pages:
+  url_base:
+  about:                  about.htm
+  about_registration:     about_registration.htm
+  about_update_absentee:  about_update_absentee.htm
+  elections:              elections.htm
+  faq:                    faq.htm
+  feedback:               feedback.htm
+  help:                   help.htm
+  how_to_register:        howtoregister.htm
+  ineligible:             ineligible.htm
+  online_ballot_marking:  online-ballot-marking.htm
+  privacy_act_notice:     privacyactnotice.htm
+  proof_of_identity:      proof-of-identity.htm
+  security_privacy:       security-privacy.htm
+
