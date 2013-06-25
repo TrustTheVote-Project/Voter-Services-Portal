@@ -56,7 +56,7 @@ class Eml310Builder
 
             if r.pr_status == '1'
               o = { status: 'previous' }
-              o[:type] = 'rural' if r.pr_is_rural?
+              o[:type] = 'Rural' if r.pr_is_rural?
 
               xml.PreviousElectoralAddress o do
                 # xml.VoterName do
@@ -201,7 +201,7 @@ class Eml310Builder
 
   def self.electoral_address(xml, r, tag_name = 'ElectoralAddress')
     o = {}
-    o[:type] = 'rural' if r.vvr_is_rural?
+    o[:type] = 'Rural' if r.vvr_is_rural?
 
     xml.tag! tag_name, o do
       xml.PostalAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
