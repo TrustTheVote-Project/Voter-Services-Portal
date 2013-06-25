@@ -2,12 +2,13 @@ class LookupService < LookupApi
 
   # stub registration lookup
   def self.registration(record)
-    # xml = send_request(record)
-    # parse(xml)
-
-    # Temp measure until Joe enables the service
-    { registered: false,
-      dmv_match:  false }
+    if AppConfig['enable_dmvid_lookup']
+      xml = send_request(record)
+      parse(xml)
+    else
+      { registered: false,
+        dmv_match:  false }
+    end
   end
 
   private

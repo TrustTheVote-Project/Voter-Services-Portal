@@ -48,7 +48,7 @@ xml:
 lookup_url: "https://wscp.sbe.virginia.gov/electionlist.svc/v2/_your_API_key_"
 
 # Disables forms functionality
-no_forms: true
+no_forms: false
 
 # Shows / hides the assistant details section on oath page
 display_assistant_details:
@@ -116,3 +116,5 @@ static_pages:
   proof_of_identity:      proof-of-identity.htm
   security_privacy:       security-privacy.htm
 
+# Enables real DMV ID lookups
+enable_dmvid_lookup: false
