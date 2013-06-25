@@ -37,7 +37,26 @@ describe RegistrationSearch do
 
     its(:current_residence)       { should == "in" }
     its(:absentee_for_elections)  { should == [] }
+
+    it 'should have previous registration data set' do
+      r = subject
+      r.pr_status.should      == '1'
+      r.pr_cancel.should      == '1'
+      r.pr_first_name.should  == "MOHAMED"
+      r.pr_middle_name.should == "ASHLEY"
+      r.pr_last_name.should   == "halperin"
+      r.pr_suffix.should      == r.suffix
+
+      r.pr_address.should     == "RR 507 Back woods"
+      r.pr_address_2.should   == ""
+      r.pr_city.should        == "N Tazewell"
+      r.pr_state.should       == "VA"
+      r.pr_zip5.should        == "24630"
+      r.pr_zip4.should        == nil
+      r.pr_is_rural.should    == '0'
+    end
   end
+
 
   describe 'gender parsing' do
     specify { search(600000001, 'FAIRFAX COUNTY').gender.should == 'Female' }

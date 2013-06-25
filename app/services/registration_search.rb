@@ -105,13 +105,14 @@ class RegistrationSearch < LookupApi
       vvr_zip       = vvr.css('PostCode').try(:text) || ""
     else
       vvr = doc.css('ElectoralAddress FreeTextAddress').first
-      vvr_address   = vvr.css('AddressLine[type="AddressLine1"]').try(:text)
+      vvr_address_1 = vvr.css('AddressLine[type="AddressLine1"]').try(:text)
       vvr_address_2 = vvr.css('AddressLine[type="AddressLine2"]').try(:text)
-      vvr_city      = vvr.css('AddressLine[type="City"]').try(:text)
+      vvr_town      = vvr.css('AddressLine[type="City"]').try(:text)
       vvr_state     = vvr.css('AddressLine[type="State"]').try(:text)
       vvr_zip       = vvr.css('AddressLine[type="Zip"]').try(:text) || ""
     end
     vvr_zip5, vvr_zip4 = vvr_zip.scan(/(\d{5})(\d{4})?/).flatten
+    vvr_is_rural = "0"
 
     felony                    = doc.css('CheckBox[Type="Felony"]').try(:text) == 'yes'
     incapacitated             = doc.css('CheckBox[Type="Incapacitated"]').try(:text) == 'yes'
@@ -175,13 +176,13 @@ class RegistrationSearch < LookupApi
     poll_locality = doc.css('PollingDistrict Association[Id="LocalityName"]').try(:text)
 
     options = {
-      voter_id:               voter_id,
-      first_name:             doc.css('GivenName').try(:text),
-      middle_name:            doc.css('MiddleName').try(:text),
-      last_name:              doc.css('FamilyName').try(:text),
-      phone:                  doc.css('Contact Telephone Number').try(:text),
-      gender:                 doc.css('Gender').try(:text).to_s.capitalize,
-      lang_preference:        doc.css('PreferredLanguage').try(:text),
+      voter_id:                   voter_id,
+      first_name:                 fn = doc.css('GivenName').try(:text),
+      middle_name:                mn = doc.css('MiddleName').try(:text),
+      last_name:                  ln = doc.css('FamilyName').try(:text),
+      phone:                      doc.css('Contact Telephone Number').try(:text),
+      gender:                     doc.css('Gender').try(:text).to_s.capitalize,
+      lang_preference:            doc.css('PreferredLanguage').try(:text),
 
       rights_revoked:             rights_revoked,
       rights_felony:              rights_felony,
@@ -191,7 +192,7 @@ class RegistrationSearch < LookupApi
       rights_mental_restored:     rights_mental_restored,
       rights_mental_restored_on:  rights_mental_restored_on,
 
-      vvr_is_rural:           "0",
+      vvr_is_rural:           vvr_is_rural,
       vvr_address_1:          vvr_address_1,
       vvr_address_2:          vvr_address_2,
       vvr_county_or_city:     poll_locality,
@@ -199,7 +200,18 @@ class RegistrationSearch < LookupApi
       vvr_state:              "VA",
       vvr_zip5:               vvr_zip5,
       vvr_zip4:               vvr_zip4,
-      pr_status:              "0",
+      pr_status:              "1",
+      pr_cancel:              "1",
+      pr_first_name:          fn,
+      pr_middle_name:         mn,
+      pr_last_name:           ln,
+      pr_is_rural:            vvr_is_rural,
+      pr_address:             vvr_address_1,
+      pr_address_2:           vvr_address_2,
+      pr_city:                vvr_town,
+      pr_state:               "VA",
+      pr_zip5:                vvr_zip5,
+      pr_zip4:                vvr_zip4,
       ma_is_different:        "1",
 
       # Every record that comes from the DB has this set to 'no',
