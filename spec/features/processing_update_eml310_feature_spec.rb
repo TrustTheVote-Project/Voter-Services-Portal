@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-feature 'Processing update EML310 submission', :js, :focus do
+feature 'Processing update EML310 submission', :js do
 
   before do
     Office.create!(locality: "NORFOLK CITY", address: "Some address")
