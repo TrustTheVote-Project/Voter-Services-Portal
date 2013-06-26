@@ -248,6 +248,17 @@ In order to the feature to work, you need to also configure the
 parameters for DL server in `config/config.yml` (section "dl").
 
 
+
+Resetting static external page cache
+------------------------------------
+
+Saved versions of static pages are updated once a day. If you want your
+changes to appear immediately, there's the command to reset the cache.
+
+    $ rake va:reset_static_pages_cache
+
+
+
 Exporting log records
 ---------------------
 

@@ -40,4 +40,8 @@ namespace :va do
     LogExporter.errors(d1, t1, d2, t2, sl)
   end
 
+  desc 'Resets external static pages cache'
+  task reset_static_pages_cache: :environment do
+    ExternalPages.reset_cache
+  end
 end
