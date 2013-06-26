@@ -64,7 +64,11 @@ class SubmitEml310
       end
     end
 
-    return Net::HTTP.start(uri.hostname, uri.port) do |http|
+    return Net::HTTP.start(uri.hostname, uri.port,
+                           use_ssl: uri.scheme == 'https',
+                           open_timeout: 60,
+                           read_timeout: 60,
+                           verify_mode:  OpenSSL::SSL::VERIFY_NONE) do |http|
       http.request(req)
     end
   end
