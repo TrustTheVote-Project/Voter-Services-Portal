@@ -118,3 +118,6 @@ static_pages:
 
 # Enables real DMV ID lookups
 enable_dmvid_lookup: false
+
+# Allows new domestic registrations to have AR
+new_reg_domestic_with_absentee_allowed: false
