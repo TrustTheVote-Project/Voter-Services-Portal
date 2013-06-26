@@ -33,7 +33,12 @@ class LookupService < LookupApi
 
   # handles the response
   def self.handle_response(res, method = nil)
-    return res.body if res.code == '200'
+    if res.code == '200'
+      Rails.logger.info("LOOKUP: code=#{res.code}")
+      return res.body
+    end
+
+    Rails.logger.error("INTERNAL ERROR: LOOKUP code=#{res.code}\m#{res.body}")
 
     # raise known errors
     if res.code == '400'

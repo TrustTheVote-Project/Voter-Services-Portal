@@ -120,7 +120,7 @@ class RegistrationsController < ApplicationController
       rescue SubmitEml310::SubmissionError => e
         reg.update_attributes!(submission_failed: true)
         ErrorLogRecord.log("Failed to submit new EML310", { code: e.code, message: e.message })
-        Rails.logger.error "SUBMIT_EML310_ERROR: CREATE #{e.code} - #{e.message}"
+        Rails.logger.error "INTERNAL ERROR: SUBMIT_EML310 - Failed to create: code=#{e.code} message=#{e.message}"
       end
     end
 
@@ -147,7 +147,7 @@ class RegistrationsController < ApplicationController
       rescue SubmitEml310::SubmissionError => e
         reg.update_attributes!(submission_failed: true)
         ErrorLogRecord.log("Failed to submit update EML310", { code: e.code, message: e.message, voter_id: reg.voter_id })
-        Rails.logger.error "SUBMIT_EML310_ERROR: UPDATE #{reg.voter_id} #{e.code} - #{e.message}"
+        Rails.logger.error "INTERNAL ERROR: SUBMIT_EML310 - Failed to update: vid=#{reg.voter_id} code=#{e.code} message=#{e.message}"
       end
     end
 

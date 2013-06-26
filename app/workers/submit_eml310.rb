@@ -43,7 +43,7 @@ class SubmitEml310
     if e.kind_of? SubmissionError
       raise e
     else
-      Rails.logger.error("SUBMIT_310: Unknown error: #{e}")
+      Rails.logger.error("INTERNAL ERROR: SUBMIT_EML310 - Unknown error: #{e}")
       raise SubmissionError
     end
   end
@@ -53,6 +53,16 @@ class SubmitEml310
     req = Net::HTTP::Post.new(uri.path)
     req.body = registration_xml(reg)
     req.content_type = 'multipart/form-data'
+
+    Rails.logger.info("SUBMIT_EML310: #{uri}")
+
+    if AppConfig['enable_eml_log']
+      begin
+        File.open("#{Rails.root}/log/last_eml310.xml", "wb") { |f| f.write(req.body) }
+      rescue => e
+        Rails.logger.error("INTERNAL ERROR: SUBMIT_EML310 - Failed to write log/last_eml310.xml: #{e}")
+      end
+    end
 
     return Net::HTTP.start(uri.hostname, uri.port) do |http|
       http.request(req)
@@ -79,6 +89,8 @@ class SubmitEml310
 
   # parses the response
   def self.parse(res)
+    Rails.logger.info "SUBMIT_EML310: Response code=#{res.code}\n#{res.body}"
+
     if successful_response?(res)
       return res.body !~ /pending signature/i
     else
