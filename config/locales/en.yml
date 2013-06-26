@@ -100,6 +100,15 @@ en:
       title: Assistance to Applicant
       info: "If assistance for signature is provided to applicant due to disability, provide name and address of assistant:"
 
+  previous_registration:
+    header: "I am registered to vote at another address in Virgina, or in another state."
+    update:
+      no_answer: "No"
+      yes_answer: "Yes"
+    new:
+      no_answer: I am not currently registered to vote in Virginia or another state
+      yes_answer: I am currently registered to vote in Virginia or another state
+
   mailing_address:
     different:
       limit: "I am unable to physically receive mail at my %{address}."

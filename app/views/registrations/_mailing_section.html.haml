@@ -15,21 +15,21 @@
       %h3 Previous Voter Registration Information
 
     - if updating
-      %p I am currently registered to vote in another state
+      %p= I18n.t("previous_registration.header")
       = f.hidden_field :pr_status
       .radio
         = f.radio_button :pr_status, '0', { 'data-bind' => 'checkedWithInit: prStatus', disabled: true }
-        %label{ for: 'registration_pr_status_0' } No
+        %label{ for: 'registration_pr_status_0' }= I18n.t("previous_registration.update.no_answer")
       .radio
         = f.radio_button :pr_status, '1', { 'data-bind' => 'checkedWithInit: prStatus', disabled: true }
-        %label{ for: 'registration_pr_status_1' } Yes
+        %label{ for: 'registration_pr_status_1' }= I18n.t("previous_registration.update.yes_answer")
     - else
       .radio
         = f.radio_button :pr_status, '0', { 'data-bind' => 'checkedWithInit: prStatus' }
-        %label{ for: 'registration_pr_status_0' } I am not currently registered to vote in Virginia or another state
+        %label{ for: 'registration_pr_status_0' }= I18n.t("previous_registration.new.no_answer")
       .radio
         = f.radio_button :pr_status, '1', { 'data-bind' => 'checkedWithInit: prStatus' }
-        %label{ for: 'registration_pr_status_1' } I am currently registered to vote in Virginia or another state
+        %label{ for: 'registration_pr_status_1' }= I18n.t("previous_registration.new.yes_answer")
 
     <!-- ko if: prStatus() == "1" -->
     .row.personal-info
