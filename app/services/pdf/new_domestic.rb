@@ -1,22 +1,17 @@
-class Pdf::NewDomestic
+class Pdf::NewDomestic < Pdf::Form
 
   # Renders PDF and returns it as a string
   def self.render(reg)
-    pdf_path = "#{Rails.root}/app/assets/pdf-templates/Portal_PDF_sbe_voter_app.pdf"
-
-    pdf = ActivePdftk::Form.new(pdf_path, path: AppConfig['pdftk_path'])
-
-    setMailingInstructions(pdf, reg)
-    setEligibility(pdf, reg)
-    setIdentity(pdf, reg)
-    setAddresses(pdf, reg)
-    setVoterRightsStatus(pdf, reg)
-    setRegistrationStatement(pdf, reg)
-    setOptionalQuestions(pdf, reg)
-    setPreviousRegistrationInfo(pdf, reg)
-
-    # Flatten to render and remove active form fields
-    pdf.save(nil, options: { flatten: true })
+    render_pdf("Portal_PDF_sbe_voter_app.pdf") do |pdf|
+      setMailingInstructions(pdf, reg)
+      setEligibility(pdf, reg)
+      setIdentity(pdf, reg)
+      setAddresses(pdf, reg)
+      setVoterRightsStatus(pdf, reg)
+      setRegistrationStatement(pdf, reg)
+      setOptionalQuestions(pdf, reg)
+      setPreviousRegistrationInfo(pdf, reg)
+    end
   end
 
   private
@@ -27,15 +22,14 @@ class Pdf::NewDomestic
   end
 
   def self.setEligibility(pdf, reg)
-    Rails.logger.info "Setting eli"
     pdf.set('CITIZEN', reg.citizen == '1' ? '1' : '0')
     pdf.set('AGE',     reg.old_enough == '1' ? '1' : '0')
   end
 
   def self.setIdentity(pdf, reg)
-    setDigitalField(pdf, 'SSN',    9, reg.ssn)
+    setDigitalField(pdf, 'SSN', 9, reg.ssn)
     pdf.set('GENDER', reg.gender =~ /F/ ? '1' : '0')
-    setDigitalField(pdf, 'DOB',    8, reg.dob.strftime("%m%d%Y")) unless reg.dob.blank?
+    setDateField(pdf, 'DOB', reg.dob)
     setDigitalField(pdf, 'PHONE', 10, reg.phone.gsub(/[^0-9]/, '')) unless reg.phone.blank?
     pdf.set("LAST_NAME", reg.last_name.to_s.upcase)
     pdf.set('FIRST_NAME', reg.first_name.to_s.upcase)
@@ -90,13 +84,13 @@ class Pdf::NewDomestic
         pdf.set('CONVICTED', '0') # yes
         pdf.set('CONVICTED_STATE', reg.rights_felony_restored_in.to_s.upcase)
         pdf.set('CONVICTED_RESTORED', reg.rights_felony_restored == '1' ? '0' : '1')
-        setDigitalField(pdf, 'CONVICTED_RESTORED_ON', 8, reg.rights_felony_restored_on.strftime("%m%d%Y")) unless reg.rights_felony_restored_on.blank?
+        setDateField(pdf, 'CONVICTED_RESTORED_ON', reg.rights_felony_restored_on)
       end
 
       if reg.rights_mental == '1'
         pdf.set('MENTAL', '1') # yes
         pdf.set('MENTAL_RESTORED', reg.rights_mental_restored == '1' ? '0' : '1')
-        setDigitalField(pdf, 'MENTAL_RESTORED_ON', 8, reg.rights_mental_restored_on.strftime("%m%d%Y")) unless reg.rights_mental_restored_on.blank?
+        setDateField(pdf, 'MENTAL_RESTORED_ON', reg.rights_mental_restored_on)
       end
     else
       pdf.set('CONVICTED', '1') # no
@@ -105,7 +99,7 @@ class Pdf::NewDomestic
   end
 
   def self.setRegistrationStatement(pdf, reg)
-    setDigitalField(pdf, 'STATEMENT', 8, Time.now.strftime('%m%d%Y'))
+    setDateField(pdf, 'STATEMENT', Time.now)
   end
 
   def self.setOptionalQuestions(pdf, reg)
@@ -128,17 +122,10 @@ class Pdf::NewDomestic
       pdf.set('PREV_REG_ZIP', reg.pr_zip5)
       pdf.set('PREV_REG_COUNTRY', 'United States')
 
-      setDigitalField(pdf, 'PREV_REG_SSN', 9, reg.ssn) unless reg.ssn.blank?
-      setDigitalField(pdf, 'PREV_REG_DOB', 8, reg.dob.strftime('%m%d%Y')) unless reg.dob.blank?
+      setDigitalField(pdf, 'PREV_REG_SSN', 9, reg.ssn)
+      setDateField(pdf, 'PREV_REG_DOB', reg.dob.strftime('%m%d%Y'))
     else
       pdf.set('PREV_REG', '0')
-    end
-  end
-
-  def self.setDigitalField(pdf, key, cells, text)
-    return if text.blank?
-    cells.times do |i|
-      pdf.set("#{key}_#{i + 1}", text[i])
     end
   end
 

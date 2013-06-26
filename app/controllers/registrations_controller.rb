@@ -59,19 +59,7 @@ class RegistrationsController < ApplicationController
       f.html
 
       f.pdf do
-        render_form = @registration.residential? && (
-          (@update && !@registration.requesting_absentee?) ||
-          !@update)
-
-        if render_form && AppConfig['pdf_forms']
-          @pdf = Pdf::NewDomestic.render(@registration).string
-        else
-          # Doing it in such a weird way because of someone stealing render / render_to_string method from wicked_pdf
-          @pdf = WickedPdf.new.pdf_from_string(
-            render_to_string(template: 'registrations/pdf/show', pdf: 'registration.pdf', layout: 'pdf'),
-            margin: { top: 5, right: 5, bottom: 5, left: 5 })
-        end
-
+        @pdf = AppConfig['pdf_forms'] ? fill_pdf_form : generate_pdf_form
         render text: @pdf
       end
 
@@ -169,6 +157,27 @@ class RegistrationsController < ApplicationController
     ses[:slr_id] = nil
 
     return submitted
+  end
+
+  def generate_pdf_form
+    # Doing it in such a weird way because of someone stealing render / render_to_string method from wicked_pdf
+    return WickedPdf.new.pdf_from_string(
+      render_to_string(template: 'registrations/pdf/show', pdf: 'registration.pdf', layout: 'pdf'),
+      margin: { top: 5, right: 5, bottom: 5, left: 5 })
+  end
+
+  def fill_pdf_form
+    if @registration.residential?
+      if !@update
+        return Pdf::NewDomestic.render(@registration).string
+      elsif !@registration.requesting_absentee?
+        return Pdf::NewDomestic.render(@registration).string
+      else
+        return Pdf::AbsenteeRequest.render(@registration).string
+      end
+    else
+      # TODO use FPCA PDF
+    end
   end
 
 end

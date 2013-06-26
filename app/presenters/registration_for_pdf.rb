@@ -255,7 +255,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     name(:previous_data)
   end
 
-  def previous_registration_address
+  def old_registration_address
     registration_address(:previous_data)
   end
 
@@ -290,7 +290,7 @@ class RegistrationForPdf < RegistrationDetailsPresenter
   end
 
   def registration_address_changed?
-    registration_address != previous_registration_address
+    registration_address != old_registration_address
   end
 
   def mailing_address_changed?
