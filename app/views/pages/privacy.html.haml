@@ -3,7 +3,8 @@
     .head
       %h3= I18n.t('privacy.title')
 
-    = render_static_section :privacy_act_notice
+    .external-page
+      = ExternalPages.get_by_name :privacy_act_notice
 
     = label_tag :privacyAgree, class: 'checkbox' do
       = check_box_tag :privacyAgree, '1'

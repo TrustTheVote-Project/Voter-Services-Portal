@@ -1,1 +1,4 @@
-= render_static_page @page
+.padded_page_span
+  .row
+    .span16.external-page
+      = ExternalPages.get_by_name(@page)

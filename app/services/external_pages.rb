@@ -4,7 +4,7 @@ class ExternalPages
 
   # Fetches or looks up cached version of the page
   def self.get_by_name(name)
-    get_from_cache(name) || cache(name, get_from_remote(name))
+    (get_from_cache(name) || cache(name, get_from_remote(name))).to_s.html_safe
   end
 
   # Resets the cache
@@ -23,14 +23,18 @@ class ExternalPages
   def self.get_from_remote(name)
     config = AppConfig['static_pages']
     base = config['url_base']
-    page = name.gsub(/[^a-z_\-]/i, '')
+    page = name.to_s.gsub(/[^a-z_\-]/i, '')
     path = config[page]
 
-    open("#{base}/#{path}").read.gsub(/(^.*<body[^>]*>|<\/body>.*$)/mi, '')
+    Rails.logger.debug "STATIC PAGE: #{base}/#{path}"
+
+    res = open("#{base}/#{path}").read.gsub(/(^.*<body[^>]*>|<\/body>.*$)/mi, '')
+    res
   end
 
   def self.cache(name, body)
     redis.setex(key(name), expiry_period, body)
+    body
   end
 
   def self.key(name)
@@ -42,7 +46,7 @@ class ExternalPages
   end
 
   def self.expiry_period
-    1.day
+    Rails.env.development? ? 5.seconds : 1.day
   end
 
 end

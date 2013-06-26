@@ -1,7 +1,6 @@
 VaVote::Application.routes.draw do
 
   get   '/not_found'                    => 'pages#not_found', as: 'not_found'
-  get   '/p/:id'                        => 'external_pages#show'
 
   get   '/registration/new/privacy'     => 'pages#privacy', defaults: { path: 'new_registration' }, as: 'new_registration_privacy'
   get   '/registration/edit/privacy'    => 'pages#privacy', defaults: { path: 'edit_registration' }, as: 'edit_registration_privacy'
