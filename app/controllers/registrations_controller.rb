@@ -141,7 +141,7 @@ class RegistrationsController < ApplicationController
   def finalize_update(active_form, reg = @registration, ses = session)
     submitted = false
 
-    if reg.ssn.present?
+    if !AppConfig['ssn_required'] || reg.ssn.present?
       begin
         submitted = SubmitEml310.submit_update(reg)
       rescue SubmitEml310::SubmissionError => e

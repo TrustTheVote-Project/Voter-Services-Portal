@@ -123,7 +123,7 @@ class Pdf::NewDomestic < Pdf::Form
       pdf.set('PREV_REG_COUNTRY', 'United States')
 
       setDigitalField(pdf, 'PREV_REG_SSN', 9, reg.ssn)
-      setDateField(pdf, 'PREV_REG_DOB', reg.dob.strftime('%m%d%Y'))
+      setDateField(pdf, 'PREV_REG_DOB', reg.dob)
     else
       pdf.set('PREV_REG', '0')
     end

@@ -28,10 +28,11 @@ class UpdateRegistration extends Registration
     @augmentIdentityFields()
     @initConfirmFields()
 
+    # overrides default criteria (see in registration.js)
     @isEligible = ko.computed =>
       @citizen() == '1' and
       @oldEnough() == '1' and
-      !@noSSN() and filled(@ssn())
+      (!@ssnRequired() or (!@noSSN() and filled(@ssn())))
 
     new Popover('#eligibility .next.btn', @eligibilityErrors)
     new Popover('#identity .next.btn', @identityErrors)

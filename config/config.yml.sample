@@ -123,5 +123,8 @@ enable_eml_post: true
 # Enables saving all outgoing EML310 in log/last_eml310.xml
 enable_eml_log: true
 
+# Require SSN field during registration / update
+ssn_required: false
+
 # Allows new domestic registrations to have AR
 new_reg_domestic_with_absentee_allowed: false

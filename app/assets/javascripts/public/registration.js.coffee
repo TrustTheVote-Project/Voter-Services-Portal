@@ -4,6 +4,7 @@ class window.Registration
     @overseas   = ko.computed => @residence() == 'outside'
     @domestic   = ko.computed => !@overseas()
 
+    @ssnRequired = ko.observable($("input#ssn_required").val() == 'true')
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
     @paperlessSubmission = ko.observable()
     @showAssistantDetails = ko.computed =>
@@ -56,7 +57,7 @@ class window.Registration
       @citizen() == '1' and
       @oldEnough() == '1' and
       !!@dob() and
-      !@noSSN() and filled(@ssn()) and
+      (!@ssnRequired() or (!@noSSN() and filled(@ssn()))) and
       @hasEligibleRights()
 
     @rightsNotFilled = ko.computed =>
@@ -585,7 +586,6 @@ class window.Registration
     @oathErrors = ko.computed =>
       errors = []
       errors.push("Confirm that information is correct") unless @infoCorrect()
-      errors.push("Social Security #") if !ssn(@ssn()) and !@noSSN()
 
       unless @paperlessSubmission()
         fn = filled(@asFirstName())
