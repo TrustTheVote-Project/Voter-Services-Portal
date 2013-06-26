@@ -40,7 +40,7 @@
         = f.label :pr_middle_name do
           Full middle
           %span (optional)
-        = f.text_field :pr_middle_name, autocomplete: ac, 'data-bind' => 'value: prMiddleName'
+        = f.text_field :pr_middle_name, autocomplete: ac, 'data-bind' => 'valueWithInit: prMiddleName'
       .span3
         = f.label :pr_last_name, "Last name"
         = f.text_field :pr_last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prLastName" }, valueUpdate: "afterkeyup"'

@@ -176,7 +176,7 @@ class RegistrationsController < ApplicationController
         return Pdf::AbsenteeRequest.render(@registration).string
       end
     else
-      # TODO use FPCA PDF
+      return Pdf::Fpca.render(@registration).string
     end
   end
 
