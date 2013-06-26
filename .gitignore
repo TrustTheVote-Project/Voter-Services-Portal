@@ -16,6 +16,7 @@
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
+/log/*.xml
 /tmp
 
 dump.rdb
