@@ -59,20 +59,29 @@ class window.Registration
       !@noSSN() and filled(@ssn()) and
       @hasEligibleRights()
 
+    @rightsNotFilled = ko.computed =>
+      !filled(@rightsWereRevoked()) or
+        (@rightsWereRevoked() == '1' and
+          (
+            (!filled(@rightsFelony()) or !filled(@rightsMental())) or
+            (@rightsFelony() != '1' and @rightsMental() != '1') or
+            (@rightsFelony() == '1' and (!filled(@rightsFelonyRestored()) or (@rightsFelonyRestored() == '1' and !@rightsFelonyRestoredOn()))) or
+            (@rightsMental() == '1' and (!filled(@rightsMentalRestored()) or (@rightsMentalRestored() == '1' and !@rightsMentalRestoredOn())))
+          ))
+
     @eligibilityErrors = ko.computed =>
       errors = []
       errors.push("Citizenship criteria") unless @citizen()
       errors.push("Age criteria") unless @oldEnough()
 
-      errors.push("Voting rights criteria") if !filled(@rightsWereRevoked()) or
-        (@rightsWereRevoked() == '1' and
-          ((@rightsFelony() != '1' and @rightsMental() != '1') or
-           (@rightsFelony() == '1' and (@rightsFelonyRestored() != '1' or !@rightsFelonyRestoredOn())) or
-           (@rightsMental() == '1' and (@rightsMentalRestored() != '1' or !@rightsMentalRestoredOn()))))
+      errors.push("Voting rights criteria") if @rightsNotFilled()
 
       errors.push('Date of birth') unless @dob()
       errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
       errors
+
+    @eligibilityInvalid = ko.computed =>
+      @eligibilityErrors().length > 0
 
   initIdentityFields: ->
     @firstName              = ko.observable()
