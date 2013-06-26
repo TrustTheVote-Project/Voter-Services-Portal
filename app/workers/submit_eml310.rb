@@ -30,7 +30,7 @@ class SubmitEml310
 
   def self.submit(reg, method)
     response = nil
-    result = {}
+    result = false # no online submission (or signature pending)
 
     # don't submit anything if disabled
     if submission_enabled?
@@ -60,7 +60,7 @@ class SubmitEml310
   end
 
   def self.submission_enabled?
-    submission_url.present?
+    submission_url.present? && AppConfig['enable_eml_post']
   end
 
   def self.submission_url

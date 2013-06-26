@@ -118,6 +118,8 @@ static_pages:
 
 # Enables real DMV ID lookups
 enable_dmvid_lookup: false
+# Enables posting EML310 data
+enable_eml_post: true
 
 # Allows new domestic registrations to have AR
 new_reg_domestic_with_absentee_allowed: false
