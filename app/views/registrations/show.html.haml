@@ -12,8 +12,8 @@
 
       %p= I18n.t('view.info')
       %p
-        You can also #{link_to 'update your voter information', :edit_registration} or
-        #{link_to 'apply for an absentee ballot', :request_absentee_registration}.
+        You can also #{link_with_privacy_act_to 'update your voter information', :edit_registration} or
+        #{link_with_privacy_act_to 'apply for an absentee ballot', :request_absentee_registration}.
 
     .summary
       .body
@@ -158,5 +158,5 @@
         = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Mark Your Absentee Ballot Online: #{link_to 'learn more', :online_ballot_marking_page, target: '_blank'} or #{link_to 'get started now', '#', class: 'submit'}" }
     - else
       .form-actions
-        = link_to "Update Your Voter Information", :edit_registration, class: 'btn', id: 'edit_registration'
-        = link_to "Apply for an Absentee Ballot", :request_absentee_registration, class: 'btn pull-right'
+        = link_with_privacy_act_to "Update Your Voter Information", :edit_registration, class: 'btn', id: 'edit_registration'
+        = link_with_privacy_act_to "Apply for an Absentee Ballot", :request_absentee_registration, class: 'btn pull-right'

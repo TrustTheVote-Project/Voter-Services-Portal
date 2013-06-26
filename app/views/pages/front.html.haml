@@ -58,6 +58,6 @@
     %p= I18n.t('front.options.request_absentee.text')
 
 .row.options-links
-  .span4= link_to "", :register_residential_privacy, alt: "Register Resedential", class: "residential button"
-  .span4= link_to "", :register_overseas_privacy, alt: "Register Overseas", class: "overseas button"
-  .span4= link_to "", :search_privacy, alt: "Update or View Voter Record", class: "update button", id: 'search'
+  .span4= link_with_privacy_act_to "", :register_residential, alt: "Register Resedential", class: "residential button"
+  .span4= link_with_privacy_act_to "", :register_overseas, alt: "Register Overseas", class: "overseas button"
+  .span4= link_to "", :search, alt: "Update or View Voter Record", class: "update button", id: 'search'

@@ -1,5 +1,13 @@
 module FormHelper
 
+  def spac
+    AppConfig['show_privacy_act_page']
+  end
+
+  def link_with_privacy_act_to(label, url, *options)
+    link_to label, "#{url}#{ '_privacy' if spac }".to_sym, *options
+  end
+
   # TRUE if online balloting is enabled
   def online_balloting?
     dl = AppConfig['dl']

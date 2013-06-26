@@ -1,8 +1,8 @@
-- start_over_url = params[:action] == 'create' ? :root : edit_registration_path
+- start_over_link = params[:action] == 'create' ? link_to('start over', :root) : link_with_privacy_act_to('start over', :edit_registration)
 
 .padded_page_span
   .row
     .span16.external-page
       %p We are sorry, but the form has expired.
 
-      %p Please #{link_to 'start over', start_over_url} or go to the #{link_to 'home page', :root}.
+      %p Please #{start_over_link} or go to the #{link_to 'home page', :root}.

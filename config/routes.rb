@@ -3,7 +3,9 @@ VaVote::Application.routes.draw do
   get   '/not_found'                    => 'pages#not_found', as: 'not_found'
   get   '/p/:id'                        => 'external_pages#show'
 
-  get   '/search/privacy'               => 'pages#privacy', defaults: { path: 'search_form' }, as: 'search_privacy'
+  get   '/registration/new/privacy'     => 'pages#privacy', defaults: { path: 'new_registration' }, as: 'new_registration_privacy'
+  get   '/registration/edit/privacy'    => 'pages#privacy', defaults: { path: 'edit_registration' }, as: 'edit_registration_privacy'
+  get   '/registration/request_absentee/privacy' => 'pages#privacy', defaults: { path: 'request_absentee_registration' }, as: 'request_absentee_registration_privacy'
   get   '/register/residential/privacy' => 'pages#privacy', defaults: { path: 'register_residential' }, as: 'register_residential_privacy'
   get   '/register/overseas/privacy'    => 'pages#privacy', defaults: { path: 'register_overseas' }, as: 'register_overseas_privacy'
 
