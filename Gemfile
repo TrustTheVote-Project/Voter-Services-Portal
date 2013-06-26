@@ -21,7 +21,7 @@ gem 'inherited_resources'
 gem 'kaminari'
 gem 'country_select'
 gem 'state_select'
-
+gem 'redis'
 gem 'simple_form'
 
 gem 'kronic'

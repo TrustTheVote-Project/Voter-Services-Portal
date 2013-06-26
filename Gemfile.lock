@@ -322,6 +322,7 @@ DEPENDENCIES
   rake (= 10.0.3)
   rb-fsevent (~> 0.9.1)
   rdiscount
+  redis
   rspec-rails
   sass-rails (~> 3.2.6)
   shoulda
