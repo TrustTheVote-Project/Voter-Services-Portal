@@ -22,8 +22,8 @@ class Pdf::NewDomestic < Pdf::Form
   end
 
   def self.setEligibility(pdf, reg)
-    pdf.set('CITIZEN', reg.citizen == '1' ? '1' : '0')
-    pdf.set('AGE',     reg.old_enough == '1' ? '1' : '0')
+    pdf.set('CITIZEN', reg.citizen == '1' ? '0' : '1')
+    pdf.set('AGE',     reg.old_enough == '1' ? '0' : '1')
   end
 
   def self.setIdentity(pdf, reg)
