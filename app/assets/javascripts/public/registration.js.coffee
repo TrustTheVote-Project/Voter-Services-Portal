@@ -623,7 +623,7 @@ class window.Registration
 
   lookupRecord: (_, e) =>
     return if $(e.target).hasClass('disabled')
-    @page('lookup')
+    @page('lookup_record')
 
     $.getJSON '/lookup/registration', { record: {
         eligible_citizen:               if @citizen() then 'T' else 'F',
