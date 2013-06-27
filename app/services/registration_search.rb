@@ -20,7 +20,8 @@ class RegistrationSearch < LookupApi
       ErrorLogRecord.log("Parsing error", error: "no gender", voter_id: rec.voter_id)
     end
 
-    rec.existing = true;
+    rec.existing = true
+    rec.dob ||= search_query.dob
     rec
   end
 

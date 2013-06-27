@@ -12,6 +12,7 @@ describe RegistrationSearch do
     its(:last_name)               { should == "halperin" }
     its(:phone)                   { should == "2769882415" }
     its(:gender)                  { should == "Female" }
+    its(:dob)                     { should == Date.parse("2013-06-25") }
     its(:rights_revoked)          { should == "0" }
 
     its(:vvr_address_1)           { should == "RR 507 Back woods" }
