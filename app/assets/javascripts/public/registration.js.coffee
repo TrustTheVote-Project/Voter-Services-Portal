@@ -6,6 +6,7 @@ class window.Registration
 
     @ssnRequired = ko.observable($("input#ssn_required").val() == 'true')
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
+    @editMailingAddressAtProtectedVoter = ko.observable($("input#edit_mailing_address_at_protected_voter").val() == 'true')
     @paperlessSubmission = ko.observable()
     @showAssistantDetails = ko.computed =>
       el = $("input#display_assistant_details")
@@ -325,7 +326,7 @@ class window.Registration
 
     @protectedVoterAdditionals = ko.computed =>
       @isConfidentialAddress() and
-        (@caType() == 'TSC' or (@domestic() and !@maIsDifferent()))
+        (@caType() == 'TSC' or (@domestic() and (@editMailingAddressAtProtectedVoter() or !@maIsDifferent())))
 
     @optionsErrors = ko.computed =>
       errors = []
