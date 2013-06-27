@@ -292,3 +292,24 @@ Optional flag to export each record on its own line (best for `tail` /
 
     $ rake va:error_log ... separate_lines=1
 
+
+
+Troubleshooting
+---------------
+
+When things not right:
+
+  * make sure migrations are run:
+  
+      $ cap deploy:migrations
+
+  * make sure redis is running. The following command should return
+    "redis-server" process:
+
+      $ ps aux | grep redis
+
+  * review config/config.yml for merge errors (should have all options
+    that are mentioned in config/config.yml.sample) 
+  * review config/locales/en.yml for merge errors
+  * examine log/production.log for errors
+
