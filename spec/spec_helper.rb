@@ -30,5 +30,17 @@ RSpec.configure do |config|
   # Cleanup
   config.before do
     Registration.delete_all
+    @app_config = AppConfig
+
+    # Disable lookup
+    AppConfig['enable_dmvid_lookup'] = false
+    # Hide privacy act pages
+    AppConfig['show_privacy_act_page'] = false
+    # Stub out external pages
+    ExternalPages.stub(get_from_remote: 'page')
+  end
+
+  config.after do
+    AppConfig.merge!(@app_config)
   end
 end

@@ -6,17 +6,20 @@ feature 'Looking up records' do
     visit '/'
     click_on 'search'
 
-    expect(page).to have_text 'Privacy Act Notice'
-    check 'I have read the terms of the Privacy Act Notice.'
-    click_on 'Next'
-
     expect(page).to have_text 'Identity'
     find_field('Use SSN4').should be_checked
   end
 
   scenario 'Successful search' do
+    AppConfig['show_privacy_act_page'] = true
+
     fill_search_page '600000000'
     expect(page).to have_text 'Voter Information'
+
+    click_link "Update Your Voter Information"
+
+    expect(page).to have_text 'Privacy Act Notice'
+    check 'I have read the terms of the Privacy Act Notice.'
   end
 
   scenario 'Failed search' do
@@ -32,10 +35,6 @@ feature 'Looking up records' do
 
     visit '/'
     click_on 'search'
-
-    expect(page).to have_text 'Privacy Act Notice'
-    check 'I have read the terms of the Privacy Act Notice.'
-    click_on 'Next'
 
     choose "Use Voter ID"
     within "#vid" do

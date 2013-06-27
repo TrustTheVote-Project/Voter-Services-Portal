@@ -135,6 +135,8 @@ class RegistrationsController < ApplicationController
     ses[:slr_id] = nil
 
     RegistrationRepository.store_registration(ses, reg)
+
+    submitted
   end
 
   # Finalizes the update record

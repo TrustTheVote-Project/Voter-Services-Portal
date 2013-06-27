@@ -278,7 +278,7 @@ describe RegistrationSearch do
   end
 
   def query_for(n, loc)
-    stub(voter_id: n, locality: loc, first_name: '1', dob: Date.today)
+    stub(voter_id: n, locality: loc, first_name: '1', dob: Date.parse('2013-06-25'))
   end
 
   def for_election(id)

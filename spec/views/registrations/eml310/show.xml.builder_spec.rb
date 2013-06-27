@@ -49,7 +49,7 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
     it 'should render rural address' do
       reg vvr_is_rural: '1', vvr_address_1: '1 SN AVE', vvr_address_2: '2', vvr_county_or_city: 'BRISTOL CITY', vvr_town: 'BRISTOL', vvr_state: 'VA', vvr_zip5: '12345', vvr_zip4: '6789'
       xml.within 'EML VoterRegistration Voter VoterIdentification' do |x|
-        x.within "ElectoralAddress[type='rural'] PostalAddress" do |a|
+        x.within "ElectoralAddress[type='Rural'] PostalAddress" do |a|
           a.should have_selector "Thoroughfare", text: "1 SN AVE"
           a.should have_selector "OtherDetail", text: '2'
           a.should have_selector "Locality", text: 'BRISTOL'
@@ -161,7 +161,7 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
           pr_address: 'Line 1', pr_address_2: 'Line 2',
           pr_city: 'C', pr_state: 'VA', pr_zip5: '54321', pr_zip4: '6789', pr_is_rural: '1'
 
-      xml.within "PreviousElectoralAddress[status='previous'][type='rural'] PostalAddress" do |a|
+      xml.within "PreviousElectoralAddress[status='previous'][type='Rural'] PostalAddress" do |a|
         a.should have_selector "Thoroughfare", text: "Line 1"
         a.should have_selector "OtherDetail", text: 'Line 2'
         a.should have_selector "Locality", text: 'C'

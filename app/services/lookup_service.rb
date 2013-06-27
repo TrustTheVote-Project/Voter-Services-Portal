@@ -24,7 +24,7 @@ class LookupService < LookupApi
       eligible18nextElection:       r[:eligible_18_next_election],
       eligibleVAresident:           r[:eligible_va_resident],
       eligibleNotRevokedUnrestored: r[:eligible_unrevoked_or_restored],
-      hashType:                     "SHA-1"
+      hashType:                     "none"
     }
 
     parse_uri('voterByDMVIDnumber', q)

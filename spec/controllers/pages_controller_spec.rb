@@ -20,10 +20,22 @@ describe PagesController do
   end
 
   describe 'privacy' do
-    it 'should render template w/ search path' do
-      get :privacy, path: 'search_form'
+    it 'should render template w/ new reg path' do
+      get :privacy, path: 'new_registration'
       should render_template :privacy
-      assigns(:redirect_path).should == search_form_path
+      assigns(:redirect_path).should == new_registration_path
+    end
+
+    it 'should render template w/ new reg path' do
+      get :privacy, path: 'edit_registration'
+      should render_template :privacy
+      assigns(:redirect_path).should == edit_registration_path
+    end
+
+    it 'should render template w/ absentee request path' do
+      get :privacy, path: 'request_absentee_registration'
+      should render_template :privacy
+      assigns(:redirect_path).should == request_absentee_registration_path
     end
 
     it 'should render template w/ residential reg path' do

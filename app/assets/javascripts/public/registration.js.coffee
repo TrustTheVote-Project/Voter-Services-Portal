@@ -642,9 +642,10 @@ class window.Registration
           @paperlessSubmission(data.dmv_match)
           if @paperlessSubmission()
             a = data.address
-            @vvrAddress1(a.address_1)
-            @vvrAddress2(a.address_2)
-            @vvrCountyOrCity(a.county_or_city)
-            @vvrZip5(a.zip5)
+            if a
+              @vvrAddress1(a.address_1)
+              @vvrAddress2(a.address_2)
+              @vvrCountyOrCity(a.county_or_city)
+              @vvrZip5(a.zip5)
           location.hash = 'identity'
 
