@@ -33,7 +33,7 @@ class Eml310Builder
             xml.VoterName do
               xml.PersonFullName    r.full_name, { 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" }
               xml.PersonNameDetail 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
-                xml.GivenName       r.first_name
+                xml.GivenName       r.first_name, type: 'City'
                 xml.MiddleName      r.middle_name
                 xml.FamilyName      r.last_name
                 xml.NameSuffixText  r.suffix
@@ -59,19 +59,10 @@ class Eml310Builder
               o[:type] = 'Rural' if r.pr_is_rural?
 
               xml.PreviousElectoralAddress o do
-                # xml.VoterName do
-                #   xml.PersonFullName    r.pr_full_name, { 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" }
-                #   xml.PersonNameDetail 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
-                #     xml.GivenName       r.pr_first_name
-                #     xml.MiddleName      r.pr_middle_name
-                #     xml.FamilyName      r.pr_last_name
-                #     xml.NameSuffixText  r.pr_suffix
-                #   end
-                # end
                 xml.PostalAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
                   xml.Thoroughfare        r.pr_address
                   xml.OtherDetail         r.pr_address_2 unless r.pr_address_2.blank?
-                  xml.Locality            r.pr_city
+                  xml.OtherDetail         r.pr_city, type: 'City'
                   xml.AdministrativeArea  r.pr_state, type: 'StateCode'
                   xml.PostCode            r.pr_zip, type: 'ZipCode'
                   xml.Country             'US'
@@ -161,11 +152,11 @@ class Eml310Builder
                   xml.AssistantAddress status: 'current' do
                     xml.FreeTextAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
                       address_lines xml, [
-                        [ 'MailingAddressLine1',  r.as_address ],
-                        [ 'MailingAddressLine2',  r.as_address_2 ],
-                        [ 'MailingCity',          r.as_city ],
-                        [ 'MailingState',         r.as_state ],
-                        [ 'MailingZip',           r.as_zip ] ]
+                        [ 'AddressLine1',  r.as_address ],
+                        [ 'AddressLine2',  r.as_address_2 ],
+                        [ 'City',          r.as_city ],
+                        [ 'State',         r.as_state ],
+                        [ 'Zip',           r.as_zip ] ]
                     end
                   end
                 end
@@ -207,7 +198,8 @@ class Eml310Builder
       xml.PostalAddress xmlns: "urn:oasis:names:tc:ciq:xal:4" do
         xml.Thoroughfare        r.vvr_address_1
         xml.OtherDetail         r.vvr_address_2 unless r.vvr_address_2.blank?
-        xml.Locality            r.vvr_town
+        xml.Locality            r.vvr_county_or_city
+        xml.OtherDetail         r.vvr_town, type: 'City'
         xml.AdministrativeArea  r.vvr_state, type: 'StateCode'
         xml.PostCode            r.vvr_zip, type: 'ZipCode'
         xml.Country             'US'
