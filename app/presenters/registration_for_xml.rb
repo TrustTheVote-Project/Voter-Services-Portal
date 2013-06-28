@@ -22,6 +22,10 @@ class RegistrationForXML
     @r = r
   end
 
+  def assistant_details_present?
+    @r.as_full_name.present? || @r.as_full_address.present?
+  end
+
   def be_official?
     @r.be_official == '1'
   end

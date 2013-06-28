@@ -72,8 +72,6 @@ class Pdf::AbsenteeRequest < Pdf::Form
   end
 
   def self.set_part_e(pdf, reg, p)
-    return if reg.need_assistance != '1'
-
     pdf.set('E_NAME_ASSISTANT', reg.as_full_name)
     pdf.set('E_ADDRESS_ASSISTANT', [ reg.as_address, reg.as_address_2 ].rjoin(', '))
     pdf.set('E_CITY_TOWN_ASSISTANT', reg.as_city)

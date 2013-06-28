@@ -107,6 +107,13 @@ class Registration < ActiveRecord::Base
     [ as_first_name, as_middle_name, as_last_name, as_suffix ].delete_if(&:blank?).join(' ')
   end
 
+  def as_full_address
+    [ as_address,
+      as_address_2,
+      [ as_city, as_state, as_zip5 ].rjoin(' ')
+    ].rjoin(', ')
+  end
+
   def protected_voter_address
     if uocava?
       if mau_type == 'apo'

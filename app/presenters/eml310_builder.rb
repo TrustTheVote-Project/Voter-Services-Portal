@@ -138,7 +138,7 @@ class Eml310Builder
                 order += 1
               end
 
-              if r.need_assistance?
+              if r.assistant_details_present?
                 xml.Message DisplayOrder: order.to_s.rjust(4, '0'), Type: "RegistrationAssistant", Seqn: order do
                   xml.AssistantName do
                     xml.PersonFullName    r.as_full_name, { 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" }

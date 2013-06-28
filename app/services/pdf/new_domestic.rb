@@ -100,6 +100,12 @@ class Pdf::NewDomestic < Pdf::Form
 
   def self.setRegistrationStatement(pdf, reg)
     setDateField(pdf, 'STATEMENT', Time.now)
+
+    details = [
+      reg.as_full_name,
+      reg.as_full_address
+    ].rjoin(', ')
+    pdf.set('ASSISTANT_DETAILS', details) unless details.blank?
   end
 
   def self.setOptionalQuestions(pdf, reg)
