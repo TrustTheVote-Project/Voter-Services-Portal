@@ -7,6 +7,11 @@ describe LookupService do
     lookup('123456789').should == { registered: false, dmv_match: false }
   end
 
+  it 'should not perform a lookup if DMV ID is missing' do
+    LookupService.should_not_receive(:send_request)
+    LookupService.registration(dmv_id: nil).should == { registered: false, dmv_match: false }
+  end
+
   it 'should perform a real lookup' do
     AppConfig['enable_dmvid_lookup'] = true
     lookup('123456789').should == {

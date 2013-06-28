@@ -622,9 +622,26 @@ class window.Registration
       else
         @gotoPage('ineligible')
 
+  onLookupResult: (data) =>
+    if data.registered
+      location.hash = "registered_info"
+    else
+      @paperlessSubmission(data.dmv_match)
+      if @paperlessSubmission()
+        a = data.address
+        if a
+          @vvrAddress1(a.address_1)
+          @vvrAddress2(a.address_2)
+          @vvrCountyOrCity(a.county_or_city)
+          @vvrZip5(a.zip5)
+      location.hash = 'identity'
+
   lookupRecord: (_, e) =>
     return if $(e.target).hasClass('disabled')
     @page('lookup_record')
+
+    if !filled(@dmvId())
+      return @onLookupResult({ registered: false, dmv_match: false })
 
     $.getJSON '/lookup/registration', { record: {
         eligible_citizen:               if @citizen() then 'T' else 'F',
@@ -636,17 +653,5 @@ class window.Registration
         dob_year:                       @dobYear(),
         ssn:                            @ssn(),
         dmv_id:                         @dmvId()
-      }}, (data) =>
-        if data.registered
-          location.hash = "registered_info"
-        else
-          @paperlessSubmission(data.dmv_match)
-          if @paperlessSubmission()
-            a = data.address
-            if a
-              @vvrAddress1(a.address_1)
-              @vvrAddress2(a.address_2)
-              @vvrCountyOrCity(a.county_or_city)
-              @vvrZip5(a.zip5)
-          location.hash = 'identity'
+      }}, @onLookupResult
 

@@ -2,7 +2,7 @@ class LookupService < LookupApi
 
   # stub registration lookup
   def self.registration(record)
-    if AppConfig['enable_dmvid_lookup']
+    if AppConfig['enable_dmvid_lookup'] && record_complete?(record)
       xml = send_request(record)
       parse(xml)
     else
@@ -12,6 +12,10 @@ class LookupService < LookupApi
   end
 
   private
+
+  def self.record_complete?(r)
+    r[:dmv_id].present?
+  end
 
   def self.send_request(r)
     q = {
