@@ -9,6 +9,8 @@ class LookupService < LookupApi
       { registered: false,
         dmv_match:  false }
     end
+  rescue RecordNotFound
+    { registered: false, dmv_match: false }
   end
 
   private
@@ -42,7 +44,7 @@ class LookupService < LookupApi
       return res.body
     end
 
-    Rails.logger.error("INTERNAL ERROR: LOOKUP code=#{res.code}\m#{res.body}")
+    Rails.logger.error("INTERNAL ERROR: LOOKUP code=#{res.code}\n#{res.body}")
 
     # raise known errors
     if res.code == '400'
