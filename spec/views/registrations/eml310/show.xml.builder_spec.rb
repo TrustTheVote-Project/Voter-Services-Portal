@@ -149,7 +149,7 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
       xml.within "PreviousElectoralAddress[status='previous'] PostalAddress" do |a|
         a.should have_selector "Thoroughfare", text: "Line 1"
         a.should have_selector "OtherDetail", text: 'Line 2'
-        a.should have_selector "Locality", text: 'C'
+        a.should have_selector "OtherDetail[type='City']", text: 'C'
         a.should have_selector "AdministrativeArea[type='StateCode']", text: 'VA'
         a.should have_selector "PostCode[type='ZipCode']", text: '543216789'
         a.should have_selector "Country", text: 'US'
@@ -164,7 +164,7 @@ describe "registrations/eml310/show", formats: [ :xml ], handlers: [ :builder ] 
       xml.within "PreviousElectoralAddress[status='previous'][type='Rural'] PostalAddress" do |a|
         a.should have_selector "Thoroughfare", text: "Line 1"
         a.should have_selector "OtherDetail", text: 'Line 2'
-        a.should have_selector "Locality", text: 'C'
+        a.should have_selector "OtherDetail[type='City']", text: 'C'
         a.should have_selector "AdministrativeArea[type='StateCode']", text: 'VA'
         a.should have_selector "PostCode[type='ZipCode']", text: '543216789'
         a.should have_selector "Country", text: 'US'
