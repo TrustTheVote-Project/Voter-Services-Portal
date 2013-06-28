@@ -18,7 +18,7 @@ class Pdf::NewDomestic < Pdf::Form
 
   def self.setMailingInstructions(pdf, reg)
     address = Office.where(locality: reg.vvr_county_or_city).first.try(:address)
-    pdf.set("Addresspage1", "General Registrar\n#{address}".gsub("\n", ", "))
+    pdf.set("INSTRUCTIONS_ADDRESS", "General Registrar\n#{address}".gsub("\n", ", "))
   end
 
   def self.setEligibility(pdf, reg)
