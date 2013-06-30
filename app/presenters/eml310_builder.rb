@@ -33,7 +33,7 @@ class Eml310Builder
             xml.VoterName do
               xml.PersonFullName    r.full_name, { 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" }
               xml.PersonNameDetail 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
-                xml.GivenName       r.first_name, type: 'City'
+                xml.GivenName       r.first_name
                 xml.MiddleName      r.middle_name
                 xml.FamilyName      r.last_name
                 xml.NameSuffixText  r.suffix
