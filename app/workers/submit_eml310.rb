@@ -1,4 +1,5 @@
 require 'builder'
+require 'net/http'
 
 class SubmitEml310
 
@@ -48,29 +49,36 @@ class SubmitEml310
     end
   end
 
-  def self.send_request(reg, method)
+  def self.send_request(reg, method, body = nil)
     uri = URI("#{SubmitEml310.submission_url}/#{method}")
     req = Net::HTTP::Post.new(uri.path)
-    req.body = registration_xml(reg)
+    req.body = body || registration_xml(reg)
     req.content_type = 'multipart/form-data'
 
     Rails.logger.info("SUBMIT_EML310: #{uri}")
 
+    netlog = nil
     if AppConfig['enable_eml_log']
       begin
         File.open("#{Rails.root}/log/last_eml310.xml", "wb") { |f| f.write(req.body) }
+        netlog = File.open("#{Rails.root}/log/last_eml310.netlog", "wb")
+        netlog << "#{uri}\n"
       rescue => e
         Rails.logger.error("INTERNAL ERROR: SUBMIT_EML310 - Failed to write log/last_eml310.xml: #{e}")
       end
     end
 
-    return Net::HTTP.start(uri.hostname, uri.port,
-                           use_ssl: uri.scheme == 'https',
-                           open_timeout: 60,
-                           read_timeout: 60,
-                           verify_mode:  OpenSSL::SSL::VERIFY_NONE) do |http|
+    http = Net::HTTP.new(uri.hostname, uri.port)
+    http.use_ssl      = uri.scheme == 'https'
+    http.open_timeout = 60
+    http.read_timeout = 60
+    http.verify_mode  = OpenSSL::SSL::VERIFY_NONE
+    http.set_debug_output(netlog)
+    return http.start do |http|
       http.request(req)
     end
+  ensure
+    netlog.close if netlog
   end
 
   def self.submission_enabled?
