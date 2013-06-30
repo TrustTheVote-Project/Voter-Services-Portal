@@ -324,9 +324,11 @@ class window.Registration
     @overseas.subscribe (v) =>
       setTimeout((=> @requestingAbsentee(true)), 0) if v
 
+    @needsProtectedMailingAddress = ko.computed =>
+      @isConfidentialAddress() and @domestic() and (@editMailingAddressAtProtectedVoter() or !@maIsDifferent())
+
     @protectedVoterAdditionals = ko.computed =>
-      @isConfidentialAddress() and
-        (@caType() == 'TSC' or (@domestic() and (@editMailingAddressAtProtectedVoter() or !@maIsDifferent())))
+      (@isConfidentialAddress() and @caType() == 'TSC') or @needsProtectedMailingAddress()
 
     @optionsErrors = ko.computed =>
       errors = []

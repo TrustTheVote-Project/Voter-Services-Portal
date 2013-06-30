@@ -28,21 +28,20 @@
             = f.radio_button :ca_type, r, 'data-bind' => 'checkedWithInit: caType, enable: isConfidentialAddress'
             %label{ for: "registration_ca_type_#{r.downcase}", 'data-bind' => 'css: { disabled: !isConfidentialAddress() }' }= I18n.t("options.ac.reasons.#{r}")
 
-        <!-- ko if: protectedVoterAdditionals() -->
-        .additional
-          <!-- ko if: domestic() #{"&& !maIsDifferent()".html_safe if !AppConfig['edit_mailing_address_at_protected_voter']} -->
+        .additional{ 'data-bind' => 'visible: protectedVoterAdditionals' }
+          <!-- ko if: needsProtectedMailingAddress -->
           -# here we set ma_is_different as a field to let backend know
           -# that we have explicit custom MA provided even though the user
           -# didn't want to provide it in the addresses section
           .important= I18n.t("options.ac.type", address: I18n.t('residence_address').downcase)
           = hidden_field_tag 'registration[ma_is_different]', 1
-          = render partial: 'mailing_domestic', locals: { f: f, address_label: I18n.t('options.ac.mailing_address_label') }
           <!-- /ko -->
+          %div{ 'data-bind' => 'visible: needsProtectedMailingAddress' }
+            = render partial: 'mailing_domestic', locals: { f: f, address_label: I18n.t('options.ac.mailing_address_label') }
 
           <!-- ko if: caType() == 'TSC' -->
           .important You must attach copy of the complaint that you filed
           <!-- /ko -->
-        <!-- /ko -->
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextFromOptions, css: { disabled: optionsInvalid }'
