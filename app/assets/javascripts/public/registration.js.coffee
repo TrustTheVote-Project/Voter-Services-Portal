@@ -95,6 +95,17 @@ class window.Registration
     @validPhone             = ko.computed => !filled(@phone()) or phone(@phone())
     @email                  = ko.observable()
     @validEmail             = ko.computed => !filled(@email()) or email(@email())
+    @caType                 = ko.observable()
+    @isConfidentialAddress  = ko.observable()
+
+    @isConfidentialAddress.subscribe (v) =>
+      @caType(null) unless v
+
+    @needsProtectedMailingAddress = ko.computed =>
+      @isConfidentialAddress() and @domestic() and (@editMailingAddressAtProtectedVoter() or !@maIsDifferent())
+
+    @protectedVoterAdditionals = ko.computed =>
+      (@isConfidentialAddress() and @caType() == 'TSC') or @needsProtectedMailingAddress()
 
     @identityErrors = ko.computed =>
       errors = []
@@ -103,6 +114,14 @@ class window.Registration
       errors.push('Gender') unless filled(@gender())
       errors.push('Phone number') unless @validPhone()
       errors.push('Email address') unless @validEmail()
+
+      if @isConfidentialAddress()
+        if !filled(@caType())
+          errors.push("Address confidentiality reason")
+        else
+          if (@overseas() and !@overseasMAFilled()) or (@domestic() and !@domesticMAFilled())
+            errors.push("Protected voter mailing address")
+
       errors
 
     @identityInvalid = ko.computed => @identityErrors().length > 0
@@ -219,9 +238,6 @@ class window.Registration
     @chooseParty            = ko.observable()
     @otherParty             = ko.observable()
 
-    @caType                 = ko.observable()
-    @isConfidentialAddress  = ko.observable()
-
     @needsAssistance        = ko.observable()
 
     @requestingAbsentee     = ko.observable()
@@ -237,8 +253,6 @@ class window.Registration
 
     @residence.subscribe (v) =>
       @requestingAbsentee(v == 'outside')
-    @isConfidentialAddress.subscribe (v) =>
-      @caType(null) unless v
 
     @abReason               = ko.observable()
     @abField1               = ko.observable()
@@ -324,24 +338,11 @@ class window.Registration
     @overseas.subscribe (v) =>
       setTimeout((=> @requestingAbsentee(true)), 0) if v
 
-    @needsProtectedMailingAddress = ko.computed =>
-      @isConfidentialAddress() and @domestic() and (@editMailingAddressAtProtectedVoter() or !@maIsDifferent())
-
-    @protectedVoterAdditionals = ko.computed =>
-      (@isConfidentialAddress() and @caType() == 'TSC') or @needsProtectedMailingAddress()
-
     @optionsErrors = ko.computed =>
       errors = []
       if @chooseParty()
         if !filled(@party()) || (@party() == 'other' and !filled(@otherParty()))
           errors.push("Party preference")
-
-      if @isConfidentialAddress()
-        if !filled(@caType())
-          errors.push("Address confidentiality reason")
-        else
-          if (@overseas() and !@overseasMAFilled()) or (@domestic() and !@domesticMAFilled())
-            errors.push("Protected voter mailing address")
 
       if @requestingAbsentee()
         if @overseas()

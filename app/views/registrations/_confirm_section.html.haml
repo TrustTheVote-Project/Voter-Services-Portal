@@ -108,7 +108,7 @@
             %tr{ 'data-bind' => 'if: isConfidentialAddress' }
               %th= I18n.t('confirm.rows.protected_voter')
               - if !rj
-                %td.edit= link_to "Edit", "#options"
+                %td.edit= link_to "Edit", "#identity"
               %td
                 - if rj
                   = link_to "Edit", "#options", class: 'edit'

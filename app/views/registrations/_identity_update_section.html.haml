@@ -3,36 +3,39 @@
     %h3 Identity
     .description Identify who you are
 
-  .row.personal-info
-    .span3
-      = f.label :first_name
-      = f.text_field :first_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "firstName" }, valueUpdate: "afterkeyup"'
-    .span3
-      = f.label :middle_name do
-        Full middle
-        %span (optional)
-      = f.text_field :middle_name, autocomplete: ac, 'data-bind' => 'valueWithInit: middleName'
-    .span3
-      = f.label :last_name
-      = f.text_field :last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "lastName" }, valueUpdate: "afterkeyup"'
-    .span2
-      = f.label :suffix do
-        Suffix
-        %span (optional)
-      = f.select :suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'valueWithInit: suffix' }
+  .partition
+    .row.personal-info
+      .span3
+        = f.label :first_name
+        = f.text_field :first_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "firstName" }, valueUpdate: "afterkeyup"'
+      .span3
+        = f.label :middle_name do
+          Full middle
+          %span (optional)
+        = f.text_field :middle_name, autocomplete: ac, 'data-bind' => 'valueWithInit: middleName'
+      .span3
+        = f.label :last_name
+        = f.text_field :last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "lastName" }, valueUpdate: "afterkeyup"'
+      .span2
+        = f.label :suffix do
+          Suffix
+          %span (optional)
+        = f.select :suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'valueWithInit: suffix' }
 
 
-  .row
-    .span2.phone-field
-      = f.label :phone do
-        Phone
-        %span (optional)
-      = f.text_field :phone, autocomplete: ac, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'instantValidation: { accessor: "phone", attribute: "validPhone" }', class: 'span2'
-    .span3.email-field
-      = f.label :email do
-        Email
-        %span (optional)
-      = f.text_field :email, autocomplete: ac, placeholder: 'john@smith.com', 'data-bind' => 'instantValidation: { accessor: "email", attribute: "validEmail" }'
+    .row
+      .span2.phone-field
+        = f.label :phone do
+          Phone
+          %span (optional)
+        = f.text_field :phone, autocomplete: ac, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'instantValidation: { accessor: "phone", attribute: "validPhone" }', class: 'span2'
+      .span3.email-field
+        = f.label :email do
+          Email
+          %span (optional)
+        = f.text_field :email, autocomplete: ac, placeholder: 'john@smith.com', 'data-bind' => 'instantValidation: { accessor: "email", attribute: "validEmail" }'
+
+  = render partial: 'registrations/protected_voter', locals: { f: f }
 
   .form-actions
     = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextFromIdentity, css: { disabled: identityInvalid }'
