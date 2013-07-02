@@ -63,7 +63,7 @@ class Pdf::NewDomestic < Pdf::Form
     end
 
     pdf.set('HOME_CITY', home_city(reg))
-    setDigitalField(pdf, 'HOME_ZIP', 5, reg.vvr_zip5)
+    pdf.set('HOME_ZIP', [ reg.vvr_zip5, reg.vvr_zip4 ].rjoin('-'))
     pdf.set('EMAIL', reg.email)
 
     pdf.set('CITY_OR_COUNTY', reg.vvr_county_or_city.to_s.upcase.gsub(/\s*(COUNTY|CITY)/, ''))
@@ -128,7 +128,7 @@ class Pdf::NewDomestic < Pdf::Form
       pdf.set('PREV_REG_ADDRESS', [ reg.pr_address, reg.pr_address_2 ].rjoin(', ').to_s.upcase)
       pdf.set('PREV_REG_CITY', reg.pr_city.to_s.upcase)
       pdf.set('PREV_REG_STATE', reg.pr_state.to_s.upcase)
-      pdf.set('PREV_REG_ZIP', reg.pr_zip5)
+      pdf.set('PREV_REG_ZIP', [ reg.pr_zip5, reg.pr_zip4 ].rjoin('-'))
       pdf.set('PREV_REG_COUNTRY', 'United States')
 
       setDigitalField(pdf, 'PREV_REG_SSN', 9, reg.ssn)

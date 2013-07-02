@@ -110,7 +110,7 @@ class Registration < ActiveRecord::Base
   def as_full_address
     [ as_address,
       as_address_2,
-      [ as_city, as_state, as_zip5 ].rjoin(' ')
+      [ as_city, as_state, [ as_zip5, as_zip4 ].rjoin('-') ].rjoin(' ')
     ].rjoin(', ')
   end
 
