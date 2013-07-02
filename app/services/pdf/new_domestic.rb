@@ -21,14 +21,18 @@ class Pdf::NewDomestic < Pdf::Form
     pdf.set("INSTRUCTIONS_ADDRESS", "General Registrar\n#{address}".gsub("\n", ", "))
   end
 
+  def self.setCheck(pdf, key, v, values = nil)
+    pdf.set("#{key}_#{v ? "Y" : "N"}", "Y")
+  end
+
   def self.setEligibility(pdf, reg)
-    pdf.set('CITIZEN', reg.citizen == '1' ? '0' : '1')
-    pdf.set('AGE',     reg.old_enough == '1' ? '0' : '1')
+    setCheck(pdf, 'CITIZEN', reg.citizen)
+    setCheck(pdf, 'AGE', reg.old_enough)
   end
 
   def self.setIdentity(pdf, reg)
     setDigitalField(pdf, 'SSN', 9, reg.ssn)
-    pdf.set('GENDER', reg.gender =~ /F/ ? '1' : '0')
+    pdf.set("GENDER_#{reg.gender =~ /F/ ? "F" : "M"}", "Y")
     setDateField(pdf, 'DOB', reg.dob)
     setDigitalField(pdf, 'PHONE', 10, reg.phone.gsub(/[^0-9]/, '')) unless reg.phone.blank?
     pdf.set("LAST_NAME", reg.last_name.to_s.upcase)
@@ -63,8 +67,7 @@ class Pdf::NewDomestic < Pdf::Form
     pdf.set('EMAIL', reg.email)
 
     pdf.set('CITY_OR_COUNTY', reg.vvr_county_or_city.to_s.upcase.gsub(/\s*(COUNTY|CITY)/, ''))
-    # yes, 0 for city, 1 for county. weird
-    pdf.set('IS_CITY', reg.vvr_county_or_city =~ /CITY/i ? "0" : "1")
+    setCheck(pdf, 'IS_CITY', reg.vvr_county_or_city =~ /CITY/i)
 
     if reg.ma_is_different == '1'
       pdf.set('MAILING_ADDRESS', [
@@ -81,20 +84,20 @@ class Pdf::NewDomestic < Pdf::Form
   def self.setVoterRightsStatus(pdf, reg)
     if reg.rights_revoked == '1'
       if reg.rights_felony == '1'
-        pdf.set('CONVICTED', '0') # yes
+        setCheck(pdf, 'CONVICTED', true)
         pdf.set('CONVICTED_STATE', reg.rights_felony_restored_in.to_s.upcase)
-        pdf.set('CONVICTED_RESTORED', reg.rights_felony_restored == '1' ? '0' : '1')
+        setCheck(pdf, 'CONVICTED_RESTORED', reg.rights_felony_restored == '1')
         setDateField(pdf, 'CONVICTED_RESTORED_ON', reg.rights_felony_restored_on)
       end
 
       if reg.rights_mental == '1'
-        pdf.set('MENTAL', '1') # yes
-        pdf.set('MENTAL_RESTORED', reg.rights_mental_restored == '1' ? '0' : '1')
+        setCheck(pdf, 'MENTAL', true)
+        setCheck(pdf, 'MENTAL_RESTORED', reg.rights_mental_restored == '1')
         setDateField(pdf, 'MENTAL_RESTORED_ON', reg.rights_mental_restored_on)
       end
     else
-      pdf.set('CONVICTED', '1') # no
-      pdf.set('MENTAL', '1') # no
+      pdf.set('CONVICTED_N', 'Y')
+      pdf.set('MENTAL_N', 'Y')
     end
   end
 
@@ -113,13 +116,13 @@ class Pdf::NewDomestic < Pdf::Form
       setDigitalField(pdf, 'PROTECTED_VOTER_CODE', 3, reg.ca_type.to_s.upcase)
     end
 
-    pdf.set('NEED_ASSISTANT', reg.need_assistance == '1' ? 'Y' : 'N')
-    pdf.set('INTEREST_IN_ELECTION_DAY_OFFICIAL_CHECK', reg.be_official == '1' ? 'Yes' : 'No')
+    pdf.set('NEED_ASSISTANT', 'Y') if reg.need_assistance == '1'
+    pdf.set('INTEREST_IN_ELECTION_DAY_OFFICIAL_CHECK', 'Y') if reg.be_official == '1'
   end
 
   def self.setPreviousRegistrationInfo(pdf, reg)
     if reg.pr_status == '1'
-      pdf.set('PREV_REG', '1')
+      setCheck(pdf, 'PREV_REG', true)
 
       pdf.set('PREV_REG_FULL_NAME', [ reg.pr_first_name, reg.pr_middle_name, reg.pr_last_name, reg.pr_suffix ].rjoin(' ').to_s.upcase)
       pdf.set('PREV_REG_ADDRESS', [ reg.pr_address, reg.pr_address_2 ].rjoin(', ').to_s.upcase)
@@ -131,7 +134,7 @@ class Pdf::NewDomestic < Pdf::Form
       setDigitalField(pdf, 'PREV_REG_SSN', 9, reg.ssn)
       setDateField(pdf, 'PREV_REG_DOB', reg.dob)
     else
-      pdf.set('PREV_REG', '0')
+      pdf.set('PREV_REG_N', 'Y')
     end
   end
 

@@ -5,9 +5,9 @@
     .span12
       %h2 Welcome.
       %small
-        #{I18n.t('front.welcome.line1')}<br/>
-        #{I18n.t('front.welcome.line2')}<br/>
-        #{I18n.t('front.welcome.line3')}
+        #{raw I18n.t('front.welcome.line1')}<br/>
+        #{raw I18n.t('front.welcome.line2')}<br/>
+        #{raw I18n.t('front.welcome.line3')}
 
   - if !AppConfig['dmv_id_submission']
     .row.steps
