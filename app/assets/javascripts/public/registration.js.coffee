@@ -119,7 +119,7 @@ class window.Registration
         if !filled(@caType())
           errors.push("Address confidentiality reason")
         else
-          if (@overseas() and !@overseasMAFilled()) or (@domestic() and !@domesticMAFilled())
+          if @domestic() and !@domesticMAFilled()
             errors.push("Protected voter mailing address")
 
       errors

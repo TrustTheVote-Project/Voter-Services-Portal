@@ -25,6 +25,6 @@
           = render partial: 'mailing_domestic', locals: { f: f, address_label: I18n.t('options.ac.mailing_address_label') }
 
         <!-- ko if: caType() == 'TSC' -->
-        .important You must attach copy of the complaint that you filed
+        .important= I18n.t('options.ac.address')
         <!-- /ko -->
 
