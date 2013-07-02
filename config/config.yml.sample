@@ -79,6 +79,11 @@ domestic_voter_mailing_address_limit: true
 # Show missing items on voter info page
 voter_info_show_missing_items: true
 
+# PDF related options
+pdf:
+  # True to fill the sign date with current date
+  fill_sign_date: false
+
 # New forms (renders forms from templates in app/assets/pdf-templates)
 pdf_forms: true
 pdftk_path: "/usr/local/bin/pdftk"

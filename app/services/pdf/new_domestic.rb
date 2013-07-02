@@ -102,7 +102,9 @@ class Pdf::NewDomestic < Pdf::Form
   end
 
   def self.setRegistrationStatement(pdf, reg)
-    setDateField(pdf, 'STATEMENT', Time.now)
+    if AppConfig['pdf']['fill_sign_date']
+      setDateField(pdf, 'STATEMENT', Time.now)
+    end
 
     details = [
       reg.as_full_name,
@@ -129,7 +131,7 @@ class Pdf::NewDomestic < Pdf::Form
       pdf.set('PREV_REG_CITY', reg.pr_city.to_s.upcase)
       pdf.set('PREV_REG_STATE', reg.pr_state.to_s.upcase)
       pdf.set('PREV_REG_ZIP', [ reg.pr_zip5, reg.pr_zip4 ].rjoin('-'))
-      pdf.set('PREV_REG_COUNTRY', 'United States')
+      pdf.set('PREV_REG_COUNTY', '') # we don't have that (yet)
 
       setDigitalField(pdf, 'PREV_REG_SSN', 9, reg.ssn)
       setDateField(pdf, 'PREV_REG_DOB', reg.dob)
