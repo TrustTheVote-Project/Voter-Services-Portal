@@ -101,6 +101,8 @@ class Eml310Builder
             xml.CheckBox yn(r.acp_request?), Type: 'AddressConfidentialityRequest'
             xml.CheckBox yn(r.need_assistance?), Type: 'RequiresAssistanceToVote'
             xml.CheckBox yn(r.residence_still_available?), Type: 'ResidenceStillAvailable'
+            xml.CheckBox 'yes', Type: 'NoMiddleName' if registration.middle_name.blank?
+            xml.CheckBox 'yes', Type: 'NoNameSuffix' if registration.suffix.blank?
 
             xml.FurtherInformation do
               order = 1

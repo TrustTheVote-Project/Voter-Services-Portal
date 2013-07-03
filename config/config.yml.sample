@@ -79,6 +79,12 @@ domestic_voter_mailing_address_limit: true
 # Show missing items on voter info page
 voter_info_show_missing_items: true
 
+# Middle name is required on the identity form
+middle_name_required: true
+
+# Name suffix is required on the identity form
+name_suffix_required: true
+
 # PDF related options
 pdf:
   # True to fill the sign date with current date

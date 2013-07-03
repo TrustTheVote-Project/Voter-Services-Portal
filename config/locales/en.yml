@@ -54,6 +54,10 @@ en:
     dmvid:
       details: By providing a valid DMV Customer Number, you may be eligible to submit your voter registration application online, without the need to print, sign, and mail a paper application.
 
+  identity:
+    no_middle_name: "I do not have a middle name"
+    no_name_suffix: "I do not have a name suffix"
+
   options:
     ac:
       requesting: I qualify as a protected voter.

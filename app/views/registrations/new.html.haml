@@ -9,11 +9,7 @@
 
 .row
   .padded_page_span
-    = hidden_field_tag :allow_ineligible_to_complete_form, AppConfig['allow_ineligible_to_complete_form']
-    = hidden_field_tag :edit_mailing_address_at_protected_voter, AppConfig['edit_mailing_address_at_protected_voter']
-    = hidden_field_tag :ssn_required, AppConfig['ssn_required']
-    - c = AppConfig['display_assistant_details']
-    = hidden_field_tag :display_assistant_details, '', 'data-paper' => c['paper'], 'data-paperless' => c['paperless']
+    = render partial: 'form_options'
     = form_for @registration, url: :registration, html: { 'data-bind' => 'submit: submit' } do |f|
       = hidden_field_tag :residence, params[:residence]
       = render partial: 'eligibility_section',    locals: { f: f }

@@ -5,9 +5,12 @@ class window.Registration
     @domestic   = ko.computed => !@overseas()
 
     @ssnRequired = ko.observable($("input#ssn_required").val() == 'true')
+    @middleNameRequired = ko.observable($("input#middle_name_required").val() == 'true')
+    @nameSuffixRequired = ko.observable($("input#name_suffix_required").val() == 'true')
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
     @editMailingAddressAtProtectedVoter = ko.observable($("input#edit_mailing_address_at_protected_voter").val() == 'true')
     @paperlessSubmission = ko.observable()
+
     @showAssistantDetails = ko.computed =>
       el = $("input#display_assistant_details")
       if @paperlessSubmission()
@@ -88,8 +91,12 @@ class window.Registration
   initIdentityFields: ->
     @firstName              = ko.observable()
     @middleName             = ko.observable()
+    @noMiddleName           = ko.observable()
+    @middleNameEnabled      = ko.computed => !@noMiddleName()
     @lastName               = ko.observable()
     @suffix                 = ko.observable()
+    @noSuffix               = ko.observable()
+    @suffixEnabled          = ko.computed => !@noSuffix()
     @gender                 = ko.observable()
     @phone                  = ko.observable()
     @validPhone             = ko.computed => !filled(@phone()) or phone(@phone())
@@ -97,6 +104,12 @@ class window.Registration
     @validEmail             = ko.computed => !filled(@email()) or email(@email())
     @caType                 = ko.observable()
     @isConfidentialAddress  = ko.observable()
+
+    @noMiddleName.subscribe (v) =>
+      @middleName(null) if v
+
+    @noSuffix.subscribe (v) =>
+      @suffix('') if v
 
     @isConfidentialAddress.subscribe (v) =>
       @caType(null) unless v
@@ -114,6 +127,12 @@ class window.Registration
       errors.push('Gender') unless filled(@gender())
       errors.push('Phone number') unless @validPhone()
       errors.push('Email address') unless @validEmail()
+      
+      if (@middleNameRequired() and !filled(@middleName()) and !@noMiddleName())
+        errors.push('Middle name')
+
+      if (@nameSuffixRequired() and !filled(@suffix()) and !@noSuffix())
+        errors.push('Name suffix')
 
       if @isConfidentialAddress()
         if !filled(@caType())
