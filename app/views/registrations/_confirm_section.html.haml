@@ -87,10 +87,10 @@
                   = link_to "Edit", "#address", class: 'edit'
                 %p{ 'data-bind' => 'html: summaryMailingAddress' }
                 <!-- ko if: domestic -->
-                <!-- ko if: maIsDifferent() -->
+                <!-- ko if: !isConfidentialAddress() && maIsDifferent() -->
                 (#{I18n.t("mailing_address.different.#{AppConfig['domestic_voter_mailing_address_limit'] ? 'limit' : 'no_limit'}", address: I18n.t("residence_address").downcase)})
                 <!-- /ko -->
-                <!-- ko if: !maIsDifferent() && isConfidentialAddress() -->
+                <!-- ko if: isConfidentialAddress() -->
                 (Protected Voter)
                 <!-- /ko -->
                 <!-- /ko --> <!-- domestic -->

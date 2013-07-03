@@ -42,10 +42,7 @@
       .space &mdash;
       = f.text_field :vvr_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: vvrZip4, valueUpdate: "afterkeyup"', placeholder: 'NNNN'
 
-  .row
-    .span12
-
-  <!-- ko if: domestic -->
+  <!-- ko if: domestic() && !isConfidentialAddress() -->
   .row
     .span10
       .checkbox

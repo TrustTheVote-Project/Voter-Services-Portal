@@ -2,7 +2,7 @@
 
 #mailing.section{ 'data-bind' => 'vis: page() == "address"' }
 
-  %div{ 'data-bind' => 'visible: domestic() && maIsDifferent()' }
+  %div{ 'data-bind' => 'visible: domestic() && !isConfidentialAddress() && maIsDifferent()' }
     .head
       %h3 Mailing address
     = render partial: 'mailing_domestic', locals: { f: f }
