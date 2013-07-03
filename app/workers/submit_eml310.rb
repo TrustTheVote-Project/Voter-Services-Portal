@@ -15,6 +15,12 @@ class SubmitEml310
 
   def self.submit_update(reg)
     return submit(reg, "voterRecordUpdateRequest")
+  rescue SubmissionError => e
+    if e.message == 'not registered'
+      return submit_new(reg)
+    else
+      raise e
+    end
   end
 
   def self.submit_new(reg)
@@ -96,7 +102,7 @@ class SubmitEml310
   end
 
   def self.successful_response?(res)
-    res.kind_of? Net::HTTPSuccess
+    res.code == '200'
   end
 
   # parses the response

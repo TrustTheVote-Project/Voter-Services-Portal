@@ -44,19 +44,20 @@ class LookupService < LookupApi
       return res.body
     end
 
+    # raise legit not found error
+    if res.code == '400' && (
+       /Voter wasn't found in the system/i =~ res.body ||
+       /not found/i =~ res.body ||
+       /not available/i =~ res.body ||
+       /not active/i =~ res.body)
+
+      Rails.logger.error("NOT FOUND: LOOKUP code=#{res.code}\n#{res.body}")
+      raise RecordNotFound
+    end
+
     Rails.logger.error("INTERNAL ERROR: LOOKUP code=#{res.code}\n#{res.body}")
-
-    # raise known errors
-    if res.code == '400'
-      raise RecordIsConfidential if /cannot be displayed/ =~ res.body
-      raise RecordIsInactive if /is not active/ =~ res.body
-    end
-
-    # log unknown errors
-    if res.code != '404'
-      ErrorLogRecord.log("Lookup: unknown error", code: res.code, body: res.body)
-      LogRecord.lookup_error(res.body)
-    end
+    ErrorLogRecord.log("Lookup: unknown error", code: res.code, body: res.body)
+    LogRecord.lookup_error(res.body)
 
     raise RecordNotFound
   end
