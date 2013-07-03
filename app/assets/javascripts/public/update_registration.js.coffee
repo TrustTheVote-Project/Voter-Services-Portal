@@ -74,6 +74,12 @@ class UpdateRegistration extends Registration
       errors.push('Last name') unless filled(@lastName())
       errors.push('Phone number') unless @validPhone()
       errors.push('Email address') unless @validEmail()
+
+      if (@middleNameRequired() and !filled(@middleName()) and !@noMiddleName())
+        errors.push('Middle name')
+
+      if (@nameSuffixRequired() and !filled(@suffix()) and !@noSuffix())
+        errors.push('Name suffix')
       errors
 
   initConfirmFields: ->
