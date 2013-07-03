@@ -79,6 +79,7 @@ en:
 
   confirm:
     details: Please confirm that your information is accurate. If any information is not correct, click "Edit" beside the incorrect data to return to the page to make corrections.
+    empty_label: none
     rows:
       name: Name
       eligibility: Eligibility

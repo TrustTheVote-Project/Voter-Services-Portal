@@ -1,3 +1,5 @@
+formOption = (k) -> $("input##{k}").val()
+
 class window.Registration
   constructor: (residence) ->
     @residence  = ko.observable(residence)
@@ -7,6 +9,7 @@ class window.Registration
     @ssnRequired = ko.observable($("input#ssn_required").val() == 'true')
     @middleNameRequired = ko.observable($("input#middle_name_required").val() == 'true')
     @nameSuffixRequired = ko.observable($("input#name_suffix_required").val() == 'true')
+    @confirmEmptyLabel = ko.observable(formOption('confirm_empty_label'))
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
     @editMailingAddressAtProtectedVoter = ko.observable($("input#edit_mailing_address_at_protected_voter").val() == 'true')
     @paperlessSubmission = ko.observable()
@@ -531,6 +534,17 @@ class window.Registration
           @summaryDomesticMailingAddress()
         else
           @summaryRegistrationAddress()
+
+    @summaryPhone = ko.computed =>
+      if filled(@phone()) then @phone() else @confirmEmptyLabel()
+    @summaryEmail = ko.computed =>
+      if filled(@email()) then @email() else @confirmEmptyLabel()
+
+    @summaryNeedsAssistance = ko.computed =>
+      if @needsAssistance() == '1' then 'yes' else 'no'
+
+    @summaryBeOfficial = ko.computed =>
+      if @beOfficial() == '1' then 'yes' else 'no'
 
     @summaryAbsenteeRequest = ko.computed =>
       lines = []

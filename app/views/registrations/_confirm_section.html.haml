@@ -37,7 +37,7 @@
                   - if rj
                     = link_to "Edit", "#identity", class: 'edit'
                   %span{ 'data-bind' => 'text: summaryGender' }
-            %tR
+            %tr
               %th= I18n.t('confirm.rows.ssn')
               - if !rj
                 %td.edit= link_to "Edit", "#eligibility"
@@ -136,39 +136,39 @@
                 %span{ 'data-bind' => 'text: summaryParty' }
 
 
-            %tr{ 'data-bind' => 'if: phone' }
+            %tr
               %th= I18n.t('confirm.rows.phone')
               - if !rj
                 %td.edit= link_to "Edit", "#identity"
               %td
                 - if rj
                   = link_to "Edit", "#identity", class: 'edit'
-                %span{ 'data-bind' => 'text: phone' }
-            %tr{ 'data-bind' => 'if: email' }
+                %span{ 'data-bind' => 'text: summaryPhone' }
+            %tr
               %th= I18n.t('confirm.rows.email')
               - if !rj
                 %td.edit= link_to "Edit", "#identity"
               %td
                 - if rj
                   = link_to "Edit", "#identity", class: 'edit'
-                %span{ 'data-bind' => 'text: email' }
+                %span{ 'data-bind' => 'text: summaryEmail' }
 
-            %tr{ 'data-bind' => 'if: needsAssistance' }
+            %tr
               %th= I18n.t('confirm.rows.assistance_request')
               - if !rj
                 %td.edit= link_to "Edit", "#options"
               %td
                 - if rj
                   = link_to "Edit", "#options", class: 'edit'
-                %span Yes
-            %tr{ 'data-bind' => 'if: beOfficial' }
+                %span{ 'data-bind' => 'text: summaryNeedsAssistance' }
+            %tr
               %th= I18n.t('confirm.rows.volunteering')
               - if !rj
                 %td.edit= link_to "Edit", "#options"
               %td
                 - if rj
                   = link_to "Edit", "#options", class: 'edit'
-                %span Yes
+                %span{ 'data-bind' => 'text: summaryBeOfficial' }
 
   - if AppConfig['confirm_voting_status_display']
     = render partial: 'confirm_absentee_status'
