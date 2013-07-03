@@ -58,6 +58,13 @@ en:
     no_middle_name: "I do not have a middle name"
     no_name_suffix: "I do not have a name suffix"
 
+  addresses:
+    address: "Address"
+    county_or_city: "County or City of residence"
+    city_town: "City/Town"
+    state: "State"
+    zip_code: "Zip code"
+
   options:
     ac:
       requesting: I qualify as a protected voter.

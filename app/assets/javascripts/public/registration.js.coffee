@@ -160,7 +160,6 @@ class window.Registration
     @vvrZip5                = ko.observable()
     @vvrZip4                = ko.observable()
     @vvrCountyOrCity        = ko.observable()
-    @vvrCountySelected      = ko.computed => String(@vvrCountyOrCity()).match(/\s+county/i)
     @vvrOverseasRA          = ko.observable()
     @vvrUocavaResidenceUnavailableSinceDay = ko.observable()
     @vvrUocavaResidenceUnavailableSinceMonth = ko.observable()
@@ -196,10 +195,6 @@ class window.Registration
     @prZip4                 = ko.observable()
     @prCancel               = ko.observable()
 
-    @vvrCountyOrCity.subscribe (v) =>
-      if v.match(/\s+city$/i)
-        @vvrTown(v.replace(/\s+city$/i, ''))
-
     @domesticMAFilled = ko.computed =>
       filled(@maAddress1()) and
       filled(@maCity()) and
@@ -223,7 +218,7 @@ class window.Registration
 
       residental =
         filled(@vvrAddress1()) and
-         (!@vvrCountySelected() or filled(@vvrTown())) and
+         filled(@vvrTown()) and
          filled(@vvrState()) and
          zip5(@vvrZip5()) and
          filled(@vvrCountyOrCity())
