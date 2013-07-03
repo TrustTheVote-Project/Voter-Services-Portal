@@ -21,7 +21,7 @@ class LookupService < LookupApi
 
   def self.send_request(r)
     q = {
-      DMVIDnumber:                  r[:dmv_id] || '',
+      DmvIDnumber:                  r[:dmv_id] || '',
       ssn9:                         r[:ssn].to_s.gsub(/[^0-9]/, ''),
       dobMonth:                     r[:dob_month],
       dobDay:                       r[:dob_day],
