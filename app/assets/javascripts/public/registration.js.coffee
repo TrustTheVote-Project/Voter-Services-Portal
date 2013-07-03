@@ -130,7 +130,7 @@ class window.Registration
       errors.push('Gender') unless filled(@gender())
       errors.push('Phone number') unless @validPhone()
       errors.push('Email address') unless @validEmail()
-      
+
       if (@middleNameRequired() and !filled(@middleName()) and !@noMiddleName())
         errors.push('Middle name')
 
@@ -452,24 +452,26 @@ class window.Registration
       else if @rightsWereRevoked() == '0'
         "Not revoked"
       else
-        lines = [ ]
-        if (@rightsFelony() == '1' and @rightsFelonyRestored() != '1') or
-           (@rightsMental() == '1' and @rightsMentalRestored() != '1')
-          lines.push "Revoked"
-        else
-          lines.push "Restored"
+        lines = [ "Restored:" ]
+
+        if @rightsFelony() == '1'
+          line = "Convicted in #{@rightsFelonyRestoredIn()}"
+          if @rightsFelonyRestored() == '1' and @rightsFelonyRestoredOn()
+            line = "#{line}, restored on #{moment(@rightsFelonyRestoredOn()).format('MMMM D, YYYY')}"
+          lines.push line
+
+        if @rightsMental() == '1'
+          line = "Judged mentally incapacitated"
+          if @rightsMentalRestored() == '1' and @rightsMentalRestoredOn()
+            line = "#{line}, and restored on #{moment(@rightsMentalRestoredOn()).format('MMMM D, YYYY')}"
+          lines.push line
 
         lines.join "<br/>"
+
     @summarySSN = ko.computed =>
-      if @noSSN() || !filled(@ssn())
-        "none"
-      else
-        @ssn()
+      if @noSSN() || !filled(@ssn()) then "none" else @ssn()
     @summaryDMVID = ko.computed =>
-      if !filled(@dmvId())
-        "none"
-      else
-        @dmvId()
+      if !filled(@dmvId()) then "none" else @dmvId()
     @summaryDOB = ko.computed =>
       if filled(@dobMonth()) && filled(@dobDay()) && filled(@dobYear())
         moment([ @dobYear(), parseInt(@dobMonth()) - 1, @dobDay() ]).format("MMMM D, YYYY")

@@ -61,7 +61,7 @@
                 - if rj
                   = link_to "Edit", "#eligibility", class: 'edit'
                 %span{ 'data-bind' => 'text: summaryEligibility' }
-            %tr
+            %tr{ 'data-bind' => 'if: rightsWereRevoked() == "1"' }
               %th= I18n.t('confirm.rows.voting_rights')
               - if !rj
                 %td.edit= link_to "Edit", "#eligibility"
