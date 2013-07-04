@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130408062530) do
+ActiveRecord::Schema.define(:version => 20130704064622) do
 
   create_table "active_forms", :force => true do |t|
     t.string   "voter_id"
