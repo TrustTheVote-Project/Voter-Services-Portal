@@ -30,13 +30,23 @@ def fill_identity_page
   fill_in "First name", with: "Jack"
   fill_in "Last name", with: "Smith"
   select  "Male", from: "Gender"
+
+  if AppConfig['middle_name_required']
+    fill_in "Full middle", with: "Aaron"
+  end
+
+  if AppConfig['name_suffix_required']
+    select "Jr", from: "Suffix"
+  end
+
   click_button "Next"
 end
 
 def fill_address_page
-  fill_in "Address", with: "12 High St"
-  fill_in "Zip code", with: "12345"
-  select  "ALEXANDRIA CITY", from: "County or city"
+  fill_in I18n.t('addresses.address'), with: "12 High St"
+  fill_in I18n.t('addresses.zip_code'), with: "12345"
+  select  "ALEXANDRIA CITY", from: I18n.t('addresses.county_or_city')
+  fill_in I18n.t('addresses.city_town'), with: "Alexandria"
   choose  "registration_pr_status_0"
   click_button "Next"
 end
