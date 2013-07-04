@@ -66,6 +66,7 @@ class Eml310Builder
                   xml.AdministrativeArea  r.pr_state, type: 'StateCode'
                   xml.PostCode            r.pr_zip, type: 'ZipCode'
                   xml.Country             'US'
+                  xml.Locality            r.pr_county_or_city
                 end
               end
             end

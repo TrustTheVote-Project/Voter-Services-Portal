@@ -12,7 +12,7 @@
         = f.label :middle_name do
           Full middle
           - unless AppConfig['middle_name_required']
-            %span (optional)
+            %span= I18n.t('optional')
         = hidden_field_tag "registration[middle_name]", ''
         = f.text_field :middle_name, autocomplete: ac, 'data-bind' => 'valueWithInit: middleName, enable: middleNameEnabled'
       .span3
@@ -22,7 +22,7 @@
         = f.label :suffix do
           Suffix
           - unless AppConfig['name_suffix_required']
-            %span (optional)
+            %span= I18n.t('optional')
         = hidden_field_tag "registration[suffix]", ''
         = f.select :suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'valueWithInit: suffix, enable: suffixEnabled' }
 

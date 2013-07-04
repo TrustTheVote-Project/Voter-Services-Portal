@@ -13,7 +13,7 @@ class RegistrationForXML
                   :as_address, :as_address_2, :as_city, :as_state, :as_zip5, :as_zip4,
                   :pr_status,
                   :pr_full_name, :pr_first_name, :pr_middle_name, :pr_last_name, :pr_suffix,
-                  :pr_address, :pr_address_2, :pr_city, :pr_state, :pr_zip5, :pr_zip4, :pr_is_rural, :pr_rural,
+                  :pr_address, :pr_address_2, :pr_city, :pr_state, :pr_zip5, :pr_zip4, :pr_is_rural, :pr_rural, :pr_county_or_city,
                   :rights_felony_restored_in, :rights_felony_restored_on, :rights_mental_restored_on,
                   :ab_reason,
                   :residential?

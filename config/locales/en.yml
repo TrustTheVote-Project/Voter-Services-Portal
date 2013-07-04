@@ -3,6 +3,7 @@ en:
   dmvid: Department of Motor Vehicles Customer Number
   residence_address: Residence Address
   rural: "Check here if Rural Address or Homeless and describe where you reside."
+  optional: "(optional)"
 
   front:
     welcome:
@@ -65,6 +66,25 @@ en:
     state: "State"
     zip_code: "Zip code"
 
+  mailing_address:
+    different:
+      limit: "I am unable to physically receive mail at my %{address}."
+      no_limit: "I get my mail at a different address than my %{address}."
+
+  previous_registration:
+    header: "I am registered to vote at another address in Virginia or in another state."
+    update:
+      no_answer: "No"
+      yes_answer: "Yes"
+    new:
+      no_answer: I am not currently registered to vote in Virginia or another state.
+      yes_answer: I am currently registered to vote in Virginia or in  another state.  If checked, provide the name and address below under which you are currently registered.
+    address: "Address"
+    county_or_city: "City, county, or town of residence"
+    city_town: "City/Town"
+    state: "State"
+    zip_code: "Zip code"
+
   options:
     ac:
       requesting: I qualify as a protected voter.
@@ -112,20 +132,6 @@ en:
     assistance:
       title: Assistance to Applicant
       info: "If assistance for signature is provided to applicant due to disability, provide name and address of assistant:"
-
-  previous_registration:
-    header: "I am registered to vote at another address in Virginia or in another state."
-    update:
-      no_answer: "No"
-      yes_answer: "Yes"
-    new:
-      no_answer: I am not currently registered to vote in Virginia or another state.
-      yes_answer: I am currently registered to vote in Virginia or in  another state.  If checked, provide the name and address below under which you are currently registered.
-
-  mailing_address:
-    different:
-      limit: "I am unable to physically receive mail at my %{address}."
-      no_limit: "I get my mail at a different address than my %{address}."
 
   download:
     title: "Submit Your Application"

@@ -131,7 +131,7 @@ class Pdf::NewDomestic < Pdf::Form
       pdf.set('PREV_REG_CITY', reg.pr_city.to_s.upcase)
       pdf.set('PREV_REG_STATE', reg.pr_state.to_s.upcase)
       pdf.set('PREV_REG_ZIP', [ reg.pr_zip5, reg.pr_zip4 ].rjoin('-'))
-      pdf.set('PREV_REG_COUNTY', '') # we don't have that (yet)
+      pdf.set('PREV_REG_COUNTY', reg.pr_county_or_city)
 
       setDigitalField(pdf, 'PREV_REG_SSN', 9, reg.ssn)
       setDateField(pdf, 'PREV_REG_DOB', reg.dob)

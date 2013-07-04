@@ -29,7 +29,7 @@
     .span3
       = f.label :as_middle_name do
         Full middle
-        %span (optional)
+        %span= I18n.t('optional')
       = f.text_field :as_middle_name, autocomplete: ac, 'data-bind' => 'value: asMiddleName'
     .span3
       = f.label :as_last_name, "Last name"
@@ -37,7 +37,7 @@
     .span2
       = f.label :as_suffix do
         Suffix
-        %span (optional)
+        %span= I18n.t('optional')
       = f.select :as_suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'value: asSuffix' }
 
   .row
