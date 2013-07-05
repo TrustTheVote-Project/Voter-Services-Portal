@@ -202,7 +202,7 @@ class RegistrationSearch < LookupApi
       vvr_zip5:               vvr_zip5,
       vvr_zip4:               vvr_zip4,
       pr_status:              "1",
-      pr_cancel:              "1",
+      pr_cancel:              "0",
       pr_first_name:          fn,
       pr_middle_name:         mn,
       pr_last_name:           ln,
