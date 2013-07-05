@@ -110,7 +110,7 @@ en:
     required: "Yes"
     not_required: "Not required"
     previous_registration:
-      not_registered: "Not currently registered in Vurginia or another state"
+      not_registered: "Not currently registered in Virginia or another state"
     rows:
       name: Name
       eligibility: Eligibility
