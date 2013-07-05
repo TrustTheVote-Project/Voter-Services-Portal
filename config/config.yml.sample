@@ -145,3 +145,5 @@ show_privacy_act_page: true
 
 # Allows new domestic registrations to have AR
 new_reg_domestic_with_absentee_allowed: false
+# Allows updates to have AR
+update_reg_domestic_with_absentee_allowed: false

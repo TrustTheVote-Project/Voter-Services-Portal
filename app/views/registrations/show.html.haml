@@ -1,5 +1,6 @@
 - reg = RegistrationDetailsPresenter.new(@registration)
 - show_missing = AppConfig['voter_info_show_missing_items']
+- update_ab = AppConfig['update_reg_domestic_with_absentee_allowed']
 
 .padded_page_span.section#overview
   = render partial: 'head'
@@ -12,8 +13,7 @@
 
       %p= I18n.t('view.info')
       %p
-        You can also #{link_with_privacy_act_to 'update your voter information', :edit_registration} or
-        #{link_with_privacy_act_to 'apply for an absentee ballot', :request_absentee_registration}.
+        You can also #{link_with_privacy_act_to 'update your voter information', :edit_registration}#{" or #{link_with_privacy_act_to 'apply for an absentee ballot', :request_absentee_registration}".html_safe if update_ab}.
 
     .summary
       .body
@@ -159,4 +159,5 @@
     - else
       .form-actions
         = link_with_privacy_act_to "Update Your Voter Information", :edit_registration, class: 'btn', id: 'edit_registration'
-        = link_with_privacy_act_to "Apply for an Absentee Ballot", :request_absentee_registration, class: 'btn pull-right'
+        - if update_ab
+          = link_with_privacy_act_to "Apply for an Absentee Ballot", :request_absentee_registration, class: 'btn pull-right'

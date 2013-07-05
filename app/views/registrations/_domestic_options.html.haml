@@ -17,7 +17,7 @@
         = f.label :be_official do
           %strong= I18n.t('options.being_official')
 
-- if updating || AppConfig['new_reg_domestic_with_absentee_allowed']
+- if (updating && AppConfig['update_reg_domestic_with_absentee_allowed']) || (!updating && AppConfig['new_reg_domestic_with_absentee_allowed'])
   .partition
     .row
       .span12
