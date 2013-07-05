@@ -9,7 +9,6 @@ class window.Registration
     @ssnRequired = ko.observable($("input#ssn_required").val() == 'true')
     @middleNameRequired = ko.observable($("input#middle_name_required").val() == 'true')
     @nameSuffixRequired = ko.observable($("input#name_suffix_required").val() == 'true')
-    @confirmEmptyLabel = ko.observable(formOption('confirm_empty_label'))
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
     @editMailingAddressAtProtectedVoter = ko.observable($("input#edit_mailing_address_at_protected_voter").val() == 'true')
     @paperlessSubmission = ko.observable()
@@ -533,9 +532,9 @@ class window.Registration
           @summaryRegistrationAddress()
 
     @summaryPhone = ko.computed =>
-      if filled(@phone()) then @phone() else @confirmEmptyLabel()
+      if filled(@phone()) then @phone() else '<%= I18n.t("confirm.not_provided") %>'
     @summaryEmail = ko.computed =>
-      if filled(@email()) then @email() else @confirmEmptyLabel()
+      if filled(@email()) then @email() else '<%= I18n.t("confirm.not_provided") %>'
 
     @summaryNeedsAssistance = ko.computed =>
       if @needsAssistance() then '<%= I18n.t("confirm.required") %>' else '<%= I18n.t("confirm.not_required") %>'
