@@ -76,6 +76,7 @@ en:
     update:
       no_answer: "No"
       yes_answer: "Yes"
+    rural: "Check here if Rural Address or Homeless and describe where you used to reside."
     new:
       no_answer: I am not currently registered to vote in Virginia or another state.
       yes_answer: I am currently registered to vote in Virginia or in  another state.  If checked, provide the name and address below under which you are currently registered.
