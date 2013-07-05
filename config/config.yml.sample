@@ -85,6 +85,9 @@ middle_name_required: true
 # Name suffix is required on the identity form
 name_suffix_required: true
 
+# Shows the d/l voter card link on search results screen
+show_download_voter_card_link: false
+
 # PDF related options
 pdf:
   # True to fill the sign date with current date

@@ -6,7 +6,7 @@
 
   .row
     .head.light
-      - unless no_forms?
+      - if !no_forms? && AppConfig['show_download_voter_card_link']
         = link_to "Download Voter Card", voter_card_path, class: 'download voter_card'
       %h3 Voter Information
 
