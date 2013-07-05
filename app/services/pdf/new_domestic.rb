@@ -62,7 +62,7 @@ class Pdf::NewDomestic < Pdf::Form
       end
     end
 
-    pdf.set('HOME_CITY', home_city(reg))
+    pdf.set('HOME_CITY', reg.vvr_town)
     pdf.set('HOME_ZIP', [ reg.vvr_zip5, reg.vvr_zip4 ].rjoin('-'))
     pdf.set('EMAIL', reg.email)
 
@@ -138,14 +138,6 @@ class Pdf::NewDomestic < Pdf::Form
     else
       pdf.set('PREV_REG_N', 'Y')
     end
-  end
-
-  def self.home_city(reg)
-    city = reg.vvr_county_or_city
-    if city.blank? || city.to_s.downcase.include?('county')
-      city = reg.vvr_town
-    end
-    city.to_s.upcase
   end
 
 end
