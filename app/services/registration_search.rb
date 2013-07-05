@@ -213,7 +213,7 @@ class RegistrationSearch < LookupApi
       pr_state:               "VA",
       pr_zip5:                vvr_zip5,
       pr_zip4:                vvr_zip4,
-      ma_is_different:        "1",
+      ma_is_different:        "0",
 
       # Every record that comes from the DB has this set to 'no',
       # otherwise it's an error
@@ -257,27 +257,29 @@ class RegistrationSearch < LookupApi
       options[:ppl_zip]           = ppl.css('AddressLine[type="Zip"]').try(:text)
     end
 
-    madft = doc.css('MailingAddress FreeTextAddress').first
-    if madft
-      ma_address      = madft.css('AddressLine[type="AddressLine1"]').try(:text)
-      ma_address      = madft.css('AddressLine[type="MailingAddressLine1"]').try(:text) if ma_address.blank?
-      ma_address_2    = madft.css('AddressLine[type="AddressLine2"]').try(:text)
-      ma_address_2    = madft.css('AddressLine[type="MailingAddressLine2"]').try(:text) if ma_address_2.blank?
-      ma_city         = madft.css('AddressLine[type="City"]').try(:text)
-      ma_city         = madft.css('AddressLine[type="MailingCity"]').try(:text) if ma_city.blank?
-      ma_state        = madft.css('AddressLine[type="State"]').try(:text)
-      ma_state        = madft.css('AddressLine[type="MailingState"]').try(:text) if ma_state.blank?
-      ma_zip          = madft.css('AddressLine[type="Zip"]').try(:text)
-      ma_zip          = madft.css('AddressLine[type="MailingZip"]').try(:text) || "" if ma_zip.blank?
-    else
-      madpa = doc.css('MailingAddress PostalAddress').first
-      ma_address      = madpa.css('Thoroughfare').first.try(:text)
-      ma_address_2    = madpa.css('OtherDetail').try(:text)
-      ma_city         = madpa.css('Locality').try(:text),
-      ma_state        = madpa.css('AdministrativeArea').try(:text)
-      ma_zip          = madpa.css('PostCode').try(:text) || ""
-    end
-    ma_zip5, ma_zip4 = ma_zip.scan(/(\d{5})(\d{4})?/).flatten
+    # For now we decided not to parse MA and stay blank
+
+    # madft = doc.css('MailingAddress FreeTextAddress').first
+    # if madft
+    #   ma_address      = madft.css('AddressLine[type="AddressLine1"]').try(:text)
+    #   ma_address      = madft.css('AddressLine[type="MailingAddressLine1"]').try(:text) if ma_address.blank?
+    #   ma_address_2    = madft.css('AddressLine[type="AddressLine2"]').try(:text)
+    #   ma_address_2    = madft.css('AddressLine[type="MailingAddressLine2"]').try(:text) if ma_address_2.blank?
+    #   ma_city         = madft.css('AddressLine[type="City"]').try(:text)
+    #   ma_city         = madft.css('AddressLine[type="MailingCity"]').try(:text) if ma_city.blank?
+    #   ma_state        = madft.css('AddressLine[type="State"]').try(:text)
+    #   ma_state        = madft.css('AddressLine[type="MailingState"]').try(:text) if ma_state.blank?
+    #   ma_zip          = madft.css('AddressLine[type="Zip"]').try(:text)
+    #   ma_zip          = madft.css('AddressLine[type="MailingZip"]').try(:text) || "" if ma_zip.blank?
+    # else
+    #   madpa = doc.css('MailingAddress PostalAddress').first
+    #   ma_address      = madpa.css('Thoroughfare').first.try(:text)
+    #   ma_address_2    = madpa.css('OtherDetail').try(:text)
+    #   ma_city         = madpa.css('Locality').try(:text),
+    #   ma_state        = madpa.css('AdministrativeArea').try(:text)
+    #   ma_zip          = madpa.css('PostCode').try(:text) || ""
+    # end
+    # ma_zip5, ma_zip4 = ma_zip.scan(/(\d{5})(\d{4})?/).flatten
 
     districts = []
     [ [ 'Congressional', 'CongressionalDistrict' ],
@@ -293,33 +295,33 @@ class RegistrationSearch < LookupApi
     options[:districts] = districts
 
     if !military && !overseas
-      options.merge!({
-        ma_address:           ma_address,
-        ma_address_2:         ma_address_2,
-        ma_city:              ma_city,
-        ma_state:             ma_state,
-        ma_zip5:              ma_zip5,
-        ma_zip4:              ma_zip4 || "" })
+      # options.merge!({
+      #   ma_address:           ma_address,
+      #   ma_address_2:         ma_address_2,
+      #   ma_city:              ma_city,
+      #   ma_state:             ma_state,
+      #   ma_zip5:              ma_zip5,
+      #   ma_zip4:              ma_zip4 || "" })
     else
-      if %w( APO DPO FPO ).include?(ma_city.upcase) || (ma_address_2.to_s =~ /\b(apo|dpo|fpo)\b/i)
-        options.merge!({
-          mau_type:           'apo',
-          apo_address:        ma_address,
-          apo_address_2:      ma_address_2,
-          apo_city:           ma_city.upcase,
-          apo_state:          ma_state.upcase,
-          apo_zip5:           ma_zip5 })
-      else
-        options.merge!({
-          mau_type:           'non-us',
-          mau_address:        ma_address,
-          mau_address_2:      ma_address_2,
-          mau_city:           ma_city,
-          mau_city_2:         nil,
-          mau_state:          ma_state,
-          mau_postal_code:    ma_zip,
-          mau_country:        doc.css('MailingAddress AddressLine[type="MailingCountry"]').try(:text) })
-      end
+      # if %w( APO DPO FPO ).include?(ma_city.upcase) || (ma_address_2.to_s =~ /\b(apo|dpo|fpo)\b/i)
+      #   options.merge!({
+      #     mau_type:           'apo',
+      #     apo_address:        ma_address,
+      #     apo_address_2:      ma_address_2,
+      #     apo_city:           ma_city.upcase,
+      #     apo_state:          ma_state.upcase,
+      #     apo_zip5:           ma_zip5 })
+      # else
+      #   options.merge!({
+      #     mau_type:           'non-us',
+      #     mau_address:        ma_address,
+      #     mau_address_2:      ma_address_2,
+      #     mau_city:           ma_city,
+      #     mau_city_2:         nil,
+      #     mau_state:          ma_state,
+      #     mau_postal_code:    ma_zip,
+      #     mau_country:        doc.css('MailingAddress AddressLine[type="MailingCountry"]').try(:text) })
+      # end
 
       # We don't have info about this, so always available for now
       options[:vvr_uocava_residence_available] = '1'
