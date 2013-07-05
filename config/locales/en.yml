@@ -107,6 +107,10 @@ en:
   confirm:
     details: Please confirm that your information is accurate. If any information is not correct, click "Edit" beside the incorrect data to return to the page to make corrections.
     empty_label: none
+    required: "Yes"
+    not_required: "Not required"
+    previous_registration:
+      not_registered: "Not currently registered in Vurginia or another state"
     rows:
       name: Name
       eligibility: Eligibility

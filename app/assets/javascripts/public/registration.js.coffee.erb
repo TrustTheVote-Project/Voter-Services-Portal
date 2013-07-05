@@ -503,7 +503,7 @@ class window.Registration
 
     @summaryExistingRegistration = ko.computed =>
       if @prStatus() != '1'
-        "Not currently registered in another state"
+        '<%= I18n.t("confirm.previous_registration.not_registered") %>'
       else
         lines = []
 
@@ -538,10 +538,10 @@ class window.Registration
       if filled(@email()) then @email() else @confirmEmptyLabel()
 
     @summaryNeedsAssistance = ko.computed =>
-      if @needsAssistance() == '1' then 'yes' else 'no'
+      if @needsAssistance() then '<%= I18n.t("confirm.required") %>' else '<%= I18n.t("confirm.not_required") %>'
 
     @summaryBeOfficial = ko.computed =>
-      if @beOfficial() == '1' then 'yes' else 'no'
+      if @beOfficial() then '<%= I18n.t("confirm.required") %>' else '<%= I18n.t("confirm.not_required") %>'
 
     @summaryAbsenteeRequest = ko.computed =>
       lines = []
