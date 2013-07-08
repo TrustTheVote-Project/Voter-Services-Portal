@@ -54,7 +54,7 @@ class UpdateRegistration extends Registration
     $(window).hashchange =>
       @gotoPage(location.hash.replace('#', ''))
 
-    if $("#registration_requesting_absentee").is(":checked")
+    if $("#registration_requesting_absentee:not([disabled])").is(":checked")
       @gotoPage('options')
 
   augmentEligibilityFields: ->
