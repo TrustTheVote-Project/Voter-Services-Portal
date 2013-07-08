@@ -9,7 +9,6 @@ Office.find_or_create_by_locality(locality: "ARLINGTON COUNTY", address: "2100 C
 Office.find_or_create_by_locality(locality: "AUGUSTA COUNTY", address: "PO Box 590\nVerona, VA 24482-0590\n(540) 245 - 5656")
 Office.find_or_create_by_locality(locality: "BATH COUNTY", address: "PO Box 157\nWarm Springs, VA 24484-0157\n(540) 839 - 7266")
 Office.find_or_create_by_locality(locality: "BEDFORD COUNTY", address: "County Admin Building\n122 East Main St, Ste. 204\nBedford, VA 24523-2000\n(540) 586 - 7649")
-Office.find_or_create_by_locality(locality: "BEDFORD CITY", address: "215 East Main St\nBedford, VA 24523-2012\n(540) 587 - 6007")
 Office.find_or_create_by_locality(locality: "BLAND COUNTY", address: "PO Box 535\nBland, VA 24315-0535\n(276) 688 - 4441")
 Office.find_or_create_by_locality(locality: "BOTETOURT COUNTY", address: "PO Box 62\nFincastle, VA 24090-0062\n(540) 473 - 8235")
 Office.find_or_create_by_locality(locality: "BRISTOL CITY", address: "300 Lee St\nBristol, VA 24201-4327\n(276) 645 - 7318")
