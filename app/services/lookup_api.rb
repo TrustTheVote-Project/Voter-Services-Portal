@@ -50,7 +50,8 @@ class LookupApi
 
     parse_uri_without_timeout(method, uri)
   rescue Timeout::Error
-    ErrorLogRecord.log("Lookup: timeout", uri: uri)
+    Rails.logger.error "LOOKUP: timeout URL: #{uri}"
+    ErrorLogRecord.log("LOOKUP: timeout", uri: uri)
     LogRecord.lookup_timeout(uri)
 
     raise LookupTimeout

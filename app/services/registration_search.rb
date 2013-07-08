@@ -67,6 +67,8 @@ class RegistrationSearch < LookupApi
 
   # handles the response
   def self.handle_response(res, method = nil)
+    Rails.logger.info("LOOKUP: #{method} code=#{res.code}\n#{res.body}")
+
     return res.body if res.code == '200'
 
     # raise known errors
