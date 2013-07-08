@@ -32,7 +32,8 @@ class UpdateRegistration extends Registration
     @isEligible = ko.computed =>
       @citizen() == '1' and
       @oldEnough() == '1' and
-      (!@ssnRequired() or (!@noSSN() and filled(@ssn())))
+      (!@ssnRequired() or (!@noSSN() and filled(@ssn()))) and
+      @hasEligibleRights()
 
     new Popover('#eligibility .next.btn', @eligibilityErrors)
     new Popover('#identity .next.btn', @identityErrors)
@@ -62,6 +63,7 @@ class UpdateRegistration extends Registration
       errors = []
       errors.push("Citizenship criteria") unless @citizen()
       errors.push("Age criteria") unless @oldEnough()
+      errors.push("Voting rights criteria") if @rightsNotFilled()
       errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
       errors
 

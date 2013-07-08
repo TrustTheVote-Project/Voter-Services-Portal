@@ -42,6 +42,61 @@
       = f.radio_button :residence, 'outside', 'data-bind' => 'checkedWithInit: residence'
       %label{ for: 'registration_residence_outside' } #{res_out_label}
 
+  .partition.rights_revoked
+    %h4= I18n.t('eligibility.rights.question')
+    .radio
+      = f.radio_button :rights_revoked, '0', 'data-bind' => 'checked: rightsWereRevoked'
+      %label{ for: 'registration_rights_revoked_0' } No
+    .radio
+      = f.radio_button :rights_revoked, '1', 'data-bind' => 'checked: rightsWereRevoked'
+      %label{ for: 'registration_rights_revoked_1' } Yes
+
+    .block.revoked.in{ 'data-bind' => "visible: rightsWereRevoked() == '1'" }
+      %h4= I18n.t('eligibility.rights.felony.question')
+      .radio
+        = f.radio_button :rights_felony, '1', 'data-bind' => 'checkedWithInit: rightsFelony'
+        = f.label 'rights_felony_1', 'Yes'
+      .radio
+        = f.radio_button :rights_felony, '0', 'data-bind' => 'checkedWithInit: rightsFelony'
+        = f.label 'rights_felony_0', 'No'
+
+      .in{ 'data-bind' => 'if: rightsFelony() == "1"' }
+        = f.label :rights_felony_restored_in, I18n.t('eligibility.rights.felony.state')
+        .select= f.select :rights_felony_restored_in, Dictionaries::STATES, {}, class: 'span3', 'data-bind' => 'value: rightsFelonyRestoredIn'
+
+        %h4= I18n.t('eligibility.rights.felony.restored')
+        .radio
+          = f.radio_button :rights_felony_restored, '1', 'data-bind' => 'checked: rightsFelonyRestored'
+          = f.label 'rights_felony_restored_1', 'Yes'
+        .radio
+          = f.radio_button :rights_felony_restored, '0', 'data-bind' => 'checked: rightsFelonyRestored'
+          = f.label 'rights_felony_restored_0', 'No'
+
+        .date{ 'data-bind' => 'if: rightsFelonyRestored() == "1"' }
+          = label 'rights_felony_restored_on_2i_', I18n.t('eligibility.rights.felony.date')
+          = bound_date f, :rights_felony_restored_on, :end_year => Date.today.year
+
+      %h4= I18n.t('eligibility.rights.mental.question')
+      .radio
+        = f.radio_button :rights_mental, '1', 'data-bind' => 'checkedWithInit: rightsMental'
+        = f.label 'rights_mental_1', 'Yes'
+      .radio
+        = f.radio_button :rights_mental, '0', 'data-bind' => 'checkedWithInit: rightsMental'
+        = f.label 'rights_mental_0', 'No'
+
+      .in{ 'data-bind' => 'if: rightsMental() == "1"' }
+        %h4= I18n.t('eligibility.rights.mental.restored')
+        .radio
+          = f.radio_button :rights_mental_restored, '1', 'data-bind' => 'checked: rightsMentalRestored'
+          = f.label 'rights_mental_restored_1', 'Yes'
+        .radio
+          = f.radio_button :rights_mental_restored, '0', 'data-bind' => 'checked: rightsMentalRestored'
+          = f.label 'rights_mental_restored_0', 'No'
+
+        .date{ 'data-bind' => 'if: rightsMentalRestored() == "1"' }
+          = label 'rights_mental_restored_on_2i_', I18n.t('eligibility.rights.felony.date')
+          = bound_date f, :rights_mental_restored_on, :end_year => Date.today.year
+
 
   .partition
     .security-number
