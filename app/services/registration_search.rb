@@ -14,6 +14,14 @@ class RegistrationSearch < LookupApi
       xml = search_by_data(search_query)
     end
 
+    if AppConfig['enable_eml_log']
+      begin
+        File.open("#{Rails.root}/log/last_eml330.xml", "wb") { |f| f.write(xml) }
+      rescue => e
+        Rails.logger.error("INTERNAL ERROR: LOOKUP - Failed to write log/last_eml330.xml: #{e}")
+      end
+    end
+
     rec = parse(xml)
 
     if rec.gender.blank?
