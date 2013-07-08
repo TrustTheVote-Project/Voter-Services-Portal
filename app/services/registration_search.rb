@@ -18,7 +18,7 @@ class RegistrationSearch < LookupApi
       begin
         File.open("#{Rails.root}/log/last_eml330.xml", "wb") { |f| f.write(xml) }
       rescue => e
-        Rails.logger.error("INTERNAL ERROR: LOOKUP - Failed to write log/last_eml330.xml: #{e}")
+        Rails.logger.error("INTERNAL ERROR: LOOKUP - Failed to write log/last_eml330.xml: #{e}") if AppConfig['api_debug_logging']
       end
     end
 
@@ -75,7 +75,7 @@ class RegistrationSearch < LookupApi
 
   # handles the response
   def self.handle_response(res, method = nil)
-    Rails.logger.info("LOOKUP: #{method} code=#{res.code}\n#{res.body}")
+    Rails.logger.info("LOOKUP: #{method} code=#{res.code}\n#{res.body}") if AppConfig['api_debug_logging']
 
     return res.body if res.code == '200'
 

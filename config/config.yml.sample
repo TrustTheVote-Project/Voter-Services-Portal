@@ -147,3 +147,6 @@ show_privacy_act_page: true
 new_reg_domestic_with_absentee_allowed: false
 # Allows updates to have AR
 update_reg_domestic_with_absentee_allowed: false
+
+# Enables / disables extensive debug logging
+api_debug_logging: false

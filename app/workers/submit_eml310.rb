@@ -50,7 +50,7 @@ class SubmitEml310
     if e.kind_of? SubmissionError
       raise e
     else
-      Rails.logger.error("INTERNAL ERROR: SUBMIT_EML310 - Unknown error: #{e}")
+      Rails.logger.error("INTERNAL ERROR: SUBMIT_EML310 - Unknown error: #{e}") if AppConfig['api_debug_logging']
       raise SubmissionError
     end
   end
@@ -61,7 +61,7 @@ class SubmitEml310
     req.body = body || registration_xml(reg)
     req.content_type = 'multipart/form-data'
 
-    Rails.logger.info("SUBMIT_EML310: #{uri}")
+    Rails.logger.info("SUBMIT_EML310: #{uri}") if AppConfig['api_debug_logging']
 
     netlog = nil
     if AppConfig['enable_eml_log']
@@ -70,7 +70,7 @@ class SubmitEml310
         netlog = File.open("#{Rails.root}/log/last_eml310.netlog", "wb")
         netlog << "#{uri}\n"
       rescue => e
-        Rails.logger.error("INTERNAL ERROR: SUBMIT_EML310 - Failed to write log/last_eml310.xml: #{e}")
+        Rails.logger.error("INTERNAL ERROR: SUBMIT_EML310 - Failed to write log/last_eml310.xml: #{e}") if AppConfig['api_debug_logging']
       end
     end
 
@@ -107,7 +107,7 @@ class SubmitEml310
 
   # parses the response
   def self.parse(res)
-    Rails.logger.info "SUBMIT_EML310: Response code=#{res.code}\n#{res.body}"
+    Rails.logger.info "SUBMIT_EML310: Response code=#{res.code}\n#{res.body}" if AppConfig['api_debug_logging']
 
     if successful_response?(res)
       return res.body !~ /pending signature/i

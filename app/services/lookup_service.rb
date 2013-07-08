@@ -40,7 +40,7 @@ class LookupService < LookupApi
   # handles the response
   def self.handle_response(res, method = nil)
     if res.code == '200'
-      Rails.logger.info("LOOKUP: code=#{res.code}")
+      Rails.logger.info("LOOKUP: code=#{res.code}") if AppConfig['api_debug_logging']
       return res.body
     end
 
@@ -51,11 +51,11 @@ class LookupService < LookupApi
        /not available/i =~ res.body ||
        /not active/i =~ res.body)
 
-      Rails.logger.error("NOT FOUND: LOOKUP code=#{res.code}\n#{res.body}")
+      Rails.logger.error("NOT FOUND: LOOKUP code=#{res.code}\n#{res.body}") if AppConfig['api_debug_logging']
       raise RecordNotFound
     end
 
-    Rails.logger.error("INTERNAL ERROR: LOOKUP code=#{res.code}\n#{res.body}")
+    Rails.logger.error("INTERNAL ERROR: LOOKUP code=#{res.code}\n#{res.body}") if AppConfig['api_debug_logging']
     ErrorLogRecord.log("Lookup: unknown error", code: res.code, body: res.body)
     LogRecord.lookup_error(res.body)
 

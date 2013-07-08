@@ -46,11 +46,11 @@ class LookupApi
 
   def self.parse_uri(method, q)
     uri = URI("#{AppConfig['lookup_url']}/#{method}?#{q.to_query}")
-    Rails.logger.info "LOOKUP: #{method} URL: #{uri}"
+    Rails.logger.info "LOOKUP: #{method} URL: #{uri}" if AppConfig['api_debug_logging']
 
     parse_uri_without_timeout(method, uri)
   rescue Timeout::Error
-    Rails.logger.error "LOOKUP: timeout URL: #{uri}"
+    Rails.logger.error "LOOKUP: timeout URL: #{uri}" if AppConfig['api_debug_logging']
     ErrorLogRecord.log("LOOKUP: timeout", uri: uri)
     LogRecord.lookup_timeout(uri)
 
