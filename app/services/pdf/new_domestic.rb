@@ -88,12 +88,16 @@ class Pdf::NewDomestic < Pdf::Form
         pdf.set('CONVICTED_STATE', reg.rights_felony_restored_in.to_s.upcase)
         setCheck(pdf, 'CONVICTED_RESTORED', reg.rights_felony_restored == '1')
         setDateField(pdf, 'CONVICTED_RESTORED_ON', reg.rights_felony_restored_on)
+      else
+        setCheck(pdf, 'CONVICTED', false)
       end
 
       if reg.rights_mental == '1'
         setCheck(pdf, 'MENTAL', true)
         setCheck(pdf, 'MENTAL_RESTORED', reg.rights_mental_restored == '1')
         setDateField(pdf, 'MENTAL_RESTORED_ON', reg.rights_mental_restored_on)
+      else
+        setCheck(pdf, 'MENTAL', false)
       end
     else
       pdf.set('CONVICTED_N', 'Y')
