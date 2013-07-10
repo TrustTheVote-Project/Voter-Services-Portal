@@ -2,7 +2,7 @@ filter = (e) ->
   # backspace, tab, enter, arrows, digits
   allowed = [ 8, 9, 13, 37, 38, 39, 40, 58 ]
   kc = e.keyCode
-  e.preventDefault() if !((kc >= 48 && kc <= 57) || (kc >= 96 && kc <= 105) ||  allowed.indexOf(kc) != -1)
+  e.preventDefault() if !((kc >= 48 && kc <= 57) || (kc >= 96 && kc <= 105) ||  $.inArray(kc, allowed) != -1)
 
   # delete extra character if is standing on dash
   if e.keyCode == 8
