@@ -4,39 +4,7 @@
     .description Identify who you are
 
   .partition
-    .row.personal-info
-      .span3
-        = f.label :first_name
-        = f.text_field :first_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "firstName" }, valueUpdate: "afterkeyup"'
-      .span3
-        = f.label :middle_name do
-          Full middle
-          - unless AppConfig['middle_name_required']
-            %span= I18n.t('optional')
-        = hidden_field_tag "registration[middle_name]", ''
-        = f.text_field :middle_name, autocomplete: ac, 'data-bind' => 'value: middleName, enable: middleNameEnabled'
-      .span3
-        = f.label :last_name
-        = f.text_field :last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "lastName" }, valueUpdate: "afterkeyup"'
-      .span2
-        = f.label :suffix do
-          Suffix
-          - unless AppConfig['name_suffix_required']
-            %span= I18n.t('optional')
-        = hidden_field_tag "registration[suffix]", ''
-        = f.select :suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'value: suffix, enable: suffixEnabled' }
-
-    - if AppConfig['middle_name_required']
-      .row
-        .checkbox
-          = check_box_tag :no_middle_name, '1', false, 'data-bind' => 'checked: noMiddleName'
-          = label_tag :no_middle_name, I18n.t('identity.no_middle_name')
-    - if AppConfig['name_suffix_required']
-      .row
-        .checkbox
-          = check_box_tag :no_name_suffix, '1', false, 'data-bind' => 'checked: noSuffix'
-          = label_tag :no_name_suffix, I18n.t('identity.no_name_suffix')
-
+    = render partial: "identity_name", locals: { f: f }
     - if collecting? :registration, :gender
       .row
         .span12

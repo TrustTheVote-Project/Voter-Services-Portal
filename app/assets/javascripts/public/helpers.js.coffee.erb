@@ -98,10 +98,11 @@ ko.bindingHandlers.instantValidation = {
     handler.valueWithInit.init(element, newValueAccessor, allBindingsAccessor, viewModel)
 
     validate = =>
+      $(element).attr('data-visited', true)
       ko.bindingHandlers.instantValidation.validate(element, valueAccessor,allBindingsAccessor, viewModel)
 
     visit = (e) -> $(this).attr('data-visited', true)
-    $(element).on('keyup', visit).on('change', visit)
+    $(element).on('keyup', visit).on('change', visit).on('validate', validate)
 
   validate: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
     options    = valueAccessor()

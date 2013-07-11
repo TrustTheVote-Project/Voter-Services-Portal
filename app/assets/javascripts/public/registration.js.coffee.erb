@@ -56,14 +56,14 @@ class window.Registration
 
     @noSSN.subscribe (v) =>
       if v
-        @ssn('')
+        @ssn(null)
         $("#registration_ssn").removeAttr('data-visited')
       else
         setTimeout (-> $("#registration_ssn").focus() ), 100
 
     @noDmvId.subscribe (v) =>
       if v
-        @dmvId('')
+        @dmvId(null)
         $("#registration_dmv_id").removeAttr('data-visited')
       else
         setTimeout (-> $("#registration_dmv_id").focus() ), 100
@@ -124,7 +124,9 @@ class window.Registration
     @isConfidentialAddress  = ko.observable()
 
     @noMiddleName.subscribe (v) =>
-      @middleName(null) if v
+      if v
+        @middleName(null)
+        $("#registration_middle_name").removeAttr('data-visited')
 
     @noSuffix.subscribe (v) =>
       @suffix('') if v
