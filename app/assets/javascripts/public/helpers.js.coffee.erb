@@ -94,8 +94,8 @@ ko.bindingHandlers.instantValidation = {
     event = if toggleElement then 'click' else 'blur'
 
     newValueAccessor = => viewModel[accessor]
-    handler = if toggleElement then ko.bindingHandlers else ko.bindingHandlers
-    handler.valueWithInit.init(element, newValueAccessor, allBindingsAccessor, viewModel)
+    handler = if toggleElement then ko.bindingHandlers.checkedWithInit else ko.bindingHandlers.valueWithInit
+    handler.init(element, newValueAccessor, allBindingsAccessor, viewModel)
 
     validate = =>
       $(element).attr('data-visited', true)
