@@ -1,7 +1,7 @@
 .partition
   .security-number
     = f.label :ssn, I18n.t("ssn")
-    = f.text_field :ssn, autocomplete: ac, placeholder: "NNN-NN-NNNN", maxlength: 11, 'data-bind' => 'disable: noSSN, instantValidation: { accessor: "ssn", validation: "ssn" }, valueUpdate: "afterkeyup"', class: 'span3 ssn'
+    = f.text_field :ssn, autocomplete: ac, placeholder: "NNN-NN-NNNN", maxlength: 11, 'data-bind' => 'disable: noSSN, instantValidation: { accessor: "ssn", validation: "ssn", unless: "noSSN" }, valueUpdate: "afterkeyup"', class: 'span3 ssn'
     .checkbox
       = f.check_box :no_ssn, 'data-bind' => 'checked: noSSN'
       = f.label :no_ssn, I18n.t("eligibility.ssn.dont_have")

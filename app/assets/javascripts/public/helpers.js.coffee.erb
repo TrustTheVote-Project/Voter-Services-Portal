@@ -87,46 +87,55 @@ ko.bindingHandlers.vis = {
 
 ko.bindingHandlers.instantValidation = {
   init: (element, valueAccessor, allBindingsAccessor, viewModel) =>
-    options = valueAccessor()
-    accessor = options.accessor
-    attribute = options.attribute || accessor
-    validation = options.validation || 'present'
+    options    = valueAccessor()
+    accessor   = options.accessor
 
     toggleElement = $(element).is(':checkbox, :radio')
-    selectElement = $(element).is('select')
     event = if toggleElement then 'click' else 'blur'
 
     newValueAccessor = => viewModel[accessor]
-    if toggleElement
-      ko.bindingHandlers.checkedWithInit.init(element, newValueAccessor, allBindingsAccessor, viewModel)
-    else
-      ko.bindingHandlers.valueWithInit.init(element, newValueAccessor, allBindingsAccessor, viewModel)
+    handler = if toggleElement then ko.bindingHandlers else ko.bindingHandlers
+    handler.valueWithInit.init(element, newValueAccessor, allBindingsAccessor, viewModel)
 
     validate = =>
-      $e = $(element)
-      $p = $e.parent()
-      if options.complex
-        $e.attr('data-touched', true)
-        allCount = $p.children('[data-bind]').length
-        touchedCount = $p.children('[data-touched]').length
-        return if touchedCount < allCount
-      elementAcceptor = $p
-      errorClass = 'field-invalid'
-      attributeValue = viewModel[attribute]()
+      ko.bindingHandlers.instantValidation.validate(element, valueAccessor,allBindingsAccessor, viewModel)
 
-      if window[validation](attributeValue)
-        elementAcceptor.removeClass(errorClass)
-        $(options.resetAlso).removeClass(errorClass) if options.resetAlso
-      else
-        elementAcceptor.addClass(errorClass)
+    visit = (e) -> $(this).attr('data-visited', true)
+    $(element).on('keyup', visit).on('change', visit)
 
-    $(element).bind(event, validate).bind("validate", validate)
+  validate: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
+    options    = valueAccessor()
+    attribute  = options.attribute || options.accessor
+    validation = options.validation || 'present'
+    unlessAttr = options.unless
+    $e         = $(element)
+    $p         = $e.parent()
+
+    # make sure the user visited the field before validation
+    return unless $e.is('[data-visited]')
+
+    if options.complex
+      $e.attr('data-touched', true)
+      allCount = $p.children('[data-bind]').length
+      touchedCount = $p.children('[data-touched]').length
+      return if touchedCount < allCount
+
+    elementAcceptor = $p
+    errorClass      = 'field-invalid'
+    attributeValue  = viewModel[attribute]()
+
+    if (unlessAttr and viewModel[unlessAttr]()) or window[validation](attributeValue)
+      elementAcceptor.removeClass(errorClass)
+      $(options.resetAlso).removeClass(errorClass) if options.resetAlso
+    else
+      elementAcceptor.addClass(errorClass)
 
   update: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
     toggleElement = $(element).is(':checkbox, :radio')
     va = viewModel[valueAccessor().accessor]
-    if toggleElement
-      ko.bindingHandlers.checked.update(element, va, allBindingsAccessor, viewModel, bindingContext)
-    else
-      ko.bindingHandlers.value.update(element, va, allBindingsAccessor, viewModel, bindingContext)
+    handler = if toggleElement then ko.bindingHandlers.checked else ko.bindingHandlers.value
+    handler.update(element, va, allBindingsAccessor, viewModel, bindingContext)
+
+    # revalidate
+    ko.bindingHandlers.instantValidation.validate(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext)
 }

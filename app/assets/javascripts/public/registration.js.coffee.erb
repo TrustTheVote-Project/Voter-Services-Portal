@@ -54,6 +54,20 @@ class window.Registration
     @dmvId                        = ko.observable()
     @noDmvId                      = ko.observable()
 
+    @noSSN.subscribe (v) =>
+      if v
+        @ssn('')
+        $("#registration_ssn").removeAttr('data-visited')
+      else
+        setTimeout (-> $("#registration_ssn").focus() ), 100
+
+    @noDmvId.subscribe (v) =>
+      if v
+        @dmvId('')
+        $("#registration_dmv_id").removeAttr('data-visited')
+      else
+        setTimeout (-> $("#registration_dmv_id").focus() ), 100
+
     @hasEligibleRights = ko.computed =>
       (@rightsWereRevoked() == '0' or
         ((@rightsFelony() == '1' or @rightsMental() == '1') and
