@@ -5,14 +5,13 @@
 
   .partition
     = render partial: "identity_name", locals: { f: f }
-    - if collecting? :registration, :gender
-      .row
-        .span12
+    .row.personal-info
+      - if collecting? :registration, :gender
+        .span3
           = f.label :gender
-          = f.select :gender, [ 'Male', 'Female' ], { include_blank: true }, { autocomplete: ac, class: 'span2', 'data-bind' => 'instantValidation: { accessor: "gender" }' }
+          = f.select :gender, [ 'Male', 'Female' ], { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "gender" }' }
 
-    .row
-      .span2.phone-field
+      .span3.phone-field
         = f.label :phone do
           Phone
           %span (optional)

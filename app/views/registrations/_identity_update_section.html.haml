@@ -6,12 +6,12 @@
   .partition
     = render partial: "identity_name", locals: { f: f }
 
-    .row
-      .span2.phone-field
+    .row.personal-info
+      .span3.phone-field
         = f.label :phone do
           Phone
           %span (optional)
-        = f.text_field :phone, autocomplete: ac, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'instantValidation: { accessor: "phone", attribute: "validPhone" }', class: 'span2'
+        = f.text_field :phone, autocomplete: ac, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'instantValidation: { accessor: "phone", attribute: "validPhone" }', class: 'span3'
       .span3.email-field
         = f.label :email do
           Email
