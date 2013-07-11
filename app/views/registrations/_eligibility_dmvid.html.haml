@@ -3,5 +3,8 @@
 .partition
   .dmv
     = f.label :dmv_id, I18n.t("dmvid")
-    = f.text_field :dmv_id, autocomplete: ac, maxlength: max, 'data-bind' => 'instantValidation: { accessor: "dmvId", validation: "isDmvId" }, valueUpdate: "afterkeyup"', placeholder: "From #{min} to #{max} letters or numbers", class: 'span4'
+    = f.text_field :dmv_id, autocomplete: ac, maxlength: max, 'data-bind' => 'disable: noDmvId, instantValidation: { accessor: "dmvId", validation: "isDmvId" }, valueUpdate: "afterkeyup"', placeholder: "From #{min} to #{max} letters or numbers", class: 'span4'
+    .checkbox
+      = f.check_box :no_dmv_id, 'data-bind' => 'checked: noDmvId'
+      = f.label :no_dmv_id, I18n.t("eligibility.dmvid.dont_have")
   %p= I18n.t('eligibility.dmvid.details')

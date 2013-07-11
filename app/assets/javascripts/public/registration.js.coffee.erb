@@ -52,6 +52,7 @@ class window.Registration
     @ssn                          = ko.observable()
     @noSSN                        = ko.observable()
     @dmvId                        = ko.observable()
+    @noDmvId                      = ko.observable()
 
     @hasEligibleRights = ko.computed =>
       (@rightsWereRevoked() == '0' or
@@ -85,7 +86,7 @@ class window.Registration
 
       errors.push('Date of birth') unless @dob()
       errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
-      errors.push('<%= I18n.t('dmvid') %>') if filled(@dmvId()) and !isDmvId(@dmvId())
+      errors.push('<%= I18n.t('dmvid') %>') if !isDmvId(@dmvId()) and !@noDmvId()
       errors
 
     @eligibilityInvalid = ko.computed =>
@@ -466,7 +467,7 @@ class window.Registration
     @summarySSN = ko.computed =>
       if @noSSN() || !filled(@ssn()) then "none" else @ssn()
     @summaryDMVID = ko.computed =>
-      if !filled(@dmvId()) then "none" else @dmvId()
+      if @noDmvId() || !filled(@dmvId()) then "none" else @dmvId()
     @summaryDOB = ko.computed =>
       if filled(@dobMonth()) && filled(@dobDay()) && filled(@dobYear())
         moment([ @dobYear(), parseInt(@dobMonth()) - 1, @dobDay() ]).format("MMMM D, YYYY")

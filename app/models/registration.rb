@@ -8,7 +8,7 @@ class Registration < ActiveRecord::Base
 
   # When checking for changes on the form to determine if that's a purely absentee request,
   # ignore these keys.
-  IGNORE_CHANGES_IN_KEYS  = [ :voter_id, :current_residence, :ssn, :no_ssn, :dmv_id,
+  IGNORE_CHANGES_IN_KEYS  = [ :voter_id, :current_residence, :ssn, :no_ssn, :dmv_id, :no_dmv_id,
                               :existing, :poll_locality, :poll_precinct, :poll_district,
                               :information_correct, :privacy_agree ]
 
@@ -37,7 +37,7 @@ class Registration < ActiveRecord::Base
 
   # Identity
   serialized_attr :first_name, :middle_name, :last_name, :suffix
-  serialized_attr :dob, :gender, :ssn, :no_ssn, :dmv_id
+  serialized_attr :dob, :gender, :ssn, :no_ssn, :dmv_id, :no_dmv_id
   serialized_attr :phone, :email
 
   # Contact info
