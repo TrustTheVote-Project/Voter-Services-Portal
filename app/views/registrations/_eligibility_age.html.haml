@@ -1,0 +1,11 @@
+- if AppConfig['eligibility_18_display']
+  .partition.old_enough
+    %h4= I18n.t('eligibility.old_enough.question')
+    .radio
+      = f.radio_button :old_enough, '1', 'data-bind' => 'checkedWithInit: oldEnough'
+      %label{ for: 'registration_old_enough_1' } Yes
+    .radio
+      = f.radio_button :old_enough, '0', 'data-bind' => 'checkedWithInit: oldEnough'
+      %label{ for: 'registration_old_enough_0' } No
+- else
+  = hidden_field_tag "registration[old_enough]", 1, 'data-bind' => 'valueWithInit: oldEnough'

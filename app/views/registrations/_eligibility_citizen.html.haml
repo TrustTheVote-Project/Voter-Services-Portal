@@ -1,0 +1,10 @@
+.partition.citizen
+  %h4= I18n.t('eligibility.citizen.question')
+  .radio
+    = f.radio_button :citizen, '1', 'data-bind' => 'checkedWithInit: citizen'
+    %label{ for: 'registration_citizen_1' } Yes
+  .radio
+    = f.radio_button :citizen, '0', 'data-bind' => 'checkedWithInit: citizen'
+    %label{ for: 'registration_citizen_0' } No
+  .block.ineligible{ 'data-bind' => "visible: citizen() == '0'" }
+    %p= I18n.t("eligibility.citizen.ineligible")

@@ -1,0 +1,7 @@
+- min = AppConfig['state_id_length']['min']
+- max = AppConfig['state_id_length']['max']
+.partition
+  .dmv
+    = f.label :dmv_id, I18n.t("dmvid")
+    = f.text_field :dmv_id, autocomplete: ac, maxlength: max, 'data-bind' => 'instantValidation: { accessor: "dmvId", validation: "isDmvId" }, valueUpdate: "afterkeyup"', placeholder: "From #{min} to #{max} letters or numbers", class: 'span4'
+  %p= I18n.t('eligibility.dmvid.details')

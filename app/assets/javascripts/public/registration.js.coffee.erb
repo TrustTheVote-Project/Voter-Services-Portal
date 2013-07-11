@@ -85,6 +85,7 @@ class window.Registration
 
       errors.push('Date of birth') unless @dob()
       errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
+      errors.push('<%= I18n.t('dmvid') %>') if filled(@dmvId()) and !isDmvId(@dmvId())
       errors
 
     @eligibilityInvalid = ko.computed =>

@@ -150,3 +150,8 @@ update_reg_domestic_with_absentee_allowed: false
 
 # Enables / disables extensive debug logging
 api_debug_logging: false
+
+# Length of DMV ID field
+state_id_length:
+  min: 10
+  max: 12
