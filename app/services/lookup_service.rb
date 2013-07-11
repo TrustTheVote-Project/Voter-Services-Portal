@@ -40,7 +40,7 @@ class LookupService < LookupApi
   # handles the response
   def self.handle_response(res, method = nil)
     if res.code == '200'
-      Rails.logger.info("LOOKUP: code=#{res.code}") if AppConfig['api_debug_logging']
+      Rails.logger.info("LOOKUP: code=#{res.code}\n#{res.body}") if AppConfig['api_debug_logging']
       return res.body
     end
 
