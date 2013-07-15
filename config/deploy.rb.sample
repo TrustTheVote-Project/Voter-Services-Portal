@@ -33,9 +33,11 @@ set :default_environment, {
 }
 
 # Create uploads directory and link
-task :deploy_shared, :roles => :app do
-  run "cp #{shared_path}/config/database.yml #{latest_release}/config/database.yml"
-  run "cp #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
+namespace :deploy do
+  task :shared, :roles => :app do
+    run "cp #{shared_path}/config/database.yml #{latest_release}/config/database.yml"
+    run "cp #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
+  end
 end
 
 namespace :db do
@@ -54,9 +56,15 @@ namespace :deploy do
   end
 end
 
-after  "deploy:finalize_update", "deploy_shared"
+namespace :va do
+  task :reload_offices, :roles => :app do
+    run "cd #{latest_release} && RAILS_ENV=#{rails_env} bundle exec rake va:reload_offices"
+  end
+end
+
+after  "deploy:finalize_update", "deploy:shared"
+before "deploy:restart", "va:reload_offices"
 after  "deploy:restart", "deploy:cleanup"
 
 require 'bundler/capistrano'
-require 'sidekiq/capistrano'
 require 'whenever/capistrano'

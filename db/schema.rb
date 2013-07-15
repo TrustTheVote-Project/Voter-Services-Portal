@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130704064622) do
+ActiveRecord::Schema.define(:version => 20130715092026) do
 
   create_table "active_forms", :force => true do |t|
     t.string   "voter_id"
@@ -41,8 +41,12 @@ ActiveRecord::Schema.define(:version => 20130704064622) do
   add_index "log_records", ["created_at"], :name => "index_log_records_on_created_at"
 
   create_table "offices", :force => true do |t|
-    t.string "locality", :null => false
-    t.string "address",  :null => false
+    t.string "locality",    :null => false
+    t.string "addressline", :null => false
+    t.string "city"
+    t.string "state"
+    t.string "zip"
+    t.string "phone"
   end
 
   add_index "offices", ["locality"], :name => "index_offices_on_locality", :unique => true

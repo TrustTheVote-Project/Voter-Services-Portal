@@ -44,4 +44,16 @@ namespace :va do
   task reset_static_pages_cache: :environment do
     ExternalPages.reset_cache
   end
+
+  desc "Reloads the list of offices from db/localities.yml"
+  task reload_offices: :environment do
+    Office.transaction do
+      Office.delete_all
+
+      YAML.load_file("#{Rails.root}/db/localities.yml")["localities"].each do |r|
+        r["locality"] = r.delete("name")
+        Office.create!(r)
+      end
+    end
+  end
 end
