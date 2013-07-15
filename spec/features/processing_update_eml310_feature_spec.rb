@@ -3,7 +3,7 @@ require 'spec_helper'
 feature 'Processing update EML310 submission', :js do
 
   before do
-    Office.create!(locality: "NORFOLK CITY", address: "Some address")
+    Office.create!(locality: "NORFOLK CITY", addressline: "Some address")
   end
 
   describe 'Updates' do
@@ -40,7 +40,7 @@ feature 'Processing update EML310 submission', :js do
     scenario 'DMV included, successful submission' do
       LookupService.stub(registration: { registered: false, dmv_match: true })
       SubmitEml310.should_receive(:submit_new).and_return(true)
-      submit_new_record dmv_id: "123456789"
+      submit_new_record dmv_id: "1234567890"
       click_button 'Submit'
       expect(page).not_to have_text "Submit Your Application Online"
       expect(page).to have_text "Registration Submitted"
@@ -70,8 +70,12 @@ feature 'Processing update EML310 submission', :js do
 
   def skip_and_confirm
     click_link   'Update Your Voter Information' # start editing
-    fill_eligibility_page skip_rights: true, skip_dob: true
+    fill_eligibility_page skip_dob: true
+
+    check I18n.t('identity.no_name_suffix')
     click_button 'Next' # skip identity
+
+    check "I authorize cancellation of my existing registration."
     click_button 'Next' # skip address updates
     click_button 'Next' # skip options
     click_button 'Next' # confirm

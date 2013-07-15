@@ -1,7 +1,7 @@
 def seed_offices
   Office.delete_all
-  Office.create!(locality: "ALEXANDRIA CITY", address: "Some address")
-  Office.create!(locality: "NORFOLK CITY", address: "Some address")
+  Office.create!(locality: "ALEXANDRIA CITY", addressline: "Some address")
+  Office.create!(locality: "NORFOLK CITY", addressline: "Some address")
 end
 
 def fill_eligibility_page(options = {})
@@ -21,6 +21,8 @@ def fill_eligibility_page(options = {})
   fill_in "Social Security Number", with: "123123123"
   if options[:dmv_id]
     fill_in I18n.t('dmvid'), with: options[:dmv_id]
+  else
+    check I18n.t("eligibility.dmvid.dont_have")
   end
 
   click_button 'Next'

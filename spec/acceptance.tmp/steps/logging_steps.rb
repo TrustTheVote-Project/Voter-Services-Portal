@@ -89,9 +89,9 @@ steps_for :logging do
   private
 
   def seed_localities
-    Office.create(locality: "NORFOLK CITY", address: "PO Box 1531\nNorfolk, VA 23501-1531\n(757) 664 - 4353")
-    Office.create(locality: "FAIRFAX CITY", address: "Sisson House\n10455 Armstrong St\nFairfax, VA 22030-3640\n(703) 385 - 7890")
-    Office.create(locality: "ALBEMARLE COUNTY", address: "Some address")
+    Office.create(locality: "NORFOLK CITY", addressline: "PO Box 1531\nNorfolk, VA 23501-1531\n(757) 664 - 4353")
+    Office.create(locality: "FAIRFAX CITY", addressline: "Sisson House\n10455 Armstrong St\nFairfax, VA 22030-3640\n(703) 385 - 7890")
+    Office.create(locality: "ALBEMARLE COUNTY", addressline: "Some address")
   end
 
   def lookup_domestic_record
