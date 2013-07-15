@@ -36,28 +36,53 @@
             %td= image_tag 'icon_sign.png', size: "60x60"
             %td.mail= image_tag 'icon_mail.png', size: "60x60"
 
+- uocava_reg     = AppConfig['home_page_uocava_registration']
+- domestic_title = I18n.t('front.options.residential.title').html_safe
+- update_title   = I18n.t('front.options.update.title').html_safe
+- overseas_title = I18n.t('front.options.overseas.title').html_safe
 .row.options
-  .span8
-    %h3 Register to Vote
-  .span4
-    %h3 Update Record
+  - if uocava_reg
+    .span8
+      %h3= domestic_title
+    .span4
+      %h3= update_title
+  - else
+    .span4
+      %h3= domestic_title
+    .span4
+      %h3= update_title
+    .span4
+      %h3= overseas_title
 
 .row.options-details
   .span4
-    %h4= I18n.t('front.options.residential.title')
+    %h4= I18n.t('front.options.residential.subtitle')
     %p= I18n.t('front.options.residential.text')
 
-  .span4
-    %h4= I18n.t('front.options.overseas.title')
-    %p= I18n.t('front.options.overseas.text')
-
-  .span4
-    %h4= I18n.t('front.options.update.title')
-    %p= I18n.t('front.options.update.text')
-    %h4= I18n.t('front.options.request_absentee.title')
-    %p= I18n.t('front.options.request_absentee.text')
+  - if uocava_reg
+    .span4
+      %h4= I18n.t('front.options.overseas.subtitle')
+      %p= I18n.t('front.options.overseas.text')
+    .span4
+      %h4= I18n.t('front.options.update.subtitle')
+      %p= I18n.t('front.options.update.text')
+      %h4= I18n.t('front.options.request_absentee.subtitle')
+      %p= I18n.t('front.options.request_absentee.text')
+  - else
+    .span4
+      %h4= I18n.t('front.options.update.subtitle')
+      %p= I18n.t('front.options.update.text')
+      %h4= I18n.t('front.options.request_absentee.subtitle')
+      %p= I18n.t('front.options.request_absentee.text')
+    .span4
+      %h4= I18n.t('front.options.overseas.subtitle')
+      %p= I18n.t('front.options.overseas.text')
 
 .row.options-links
   .span4= link_with_privacy_act_to "", :register_residential, alt: "Register Resedential", class: "residential button"
-  .span4= link_with_privacy_act_to "", :register_overseas, alt: "Register Overseas", class: "overseas button"
-  .span4= link_to "", :search, alt: "Update or View Voter Record", class: "update button", id: 'search'
+  - if uocava_reg
+    .span4= link_with_privacy_act_to "", :register_overseas, alt: "Register Overseas", class: "overseas button"
+    .span4= link_to "", :search, alt: "Update or View Voter Record", class: "update button", id: 'search'
+  - else
+    .span4= link_to "", :search, alt: "Update or View Voter Record", class: "update button", id: 'search'
+    .span4= link_with_privacy_act_to "", :register_overseas, alt: "Register Overseas", class: "overseas button"

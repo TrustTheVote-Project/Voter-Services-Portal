@@ -13,16 +13,19 @@ en:
       line3: "keep their voter information up-to-date."
     options:
       residential:
-        title: Residential Voter
+        title: "<br/>Register to Vote"
+        subtitle: Residential Voter
         text: I am a Virginia resident. I am not registered to vote in Virginia and I want to register to vote.
       overseas:
-        title: Overseas or Military Voter
+        title: "<br/>Overseas or Military"
+        subtitle: Overseas or Military Voter
         text: I am an active member of the Uniformed Services, the Merchant Marine, a family member, or a citizen of the United States, residing outside of the United States, and I want to register to vote absentee on election day.
       update:
-        title: View and Update Voter Record
+        title: Update Current Voter Registration
+        subtitle: View and Update Voter Record
         text: I am already registered to vote in Virginia and want to view and update my Voter Record.
       request_absentee:
-        title: Request Absentee Ballot
+        subtitle: Request Absentee Ballot
         text: I am already registered to vote in Virginia and need to request a domestic or overseas Absentee Ballot.
 
   privacy:

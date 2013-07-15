@@ -155,3 +155,6 @@ api_debug_logging: false
 state_id_length:
   min: 10
   max: 12
+
+# Home page UOCAVA registration
+home_page_uocava_registration: true
