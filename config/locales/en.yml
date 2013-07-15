@@ -8,8 +8,8 @@ en:
 
   front:
     welcome:
-      line1: "We've created this service to help all Virginians&#151;"
-      line2: "domestic, military, and overseas&#151;register to vote and"
+      line1: "We've created this service to help all Virginians-"
+      line2: "domestic, military, and overseas-register to vote and"
       line3: "keep their voter information up-to-date."
     options:
       residential:
@@ -167,7 +167,7 @@ en:
     TemporaryResideOutsideSpouse: Temporarily residing outside U.S. for employment, or spouse or dependent residing with employee
 
   search:
-    affirmation: "I certify and affirm that the information submitted to access my voter registration record are my own. I understand that it is unlawful to access the record of any other voter, punishable as computer fraud under Va. Code &sect; 18.2.152.3"
+    affirmation: "I certify and affirm that the information submitted to access my voter registration record is my own. I understand that it is unlawful to access the record of any other voter, punishable as computer fraud under Va. Code &sect; 18.2.152.3"
     record_not_found:
       title:  "Record Not Found"
       body:   "We were unable to find an existing voter record with the information you provided."
