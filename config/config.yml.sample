@@ -157,4 +157,4 @@ state_id_length:
   max: 12
 
 # Home page UOCAVA registration
-home_page_uocava_registration: true
+home_page_uocava_registration: false
