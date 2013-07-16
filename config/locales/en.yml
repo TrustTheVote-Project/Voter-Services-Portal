@@ -29,8 +29,8 @@ en:
         subtitle: View and Update Voter Record
         text: I am already registered to vote in Virginia and want to view and update my Voter Record.
       request_absentee:
-        subtitle: Request Absentee Ballot
-        text: I am already registered to vote in Virginia and need to request a domestic or overseas Absentee Ballot.
+        subtitle: 
+        text: 
 
   privacy:
     title: Privacy Act Notice
