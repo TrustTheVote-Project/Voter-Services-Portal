@@ -37,7 +37,10 @@
         %tr
           %td= f.label :vvr_zip5, I18n.t('addresses.zip5')
           %td &nbsp;
-          %td= f.label :vvr_zip4, I18n.t('addresses.zip4')
+          %td
+            = f.label :vvr_zip4 do
+              = I18n.t('addresses.zip4')
+              %span= I18n.t('optional')
         %tr
           %td= f.text_field :vvr_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "vvrZip5", validation: "zip5" }, valueUpdate: "afterkeyup"', placeholder: 'NNNNN'
           %td.space &mdash;

@@ -21,7 +21,10 @@
       %tr
         %td= f.label :ma_zip5, "Zip code"
         %td &nbsp;
-        %td= f.label :ma_zip4, I18n.t('addresses.zip4')
+        %td
+          = f.label :ma_zip4 do
+            = I18n.t('addresses.zip4')
+            %span= I18n.t('optional')
       %tr
         %td= f.text_field :ma_zip5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "maZip5", validation: "zip5" }, valueUpdate: "afterkeyup"', placeholder: 'NNNNN', maxlength: 5
         %td.space &mdash;
