@@ -163,13 +163,18 @@
     }
 
     .second-zip {
-      width: 35px;
+      width: 40px;
       float: left;
     }
 
     .space {
       float: left;
       padding: 0 5px;
+    }
+
+    td, tr {
+      padding-top: 0;
+      padding-bottom: 0;
     }
   }
 

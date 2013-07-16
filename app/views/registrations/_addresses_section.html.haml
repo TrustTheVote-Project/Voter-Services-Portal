@@ -32,11 +32,16 @@
       %span= I18n.t('addresses.state')
       = text_field_tag "state", "VA", disabled: true, class: 'span1'
       = f.hidden_field :vvr_state, autocomplete: ac, 'data-bind' => 'value: vvrState'
-    .span2.zip-field
-      = f.label :vvr_zip5, I18n.t('addresses.zip_code')
-      = f.text_field :vvr_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "vvrZip5", validation: "zip5" }, valueUpdate: "afterkeyup"', placeholder: 'NNNNN'
-      .space &mdash;
-      = f.text_field :vvr_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: vvrZip4, valueUpdate: "afterkeyup"', placeholder: 'NNNN'
+    .span3.zip-field
+      %table
+        %tr
+          %td= f.label :vvr_zip5, I18n.t('addresses.zip5')
+          %td &nbsp;
+          %td= f.label :vvr_zip4, I18n.t('addresses.zip4')
+        %tr
+          %td= f.text_field :vvr_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "vvrZip5", validation: "zip5" }, valueUpdate: "afterkeyup"', placeholder: 'NNNNN'
+          %td.space &mdash;
+          %td= f.text_field :vvr_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: vvrZip4, valueUpdate: "afterkeyup"', placeholder: 'NNNN'
   .row
     .span3
       = f.label :vvr_county_or_city, I18n.t('addresses.county_or_city')

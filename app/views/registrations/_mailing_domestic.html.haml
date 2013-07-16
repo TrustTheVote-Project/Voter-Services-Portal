@@ -17,7 +17,12 @@
     = f.label :ma_state, "State"
     = f.select :ma_state, Dictionaries::STATES, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "maState" }' }
   .span3.zip-field
-    = f.label :ma_zip5, "Zip code"
-    = f.text_field :ma_zip5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "maZip5", validation: "zip5" }, valueUpdate: "afterkeyup"', placeholder: 'NNNNN', maxlength: 5
-    .space &mdash;
-    = f.text_field :ma_zip4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: maZip4, valueUpdate: "afterkeyup"', placeholder: 'NNNN', maxlength: 4
+    %table
+      %tr
+        %td= f.label :ma_zip5, "Zip code"
+        %td &nbsp;
+        %td= f.label :ma_zip4, I18n.t('addresses.zip4')
+      %tr
+        %td= f.text_field :ma_zip5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "maZip5", validation: "zip5" }, valueUpdate: "afterkeyup"', placeholder: 'NNNNN', maxlength: 5
+        %td.space &mdash;
+        %td= f.text_field :ma_zip4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: maZip4, valueUpdate: "afterkeyup"', placeholder: 'NNNN', maxlength: 4

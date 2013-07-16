@@ -76,7 +76,8 @@ en:
     county_or_city: "County or City of residence"
     city_town: "City/Town"
     state: "State"
-    zip_code: "Zip code"
+    zip5: "Zip code"
+    zip4: "ZIP9"
 
   mailing_address:
     different:
@@ -97,7 +98,7 @@ en:
     county_or_city: "City, county, or town of residence, if applicable"
     city_town: "City/Town"
     state: "State"
-    zip_code: "Zip code"
+    zip5: "Zip code"
     authorize: "I authorize the cancellation or updating of my existing registration."
 
   options:

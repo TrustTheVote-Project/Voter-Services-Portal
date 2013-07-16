@@ -46,7 +46,7 @@ end
 
 def fill_address_page
   fill_in I18n.t('addresses.address'), with: "12 High St"
-  fill_in I18n.t('addresses.zip_code'), with: "12345"
+  fill_in I18n.t('addresses.zip5'), with: "12345"
   select  "ALEXANDRIA CITY", from: I18n.t('addresses.county_or_city')
   fill_in I18n.t('addresses.city_town'), with: "Alexandria"
   choose  "registration_pr_status_0"

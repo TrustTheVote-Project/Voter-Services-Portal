@@ -12,7 +12,7 @@ feature 'New registration', :js do
     fill_identity_page
 
     find_field(I18n.t("addresses.address")).value.should        == "123 WannaVote DR"
-    find_field(I18n.t("addresses.zip_code")).value.should       == "12345"
+    find_field(I18n.t("addresses.zip5")).value.should           == "12345"
     find_field(I18n.t("addresses.county_or_city")).value.should == "ALEXANDRIA CITY"
     expect(page).to have_text I18n.t("dmv.address_info")
   end
