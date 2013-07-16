@@ -35,19 +35,19 @@ class Pdf::NewDomestic < Pdf::Form
     pdf.set("GENDER_#{reg.gender =~ /F/ ? "F" : "M"}", "Y")
     setDateField(pdf, 'DOB', reg.dob)
     setDigitalField(pdf, 'PHONE', 10, reg.phone.gsub(/[^0-9]/, '')) unless reg.phone.blank?
-    pdf.set("LAST_NAME", reg.last_name.to_s.upcase)
-    pdf.set('FIRST_NAME', reg.first_name.to_s.upcase)
+    pdf.set("LAST_NAME", reg.last_name)
+    pdf.set('FIRST_NAME', reg.first_name)
 
     if reg.middle_name.blank?
       pdf.set('MIDDLE_NAME_NONE', 'Y')
     else
-      pdf.set('MIDDLE_NAME', reg.middle_name.to_s.upcase)
+      pdf.set('MIDDLE_NAME', reg.middle_name)
     end
 
     if reg.suffix.blank?
       pdf.set('SUFFIX_NONE', 'Y')
     else
-      pdf.set('SUFFIX', reg.suffix.to_s.upcase)
+      pdf.set('SUFFIX', reg.suffix)
     end
   end
 
@@ -66,7 +66,7 @@ class Pdf::NewDomestic < Pdf::Form
     pdf.set('HOME_ZIP', [ reg.vvr_zip5, reg.vvr_zip4 ].rjoin('-'))
     pdf.set('EMAIL', reg.email)
 
-    pdf.set('CITY_OR_COUNTY', reg.vvr_county_or_city.to_s.upcase.gsub(/\s*(COUNTY|CITY)/, ''))
+    pdf.set('CITY_OR_COUNTY', reg.vvr_county_or_city.to_s.gsub(/\s*(COUNTY|CITY)/i, ''))
     setCheck(pdf, 'IS_CITY', reg.vvr_county_or_city =~ /CITY/i)
 
     if reg.ma_is_different == '1'
@@ -85,7 +85,7 @@ class Pdf::NewDomestic < Pdf::Form
     if reg.rights_revoked == '1'
       if reg.rights_felony == '1'
         setCheck(pdf, 'CONVICTED', true)
-        pdf.set('CONVICTED_STATE', reg.rights_felony_restored_in.to_s.upcase)
+        pdf.set('CONVICTED_STATE', reg.rights_felony_restored_in)
         setCheck(pdf, 'CONVICTED_RESTORED', reg.rights_felony_restored == '1')
         setDateField(pdf, 'CONVICTED_RESTORED_ON', reg.rights_felony_restored_on)
       else
@@ -130,10 +130,10 @@ class Pdf::NewDomestic < Pdf::Form
     if reg.pr_status == '1'
       setCheck(pdf, 'PREV_REG', true)
 
-      pdf.set('PREV_REG_FULL_NAME', [ reg.pr_first_name, reg.pr_middle_name, reg.pr_last_name, reg.pr_suffix ].rjoin(' ').to_s.upcase)
-      pdf.set('PREV_REG_ADDRESS', [ reg.pr_address, reg.pr_address_2 ].rjoin(', ').to_s.upcase)
-      pdf.set('PREV_REG_CITY', reg.pr_city.to_s.upcase)
-      pdf.set('PREV_REG_STATE', reg.pr_state.to_s.upcase)
+      pdf.set('PREV_REG_FULL_NAME', [ reg.pr_first_name, reg.pr_middle_name, reg.pr_last_name, reg.pr_suffix ].rjoin(' '))
+      pdf.set('PREV_REG_ADDRESS', [ reg.pr_address, reg.pr_address_2 ].rjoin(', '))
+      pdf.set('PREV_REG_CITY', reg.pr_city)
+      pdf.set('PREV_REG_STATE', reg.pr_state)
       pdf.set('PREV_REG_ZIP', [ reg.pr_zip5, reg.pr_zip4 ].rjoin('-'))
       pdf.set('PREV_REG_COUNTY', reg.pr_county_or_city)
 
