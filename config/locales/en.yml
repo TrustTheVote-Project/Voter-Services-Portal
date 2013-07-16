@@ -6,6 +6,10 @@ en:
   rural: "Check here if Rural Address or Homeless and describe where you reside."
   optional: "(optional)"
 
+  alt:
+    logo: "Virginia State Board of Elections"
+    download_pdf: "Download your voter registration application as a PDF file."
+
   front:
     welcome:
       line1: "We've created this service to help all Virginians-"
