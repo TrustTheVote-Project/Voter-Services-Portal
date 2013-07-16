@@ -17,8 +17,11 @@
 <!-- ko if: mauType() == 'apo' -->
 .row
   .span3.address-field
-    %label{ for: 'registration_apo_address' } Address
+    = f.label :apo_address, I18n.t('addresses.address')
     = f.text_field :apo_address,   autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "mauAPOAddress1" }, valueUpdate: "afterkeyup"'
+    = f.label :apo_address_2 do
+      = I18n.t('addresses.address_2')
+      %span= I18n.t('optional')
     = f.text_field :apo_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: mauAPOAddress2, valueUpdate: "afterkeyup"'
 .row
   .span1

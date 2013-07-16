@@ -1,20 +1,23 @@
-- address_label ||= 'Address'
+- address_label ||= I18n.t('addresses.address')
 .row
   .span3
     .address-field
-      %label{ for: 'registration_ma_address' } #{address_label}
+      = f.label :ma_address, address_label
       = f.text_field :ma_address, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "maAddress1" }, valueUpdate: "afterkeyup"'
     .address-field
+      = f.label :ma_address_2 do
+        = I18n.t('addresses.address_2')
+        %span= I18n.t('optional')
       = f.text_field :ma_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: maAddress2, valueUpdate: "afterkeyup"'
 .row
   .span3
-    %label{ for: 'registration_ma_city' } City
+    = f.label :ma_city, "City"
     = f.text_field :ma_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "maCity" }, valueUpdate: "afterkeyup"'
   .span2.state-field
-    %label{ for: 'registration_ma_state' } State
+    = f.label :ma_state, "State"
     = f.select :ma_state, Dictionaries::STATES, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "maState" }' }
   .span3.zip-field
-    %label{ for: 'registration_ma_zip5' } Zip code
+    = f.label :ma_zip5, "Zip code"
     = f.text_field :ma_zip5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "maZip5", validation: "zip5" }, valueUpdate: "afterkeyup"', placeholder: 'NNNNN', maxlength: 5
     .space &mdash;
     = f.text_field :ma_zip4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: maZip4, valueUpdate: "afterkeyup"', placeholder: 'NNNN', maxlength: 4

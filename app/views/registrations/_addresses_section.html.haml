@@ -20,6 +20,9 @@
         = f.label :vvr_address_1, I18n.t('addresses.address')
         = f.text_field :vvr_address_1, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }, valueUpdate: "afterkeyup"'
       .address-field
+        = f.label :vvr_address_2 do
+          = I18n.t('addresses.address_2')
+          %span= I18n.t('optional')
         = f.text_field :vvr_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: vvrAddress2'
   .row
     .span3.town

@@ -72,6 +72,7 @@ en:
 
   addresses:
     address: "Address"
+    address_2: "Address"
     county_or_city: "County or City of residence"
     city_town: "City/Town"
     state: "State"
@@ -92,6 +93,7 @@ en:
       no_answer: I am not currently registered to vote in Virginia or another state.
       yes_answer: I am currently registered to vote in Virginia or in  another state.  If checked, provide the name and address below under which you are currently registered.
     address: "Address"
+    address_2: "Address"
     county_or_city: "City, county, or town of residence, if applicable"
     city_town: "City/Town"
     state: "State"

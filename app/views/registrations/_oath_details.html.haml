@@ -46,6 +46,9 @@
         = f.label       :as_address, "Assistant address"
         = f.text_field  :as_address, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "asAddress1" }, valueUpdate: "afterkeyup"'
       .address-field
+        = f.label :as_address_2 do
+          = I18n.t('addresses.address_2')
+          %span= I18n.t('optional')
         = f.text_field  :as_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: asAddress2, valueUpdate: "afterkeyup"'
   .row
     .span3

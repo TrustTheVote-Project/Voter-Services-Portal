@@ -59,6 +59,9 @@
           = f.label :pr_address, I18n.t('previous_registration.address')
           = f.text_field :pr_address, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prAddress1" }, valueUpdate: "afterkeyup"'
         .address-field
+          = f.label :pr_address_2 do
+            = I18n.t('previous_registration.address_2')
+            %span= I18n.t('optional')
           = f.text_field :pr_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: prAddress2, valueUpdate: "afterkeyup"'
     .row
       .span3

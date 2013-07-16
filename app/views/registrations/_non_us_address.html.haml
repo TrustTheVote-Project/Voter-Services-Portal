@@ -3,6 +3,9 @@
   .span3.address-field
     %label{ for: "#{lprefix}_address" } Address
     = f.text_field "#{prefix}_address", 'data-bind' => "instantValidation: { accessor: '#{prefix}Address' }, valueUpdate: 'afterkeyup'"
+    = f.label "#{prefix}_address_2" do
+      = I18n.t('addresses.address_2')
+      %span= I18n.t('optional')
     = f.text_field "#{prefix}_address_2", 'data-bind' => "valueWithInit: #{prefix}Address2, valueUpdate: 'afterkeyup'"
 
 .row
