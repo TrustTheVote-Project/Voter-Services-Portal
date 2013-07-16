@@ -155,7 +155,7 @@ api_debug_logging: false
 
 # Length of DMV ID field
 state_id_length:
-  min: 10
+  min: 9
   max: 12
 
 # Home page UOCAVA registration; true=original layout; false=new layout with UOCAVA on the right
