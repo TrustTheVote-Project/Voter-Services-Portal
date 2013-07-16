@@ -86,7 +86,7 @@
           .checkbox
             = f.check_box :pr_cancel, 'data-bind' => 'instantValidation: { accessor: "prCancel" }'
             = f.label :pr_cancel do
-              %strong I authorize cancellation of my existing registration.
+              %strong= I18n.t('previous_registration.authorize')
 
     <!-- /ko -->
 

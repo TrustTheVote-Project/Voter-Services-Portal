@@ -92,6 +92,7 @@ en:
     city_town: "City/Town"
     state: "State"
     zip_code: "Zip code"
+    authorize: "I authorize the cancellation or updating of my existing registration."
 
   options:
     ac:
