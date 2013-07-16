@@ -289,6 +289,11 @@
     background: image-url('buttons.png') no-repeat -721px 0;
   }
 
+  .submit.disabled {
+    float: right;
+    background: image-url('buttons.png') no-repeat -721px -150px;
+  }
+
   .done {
     float: right;
     background: image-url('buttons.png') no-repeat -837px -100px;

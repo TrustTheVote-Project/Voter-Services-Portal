@@ -75,7 +75,7 @@ feature 'Processing update EML310 submission', :js do
     check I18n.t('identity.no_name_suffix')
     click_button 'Next' # skip identity
 
-    check "I authorize cancellation of my existing registration."
+    check I18n.t('previous_registration.authorize')
     click_button 'Next' # skip address updates
     click_button 'Next' # skip options
     click_button 'Next' # confirm

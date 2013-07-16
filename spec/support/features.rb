@@ -69,5 +69,5 @@ def sign_oath
   end
 
   check "registration_information_correct"
-  click_button "Next"
+  click_button "Submit"
 end
