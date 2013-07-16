@@ -77,7 +77,7 @@
         = f.label :pr_county_or_city do
           = I18n.t('previous_registration.county_or_city')
           %span= I18n.t('optional')
-        = f.text_field :pr_county_or_city
+        = f.text_field :pr_county_or_city, 'data-bind' => 'valueWithInit: prCountyOrCity'
 
 
     .partition

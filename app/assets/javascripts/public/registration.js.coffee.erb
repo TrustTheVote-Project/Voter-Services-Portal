@@ -210,6 +210,7 @@ class window.Registration
     @prState                = ko.observable()
     @prZip5                 = ko.observable()
     @prZip4                 = ko.observable()
+    @prCountyOrCity         = ko.observable()
     @prCancel               = ko.observable()
 
     @domesticMAFilled = ko.computed =>
@@ -527,10 +528,10 @@ class window.Registration
 
         lines.push valueOrUnspecified(join([ @prFirstName(), @prMiddleName(), @prLastName(), @prSuffix() ], ' '))
 
-        lines.push join([ @prAddress1(), @prAddress2() ], ' ') + "<br/>" +
-          join([ @prCity(), join([ @prState(), join([ @prZip5(), @prZip4() ], '-') ], ' ') ], ', ')
-        if @prCancel()
-          lines.push "Authorized cancelation"
+        lines.push join([ @prAddress1(), @prAddress2() ], ' ')
+        lines.push join([ @prCity(), join([ @prState(), join([ @prZip5(), @prZip4() ], '-') ], ' ') ], ', ')
+        lines.push @prCountyOrCity() if filled(@prCountyOrCity())
+        lines.push "Authorized cancelation" if @prCancel()
 
         lines.join "<br/>"
 
