@@ -77,7 +77,7 @@ en:
     city_town: "City/Town"
     state: "State"
     zip5: "Zip code"
-    zip4: "ZIP9"
+    zip4: "Zip4"
 
   mailing_address:
     different:
