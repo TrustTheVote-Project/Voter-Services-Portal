@@ -493,7 +493,8 @@ class window.Registration
     @summaryRegistrationAddress = ko.computed =>
       address =
         join([ @vvrAddress1(), @vvrAddress2() ], ' ') + "<br/>" +
-        join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
+        join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ') + "<br/>" +
+        @vvrCountyOrCity()
 
       if @overseas()
         lines = [ address ]
