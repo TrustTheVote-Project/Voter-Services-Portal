@@ -8,7 +8,7 @@ feature 'New registration', :js do
     LookupService.stub(registration: { registered: false, dmv_match: true, address: { address_1: "123 WannaVote DR", zip5: "12345", county_or_city: "ALEXANDRIA CITY" }})
     visit '/register/residential'
 
-    fill_eligibility_page dmv_id: '1234567890'
+    fill_eligibility_page dmv_id: '000000002'
     fill_identity_page
 
     find_field(I18n.t("addresses.address")).value.should        == "123 WannaVote DR"

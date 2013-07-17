@@ -57,7 +57,7 @@ class RegistrationSearch < LookupApi
       dobDay:         dob.day,
       dobYear:        dob.year }
 
-    parse_uri('voterByVID', q)
+    query('voterByVID', q)
   end
 
   def self.search_by_data(query)
@@ -70,10 +70,15 @@ class RegistrationSearch < LookupApi
       firstName:      query.first_name,
       lastName:       query.last_name }
 
-      parse_uri('voterBySSN4', q)
+    query('voterBySSN4', q)
   end
 
-  # handles the response
+  def self.query(method, q)
+    parse_uri(method, q) do |res, method = nil|
+      handle_response(res, method)
+    end
+  end
+
   def self.handle_response(res, method = nil)
     Rails.logger.info("LOOKUP: #{method} code=#{res.code}\n#{res.body}") if AppConfig['api_debug_logging']
 

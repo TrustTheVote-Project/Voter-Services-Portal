@@ -667,7 +667,7 @@ class window.Registration
   checkEligibility: (_, e) =>
     return if $(e.target).hasClass('disabled')
     if @isEligible()
-      @lookupRecord(_, e)
+      @gotoPage('identity')
     else
       if @allowInelligibleToCompleteForm()
         @gotoPage('identity')
@@ -684,15 +684,15 @@ class window.Registration
         if a
           @vvrAddress1(a.address_1)
           @vvrAddress2(a.address_2)
-          @vvrCountyOrCity(a.county_or_city)
+          @vvrTown(a.town)
           @vvrZip5(a.zip5)
-      location.hash = 'identity'
+      location.hash = 'address'
 
   lookupRecord: (_, e) =>
     return if $(e.target).hasClass('disabled')
     @page('lookup_record')
 
-    if !filled(@dmvId())
+    if !<%= AppConfig['enable_dmvid_lookup'] %> or !filled(@dmvId()) or !filled(@ssn()) or @isConfidentialAddress()
       return @onLookupResult({ registered: false, dmv_match: false })
 
     $.getJSON '/lookup/registration', { record: {

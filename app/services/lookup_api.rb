@@ -44,11 +44,11 @@ class LookupApi
     end
   end
 
-  def self.parse_uri(method, q)
+  def self.parse_uri(method, q, &block)
     uri = URI("#{AppConfig['lookup_url']}/#{method}?#{q.to_query}")
     Rails.logger.info "LOOKUP: #{method} URL: #{uri}" if AppConfig['api_debug_logging']
 
-    parse_uri_without_timeout(method, uri)
+    parse_uri_without_timeout(method, uri, &block)
   rescue Timeout::Error
     Rails.logger.error "LOOKUP: timeout URL: #{uri}" if AppConfig['api_debug_logging']
     ErrorLogRecord.log("LOOKUP: timeout", uri: uri)
@@ -57,7 +57,7 @@ class LookupApi
     raise LookupTimeout
   end
 
-  def self.parse_uri_without_timeout(method, uri)
+  def self.parse_uri_without_timeout(method, uri, &block)
     req = Net::HTTP::Get.new(uri.request_uri)
     res = Net::HTTP.start(uri.hostname, uri.port,
                           use_ssl:      uri.scheme == 'https',
@@ -67,7 +67,7 @@ class LookupApi
       http.request(req)
     end
 
-    handle_response(res, method)
+    block.call res, method
   end
 
   # actual parsing of the response
