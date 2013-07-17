@@ -11,9 +11,10 @@
     .radio
       = f.radio_button :residence, 'in', 'data-bind' => 'checked: residence'
       %label{ for: 'registration_residence_in' } #{I18n.t('eligibility.residence.in')}
-    .radio
-      = f.radio_button :residence, 'outside', 'data-bind' => 'checked: residence'
-      %label{ for: 'registration_residence_outside' } #{I18n.t('eligibility.residence.out')}
+    - if enabled_uocava_reg
+      .radio
+        = f.radio_button :residence, 'outside', 'data-bind' => 'checked: residence'
+        %label{ for: 'registration_residence_outside' } #{I18n.t('eligibility.residence.out')}
 
   = render partial: 'eligibility_rights', locals: { f: f }
 

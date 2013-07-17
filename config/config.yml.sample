@@ -160,3 +160,6 @@ state_id_length:
 
 # Home page UOCAVA registration; true=original layout; false=new layout with UOCAVA on the right
 home_page_uocava_registration: false
+
+# Enables UOCAVA registration
+enable_uocava_new_registration: true

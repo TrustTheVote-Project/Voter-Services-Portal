@@ -8,6 +8,9 @@ class RegistrationsController < ApplicationController
       return
     end
 
+    # Don't enter the UOCAVA registration path if disabled
+    params[:residence] = 'in' unless AppConfig['enable_uocava_new_registration']
+
     options = RegistrationRepository.pop_search_query(session)
     options.merge!(
       residence:            params[:residence],

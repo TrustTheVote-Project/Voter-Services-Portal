@@ -42,7 +42,7 @@
 - overseas_title = I18n.t('front.options.overseas.title').html_safe
 .row.options
   - if uocava_reg
-    .span8
+    %div{ class: enabled_uocava_reg ? "span8" : "span4" }
       %h3= domestic_title
     .span4
       %h3= update_title
@@ -51,8 +51,9 @@
       %h3= domestic_title
     .span4
       %h3= update_title
-    .span4
-      %h3= overseas_title
+    - if enabled_uocava_reg
+      .span4
+        %h3= overseas_title
 
 .row.options-details
   .span4
@@ -60,9 +61,10 @@
     %p= I18n.t('front.options.residential.text')
 
   - if uocava_reg
-    .span4
-      %h4= I18n.t('front.options.overseas.subtitle')
-      %p= I18n.t('front.options.overseas.text')
+    - if enabled_uocava_reg
+      .span4
+        %h4= I18n.t('front.options.overseas.subtitle')
+        %p= I18n.t('front.options.overseas.text')
     .span4
       %h4= I18n.t('front.options.update.subtitle')
       %p= I18n.t('front.options.update.text')
@@ -74,15 +76,18 @@
       %p= I18n.t('front.options.update.text')
       %h4= I18n.t('front.options.request_absentee.subtitle')
       %p= I18n.t('front.options.request_absentee.text')
-    .span4
-      %h4= I18n.t('front.options.overseas.subtitle')
-      %p= I18n.t('front.options.overseas.text')
+    - if enabled_uocava_reg
+      .span4
+        %h4= I18n.t('front.options.overseas.subtitle')
+        %p= I18n.t('front.options.overseas.text')
 
 .row.options-links
   .span4= link_with_privacy_act_to "", :register_residential, alt: "Register Resedential", class: "residential button"
   - if uocava_reg
-    .span4= link_with_privacy_act_to "", :register_overseas, alt: "Register Overseas", class: "overseas button"
+    - if enabled_uocava_reg
+      .span4= link_with_privacy_act_to "", :register_overseas, alt: "Register Overseas", class: "overseas button"
     .span4= link_to "", :search, alt: "Update or View Voter Record", class: "update button", id: 'search'
   - else
     .span4= link_to "", :search, alt: "Update or View Voter Record", class: "update button", id: 'search'
-    .span4= link_with_privacy_act_to "", :register_overseas, alt: "Register Overseas", class: "overseas button"
+    - if enabled_uocava_reg
+      .span4= link_with_privacy_act_to "", :register_overseas, alt: "Register Overseas", class: "overseas button"
