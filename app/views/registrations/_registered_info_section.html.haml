@@ -1,8 +1,0 @@
-#registered_info.section{ 'data-bind' => 'vis: page() == "registered_info"' }
-  .head
-    %h3 Registered
-    .description You are already registered to vote.
-  %p= I18n.t("registered.details")
-
-  .form-actions
-    = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: eligibilityPage'
