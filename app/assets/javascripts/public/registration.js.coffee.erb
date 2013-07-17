@@ -676,15 +676,14 @@ class window.Registration
 
   onLookupResult: (data) =>
     @paperlessSubmission(data.dmv_match)
-    if <%= AppConfig['enable_dmv_address_display'] %> and @paperlessSubmission()
-      a = data.address
-      if a
-        @vvrAddress1(a.address_1)
-        @vvrAddress2(a.address_2)
-        @vvrCountyOrCity('')
-        @vvrTown(a.town)
-        @vvrZip5(a.zip5)
-        @vvrZip4(a.zip4)
+    if <%= AppConfig['enable_dmv_address_display'] %>
+      a = data.address || {}
+      @vvrAddress1(a.address_1)
+      @vvrAddress2(a.address_2)
+      @vvrCountyOrCity('')
+      @vvrTown(a.town)
+      @vvrZip5(a.zip5)
+      @vvrZip4(a.zip4)
     location.hash = 'address'
 
   lookupRecord: (_, e) =>
