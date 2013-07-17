@@ -65,7 +65,10 @@ class NewRegistration extends Registration
 
 $ ->
   if $('form#new_registration').length > 0
-    ko.applyBindings(new NewRegistration(0))
+    form = new NewRegistration(0)
+    ko.applyBindings(form)
+    form.saveOriginalRegAddress()
+
 
   if $("#nr_download").length > 0
     ko.applyBindings(new Finalization(pageSteps))

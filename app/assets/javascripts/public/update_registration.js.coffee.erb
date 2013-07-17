@@ -123,7 +123,9 @@ class UpdateRegistration extends Registration
 
 $ ->
   if $("#update_registration").length > 0
-    ko.applyBindings(new UpdateRegistration())
+    form = new UpdateRegistration()
+    ko.applyBindings(form)
+    form.saveOriginalRegAddress()
 
   if $("#update_finalization").length > 0
     ko.applyBindings(new Finalization(finalizationPageSteps))

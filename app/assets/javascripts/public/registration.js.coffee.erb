@@ -268,6 +268,17 @@ class window.Registration
 
     @addressesInvalid = ko.computed => @addressesErrors().length > 0
 
+  saveOriginalRegAddress: =>
+    @initialVvrAddress = {
+      address_1:      @vvrAddress1(),
+      address_2:      @vvrAddress2(),
+      county_or_city: @vvrCountyOrCity(),
+      town:           @vvrTown(),
+      zip5:           @vvrZip5(),
+      zip4:           @vvrZip4()
+    }
+    console.log @initialVvrAddress
+
   initOptionsFields: ->
     @party                  = ko.observable()
     @chooseParty            = ko.observable()
@@ -677,13 +688,13 @@ class window.Registration
   onLookupResult: (data) =>
     @paperlessSubmission(data.dmv_match)
     if <%= AppConfig['enable_dmv_address_display'] %>
-      a = data.address || {}
+      a = data.address || @initialVvrAddress
       @vvrAddress1(a.address_1)
       @vvrAddress2(a.address_2)
-      @vvrCountyOrCity('')
+      @vvrCountyOrCity(a.county_or_city || '')
       @vvrTown(a.town)
       @vvrZip5(a.zip5)
-      @vvrZip4(a.zip4)
+      @vvrZip4(a.zip4 || '')
     location.hash = 'address'
 
   lookupRecord: (_, e) =>
@@ -691,7 +702,10 @@ class window.Registration
     @page('lookup_record')
 
     if !<%= AppConfig['enable_dmvid_lookup'] %> or !filled(@dmvId()) or !filled(@ssn()) or @isConfidentialAddress()
-      return @onLookupResult({ registered: false, dmv_match: false })
+      return @onLookupResult({
+        registered: false,
+        dmv_match: false,
+        address: @initialVvrAddress })
 
     $.getJSON '/lookup/registration', { record: {
         eligible_citizen:               if @citizen() then 'T' else 'F',
