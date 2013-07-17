@@ -4,6 +4,9 @@
 .row#update_registration
   .padded_page_span
     = render partial: 'form_options'
+    = hidden_field_tag :dob_day, @registration.dob.day
+    = hidden_field_tag :dob_month, @registration.dob.month
+    = hidden_field_tag :dob_year, @registration.dob.year
     = form_for @registration, url: :registration  do |f|
       = hidden_field_tag 'kind', params[:kind]
       = f.hidden_field :residence

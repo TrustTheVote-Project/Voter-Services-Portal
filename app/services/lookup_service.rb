@@ -81,11 +81,14 @@ class LookupService < LookupApi
     ea = doc.css('ElectoralAddress').first
     if ea
       if ft = ea.css('FreeTextAddress').first
+        zip = ft.css("AddressLine[type='Zip']").try(:text).to_s
+
         o[:address] = {
           address_1:      ft.css("AddressLine[type='AddressLine1']").try(:text),
           address_2:      ft.css("AddressLine[type='AddressLine2']").try(:text),
           town:           ft.css("AddressLine[type='City']").try(:text),
-          zip5:           ft.css("AddressLine[type='Zip']").try(:text).to_s[0, 5]
+          zip5:           zip[0, 5],
+          zip4:           zip[5, 4]
         }
       elsif pa = ea.css('PostalAddress').first
         o[:address] = {

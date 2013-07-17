@@ -20,7 +20,8 @@ describe LookupService do
           address_1:      "1318 RIVA RIDGE RUN",
           address_2:      "",
           town:           "VIRGINIA BEACH",
-          zip5:           "23454"
+          zip5:           "23454",
+          zip4:           "5527"
         }
       })
     end
@@ -33,7 +34,8 @@ describe LookupService do
           address_1:      "2228 MCKANN AVE",
           address_2:      "",
           town:           "NORFOLK",
-          zip5:           "23509"
+          zip5:           "23509",
+          zip4:           "2235"
         }
       })
     end

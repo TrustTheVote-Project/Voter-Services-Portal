@@ -59,6 +59,9 @@ class UpdateRegistration extends Registration
       @gotoPage('options')
 
   augmentEligibilityFields: ->
+    @dobDay($("input#dob_day").val())
+    @dobMonth($("input#dob_month").val())
+    @dobYear($("input#dob_year").val())
     @eligibilityErrors = ko.computed =>
       errors = []
       errors.push("Citizenship criteria") unless @citizen()
@@ -103,7 +106,7 @@ class UpdateRegistration extends Registration
 
   prevPage: => window.history.back()
   eligibilityPage: (_, e) => @gotoPage('eligibility', e)
-  nextFromIdentity: (_, e) => @gotoPage('address', e)
+  nextFromIdentity: (_, e) => @lookupRecord(_, e)
   nextFromAddress: (_, e) => @gotoPage('options', e)
   nextFromOptions: (_, e) => @gotoPage('confirm', e)
   nextFromConfirm: (_, e) => @gotoPage('oath', e)
