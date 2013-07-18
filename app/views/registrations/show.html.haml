@@ -91,59 +91,67 @@
                 %th &nbsp;
                 %td= reg.voting_location
 
-    .accordion.summary.districts
-      - districts = reg.districts || []
-      .body
-        %h3
-          - if districts.present?
-            = link_to "Show", '#', class: 'toggle'
-          Districts
-        .area
-          %table.table
-            - districts.each do |label, (c, v)|
-              %tr
-                %th &nbsp;
-                %td.l #{label}:
-                %td <em>#{v}</em>
+    - districts = reg.districts || []
+    - if !districts.blank? || show_missing
+      .accordion.summary.districts
+        .body
+          %h3
+            - if districts.present?
+              = link_to "Show", '#', class: 'toggle'
+            Districts
+          .area
+            %table.table
+              - districts.each do |label, (c, v)|
+                %tr
+                  %th &nbsp;
+                  %td.l #{label}:
+                  %td <em>#{v}</em>
 
-    .accordion.summary
-      .body
-        %h3 Polling Place
+    - if show_missing
+      .accordion.summary
+        .body
+          %h3 Polling Place
 
-    .accordion.summary
-      .body
-        %h3 My Ballot
+    - if show_missing
+      .accordion.summary
+        .body
+          %h3 My Ballot
 
-    .accordion.summary
-      .body
-        %h3 Absentee
+    - if show_missing
+      .accordion.summary
+        .body
+          %h3 Absentee
 
-    .accordion.summary
-      .body
-        %h3
-          Provisional Ballot
+    - if show_missing
+      .accordion.summary
+        .body
+          %h3 Provisional Ballot
 
-    .accordion.summary
-      .body
-        %h3
-          - if reg.has_election_participation_history?
-            = link_to "Show", '#', class: 'toggle'
-          Voter History
-        .area
-          %table.table
-            - (reg.past_elections || []).each do |e, s|
-              %tr
-                %th &nbsp;
-                %td.l= s
-                %td <em>#{e}</em>
+    - history = reg.past_elections || []
+    - if !history.blank? || show_missing
+      .accordion.summary
+        .body
+          %h3
+            - if reg.has_election_participation_history?
+              = link_to "Show", '#', class: 'toggle'
+            Voter History
+          .area
+            %table.table
+              - (reg.past_elections || []).each do |e, s|
+                %tr
+                  %th &nbsp;
+                  %td.l= s
+                  %td <em>#{e}</em>
 
-    .accordion.summary
-      .body
-        %h3 Locality Voter Registration Office Contact Information
+    - if show_missing
+      .accordion.summary
+        .body
+          %h3 Locality Voter Registration Office Contact Information
 
-    .accordion.summary
-      .body
-        %h3 Locality Electoral Board Contact Information
+    - if show_missing
+      .accordion.summary
+        .body
+          %h3 Locality Electoral Board Contact Information
 
     - if no_forms?
       .info
