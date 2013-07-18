@@ -3,5 +3,5 @@
   = render partial: 'oath_details', locals: { f: f, updating: updating }
 
   .form-actions
-    = button_tag 'Submit &rarr;'.html_safe, class: 'submit btn', 'data-bind' => 'click: nextFromOath, css: { disabled: oathInvalid }'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextFromOath, css: { disabled: oathInvalid }'
     = button_tag '&larr; Back'.html_safe, class: 'back btn', 'data-bind' => 'click: prevPage'

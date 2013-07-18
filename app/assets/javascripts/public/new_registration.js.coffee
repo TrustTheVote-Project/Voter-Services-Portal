@@ -19,9 +19,9 @@ class NewRegistration extends Registration
     new Popover('#identity .next.btn', @identityErrors)
     new Popover('#mailing .next.btn', @addressesErrors)
     new Popover('#options .next.btn', @optionsErrors)
-    new Popover('#oath .submit.btn', @oathErrors)
+    new Popover('#oath .next.btn', @oathErrors)
 
-    $(".next.btn, .submit.btn").on 'click', (e) ->
+    $(".next.btn").on 'click', (e) ->
       btn = $(this)
       $("input, select", btn.parents(".section")).trigger("validate") if btn.hasClass('disabled')
 
@@ -51,7 +51,7 @@ class NewRegistration extends Registration
   nextFromOptions: (_, e) => @gotoPage('confirm', e)
   nextFromConfirm: (_, e) => @gotoPage('oath', e)
   nextFromOath: (_, e) =>
-    if $("#oath .submit.btn").hasClass('disabled')
+    if $("#oath .next.btn").hasClass('disabled')
       e.preventDefault()
       return
 
