@@ -11,6 +11,7 @@ class window.Registration
     @nameSuffixRequired = ko.observable($("input#name_suffix_required").val() == 'true')
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
     @editMailingAddressAtProtectedVoter = ko.observable($("input#edit_mailing_address_at_protected_voter").val() == 'true')
+    @dmvIdCheckbox = <%= AppConfig['dmv_id_checkbox'] %>
     @paperlessSubmission = ko.observable()
 
     @showAssistantDetails = ko.computed =>
@@ -100,7 +101,7 @@ class window.Registration
 
       errors.push('Date of birth') unless @dob()
       errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
-      errors.push('<%= I18n.t('dmvid') %>') if !isDmvId(@dmvId()) and !@noDmvId()
+      errors.push('<%= I18n.t('dmvid') %>') if @dmvIdCheckbox and !isDmvId(@dmvId()) and !@noDmvId()
       errors
 
     @eligibilityInvalid = ko.computed =>

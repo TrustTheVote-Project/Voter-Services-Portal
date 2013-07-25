@@ -166,3 +166,6 @@ enable_uocava_new_registration: true
 
 # When TRUE the DMV ID address from lookup is placed in the registration address fields
 enable_dmv_address_display: true
+
+# When false, DMV ID entry field is optional
+dmv_id_checkbox: true
