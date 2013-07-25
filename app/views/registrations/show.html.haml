@@ -1,6 +1,11 @@
 - reg = RegistrationDetailsPresenter.new(@registration)
 - show_missing = AppConfig['voter_info_show_missing_items']
 - update_ab = AppConfig['update_reg_domestic_with_absentee_allowed']
+- disabled_overseas = @registration.currently_overseas? && !AppConfig['enable_uocava_new_registration']
+- label_1 = 'update your voter information'
+- label_2 = 'Update Your Voter Information'
+- edit_link_1 = disabled_overseas ? link_to(label_1, :about_update_absentee_page) : link_with_privacy_act_to(label_1, :edit_registration)
+- edit_link_2 = disabled_overseas ? link_to(label_2, :about_update_absentee_page, class: 'btn', id: 'edit_registration') : link_with_privacy_act_to(label_2, :edit_registration, class: 'btn', id: 'edit_registration')
 
 .padded_page_span.section#overview
   = render partial: 'head'
@@ -13,7 +18,7 @@
 
       %p= I18n.t('view.info')
       %p
-        You can also #{link_with_privacy_act_to 'update your voter information', :edit_registration}#{" or #{link_with_privacy_act_to 'apply for an absentee ballot', :request_absentee_registration}".html_safe if update_ab}.
+        You can also #{edit_link_1}#{" or #{link_with_privacy_act_to 'apply for an absentee ballot', :request_absentee_registration}".html_safe if update_ab}.
 
     .summary
       .body
@@ -166,6 +171,6 @@
         = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Mark Your Absentee Ballot Online: #{link_to 'learn more', :online_ballot_marking_page, target: '_blank'} or #{link_to 'get started now', '#', class: 'submit'}" }
     - else
       .form-actions
-        = link_with_privacy_act_to "Update Your Voter Information", :edit_registration, class: 'btn', id: 'edit_registration'
+        = edit_link_2
         - if update_ab
           = link_with_privacy_act_to "Apply for an Absentee Ballot", :request_absentee_registration, class: 'btn pull-right'
