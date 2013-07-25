@@ -81,14 +81,6 @@ localities:
   phone: "(540) 839 - 7266"
 
 
-- name: "BEDFORD CITY"
-  addressline: "215 EAST MAIN STREET  "
-  city: "BEDFORD"
-  state: "VA"
-  zip: "24523-2012"
-  phone: "(540) 587 - 6007"
-
-
 - name: "BEDFORD COUNTY"
   addressline: "COUNTY ADMINISTRATION BLDG 122 E MAIN ST STE 204 "
   city: "BEDFORD"
@@ -889,6 +881,14 @@ localities:
   phone: "(540) 564 - 3055"
 
 
+- name: "RUSSELL COUNTY"
+  addressline: "COURTHOUSE ANNEX 96 RUSSELL ST PO BOX 383"
+  city: "LEBANON"
+  state: "VA"
+  zip: "24266"
+  phone: "(276) 889 - 8006"
+
+
 - name: "SALEM CITY"
   addressline: "PO BOX 203  "
   city: "SALEM"
@@ -1063,3 +1063,4 @@ localities:
   state: "VA"
   zip: "23690"
   phone: "(757) 890 - 3440"
+
