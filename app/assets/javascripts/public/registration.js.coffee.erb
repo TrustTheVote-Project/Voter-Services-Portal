@@ -12,6 +12,7 @@ class window.Registration
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
     @editMailingAddressAtProtectedVoter = ko.observable($("input#edit_mailing_address_at_protected_voter").val() == 'true')
     @dmvIdCheckbox = <%= AppConfig['dmv_id_checkbox'] %>
+    @personalDataOnEligibilityPage = <%= AppConfig['personal_data_on_eligibility_page'] %>
     @paperlessSubmission = ko.observable()
 
     @showAssistantDetails = ko.computed =>
@@ -99,9 +100,9 @@ class window.Registration
 
       errors.push("Voting rights criteria") if @rightsNotFilled()
 
-      errors.push('Date of birth') unless @dob()
-      errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
-      errors.push('<%= I18n.t('dmvid') %>') if @dmvIdCheckbox and !isDmvId(@dmvId()) and !@noDmvId()
+      if @personalDataOnEligibilityPage
+        @validatePersonalData(errors)
+
       errors
 
     @eligibilityInvalid = ko.computed =>
@@ -162,9 +163,17 @@ class window.Registration
           if @domestic() and !@domesticMAFilled()
             errors.push("Protected voter mailing address")
 
+      if !@personalDataOnEligibilityPage
+        @validatePersonalData(errors)
+
       errors
 
     @identityInvalid = ko.computed => @identityErrors().length > 0
+
+  validatePersonalData: (errors) ->
+    errors.push('Date of birth') unless @dob()
+    errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
+    errors.push('<%= I18n.t('dmvid') %>') if @dmvIdCheckbox and !isDmvId(@dmvId()) and !@noDmvId()
 
   initAddressFields: ->
     @maIsDifferent          = ko.observable(false)
@@ -678,13 +687,13 @@ class window.Registration
 
   checkEligibility: (_, e) =>
     return if $(e.target).hasClass('disabled')
-    if @isEligible()
-      @gotoPage('identity')
-    else
-      if @allowInelligibleToCompleteForm()
+    if @isEligible() or @allowInelligibleToCompleteForm()
+      if @personalDataOnEligibilityPage
         @gotoPage('identity')
       else
-        @gotoPage('ineligible')
+        @lookupRecord(_, e)
+    else
+      @gotoPage('ineligible')
 
   onLookupResult: (data) =>
     @paperlessSubmission(data.dmv_match)
@@ -720,3 +729,23 @@ class window.Registration
         dmv_id:                         @dmvId()
       }}, @onLookupResult
 
+  nextFromEligibility: (_, e) =>
+    if @personalDataOnEligibilityPage
+      @checkEligibility(_, e)
+    else
+      @gotoPage('identity', e)
+
+  nextFromIdentity: (_, e) =>
+    if !@personalDataOnEligibilityPage
+      @checkEligibility(_, e)
+    else
+      @lookupRecord(_, e)
+
+  backFromIdentity: (_, e) =>
+    @gotoPage('eligibility', e)
+
+  backFromIneligible: (_, e) =>
+    if @personalDataOnEligibilityPage
+      @gotoPage('eligibility', e)
+    else
+      @gotoPage('identity', e)

@@ -46,7 +46,6 @@ class NewRegistration extends Registration
 
   prevPage: => window.history.back()
   eligibilityPage: (_, e) => @gotoPage('eligibility', e)
-  nextFromIdentity: (_, e) => @lookupRecord(_, e)
   nextFromAddress: (_, e) => @gotoPage('options', e)
   nextFromOptions: (_, e) => @gotoPage('confirm', e)
   nextFromConfirm: (_, e) => @gotoPage('oath', e)

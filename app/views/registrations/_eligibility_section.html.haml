@@ -18,13 +18,14 @@
 
   = render partial: 'eligibility_rights', locals: { f: f }
 
-  .partition
-    .date
-      %label{ for: 'registration_dob_2i_' } Date of birth
-      = bound_date f, :dob, :start_year => Date.today.year - 120, :end_year => Date.today.year - 17
+  - if AppConfig['personal_data_on_eligibility_page']
+    .partition
+      .date
+        %label{ for: 'registration_dob_2i_' } Date of birth
+        = bound_date f, :dob, :start_year => Date.today.year - 120, :end_year => Date.today.year - 17
 
-  = render partial: 'eligibility_ssn', locals: { f: f }
-  = render partial: 'eligibility_dmvid', locals: { f: f }
+    = render partial: 'eligibility_ssn', locals: { f: f }
+    = render partial: 'eligibility_dmvid', locals: { f: f }
 
   .form-actions
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: checkEligibility, css: { disabled: eligibilityInvalid }'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextFromEligibility, css: { disabled: eligibilityInvalid }'

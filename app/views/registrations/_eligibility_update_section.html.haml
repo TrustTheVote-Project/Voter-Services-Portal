@@ -24,8 +24,9 @@
         %label{ for: 'registration_residence_outside' } #{res_out_label}
 
   = render partial: 'eligibility_rights', locals: { f: f }
-  = render partial: 'eligibility_ssn', locals: { f: f }
-  = render partial: 'eligibility_dmvid', locals: { f: f }
+  - if AppConfig['personal_data_on_eligibility_page']
+    = render partial: 'eligibility_ssn', locals: { f: f }
+    = render partial: 'eligibility_dmvid', locals: { f: f }
 
   .form-actions
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: checkEligibility, css: { disabled: eligibilityInvalid }'
+    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextFromEligibility, css: { disabled: eligibilityInvalid }'
