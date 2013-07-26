@@ -63,7 +63,7 @@ class RegistrationForXML
   end
 
   def changing_name?
-    @r.pr_status == '1' && @r.full_name != @r.pr_full_name
+    @r.pr_status == '1'
   end
 
   def ca_zip
