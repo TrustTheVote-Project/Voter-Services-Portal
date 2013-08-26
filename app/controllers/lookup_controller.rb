@@ -9,7 +9,7 @@ class LookupController < ApplicationController
     render json: { success: true, items: LookupService.absentee_status_history(reg.voter_id, reg.dob, reg.vvr_county_or_city) }
   rescue LookupApi::RecordNotFound
     render json: { success: false, message: "Records not found." }
-  rescue LookupApi::Timeout
+  rescue LookupApi::LookupTimeout
     render json: { success: false, message: "Servers are busy. Please retry later." }
   end
 
