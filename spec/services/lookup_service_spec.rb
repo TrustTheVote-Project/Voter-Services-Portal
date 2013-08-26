@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe LookupService, :focus do
+describe LookupService do
 
   let(:no_match) { { registered: false, dmv_match: false } }
 
