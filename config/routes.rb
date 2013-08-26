@@ -39,7 +39,8 @@ VaVote::Application.routes.draw do
   end
   get '/voter_card.pdf' => 'voter_cards#show', format: 'pdf', as: 'voter_card'
 
-  get '/lookup/registration'  => 'lookup#registration'
+  get '/lookup/registration'            => 'lookup#registration'
+  get '/lookup/absentee_status_history' => 'lookup#absentee_status_history'
 
   resource :form, only: [] do
     member do

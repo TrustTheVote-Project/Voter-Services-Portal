@@ -1,3 +1,4 @@
+- @page_id = 'registration_details'
 - reg = RegistrationDetailsPresenter.new(@registration)
 - show_missing = AppConfig['voter_info_show_missing_items']
 - update_ab = AppConfig['update_reg_domestic_with_absentee_allowed']
@@ -122,10 +123,34 @@
         .body
           %h3 My Ballot
 
-    - if show_missing
-      .accordion.summary
-        .body
-          %h3 Absentee
+    .accordion.summary.absentee_status{ 'data-bind' => 'with: absenteeStatus' }
+      .body
+        %h3
+          = link_to "Show", '#', class: 'toggle'
+          = I18n.t('view.absentee_status.title')
+        .area{ 'data-bind' => "template: { name: templateName, data: data }" }
+
+    %script{ type: 'text/html', id: 'loading' }
+      .loading.left-padded Requesting. Please wait&hellip;
+    %script{ type: 'text/html', id: 'absentee-status-error' }
+      .left-padded{ 'data-bind' => 'text: message' }
+    %script{ type: 'text/html', id: 'absentee-status-history' }
+      %table.table
+        %thead
+          %tr
+            %th Request
+            %th Action
+            %th Date
+            %th Notes
+            %th Registrar
+        %tbody{ 'data-bind' => "foreach: items" }
+          %tr
+            %td{ 'data-bind' => "text: request" }
+            %td{ 'data-bind' => "text: action" }
+            %td{ 'data-bind' => "text: date" }
+            %td{ 'data-bind' => "text: notes" }
+            %td{ 'data-bind' => "text: registrar" }
+
 
     - if show_missing
       .accordion.summary

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe LookupService do
+describe LookupService, :focus do
 
   let(:no_match) { { registered: false, dmv_match: false } }
 
@@ -42,6 +42,36 @@ describe LookupService do
 
     it 'should hit protected record' do
       expect(lookup('000000001')).to eq({ registered: true, dmv_match: true })
+    end
+  end
+
+  describe 'absentee_status_history' do
+    let(:voter_id)    { '600000000' }
+    let(:election_id) { "6002FDB4-FC9C-4F36-A418-C0BDFFF2E579" }
+    let(:dob)         { Date.today }
+    let(:locality)    { 'NORFOLK CITY' }
+
+    it 'should return elections details' do
+      LookupService.should_receive(:collect_election_ids_for_voter).with(voter_id).and_return([ election_id ])
+      LookupService.should_receive(:collect_elections_details).with(voter_id, [ election_id ], dob, locality)
+      LookupService.absentee_status_history(voter_id, dob, locality)
+    end
+
+    it 'should collect election ids', :vcr do
+      ids = LookupService.send(:collect_election_ids_for_voter, voter_id)
+      expect(ids).to eq [ election_id ]
+    end
+
+    it 'should collect election details', :vcr do
+      res = LookupService.send(:collect_elections_details, voter_id, [ election_id ], dob, locality)
+      expect(res.size).to eq 6
+      expect(res[2]).to eq({
+        request:    'AbsenteeRequest',
+        action:     'reject',
+        date:       '10 Oct 2012',
+        notes:      'rejectUnsigned',
+        registrar:  'York County General Registrar Clerk 17'
+      })
     end
   end
 

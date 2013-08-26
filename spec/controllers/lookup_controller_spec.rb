@@ -26,4 +26,13 @@ describe LookupController do
     end
   end
 
+  describe 'absentee_status_history' do
+    it 'should return success' do
+      get :absentee_status_history, voter_id: "600000000"
+      expect(response.body).to eq({ success: true, items: [ ] }.to_json)
+    end
+
+    it 'should return failure'
+  end
+
 end

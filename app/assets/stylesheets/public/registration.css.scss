@@ -417,6 +417,10 @@ table.properties {
   table.area .l {
     width: 150px;
   }
+
+  .left-padded {
+    margin-left: 8px;
+  }
 }
 
 input[type="radio"][disabled], input[type="checkbox"][disabled], input[type="radio"][readonly], input[type="checkbox"][readonly] {

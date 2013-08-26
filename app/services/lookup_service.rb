@@ -11,7 +11,65 @@ class LookupService < LookupApi
     { registered: false, dmv_match: false }
   end
 
+  # Returns absentee status items in an array.
+  # Raises: LookupApi::RecordNotFound if record wasn't found
+  # for whatever reason.
+  def self.absentee_status_history(voter_id, dob, locality)
+    election_ids = collect_election_ids_for_voter(voter_id)
+    return collect_elections_details(voter_id, election_ids, dob, locality)
+  rescue Timeout::Error
+    raise LookupTimeout
+  end
+
   private
+
+  def self.collect_election_ids_for_voter(voter_id)
+    q = { voterID: voter_id }
+
+    xml = parse_uri('electionsByVoter', q) do |res, method = nil|
+      raise RecordNotFound if res.code != '200'
+      res.body
+    end
+
+    doc = Nokogiri::XML::Document.parse(xml)
+    doc.remove_namespaces!
+    doc.css('vip_object > election').map do |o|
+      (o.css('election').first)['id']
+    end
+  end
+
+  def self.collect_elections_details(voter_id, election_ids, dob, locality)
+    election_ids.map do |election_id|
+      collect_election_details(voter_id, election_id, dob, locality)
+    end.flatten
+  end
+
+  def self.collect_election_details(voter_id, election_id, dob, locality)
+    q = {
+      voterIDnumber:  voter_id,
+      localityName:   locality,
+      dobMonth:       dob.month,
+      dobDay:         dob.day,
+      dobYear:        dob.year,
+      electionUID:    election_id }
+
+    xml = parse_uri('voterAdminHistoryByVID', q) do |res, method = nil|
+      raise RecordNotFound if res.code != '200'
+      res.body
+    end
+
+    doc = Nokogiri::XML::Document.parse(xml)
+    doc.remove_namespaces!
+    doc.css('voterTransactionRecord').map do |vtr|
+      date      = vtr.css('date').text
+
+      { request:   vtr.css('form type').text,
+        action:    vtr.css('action').text,
+        date:      Date.parse(date).strftime('%d %b %Y'),
+        registrar: vtr.css('leo').text.to_s.strip,
+        notes:     vtr.css('notes').text.to_s.strip }
+    end
+  end
 
   def self.dmv_address_lookup(r)
     parse(send_request(r))
