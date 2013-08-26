@@ -48,11 +48,6 @@ VaVote::Application.routes.draw do
     end
   end
 
-  namespace :admin do
-    root to: 'log_records#index'
-    resources :log_records, only: [ :index, :show ]
-  end
-
   namespace :api do
     get '/search(.json)' => 'registrations#show', format: 'json'
   end
