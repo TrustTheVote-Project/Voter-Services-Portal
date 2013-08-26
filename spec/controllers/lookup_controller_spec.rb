@@ -27,12 +27,22 @@ describe LookupController do
   end
 
   describe 'absentee_status_history' do
-    it 'should return success' do
-      get :absentee_status_history, voter_id: "600000000"
-      expect(response.body).to eq({ success: true, items: [ ] }.to_json)
+    let(:reg) { stub(voter_id: "600000000", dob: 30.years.ago, vvr_county_or_city: 'NORFOLK CITY') }
+
+    before do
+      controller.stub(current_registration: reg)
     end
 
-    it 'should return failure'
+    it 'should return success', :vcr do
+      get :absentee_status_history, voter_id: "600000000"
+      expect(response.body).to eq("{\"success\":true,\"items\":[{\"request\":\"AbsenteeRequest\",\"action\":\"receive\",\"date\":\"10 Oct 2012\",\"registrar\":\"\",\"notes\":\"\"},{\"request\":\"AbsenteeRequest\",\"action\":\"approve\",\"date\":\"10 Oct 2012\",\"registrar\":\"York County General Registrar Clerk 17\",\"notes\":\"\"},{\"request\":\"AbsenteeRequest\",\"action\":\"reject\",\"date\":\"10 Oct 2012\",\"registrar\":\"York County General Registrar Clerk 17\",\"notes\":\"rejectUnsigned\"},{\"request\":\"AbsenteeBallot\",\"action\":\"receive\",\"date\":\"10 Oct 2012\",\"registrar\":\"\",\"notes\":\"\"},{\"request\":\"AbsenteeBallot\",\"action\":\"approve\",\"date\":\"10 Oct 2012\",\"registrar\":\"York County General Registrar Clerk 17\",\"notes\":\"\"},{\"request\":\"AbsenteeBallot\",\"action\":\"reject\",\"date\":\"10 Oct 2012\",\"registrar\":\"York County General Registrar Clerk 17\",\"notes\":\"rejectPreviousVoteAbsentee\"}]}")
+    end
+
+    it 'should return failure' do
+      LookupService.should_receive(:absentee_status_history).and_raise(LookupApi::RecordNotFound)
+      get :absentee_status_history, voter_id: "600000000"
+      expect(response.body).to eq({ success: false, message: "Records not found." }.to_json)
+    end
   end
 
 end
