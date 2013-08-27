@@ -133,6 +133,7 @@
         .area{ 'data-bind' => "template: { name: templateName, data: data }" }
 
     %script{ type: 'text/html', id: 'my-ballot' }
+      %p.left-padded= I18n.t('view.my_ballot.prompt')
       %table.table
         %tbody{ 'data-bind' => 'foreach: elections' }
           %tr

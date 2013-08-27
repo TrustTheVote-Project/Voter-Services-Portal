@@ -211,3 +211,4 @@ en:
       title: Absentee Status
     my_ballot:
       title: My Ballot
+      prompt: "You can view your ballot for the following upcoming elections:"
