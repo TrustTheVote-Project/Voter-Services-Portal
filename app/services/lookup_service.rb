@@ -21,21 +21,29 @@ class LookupService < LookupApi
     raise LookupTimeout
   end
 
+  def self.voter_elections(voter_id)
+    Rails.cache.fetch("voter_elections:#{voter_id}", expires_in: 1.hour) do
+      q = { voterID: voter_id }
+
+      xml = parse_uri('electionsByVoter', q) do |res, method = nil|
+        raise RecordNotFound if res.code != '200'
+        res.body
+      end
+
+      doc = Nokogiri::XML::Document.parse(xml)
+      doc.remove_namespaces!
+      doc.css('vip_object > election').map do |o|
+        id = (o.css('election').first)['id']
+        name = (o.css('name').first).text
+        { id: id, name: name }
+      end
+    end
+  end
+
   private
 
   def self.collect_election_ids_for_voter(voter_id)
-    q = { voterID: voter_id }
-
-    xml = parse_uri('electionsByVoter', q) do |res, method = nil|
-      raise RecordNotFound if res.code != '200'
-      res.body
-    end
-
-    doc = Nokogiri::XML::Document.parse(xml)
-    doc.remove_namespaces!
-    doc.css('vip_object > election').map do |o|
-      (o.css('election').first)['id']
-    end
+    voter_elections(voter_id).map { |e| e[:id] }
   end
 
   def self.collect_elections_details(voter_id, election_ids, dob, locality)

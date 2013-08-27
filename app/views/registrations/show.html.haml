@@ -118,10 +118,12 @@
         .body
           %h3 Polling Place
 
-    - if show_missing
-      .accordion.summary
-        .body
-          %h3 My Ballot
+    .accordion.summary.my_ballot{ 'data-bind' => 'with: myBallot' }
+      .body
+        %h3
+          = link_to "Show", '#', class: 'toggle'
+          = I18n.t('view.my_ballot.title')
+        .area{ 'data-bind' => "template: { name: templateName, data: data }" }
 
     .accordion.summary.absentee_status{ 'data-bind' => 'with: absenteeStatus' }
       .body
@@ -130,11 +132,14 @@
           = I18n.t('view.absentee_status.title')
         .area{ 'data-bind' => "template: { name: templateName, data: data }" }
 
-    %script{ type: 'text/html', id: 'loading' }
-      .loading.left-padded Requesting. Please wait&hellip;
-    %script{ type: 'text/html', id: 'absentee-status-error' }
-      .left-padded{ 'data-bind' => 'text: message' }
-    %script{ type: 'text/html', id: 'absentee-status-history' }
+    %script{ type: 'text/html', id: 'my-ballot' }
+      %table.table
+        %tbody{ 'data-bind' => 'foreach: elections' }
+          %tr
+            %td
+              %a{ 'data-bind' => 'text: name, attr: { href: url }' }
+
+    %script{ type: 'text/html', id: 'absentee-status' }
       %table.table
         %thead
           %tr
@@ -150,6 +155,12 @@
             %td{ 'data-bind' => "text: date" }
             %td{ 'data-bind' => "text: notes" }
             %td{ 'data-bind' => "text: registrar" }
+
+    %script{ type: 'text/html', id: 'error' }
+      .left-padded{ 'data-bind' => 'text: message' }
+
+    %script{ type: 'text/html', id: 'loading' }
+      .loading.left-padded Requesting. Please wait&hellip;
 
 
     - if show_missing

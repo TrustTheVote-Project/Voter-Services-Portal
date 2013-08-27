@@ -22,6 +22,8 @@ gem 'kaminari'
 gem 'country_select'
 gem 'state_select'
 gem 'redis'
+gem 'redis-rails'
+gem 'redis-store', '1.1.3'
 gem 'simple_form'
 
 gem 'kronic'

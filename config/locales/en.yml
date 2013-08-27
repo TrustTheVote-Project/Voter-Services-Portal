@@ -208,4 +208,6 @@ en:
     info: 'Your voter record is shown below, along with several kinds of additional information that you can view by clicking "SHOW"'
 
     absentee_status:
-      title: 'Absentee Status'
+      title: Absentee Status
+    my_ballot:
+      title: My Ballot

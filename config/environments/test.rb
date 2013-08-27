@@ -34,4 +34,6 @@ VaVote::Application.configure do
 
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
+
+  config.cache_store = :redis_store, "redis://localhost:6379/0/cache-test"
 end
