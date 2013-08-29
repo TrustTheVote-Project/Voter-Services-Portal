@@ -1,7 +1,7 @@
 class LookupController < ApplicationController
 
   rescue_from LookupApi::RecordNotFound do |ex|
-    render json: { success: false, message: "Records not found." }
+    render json: { success: true, items: [] }
   end
 
   rescue_from LookupApi::LookupTimeout do |ex|
@@ -26,7 +26,7 @@ class LookupController < ApplicationController
         name: e[:name] }
     end
 
-    render json: { success: true, elections: elections }
+    render json: { success: true, items: elections }
   end
 
 end

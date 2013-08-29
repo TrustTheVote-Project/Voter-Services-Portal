@@ -133,15 +133,20 @@
         .area{ 'data-bind' => "template: { name: templateName, data: data }" }
 
     %script{ type: 'text/html', id: 'my-ballot' }
-      %p.left-padded= I18n.t('view.my_ballot.prompt')
-      %table.table
-        %tbody{ 'data-bind' => 'foreach: elections' }
-          %tr
-            %td
-              %a{ 'data-bind' => 'text: name, attr: { href: url }' }
+      %p.left-padded{ 'data-bind' => 'if: items.length == 0' }
+        = I18n.t('view.my_ballot.none')
+      %div{ 'data-bind' => 'if: items.length > 0' }
+        %p.left-padded= I18n.t('view.my_ballot.prompt')
+        %table.table
+          %tbody{ 'data-bind' => 'foreach: items' }
+            %tr
+              %td
+                %a{ 'data-bind' => 'text: name, attr: { href: url }' }
 
     %script{ type: 'text/html', id: 'absentee-status' }
-      %table.table
+      %p.left-padded{ 'data-bind' => 'if: items.length == 0' }
+        = I18n.t('view.absentee_status.none')
+      %table.table{ 'data-bind' => 'if: items.length > 0' }
         %thead
           %tr
             %th Request
