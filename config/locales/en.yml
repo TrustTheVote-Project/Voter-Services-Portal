@@ -210,7 +210,18 @@ en:
     absentee_status:
       title: Absentee Status
       none: You have no pending absentee requests for upcoming elections.
+      request:
+        AbsenteeRequest: Absentee Request
+        AbsenteeBallot: Absentee Ballot
+      action:
+        approve: Approve
+        receive: Receive
+        reject: Reject
+      notes:
+        rejectUnsigned: Reject Unsigned
+        rejectPreviousVoteAbsentee: Reject Previous Vote Absentee
     my_ballot:
       title: My Ballot
       none: Ballot information for upcoming elections are not currently available.
       prompt: "You can view your ballot for the following upcoming elections:"
+

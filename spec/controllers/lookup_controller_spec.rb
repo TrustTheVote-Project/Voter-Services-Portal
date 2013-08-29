@@ -27,7 +27,7 @@ describe LookupController do
   end
 
   context 'specific registration' do
-    let(:reg) { stub(voter_id: "600000000", dob: 30.years.ago, vvr_county_or_city: 'NORFOLK CITY') }
+    let(:reg) { stub(voter_id: "600000000", dob: Date.parse('1979-10-24'), vvr_county_or_city: 'NORFOLK CITY') }
 
     before do
       controller.stub(current_registration: reg)
@@ -36,13 +36,13 @@ describe LookupController do
     describe 'absentee_status_history' do
       it 'should return success', :vcr do
         get :absentee_status_history, voter_id: "600000000"
-        expect(response.body).to eq("{\"success\":true,\"items\":[{\"request\":\"AbsenteeRequest\",\"action\":\"receive\",\"date\":\"10 Oct 2012\",\"registrar\":\"\",\"notes\":\"\"},{\"request\":\"AbsenteeRequest\",\"action\":\"approve\",\"date\":\"10 Oct 2012\",\"registrar\":\"York County General Registrar Clerk 17\",\"notes\":\"\"},{\"request\":\"AbsenteeRequest\",\"action\":\"reject\",\"date\":\"10 Oct 2012\",\"registrar\":\"York County General Registrar Clerk 17\",\"notes\":\"rejectUnsigned\"},{\"request\":\"AbsenteeBallot\",\"action\":\"receive\",\"date\":\"10 Oct 2012\",\"registrar\":\"\",\"notes\":\"\"},{\"request\":\"AbsenteeBallot\",\"action\":\"approve\",\"date\":\"10 Oct 2012\",\"registrar\":\"York County General Registrar Clerk 17\",\"notes\":\"\"},{\"request\":\"AbsenteeBallot\",\"action\":\"reject\",\"date\":\"10 Oct 2012\",\"registrar\":\"York County General Registrar Clerk 17\",\"notes\":\"rejectPreviousVoteAbsentee\"}]}")
+        expect(response.body).to eq("{\"success\":true,\"items\":[{\"request\":\"Absentee Request\",\"action\":\"Receive\",\"date\":\"10 Oct 2012\",\"registrar\":\"\",\"notes\":\"\"},{\"request\":\"Absentee Request\",\"action\":\"Approve\",\"date\":\"10 Oct 2012\",\"registrar\":\"York County General Registrar Clerk 17\",\"notes\":\"\"},{\"request\":\"Absentee Request\",\"action\":\"Reject\",\"date\":\"10 Oct 2012\",\"registrar\":\"York County General Registrar Clerk 17\",\"notes\":\"Reject Unsigned\"},{\"request\":\"Absentee Ballot\",\"action\":\"Receive\",\"date\":\"10 Oct 2012\",\"registrar\":\"\",\"notes\":\"\"},{\"request\":\"Absentee Ballot\",\"action\":\"Approve\",\"date\":\"10 Oct 2012\",\"registrar\":\"York County General Registrar Clerk 17\",\"notes\":\"\"},{\"request\":\"Absentee Ballot\",\"action\":\"Reject\",\"date\":\"10 Oct 2012\",\"registrar\":\"York County General Registrar Clerk 17\",\"notes\":\"Reject Previous Vote Absentee\"}]}")
       end
 
       it 'should return failure' do
         LookupService.should_receive(:absentee_status_history).and_raise(LookupApi::RecordNotFound)
         get :absentee_status_history, voter_id: "600000000"
-        expect(response.body).to eq({ success: false, message: "Records not found." }.to_json)
+        expect(response.body).to eq({ success: true, items: [] }.to_json)
       end
     end
 
@@ -50,13 +50,13 @@ describe LookupController do
       it 'should return data', :vcr do
         get :my_ballot
         elections = [ { url: my_ballot_election_path('6002FDB4-FC9C-4F36-A418-C0BDFFF2E579'), name: '2013 November General' } ]
-        expect(response.body).to eq({ success: true, elections: elections }.to_json)
+        expect(response.body).to eq({ success: true, items: elections }.to_json)
       end
 
       it 'should return failure' do
         LookupService.should_receive(:voter_elections).and_raise(LookupApi::RecordNotFound)
         get :my_ballot
-        expect(response.body).to eq({ success: false, message: "Records not found." }.to_json)
+        expect(response.body).to eq({ success: true, items: [] }.to_json)
       end
     end
   end
