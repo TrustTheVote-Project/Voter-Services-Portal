@@ -93,14 +93,14 @@ describe LookupService do
       expect(cs.size).to eq 9
       expect(cs[0]).to eq(sort_order: 1, type: 'Contest', office: 'President and Vice President', candidates: [
         { name: 'Barack Obama', sort_order: 1, candidate_url: 'http://www.barackobama.com', party: 'Democrat', email: nil },
-        { name: 'Virgil Goode', sort_order: 1, candidate_url: 'http://www.goodeforpresident2012.com', party: 'Constitution', email: nil },
         { name: 'Mitt Romney',  sort_order: 2, candidate_url: 'http://www.mittromney.com', party: 'Republican', email: 'info@mittromney.com' },
         { name: 'Gary Johnson', sort_order: 3, candidate_url: 'http://www.garyjohnson2012.com', party: 'Libertarian', email: nil },
+        { name: 'Virgil Goode', sort_order: 6, candidate_url: 'http://www.goodeforpresident2012.com', party: 'Constitution', email: nil },
         { name: 'Jill Stein',   sort_order: 7, candidate_url: 'http://www.jillstein.org', party: 'Green', email: 'wolf@jillstein.org' }
       ])
 
-      expect(cs[4]).to eq(sort_order: 101, type: 'Referendum', office: 'Proposed Constitutional Amendment Question 1', candidates: [
-        { name: 'Shall Section 11 of Article I (Bill of Rights) of the Constitution of Virginia be amended (i) to require that eminent domain only be exercised where the property taken or damaged is for public use and, except for utilities or the elimination of a public nuisance, not where the primary use is for private gain, private benefit, private enterprise, increasing jobs, increasing tax revenue, or economic development; (ii) to define what is included in just compensation for such taking or damaging of property; and (iii) to prohibit the taking or damaging of more private property than is necessary for the public use?' }
+      expect(cs[4]).to eq(sort_order: 102, type: 'Referendum', office: 'Proposed Constitutional Amendment Question 2', candidates: [
+        { name: 'Shall Section 6 of Article IV (Legislature) of the Constitution of Virginia concerning legislative sessions be amended to allow the General Assembly to delay by no more than one week the fixed starting date for the reconvened or "veto" session when the General Assembly meets after a session to consider the bills returned to it by the Governor with vetoes or amendments?' }
       ])
     end
 
