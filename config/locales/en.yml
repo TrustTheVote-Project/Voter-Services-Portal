@@ -225,3 +225,9 @@ en:
       none: Ballot information for upcoming elections are not currently available.
       prompt: "You can view your ballot for the following upcoming elections:"
 
+  ballot_info:
+    title: "Upcoming Election: Your Sample Ballot"
+    subtitle: "You can see your sample ballot below, for the upcoming election"
+    header:
+      title: "Sample Ballot:"
+      precinct: "Precinct"

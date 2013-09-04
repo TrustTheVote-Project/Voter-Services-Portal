@@ -27,7 +27,7 @@ class LookupController < ApplicationController
     reg = current_registration
 
     elections = LookupService.voter_elections(reg.voter_id).map do |e|
-      { url:  my_ballot_election_path(e[:id]),
+      { url:  ballot_info_path(e[:id]),
         name: e[:name] }
     end
 

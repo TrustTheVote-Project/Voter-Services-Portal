@@ -40,6 +40,29 @@ class LookupService < LookupApi
     end
   end
 
+  def self.ballot_info(voter_id, election_uid)
+    Rails.cache.fetch("ballot_info:#{voter_id}:#{election_uid}", expires_in: Rails.env.test? ? 1.second : 1.hour) do
+      q = { voterID: voter_id, electionUID: election_uid }
+
+      xml = parse_uri('ballotInfoByVoter', q) do |res, method = nil|
+        raise RecordNotFound if res.code != '200'
+        res.body
+      end
+
+      doc = Nokogiri::XML::Document.parse(xml)
+      doc.remove_namespaces!
+
+      { election: {
+          name: doc.css('election name').first.text.strip,
+          date: Date.parse(doc.css('election date').first.text)
+        },
+
+        locality: doc.css('locality name').first.text,
+        precinct: doc.css('precinct name').first.text
+      }
+    end
+  end
+
   private
 
   def self.collect_election_ids_for_voter(voter_id)

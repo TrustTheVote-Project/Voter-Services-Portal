@@ -48,7 +48,7 @@ describe LookupService do
   describe 'absentee_status_history' do
     let(:voter_id)    { '600000000' }
     let(:election_id) { "6002FDB4-FC9C-4F36-A418-C0BDFFF2E579" }
-    let(:dob)         { Date.today }
+    let(:dob)         { Date.parse('2013-09-04') }
     let(:locality)    { 'NORFOLK CITY' }
 
     it 'should return elections details' do
@@ -72,6 +72,27 @@ describe LookupService do
         notes:      'rejectUnsigned',
         registrar:  'York County General Registrar Clerk 17'
       })
+    end
+  end
+
+  describe 'ballot_info' do
+    let(:voter_id)    { '600000000' }
+    let(:election_id) { "6002FDB4-FC9C-4F36-A418-C0BDFFF2E579" }
+
+    it 'should return ballot info', :vcr do
+      info = LookupService.ballot_info(voter_id, election_id)
+
+      # header
+      expect(info[:election][:name]).to eq "2012 November General"
+      expect(info[:election][:date]).to eq Date.parse('2012-11-06')
+      expect(info[:locality]).to eq "FAIRFAX COUNTY"
+      expect(info[:precinct]).to eq "609 - MARLAN"
+    end
+
+    it 'should raise error', :vcr do
+      expect {
+        LookupService.ballot_info(nil, nil)
+      }.to raise_error LookupApi::RecordNotFound
     end
   end
 

@@ -43,7 +43,7 @@ VaVote::Application.routes.draw do
   get '/lookup/absentee_status_history' => 'lookup#absentee_status_history'
   get '/lookup/my_ballot'               => 'lookup#my_ballot'
 
-  get '/my_ballot/election/:uid'        => 'my_ballot_elections#show', as: 'my_ballot_election'
+  get '/ballot_info/:election_uid'      => 'ballot_info#show', as: 'ballot_info'
 
   resource :form, only: [] do
     member do
