@@ -172,3 +172,6 @@ dmv_id_checkbox: true
 
 # TRUE to place SSN / DMVID / DOB on eligibility page, FALSE -- on identity
 personal_data_on_eligibility_page: true
+
+# URL for the link in the ID requirements row of the registration details page
+id_requirement_url: http://sbe.virginia.gov/VotinginPerson.html
