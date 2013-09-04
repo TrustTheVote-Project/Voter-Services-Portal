@@ -52,13 +52,37 @@ class LookupService < LookupApi
       doc = Nokogiri::XML::Document.parse(xml)
       doc.remove_namespaces!
 
+      contests = doc.css('contest').map do |c|
+        type = c.css('contest_type').first.text
+
+        candidates = c.css('candidate').map do |a|
+          candidate = { name: a.css('name').first.text }
+
+          if type =~ /Contest/i
+            candidate[:sort_order] = a.css('sort_order').first.text.to_i
+            candidate[:candidate_url] = a.css('candidate_url').first.text
+            candidate[:party] = a.css('party name').first.text
+            candidate[:email] = a.css('email').first.try(:text)
+          end
+
+          candidate
+        end.sort_by { |e| e[:sort_order] }
+
+        { type: type,
+          sort_order: c.css('sort_order').first.text.to_i,
+          office: c.css('office').first.text,
+          candidates: candidates }
+      end
+
       { election: {
           name: doc.css('election name').first.text.strip,
           date: Date.parse(doc.css('election date').first.text)
         },
 
         locality: doc.css('locality name').first.text,
-        precinct: doc.css('precinct name').first.text
+        precinct: doc.css('precinct name').first.text,
+
+        contests: contests.sort_by { |e| e[:sort_order] }
       }
     end
   end

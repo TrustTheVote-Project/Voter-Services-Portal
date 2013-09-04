@@ -9,3 +9,7 @@
       #{@info.election_date}<br/>
       #{@info.election_name}<br/>
       #{@info.locality} #{I18n.t("ballot_info.header.precinct")} #{@info.precinct}
+
+  - @info.contests.each do |contest|
+    .row
+      = render partial: contest[:type].downcase, locals: { contest: contest }

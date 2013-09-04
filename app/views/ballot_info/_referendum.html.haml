@@ -1,0 +1,15 @@
+.row.referendum
+  .span10
+    %p
+      %strong= contest[:office]
+
+  - contest[:candidates].each do |candidate|
+    .row
+      .span9
+        #{candidate[:name]}
+    .row
+      .span9
+        #{check_box_tag 'yes' } Yes
+    .row
+      .span9
+        #{check_box_tag 'no' } No

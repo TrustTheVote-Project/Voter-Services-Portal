@@ -1,0 +1,17 @@
+.row.contest
+  .span10
+    %p
+      %strong= contest[:office]
+
+    - contest[:candidates].each do |candidate|
+      .row
+        .span1
+          = image_tag "candidate.png", size: "60x90"
+        .span8
+          #{candidate[:name]}<br/>
+          #{candidate[:party]}
+          - if candidate[:candidate_url].present?
+            <br/>#{link_to candidate[:candidate_url]}
+          - if candidate[:email].present?
+            <br/>#{mail_to candidate[:email]}
+

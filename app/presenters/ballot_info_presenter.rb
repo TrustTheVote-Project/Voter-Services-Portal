@@ -20,4 +20,8 @@ class BallotInfoPresenter
     @i[:precinct]
   end
 
+  def contests
+    @i[:contests]
+  end
+
 end
