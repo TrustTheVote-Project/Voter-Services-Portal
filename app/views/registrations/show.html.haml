@@ -85,17 +85,16 @@
               %th Address confidentiality:
               %td Active
 
-    - if reg.voting_location_given?
+    - if (vlp = @registration.voting_location.present?) || show_missing
       .accordion.summary.voting-location
         .body
           %h3
-            = link_to "Show", '#', class: 'toggle'
-            Voting Location
-          .area
-            %table.table
-              %tr
-                %th &nbsp;
-                %td= reg.voting_location
+            - if vlp
+              = link_to "Show", '#', class: 'toggle'
+            = I18n.t('view.voting_location.title')
+          - if vlp
+            .area
+              .left-padded= @registration.voting_location
 
     - districts = reg.districts || []
     - if !districts.blank? || show_missing
@@ -112,11 +111,6 @@
                   %th &nbsp;
                   %td.l #{label}:
                   %td <em>#{v}</em>
-
-    - if show_missing
-      .accordion.summary
-        .body
-          %h3 Polling Place
 
     .accordion.summary.my_ballot{ 'data-bind' => 'with: myBallot' }
       .body
@@ -190,15 +184,16 @@
                   %td.l= s
                   %td <em>#{e}</em>
 
-    - if show_missing
+    - if (ebcp = @registration.electoral_board_contacts.present?) || show_missing
       .accordion.summary
         .body
-          %h3 Locality Voter Registration Office Contact Information
-
-    - if show_missing
-      .accordion.summary
-        .body
-          %h3 Locality Electoral Board Contact Information
+          %h3
+            - if ebcp
+              = link_to "Show", '#', class: 'toggle'
+            = I18n.t('view.electoral_board_contacts.title')
+          - if ebcp
+            .area
+              .left-padded= @registration.electoral_board_contacts
 
     - if no_forms?
       .info

@@ -72,6 +72,7 @@ describe RegistrationSearch do
         r.ppl_city.should           == "N TAZEWELL"
         r.ppl_state.should          == "VA"
         r.ppl_zip.should            == "24630"
+        r.voting_location.should    == "NUCKOLLS HALL, 515 FAIRGROUND RD, N TAZEWELL, VA, 24630"
       end
     end
 
@@ -83,6 +84,23 @@ describe RegistrationSearch do
         r.ppl_city.should           be_blank
         r.ppl_state.should          be_blank
         r.ppl_zip.should            be_blank
+        r.voting_location.should    be_blank
+      end
+    end
+  end
+
+  describe 'electoral_board_contacts' do
+    context 'given' do
+      let(:r) { search(600000008, 'TAZEWELL COUNTY') }
+      it 'should be set' do
+        r.electoral_board_contacts.should == "2769881305, PO BOX 201, TAZEWELL, VA, 24651-0201"
+      end
+    end
+
+    context 'not given' do
+      let(:r) { search(600000027, 'FAIRFAX COUNTY') }
+      it 'should be blank' do
+        r.electoral_board_contacts.should be_blank
       end
     end
   end

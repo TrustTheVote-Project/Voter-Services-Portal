@@ -224,6 +224,10 @@ en:
       title: My Ballot
       none: Ballot information for upcoming elections are not currently available.
       prompt: "You can view your ballot for the following upcoming elections:"
+    voting_location:
+      title: Voting Location
+    electoral_board_contacts:
+      title: Locality Electoral Board Contact Information
 
   ballot_info:
     title: "Upcoming Election: Your Sample Ballot"
