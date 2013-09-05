@@ -13,7 +13,7 @@ class BallotInfoPresenter
   end
 
   def locality
-    @i[:locality].capitalize
+    @i[:locality].titleize
   end
 
   def precinct
