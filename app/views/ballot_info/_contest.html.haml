@@ -8,7 +8,7 @@
         .check
         .span8
           #{candidate[:name]}<br/>
-          #{candidate[:party]}
+          %em= candidate[:party]
           - if (url = candidate[:candidate_url]).present?
             <br/>#{link_to url, url}
           - if candidate[:email].present?
