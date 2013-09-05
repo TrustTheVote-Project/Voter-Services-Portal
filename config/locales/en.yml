@@ -232,6 +232,7 @@ en:
   ballot_info:
     title: "Upcoming Election: Your Sample Ballot"
     subtitle: "You can see your sample ballot below, for the upcoming election"
+    election: Election
     header:
       title: "Sample Ballot:"
       precinct: "Precinct"

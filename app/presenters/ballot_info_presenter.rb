@@ -5,7 +5,7 @@ class BallotInfoPresenter
   end
 
   def election_name
-    @i[:election][:name]
+    "#{@i[:election][:name]} #{I18n.t('ballot_info.election')}"
   end
 
   def election_date

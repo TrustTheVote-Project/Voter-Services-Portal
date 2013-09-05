@@ -28,7 +28,7 @@ class LookupController < ApplicationController
 
     elections = LookupService.voter_elections(reg.voter_id).map do |e|
       { url:  ballot_info_path(e[:id]),
-        name: e[:name] }
+        name: [ e[:name], I18n.t('ballot_info.election') ].reject(&:blank?).join(' ') }
     end
 
     render json: { success: true, items: elections }
