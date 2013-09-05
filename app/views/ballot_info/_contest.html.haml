@@ -5,8 +5,7 @@
 
     - contest[:candidates].each do |candidate|
       .row
-        .span1
-          = image_tag "candidate.gif", size: "50x50"
+        .check
         .span8
           #{candidate[:name]}<br/>
           #{candidate[:party]}

@@ -175,3 +175,9 @@ personal_data_on_eligibility_page: true
 
 # URL for the link in the ID requirements row of the registration details page
 id_requirement_url: http://sbe.virginia.gov/VotinginPerson.html
+
+ballot_info:
+  # Sizes of the check-box like boxes on the ballot info page (in px)
+  check:
+    width: 23
+    height: 23
