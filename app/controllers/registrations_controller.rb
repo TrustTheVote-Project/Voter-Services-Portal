@@ -41,7 +41,7 @@ class RegistrationsController < ApplicationController
     @registration = Registration.new(data)
 
     if @registration.save
-      @submitted = finalize_create(active_form)
+      @paperless_submission = finalize_create(active_form)
     else
       active_form.touch
       flash.now[:error] = 'Please review your request data and try submitting again'
@@ -105,7 +105,7 @@ class RegistrationsController < ApplicationController
       active_form.touch
       redirect_to :edit_registration, alert: 'Please review your registration data and try again'
     else
-      @submitted = finalize_update(active_form)
+      @paperless_submission = finalize_update(active_form)
     end
   rescue ActiveForm::Expired
     render :expired
@@ -129,7 +129,9 @@ class RegistrationsController < ApplicationController
 
     active_form.unmark!
 
-    if submitted && reg.dmv_id.present?
+    paperless = submitted && reg.paperless_submission_allowed? && reg.dmv_id.present?
+
+    if paperless
       LogRecord.submit_new(reg, ses[:slr_id])
     else
       LogRecord.complete_new(reg, ses[:slr_id])
@@ -139,7 +141,7 @@ class RegistrationsController < ApplicationController
 
     RegistrationRepository.store_registration(ses, reg)
 
-    submitted
+    return paperless
   end
 
   # Finalizes the update record
@@ -161,7 +163,7 @@ class RegistrationsController < ApplicationController
     LogRecord.complete_update(reg, ses[:slr_id])
     ses[:slr_id] = nil
 
-    return submitted
+    return submitted && reg.paperless_submission_allowed? && reg.dmv_id.present?
   end
 
   def generate_pdf_form

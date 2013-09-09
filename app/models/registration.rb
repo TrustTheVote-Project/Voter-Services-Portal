@@ -230,6 +230,10 @@ class Registration < ActiveRecord::Base
     changed_keys.uniq - IGNORE_CHANGES_IN_KEYS
   end
 
+  def paperless_submission_allowed?
+    self.is_confidential_address != '1' || self.ca_type != 'TSC'
+  end
+
   private
 
   def review_absentee_until

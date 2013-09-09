@@ -1,11 +1,10 @@
 - @page_id = 'update_finalization'
-- paperless_submission = @submitted && @registration.dmv_id.present?
 
 = render partial: "search/steps", locals: { complete: true }
 
 .row
   .padded_page_span
-    - if paperless_submission
+    - if @paperless_submission
       = render partial: 'submitted_with_dmvid'
     - else
       = render partial: 'download', locals: { update: true }

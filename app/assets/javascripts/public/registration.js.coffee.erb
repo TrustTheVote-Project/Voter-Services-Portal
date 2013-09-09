@@ -13,7 +13,13 @@ class window.Registration
     @editMailingAddressAtProtectedVoter = ko.observable($("input#edit_mailing_address_at_protected_voter").val() == 'true')
     @dmvIdCheckbox = <%= AppConfig['dmv_id_checkbox'] %>
     @personalDataOnEligibilityPage = <%= AppConfig['personal_data_on_eligibility_page'] %>
-    @paperlessSubmission = ko.observable()
+    @paperlessPossible = ko.observable()
+
+    @initEligibilityFields()
+    @initIdentityFields()
+
+    @paperlessSubmission = ko.computed =>
+      @paperlessPossible() and @caType() != 'TSC'
 
     @showAssistantDetails = ko.computed =>
       el = $("input#display_assistant_details")
@@ -22,8 +28,6 @@ class window.Registration
       else
         el.attr('data-paper') == 'true'
 
-    @initEligibilityFields()
-    @initIdentityFields()
     @initAddressFields()
     @initOptionsFields()
     @initSummaryFields()
@@ -695,7 +699,7 @@ class window.Registration
       @gotoPage('ineligible')
 
   onLookupResult: (data) =>
-    @paperlessSubmission(data.dmv_match)
+    @paperlessPossible(data.dmv_match)
     if <%= AppConfig['enable_dmv_address_display'] %>
       a = data.address || @initialVvrAddress
       @vvrAddress1(a.address_1)
@@ -710,7 +714,7 @@ class window.Registration
     return if $(e.target).hasClass('disabled')
     @page('lookup_record')
 
-    if !<%= AppConfig['enable_dmvid_lookup'] %> or !filled(@dmvId()) or !filled(@ssn()) or @isConfidentialAddress()
+    if !<%= AppConfig['enable_dmvid_lookup'] %> or !filled(@dmvId()) or !filled(@ssn()) or (@isConfidentialAddress() and @caType() == 'TSC')
       return @onLookupResult({
         registered: false,
         dmv_match: false,

@@ -111,4 +111,12 @@ describe Registration do
     specify { Registration.new(citizen: '1', old_enough: '1', dob: 30.years.ago, ssn: '123123123', rights_revoked: '1', rights_felony: '1', rights_felony_restored: '0').should_not be_eligible }
     specify { Registration.new(citizen: '1', old_enough: '1', dob: 30.years.ago, ssn: '123123123', rights_revoked: '1', rights_felony: '1', rights_felony_restored: '1').should_not be_eligible }
   end
+
+  it 'should disallow paperless submission for TSC type of confidential address' do
+    Registration.new(ca_type: 'TSC', is_confidential_address: '1').should_not be_paperless_submission_allowed
+  end
+
+  it 'should allow paperless submission' do
+    Registration.new.should be_paperless_submission_allowed
+  end
 end

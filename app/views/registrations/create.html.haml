@@ -1,5 +1,4 @@
-- paperless_submission = @submitted && @registration.dmv_id.present?
-- @page_id = paperless_submission ? 'nr_submitted_with_dmvid' : 'nr_download'
+- @page_id = @paperless_submission ? 'nr_submitted_with_dmvid' : 'nr_download'
 
 = render partial: 'steps', locals: { complete: true }
 
@@ -11,10 +10,7 @@
 
 .row
   .padded_page_span
-    -# - if @registration.submission_failed
-    -#   %p TBD 310 error
-
-    - if paperless_submission
+    - if @paperless_submission
       = render partial: 'submitted_with_dmvid'
     - else
       = render partial: 'download'
