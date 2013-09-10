@@ -23,9 +23,9 @@ class LookupService < LookupApi
 
   def self.voter_elections(voter_id)
     Rails.cache.fetch("voter_elections:#{voter_id}", expires_in: 1.hour) do
-      q = { voterID: voter_id }
+      q = { voterIDnumber: voter_id }
 
-      xml = parse_uri('electionsByVoter', q) do |res, method = nil|
+      xml = parse_uri('GetVipElectionByVoterId', q) do |res, method = nil|
         raise RecordNotFound if res.code != '200'
         res.body
       end
@@ -42,9 +42,9 @@ class LookupService < LookupApi
 
   def self.ballot_info(voter_id, election_uid)
     Rails.cache.fetch("ballot_info:#{voter_id}:#{election_uid}", expires_in: Rails.env.test? ? 1.second : 1.hour) do
-      q = { voterID: voter_id, electionUID: election_uid }
+      q = { VoterIDnumber: voter_id, electionId: election_uid }
 
-      xml = parse_uri('ballotInfoByVoter', q) do |res, method = nil|
+      xml = parse_uri('GetVipBallotsByVoterId', q) do |res, method = nil|
         raise RecordNotFound if res.code != '200'
         res.body
       end
@@ -106,9 +106,9 @@ class LookupService < LookupApi
       dobMonth:       dob.month,
       dobDay:         dob.day,
       dobYear:        dob.year,
-      electionUID:    election_id }
+      electionId:     election_id }
 
-    xml = parse_uri('voterAdminHistoryByVID', q) do |res, method = nil|
+    xml = parse_uri('GetVoterTransactionLogByVoterId', q) do |res, method = nil|
       raise RecordNotFound if res.code != '200'
       res.body
     end

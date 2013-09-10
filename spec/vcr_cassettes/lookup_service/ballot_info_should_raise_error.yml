@@ -2,7 +2,7 @@
 http_interactions:
 - request:
     method: get
-    uri: http://vas.herokuapp.com/ballotInfoByVoter?electionUID=&voterID=
+    uri: http://vas.herokuapp.com/GetVipBallotsByVoterId?VoterIDnumber=&electionId=
     body:
       encoding: US-ASCII
       string: ''
@@ -19,7 +19,7 @@ http_interactions:
       Content-Type:
       - text/html;charset=utf-8
       Date:
-      - Wed, 04 Sep 2013 18:02:30 GMT
+      - Tue, 10 Sep 2013 08:28:05 GMT
       Server:
       - WEBrick/1.3.1 (Ruby/1.9.2/2012-04-20)
       X-Frame-Options:
@@ -34,5 +34,5 @@ http_interactions:
       encoding: US-ASCII
       string: ! 'Invalid fields: voterID, electionUID'
     http_version: 
-  recorded_at: Wed, 04 Sep 2013 18:02:30 GMT
+  recorded_at: Tue, 10 Sep 2013 08:28:04 GMT
 recorded_with: VCR 2.4.0
