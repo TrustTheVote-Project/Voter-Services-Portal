@@ -11,7 +11,7 @@ describe BallotInfoController do
 
     it 'should render election page', :vcr do
       get :show, election_uid: '6002FDB4-FC9C-4F36-A418-C0BDFFF2E579'
-      expect(assigns(:info).election_name).to eq "2012 November General"
+      expect(assigns(:info).election_name).to eq "2012 November General Election"
       expect(page).to render_template :show
     end
 
