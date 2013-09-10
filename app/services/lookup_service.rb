@@ -26,6 +26,7 @@ class LookupService < LookupApi
       q = { voterIDnumber: voter_id }
 
       xml = parse_uri('GetVipElectionByVoterId', q) do |res, method = nil|
+        DebugLogging.log("GetVipElectionByVoterId", res)
         raise RecordNotFound if res.code != '200'
         res.body
       end
@@ -45,6 +46,7 @@ class LookupService < LookupApi
       q = { VoterIDnumber: voter_id, electionId: election_uid }
 
       xml = parse_uri('GetVipBallotsByVoterId', q) do |res, method = nil|
+        DebugLogging.log("GetVipBallotsByVoterId", res)
         raise RecordNotFound if res.code != '200'
         res.body
       end
@@ -109,6 +111,7 @@ class LookupService < LookupApi
       electionId:     election_id }
 
     xml = parse_uri('GetVoterTransactionLogByVoterId', q) do |res, method = nil|
+      DebugLogging.log("GetVoterTransactionLogByVoterId", res)
       raise RecordNotFound if res.code != '200'
       res.body
     end
@@ -154,7 +157,7 @@ class LookupService < LookupApi
 
     parse_uri 'voterByDMVIDnumber', q do |res, method = nil|
       if res.code == '200'
-        Rails.logger.info("LOOKUP: code=#{res.code}\n#{res.body}") if AppConfig['api_debug_logging']
+        DebugLogging.log("voterByDMVIDnumber", res)
         return res.body
       end
 

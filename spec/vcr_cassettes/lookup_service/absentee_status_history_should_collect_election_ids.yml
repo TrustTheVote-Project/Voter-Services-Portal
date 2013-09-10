@@ -1,0 +1,43 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://vas.herokuapp.com/GetVipElectionByVoterId?voterIDnumber=600000000
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - ! '*/*'
+      User-Agent:
+      - Ruby
+  response:
+    status:
+      code: 200
+      message: ! 'OK '
+    headers:
+      Content-Type:
+      - text/html;charset=utf-8
+      Date:
+      - Tue, 10 Sep 2013 09:03:12 GMT
+      Server:
+      - WEBrick/1.3.1 (Ruby/1.9.2/2012-04-20)
+      X-Frame-Options:
+      - sameorigin
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Length:
+      - '521'
+      Connection:
+      - keep-alive
+    body:
+      encoding: US-ASCII
+      string: ! "<vip_object>\n  <schemaVersion>5.4.1</schemaVersion>\n  <source>\n
+        \   <name>Virginia</name>\n    <vip_id>51</vip_id>\n    <datetime>2013-07-29T18:10:58.440</datetime>\n
+        \   <description>Virginia candidate information</description>\n    <organization_url>http://www.sbe.virginia.gov</organization_url>\n
+        \ </source>\n  <election>\n    <election id=\"6002FDB4-FC9C-4F36-A418-C0BDFFF2E579\">\n
+        \   <date>2013-11-05T00:00:00</date>\n    <election_type>General</election_type>\n
+        \   <name>2013 November General</name>\n  </election>\n</vip_object>"
+    http_version: 
+  recorded_at: Tue, 10 Sep 2013 09:03:11 GMT
+recorded_with: VCR 2.4.0
