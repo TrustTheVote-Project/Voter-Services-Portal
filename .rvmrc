@@ -3,3 +3,4 @@ rvm use 1.9.3-p125
 alias t="bundle exec guard"
 alias ss="r s"
 alias rake="bundle exec rake"
+alias ssh-dev="ssh deploy@54.225.232.167"
