@@ -12,6 +12,22 @@ def fill_eligibility_page(options = {})
     within('.rights_revoked') { choose 'No' }
   end
 
+  click_button 'Next'
+end
+
+def fill_identity_page(options = {})
+  fill_in "First name", with: "Jack"
+  fill_in "Last name", with: "Smith"
+  select  "Male", from: "Gender"
+
+  if AppConfig['middle_name_required']
+    fill_in "Full middle", with: "Aaron"
+  end
+
+  if AppConfig['name_suffix_required']
+    select "Jr", from: "Suffix"
+  end
+
   unless options[:skip_dob]
     select  "January",  from: "registration_dob_2i_"
     select  "1",        from: "registration_dob_3i_"
@@ -23,22 +39,6 @@ def fill_eligibility_page(options = {})
     fill_in I18n.t('dmvid'), with: options[:dmv_id]
   else
     check I18n.t("eligibility.dmvid.dont_have")
-  end
-
-  click_button 'Next'
-end
-
-def fill_identity_page
-  fill_in "First name", with: "Jack"
-  fill_in "Last name", with: "Smith"
-  select  "Male", from: "Gender"
-
-  if AppConfig['middle_name_required']
-    fill_in "Full middle", with: "Aaron"
-  end
-
-  if AppConfig['name_suffix_required']
-    select "Jr", from: "Suffix"
   end
 
   click_button "Next"

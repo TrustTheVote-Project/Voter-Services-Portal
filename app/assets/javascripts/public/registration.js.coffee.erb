@@ -19,7 +19,7 @@ class window.Registration
     @initIdentityFields()
 
     @paperlessSubmission = ko.computed =>
-      @paperlessPossible() and @caType() != 'TSC'
+      @paperlessPossible() and (@isConfidentialAddress() != '1' or @caType() != 'TSC')
 
     @showAssistantDetails = ko.computed =>
       el = $("input#display_assistant_details")
