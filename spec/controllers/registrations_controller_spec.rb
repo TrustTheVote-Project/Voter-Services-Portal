@@ -46,7 +46,7 @@ describe RegistrationsController do
           should render_template :create
           session[:registration_id].should == assigns(:registration).id
           assigns(:registration).reload.submission_failed.should_not be_true
-          assigns(:submitted).should be_true
+          assigns(:paperless_submission).should be_false
         end
 
         it 'should mark the record as failed submission' do
@@ -59,7 +59,7 @@ describe RegistrationsController do
           SubmitEml310.stub(submit_new: true)
           LogRecord.should_receive(:submit_new).with(kind_of(Registration), 'slr_id')
           post :create, registration: { dmv_id: '123123123' }
-          assigns(:submitted).should be_true
+          assigns(:paperless_submission).should be_true
           should render_template :create
         end
       end
@@ -163,19 +163,19 @@ describe RegistrationsController do
     it 'should not submit if SSN is missing' do
       AppConfig['ssn_required'] = true
       SubmitEml310.should_not_receive(:submit_update)
-      controller.send(:finalize_update, af, reg, ses).should be_false
+      controller.send(:finalize_update, af, reg, ses)
     end
 
     it 'should submit if SSN is missing' do
       AppConfig['ssn_required'] = false
       SubmitEml310.should_receive(:submit_update).and_return(true)
-      controller.send(:finalize_update, af, reg, ses).should be_true
+      controller.send(:finalize_update, af, reg, ses)
     end
 
     it 'should submit if SSN is present' do
       reg.ssn = "123456789"
       SubmitEml310.should_receive(:submit_update).with(reg).and_return(true)
-      controller.send(:finalize_update, af, reg, ses).should be_true
+      controller.send(:finalize_update, af, reg, ses)
     end
 
     # Internal error log should contain the error code from the API, and the voter ID, but no other information about the voter.
