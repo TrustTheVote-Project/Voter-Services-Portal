@@ -27,11 +27,11 @@
 - if middle_name_required
   .row
     .checkbox
-      = check_box_tag :no_middle_name, '1', f.object.middle_name.blank?, 'data-bind' => 'checked: noMiddleName'
+      = check_box_tag :no_middle_name, '1', f.object.middle_name.blank?, 'data-bind' => 'checkedWithInit: noMiddleName'
       = label_tag :no_middle_name, I18n.t('identity.no_middle_name')
 
 - if name_suffix_required
   .row
     .checkbox
-      = check_box_tag :no_name_suffix, '1', f.object.middle_name.blank?, 'data-bind' => 'checked: noSuffix'
+      = check_box_tag :no_name_suffix, '1', f.object.suffix.blank?, 'data-bind' => 'checkedWithInit: noSuffix'
       = label_tag :no_name_suffix, I18n.t('identity.no_name_suffix')
