@@ -8,6 +8,11 @@
     = render partial: "identity_name", locals: { f: f }
 
     .row.personal-info
+      - if collecting? :registration, :gender
+        .span3
+          = f.label :gender
+          = f.select :gender, [ 'Male', 'Female' ], { }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "gender" }' }
+
       .span3.phone-field
         = f.label :phone do
           Phone
