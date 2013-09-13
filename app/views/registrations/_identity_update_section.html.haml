@@ -5,7 +5,7 @@
     .description Identify who you are
 
   .partition
-    = render partial: "identity_name", locals: { f: f }
+    = render partial: "identity_name", locals: { f: f, updating: true }
 
     .row.personal-info
       - if collecting? :registration, :gender
