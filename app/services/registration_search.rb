@@ -267,8 +267,7 @@ class RegistrationSearch < LookupApi
       options[:ppl_zip]           = ppl_zip
 
       if ppl_zip.present?
-        zip5, zip4 = ppl_zip.scan(/(\d{5})(\d{4})?/).flatten
-        options[:ppl_zip] = [ zip5, zip4 ].reject(&:blank?).join('-')
+        options[:ppl_zip] = zip9_to_dashed(ppl_zip)
       end
 
       vl = ppl.css('AddressLine').map do |al|
@@ -284,8 +283,10 @@ class RegistrationSearch < LookupApi
     ppl = doc.css('PollingPlace[Channel="postal"] FreeTextAddress').first
     if ppl
       vl = ppl.css('AddressLine').map do |al|
-        { seq: al[:seqn].to_i,
-          val: al.text }
+        val = al.text
+        val = zip9_to_dashed(val) if al['type'] == 'Zip'
+
+        { seq: al[:seqn].to_i, val: val }
       end.sort_by { |vls| vls[:seq] }
 
       options[:electoral_board_contacts] = vl.map { |v| v[:val] }.join(', ')
@@ -368,6 +369,13 @@ class RegistrationSearch < LookupApi
   # slightly better escaping
   def self.escape(s)
     s ? URI.escape(s).gsub('&', '%26') : s
+  end
+
+  def self.zip9_to_dashed(zip)
+    return zip if zip.blank?
+
+    zip5, zip4 = zip.scan(/(\d{5})-?(\d{4})?/).flatten
+    return [ zip5, zip4 ].reject(&:blank?).join('-')
   end
 
 end
