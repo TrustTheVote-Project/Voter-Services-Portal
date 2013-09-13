@@ -133,9 +133,14 @@ class window.Registration
       if v
         @middleName(null)
         $("#registration_middle_name").removeAttr('data-visited')
+      else
+        $("input#registration_middle_name[type='text']").focus()
 
     @noSuffix.subscribe (v) =>
-      @suffix('') if v
+      if v
+        @suffix('')
+      else
+        $("select#registration_suffix").focus()
 
     @isConfidentialAddress.subscribe (v) =>
       @caType(null) unless v

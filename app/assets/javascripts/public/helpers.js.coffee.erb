@@ -102,7 +102,8 @@ ko.bindingHandlers.instantValidation = {
       ko.bindingHandlers.instantValidation.validate(element, valueAccessor,allBindingsAccessor, viewModel)
 
     visit = (e) -> $(this).attr('data-visited', true)
-    $(element).on('keyup', visit).on('change', visit).on('validate', validate)
+
+    $(element).on('keyup', visit).on('change', visit).on('blur', validate).on('validate', validate)
 
   validate: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
     options    = valueAccessor()
@@ -111,6 +112,8 @@ ko.bindingHandlers.instantValidation = {
     unlessAttr = options.unless
     $e         = $(element)
     $p         = $e.parent()
+
+    console.log($e)
 
     # make sure the user visited the field before validation
     return unless $e.is('[data-visited]')
