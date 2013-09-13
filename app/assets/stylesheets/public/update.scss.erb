@@ -26,13 +26,12 @@ $summaryBodyColor: #222;
       margin: 0;
 
       &.properties td span {
-        width: 600px;
         word-wrap: break-word;
       }
     }
 
     th {
-      width: 150px;
+      width: <%= AppConfig['confirm_labels_width']  %>px;
     }
 
     tr:first-child {
