@@ -1,5 +1,6 @@
 - updating ||= false
 - rj = AppConfig['right_justify_confirmation_table']
+- personal_data_link = AppConfig['personal_data_on_eligibility_page'] ? '#eligibility' : '#identity'
 #confirm.section{ 'data-bind' => 'vis: page() == "confirm"' }
   .head
     %h3 Confirm
@@ -24,10 +25,10 @@
               %tr
                 %th= I18n.t('confirm.rows.dob')
                 - if !rj
-                  %td.edit= link_to "Edit", "#eligibility"
+                  %td.edit= link_to "Edit", personal_data_link
                 %td
                   - if rj
-                    = link_to "Edit", "#eligibility", class: 'edit'
+                    = link_to "Edit", personal_data_link, class: 'edit'
                   %span{ 'data-bind' => 'text: summaryDOB' }
               %tr
                 %th= I18n.t('confirm.rows.gender')
@@ -40,18 +41,18 @@
             %tr
               %th= I18n.t('confirm.rows.ssn')
               - if !rj
-                %td.edit= link_to "Edit", "#eligibility"
+                %td.edit= link_to "Edit", personal_data_link
               %td
                 - if rj
-                  = link_to "Edit", "#eligibility", class: 'edit'
+                  = link_to "Edit", personal_data_link, class: 'edit'
                 %span{ 'data-bind' => 'text: summarySSN' }
             %tr
               %th= I18n.t('dmvid')
               - if !rj
-                %td.edit= link_to "Edit", "#eligibility"
+                %td.edit= link_to "Edit", personal_data_link
               %td
                 - if rj
-                  = link_to "Edit", "#eligibility", class: 'edit'
+                  = link_to "Edit", personal_data_link, class: 'edit'
                 %span{ 'data-bind' => 'text: summaryDMVID' }
             %tr
               %th= I18n.t('confirm.rows.eligibility')
