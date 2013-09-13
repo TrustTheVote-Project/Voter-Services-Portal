@@ -259,18 +259,26 @@ class RegistrationSearch < LookupApi
 
     ppl = doc.css('PollingPlace[Channel="polling"] FreeTextAddress').first
     if ppl
+      ppl_zip = ppl.css('AddressLine[type="Zip"]').try(:text)
       options[:ppl_location_name] = ppl.css('AddressLine[type="LocationName"]').try(:text)
       options[:ppl_address]       = ppl.css('AddressLine[type="Address"]').try(:text)
       options[:ppl_city]          = ppl.css('AddressLine[type="City"]').try(:text)
       options[:ppl_state]         = ppl.css('AddressLine[type="State"]').try(:text)
-      options[:ppl_zip]           = ppl.css('AddressLine[type="Zip"]').try(:text)
+      options[:ppl_zip]           = ppl_zip
+
+      if ppl_zip.present?
+        zip5, zip4 = ppl_zip.scan(/(\d{5})(\d{4})?/).flatten
+        options[:ppl_zip] = [ zip5, zip4 ].reject(&:blank?).join('-')
+      end
 
       vl = ppl.css('AddressLine').map do |al|
-        { seq: al[:seqn].to_i,
-          val: al.text }
+        val = al.text
+        val = options[:ppl_zip] if al['type'] == 'Zip'
+
+        { seq: al[:seqn].to_i, val: val }
       end.sort_by { |vls| vls[:seq] }
 
-      options[:voting_location]   = vl.map { |v| v[:val] }.join(', ')
+      options[:voting_location] = vl.map { |v| v[:val] }.join(', ')
     end
 
     ppl = doc.css('PollingPlace[Channel="postal"] FreeTextAddress').first

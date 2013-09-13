@@ -71,8 +71,8 @@ describe RegistrationSearch do
         r.ppl_address.should        == "515 FAIRGROUND RD"
         r.ppl_city.should           == "N TAZEWELL"
         r.ppl_state.should          == "VA"
-        r.ppl_zip.should            == "24630"
-        r.voting_location.should    == "NUCKOLLS HALL, 515 FAIRGROUND RD, N TAZEWELL, VA, 24630"
+        r.ppl_zip.should            == "24630-0870"
+        r.voting_location.should    == "NUCKOLLS HALL, 515 FAIRGROUND RD, N TAZEWELL, VA, 24630-0870"
       end
     end
 

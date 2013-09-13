@@ -62,7 +62,7 @@ http_interactions:
         type="LocationName" seqn="0001">NUCKOLLS HALL</AddressLine><AddressLine type="Address"
         seqn="0002">515 FAIRGROUND RD</AddressLine><AddressLine type="City" seqn="0003">N
         TAZEWELL</AddressLine><AddressLine type="State" seqn="0004">VA</AddressLine><AddressLine
-        type="Zip" seqn="0005">24630</AddressLine></FreeTextAddress></Address></PhysicalLocation></PollingPlace><PollingPlace
+        type="Zip" seqn="0005">246300870</AddressLine></FreeTextAddress></Address></PhysicalLocation></PollingPlace><PollingPlace
         Channel="postal"><PostalLocation><FreeTextAddress xmlns="urn:oasis:names:tc:ciq:xal:4"><AddressLine
         type="Phone" seqn="0001">2769881305</AddressLine><AddressLine type="AddressLine2"
         seqn="0002">PO BOX 201</AddressLine><AddressLine type="City" seqn="0003">TAZEWELL</AddressLine><AddressLine
