@@ -65,6 +65,7 @@ en:
     dmvid:
       details: By providing a valid DMV Customer Number, you may be eligible to submit your voter registration application online, without the need to print, sign, and mail a paper application.
       dont_have: "I am not providing a Department of Motor Vehicles Customer Number"
+      unable: "If you are unable or choose not to provide DMV credentials, you may be required to print a document at the end of this process to complete your application.  Please make sure you are connected to a working printer before continuing."
 
   identity:
     no_middle_name: "I do not have a middle name"
