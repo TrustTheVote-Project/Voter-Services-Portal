@@ -31,6 +31,9 @@
         %label{ for: 'registration_pr_status_1' }= I18n.t("previous_registration.new.yes_answer")
 
     <!-- ko if: prStatus() == "1" -->
+    .row
+      .span10 = I18n.t('previous_registration.explanation')
+
     .row.personal-info
       .span3
         = f.label :pr_first_name, "First name"
