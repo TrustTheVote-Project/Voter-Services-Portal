@@ -126,7 +126,7 @@ en:
   confirm:
     details: Please confirm that your information is accurate. If any information is not correct, click "Edit" beside the incorrect data to return to the page to make corrections.
     required: "Yes"
-    not_required: "Not required"
+    not_required: "No"
     not_provided: "Not provided"
     previous_registration:
       not_registered: "Not currently registered in Virginia or another state"
