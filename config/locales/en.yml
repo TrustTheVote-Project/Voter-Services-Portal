@@ -275,7 +275,7 @@ en:
         number on your voter card, by selecting "Use Voter ID" below.</p>
 
     via_ssn:
-      option: Use SS4
+      option: Use SSN4
       first_name: First name
       last_name: Last name
       ssn4: Last 4 digits of SSN
