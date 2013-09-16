@@ -22,7 +22,7 @@ class LookupService < LookupApi
   end
 
   def self.voter_elections(voter_id)
-    Rails.cache.fetch("voter_elections:#{voter_id}", expires_in: 1.hour) do
+    Rails.cache.fetch("voter_elections:#{voter_id}", expires_in: 1.second) do
       q = { voterIDnumber: voter_id }
 
       xml = parse_uri('GetVipElectionByVoterId', q) do |res, method = nil|
@@ -42,7 +42,7 @@ class LookupService < LookupApi
   end
 
   def self.ballot_info(voter_id, election_uid)
-    Rails.cache.fetch("ballot_info:#{voter_id}:#{election_uid}", expires_in: Rails.env.test? ? 1.second : 1.hour) do
+    Rails.cache.fetch("ballot_info:#{voter_id}:#{election_uid}", expires_in: 1.second) do
       q = { VoterIDnumber: voter_id, electionId: election_uid }
 
       xml = parse_uri('GetVipBallotsByVoterId', q) do |res, method = nil|
