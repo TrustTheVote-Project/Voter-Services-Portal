@@ -7,7 +7,7 @@
   .row
     .span10
       .checkbox
-        = f.check_box :vvr_is_rural
+        = f.check_box :vvr_is_rural, 'data-bind' => 'checkedWithInit: vvrIsRural'
         = f.label :vvr_is_rural, I18n.t('rural')
       <!-- ko if: paperlessSubmission -->
       <br/>
@@ -17,13 +17,21 @@
   .row
     .span10
       .address-field
+        <!-- ko ifnot: vvrIsRural -->
         = f.label :vvr_address_1, I18n.t('addresses.address')
         = f.text_field :vvr_address_1, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }, valueUpdate: "afterkeyup"'
+        <!-- /ko -->
+        <!-- ko if: vvrIsRural -->
+        = f.label :vvr_address_1, I18n.t('addresses.rural_address')
+        = f.text_field :vvr_address_1, autocomplete: ac, maxlength: AppConfig['rural_address_length'], 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }, valueUpdate: "afterkeyup"'
+        <!-- /ko -->
+      <!-- ko ifnot: vvrIsRural -->
       .address-field
         = f.label :vvr_address_2 do
           = I18n.t('addresses.address_2')
           %span= I18n.t('optional')
         = f.text_field :vvr_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: vvrAddress2'
+      <!-- /ko -->
   .row
     .span3.town
       = f.label :vvr_town, I18n.t('addresses.city_town')

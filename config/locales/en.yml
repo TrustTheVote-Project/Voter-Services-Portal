@@ -73,6 +73,7 @@ en:
 
   addresses:
     address: "Address"
+    rural_address: "Describe where you reside"
     address_2: "Address Line 2"
     county_or_city: "County or City of residence"
     city_town: "City/Town"

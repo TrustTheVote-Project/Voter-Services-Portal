@@ -184,3 +184,6 @@ ballot_info:
 
 # Width of the labels column on confirm page (in px)
 confirm_labels_width: 224
+
+# Maximum length of the rural field
+rural_address_length: 80

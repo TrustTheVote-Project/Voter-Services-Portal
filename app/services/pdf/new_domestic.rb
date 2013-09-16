@@ -52,14 +52,11 @@ class Pdf::NewDomestic < Pdf::Form
   end
 
   def self.setAddresses(pdf, reg)
-    pdf.set('HOME_ADDRESS', reg.vvr_address_1)
-
-    if reg.vvr_address_2.present?
-      if reg.vvr_is_rural == '1'
-        pdf.set('HOME_RURAL', reg.vvr_address_2)
-      else
-        pdf.set('HOME_APT', reg.vvr_address_2)
-      end
+    if reg.vvr_is_rural == '1'
+      pdf.set('HOME_RURAL', reg.vvr_address_1)
+    else
+      pdf.set('HOME_ADDRESS', reg.vvr_address_1)
+      pdf.set('HOME_APT', reg.vvr_address_2) if reg.vvr_address_2.present?
     end
 
     pdf.set('HOME_CITY', reg.vvr_town)

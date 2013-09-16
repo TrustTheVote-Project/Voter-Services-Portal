@@ -113,8 +113,6 @@ ko.bindingHandlers.instantValidation = {
     $e         = $(element)
     $p         = $e.parent()
 
-    console.log($e)
-
     # make sure the user visited the field before validation
     return unless $e.is('[data-visited]')
 
