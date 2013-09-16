@@ -2,66 +2,57 @@
   .row
     .padded_page_span.welcome
       .head
-        %h2 Welcome
-        %p
-          We've created this service to help all Virginia voters -- domestic, military, and overseas --
-          by providing you with access to your voter record, and information about voter registration,
-          updating your record, and your options for how to vote.
-        %p
-          To get started, use the form below to check whether you are registered to vote, and to view your voter information if so.
+        %h2= I18n.t('search.no_forms.title')
+        = raw I18n.t('search.no_forms.details')
 
 
 .row
   .padded_page_span.section{ class: no_forms? ? nil : "welcome" }
     .head
-      %h3 Identity
-      .description Identify who you are to look-up your Virginia Voter Record.
+      %h3= I18n.t('search.title')
+      .description= I18n.t('search.subtitle')
 
-    %p
-      To look-up your Virginia Voter Record, you'll need to provide your first name,
-      last name, date of birth, locality, and the last 4 digits of your
-      Social Security Number. You can also identify using the voter identification
-      number on your voter card, by selecting "Use Voter ID" below.
+    = raw I18n.t('search.details')
 
     = form_for @search_query, url: search_path do |f|
       .row
         .radio
           = f.radio_button :lookup_type, 'ssn4', 'data-bind' => 'checkedWithInit: lookupType'
-          %label( for='search_query_lookup_type_ssn4' ) Use SSN4
+          %label( for='search_query_lookup_type_ssn4' )= I18n.t('search.via_ssn.option')
         .radio
           = f.radio_button :lookup_type, 'vid', 'data-bind' => 'checkedWithInit: lookupType'
-          %label( for='search_query_lookup_type_vid' ) Use Voter ID
+          %label( for='search_query_lookup_type_vid' )= I18n.t('search.via_vid.option')
 
       .partition{ 'data-bind' => 'visible: lookupType() == "ssn4"' }
         .row
           .span3
-            %label( for='search_query_first_name' ) First name
+            %label( for='search_query_first_name' )= I18n.t('search.via_ssn.first_name')
             = f.text_field :first_name, 'data-bind' => 'instantValidation: { accessor: "firstName" }'
           .span3
-            %label( for='search_query_last_name' ) Last name
+            %label( for='search_query_last_name' )= I18n.t('search.via_ssn.last_name')
             = f.text_field :last_name, 'data-bind' => 'instantValidation: { accessor: "lastName" }'
           .span4
-            %label( for='search_query_dob' ) Date of birth
+            %label( for='search_query_dob' )= I18n.t('search.via_ssn.dob')
             = bound_date f, :dob, { object_name: 'search_query', start_year: Date.today.year - 120, end_year: Date.today.year - 17 }, { class: 'date' }
 
         .row
           .span3.numbers
-            %label( for='search_query_ssn4' ) Last 4 digits of SSN
+            %label( for='search_query_ssn4' )= I18n.t('search.via_ssn.ssn4')
             = f.text_field :ssn4, placeholder: 'NNNN', maxlength: 4, class: 'span1', 'data-bind' => 'instantValidation: { accessor: "ssn4", validation: "ssn4", resetAlso: ".numbers" }'
           .span3
-            %label( for='locality_ssn' ) Locality
+            %label( for='locality_ssn' )= I18n.t('search.via_ssn.locality')
             = f.select :locality, Office.localities, { include_blank: true }, 'data-bind' => 'instantValidation: { accessor: "locality" }', id: 'locality_ssn'
 
       .partition#vid{ 'data-bind' => 'visible: lookupType() == "vid"' }
         .row
           .span3.numbers
-            %label( for='search_query_voter_id' ) Voter ID
+            %label( for='search_query_voter_id' )= I18n.t('search.via_vid.voter_id')
             = f.text_field :voter_id, label: 'Voter ID', placeholder: 'NNNNNNNNN', maxlength: 9, 'data-bind' => 'instantValidation: { accessor: "voterId", validation: "voterId", resetAlso: ".numbers" }'
           .span3
-            %label( for='locality_vid' ) Locality
+            %label( for='locality_vid' )= I18n.t('search.via_vid.locality')
             = f.select :locality, Office.localities, { include_blank: true }, 'data-bind' => 'instantValidation: { accessor: "locality" }', id: 'locality_vid'
           .span4
-            %label( for='search_query_dob' ) Date of birth
+            %label( for='search_query_dob' )= I18n.t('search.via_vid.dob')
             = bound_date f, :dob, { object_name: 'search_query', start_year: Date.today.year - 120, end_year: Date.today.year - 17 }, { class: 'date' }
 
       .partition

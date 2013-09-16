@@ -181,6 +181,35 @@ en:
     TemporaryResideOutsideSpouse: Temporarily residing outside U.S. for employment, or spouse or dependent residing with employee
 
   search:
+    no_forms:
+      title: Welcome
+      details: >
+        <p>We've created this service to help all Virginia voters -- domestic, military, and overseas --
+          by providing you with access to your voter record, and information about voter registration,
+          updating your record, and your options for how to vote.</p>
+        <p>To get started, use the form below to check whether you are registered to vote, and to view your voter information if so.</p>
+    title: Identity
+    subtitle:  Identify who you are to look-up your Virginia Voter Record.
+    details: >
+      <p>To look-up your Virginia Voter Record, you'll need to provide your first name,
+        last name, date of birth, locality, and the last 4 digits of your
+        Social Security Number. You can also identify using the voter identification
+        number on your voter card, by selecting "Use Voter ID" below.</p>
+
+    via_ssn:
+      option: Use SS4
+      first_name: First name
+      last_name: Last name
+      ssn4: Last 4 digits of SSN
+      dob: Date of birth
+      locality: Locality
+
+    via_vid:
+      option: Use Voter ID
+      voter_id: Voter ID
+      dob: Date of birth
+      locality: Locality
+
     affirmation: "I certify and affirm that the information provided to access my voter registration record is my own. I understand that it is unlawful to access the record of any other voter, punishable as computer fraud under Va. Code &sect; 18.2.152.3."
     record_not_found:
       title:  "Record Not Found"
