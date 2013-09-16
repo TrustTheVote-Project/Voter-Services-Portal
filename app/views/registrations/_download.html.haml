@@ -7,87 +7,36 @@
 - approval_action = update ? "updated" : "approved"
 #final#download.section{ 'data-bind' => 'vis: page() == "final"' }
   .head
-    %h3.important Congratulations! You're almost done.
-    %h3= I18n.t("download.title")
-    .description= I18n.t("download.subtitle")
+    %h3.important= t "download.title1"
+    %h3= t "download.title2"
+    .description= t "download.subtitle"
 
   .row
     .span10
-      = link_to "", pdf_url, class: 'download-link', alt: I18n.t('alt.download_pdf'), target: '_blank', 'data-bind' => 'click: markAsDownloaded'
-      %p
-        We have updated your #{doc} using the
-        information you provided. Click the PDF icon to download. The
-        #{doc} PDF will open in your default
-        PDF viewing application, or in your web browser.
-
-        %a{ :href => "#" }
-          %strong Adobe Acrobat Reader
-        is required to view PDF files.
-
-      %p Check the PDF for accuracy.
-      %p
-        If the PDF has any incorrect information, return to the
-        = link_to review_url do
-          %strong #{review_label}
-        page and re-enter your information.
+      = link_to "", pdf_url, class: 'download-link', alt: t('alt.download_pdf'), target: '_blank', 'data-bind' => 'click: markAsDownloaded'
+      = raw t "download.details", doc: doc, review_url: review_url, review_label: review_label
 
   .head
-    %h3 Print
-    .description Print your #{doc}.
+    %h3= t "download.print.title"
+    .description= t "download.print.subtitle", doc: doc
   .row
-    .span10
-      %p
-        Print your #{acted_doc} by selecting the PRINT button in the PDF.
-        %br/
-        You can also select File/Print in your default PDF viewing application.
+    .span10= raw t "download.print.details", doc: doc
 
   .head
-    %h3 Sign
-    .description Sign and date your #{acted_doc}.
+    %h3= t "download.sign.title"
+    .description= t "download.sign.subtitle", doc: doc
   .row
-    .span10
-      %p
-        Don't forget to sign and date your #{acted_doc}.
-        %br/
-        Your information will not be #{approval_action} if you do not.
+    .span10= raw t "download.sign.details", doc: doc, approval_action: approval_action
 
   .head
-    %h3 Mail
-    .description Mail your #{acted_doc}.
+    %h3= t "download.mail.title"
+    .description= t "download.mail.subtitle", doc: doc
   .row
     .span10
-      - if update
-        %p
-          Mail your updated voter registration form to your local
-          Voter Registration office
-      - else
-        %p
-          Mail your voter registration form and proof of identity to your local
-          Voter Registration office
-
-      %p
-        %strong= office_address(@registration.vvr_county_or_city)
-
-      - if !update
-        %p= I18n.t('download.proof_of_identity')
-
-      %p
-        Your return envelope must be postmarked at least 22 days before the next Primary or
-        %br/
-        General Election in which you plan to vote.
+      = raw t(update ? "download.mail.details.update" : "download.mail.details.reg", office: office_address(@registration.vvr_county_or_city))
 
   .row
-    .span10
-      %p
-        You may complete registration applications in person at a
-        local election official office, DMV, and other
-        Virginia government agencies.
-      %p
-        Within 30 days of submitting or mailing your
-        Virginia Voter Registration Application, you should receive a
-        voter card by mail that will confirm you are registered to vote.
-        If you do not receive a voter card within that time, please contact the
-        Virginia State Board of Elections using the contact information provided below.
+    .span10= raw t "download.complete"
 
   .form-actions
     = button_tag 'Done &rarr;'.html_safe, class: 'done btn', 'data-bind' => 'click: gotoComplete, css: { disabled: downloadInvalid }'
