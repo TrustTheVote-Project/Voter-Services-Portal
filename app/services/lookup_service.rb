@@ -31,13 +31,7 @@ class LookupService < LookupApi
         res.body
       end
 
-      doc = Nokogiri::XML::Document.parse(xml)
-      doc.remove_namespaces!
-      doc.css('vip_object > election').map do |o|
-        id = (o.css('election').first)['id']
-        name = (o.css('name').first).text
-        { id: id, name: name }
-      end
+      parse_elections_xml(xml)
     end
   end
 
@@ -51,41 +45,7 @@ class LookupService < LookupApi
         res.body
       end
 
-      doc = Nokogiri::XML::Document.parse(xml)
-      doc.remove_namespaces!
-
-      contests = doc.css('contest').map do |c|
-        type = c.css('contest_type').first.text
-
-        candidates = c.css('candidate').map do |a|
-          candidate = { name: a.css('name').first.text }
-
-          if type =~ /Contest/i
-            candidate[:sort_order] = a.css('sort_order').first.text.to_i
-            candidate[:candidate_url] = a.css('candidate_url').first.text
-            candidate[:party] = a.css('party name').first.text
-            candidate[:email] = a.css('email').first.try(:text)
-          end
-
-          candidate
-        end.sort_by { |e| e[:sort_order] }
-
-        { type: type,
-          sort_order: c.css('sort_order').first.text.to_i,
-          office: c.css('office').first.text,
-          candidates: candidates }
-      end
-
-      { election: {
-          name: doc.css('election name').first.text.strip,
-          date: Date.parse(doc.css('election date').first.text)
-        },
-
-        locality: doc.css('locality name').first.text,
-        precinct: doc.css('precinct name').first.text,
-
-        contests: contests.sort_by { |e| e[:sort_order] }
-      }
+      parse_ballot_xml(xml)
     end
   end
 
@@ -116,21 +76,11 @@ class LookupService < LookupApi
       res.body
     end
 
-    doc = Nokogiri::XML::Document.parse(xml)
-    doc.remove_namespaces!
-    doc.css('voterTransactionRecord').map do |vtr|
-      date      = vtr.css('date').text
-
-      { request:   vtr.css('form type').text,
-        action:    vtr.css('action').text,
-        date:      Date.parse(date).strftime('%d %b %Y'),
-        registrar: vtr.css('leo').text.to_s.strip,
-        notes:     vtr.css('notes').text.to_s.strip }
-    end
+    parse_transaction_log_xml(xml)
   end
 
   def self.dmv_address_lookup(r)
-    parse(send_request(r))
+    parse_dmv_lookup_xml(send_request(r))
   end
 
   def self.record_complete?(r)
@@ -180,7 +130,7 @@ class LookupService < LookupApi
     end
   end
 
-  def self.parse(xml)
+  def self.parse_dmv_lookup_xml(xml)
     doc = Nokogiri::XML::Document.parse(xml)
     doc.remove_namespaces!
 
@@ -218,4 +168,69 @@ class LookupService < LookupApi
 
     o
   end
+
+  def self.parse_elections_xml(xml)
+    doc = Nokogiri::XML::Document.parse(xml)
+    doc.remove_namespaces!
+    doc.css('election').map do |o|
+      id = o['id']
+      name = (o.css('name').first).text.to_s.strip
+      { id: id, name: name }
+    end
+  end
+
+  def self.parse_transaction_log_xml(xml)
+    doc = Nokogiri::XML::Document.parse(xml)
+    doc.remove_namespaces!
+    doc.css('voterTransactionRecord').map do |vtr|
+      date      = vtr.css('date').text
+      request   = vtr.css('form type').text
+      request   = vtr.css('form').text if request.blank?
+
+      { request:   request,
+        action:    vtr.css('action').text,
+        date:      Date.parse(date).strftime('%d %b %Y'),
+        registrar: vtr.css('leo').text.to_s.strip,
+        notes:     vtr.css('notes').text.to_s.strip }
+    end
+  end
+
+  def self.parse_ballot_xml(xml)
+    doc = Nokogiri::XML::Document.parse(xml)
+    doc.remove_namespaces!
+
+    contests = doc.css('contest').map do |c|
+      type = c.css('contest_type').first.text
+
+      candidates = c.css('candidate').map do |a|
+        candidate = { name: a.css('name').first.text }
+
+        if type =~ /Contest/i
+          candidate[:sort_order] = a.css('sort_order').first.text.to_i
+          candidate[:candidate_url] = a.css('candidate_url').first.text
+          candidate[:party] = a.css('party name').first.text
+          candidate[:email] = a.css('email').first.try(:text)
+        end
+
+        candidate
+      end.sort_by { |e| e[:sort_order] }
+
+      { type: type,
+        sort_order: c.css('sort_order').first.text.to_i,
+        office: c.css('office').first.text,
+        candidates: candidates }
+    end
+
+    { election: {
+      name: doc.css('election name').first.text.strip,
+      date: Date.parse(doc.css('election date').first.text)
+    },
+
+      locality: doc.css('locality name').first.text,
+      precinct: doc.css('precinct name').first.text,
+
+      contests: contests.sort_by { |e| e[:sort_order] }
+    }
+  end
+
 end

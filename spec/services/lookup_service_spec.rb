@@ -47,7 +47,7 @@ describe LookupService do
 
   describe 'absentee_status_history' do
     let(:voter_id)    { '600000000' }
-    let(:election_id) { "6002FDB4-FC9C-4F36-A418-C0BDFFF2E579" }
+    let(:election_id) { "68c30477-aaf2-46dd-994e-5d3be8a89c9b" }
     let(:dob)         { Date.parse('2013-09-04') }
     let(:locality)    { 'NORFOLK CITY' }
 
@@ -108,6 +108,79 @@ describe LookupService do
       expect {
         LookupService.ballot_info(nil, nil)
       }.to raise_error LookupApi::RecordNotFound
+    end
+  end
+
+  describe "response parsing" do
+    describe "#parse_elections_xml" do
+      let(:res) { [ { id: "68c30477-aaf2-46dd-994e-5d3be8a89c9b", name: "2012 November General" } ] }
+
+      it 'should parse valid response with elections list (vip root node)' do
+        expect(parse_elections_xml('vip.xml')).to eq res
+      end
+
+      it 'should parse valid response with elections list (vip_object root node)' do
+        expect(parse_elections_xml('vip_object.xml')).to eq res
+      end
+
+      def parse_elections_xml(filename)
+        xml = fixture("api/elections/#{filename}").read
+        LookupService.send(:parse_elections_xml, xml)
+      end
+    end
+
+    describe "#parse_transaction_log_xml" do
+      it 'should parse data' do
+        xml = fixture("api/transactions/data.xml").read
+        res = LookupService.send(:parse_transaction_log_xml, xml)
+        expect(res).to eq [ { request: "AbsenteeRequest", action: "start", date: "06 Feb 2013", registrar: "ehibner-reavis", notes: "" } ]
+      end
+    end
+
+    describe '#parse_ballot_xml' do
+      it 'should parse data' do
+        xml = fixture("api/ballots/data.xml").read
+        res = LookupService.send(:parse_ballot_xml, xml)
+        expect(res).to eq({
+          election: {
+            name: "2012 November General",
+            date: Date.parse("2012-11-06")
+          },
+
+          locality: "ARLINGTON COUNTY",
+          precinct: "046 - CENTRAL",
+
+          contests: [
+            { type: "Contest", sort_order: 1, office: "President and Vice President", candidates: [
+              { name: "Barack Obama", sort_order: 1, candidate_url: "http://www.barackobama.com", party: "Democrat", email: nil},
+              { name: "Virgil Goode", sort_order: 1, candidate_url: "http://www.goodeforpresident2012.com", party: "Constitution", email: nil},
+              { name: "Mitt Romney", sort_order: 2, candidate_url: "http://www.mittromney.com", party: "Republican", email: "info@mittromney.com"},
+              { name: "Gary Johnson", sort_order: 3, candidate_url: "http://www.garyjohnson2012.com", party: "Libertarian", email: nil},
+              { name: "Jill Stein", sort_order: 7, candidate_url: "http://www.jillstein.org", party: "Green", email: "wolf@jillstein.org"}]},
+            { type: "Contest", sort_order: 2, office: "United States Senate", candidates: [
+              { name: "Timothy M. Kaine", sort_order: 1, candidate_url: "http://www.kaineforva.com", party: "Democrat", email: "tmk@kaineforva.com"},
+              { name: "George F. Allen", sort_order: 2, candidate_url: "http://www.georgeallen.com", party: "Republican", email: "mike.thomas@georgeallen.com"}]},
+            { type: "Contest", sort_order: 3, office: "Member House of Representatives", candidates: [
+              { name: "James P. \"Jim\" Moran, Jr.", sort_order: 1, candidate_url: "http://www.jimmoran.org", party: "Democrat", email: "mmoran@moranforcongress.org"},
+              { name: "J. Patrick Murray", sort_order: 2, candidate_url: "http://www.patrickmurrayforcongress.com", party: "Republican", email: "patrick@murrayforcongress.com"},
+              { name: "Jason J. Howell", sort_order: 4, candidate_url: "http://www.votejasonhowell.com", party: "Independent", email: "jason@votejasonhowell.com"},
+              { name: "Janet Murphy", sort_order: 6, candidate_url: "http://http:www.votejoinrun.us", party: "Independent Green", email: "jastarlings@gmail.com"}]},
+            { type: "Contest", sort_order: 16, office: "Member County Board", candidates: [
+              { name: "Libby T. Garvey", sort_order: 1, candidate_url: "http://www.libbygarvey.com", party: "Democrat", email: "info@libbygarvey.com"},
+              { name: "Matthew A. Wavro", sort_order: 2, candidate_url: "http://www.wavro2012.com", party: "Republican", email: "matt.wavro@gmail.com"},
+              { name: "Audrey R. Clement", sort_order: 4, candidate_url: "http://www.audreyclement.org", party: "Independent", email: "info@audreyclement.org"}]},
+            { type: "Contest", sort_order: 25, office: "Member School Board", candidates: [
+              { name: "Emma N. Violand-Sanchez", sort_order: 4, candidate_url: "http://www.emmaforschoolboard.org", party: "Independent", email: "emma@emmaforschoolboard.org"},
+              { name: "Noah L. Simon", sort_order: 4, candidate_url: "http://www.noahsimon.org", party: "Independent", email: "noah_simon@verizon.net"}]},
+            { type: "Referendum", sort_order: 101, office: "Proposed Constitutional Amendment Question 2", candidates: [ { name: "Shall Section 6 of Article IV (Legislature) of the Constitution of Virginia concerning legislative sessions be amended to allow the General Assembly to delay by no more than one week the fixed starting date for the reconvened or \"veto\" session when the General Assembly meets after a session to consider the bills returned to it by the Governor with vetoes or amendments?"}]},
+            { type: "Referendum", sort_order: 101, office: "Proposed Constitutional Amendment Question 1", candidates: [ { name: "Shall Section 11 of Article I (Bill of Rights) of the Constitution of Virginia be amended (i) to require that eminent domain only be exercised where the property taken or damaged is for public use and, except for utilities or the elimination of a public nuisance, not where the primary use is for private gain, private benefit, private enterprise, increasing jobs, increasing tax revenue, or economic development; (ii) to define what is included in just compensation for such taking or damaging of property; and (iii) to prohibit the taking or damaging of more private property than is necessary for the public use?"}]},
+            { type: "Referendum", sort_order: 105, office: "Community Infrastructure", candidates: [ {name: "Shall Arlington County contract a debt and issue its general obligation bonds in the maximum principal amount of $28,306,000 to finance, together with other available funds, the cost of various capital projects for County facilities, information technology, and infrastructure?"}]},
+            { type: "Referendum", sort_order: 105, office: "Local Parks and Recreation", candidates: [ { name: "Shall Arlington County contract a debt and issue its general obligation bonds in the maximum principal amount of $50,553,000 to finance, together with other available funds, the cost of various capital projects for local parks  recreation, and land acquisition for parks and open space?"}]},
+            { type: "Referendum", sort_order: 105, office: "Metro and Transportation", candidates: [ { name: "Shall Arlington County contract a debt and issue its general obligation bonds in the maximum principal amount of $31,946,000 to finance, together with other available funds, the cost of various capital projects for the Washington Metropolitan Area Transit Authority and other transit, pedestrian, road or transportation projects?"}]},
+            { type: "Referendum", sort_order: 105, office: "Arlington Public Schools", candidates: [ { name: "Shall Arlington County contract a debt and issue its general obligation bonds in the maximum principal amount of $42,620,000 to finance, together with other available funds, the costs of various capital projects for Arlington Public Schools?"}]}
+          ]
+        })
+      end
     end
   end
 

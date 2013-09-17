@@ -49,7 +49,7 @@ describe LookupController do
     describe 'my_ballot' do
       it 'should return data', :vcr do
         get :my_ballot
-        elections = [ { url: ballot_info_path('6002FDB4-FC9C-4F36-A418-C0BDFFF2E579'), name: "2013 November General #{I18n.t('ballot_info.election')}" } ]
+        elections = [ { url: ballot_info_path('68c30477-aaf2-46dd-994e-5d3be8a89c9b'), name: "2012 November General #{I18n.t('ballot_info.election')}" } ]
         expect(response.body).to eq({ success: true, items: elections }.to_json)
       end
 
