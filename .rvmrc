@@ -1,4 +1,4 @@
-rvm 1.9.3-p392@vaportal --create
+rvm use 1.9.3-p392@vaportal
 
 alias t="bundle exec guard"
 alias ss="r s"

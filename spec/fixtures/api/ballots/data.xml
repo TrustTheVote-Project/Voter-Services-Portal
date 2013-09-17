@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8" ?> 
+<vip_object xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<schemaVersion>5.4.1</schemaVersion> 
+<source>
+<name>Virginia</name> 
+<vip_id>51</vip_id> 
+<datetime>2013-09-11T14:26:38.8927052-04:00</datetime> 
+<description>Voter Ballot Information</description> 
+<organization_url>http://www.sbe.virginia.gov</organization_url> 
+</source>
+<election id="68c30477-aaf2-46dd-994e-5d3be8a89c9b">
+<date>2012-11-06T00:00:00</date> 
+<name>2012 November General</name> 
+<state_id>51</state_id> 
+</election>
+<locality id="825384933">
+<name>ARLINGTON COUNTY</name> 
+<state_id>51</state_id> 
+<type>COUNTY</type> 
+</locality>
+<precinct id="625373603">
+<name>046 - CENTRAL</name> 
+<number>46</number> 
+<locality_id>825384933</locality_id> 
+</precinct>
+<electoral_district id="681646453">
+<type>Statewide</type> 
+<contest id="761239320">
+<election_id>68c30477-aaf2-46dd-994e-5d3be8a89c9b</election_id> 
+<electoral_district_id>681646453</electoral_district_id> 
+<office>Proposed Constitutional Amendment Question 1</office> 
+<sort_order>101</sort_order> 
+<contest_type>Referendum</contest_type> 
+<candidate id="761239320">
+<name>Shall Section 11 of Article I (Bill of Rights) of the Constitution of Virginia be amended (i) to require that eminent domain only be exercised where the property taken or damaged is for public use and, except for utilities or the elimination of a public nuisance, not where the primary use is for private gain, private benefit, private enterprise, increasing jobs, increasing tax revenue, or economic development; (ii) to define what is included in just compensation for such taking or damaging of property; and (iii) to prohibit the taking or damaging of more private property than is necessary for the public use?</name> 
+<last_name>zz</last_name> 
+<party id="2147483647">
+<sort_order>0</sort_order> 
+</party>
+</candidate>
+</contest>
+<contest id="1712627028">
+<election_id>68c30477-aaf2-46dd-994e-5d3be8a89c9b</election_id> 
+<electoral_district_id>681646453</electoral_district_id> 
+<office>United States Senate</office> 
+<sort_order>2</sort_order> 
+<contest_type>Contest</contest_type> 
+<candidate id="73664146">
+<name>Timothy M. Kaine</name> 
+<last_name>KAINE</last_name> 
+<candidate_url>http://www.kaineforva.com</candidate_url> 
+<email>tmk@kaineforva.com</email> 
+<party id="1959422136">
+<name>Democrat</name> 
+<sort_order>1</sort_order> 
+</party>
+</candidate>
+<candidate id="1761632464">
+<name>George F. Allen</name> 
+<last_name>ALLEN</last_name> 
+<candidate_url>http://www.georgeallen.com</candidate_url> 
+<email>mike.thomas@georgeallen.com</email> 
+<party id="2053173520">
+<name>Republican</name> 
+<sort_order>2</sort_order> 
+</party>
+</candidate>
+</contest>
+<contest id="1790326347">
+<election_id>68c30477-aaf2-46dd-994e-5d3be8a89c9b</election_id> 
+<electoral_district_id>681646453</electoral_district_id> 
+<office>President and Vice President</office> 
+<sort_order>1</sort_order> 
+<contest_type>Contest</contest_type> 
+<candidate id="652023968">
+<name>Gary Johnson</name> 
+<last_name>Johnson</last_name> 
+<candidate_url>http://www.garyjohnson2012.com</candidate_url> 
+<party id="1248330083">
+<name>Libertarian</name> 
+<sort_order>3</sort_order> 
+</party>
+</candidate>
+<candidate id="854533438">
+<name>Jill Stein</name> 
+<last_name>Stein</last_name> 
+<candidate_url>http://www.jillstein.org</candidate_url> 
+<email>wolf@jillstein.org</email> 
+<party id="10316731">
+<name>Green</name> 
+<sort_order>7</sort_order> 
+</party>
+</candidate>
+<candidate id="1150703098">
+<name>Barack Obama</name> 
+<last_name>Obama</last_name> 
+<candidate_url>http://www.barackobama.com</candidate_url> 
+<party id="1959422136">
+<name>Democrat</name> 
+<sort_order>1</sort_order> 
+</party>
+</candidate>
+<candidate id="1577534840">
+<name>Virgil Goode</name> 
+<last_name>GOODE</last_name> 
+<candidate_url>http://www.goodeforpresident2012.com</candidate_url> 
+<party id="1934550463">
+<name>Constitution</name> 
+<sort_order>1</sort_order> 
+</party>
+</candidate>
+<candidate id="1747339571">
+<name>Mitt Romney</name> 
+<last_name>Romney</last_name> 
+<candidate_url>http://www.mittromney.com</candidate_url> 
+<email>info@mittromney.com</email> 
+<party id="2053173520">
+<name>Republican</name> 
+<sort_order>2</sort_order> 
+</party>
+</candidate>
+</contest>
+<contest id="2147231421">
+<election_id>68c30477-aaf2-46dd-994e-5d3be8a89c9b</election_id> 
+<electoral_district_id>681646453</electoral_district_id> 
+<office>Proposed Constitutional Amendment Question 2</office> 
+<sort_order>101</sort_order> 
+<contest_type>Referendum</contest_type> 
+<candidate id="2147231421">
+<name>Shall Section 6 of Article IV (Legislature) of the Constitution of Virginia concerning legislative sessions be amended to allow the General Assembly to delay by no more than one week the fixed starting date for the reconvened or "veto" session when the General Assembly meets after a session to consider the bills returned to it by the Governor with vetoes or amendments?</name> 
+<last_name>zz</last_name> 
+<party id="2147483647">
+<sort_order>0</sort_order> 
+</party>
+</candidate>
+</contest>
+</electoral_district>
+<electoral_district id="825384933">
+<name>ARLINGTON COUNTY</name> 
+<type>Locality</type> 
+<contest id="123360695">
+<election_id>68c30477-aaf2-46dd-994e-5d3be8a89c9b</election_id> 
+<electoral_district_id>825384933</electoral_district_id> 
+<office>Member County Board</office> 
+<sort_order>16</sort_order> 
+<contest_type>Contest</contest_type> 
+<candidate id="308597622">
+<name>Libby T. Garvey</name> 
+<last_name>GARVEY</last_name> 
+<candidate_url>http://www.libbygarvey.com</candidate_url> 
+<email>info@libbygarvey.com</email> 
+<party id="1959422136">
+<name>Democrat</name> 
+<sort_order>1</sort_order> 
+</party>
+</candidate>
+<candidate id="683872634">
+<name>Audrey R. Clement</name> 
+<last_name>CLEMENT</last_name> 
+<candidate_url>http://www.audreyclement.org</candidate_url> 
+<email>info@audreyclement.org</email> 
+<party id="1263397831">
+<name>Independent</name> 
+<sort_order>4</sort_order> 
+</party>
+</candidate>
+<candidate id="793928870">
+<name>Matthew A. Wavro</name> 
+<last_name>WAVRO</last_name> 
+<candidate_url>http://www.wavro2012.com</candidate_url> 
+<email>matt.wavro@gmail.com</email> 
+<party id="2053173520">
+<name>Republican</name> 
+<sort_order>2</sort_order> 
+</party>
+</candidate>
+</contest>
+<contest id="792623839">
+<election_id>68c30477-aaf2-46dd-994e-5d3be8a89c9b</election_id> 
+<electoral_district_id>825384933</electoral_district_id> 
+<office>Arlington Public Schools</office> 
+<sort_order>105</sort_order> 
+<contest_type>Referendum</contest_type> 
+<candidate id="792623839">
+<name>Shall Arlington County contract a debt and issue its general obligation bonds in the maximum principal amount of $42,620,000 to finance, together with other available funds, the costs of various capital projects for Arlington Public Schools?</name> 
+<last_name>zz</last_name> 
+<party id="2147483647">
+<sort_order>0</sort_order> 
+</party>
+</candidate>
+</contest>
+<contest id="836020667">
+<election_id>68c30477-aaf2-46dd-994e-5d3be8a89c9b</election_id> 
+<electoral_district_id>825384933</electoral_district_id> 
+<office>Local Parks and Recreation</office> 
+<sort_order>105</sort_order> 
+<contest_type>Referendum</contest_type> 
+<candidate id="836020667">
+<name>Shall Arlington County contract a debt and issue its general obligation bonds in the maximum principal amount of $50,553,000 to finance, together with other available funds, the cost of various capital projects for local parks & recreation, and land acquisition for parks and open space?</name> 
+<last_name>zz</last_name> 
+<party id="2147483647">
+<sort_order>0</sort_order> 
+</party>
+</candidate>
+</contest>
+<contest id="857176182">
+<election_id>68c30477-aaf2-46dd-994e-5d3be8a89c9b</election_id> 
+<electoral_district_id>825384933</electoral_district_id> 
+<office>Community Infrastructure</office> 
+<sort_order>105</sort_order> 
+<contest_type>Referendum</contest_type> 
+<candidate id="857176182">
+<name>Shall Arlington County contract a debt and issue its general obligation bonds in the maximum principal amount of $28,306,000 to finance, together with other available funds, the cost of various capital projects for County facilities, information technology, and infrastructure?</name> 
+<last_name>zz</last_name> 
+<party id="2147483647">
+<sort_order>0</sort_order> 
+</party>
+</candidate>
+</contest>
+<contest id="1829424443">
+<election_id>68c30477-aaf2-46dd-994e-5d3be8a89c9b</election_id> 
+<electoral_district_id>825384933</electoral_district_id> 
+<office>Member School Board</office> 
+<sort_order>25</sort_order> 
+<contest_type>Contest</contest_type> 
+<candidate id="1145329729">
+<name>Emma N. Violand-Sanchez</name> 
+<last_name>VIOLAND-SANCHEZ</last_name> 
+<candidate_url>http://www.emmaforschoolboard.org</candidate_url> 
+<email>emma@emmaforschoolboard.org</email> 
+<party id="1263397831">
+<name>Independent</name> 
+<sort_order>4</sort_order> 
+</party>
+</candidate>
+<candidate id="2066135022">
+<name>Noah L. Simon</name> 
+<last_name>SIMON</last_name> 
+<candidate_url>http://www.noahsimon.org</candidate_url> 
+<email>noah_simon@verizon.net</email> 
+<party id="1263397831">
+<name>Independent</name> 
+<sort_order>4</sort_order> 
+</party>
+</candidate>
+</contest>
+<contest id="1972045386">
+<election_id>68c30477-aaf2-46dd-994e-5d3be8a89c9b</election_id> 
+<electoral_district_id>825384933</electoral_district_id> 
+<office>Metro and Transportation</office> 
+<sort_order>105</sort_order> 
+<contest_type>Referendum</contest_type> 
+<candidate id="1972045386">
+<name>Shall Arlington County contract a debt and issue its general obligation bonds in the maximum principal amount of $31,946,000 to finance, together with other available funds, the cost of various capital projects for the Washington Metropolitan Area Transit Authority and other transit, pedestrian, road or transportation projects?</name> 
+<last_name>zz</last_name> 
+<party id="2147483647">
+<sort_order>0</sort_order> 
+</party>
+</candidate>
+</contest>
+</electoral_district>
+<electoral_district id="1722507164">
+<name>08</name> 
+<type>Congressional</type> 
+<description>8th District</description> 
+<contest id="1172098030">
+<election_id>68c30477-aaf2-46dd-994e-5d3be8a89c9b</election_id> 
+<electoral_district_id>1722507164</electoral_district_id> 
+<office>Member House of Representatives</office> 
+<sort_order>3</sort_order> 
+<contest_type>Contest</contest_type> 
+<candidate id="1383954393">
+<name>J. Patrick Murray</name> 
+<last_name>MURRAY</last_name> 
+<candidate_url>http://www.patrickmurrayforcongress.com</candidate_url> 
+<email>patrick@murrayforcongress.com</email> 
+<party id="2053173520">
+<name>Republican</name> 
+<sort_order>2</sort_order> 
+</party>
+</candidate>
+<candidate id="1808053138">
+<name>James P. "Jim" Moran, Jr.</name> 
+<last_name>MORAN</last_name> 
+<candidate_url>http://www.jimmoran.org</candidate_url> 
+<email>mmoran@moranforcongress.org</email> 
+<party id="1959422136">
+<name>Democrat</name> 
+<sort_order>1</sort_order> 
+</party>
+</candidate>
+<candidate id="1857822811">
+<name>Janet Murphy</name> 
+<last_name>murphy</last_name> 
+<candidate_url>http://http:www.votejoinrun.us</candidate_url> 
+<email>jastarlings@gmail.com</email> 
+<party id="992598447">
+<name>Independent Green</name> 
+<sort_order>6</sort_order> 
+</party>
+</candidate>
+<candidate id="1881490627">
+<name>Jason J. Howell</name> 
+<last_name>HOWELL</last_name> 
+<candidate_url>http://www.votejasonhowell.com</candidate_url> 
+<email>jason@votejasonhowell.com</email> 
+<party id="1263397831">
+<name>Independent</name> 
+<sort_order>4</sort_order> 
+</party>
+</candidate>
+</contest>
+</electoral_district>
+</vip_object>

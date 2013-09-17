@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<voterTransactionLog xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <header>
+    <hashAlg>SHA1</hashAlg>
+    <createDate>2013-09-11T14:37:30.517</createDate>
+    <election>2013 June Democratic Primary</election>
+  </header>
+  <voterTransactionRecord>
+    <voterid>197997565</voterid>
+    <date>2013-02-06T09:37:07.56</date>
+    <action>start</action>
+    <form>AbsenteeRequest</form>
+    <jurisdiction>CHESAPEAKE CITY</jurisdiction>
+    <leo>ehibner-reavis</leo>
+  </voterTransactionRecord>
+</voterTransactionLog>
