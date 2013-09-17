@@ -206,9 +206,9 @@ class LookupService < LookupApi
         candidate = { name: a.css('name').first.text }
 
         if type =~ /Contest/i
-          candidate[:sort_order] = a.css('sort_order').first.text.to_i
-          candidate[:candidate_url] = a.css('candidate_url').first.text
-          candidate[:party] = a.css('party name').first.text
+          candidate[:sort_order] = a.css('sort_order').first.try(:text).to_i
+          candidate[:candidate_url] = a.css('candidate_url').first.try(:text)
+          candidate[:party] = a.css('party name').first.try(:text)
           candidate[:email] = a.css('email').first.try(:text)
         end
 
@@ -226,8 +226,8 @@ class LookupService < LookupApi
       date: Date.parse(doc.css('election date').first.text)
     },
 
-      locality: doc.css('locality name').first.text,
-      precinct: doc.css('precinct name').first.text,
+      locality: doc.css('locality name').first.try(:text),
+      precinct: doc.css('precinct name').first.try(:text),
 
       contests: contests.sort_by { |e| e[:sort_order] }
     }
