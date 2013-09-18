@@ -162,7 +162,7 @@ en:
     subtitle: "The process has 4 steps: download, print, sign, and mail."
     details: >
       <p>
-        We have updated your %{doc} using the
+        We have pre-filled your %{doc} using the
         information you provided. Click the PDF icon on the right to download. The
         %{doc} PDF will open in your default
         PDF viewing application, or in your web browser.
