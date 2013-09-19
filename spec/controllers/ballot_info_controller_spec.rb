@@ -26,6 +26,12 @@ describe BallotInfoController do
       get :show, election_uid: ''
       expect(page).to redirect_to :registration
     end
+
+    it 'should render server_busy template' do
+      LookupService.should_receive(:ballot_info).and_raise(LookupApi::LookupTimeout)
+      get :show, election_uid: ''
+      expect(page).to render_template :servers_busy
+    end
   end
 
 end
