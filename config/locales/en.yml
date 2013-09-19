@@ -63,7 +63,7 @@ en:
     ssn:
       dont_have: "I do not have a Social Security Number"
     dmvid:
-      details: By providing a valid DMV Customer Number, you may be eligible to submit your voter registration application online, without the need to print, sign, and mail a paper application.
+      details: By providing a valid DMV Identifier or Customer Number, you may be eligible to submit your voter registration application online, without the need to print, sign, and mail a paper application.
       dont_have: "I am not providing a Department of Motor Vehicles Customer Number"
       unable: "If you are unable or choose not to provide DMV credentials, you may be required to print a document at the end of this process to complete your application.  Please make sure you are connected to a working printer before continuing."
 
@@ -162,8 +162,8 @@ en:
     subtitle: "The process has 4 steps: download, print, sign, and mail."
     details: >
       <p>
-        We have updated your %{doc} using the
-        information you provided. Click the PDF icon to download. The
+        We have pre-filled your %{doc} using the
+        information you provided. Click the PDF icon on the right to download. The
         %{doc} PDF will open in your default
         PDF viewing application, or in your web browser.
 
@@ -325,6 +325,7 @@ en:
         AbsenteeBallot: Absentee Ballot
       action:
         approve: Approve
+        start: Start
         receive: Receive
         reject: Reject
       notes:
