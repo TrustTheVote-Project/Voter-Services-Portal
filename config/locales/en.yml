@@ -328,6 +328,7 @@ en:
         start: Start
         receive: Receive
         reject: Reject
+        start: Start
       notes:
         rejectUnsigned: Reject Unsigned
         rejectPreviousVoteAbsentee: Reject Previous Vote Absentee
@@ -347,3 +348,8 @@ en:
     header:
       title: "Sample Ballot:"
       precinct: "Precinct"
+    server_busy:
+      title: Our servers are busy
+      description: >
+        Please <a href="/registration">return to your registration details page</a> and
+        try again later.
