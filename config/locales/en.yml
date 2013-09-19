@@ -217,6 +217,7 @@ en:
         approve: Approve
         receive: Receive
         reject: Reject
+        start: Start
       notes:
         rejectUnsigned: Reject Unsigned
         rejectPreviousVoteAbsentee: Reject Previous Vote Absentee
