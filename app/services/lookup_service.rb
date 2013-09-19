@@ -22,16 +22,8 @@ class LookupService < LookupApi
   end
 
   def self.voter_elections(voter_id)
-    Rails.cache.fetch("voter_elections:#{voter_id}", expires_in: 1.second) do
-      q = { voterIDnumber: voter_id }
-
-      xml = parse_uri('GetVipElectionByVoterId', q) do |res, method = nil|
-        DebugLogging.log("GetVipElectionByVoterId", res)
-        raise RecordNotFound if res.code != '200'
-        res.body
-      end
-
-      parse_elections_xml(xml)
+    all_voter_elections(voter_id).select do |e|
+      has_ballot_for?(voter_id, e[:id])
     end
   end
 
@@ -51,8 +43,22 @@ class LookupService < LookupApi
 
   private
 
+  def self.all_voter_elections(voter_id)
+    Rails.cache.fetch("voter_elections:#{voter_id}", expires_in: 1.second) do
+      q = { voterIDnumber: voter_id }
+
+      xml = parse_uri('GetVipElectionByVoterId', q) do |res, method = nil|
+        DebugLogging.log("GetVipElectionByVoterId", res)
+        raise RecordNotFound if res.code != '200'
+        res.body
+      end
+
+      parse_elections_xml(xml)
+    end
+  end
+
   def self.collect_election_ids_for_voter(voter_id)
-    voter_elections(voter_id).map { |e| e[:id] }
+    all_voter_elections(voter_id).map { |e| e[:id] }
   end
 
   def self.collect_elections_details(voter_id, election_ids, dob, locality)
@@ -233,4 +239,9 @@ class LookupService < LookupApi
     }
   end
 
+  def self.has_ballot_for?(voter_id, election_uid)
+    ballot_info(voter_id, election_uid).present?
+  rescue RecordNotFound
+    false
+  end
 end

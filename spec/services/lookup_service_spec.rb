@@ -184,6 +184,20 @@ describe LookupService do
     end
   end
 
+  describe 'voter_elections' do
+    it 'should not return elections without ballots' do
+      elections = [
+        { id: 'id1', name: 'with ballots' },
+        { id: 'id2', name: 'without ballots' }
+      ]
+      LookupService.should_receive(:all_voter_elections).and_return(elections)
+      LookupService.should_receive(:has_ballot_for?).with(:vid, 'id1').and_return(true)
+      LookupService.should_receive(:has_ballot_for?).with(:vid, 'id2').and_return(false)
+
+      expect(LookupService.voter_elections(:vid)).to eq [ { id: 'id1', name: 'with ballots' } ]
+    end
+  end
+
   def lookup(n)
     VCR.use_cassette("dmvid_#{n}") do
       LookupService.registration(dmv_id: n, ssn: '123123123', dob_day: '1', dob_month: '1', dob_year: '1976')
