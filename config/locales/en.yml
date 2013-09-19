@@ -325,6 +325,7 @@ en:
         AbsenteeBallot: Absentee Ballot
       action:
         approve: Approve
+        start: Start
         receive: Receive
         reject: Reject
       notes:
