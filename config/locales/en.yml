@@ -321,17 +321,54 @@ en:
       title: Absentee Status
       none: You have no pending absentee requests for upcoming elections.
       request:
+        VoterRegistration: Voter Registration
+        VoterRegistrationAbsenteeRequest: Absentee Request
+        VoterRecordUpdate: Voter Registration
+        VoterRecordUpdateAbsenteeRequest: Absentee Request
         AbsenteeRequest: Absentee Request
         AbsenteeBallot: Absentee Ballot
+        ProvisionalBallot: ProvisionalBallot
+        PollBookEntry: Poll Book Entry
+        VoterCard: Voter Card
       action:
-        approve: Approve
+        identify: Identify
         start: Start
+        discard: Discard
+        complete: Complete
+        submit: Submit Online
         receive: Receive
+        approve: Approve
         reject: Reject
-        start: Start
+        sentToVoter: Sent To Voter
+        returnedUndelivered: Returned Undelivered
       notes:
-        rejectUnsigned: Reject Unsigned
-        rejectPreviousVoteAbsentee: Reject Previous Vote Absentee
+        acceptReactivate: Accept
+        acceptDuplicate: Accept
+        acceptTransferIn: Accept
+        rejectLate: Late
+        rejectUnsigned: Unsigned
+        rejectIncomplete: Incomplete
+        rejectFelonyConviction: Felony Conviction
+        rejectIneligible: Ineligible
+        rejectPreviousVoteAbsentee: Previous Absentee Ballot
+        rejectPreviousVote: Voted In Person
+        postalReceived: Received via Post
+        personalReceived: Delivered in Person
+        faxReceived: Received via Fax
+        postalSent: Sent via Post
+        emailSent: Sent via Email
+        faxSent: Sent vai Fax
+        personalSent: Delivered in Person
+        onlineVoterReg: Online Voter Registration
+        onlineBalloting: Online Ballot
+      formnotes:
+        handMarked: Hand-Marked
+        onlineGenerated: Generated Online
+        FPCA: FPCA
+        FWAB: FWAB
+        trackingCodeNone: No Tracking Code
+        trackingCodeMatch: Matched Tracking Code
+        trackingCodeNoMatch: No Match of Tracking Code
     my_ballot:
       title: My Ballot
       none: Ballot information for upcoming elections are not currently available.
