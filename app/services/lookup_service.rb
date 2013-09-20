@@ -33,6 +33,7 @@ class LookupService < LookupApi
 
       xml = parse_uri('GetVipBallotsByVoterId', q) do |res, method = nil|
         DebugLogging.log("GetVipBallotsByVoterId", res)
+        raise "Server error" if res.code =~ /^5/
         raise RecordNotFound if res.code != '200'
         res.body
       end

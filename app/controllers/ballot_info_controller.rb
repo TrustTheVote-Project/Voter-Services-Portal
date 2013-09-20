@@ -13,7 +13,7 @@ class BallotInfoController < ApplicationController
     @info = BallotInfoPresenter.new(info)
   rescue LookupApi::RecordNotFound
     redirect_to :registration, alert: 'Election was not found'
-  rescue LookupApi::LookupTimeout
+  rescue StandardError
     render :servers_busy
   end
 
