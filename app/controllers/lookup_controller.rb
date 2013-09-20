@@ -16,9 +16,9 @@ class LookupController < ApplicationController
     reg = current_registration
     items = LookupService.absentee_status_history(reg.voter_id, reg.dob, reg.vvr_county_or_city)
     items = items.each do |i|
-      i[:request] = I18n.t("view.absentee_status.request.#{i[:request]}") || i[:request] unless i[:request].blank?
-      i[:action]  = I18n.t("view.absentee_status.action.#{i[:action]}") || i[:action] unless i[:action].blank?
-      i[:notes]   = I18n.t("view.absentee_status.notes.#{i[:notes]}") || i[:notes] unless i[:notes].blank?
+      i[:request] = I18n.t("view.absentee_status.request.#{i[:request]}", default: i[:request]) unless i[:request].blank?
+      i[:action]  = I18n.t("view.absentee_status.action.#{i[:action]}", default: i[:action]) unless i[:action].blank?
+      i[:notes]   = I18n.t("view.absentee_status.notes.#{i[:notes]}", default: i[:notes]) unless i[:notes].blank?
     end
     render json: { success: true, items: items }
   end
