@@ -190,3 +190,6 @@ confirm_labels_width: 224
 
 # Maximum length of the rural field
 rural_address_length: 80
+
+# When true we don't ask a top-level rights question on the eligibility page
+enable_expanded_felony_mental_eligibility: true

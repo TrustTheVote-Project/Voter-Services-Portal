@@ -1,13 +1,15 @@
+- expanded = AppConfig['enable_expanded_felony_mental_eligibility']
 .partition.rights_revoked
-  %h4= I18n.t('eligibility.rights.question')
-  .radio
-    = f.radio_button :rights_revoked, '0', 'data-bind' => 'checked: rightsWereRevoked'
-    %label{ for: 'registration_rights_revoked_0' } No
-  .radio
-    = f.radio_button :rights_revoked, '1', 'data-bind' => 'checked: rightsWereRevoked'
-    %label{ for: 'registration_rights_revoked_1' } Yes
+  - if !expanded
+    %h4= I18n.t('eligibility.rights.question')
+    .radio
+      = f.radio_button :rights_revoked, '0', 'data-bind' => 'checked: rightsWereRevoked'
+      %label{ for: 'registration_rights_revoked_0' } No
+    .radio
+      = f.radio_button :rights_revoked, '1', 'data-bind' => 'checked: rightsWereRevoked'
+      %label{ for: 'registration_rights_revoked_1' } Yes
 
-  .block.revoked.in{ 'data-bind' => "visible: rightsWereRevoked() == '1'" }
+  .revoked{ 'data-bind' => "visible: expandRightsQuestions", class: expanded ? nil : 'block in' }
     %h4= I18n.t('eligibility.rights.felony.question')
     .radio
       = f.radio_button :rights_felony, '1', 'data-bind' => 'checkedWithInit: rightsFelony'

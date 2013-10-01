@@ -37,9 +37,17 @@ class window.Registration
   initEligibilityFields: ->
     @citizen                      = ko.observable()
     @oldEnough                    = ko.observable()
-    @rightsWereRevoked            = ko.observable()
     @rightsFelony                 = ko.observable()
     @rightsMental                 = ko.observable()
+
+    @expandedRights               = <%= !!AppConfig['enable_expanded_felony_mental_eligibility'] %>
+    if @expandedRights
+      @rightsWereRevoked          = ko.computed => if (@rightsFelony() == '1' or @rightsMental() == '1') then '1' else '0'
+      @expandRightsQuestions      = ko.observable(true)
+    else
+      @rightsWereRevoked          = ko.observable()
+      @expandRightsQuestions      = ko.computed => @rightsWereRevoked() == '1'
+
     @rightsFelonyRestored         = ko.observable()
     @rightsMentalRestored         = ko.observable()
     @rightsFelonyRestoredOnMonth  = ko.observable()
@@ -61,7 +69,7 @@ class window.Registration
     @hasSSN                       = ko.computed => filled(@ssn())
     @dmvId                        = ko.observable()
     @noDmvId                      = ko.observable()
-
+ 
     @noSSN.subscribe (v) =>
       if v
         @ssn(null)
@@ -90,14 +98,13 @@ class window.Registration
       @hasEligibleRights()
 
     @rightsNotFilled = ko.computed =>
-      !filled(@rightsWereRevoked()) or
-        (@rightsWereRevoked() == '1' and
-          (
-            (!filled(@rightsFelony()) or !filled(@rightsMental())) or
-            (@rightsFelony() != '1' and @rightsMental() != '1') or
-            (@rightsFelony() == '1' and (!filled(@rightsFelonyRestored()) or (@rightsFelonyRestored() == '1' and !@rightsFelonyRestoredOn()))) or
-            (@rightsMental() == '1' and (!filled(@rightsMentalRestored()) or (@rightsMentalRestored() == '1' and !@rightsMentalRestoredOn())))
-          ))
+      rightsOptionsNotFilled =
+        (!filled(@rightsFelony()) or !filled(@rightsMental())) or
+        (!@expandedRights and @rightsFelony() != '1' and @rightsMental() != '1') or
+        (@rightsFelony() == '1' and (!filled(@rightsFelonyRestored()) or (@rightsFelonyRestored() == '1' and !@rightsFelonyRestoredOn()))) or
+        (@rightsMental() == '1' and (!filled(@rightsMentalRestored()) or (@rightsMentalRestored() == '1' and !@rightsMentalRestoredOn())))
+
+      if @expandedRights then rightsOptionsNotFilled else (!filled(@rightsWereRevoked()) or (@rightsWereRevoked() == '1' and rightsOptionsNotFilled)) 
 
     @eligibilityErrors = ko.computed =>
       errors = []
