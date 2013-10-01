@@ -25,7 +25,6 @@ class UpdateRegistration extends Registration
     super($('input#registration_residence').val())
 
     @augmentEligibilityFields()
-    @augmentIdentityFields()
     @initConfirmFields()
 
     # overrides default criteria (see in registration.js)
@@ -66,32 +65,6 @@ class UpdateRegistration extends Registration
     @dobDay($("input#dob_day").val())
     @dobMonth($("input#dob_month").val())
     @dobYear($("input#dob_year").val())
-    @eligibilityErrors = ko.computed =>
-      errors = []
-      errors.push("Citizenship criteria") unless @citizen()
-      errors.push("Age criteria") unless @oldEnough()
-      errors.push("Voting rights criteria") if @rightsNotFilled()
-      @validatePersonalData(errors) if @personalDataOnEligibilityPage
-      errors
-
-    @eligibilityInvalid = ko.computed => @eligibilityErrors().length > 0
-
-  augmentIdentityFields: ->
-    @identityErrors = ko.computed =>
-      errors = []
-      errors.push('First name') unless filled(@firstName())
-      errors.push('Last name') unless filled(@lastName())
-      errors.push('Phone number') unless @validPhone()
-      errors.push('Email address') unless @validEmail()
-
-      if (@middleNameRequired() and !filled(@middleName()) and !@noMiddleName())
-        errors.push('Middle name')
-
-      if (@nameSuffixRequired() and !filled(@suffix()) and !@noSuffix())
-        errors.push('Name suffix')
-
-      @validatePersonalData(errors) if !@personalDataOnEligibilityPage
-      errors
 
   initConfirmFields: ->
     @confirmErrors = ko.computed =>

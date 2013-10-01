@@ -101,16 +101,11 @@ class window.Registration
       errors = []
       errors.push("Citizenship criteria") unless @citizen()
       errors.push("Age criteria") unless @oldEnough()
-
       errors.push("Voting rights criteria") if @rightsNotFilled()
-
-      if @personalDataOnEligibilityPage
-        @validatePersonalData(errors)
-
+      @validatePersonalData(errors) if @personalDataOnEligibilityPage
       errors
 
-    @eligibilityInvalid = ko.computed =>
-      @eligibilityErrors().length > 0
+    @eligibilityInvalid = ko.computed => @eligibilityErrors().length > 0
 
   initIdentityFields: ->
     @firstName              = ko.observable()
@@ -172,8 +167,7 @@ class window.Registration
           if @domestic() and !@domesticMAFilled()
             errors.push("Protected voter mailing address")
 
-      if !@personalDataOnEligibilityPage
-        @validatePersonalData(errors)
+      @validatePersonalData(errors) if !@personalDataOnEligibilityPage
 
       errors
 
