@@ -14,6 +14,7 @@ class window.Registration
     @dmvIdCheckbox = <%= AppConfig['dmv_id_checkbox'] %>
     @personalDataOnEligibilityPage = <%= AppConfig['personal_data_on_eligibility_page'] %>
     @paperlessPossible = ko.observable()
+    @lookupPerformed = false
 
     @initEligibilityFields()
     @initIdentityFields()
@@ -694,9 +695,16 @@ class window.Registration
       if @personalDataOnEligibilityPage
         @gotoPage('identity')
       else
-        @lookupRecord(_, e)
+        @performLookup(_, e)
     else
       @gotoPage('ineligible')
+
+  performLookup: (_, e) =>
+    if @lookupPerformed
+      @gotoPage('address')
+    else
+      @lookupPerformed = true
+      @lookupRecord(_, e)
 
   onLookupResult: (data) =>
     @paperlessPossible(data.dmv_match)
@@ -742,7 +750,7 @@ class window.Registration
     if !@personalDataOnEligibilityPage
       @checkEligibility(_, e)
     else
-      @lookupRecord(_, e)
+      @performLookup(_, e)
 
   backFromIdentity: (_, e) =>
     @gotoPage('eligibility', e)
