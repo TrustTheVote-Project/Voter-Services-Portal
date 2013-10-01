@@ -40,15 +40,13 @@ class Eml310Builder
               end
             end
 
-            if r.changing_name?
-              xml.PreviousName do
-                xml.PersonFullName    r.pr_full_name, { 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" }
-                xml.PersonNameDetail 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
-                  xml.GivenName       r.pr_first_name
-                  xml.MiddleName      r.pr_middle_name
-                  xml.FamilyName      r.pr_last_name
-                  xml.NameSuffixText  r.pr_suffix
-                end
+            xml.PreviousName do
+              xml.PersonFullName    r.prev_full_name, { 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" }
+              xml.PersonNameDetail 'xmlns' => "urn:oasis:names:tc:ciq:xnl:4" do
+                xml.GivenName       r.prev_first_name
+                xml.MiddleName      r.prev_middle_name
+                xml.FamilyName      r.prev_last_name
+                xml.NameSuffixText  r.prev_suffix
               end
             end
 

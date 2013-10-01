@@ -12,7 +12,6 @@ class RegistrationForXML
                   :as_full_name, :as_first_name, :as_middle_name, :as_last_name, :as_suffix,
                   :as_address, :as_address_2, :as_city, :as_state, :as_zip5, :as_zip4,
                   :pr_status,
-                  :pr_full_name, :pr_first_name, :pr_middle_name, :pr_last_name, :pr_suffix,
                   :pr_address, :pr_address_2, :pr_city, :pr_state, :pr_zip5, :pr_zip4, :pr_is_rural, :pr_rural, :pr_county_or_city,
                   :rights_felony_restored_in, :rights_felony_restored_on, :rights_mental_restored_on,
                   :ab_reason,
@@ -64,6 +63,26 @@ class RegistrationForXML
 
   def changing_name?
     @r.pr_status == '1'
+  end
+
+  def prev_full_name
+    changing_name? ? @r.pr_full_name : self.full_name
+  end
+
+  def prev_first_name
+    changing_name? ? @r.pr_first_name : self.first_name
+  end
+
+  def prev_middle_name
+    changing_name? ? @r.pr_middle_name : self.middle_name
+  end
+
+  def prev_last_name
+    changing_name? ? @r.pr_last_name : self.last_name
+  end
+
+  def prev_suffix
+    changing_name? ? @r.pr_suffix : self.suffix
   end
 
   def ca_zip
