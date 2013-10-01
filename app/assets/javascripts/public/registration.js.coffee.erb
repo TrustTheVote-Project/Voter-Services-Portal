@@ -58,6 +58,7 @@ class window.Registration
     @dob                          = ko.computed => pastDate(@dobYear(), @dobMonth(), @dobDay())
     @ssn                          = ko.observable()
     @noSSN                        = ko.observable()
+    @hasSSN                       = ko.computed => filled(@ssn())
     @dmvId                        = ko.observable()
     @noDmvId                      = ko.observable()
 
