@@ -170,6 +170,9 @@ enable_dmv_address_display: true
 # When false, DMV ID entry field is optional
 dmv_id_checkbox: true
 
+# When false, always paper submission. When true -- EML310 submit decides.
+dmv_ovr: true
+
 # TRUE to place SSN / DMVID / DOB on eligibility page, FALSE -- on identity
 personal_data_on_eligibility_page: true
 

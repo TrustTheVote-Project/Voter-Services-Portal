@@ -708,7 +708,7 @@ class window.Registration
       @lookupRecord(_, e)
 
   onLookupResult: (data) =>
-    @paperlessPossible(data.dmv_match)
+    @paperlessPossible(<%= AppConfig['dmv_ovr'] || false %> and data.dmv_match)
     if <%= AppConfig['enable_dmv_address_display'] %>
       a = data.address || @initialVvrAddress
       @vvrAddress1(a.address_1)
