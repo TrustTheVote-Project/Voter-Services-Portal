@@ -80,7 +80,7 @@ class RegistrationSearch < LookupApi
 
     # raise known errors
     if res.code == '400'
-      raise RecordIsConfidential if /cannot be displayed/ =~ res.body
+      raise RecordIsConfidential if /(cannot be displayed|not available)/i =~ res.body
       raise RecordIsInactive if /is not active/ =~ res.body
     end
 
