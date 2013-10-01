@@ -31,6 +31,9 @@
             %tr
               %th Date of birth:
               %td= reg.dob
+          %tr
+            %th Gender:
+            %td= reg.gender
           - if show_missing || reg.voter_id.present?
             %tr
               %th Voter ID:
