@@ -77,7 +77,7 @@ class window.Registration
       @dob.subscribe (v) =>
         return if !v
         $(".rights_revoked select").trigger("validate")
-
+ 
     @noSSN.subscribe (v) =>
       if v
         @ssn(null)
