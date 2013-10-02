@@ -26,9 +26,12 @@ window.date = (y, m, d) ->
   dte = moment(str, "YYYY-M-D")
   if dte.format("YYYY-M-D") == str then dte else false
 
-window.pastDate = (y, m, d) ->
+window.dateInRange = (y, m, d, min, max) ->
   dte = date(y, m, d)
-  if dte && dte.diff(new Date()) < 0 then dte else false
+  if dte and (!min or dte.diff(min) > 0) and (!max or dte.diff(max) < 0) then dte else false
+
+window.pastDate = (y, m, d) ->
+  dateInRange(y, m, d, false, new Date())
 
 window.phone  = (v) -> v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){10}$/)
 window.email  = (v) -> v.match(/^\S+@\S+\.\S+$/)
@@ -99,7 +102,7 @@ ko.bindingHandlers.instantValidation = {
 
     validate = =>
       $(element).attr('data-visited', true)
-      ko.bindingHandlers.instantValidation.validate(element, valueAccessor,allBindingsAccessor, viewModel)
+      ko.bindingHandlers.instantValidation.validate(element, valueAccessor, allBindingsAccessor, viewModel)
 
     visit = (e) -> $(this).attr('data-visited', true)
 

@@ -48,6 +48,16 @@ class window.Registration
       @rightsWereRevoked          = ko.observable()
       @expandRightsQuestions      = ko.computed => @rightsWereRevoked() == '1'
 
+    @dobYear                      = ko.observable()
+    @dobMonth                     = ko.observable()
+    @dobDay                       = ko.observable()
+    @dob                          = ko.computed => pastDate(@dobYear(), @dobMonth(), @dobDay())
+    @ssn                          = ko.observable()
+    @noSSN                        = ko.observable()
+    @hasSSN                       = ko.computed => filled(@ssn())
+    @dmvId                        = ko.observable()
+    @noDmvId                      = ko.observable()
+
     @rightsFelonyRestored         = ko.observable()
     @rightsMentalRestored         = ko.observable()
     @rightsFelonyRestoredOnMonth  = ko.observable()
@@ -58,18 +68,16 @@ class window.Registration
     @rightsMentalRestoredOnDay    = ko.observable()
     @rightsFelonyRestoredIn       = ko.observable()
     @rightsFelonyRestoredInText   = ko.computed => $("#registration_rights_felony_restored_in option[value='#{@rightsFelonyRestoredIn()}']").text()
-    @rightsFelonyRestoredOn       = ko.computed => pastDate(@rightsFelonyRestoredOnYear(), @rightsFelonyRestoredOnMonth(), @rightsFelonyRestoredOnDay())
-    @rightsMentalRestoredOn       = ko.computed => pastDate(@rightsMentalRestoredOnYear(), @rightsMentalRestoredOnMonth(), @rightsMentalRestoredOnDay())
-    @dobYear                      = ko.observable()
-    @dobMonth                     = ko.observable()
-    @dobDay                       = ko.observable()
-    @dob                          = ko.computed => pastDate(@dobYear(), @dobMonth(), @dobDay())
-    @ssn                          = ko.observable()
-    @noSSN                        = ko.observable()
-    @hasSSN                       = ko.computed => filled(@ssn())
-    @dmvId                        = ko.observable()
-    @noDmvId                      = ko.observable()
+    @rightsFelonyRestoredOn       = ko.computed => dateInRange(@rightsFelonyRestoredOnYear(), @rightsFelonyRestoredOnMonth(), @rightsFelonyRestoredOnDay(), @dob(), new Date())
+    @rightsMentalRestoredOn       = ko.computed => dateInRange(@rightsMentalRestoredOnYear(), @rightsMentalRestoredOnMonth(), @rightsMentalRestoredOnDay(), @dob(), new Date())
  
+    # if personal data is on identity page, we need to revalidate (for red highlighting)
+    # rights restoration dates on the eligibility page
+    if !@personalDataOnEligibilityPage
+      @dob.subscribe (v) =>
+        return if !v
+        $(".rights_revoked select").trigger("validate")
+
     @noSSN.subscribe (v) =>
       if v
         @ssn(null)
@@ -101,16 +109,22 @@ class window.Registration
       rightsOptionsNotFilled =
         (!filled(@rightsFelony()) or !filled(@rightsMental())) or
         (!@expandedRights and @rightsFelony() != '1' and @rightsMental() != '1') or
-        (@rightsFelony() == '1' and (!filled(@rightsFelonyRestored()) or (@rightsFelonyRestored() == '1' and !@rightsFelonyRestoredOn()))) or
-        (@rightsMental() == '1' and (!filled(@rightsMentalRestored()) or (@rightsMentalRestored() == '1' and !@rightsMentalRestoredOn())))
+        (@rightsFelony() == '1' and !filled(@rightsFelonyRestored())) or
+        (@rightsMental() == '1' and !filled(@rightsMentalRestored()))
 
       if @expandedRights then rightsOptionsNotFilled else (!filled(@rightsWereRevoked()) or (@rightsWereRevoked() == '1' and rightsOptionsNotFilled)) 
+
+    @invalidRightsRestorationDate = ko.computed =>
+      return false if !@expandedRights and @rightsWereRevoked() != '1'
+      (@rightsFelony() == '1' and @rightsFelonyRestored() == '1' and !@rightsFelonyRestoredOn()) or
+      (@rightsMental() == '1' and @rightsMentalRestored() == '1' and !@rightsMentalRestoredOn())
 
     @eligibilityErrors = ko.computed =>
       errors = []
       errors.push("Citizenship criteria") unless @citizen()
       errors.push("Age criteria") unless @oldEnough()
       errors.push("Voting rights criteria") if @rightsNotFilled()
+      errors.push("The date of restoration must be after your date of birth.") if @invalidRightsRestorationDate()
       @validatePersonalData(errors) if @personalDataOnEligibilityPage
       errors
 
@@ -162,6 +176,9 @@ class window.Registration
       errors.push('Gender') unless filled(@gender())
       errors.push('Phone number') unless @validPhone()
       errors.push('Email address') unless @validEmail()
+      if !@personalDataOnEligibilityPage && @invalidRightsRestorationDate()
+        errors.push('The date of restoration of voting rights must be after your date of birth. Please correct your date of birth or go back to to correct your restoration date.')
+        
 
       if (@middleNameRequired() and !filled(@middleName()) and !@noMiddleName())
         errors.push('Middle name')
