@@ -42,7 +42,7 @@ class SearchForm
       errors
 
     @invalid = ko.computed => @errors().length > 0
-    new Popover('#new_search_query .next.btn', @errors)
+    new Popover('#new_search_query .next.bt', @errors)
 
   submit: =>
     return if @invalid()

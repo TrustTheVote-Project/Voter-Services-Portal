@@ -18,7 +18,7 @@ class window.Finalization
       errors
 
     @downloadInvalid = ko.computed => downloadErrors().length > 0
-    new Popover('#download.section .done.btn', downloadErrors)
+    new Popover('#download.section .done.bt', downloadErrors)
 
   gotoComplete: =>
     return if @downloadInvalid()

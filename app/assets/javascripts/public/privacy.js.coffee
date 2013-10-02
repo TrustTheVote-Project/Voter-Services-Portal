@@ -1,6 +1,6 @@
 class PrivacyPage
   constructor: ->
-    @nextBtn = $(".next.btn")
+    @nextBtn = $(".next.bt")
     @nextBtn.on "click", =>
       !@nextBtn.hasClass("disabled")
 

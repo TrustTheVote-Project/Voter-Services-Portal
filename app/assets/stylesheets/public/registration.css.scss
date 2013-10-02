@@ -248,78 +248,13 @@
 
 .form-actions {
   overflow: hidden;
-
-  .back {
-    float: left;
-    background: image-url('buttons.png') no-repeat -645px -74px;
-  }
-
-  .back:hover {
-      background: image-url('buttons.png') no-repeat -645px -37px;
-  }
-
-  .back:active {
-      background: image-url('buttons.png') no-repeat -645px 0;
-  }
-
-  .next {
-    float: right;
-    background: image-url('buttons.png') no-repeat -570px -74px;
-  }
-
-  .next:hover {
-    background: image-url('buttons.png') no-repeat -570px -37px;
-  }
-
-  .next:active {
-    background: image-url('buttons.png') no-repeat -570px 0;
-  }
-
-  .next.disabled {
-    cursor: default;
-    background: image-url('buttons.png') no-repeat -570px 0;
-    opacity: .5;
-  }
-
-  .submit {
-    float: right;
-    background: image-url('buttons.png') no-repeat -721px -100px;
-  }
-
-  .submit:hover {
-    background: image-url('buttons.png') no-repeat -721px -50px;
-  }
-
-  .submit:active {
-    background: image-url('buttons.png') no-repeat -721px 0;
-  }
-
-  .submit.disabled {
-    float: right;
-    background: image-url('buttons.png') no-repeat -721px -150px;
-  }
-
-  .done {
-    float: right;
-    background: image-url('buttons.png') no-repeat -837px -100px;
-  }
-
-  .done:hover {
-    background: image-url('buttons.png') no-repeat -837px -50px;
-  }
-
-  .done:active {
-    background: image-url('buttons.png') no-repeat -837px 0;
-  }
-
-  .done.disabled {
-    float: right;
-    background: image-url('buttons.png') no-repeat -837px -150px;
-  }
+  .back { float: left; }
+  .next { float: right; }
+  .submit { float: right; }
+  .done { float: right; }
 }
 
 .personal-info {
-
   .span2 {
     width: 120px;
   }

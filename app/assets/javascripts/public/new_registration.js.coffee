@@ -15,13 +15,13 @@ class NewRegistration extends Registration
   constructor: (initPage = 0) ->
     super($('input#residence').val())
 
-    new Popover('#eligibility .next.btn', @eligibilityErrors)
-    new Popover('#identity .next.btn', @identityErrors)
-    new Popover('#mailing .next.btn', @addressesErrors)
-    new Popover('#options .next.btn', @optionsErrors)
-    new Popover('#oath .next.btn', @oathErrors)
+    new Popover('#eligibility .next.bt', @eligibilityErrors)
+    new Popover('#identity .next.bt', @identityErrors)
+    new Popover('#mailing .next.bt', @addressesErrors)
+    new Popover('#options .next.bt', @optionsErrors)
+    new Popover('#oath .next.bt', @oathErrors)
 
-    $(".next.btn").on 'click', (e) ->
+    $(".next.bt").on 'click', (e) ->
       btn = $(this)
       $("input, select", btn.parents(".section")).trigger("validate") if btn.hasClass('disabled')
 
@@ -36,7 +36,7 @@ class NewRegistration extends Registration
   # --- Navigation
   #
   submit: (f) =>
-    $("##{@page()} .next.btn").trigger('click')
+    $("##{@page()} .next.bt").trigger('click')
 
   gotoPage: (page, e) =>
     return if e && $(e.target).hasClass('disabled')
@@ -50,7 +50,7 @@ class NewRegistration extends Registration
   nextFromOptions: (_, e) => @gotoPage('confirm', e)
   nextFromConfirm: (_, e) => @gotoPage('oath', e)
   nextFromOath: (_, e) =>
-    if $("#oath .next.btn").hasClass('disabled')
+    if $("#oath .next.bt").hasClass('disabled')
       e.preventDefault()
       return
 

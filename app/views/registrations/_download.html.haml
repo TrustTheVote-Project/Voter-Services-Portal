@@ -39,4 +39,4 @@
     .span10= raw t "download.complete"
 
   .form-actions
-    = button_tag 'Done &rarr;'.html_safe, class: 'done btn', 'data-bind' => 'click: gotoComplete, css: { disabled: downloadInvalid }'
+    = button_tag 'Done', class: 'done bt', 'data-bind' => 'click: gotoComplete, css: { disabled: downloadInvalid }'

@@ -47,5 +47,5 @@
 
   .span10
     .form-actions
-      = button_tag "Next &rarr;".html_safe, class: 'next btn', 'data-bind' => 'click: gotoOath, css: { disabled: updateFormInvalid }'
-      = link_to    '&larr; Back'.html_safe, :registration, class: 'back btn'
+      = button_tag "Next", class: 'next bt', 'data-bind' => 'click: gotoOath, css: { disabled: updateFormInvalid }'
+      = link_to    'Back', :registration, class: 'back bt'

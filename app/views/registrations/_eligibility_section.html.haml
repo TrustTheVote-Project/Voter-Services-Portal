@@ -28,4 +28,4 @@
     = render partial: 'eligibility_dmvid', locals: { f: f }
 
   .form-actions
-    = button_tag 'Next &rarr;'.html_safe, class: 'next btn', 'data-bind' => 'click: nextFromEligibility, css: { disabled: eligibilityInvalid }'
+    = button_tag 'Next', class: 'next right bt', 'data-bind' => 'click: nextFromEligibility, css: { disabled: eligibilityInvalid }'

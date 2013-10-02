@@ -14,7 +14,7 @@
         = f.text_field :location_name, 'of', placeholder: 'Olympia'
 
         .actions
-          = f.button 'Next &rarr;'.html_safe, class: 'next btn'
+          = f.button 'Next', class: 'next bt'
 
       = f.inputs 'Election details', id: 'election' do
         = f.toggles 'Applying to vote in *' do
@@ -25,6 +25,6 @@
         = f.date_select :vote_on, 'to be held on', {}, class: 'small'
 
         .actions
-          = f.button '&larr; Back'.html_safe, class: 'back btn'
+          = f.button 'Back', class: 'back bt'
           or
-          = f.submit 'Submit request', class: 'next primary btn'
+          = f.submit 'Submit request', class: 'next primary bt'
