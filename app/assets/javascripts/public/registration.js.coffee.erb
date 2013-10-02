@@ -2,19 +2,19 @@ formOption = (k) -> $("input##{k}").val()
 
 class window.Registration
   constructor: (residence) ->
-    @residence  = ko.observable(residence)
-    @overseas   = ko.computed => @residence() == 'outside'
-    @domestic   = ko.computed => !@overseas()
+    @residence          = ko.observable(residence)
+    @overseas           = ko.computed => @residence() == 'outside'
+    @domestic           = ko.computed => !@overseas()
 
-    @ssnRequired = ko.observable($("input#ssn_required").val() == 'true')
+    @ssnRequired        = ko.observable($("input#ssn_required").val() == 'true')
     @middleNameRequired = ko.observable($("input#middle_name_required").val() == 'true')
     @nameSuffixRequired = ko.observable($("input#name_suffix_required").val() == 'true')
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
     @editMailingAddressAtProtectedVoter = ko.observable($("input#edit_mailing_address_at_protected_voter").val() == 'true')
-    @dmvIdCheckbox = <%= AppConfig['dmv_id_checkbox'] %>
-    @personalDataOnEligibilityPage = <%= AppConfig['personal_data_on_eligibility_page'] %>
-    @paperlessPossible = ko.observable()
-    @lookupPerformed = false
+    @dmvIdCheckbox      = <%= !!AppConfig['dmv_id_checkbox'] %>
+    @personalDataOnEligibilityPage = <%= !!AppConfig['personal_data_on_eligibility_page'] %>
+    @paperlessPossible  = ko.observable()
+    @lookupPerformed    = false
 
     @initEligibilityFields()
     @initIdentityFields()
@@ -715,8 +715,8 @@ class window.Registration
       @lookupRecord(_, e)
 
   onLookupResult: (data) =>
-    @paperlessPossible(<%= AppConfig['dmv_ovr'] || false %> and data.dmv_match)
-    if <%= AppConfig['enable_dmv_address_display'] %>
+    @paperlessPossible(<%= !!AppConfig['dmv_ovr'] || false %> and data.dmv_match)
+    if <%= !!AppConfig['enable_dmv_address_display'] %>
       a = data.address || @initialVvrAddress
       @vvrAddress1(a.address_1)
       @vvrAddress2(a.address_2)
@@ -730,7 +730,7 @@ class window.Registration
     return if $(e.target).hasClass('disabled')
     @page('lookup_record')
 
-    if !<%= AppConfig['enable_dmvid_lookup'] %> or !filled(@dmvId()) or !filled(@ssn()) or (@isConfidentialAddress() and @caType() == 'TSC')
+    if <%= !AppConfig['enable_dmvid_lookup'] %> or !filled(@dmvId()) or !filled(@ssn()) or (@isConfidentialAddress() and @caType() == 'TSC')
       return @onLookupResult({
         registered: false,
         dmv_match: false,
