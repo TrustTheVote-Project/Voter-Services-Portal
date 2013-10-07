@@ -118,19 +118,19 @@
                   %td.l #{label}:
                   %td <em>#{v}</em>
 
-    .accordion.summary.my_ballot{ 'data-bind' => 'with: myBallot' }
+    .accordion.summary.my_ballot
       .body
         %h3
           = link_to "Show", '#', class: 'toggle'
           = I18n.t('view.my_ballot.title')
-        .area{ 'data-bind' => "template: { name: templateName, data: data }" }
+        .area{ 'data-bind' => "template: { name: myBallot.templateName, data: myBallot.data }" }
 
-    .accordion.summary.absentee_status{ 'data-bind' => 'with: absenteeStatus' }
+    .accordion.summary.absentee_status
       .body
         %h3
           = link_to "Show", '#', class: 'toggle'
           = I18n.t('view.absentee_status.title')
-        .area{ 'data-bind' => "template: { name: templateName, data: data }" }
+        .area{ 'data-bind' => "template: { name: absenteeStatus.templateName, data: absenteeStatus.data }" }
 
     %script{ type: 'text/html', id: 'my-ballot' }
       %p.left-padded{ 'data-bind' => 'if: items.length == 0' }

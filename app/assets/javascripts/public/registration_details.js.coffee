@@ -44,10 +44,14 @@ $ ->
   return if $('body#registration_details').length == 0
 
   absenteeStatus = new LoadableAccordeon('absentee-status', '/lookup/absentee_status_history')
-  $(".absentee_status .toggle").on 'click', -> absenteeStatus.onToggle()
+  $(".absentee_status .toggle").on 'click', (e) ->
+    e.preventDefault()
+    absenteeStatus.onToggle()
 
   myBallot = new LoadableAccordeon('my-ballot', '/lookup/my_ballot')
-  $(".my_ballot .toggle").on 'click', -> myBallot.onToggle()
+  $(".my_ballot .toggle").on 'click', (e) ->
+    e.preventDefault()
+    myBallot.onToggle()
 
   ko.applyBindings
     absenteeStatus: absenteeStatus
