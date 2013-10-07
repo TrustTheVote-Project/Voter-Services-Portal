@@ -14,4 +14,4 @@
     - if af.any?
       Approved for Absentee Ballot: #{af.humanized_list_join}  #{pluralize(af.size, 'Election')}.
 
-    = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Eligible for #{link_to 'online ballot marking', '#', class: 'submit'} in #{AppConfig['current_election']['name']} Election" }
+    = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Eligible for #{link_to 'online ballot marking', '#', class: 'mark-submit'} in #{AppConfig['current_election']['name']} Election" }

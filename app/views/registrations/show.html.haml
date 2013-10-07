@@ -208,9 +208,10 @@
           = link_to "Learn more about absentee ballots", :about_update_absentee_page, target: '_blank'
 
       .form_action
-        = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Mark Your Absentee Ballot Online: #{link_to 'learn more', :online_ballot_marking_page, target: '_blank'} or #{link_to 'get started now', '#', class: 'submit'}" }
+        = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Mark Your Absentee Ballot Online: #{link_to 'learn more', :online_ballot_marking_page, target: '_blank'} or #{link_to 'get started now', '#', class: 'mark-submit'}" }
     - else
       .form-actions
         = edit_link_2
         - if update_ab
           = link_with_privacy_act_to "Apply for an Absentee Ballot", :request_absentee_registration, class: 'bt pull-right'
+        = render partial: 'shared/mark_my_ballot_online', locals: { link_class: 'bt mark-submit', form_class: 'mark-online pull-right' }
