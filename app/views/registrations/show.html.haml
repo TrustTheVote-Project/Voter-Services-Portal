@@ -19,7 +19,10 @@
 
       %p= I18n.t('view.info')
       %p
-        You can also #{edit_link_1}#{" or #{link_with_privacy_act_to 'apply for an absentee ballot', :request_absentee_registration}".html_safe if update_ab}.
+        - clauses = [ "You can also #{edit_link_1}" ]
+        - clauses << ", or #{link_with_privacy_act_to 'apply for an absentee ballot', :request_absentee_registration}".html_safe if update_ab
+        - clauses << render(partial: 'shared/mark_my_ballot_online', locals: { link_text: ", or #{link_to 'mark your absentee ballot online', '#', class: 'mark-submit'}", form_class: 'mark-online inline', render_no_form: true })
+        #{clauses.compact.join('').html_safe}.
 
     .summary
       .body
