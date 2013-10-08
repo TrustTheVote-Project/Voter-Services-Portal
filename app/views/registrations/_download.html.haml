@@ -2,8 +2,8 @@
 - update        ||= false
 - doc             = update ? "Virginia Voter Record" : "Virginia Voter Registration Application"
 - acted_doc       = "updated #{doc}"
-- review_url      = update ? :back : :root
-- review_label    = update ? "Update page" : "Home"
+- review_url      = root_path
+- review_label    = "Home"
 - approval_action = update ? "updated" : "approved"
 #final#download.section{ 'data-bind' => 'vis: page() == "final"' }
   .head
