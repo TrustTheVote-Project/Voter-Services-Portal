@@ -371,7 +371,7 @@ en:
         trackingCodeNoMatch: No Match of Tracking Code
     my_ballot:
       title: My Ballot
-      none: Ballot information for upcoming elections are not currently available.
+      none: Ballot information is not yet available for upcoming elections.
       prompt: "You can view your ballot for the following upcoming elections:"
     voting_location:
       title: Voting Location
