@@ -37,6 +37,8 @@ namespace :deploy do
   task :shared, :roles => :app do
     run "cp #{shared_path}/config/database.yml #{latest_release}/config/database.yml"
     run "cp #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
+    run "cp #{shared_path}/config/config_service.yml #{latest_release}/config/config_service.yml"
+    run "cp #{shared_path}/config/config_timely.yml #{latest_release}/config/config_timely.yml"
   end
 end
 
