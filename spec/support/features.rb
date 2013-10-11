@@ -9,7 +9,14 @@ def fill_eligibility_page(options = {})
   within('.old_enough') { choose options[:old_enough] || 'Yes' }
 
   unless options[:skip_rights]
-    within('.rights_revoked') { choose 'No' }
+    within('.rights_revoked') do
+      if AppConfig['enable_expanded_felony_mental_eligibility']
+        choose 'registration_rights_felony_0'
+        choose 'registration_rights_mental_0'
+      else
+        choose 'No'
+      end
+    end
   end
 
   click_button 'Next'

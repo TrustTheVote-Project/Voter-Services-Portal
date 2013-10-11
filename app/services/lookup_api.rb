@@ -45,7 +45,13 @@ class LookupApi
   end
 
   def self.parse_uri(method, q, &block)
-    uri = URI("#{AppConfig['lookup_url']}/#{method}?#{q.to_query}")
+    c = AppConfig['private']['wscp']
+    url_parts = [ c['url_base'] ]
+    url_parts << c['lookup_path'] unless c['lookup_path'].blank?
+    url_parts << c['api_key'] unless c['api_key'].blank?
+    url_parts << method
+
+    uri = URI("#{url_parts.join('/')}?#{q.to_query}")
     Rails.logger.info "LOOKUP: #{method} URL: #{uri}" if AppConfig['api_debug_logging']
 
     parse_uri_without_timeout(method, uri, &block)

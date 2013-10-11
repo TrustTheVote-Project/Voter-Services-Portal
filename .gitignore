@@ -8,7 +8,7 @@
 /.bundle
 
 /config/database.yml
-/config/config.yml
+/config/config*.yml
 /config/deploy.rb
 /db/*.sqlite3
 

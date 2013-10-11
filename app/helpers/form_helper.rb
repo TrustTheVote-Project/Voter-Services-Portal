@@ -10,17 +10,17 @@ module FormHelper
 
   # TRUE if online balloting is enabled
   def online_balloting?
-    dl = AppConfig['dl']
+    ob = AppConfig['private']['online_balloting']
 
-    dl['enabled'] &&
-    !dl['url'].blank? &&
-    !dl['access_token'].blank? &&
-    !dl['account_id'].blank?
+    AppConfig['enable_online_balloting'] &&
+    !ob['url'].blank? &&
+    !ob['access_token'].blank? &&
+    !ob['account_id'].blank?
   end
 
   def online_ballot_url(r = @registration)
-    dl = AppConfig['dl']
-    "#{dl['url']}/?search[vid]=#{r.voter_id}&token=#{dl['access_token']}&account=#{dl['account_id']}"
+    ob = AppConfig['private']['online_balloting']
+    "#{ob['url']}/?search[vid]=#{r.voter_id}&token=#{ob['access_token']}&account=#{ob['account_id']}"
   end
 
   # Checks if we are collecting a certain field for a given form.

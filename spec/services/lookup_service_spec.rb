@@ -68,7 +68,7 @@ describe LookupService do
       expect(res[2]).to eq({
         request:    'AbsenteeRequest',
         action:     'reject',
-        date:       '10 Oct 2012',
+        date:       'Oct 10, 2012',
         notes:      'rejectUnsigned',
         registrar:  'York County General Registrar Clerk 17'
       })
@@ -133,7 +133,7 @@ describe LookupService do
       it 'should parse data' do
         xml = fixture("api/transactions/data.xml").read
         res = LookupService.send(:parse_transaction_log_xml, xml)
-        expect(res).to eq [ { request: "AbsenteeRequest", action: "start", date: "06 Feb 2013", registrar: "ehibner-reavis", notes: "" } ]
+        expect(res).to eq [ { request: "AbsenteeRequest", action: "start", date: "Feb 06, 2013", registrar: "ehibner-reavis", notes: "" } ]
       end
     end
 

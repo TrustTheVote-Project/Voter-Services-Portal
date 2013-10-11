@@ -1,0 +1,31 @@
+# Configuration keys for integration with external services:
+#
+# 1) The peer service for online ballot access via DL
+# 2) The backend service for voter record lookup and submission
+
+# Service for online ballot marking
+# If enabled is false, then the other keys will not be used.
+# The intent is that even if this service is running and available,
+# there are times where it should not be used -- that, those times
+# where there is no upcoming election and hence no online ballots
+# to access.
+#
+# NOTE: account_id is sensitive and must be added here in order 
+#   for this feature to work
+online_balloting:
+  url:          "http://dev.liveballot.com/vr/direct"
+  access_token: "osdvlb"
+  account_id:   xxxxxxxx
+
+# URLs to use to access the backend service. One service is for lookups to get voter info,
+# another is for submitting voter info as registration request.
+#
+# NOTE: the tail of the URL is an API key that is confidential,
+#   and needs to be added here
+#   Both keys should have the same API key and the same URL prefix
+#
+wscp:
+  url_base:     "https://wscp.sbe.virginia.gov"
+  lookup_path:  "Electionlist.svc/v3"
+  submit_path:  "VoterRegistration.svc/v3"
+  api_key:      "xxxxxxxxxxxxxxx"

@@ -92,7 +92,13 @@ class SubmitEml310
   end
 
   def self.submission_url
-    @submission_url ||= AppConfig['eml310_submit_url']
+    @submission_url ||= begin
+      c = AppConfig['private']['wscp']
+      url_parts = [ c['url_base'] ]
+      url_parts << c['submit_path'] unless c['lookup_path'].blank?
+      url_parts << c['api_key'] unless c['api_key'].blank?
+      url_parts.join('/')
+    end
   end
 
   # returns registration EML310
