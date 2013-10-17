@@ -17,6 +17,9 @@ choose_absentee_until: false
 # Minutes given to finish registration / update form
 form_expiry: 60
 
+# Server for online ballot marking
+enable_online_balloting: true
+
 xml:
   source_name: Virginia SBE Voter Services Portal
 
