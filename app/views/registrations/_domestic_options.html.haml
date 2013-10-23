@@ -7,7 +7,7 @@
       .checkbox
         = f.check_box :need_assistance, 'data-bind' => 'checked: needsAssistance'
         = f.label :need_assistance do
-          %strong= I18n.t('options.domestic.need_assistance')
+          %strong= t('options.domestic.need_assistance')
 
 .partition
   .row
@@ -15,7 +15,7 @@
       .checkbox
         = f.check_box :be_official, autocomplete: ac, 'data-bind' => 'checked: beOfficial'
         = f.label :be_official do
-          %strong= I18n.t('options.being_official')
+          %strong= t('options.being_official')
 
 - if (updating && AppConfig['update_reg_domestic_with_absentee_allowed']) || (!updating && AppConfig['new_reg_domestic_with_absentee_allowed'])
   .partition
@@ -24,7 +24,7 @@
         .checkbox
           = f.check_box :requesting_absentee, 'data-bind' => 'checkedWithInit: requestingAbsentee', autocomplete: ac
           = f.label :requesting_absentee do
-            %strong= I18n.t('options.domestic.requesting_absentee')
+            %strong= t('options.domestic.requesting_absentee')
         <!-- ko if: requestingAbsentee -->
         %p To apply to vote absentee, you must identify the election for which you are applying.
         <!-- /ko -->
@@ -141,8 +141,8 @@
             %td &nbsp;
             %td
               = f.label :ab_zip4 do
-                = I18n.t('addresses.zip4')
-                %span= I18n.t('optional')
+                = t('addresses.zip4')
+                %span= t('optional')
           %tr
             %td= f.text_field :ab_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "abZip5" }, valueUpdate: "afterkeyup"', placeholder: 'NNNNN'
             %td.space &mdash;

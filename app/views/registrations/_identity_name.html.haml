@@ -11,7 +11,7 @@
     = f.label :middle_name do
       Full middle
       - unless middle_name_required
-        %span= I18n.t('optional')
+        %span= t('optional')
     = hidden_field_tag "registration[middle_name]", ''
     = f.text_field :middle_name, autocomplete: ac, 'data-bind' => [ "enable: middleNameEnabled", middle_name_value ].join(", ")
   .span3
@@ -21,7 +21,7 @@
     = f.label :suffix do
       Suffix
       - unless name_suffix_required
-        %span= I18n.t('optional')
+        %span= t('optional')
     = hidden_field_tag "registration[suffix]", ''
     = f.select :suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => [ 'enable: suffixEnabled', name_suffix_value ].join(', ') }
 
@@ -29,10 +29,10 @@
   .row
     .checkbox
       = check_box_tag :no_middle_name, '1', updating && f.object.middle_name.blank?, 'data-bind' => 'checkedWithInit: noMiddleName'
-      = label_tag :no_middle_name, I18n.t('identity.no_middle_name')
+      = label_tag :no_middle_name, t('identity.no_middle_name')
 
 - if name_suffix_required
   .row
     .checkbox
       = check_box_tag :no_name_suffix, '1', updating && f.object.suffix.blank?, 'data-bind' => 'checkedWithInit: noSuffix'
-      = label_tag :no_name_suffix, I18n.t('identity.no_name_suffix')
+      = label_tag :no_name_suffix, t('identity.no_name_suffix')

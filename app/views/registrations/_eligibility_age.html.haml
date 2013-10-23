@@ -1,6 +1,6 @@
 - if AppConfig['eligibility_18_display']
   .partition.old_enough
-    %h4= I18n.t('eligibility.old_enough.question')
+    %h4= raw t('eligibility.old_enough.question')
     .radio
       = f.radio_button :old_enough, '1', 'data-bind' => 'checkedWithInit: oldEnough'
       %label{ for: 'registration_old_enough_1' } Yes

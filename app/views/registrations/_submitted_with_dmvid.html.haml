@@ -1,10 +1,10 @@
 #final.section{ 'data-bind' => 'vis: page() == "final"' }
   .head
-    %h3= I18n.t('submitted_paperless.title')
-    .description= I18n.t('submitted_paperless.subheader')
+    %h3= raw t('submitted_paperless.title')
+    .description= raw t('submitted_paperless.subheader')
 
   .row
     .span10
-      %p= I18n.t('submitted_paperless.details').html_safe
+      %p= raw t('submitted_paperless.details')
       %p.gr
         %strong= office_address(@registration.vvr_county_or_city)

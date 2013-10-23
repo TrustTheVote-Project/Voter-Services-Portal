@@ -14,25 +14,25 @@
       %h3 Previous Voter Registration Information
 
     - if updating
-      %p= I18n.t("previous_registration.header")
+      %p= raw t("previous_registration.header")
       = f.hidden_field :pr_status
       .radio
         = f.radio_button :pr_status, '0', { 'data-bind' => 'checkedWithInit: prStatus', disabled: true }
-        %label{ for: 'registration_pr_status_0' }= I18n.t("previous_registration.update.no_answer")
+        %label{ for: 'registration_pr_status_0' }= t("previous_registration.update.no_answer")
       .radio
         = f.radio_button :pr_status, '1', { 'data-bind' => 'checkedWithInit: prStatus', disabled: true }
-        %label{ for: 'registration_pr_status_1' }= I18n.t("previous_registration.update.yes_answer")
+        %label{ for: 'registration_pr_status_1' }= t("previous_registration.update.yes_answer")
     - else
       .radio
         = f.radio_button :pr_status, '0', { 'data-bind' => 'checkedWithInit: prStatus' }
-        %label{ for: 'registration_pr_status_0' }= I18n.t("previous_registration.new.no_answer")
+        %label{ for: 'registration_pr_status_0' }= t("previous_registration.new.no_answer")
       .radio
         = f.radio_button :pr_status, '1', { 'data-bind' => 'checkedWithInit: prStatus' }
-        %label{ for: 'registration_pr_status_1' }= I18n.t("previous_registration.new.yes_answer")
+        %label{ for: 'registration_pr_status_1' }= t("previous_registration.new.yes_answer")
 
     <!-- ko if: prStatus() == "1" -->
     .row
-      .span10= I18n.t('previous_registration.explanation')
+      .span10= raw t('previous_registration.explanation')
 
     .row.personal-info
       .span3
@@ -41,7 +41,7 @@
       .span3
         = f.label :pr_middle_name do
           Full middle
-          %span= I18n.t('optional')
+          %span= t('optional')
         = f.text_field :pr_middle_name, autocomplete: ac, 'data-bind' => 'valueWithInit: prMiddleName'
       .span3
         = f.label :pr_last_name, "Last name"
@@ -49,39 +49,39 @@
       .span2
         = f.label :pr_suffix do
           Suffix
-          %span= I18n.t('optional')
+          %span= t('optional')
         = f.select :pr_suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'value: prSuffix' }
     .row
       .span12
         .checkbox
           = f.check_box :pr_is_rural, { 'data-bind' => 'checkedWithInit: prIsRural' }
-          = f.label :pr_is_rural, I18n.t('previous_registration.rural')
+          = f.label :pr_is_rural, t('previous_registration.rural')
     .row
       .span3
         .address-field
-          = f.label :pr_address, I18n.t('previous_registration.address')
+          = f.label :pr_address, t('previous_registration.address')
           = f.text_field :pr_address, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prAddress1" }, valueUpdate: "afterkeyup"'
         .address-field
           = f.label :pr_address_2 do
-            = I18n.t('previous_registration.address_2')
-            %span= I18n.t('optional')
+            = t('previous_registration.address_2')
+            %span= t('optional')
           = f.text_field :pr_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: prAddress2, valueUpdate: "afterkeyup"'
     .row
       .span3
-        = f.label :pr_city, I18n.t('previous_registration.city_town')
+        = f.label :pr_city, t('previous_registration.city_town')
         = f.text_field :pr_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prCity" }, valueUpdate: "afterkeyup"'
       .span2.state-field
-        = f.label :pr_state, I18n.t('previous_registration.state')
+        = f.label :pr_state, t('previous_registration.state')
         = f.select :pr_state, Dictionaries::STATES, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "prState" }' }
       .span3.zip-field
         %table
           %tr
-            %td= f.label :pr_zip5, I18n.t('previous_registration.zip5')
+            %td= f.label :pr_zip5, t('previous_registration.zip5')
             %td &nbsp;
             %td
               = f.label :pr_zip4 do
-                = I18n.t('addresses.zip4')
-                %span= I18n.t('optional')
+                = t('addresses.zip4')
+                %span= t('optional')
           %tr
             %td= f.text_field :pr_zip5, class: 'first-zip', autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prZip5", validation: "zip5" }, valueUpdate: "afterkeyup"', placeholder: 'NNNNN', maxlength: 5
             %td.space &mdash;
@@ -89,8 +89,8 @@
     .row
       .span10
         = f.label :pr_county_or_city do
-          = I18n.t('previous_registration.county_or_city')
-          %span= I18n.t('optional')
+          = t('previous_registration.county_or_city')
+          %span= t('optional')
         = f.text_field :pr_county_or_city, 'data-bind' => 'valueWithInit: prCountyOrCity'
 
 
@@ -100,7 +100,7 @@
           .checkbox
             = f.check_box :pr_cancel, 'data-bind' => 'instantValidation: { accessor: "prCancel" }'
             = f.label :pr_cancel do
-              %strong= I18n.t('previous_registration.authorize')
+              %strong= t('previous_registration.authorize')
 
     <!-- /ko -->
 

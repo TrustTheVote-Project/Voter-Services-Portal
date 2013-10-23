@@ -1,11 +1,11 @@
 #submit_online.section{ 'data-bind' => 'vis: page() == "submit_online"' }
   .head
-    %h3= I18n.t('submit_paperless.title')
-    .description= I18n.t('submit_paperless.subheader')
+    %h3= raw t('submit_paperless.title')
+    .description= raw t('submit_paperless.subheader')
 
   .row
     .span10
-      = I18n.t('submit_paperless.details').html_safe
+      = raw t('submit_paperless.details')
 
   .form-actions
     = button_tag 'Submit', class: 'submit bt', 'data-bind' => 'click: submitForm'

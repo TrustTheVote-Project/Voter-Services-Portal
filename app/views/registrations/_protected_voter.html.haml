@@ -5,26 +5,26 @@
         %strong Protected Voter
       .checkbox
         = f.check_box :is_confidential_address, autocomplete: ac, 'data-bind' => 'checkedWithInit: isConfidentialAddress'
-        = f.label :is_confidential_address, I18n.t('options.ac.statement', address: I18n.t('residence_address').downcase)
+        = f.label :is_confidential_address, t('options.ac.statement', address: t('residence_address').downcase)
   .row
     .span10
       - %w( LEO CPO TSC ACP ).each do |r|
         .radio
           = f.radio_button :ca_type, r, 'data-bind' => 'checkedWithInit: caType, enable: isConfidentialAddress'
-          %label{ for: "registration_ca_type_#{r.downcase}", 'data-bind' => 'css: { disabled: !isConfidentialAddress() }' }= I18n.t("options.ac.reasons.#{r}")
+          %label{ for: "registration_ca_type_#{r.downcase}", 'data-bind' => 'css: { disabled: !isConfidentialAddress() }' }= raw t("options.ac.reasons.#{r}")
 
       .additional{ 'data-bind' => 'visible: protectedVoterAdditionals' }
         <!-- ko if: needsProtectedMailingAddress -->
         -# here we set ma_is_different as a field to let backend know
         -# that we have explicit custom MA provided even though the user
         -# didn't want to provide it in the addresses section
-        .important= I18n.t("options.ac.type", address: I18n.t('residence_address').downcase)
+        .important= raw t("options.ac.type", address: t('residence_address').downcase)
         = hidden_field_tag 'registration[ma_is_different]', 1
         <!-- /ko -->
         %div{ 'data-bind' => 'visible: needsProtectedMailingAddress' }
-          = render partial: 'mailing_domestic', locals: { f: f, address_label: I18n.t('options.ac.mailing_address_label') }
+          = render partial: 'mailing_domestic', locals: { f: f, address_label: t('options.ac.mailing_address_label') }
 
         <!-- ko if: caType() == 'TSC' -->
-        .important= I18n.t('options.ac.address')
+        .important= raw t('options.ac.address')
         <!-- /ko -->
 
