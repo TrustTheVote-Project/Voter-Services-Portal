@@ -18,7 +18,12 @@ class LookupController < ApplicationController
     items = items.each do |i|
       i[:request] = I18n.t("view.absentee_status.request.#{i[:request]}", default: i[:request]) unless i[:request].blank?
       i[:action]  = I18n.t("view.absentee_status.action.#{i[:action]}", default: i[:action]) unless i[:action].blank?
-      i[:notes]   = I18n.t("view.absentee_status.notes.#{i[:notes]}", default: i[:notes]) unless i[:notes].blank?
+
+      notes = []
+      notes << I18n.t("view.absentee_status.formnotes.#{i[:form_notes]}", default: i[:form_notes]) unless i[:form_notes].blank?
+      notes << I18n.t("view.absentee_status.notes.#{i[:notes]}", default: i[:notes]) unless i[:notes].blank?
+
+      i[:notes] = notes.join("; ")
     end
     render json: { success: true, items: items }
   end
