@@ -91,3 +91,8 @@
     .span4= link_to "Update or View Voter Record", :search, alt: "Update or View Voter Record", class: "update bt right", id: 'search'
     - if enabled_uocava_reg
       .span4= link_with_privacy_act_to "Register Overseas", :register_overseas, alt: "Register Overseas", class: "overseas bt right"
+
+- deadline = raw t('front.deadline')
+- if deadline.present?
+  .row.deadline
+    .span12= deadline
