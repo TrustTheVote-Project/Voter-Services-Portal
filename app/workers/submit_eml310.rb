@@ -66,6 +66,7 @@ class SubmitEml310
     netlog = nil
     if AppConfig['enable_eml_log']
       begin
+        Rails.logger.debug("LAST_EML310: " + req.body)
         File.open("#{Rails.root}/log/last_eml310.xml", "wb") { |f| f.write(req.body) }
         netlog = File.open("#{Rails.root}/log/last_eml310.netlog", "wb")
         netlog << "#{uri}\n"
