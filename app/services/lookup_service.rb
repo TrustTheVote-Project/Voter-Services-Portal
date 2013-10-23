@@ -198,7 +198,8 @@ class LookupService < LookupApi
         action:    vtr.css('action').text,
         date:      Date.parse(date).strftime('%b %d, %Y'),
         registrar: vtr.css('leo').text.to_s.strip,
-        notes:     vtr.css('notes').text.to_s.strip }
+        notes:     vtr.css('notes').text.to_s.strip,
+        formNotes: vtr.css('formNote').text.to_s.strip }
     end
   end
 
