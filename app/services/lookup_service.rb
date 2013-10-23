@@ -194,12 +194,12 @@ class LookupService < LookupApi
       request   = vtr.css('form type').text
       request   = vtr.css('form').text if request.blank?
 
-      { request:   request,
-        action:    vtr.css('action').text,
-        date:      Date.parse(date).strftime('%b %d, %Y'),
-        registrar: vtr.css('leo').text.to_s.strip,
-        notes:     vtr.css('notes').text.to_s.strip,
-        formNotes: vtr.css('formNote').text.to_s.strip }
+      { request:    request,
+        action:     vtr.css('action').text,
+        date:       Date.parse(date).strftime('%b %d, %Y'),
+        registrar:  vtr.css('leo').text.to_s.strip,
+        notes:      vtr.css('notes').text.to_s.strip,
+        form_notes: vtr.css('formNote').text.to_s.strip }
     end
   end
 
