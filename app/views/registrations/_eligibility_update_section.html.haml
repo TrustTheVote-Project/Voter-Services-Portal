@@ -1,18 +1,18 @@
 #eligibility.section{ 'data-bind' => 'vis: page() == "eligibility"' }
   .head
     %h3 Eligibility
-    .description= I18n.t('eligibility.subtitle')
-  %p= I18n.t('eligibility.details')
+    .description= raw t('eligibility.subtitle')
+  %p= raw t('eligibility.details')
 
   = render partial: 'eligibility_citizen', locals: { f: f }
   = render partial: 'eligibility_age', locals: { f: f }
 
   - if @registration.currently_residential?
-    - res_in_label = I18n.t('eligibility.residence.in')
-    - res_out_label = I18n.t('eligibility.residence.out')
+    - res_in_label = t('eligibility.residence.in')
+    - res_out_label = t('eligibility.residence.out')
   - else
-    - res_in_label = I18n.t('eligibility.residence.in_overseas')
-    - res_out_label = I18n.t('eligibility.residence.out_overseas')
+    - res_in_label = t('eligibility.residence.in_overseas')
+    - res_out_label = t('eligibility.residence.out_overseas')
 
   .partition
     .radio

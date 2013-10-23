@@ -2,7 +2,7 @@
   .head
     %h3 Eligibility
     .description Eligibility to vote in Virginia.
-  %p= I18n.t('eligibility.details')
+  %p= raw t('eligibility.details')
 
   = render partial: 'eligibility_citizen', locals: { f: f }
   = render partial: 'eligibility_age', locals: { f: f }
@@ -10,11 +10,11 @@
   .partition
     .radio
       = f.radio_button :residence, 'in', 'data-bind' => 'checked: residence'
-      %label{ for: 'registration_residence_in' } #{I18n.t('eligibility.residence.in')}
+      %label{ for: 'registration_residence_in' } #{t('eligibility.residence.in')}
     - if enabled_uocava_reg
       .radio
         = f.radio_button :residence, 'outside', 'data-bind' => 'checked: residence'
-        %label{ for: 'registration_residence_outside' } #{I18n.t('eligibility.residence.out')}
+        %label{ for: 'registration_residence_outside' } #{t('eligibility.residence.out')}
 
   = render partial: 'eligibility_rights', locals: { f: f }
 

@@ -1,14 +1,14 @@
 .padded_page_span.section#overview
   .head
-    %h3= I18n.t("ballot_info.title")
-    .description= I18n.t("ballot_info.subtitle")
+    %h3= raw t("ballot_info.title")
+    .description= raw t("ballot_info.subtitle")
 
   .row
     %p
-      #{I18n.t("ballot_info.header.title")}<br/>
+      #{raw t("ballot_info.header.title")}<br/>
       #{@info.election_date}<br/>
       #{@info.election_name}<br/>
-      #{@info.locality} #{I18n.t("ballot_info.header.precinct")} #{@info.precinct}
+      #{@info.locality} #{raw t("ballot_info.header.precinct")} #{@info.precinct}
 
   - @info.contests.each do |contest|
     .row

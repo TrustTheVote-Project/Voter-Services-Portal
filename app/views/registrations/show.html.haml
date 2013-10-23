@@ -17,7 +17,7 @@
         = link_to "Download Voter Card", voter_card_path, class: 'download voter_card'
       %h3 Voter Information
 
-      %p= I18n.t('view.info')
+      %p= raw t('view.info')
       %p
         - clauses = [ "You can also #{edit_link_1}" ]
         - clauses << ", or #{link_with_privacy_act_to 'apply for an absentee ballot', :request_absentee_registration}".html_safe if update_ab
@@ -97,7 +97,7 @@
           %h3
             - if vlp
               = link_to "Show", '#', class: 'toggle'
-            = I18n.t('view.voting_location.title')
+            = raw t('view.voting_location.title')
           - if vlp
             .area
               .left-padded= @registration.voting_location
@@ -122,21 +122,21 @@
       .body
         %h3
           = link_to "Show", '#', class: 'toggle'
-          = I18n.t('view.my_ballot.title')
+          = raw t('view.my_ballot.title')
         .area{ 'data-bind' => "template: { name: myBallot.templateName, data: myBallot.data }" }
 
     .accordion.summary.absentee_status
       .body
         %h3
           = link_to "Show", '#', class: 'toggle'
-          = I18n.t('view.absentee_status.title')
+          = raw t('view.absentee_status.title')
         .area{ 'data-bind' => "template: { name: absenteeStatus.templateName, data: absenteeStatus.data }" }
 
     %script{ type: 'text/html', id: 'my-ballot' }
       %p.left-padded{ 'data-bind' => 'if: items.length == 0' }
-        = I18n.t('view.my_ballot.none')
+        = raw t('view.my_ballot.none')
       %div{ 'data-bind' => 'if: items.length > 0' }
-        %p.left-padded= I18n.t('view.my_ballot.prompt')
+        %p.left-padded= raw t('view.my_ballot.prompt')
         %table.table
           %tbody{ 'data-bind' => 'foreach: items' }
             %tr
@@ -145,7 +145,7 @@
 
     %script{ type: 'text/html', id: 'absentee-status' }
       %p.left-padded{ 'data-bind' => 'if: items.length == 0' }
-        = I18n.t('view.absentee_status.none')
+        = raw t('view.absentee_status.none')
       %table.table{ 'data-bind' => 'if: items.length > 0' }
         %thead
           %tr
@@ -196,7 +196,7 @@
           %h3
             - if ebcp
               = link_to "Show", '#', class: 'toggle'
-            = I18n.t('view.electoral_board_contacts.title')
+            = raw t('view.electoral_board_contacts.title')
           - if ebcp
             .area
               .left-padded= @registration.electoral_board_contacts

@@ -5,9 +5,9 @@
     .span12
       %h2 Welcome.
       %small
-        #{raw I18n.t('front.welcome.line1')}<br/>
-        #{raw I18n.t('front.welcome.line2')}<br/>
-        #{raw I18n.t('front.welcome.line3')}
+        #{raw t('front.welcome.line1')}<br/>
+        #{raw t('front.welcome.line2')}<br/>
+        #{raw t('front.welcome.line3')}
 
   - if !AppConfig['dmv_id_submission']
     .row.steps
@@ -37,9 +37,9 @@
             %td.mail= image_tag 'icon_mail.png', size: "60x60"
 
 - uocava_reg     = AppConfig['home_page_uocava_registration']
-- domestic_title = I18n.t('front.options.residential.title').html_safe
-- update_title   = I18n.t('front.options.update.title').html_safe
-- overseas_title = I18n.t('front.options.overseas.title').html_safe
+- domestic_title = t('front.options.residential.title').html_safe
+- update_title   = t('front.options.update.title').html_safe
+- overseas_title = t('front.options.overseas.title').html_safe
 .row.options
   - if uocava_reg
     %div{ class: enabled_uocava_reg ? "span8" : "span4" }
@@ -57,29 +57,29 @@
 
 .row.options-details
   .span4
-    %h4= I18n.t('front.options.residential.subtitle')
-    %p= I18n.t('front.options.residential.text')
+    %h4= raw t('front.options.residential.subtitle')
+    %p= raw t('front.options.residential.text')
 
   - if uocava_reg
     - if enabled_uocava_reg
       .span4
-        %h4= I18n.t('front.options.overseas.subtitle')
-        %p= I18n.t('front.options.overseas.text')
+        %h4= raw t('front.options.overseas.subtitle')
+        %p= raw t('front.options.overseas.text')
     .span4
-      %h4= I18n.t('front.options.update.subtitle')
-      %p= I18n.t('front.options.update.text')
-      %h4= I18n.t('front.options.request_absentee.subtitle')
-      %p= I18n.t('front.options.request_absentee.text')
+      %h4= raw t('front.options.update.subtitle')
+      %p= raw t('front.options.update.text')
+      %h4= raw t('front.options.request_absentee.subtitle')
+      %p= raw t('front.options.request_absentee.text')
   - else
     .span4
-      %h4= I18n.t('front.options.update.subtitle')
-      %p= I18n.t('front.options.update.text')
-      %h4= I18n.t('front.options.request_absentee.subtitle')
-      %p= I18n.t('front.options.request_absentee.text')
+      %h4= raw t('front.options.update.subtitle')
+      %p= raw t('front.options.update.text')
+      %h4= raw t('front.options.request_absentee.subtitle')
+      %p= raw t('front.options.request_absentee.text')
     - if enabled_uocava_reg
       .span4
-        %h4= I18n.t('front.options.overseas.subtitle')
-        %p= I18n.t('front.options.overseas.text')
+        %h4= raw t('front.options.overseas.subtitle')
+        %p= raw t('front.options.overseas.text')
 
 .row.options-links
   .span4= link_with_privacy_act_to "Register Residential", :register_residential, alt: "Register Resedential", class: "residential bt right"

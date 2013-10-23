@@ -2,63 +2,63 @@
   .row
     .padded_page_span.welcome
       .head
-        %h2= I18n.t('search.no_forms.title')
-        = raw I18n.t('search.no_forms.details')
+        %h2= raw t('search.no_forms.title')
+        = raw t('search.no_forms.details')
 
 
 .row
   .padded_page_span.section{ class: no_forms? ? nil : "welcome" }
     .head
-      %h3= I18n.t('search.title')
-      .description= I18n.t('search.subtitle')
+      %h3= raw t('search.title')
+      .description= raw t('search.subtitle')
 
-    = raw I18n.t('search.details')
+    = raw t('search.details')
 
     = form_for @search_query, url: search_path do |f|
       .row
         .radio
           = f.radio_button :lookup_type, 'ssn4', 'data-bind' => 'checkedWithInit: lookupType'
-          %label( for='search_query_lookup_type_ssn4' )= I18n.t('search.via_ssn.option')
+          %label( for='search_query_lookup_type_ssn4' )= t('search.via_ssn.option')
         .radio
           = f.radio_button :lookup_type, 'vid', 'data-bind' => 'checkedWithInit: lookupType'
-          %label( for='search_query_lookup_type_vid' )= I18n.t('search.via_vid.option')
+          %label( for='search_query_lookup_type_vid' )= t('search.via_vid.option')
 
       .partition{ 'data-bind' => 'visible: lookupType() == "ssn4"' }
         .row
           .span3
-            %label( for='search_query_first_name' )= I18n.t('search.via_ssn.first_name')
+            %label( for='search_query_first_name' )= t('search.via_ssn.first_name')
             = f.text_field :first_name, 'data-bind' => 'instantValidation: { accessor: "firstName" }'
           .span3
-            %label( for='search_query_last_name' )= I18n.t('search.via_ssn.last_name')
+            %label( for='search_query_last_name' )= t('search.via_ssn.last_name')
             = f.text_field :last_name, 'data-bind' => 'instantValidation: { accessor: "lastName" }'
           .span4
-            %label( for='search_query_dob' )= I18n.t('search.via_ssn.dob')
+            %label( for='search_query_dob' )= t('search.via_ssn.dob')
             = bound_date f, :dob, { object_name: 'search_query', start_year: Date.today.year - 120, end_year: Date.today.year - 17 }, { class: 'date' }
 
         .row
           .span3.numbers
-            %label( for='search_query_ssn4' )= I18n.t('search.via_ssn.ssn4')
+            %label( for='search_query_ssn4' )= t('search.via_ssn.ssn4')
             = f.text_field :ssn4, placeholder: 'NNNN', maxlength: 4, class: 'span1', 'data-bind' => 'instantValidation: { accessor: "ssn4", validation: "ssn4", resetAlso: ".numbers" }'
           .span3
-            %label( for='locality_ssn' )= I18n.t('search.via_ssn.locality')
+            %label( for='locality_ssn' )= t('search.via_ssn.locality')
             = f.select :locality, Office.localities, { include_blank: true }, 'data-bind' => 'instantValidation: { accessor: "locality" }', id: 'locality_ssn'
 
       .partition#vid{ 'data-bind' => 'visible: lookupType() == "vid"' }
         .row
           .span3.numbers
-            %label( for='search_query_voter_id' )= I18n.t('search.via_vid.voter_id')
+            %label( for='search_query_voter_id' )= t('search.via_vid.voter_id')
             = f.text_field :voter_id, label: 'Voter ID', placeholder: 'NNNNNNNNN', maxlength: 9, 'data-bind' => 'instantValidation: { accessor: "voterId", validation: "voterId", resetAlso: ".numbers" }'
           .span3
-            %label( for='locality_vid' )= I18n.t('search.via_vid.locality')
+            %label( for='locality_vid' )= t('search.via_vid.locality')
             = f.select :locality, Office.localities, { include_blank: true }, 'data-bind' => 'instantValidation: { accessor: "locality" }', id: 'locality_vid'
           .span4
-            %label( for='search_query_dob' )= I18n.t('search.via_vid.dob')
+            %label( for='search_query_dob' )= t('search.via_vid.dob')
             = bound_date f, :dob, { object_name: 'search_query', start_year: Date.today.year - 120, end_year: Date.today.year - 17 }, { class: 'date' }
 
       .partition
         .checkbox
           = check_box_tag :swear, 1, false, 'data-bind' => 'instantValidation: { accessor: "swear" }'
-          %label{ for: 'swear' } #{I18n.t('search.affirmation').html_safe}
+          %label{ for: 'swear' } #{raw t('search.affirmation')}
 
 
       .form-actions

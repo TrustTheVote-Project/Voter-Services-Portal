@@ -4,14 +4,14 @@
       - ue = AppConfig['upcoming_election']
       %h3 Upcoming Election
 
-      %h4= ue['name']
-      %p=  ue['date']
+      %h4= raw ue['name']
+      %p=  raw ue['date']
 
       %h4 Virginia polling times
-      %p=  ue['polling_times']
+      %p=  raw ue['polling_times']
 
       %h4 Registration deadline
-      %p=  ue['reg_deadline']
+      %p=  raw ue['reg_deadline']
 
     .span8.additional-info
       .row
@@ -21,7 +21,7 @@
 
         .span4.contact
           %h3 Contact
-          %h4= I18n.t("contact.organization")
+          %h4= raw t("contact.organization")
           %p
             Washington Building<br/>
             First Floor<br/>
