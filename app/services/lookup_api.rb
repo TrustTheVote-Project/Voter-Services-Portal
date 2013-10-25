@@ -61,8 +61,8 @@ class LookupApi
     req = Net::HTTP::Get.new(uri.request_uri)
     res = Net::HTTP.start(uri.hostname, uri.port,
                           use_ssl:      uri.scheme == 'https',
-                          open_timeout: 5,
-                          read_timeout: 15,
+                          open_timeout: 30,
+                          read_timeout: 30,
                           verify_mode:  OpenSSL::SSL::VERIFY_NONE) do |http|
       http.request(req)
     end
