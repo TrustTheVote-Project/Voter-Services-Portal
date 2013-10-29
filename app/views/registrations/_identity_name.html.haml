@@ -1,8 +1,8 @@
 - updating ||= false
-- middle_name_required = AppConfig['middle_name_required']
-- name_suffix_required = AppConfig['name_suffix_required']
-- middle_name_value = middle_name_required ? 'instantValidation: { accessor: "middleName", unless: "noMiddleName" }' : 'value: middleName'
-- name_suffix_value = name_suffix_required ? 'instantValidation: { accessor: "suffix", unless: "noSuffix" }' : 'value: suffix'
+- require_middle_name = AppConfig['require_middle_name']
+- require_name_suffix = AppConfig['require_name_suffix']
+- middle_name_value = require_middle_name ? 'instantValidation: { accessor: "middleName", unless: "noMiddleName" }' : 'value: middleName'
+- name_suffix_value = require_name_suffix ? 'instantValidation: { accessor: "suffix", unless: "noSuffix" }' : 'value: suffix'
 .row.personal-info
   .span3
     = f.label :first_name
@@ -10,7 +10,7 @@
   .span3
     = f.label :middle_name do
       Full middle
-      - unless middle_name_required
+      - unless require_middle_name
         %span= t('optional')
     = hidden_field_tag "registration[middle_name]", ''
     = f.text_field :middle_name, autocomplete: ac, 'data-bind' => [ "enable: middleNameEnabled", middle_name_value ].join(", ")
@@ -20,18 +20,18 @@
   .span2
     = f.label :suffix do
       Suffix
-      - unless name_suffix_required
+      - unless require_name_suffix
         %span= t('optional')
     = hidden_field_tag "registration[suffix]", ''
     = f.select :suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => [ 'enable: suffixEnabled', name_suffix_value ].join(', ') }
 
-- if middle_name_required
+- if require_middle_name
   .row
     .checkbox
       = check_box_tag :no_middle_name, '1', updating && f.object.middle_name.blank?, 'data-bind' => 'checkedWithInit: noMiddleName'
       = label_tag :no_middle_name, t('identity.no_middle_name')
 
-- if name_suffix_required
+- if require_name_suffix
   .row
     .checkbox
       = check_box_tag :no_name_suffix, '1', updating && f.object.suffix.blank?, 'data-bind' => 'checkedWithInit: noSuffix'

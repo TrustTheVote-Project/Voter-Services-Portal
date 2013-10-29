@@ -27,11 +27,11 @@ def fill_identity_page(options = {})
   fill_in "Last name", with: "Smith"
   select  "Male", from: "Gender"
 
-  if AppConfig['middle_name_required']
+  if AppConfig['require_middle_name']
     fill_in "Full middle", with: "Aaron"
   end
 
-  if AppConfig['name_suffix_required']
+  if AppConfig['require_name_suffix']
     select "Jr", from: "Suffix"
   end
 

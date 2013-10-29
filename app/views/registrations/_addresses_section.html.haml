@@ -63,7 +63,7 @@
     .span10
       .checkbox
         = f.check_box :ma_is_different, 'data-bind' => 'checkedWithInit: maIsDifferent'
-        = f.label :ma_is_different, t("mailing_address.different.#{AppConfig['domestic_voter_mailing_address_limit'] ? 'limit' : 'no_limit'}", address: t('residence_address').downcase)
+        = f.label :ma_is_different, t("mailing_address.different.#{AppConfig['enable_limit_on_domestic_voter_mailing_address'] ? 'limit' : 'no_limit'}", address: t('residence_address').downcase)
   <!-- /ko --> <!-- domestic -->
 
   <!-- ko if: overseas -->

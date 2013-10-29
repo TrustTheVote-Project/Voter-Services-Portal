@@ -11,7 +11,7 @@
       = field_line 1, rr.dob, 'date of birth'
       = field_line 1, rr.phone, 'phone'
       = field_line 1, rr.gender, 'gender'
-      - if rr.overseas? && !AppConfig['registration']['absentee_party_preference'] && rr.party_preference
+      - if rr.overseas? && !AppConfig['collect_absentee_party_preference_only_absentee'] && rr.party_preference
         = field_line 2, rr.party_preference, 'party preference'
       - else
         = field_line 2, :empty

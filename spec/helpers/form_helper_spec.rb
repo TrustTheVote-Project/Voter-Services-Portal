@@ -4,7 +4,7 @@ describe FormHelper do
 
   describe 'collecting?' do
     let(:config)      { {} }
-    let(:app_config)  { { 'form' => config } }
+    let(:app_config)  { config }
 
     it 'should return TRUE when is set to TRUE' do
       config['collect_field'] = true
@@ -23,7 +23,7 @@ describe FormHelper do
     private
 
     def collecting
-      helper.collecting?('form', 'field', app_config)
+      helper.collecting?('field', app_config)
     end
   end
 end

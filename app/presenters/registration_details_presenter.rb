@@ -177,7 +177,7 @@ class RegistrationDetailsPresenter
   end
 
   def showing_party_preference?
-    if AppConfig['registration']['absentee_party_preference']
+    if AppConfig['collect_absentee_party_preference_only_absentee']
       @registration.currently_overseas? || !@registration.absentee_for_elections.blank?
     else
       true

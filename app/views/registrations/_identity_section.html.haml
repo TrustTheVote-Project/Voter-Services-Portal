@@ -13,7 +13,7 @@
           .date
             %label{ for: 'registration_dob_2i_' } Date of birth
             = bound_date f, :dob, :start_year => Date.today.year - 120, :end_year => Date.today.year - 17
-      - if collecting? :registration, :gender
+      - if collecting? :gender
         %div{ class: span23 }
           = f.label :gender
           = f.select :gender, [ 'Male', 'Female' ], { include_blank: true }, { autocomplete: ac, class: span23, 'data-bind' => 'instantValidation: { accessor: "gender" }' }

@@ -1,5 +1,5 @@
 - updating ||= false
-- rj = AppConfig['right_justify_confirmation_table']
+- rj = AppConfig['confirmation_table_right_justify']
 - personal_data_link = AppConfig['personal_data_on_eligibility_page'] ? '#eligibility' : '#identity'
 #confirm.section{ 'data-bind' => 'vis: page() == "confirm"' }
   .head
@@ -89,7 +89,7 @@
                 %p{ 'data-bind' => 'html: summaryMailingAddress' }
                 <!-- ko if: domestic -->
                 <!-- ko if: !isConfidentialAddress() && maIsDifferent() -->
-                (#{t("mailing_address.different.#{AppConfig['domestic_voter_mailing_address_limit'] ? 'limit' : 'no_limit'}", address: t("residence_address").downcase)})
+                (#{t("mailing_address.different.#{AppConfig['enable_limit_on_domestic_voter_mailing_address'] ? 'limit' : 'no_limit'}", address: t("residence_address").downcase)})
                 <!-- /ko -->
                 <!-- ko if: isConfidentialAddress() -->
                 (Protected Voter)
@@ -171,7 +171,7 @@
                   = link_to "Edit", "#options", class: 'edit'
                 %span{ 'data-bind' => 'text: summaryBeOfficial' }
 
-  - if AppConfig['confirm_voting_status_display']
+  - if AppConfig['enable_confirm_voting_status_display']
     = render partial: 'confirm_absentee_status'
 
 

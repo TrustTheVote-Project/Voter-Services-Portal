@@ -75,23 +75,23 @@ describe Registration do
 
   describe 'verifying absentee until date on create' do
     it 'should not be farther than a year if letting to choose' do
-      AppConfig['choose_absentee_until'] = true
+      AppConfig['enable_uocava_end_date_choice'] = true
       r = FactoryGirl.create(:registration, absentee_until: 2.years.from_now)
       r.absentee_until.should be_within(1).of(1.year.from_now)
     end
 
     it 'should be set to the end of the current year if not choosing' do
-      AppConfig['choose_absentee_until'] = false
+      AppConfig['enable_uocava_end_date_choice'] = false
       r = FactoryGirl.create(:registration, absentee_until: 2.years.from_now)
       r.absentee_until.should be_within(1).of(1.year.from_now.end_of_year)
     end
 
     it 'should pass valid dates' do
-      AppConfig['choose_absentee_until'] = true
+      AppConfig['enable_uocava_end_date_choice'] = true
       r = FactoryGirl.create(:registration, absentee_until: 1.month.from_now)
       r.absentee_until.should be_within(1).of(1.month.from_now)
 
-      AppConfig['choose_absentee_until'] = false
+      AppConfig['enable_uocava_end_date_choice'] = false
       r = FactoryGirl.create(:registration, absentee_until: 1.month.from_now)
       r.absentee_until.should be_within(1).of(1.month.from_now)
     end

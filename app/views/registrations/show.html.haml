@@ -1,7 +1,7 @@
 - @page_id = 'registration_details'
 - reg = RegistrationDetailsPresenter.new(@registration)
-- show_missing = AppConfig['voter_info_show_missing_items']
-- update_ab = AppConfig['update_reg_domestic_with_absentee_allowed']
+- show_missing = AppConfig['enable_voter_info_show_missing_item']
+- update_ab = AppConfig['enable_absentee_option_domestic_update']
 - disabled_overseas = @registration.currently_overseas? && !AppConfig['enable_uocava_new_registration']
 - label_1 = 'update your voter information'
 - label_2 = 'Update Your Voter Information'
@@ -13,7 +13,7 @@
 
   .row
     .head.light
-      - if !no_forms? && AppConfig['show_download_voter_card_link']
+      - if !no_forms? && AppConfig['enable_voter_info_show_show_download_voter_card_link']
         = link_to "Download Voter Card", voter_card_path, class: 'download voter_card'
       %h3 Voter Information
 
@@ -53,7 +53,7 @@
             %th ID Requirement:
             %td
               State
-              .pull-right= link_to "Click here for more information", AppConfig['id_requirement_url'], target: '_blank'
+              .pull-right= link_to "Click here for more information", AppConfig['voter_info_id_requirement_url'], target: '_blank'
           %tr
             %th Residential address:
             %td= reg.registration_address

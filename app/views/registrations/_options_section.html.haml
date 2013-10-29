@@ -6,7 +6,7 @@
     .description Select only applicable options (not required).
 
   .partition
-    - unless AppConfig['registration']['absentee_party_preference']
+    - unless AppConfig['collect_absentee_party_preference_only_absentee']
       = render partial: 'registrations/party_preference', locals: { f: f }
 
   = hidden_field_tag 'registration[be_official]', '0', id: nil

@@ -6,11 +6,11 @@
         = f.check_box :requesting_absentee, autocomplete: ac, disabled: true, checked: true
         = f.hidden_field :requesting_absentee, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "requestingAbsentee" }'
         = f.label :requesting_absentee do
-          - until_date = f.object.absentee_until.strftime("%B %d, %Y") unless AppConfig['choose_absentee_until']
+          - until_date = f.object.absentee_until.strftime("%B %d, %Y") unless AppConfig['enable_uocava_end_date_choice']
           %strong= t('options.overseas.requesting_absentee', until: until_date)
 
   <!-- ko if: requestingAbsentee -->
-  - if AppConfig['choose_absentee_until']
+  - if AppConfig['enable_uocava_end_date_choice']
     .row
       .span3
         = f.hidden_field :absentee_until
@@ -48,7 +48,7 @@
       = text_field :registration, :rank, placeholder: 'Rank / Grade / Rate', autocomplete: ac, class: 'span2 inline', 'data-bind' => 'valueWithInit: rank, valueUpdate: "afterkeyup"'
   <!-- /ko -->
 
-  - if AppConfig['registration']['absentee_party_preference']
+  - if AppConfig['collect_absentee_party_preference_only_absentee']
     = render partial: 'registrations/party_preference', locals: { f: f, indented: true }
   <!-- /ko -->
 <!-- /ko -->

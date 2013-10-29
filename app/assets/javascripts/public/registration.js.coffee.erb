@@ -7,11 +7,11 @@ class window.Registration
     @domestic           = ko.computed => !@overseas()
 
     @ssnRequired        = ko.observable($("input#ssn_required").val() == 'true')
-    @middleNameRequired = ko.observable($("input#middle_name_required").val() == 'true')
-    @nameSuffixRequired = ko.observable($("input#name_suffix_required").val() == 'true')
+    @middleNameRequired = ko.observable($("input#require_middle_name").val() == 'true')
+    @nameSuffixRequired = ko.observable($("input#require_name_suffix").val() == 'true')
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
-    @editMailingAddressAtProtectedVoter = ko.observable($("input#edit_mailing_address_at_protected_voter").val() == 'true')
-    @dmvIdCheckbox      = <%= !!AppConfig['dmv_id_checkbox'] %>
+    @editMailingAddressAtProtectedVoter = ko.observable($("input#enable_edit_mailing_address_at_protected_voter").val() == 'true')
+    @dmvIdCheckbox      = <%= !!AppConfig['require_dmv_id'] %>
     @personalDataOnEligibilityPage = <%= !!AppConfig['personal_data_on_eligibility_page'] %>
     @paperlessPossible  = ko.observable()
     @lookupPerformed    = false
@@ -23,7 +23,7 @@ class window.Registration
       @paperlessPossible() and (@isConfidentialAddress() != '1' or @caType() != 'TSC')
 
     @showAssistantDetails = ko.computed =>
-      el = $("input#display_assistant_details")
+      el = $("input#enable_display_assistant_details")
       if @paperlessSubmission()
         el.attr('data-paperless') == 'true'
       else
@@ -732,7 +732,7 @@ class window.Registration
       @lookupRecord(_, e)
 
   onLookupResult: (data) =>
-    @paperlessPossible(<%= !!AppConfig['dmv_ovr'] || false %> and data.dmv_match)
+    @paperlessPossible(<%= !!AppConfig['enable_dmv_ovr'] || false %> and data.dmv_match)
     if <%= !!AppConfig['enable_dmv_address_display'] %>
       a = data.address || @initialVvrAddress
       @vvrAddress1(a.address_1)

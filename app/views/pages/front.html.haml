@@ -9,7 +9,7 @@
         #{raw t('front.welcome.line2')}<br/>
         #{raw t('front.welcome.line3')}
 
-  - if !AppConfig['dmv_id_submission']
+  - if !AppConfig['enable_dmv_id_submission']
     .row.steps
       .span4.info
         .line1 5
@@ -36,7 +36,7 @@
             %td= image_tag 'icon_sign.png', size: "60x60"
             %td.mail= image_tag 'icon_mail.png', size: "60x60"
 
-- uocava_reg     = AppConfig['home_page_uocava_registration']
+- uocava_reg     = AppConfig['enable_home_page_update_right']
 - domestic_title = t('front.options.residential.title').html_safe
 - update_title   = t('front.options.update.title').html_safe
 - overseas_title = t('front.options.overseas.title').html_safe

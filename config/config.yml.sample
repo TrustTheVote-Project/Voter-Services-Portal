@@ -1,70 +1,225 @@
-registration:
-  # Enable collection of gender on the registration request form
-  collect_gender: true
+##
+## Main configuration keys for VSP
+## Config keys that need to change over time are in a subsidiary config file.
+## Config keys that are confidential are in a subsidiary config file.
+##
 
-  # Enable collection of title on the registration request form
-  collect_title:  false
+###############
+## Configuration keys that control the use of
+## integration with backend service.
+##
 
-  # Collect party preference only for absentees
-  absentee_party_preference: true
+# Enable DMV ID submission
+enable_dmv_id_submission: true
+
+# Enables real DMV ID lookups
+enable_dmvid_lookup: true
+
+# Enable/disable the pre-population of residence address fields from DMV address, if available
+enable_dmv_address_display: true
+
+# Enables posting EML310 data
+enable_eml_post: true
+
+# When false, always paper submission. When true -- EML310 post result decides.
+# Serves as a handy emergency off switch in situations where the DMV back-end
+# integration is not working right.
+enable_dmv_ovr: true
+
+# Enables integration with external ballot service
+enable_online_balloting: true
+
+
+################
+## Configuration keys that control logging of
+## integration with backend service.
+## DEBUG ONLY
+##
+
+# Enables saving all outgoing EML310 in log/last_eml310.xml and 
+# all incoming EML330 in log/eml330.xml-- DEBUG ONLY
+enable_eml_log: false
+
+# Enables / disables extensive debug logging -- DEBUG ONLY
+api_debug_logging: false
+
+
+################
+## Configuration keys that turn on/off 
+## major features of the application
+##
+
+# Enables UOCAVA registration
+enable_uocava_new_registration: true
+
+# Toggles forms functionality: false = perform the forms functionality
+enable_forms: true
+
+# Enable/disable the presentation of absentee options 
+# to user in the domestic workflow for new registrations 
+enable_absentee_option_domestic_new: false
+
+# Enable/disable the presentation of absentee options
+# to user in the domestic workflow for update existing registrations 
+enable_absentee_option_domestic_update: false
+
+
+################
+## Configuration keys that control user-visible 
+## behavior for the whole application
+##
 
 # enables / disables form field autocompletion
 autocomplete: off
 
-# Toggles if we let absentees to choose the end date
-choose_absentee_until: false
-
 # Minutes given to finish registration / update form
 form_expiry: 60
 
-# Server for online ballot marking
-enable_online_balloting: true
+# Require the sign off of the privacy act page before some actions
+show_privacy_act_page: true
 
-xml:
-  source_name: Virginia SBE Voter Services Portal
 
-# Disables forms functionality
-no_forms: false
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the home page
+##
 
-# Shows / hides the assistant details section on oath page
-display_assistant_details:
-  paperless: true
-  paper: true
+# Home page UOCAVA registration layout
+# true = original layout with update separate and on the right
+# false = new layout with UOCAVA on the right
+# TBD: should be enable_home_page_update_right
+enable_home_page_update_right: false
+
+
+#################
+## Configuration keys that toggle the user-visible behavior of 
+## the eligibility dialog
+##
+
+# Show age checkbox on eligibility screen (if not shown, the age eligibility attribue defaults to TRUE)
+collect_eligibility_18: true
 
 # When FALSE, showing the explanation page to ineligible
 allow_ineligible_to_complete_form: false
 
-# Enable DMV ID submission
-dmv_id_submission: true
+# When true we don't ask a top-level rights question on the eligibility page
+enable_expanded_felony_mental_eligibility: true
 
-# Show voting status on confirmation page
-confirm_voting_status_display: false
+# TRUE to place SSN / DMVID / DOB on eligibility page, FALSE -- on identity
+personal_data_on_eligibility_page: true
 
-# Show age checkbox on eligibility screen (if not shown, results in TRUE)
-eligibility_18_display: true
+# Require SSN field to be present on eligibility screen (both registration and update)
+#   true = users who don't provide SSN are treated as ineligible
+#   false = users who don't provide SSN are allowed to continue to register
+ssn_required: false
 
-# When TRUE "edit" links are placed on the far right in the confirmation table
-right_justify_confirmation_table: false
+# Length of DMV ID field
+state_id_length:
+  min: 9
+  max: 12
 
-# When TRUE mailing address is editable on protected voter form (even if it's entered on addresses page)
-edit_mailing_address_at_protected_voter: false
+# When false, DMV ID entry field is optional
+# TBD: require_dmv_id: true
+require_dmv_id: true
 
-# Domestic voter mailing address limit
-domestic_voter_mailing_address_limit: true
 
-# Show missing items on voter info page
-voter_info_show_missing_items: true
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the personal info dialog
+##
+
+# enables / disables collection of gender 
+collect_gender: true
+
+# enables / disables collection of title on the registration request form
+collect_title:  false
+
+# true  == collect party preference only for absentees
+# false == collect party preference for all users
+collect_absentee_party_preference_only_absentee: true
 
 # Middle name is required on the identity form
-middle_name_required: true
+require_middle_name: true
 
 # Name suffix is required on the identity form
-name_suffix_required: true
+require_name_suffix: true
 
-# Shows the d/l voter card link on search results screen
-show_download_voter_card_link: false
+# When TRUE mailing address is editable on the
+# protected voter form (even if it's entered on addresses page)
+enable_edit_mailing_address_at_protected_voter: false
 
-# PDF related options
+# Domestic voter mailing address limit: if true, the user may supply a mailing address
+# only if they check a box stating the reason why they must supply a separate mailing address
+enable_limit_on_domestic_voter_mailing_address: true
+
+# Maximum length of the rural field
+rural_address_length: 80
+
+
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the options dialog
+##
+
+# Toggles if we let UOCAVA absentees to choose the end date
+enable_uocava_end_date_choice: false
+
+
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the page that displays voter info for user confirmation
+## before proceeding to conclusion of the session
+##
+
+# When TRUE "edit" links are placed on the far right in the confirmation table
+confirmation_table_right_justify: false
+
+# Width of the labels column on confirm page (in px)
+confirmation_table_labels_width: 224
+
+# Show voting status on confirmation page
+enable_confirm_voting_status_display: false
+
+
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the page that displays the oath
+## at the conclusion of the session
+
+# Shows / hides the assistant details section on oath page
+# separate toggles for paperless OVR vs. requires PDF
+enable_display_assistant_details:
+  paperless: true
+  paper: true
+
+
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the page that displays voter records
+## and otherinformation (before update workflow)
+##
+
+# Toggles display of voter record items that are empty
+# False = omit the empty fields from the voter info display
+enable_voter_info_show_missing_item: true
+
+# Enable/disable, on the voter record display screen, 
+# the presentation of link to download voter card as PDF
+enable_voter_info_show_show_download_voter_card_link: false
+
+# URL for the link in the ID requirements row of the voter record display page
+voter_info_id_requirement_url: http://sbe.virginia.gov/VotinginPerson.html
+
+ballot_info:
+  # Sizes of the check-box like boxes on the ballot info page (in px)
+  check:
+    width: 23
+    height: 23
+
+
+################
+## Configuration keys that control how PDF generation works
+##
 pdf:
   # True to fill the sign date with current date
   fill_sign_date: false
@@ -73,6 +228,11 @@ pdf:
 pdf_forms: true
 pdftk_path: "/usr/local/bin/pdftk"
 
+
+################
+## Configuration keys that control how logging works
+##
+
 # Record log configuration
 log:
   origin:       'Virginia Voter Services Portal'
@@ -80,6 +240,13 @@ log:
 
   # Voter IDs will be SHA-1 hashed if TRUE
   hashalg:      true
+
+xml:
+  source_name: Virginia SBE Voter Services Portal
+
+################
+## Configuration keys that control use of external assets
+##
 
 # Logo in the header
 logo:
@@ -103,66 +270,3 @@ static_pages:
   proof_of_identity:      proof-of-identity.htm
   security_privacy:       security-privacy.htm
 
-# Enables real DMV ID lookups
-enable_dmvid_lookup: true
-
-# Enables posting EML310 data
-enable_eml_post: true
-
-# Enables saving all outgoing EML310 in log/last_eml310.xml and incoming EML330 in log/eml330.xml-- DEBUG ONLY
-enable_eml_log: false
-
-# Require SSN field during registration / update
-ssn_required: false
-
-# Require the sign off of the privacy act page before some actions
-show_privacy_act_page: true
-
-# Allows new domestic registrations to have AR
-new_reg_domestic_with_absentee_allowed: false
-# Allows updates to have AR
-update_reg_domestic_with_absentee_allowed: false
-
-# Enables / disables extensive debug logging -- DEBUG ONLY
-api_debug_logging: false
-
-# Length of DMV ID field
-state_id_length:
-  min: 9
-  max: 12
-
-# Home page UOCAVA registration; true=original layout; false=new layout with UOCAVA on the right
-home_page_uocava_registration: false
-
-# Enables UOCAVA registration
-enable_uocava_new_registration: true
-
-# When TRUE the DMV ID address from lookup is placed in the registration address fields
-enable_dmv_address_display: true
-
-# When false, DMV ID entry field is optional
-dmv_id_checkbox: true
-
-# When false, always paper submission. When true -- EML310 submit decides.
-dmv_ovr: true
-
-# TRUE to place SSN / DMVID / DOB on eligibility page, FALSE -- on identity
-personal_data_on_eligibility_page: true
-
-# URL for the link in the ID requirements row of the registration details page
-id_requirement_url: http://sbe.virginia.gov/VotinginPerson.html
-
-ballot_info:
-  # Sizes of the check-box like boxes on the ballot info page (in px)
-  check:
-    width: 23
-    height: 23
-
-# Width of the labels column on confirm page (in px)
-confirm_labels_width: 224
-
-# Maximum length of the rural field
-rural_address_length: 80
-
-# When true we don't ask a top-level rights question on the eligibility page
-enable_expanded_felony_mental_eligibility: true

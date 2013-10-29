@@ -24,8 +24,8 @@ module FormHelper
   end
 
   # Checks if we are collecting a certain field for a given form.
-  def collecting?(form, field, app_config = AppConfig)
-    !!app_config[form.to_s]["collect_#{field}"]
+  def collecting?(field, app_config = AppConfig)
+    !!app_config["collect_#{field}"]
   end
 
   # Returns the select tags for the date entry and binds them
@@ -112,7 +112,7 @@ module FormHelper
   end
 
   def party_preference_label
-    if AppConfig['registration']['absentee_party_preference']
+    if AppConfig['collect_absentee_party_preference_only_absentee']
       I18n.t('confirm.rows.party_preference.absentee')
     else
       I18n.t('confirm.rows.party_preference.non_absentee')

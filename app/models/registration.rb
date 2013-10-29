@@ -196,7 +196,7 @@ class Registration < ActiveRecord::Base
 
   # Initializes the absentee_until field by the rules set in options
   def init_absentee_until
-    self.absentee_until = AppConfig['choose_absentee_until'] ? 1.year.from_now : 1.year.from_now.end_of_year
+    self.absentee_until = AppConfig['enable_uocava_end_date_choice'] ? 1.year.from_now : 1.year.from_now.end_of_year
   end
 
   # TRUE if we are changing the absentee period
@@ -239,7 +239,7 @@ class Registration < ActiveRecord::Base
   def review_absentee_until
     return if self.absentee_until.blank?
 
-    if AppConfig['choose_absentee_until']
+    if AppConfig['enable_uocava_end_date_choice']
       max_date = 1.year.from_now
     else
       max_date = 1.year.from_now.end_of_year

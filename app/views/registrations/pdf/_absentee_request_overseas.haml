@@ -26,6 +26,6 @@
       .row
         = field_line 6, rr.residence_unavailable_since, 'last residence at my registration address'
 
-    - if AppConfig['registration']['absentee_party_preference'] && rr.party_preference
+    - if AppConfig['collect_absentee_party_preference_only_absentee'] && rr.party_preference
       .row
         = field_line 6, rr.party_preference, 'party preference for absentee ballots'

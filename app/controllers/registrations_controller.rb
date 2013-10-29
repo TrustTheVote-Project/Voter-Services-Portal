@@ -129,7 +129,7 @@ class RegistrationsController < ApplicationController
 
     active_form.unmark!
 
-    paperless = AppConfig['dmv_ovr'] && submitted && reg.paperless_submission_allowed? && reg.dmv_id.present?
+    paperless = AppConfig['enable_dmv_ovr'] && submitted && reg.paperless_submission_allowed? && reg.dmv_id.present?
 
     if paperless
       LogRecord.submit_new(reg, ses[:slr_id])
@@ -163,7 +163,7 @@ class RegistrationsController < ApplicationController
     LogRecord.complete_update(reg, ses[:slr_id])
     ses[:slr_id] = nil
 
-    return AppConfig['dmv_ovr'] && submitted && reg.paperless_submission_allowed? && reg.dmv_id.present?
+    return AppConfig['enable_dmv_ovr'] && submitted && reg.paperless_submission_allowed? && reg.dmv_id.present?
   end
 
   def generate_pdf_form

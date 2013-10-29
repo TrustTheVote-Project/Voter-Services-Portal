@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
 
   # TRUE when forms are disabled
   def no_forms?
-    AppConfig['no_forms']
+    !AppConfig['enable_forms']
   end
   helper_method :no_forms?
 
