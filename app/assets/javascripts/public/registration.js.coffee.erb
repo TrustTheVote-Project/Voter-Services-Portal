@@ -12,7 +12,7 @@ class window.Registration
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
     @editMailingAddressAtProtectedVoter = ko.observable($("input#enable_edit_mailing_address_at_protected_voter").val() == 'true')
     @dmvIdCheckbox      = <%= !!AppConfig['require_dmv_id'] %>
-    @personalDataOnEligibilityPage = <%= !!AppConfig['personal_data_on_eligibility_page'] %>
+    @personalDataOnEligibilityPage = <%= !!AppConfig['personal_data_on_eligibility_page'] %> 
     @paperlessPossible  = ko.observable()
     @lookupPerformed    = false
 
