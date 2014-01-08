@@ -2,7 +2,10 @@
 
 body {
   padding: 20px 0;
-//  background: #5C80B5;
+
+  <% if AppConfig['demo'] %>
+    background: image-url('demo.png') 0 0 !important;
+  <% end %>
 }
 
 body, p {
