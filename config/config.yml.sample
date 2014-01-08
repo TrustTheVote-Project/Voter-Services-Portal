@@ -69,6 +69,9 @@ enable_absentee_option_domestic_update: false
 ## behavior for the whole application
 ##
 
+# enables / disables demo mode
+demo: true
+
 # enables / disables form field autocompletion
 autocomplete: off
 
