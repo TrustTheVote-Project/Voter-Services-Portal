@@ -1,0 +1,22 @@
+!!!
+%html
+  %head
+    %title= raw t('title')
+    = stylesheet_link_tag "application", :media => "all"
+    = csrf_meta_tags
+
+  %body#pages_demo_splash
+    .container
+      .row
+        .span12
+          %section.head
+            = image_tag "VA_logo_big.jpg"
+
+          %section.main
+            %h1= t 'demo_splash.title'
+            .lead= t 'demo_splash.summary'
+            %p= t 'demo_splash.details'
+            .enter= link_to t('demo_splash.button_label'), :front_page, class: 'btn btn-large btn-success'
+            %small.muted= t 'demo_splash.footer'
+
+    = javascript_include_tag "application"

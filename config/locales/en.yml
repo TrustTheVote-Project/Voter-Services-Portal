@@ -10,6 +10,13 @@ en:
     logo: "Virginia State Board of Elections"
     download_pdf: "Download your voter registration application as a PDF file."
 
+  demo_splash:
+    title: Virginia Voter Registration Portal
+    summary: "A work-in-progress development instance of ENRS availble for demonstration use. Developed an operated by the TrustTheVote Project, with thanks to Ramsey County Elections, Minnesota Secretrary of State, and Minnesota Legislative GIS services, for source data, advice, and assistance."
+    details: "Supported by OSET Foundation under a grant from Knight Foundation"
+    button_label: Enter
+    footer: "TrustTheVote Project, powered by Open Source Election Technology Foundation"
+
   front:
     welcome:
       line1: "We've created this service to help all Virginians"

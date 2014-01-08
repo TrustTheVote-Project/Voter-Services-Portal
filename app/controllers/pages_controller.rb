@@ -7,6 +7,10 @@ class PagesController < ApplicationController
     end
   end
 
+  def demo_splash
+    render :demo_splash, layout: false
+  end
+
   def security
     @page = 'security_privacy'
     render :external_page

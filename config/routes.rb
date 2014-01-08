@@ -19,7 +19,7 @@ VaVote::Application.routes.draw do
 
   resource :page, only: [], path: '' do
     member do
-      get :front, path: ''
+      get :front, path: AppConfig['demo'] ? '/front' : ''
       get :help
       get :about
       get :about_update_absentee
@@ -55,6 +55,10 @@ VaVote::Application.routes.draw do
     get '/search(.json)' => 'registrations#show', format: 'json'
   end
 
-  root to: "pages#front"
+  if AppConfig['demo']
+    root to: 'pages#demo_splash'
+  else
+    root to: "pages#front"
+  end
 
 end
