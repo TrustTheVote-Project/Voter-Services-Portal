@@ -12,10 +12,10 @@ en:
 
   demo_splash:
     title: Virginia Voter Registration Portal
-    summary: "A work-in-progress development instance of ENRS availble for demonstration use. Developed an operated by the TrustTheVote Project, with thanks to Ramsey County Elections, Minnesota Secretrary of State, and Minnesota Legislative GIS services, for source data, advice, and assistance."
-    details: "Supported by OSET Foundation under a grant from Knight Foundation"
+    summary: "A demonstration instance of VSP, available for public use to experiment with voter services and online voter registration features, that are available in open-source software for use by U.S. state election officials nationwide."
+    details: "This demo system is modeled on the existing deployment of VSP, operated by the Virginia State Board of Elections (SBE). Our thanks and acknowledgments to the VA SBE for collaboration on this TrustTheVote technology, and for adopting it for public benefit to Virginia voters."
     button_label: Enter
-    footer: "TrustTheVote Project, powered by Open Source Election Technology Foundation"
+    footer: "Operated by the TrustTheVote Project, powered by Open Source Election Technology Foundation and by Amazon Web Services."
 
   front:
     welcome:
