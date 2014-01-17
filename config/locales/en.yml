@@ -11,11 +11,11 @@ en:
     download_pdf: "Download your voter registration application as a PDF file."
 
   demo_splash:
-    title: Virginia Voter Registration Portal
-    summary: "A demonstration instance of VSP, available for public use to experiment with voter services and online voter registration features, that are available in open-source software for use by U.S. state election officials nationwide."
-    details: "This demo system is modeled on the existing deployment of VSP, operated by the Virginia State Board of Elections (SBE). Our thanks and acknowledgments to the VA SBE for collaboration on this TrustTheVote technology, and for adopting it for public benefit to Virginia voters."
+    title: Example Virginia Voter Registration Portal
+    summary: "This is a demonstration instance of online voter registration and services capabilities. No actual voter data is used. This illustrates the freely available open source software that any state or local election official may download, modify as needed, and deploy."
+    details: "This example is made possible through collaboration with the VA State Board of Elections, and their adaptation of this open source code.  Note: the example voter records displayed are of fictitious individuals.  Any likeness or similarity to any actual person residing in the state of Virginia is purely coincidental."
     button_label: Enter
-    footer: "Operated by the TrustTheVote Project, powered by Open Source Election Technology Foundation and by Amazon Web Services."
+    footer: "This site is brought to you by the Open Source Election Technology Foundation and Amazon Web Services."
 
   front:
     welcome:
