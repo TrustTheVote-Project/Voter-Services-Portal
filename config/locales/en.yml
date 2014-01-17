@@ -15,7 +15,7 @@ en:
     summary: "This is a demonstration of online voter registration and services capabilities. No actual voter data is used. This illustrates the freely available open source software that any state or local election official may download, modify as needed, and deploy."
     details: "This example is made possible through collaboration with the VA State Board of Elections, and their adaptation of this open source code.  Note: the example voter records displayed are of fictitious individuals.  Any likeness or similarity to any actual person residing in the state of Virginia is purely coincidental."
     button_label: Enter
-    footer: "This site is brought to you by the Open Source Election Technology Foundation and Amazon Web Services."
+    footer: "This site is brought to you by the Open Source Election Technology Foundation and Amazon Web Services. Its software content is subject to the OSET Public License. All other content is licensed under a Creative Commons Attribution-Share Alike 3.0 United States License."
 
   front:
     welcome:
