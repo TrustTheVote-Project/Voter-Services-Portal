@@ -13,10 +13,10 @@
             = image_tag "ttv_grey_poweredby.jpg"
 
           %section.main
-            %h1= t 'demo_splash.title'
-            .lead= t 'demo_splash.summary'
-            %p= t 'demo_splash.details'
+            %h1= raw t 'demo_splash.title'
+            .lead= raw t 'demo_splash.summary'
+            %p= raw t 'demo_splash.details'
             .enter= link_to t('demo_splash.button_label'), :front_page, class: 'btn btn-large btn-success'
-            %small.muted= t 'demo_splash.footer'
+            %small.muted= raw t 'demo_splash.footer'
 
     = javascript_include_tag "application"
