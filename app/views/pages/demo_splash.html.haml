@@ -10,7 +10,8 @@
       .row
         .span12
           %section.head
-            = image_tag "ttv_grey_poweredby.jpg"
+            = link_to 'http://www.trustthevote.org/' do
+              = image_tag "ttv_grey_poweredby.jpg"
 
           %section.main
             %h1= raw t 'demo_splash.title'
