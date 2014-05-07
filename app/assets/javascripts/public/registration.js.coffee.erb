@@ -17,7 +17,7 @@ class window.Registration
     @lookupPerformed    = false
 
     @phonePatternDomestic = "({{999}}) {{999}}-{{9999}}"
-    @phonePatternOverseas = "NNNNNNNNNNNNNNNNNNNN"
+    @phonePatternOverseas = "{{NNNNNNNNNNNNNNNNNNNN}}"
     $.fn.formatter.addInptType 'N', /[0-9 \-]/
 
     @initEligibilityFields()
