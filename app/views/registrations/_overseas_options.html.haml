@@ -1,3 +1,4 @@
+- until_date = f.object.absentee_until.strftime("%B %d, %Y") unless AppConfig['enable_uocava_end_date_choice']
 <!-- ko if: overseas -->
 .partition
   .row
@@ -6,49 +7,25 @@
         = f.check_box :requesting_absentee, autocomplete: ac, disabled: true, checked: true
         = f.hidden_field :requesting_absentee, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "requestingAbsentee" }'
         = f.label :requesting_absentee do
-          - until_date = f.object.absentee_until.strftime("%B %d, %Y") unless AppConfig['enable_uocava_end_date_choice']
           %strong= t('options.overseas.requesting_absentee', until: until_date)
 
   <!-- ko if: requestingAbsentee -->
-  - if AppConfig['enable_uocava_end_date_choice']
-    .row
-      .span3
-        = f.hidden_field :absentee_until
-        #absentee_until.sliderbar
-      .span3
-        .absentee_until_label{ 'data-bind' => 'text: absenteeUntilFormatted' }
-  - else
-    = f.hidden_field :absentee_until
-
   .row
-    .span10.indented.overseas_outside_type
+    .span10.indented.overseas_rab_type
       .radio
-        = f.radio_button :outside_type, 'ActiveDutyMerchantMarineOrArmedForces', { 'data-bind' => 'checkedWithInit: outsideType' }
-        %label{ for: 'registration_outside_type_activedutymerchantmarineorarmedforces' }= t 'outside_type.ActiveDutyMerchantMarineOrArmedForces'
+        = f.radio_button :rab_type, 'until', { 'data-bind' => 'checkedWithInit: rabType' }
+        %label{ for: 'registration_rab_type_until' }= t 'rab_type.until', until: until_date
       .radio
-        = f.radio_button :outside_type, 'SpouseOrDependentActiveDutyMerchantMarineOrArmedForces', { 'data-bind' => 'checkedWithInit: outsideType' }
-        %label{ for: 'registration_outside_type_spouseordependentactivedutymerchantmarineorarmedforces' }= t 'outside_type.SpouseOrDependentActiveDutyMerchantMarineOrArmedForces'
-      .radio
-        = f.radio_button :outside_type, 'TemporaryResideOutside', { 'data-bind' => 'checkedWithInit: outsideType' }
-        %label{ for: 'registration_outside_type_temporaryresideoutside' }= t 'outside_type.TemporaryResideOutside'
-      .radio
-        = f.radio_button :outside_type, 'TemporaryResideOutsideSpouse', { 'data-bind' => 'checkedWithInit: outsideType' }
-        %label{ for: 'registration_outside_type_temporaryresideoutsidespouse' }= t 'outside_type.TemporaryResideOutsideSpouse'
+        = f.radio_button :rab_type, 'event', { 'data-bind' => 'checkedWithInit: rabType' }
+        %label{ for: 'registration_rab_type_event' }= t 'rab_type.event'
 
-  <!-- ko if: needsServiceDetails -->
-  .row
-    .span2
-      %span Service Branch
-      = select     :registration, :service_branch, options_for_select(Registration::SERVICE_BRANCHES), {}, autocomplete: ac, class: 'span2 inline', 'data-bind' => 'valueWithInit: serviceBranch'
-    .span2
-      %span Service ID
-      = text_field :registration, :service_id, placeholder: 'Service ID', autocomplete: ac, class: 'span1 inline', 'data-bind' => 'valueWithInit: serviceId, valueUpdate: "afterkeyup"'
-    .span2
-      %span Rank / Grade / Rate
-      = text_field :registration, :rank, placeholder: 'Rank / Grade / Rate', autocomplete: ac, class: 'span2 inline', 'data-bind' => 'valueWithInit: rank, valueUpdate: "afterkeyup"'
+  <!-- ko if: rabType() == 'event' -->
+  = render partial: 'domestic_rab_election', locals: { f: f }
+  = render partial: 'domestic_rab_reason', locals: { f: f }
   <!-- /ko -->
 
-  - if AppConfig['collect_absentee_party_preference_only_absentee']
-    = render partial: 'registrations/party_preference', locals: { f: f, indented: true }
+  <!-- ko if: rabType() == 'until' -->
+  = render partial: 'overseas_rab_until', locals: { f: f }
+  <!-- /ko --> <!-- rabType -->
   <!-- /ko -->
 <!-- /ko -->

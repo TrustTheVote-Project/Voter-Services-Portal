@@ -12,7 +12,7 @@ class window.Registration
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
     @editMailingAddressAtProtectedVoter = ko.observable($("input#enable_edit_mailing_address_at_protected_voter").val() == 'true')
     @dmvIdCheckbox      = <%= !!AppConfig['require_dmv_id'] %>
-    @personalDataOnEligibilityPage = <%= !!AppConfig['personal_data_on_eligibility_page'] %> 
+    @personalDataOnEligibilityPage = <%= !!AppConfig['personal_data_on_eligibility_page'] %>
     @paperlessPossible  = ko.observable()
     @lookupPerformed    = false
 
@@ -326,6 +326,7 @@ class window.Registration
     @needsAssistance        = ko.observable()
 
     @requestingAbsentee     = ko.observable()
+    @rabType                = ko.observable()
     @absenteeUntil          = ko.observable()
     @rabElection            = ko.observable()
     @rabElectionName        = ko.observable()
@@ -430,7 +431,9 @@ class window.Registration
           errors.push("Party preference")
 
       if @requestingAbsentee()
-        if @overseas()
+        if @overseas() and !filled(@rabType())
+          errors.push("Request period")
+        else if @overseas() and @rabType() == 'until'
           errors.push("Absence type") unless filled(@outsideType())
           errors.push("Service details") if @needsServiceDetails() and (!filled(@serviceId()) || !filled(@rank()))
         else
@@ -618,44 +621,23 @@ class window.Registration
       if @overseas()
         lines = []
         type = $("label", $(".overseas_outside_type input[value='#{@outsideType()}']").parent()).text()
-        lines.push "Reason: #{type}"
+        if @rabType() == 'until'
+          lines.push "Reason: #{type}"
 
-        if @needsServiceDetails()
-          branch = $("#registration_service_branch option[value='#{@serviceBranch()}']").text()
-          lines.push "Service details: #{branch} - #{@serviceId()} - #{@rank()}"
+          if @needsServiceDetails()
+            branch = $("#registration_service_branch option[value='#{@serviceBranch()}']").text()
+            lines.push "Service details: #{branch} - #{@serviceId()} - #{@rank()}"
+        else
+          @errorsForRabElection lines
 
       else
         # domestic
-        if @rabElection() != 'other'
-          election = @rabElection()
-        else
-          election = "#{@rabElectionName()} held on #{@rabElectionDate()}"
-        lines.push "Applying to vote abstentee in #{election}"
-
-        if filled(@abReason())
-          lines.push "Reason: #{$("#registration_ab_reason option[value='#{@abReason()}']").text()}"
-
-        if @abField1Required() and filled(@abField1())
-          v = @abField1()
-          if @abPartyLookupRequired()
-            v = $("#registration_ab_field_1 option[value='#{v}']").text()
-          lines.push "#{@abField1Label()}: #{v}"
-        if @abField2Required() and filled(@abField2())
-          lines.push "#{@abField2Label()}: #{@abField2()}"
-        if @abTimeRangeRequired()
-          h1 = @abTime1Hour()
-          m1 = @abTime1Minute()
-          h2 = @abTime2Hour()
-          m2 = @abTime2Minute()
-          lines.push "Time: #{time(h1, m1)} - #{time(h2, m2)}"
-        if @abAddressRequired()
-          lines.push join([ @abStreetNumber(), @abStreetName(), @abStreetType(), (if filled(@abApt()) then "##{@abApt()}" else null) ], ' ') + "<br/>" +
-            join([ @abCity(), join([ @abState(), join([ @abZip5(), @abZip4() ], '-'), @abCountry() ], ' ') ], ', ')
+        @errorsForRabElection lines
 
       lines.join "<br/>"
 
     @showingPartySummary = ko.computed =>
-      @requestingAbsentee() and @overseas() and @summaryParty()
+      @requestingAbsentee() and @overseas() and @rabType() == 'until' and @summaryParty()
 
     @summaryParty = ko.computed =>
       if @chooseParty()
@@ -672,6 +654,33 @@ class window.Registration
       else
         v = @rabElection()
         $("#registration_rab_election option[value='#{v}']").text()
+
+  errorsForRabElection: (lines) ->
+    if @rabElection() != 'other'
+      election = @rabElection()
+    else
+      election = "#{@rabElectionName()} held on #{@rabElectionDate()}"
+    lines.push "Applying to vote abstentee in #{election}"
+
+    if filled(@abReason())
+      lines.push "Reason: #{$("#registration_ab_reason option[value='#{@abReason()}']").text()}"
+
+    if @abField1Required() and filled(@abField1())
+      v = @abField1()
+      if @abPartyLookupRequired()
+        v = $("#registration_ab_field_1 option[value='#{v}']").text()
+      lines.push "#{@abField1Label()}: #{v}"
+    if @abField2Required() and filled(@abField2())
+      lines.push "#{@abField2Label()}: #{@abField2()}"
+    if @abTimeRangeRequired()
+      h1 = @abTime1Hour()
+      m1 = @abTime1Minute()
+      h2 = @abTime2Hour()
+      m2 = @abTime2Minute()
+      lines.push "Time: #{time(h1, m1)} - #{time(h2, m2)}"
+    if @abAddressRequired()
+      lines.push join([ @abStreetNumber(), @abStreetName(), @abStreetType(), (if filled(@abApt()) then "##{@abApt()}" else null) ], ' ') + "<br/>" +
+        join([ @abCity(), join([ @abState(), join([ @abZip5(), @abZip4() ], '-'), @abCountry() ], ' ') ], ', ')
 
   initOathFields: ->
     @infoCorrect  = ko.observable()

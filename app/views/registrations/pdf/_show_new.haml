@@ -13,10 +13,10 @@
   = render partial: 'registrations/pdf/cover_absentee_request', locals: { rr: rr, pb: true }
 
 - if rr.overseas? || rr.requesting_absentee?
-  - partial = rr.overseas? ? "overseas" : "domestic"
+  - partial = !rr.overseas? || @registration.rab_type == 'event' ? "domestic" : "overseas"
   = render partial: 'registrations/pdf/absentee_request_page_header', locals: { rr: rr, update: true }
   = render partial: 'registrations/pdf/identity', locals: { rr: rr }
   = render partial: 'registrations/pdf/addresses', locals: { rr: rr, instructions: true }
+  - if
   = render partial: "registrations/pdf/absentee_request_#{partial}", locals: { rr: rr }
   = render partial: 'registrations/pdf/oath', locals: { rr: rr }
-

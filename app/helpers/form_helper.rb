@@ -12,7 +12,7 @@ module FormHelper
   def online_balloting?
     ob = AppConfig['private']['online_balloting']
 
-    AppConfig['enable_online_balloting'] &&
+    AppConfig[''] &&
     !ob['url'].blank? &&
     !ob['access_token'].blank? &&
     !ob['account_id'].blank?

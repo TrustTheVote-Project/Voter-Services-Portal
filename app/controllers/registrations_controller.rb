@@ -183,7 +183,13 @@ class RegistrationsController < ApplicationController
         return Pdf::AbsenteeRequest.render(@registration).string
       end
     else
-      return Pdf::Fpca.render(@registration).string
+      if @registration.rab_type == 'event'
+        # TODO: Replace this form with event-specific form.
+        #       Can't use domestic AbsenteeRequest form above since not all address fields are available.
+        return Pdf::Fpca.render(@registration).string
+      else
+        return Pdf::Fpca.render(@registration).string
+      end
     end
   end
 

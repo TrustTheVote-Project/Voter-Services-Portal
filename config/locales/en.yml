@@ -132,7 +132,7 @@ en:
       requesting_absentee: I am not able to go to the polls on election day and would like an Absentee Ballot Application.
       need_assistance: "I have a disability that requires assistance to vote."
     overseas:
-      requesting_absentee: "I will not be able to vote in person, and would like to vote absentee until %{until}:"
+      requesting_absentee: "I will not be able to vote in person."
     being_official: "I'm interested in being an Election Official on Election Day. Please send me information."
 
   confirm:
@@ -402,3 +402,7 @@ en:
       description: >
         Please <a href="/registration">return to your registration details page</a> and
         try again later.
+
+  rab_type:
+    until: "I would like to vote absentee until %{until}."
+    event: "I would like to request an absentee ballot for the upcoming election."

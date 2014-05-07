@@ -17,7 +17,7 @@ class Registration < ActiveRecord::Base
   # title for the PDF.
   ABSENTEE_REQUEST_FIELDS = [ :requesting_absentee, :rab_election,
                               :rab_election_name, :rab_election_date,
-                              :absentee_until,
+                              :absentee_until, :rab_type,
                               :ab_reason, :ab_street_number,
                               :ab_street_name, :ab_street_type,
                               :ab_apt, :ab_city, :ab_state, :ab_zip5, :ab_zip4, :ab_country,
@@ -58,7 +58,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :need_assistance, :as_first_name, :as_middle_name, :as_last_name, :as_suffix, :as_address, :as_address_2, :as_city, :as_state, :as_zip5, :as_zip4
   serialized_attr :requesting_absentee, :rab_election,
                   :rab_election_name, :rab_election_date,
-                  :absentee_until
+                  :absentee_until, :rab_type
   serialized_attr :ab_reason, :ab_street_number,
                   :ab_street_name, :ab_street_type,
                   :ab_apt, :ab_city, :ab_state, :ab_zip5, :ab_zip4, :ab_country,

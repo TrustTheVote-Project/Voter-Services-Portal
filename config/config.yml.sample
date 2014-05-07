@@ -27,7 +27,7 @@ enable_eml_post: true
 enable_dmv_ovr: true
 
 # Enables integration with external ballot service
-enable_online_balloting: true
+: true
 
 
 ################
