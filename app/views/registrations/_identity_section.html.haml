@@ -17,8 +17,12 @@
         %div{ class: span23 }
           = f.label :gender
           = f.select :gender, [ 'Male', 'Female' ], { include_blank: true }, { autocomplete: ac, class: span23, 'data-bind' => 'instantValidation: { accessor: "gender" }' }
-
-      .phone-field{ class: span23 }
+      .email-field{ class: span23 }
+        = f.label :email do
+          Email
+          %span (optional)
+        = f.text_field :email, autocomplete: ac, placeholder: 'john@smith.com', 'data-bind' => 'instantValidation: { accessor: "email", attribute: "validEmail" }', class: span23
+      .phone-field{ class: 'span3' }
         = f.label :phone do
           Phone
           %span (optional)
@@ -26,11 +30,6 @@
         <!-- ko if: overseas -->
         %small= t 'overseas_phone'
         <!-- /ko -->
-      .email-field{ class: span23 }
-        = f.label :email do
-          Email
-          %span (optional)
-        = f.text_field :email, autocomplete: ac, placeholder: 'john@smith.com', 'data-bind' => 'instantValidation: { accessor: "email", attribute: "validEmail" }', class: span23
 
   - if personal_data_here
     = render partial: 'eligibility_ssn', locals: { f: f }
