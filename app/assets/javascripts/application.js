@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require knockout-2.3.0
+//= require jquery.formatter
 //= require moment.min
 //= require jquery-migrate-1.2.0
 //= require jquery.ba-hashchange.min

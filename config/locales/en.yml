@@ -5,6 +5,7 @@ en:
   residence_address: Residence Address
   rural: "Check here if Rural Address or Homeless and describe where you reside."
   optional: "(optional)"
+  overseas_phone: "Up to 20 digits, with space or dashes allowed"
 
   alt:
     logo: "Virginia State Board of Elections"

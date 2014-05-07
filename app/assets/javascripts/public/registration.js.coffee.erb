@@ -16,6 +16,10 @@ class window.Registration
     @paperlessPossible  = ko.observable()
     @lookupPerformed    = false
 
+    @phonePatternDomestic = "({{999}}) {{999}}-{{9999}}"
+    @phonePatternOverseas = "NNNNNNNNNNNNNNNNNNNN"
+    $.fn.formatter.addInptType 'N', /[0-9 \-]/
+
     @initEligibilityFields()
     @initIdentityFields()
 
@@ -130,6 +134,16 @@ class window.Registration
 
     @eligibilityInvalid = ko.computed => @eligibilityErrors().length > 0
 
+  updatePhoneField: ->
+    phoneEl = $("#registration_phone")
+
+    if @overseas()
+      phoneEl.formatter().resetPattern @phonePatternOverseas
+      phoneEl.attr('placeholder', '')
+    else
+      phoneEl.formatter().resetPattern @phonePatternDomestic
+      phoneEl.attr('placeholder', '(NNN) NNN-NNNN')
+
   initIdentityFields: ->
     @firstName              = ko.observable()
     @middleName             = ko.observable()
@@ -146,6 +160,11 @@ class window.Registration
     @validEmail             = ko.computed => !filled(@email()) or email(@email())
     @caType                 = ko.observable()
     @isConfidentialAddress  = ko.observable()
+
+    if phoneEl = $("#registration_phone")
+      phoneEl.formatter({ pattern: @phonePatternDomestic })
+      @overseas.subscribe => @updatePhoneField()
+      @updatePhoneField()
 
     @noMiddleName.subscribe (v) =>
       if v

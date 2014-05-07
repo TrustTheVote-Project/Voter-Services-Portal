@@ -23,6 +23,9 @@
           Phone
           %span (optional)
         = f.text_field :phone, autocomplete: ac, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'instantValidation: { accessor: "phone", attribute: "validPhone" }', class: span23
+        <!-- ko if: overseas -->
+        %small= t 'overseas_phone'
+        <!-- /ko -->
       .email-field{ class: span23 }
         = f.label :email do
           Email
