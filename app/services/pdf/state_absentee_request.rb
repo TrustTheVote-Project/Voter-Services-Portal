@@ -1,9 +1,9 @@
-class Pdf::OverseasStateAbsenteeRequest < Pdf::Form
+class Pdf::StateAbsenteeRequest < Pdf::Form
 
   # Renders PDF and returns it as a string
   def self.render(reg)
     p = RegistrationForPdf.new(reg)
-    render_pdf 'Portal_PDF_Overseas_State_Absentee_Request.pdf' do |pdf|
+    render_pdf 'Portal_PDF_State_Absentee_Request.pdf' do |pdf|
       set_part_1 pdf, reg
       set_part_2 pdf, reg, p
       set_part_3 pdf, reg, p
@@ -60,18 +60,32 @@ class Pdf::OverseasStateAbsenteeRequest < Pdf::Form
   end
 
   def self.set_part_6(pdf, reg, p)
-    if reg.mau_type == 'non-us'
-      pdf.set '6_ADDRESS', reg.mau_address
-      pdf.set '6_APT', reg.mau_address_2
-      pdf.set '6_CITY', [ reg.mau_city, reg.mau_city_2 ].rjoin(' ')
-      pdf.set '6_STATE', [ reg.mau_state, reg.mau_country ].rjoin(', ')
-      set_digital_field pdf, '6_ZIP', 9, reg.mau_postal_code.to_s
+    if reg.uocava?
+      pdf.set '6_ADDRESS_MA', 'Y'
+      if reg.mau_type == 'non-us'
+        pdf.set '6_ADDRESS', reg.mau_address
+        pdf.set '6_APT', reg.mau_address_2
+        pdf.set '6_CITY', [ reg.mau_city, reg.mau_city_2 ].rjoin(' ')
+        pdf.set '6_STATE', [ reg.mau_state, reg.mau_country ].rjoin(', ')
+        set_digital_field pdf, '6_ZIP', 9, reg.mau_postal_code.to_s
+      else
+        pdf.set '6_ADDRESS', reg.apo_address
+        pdf.set '6_APT', reg.apo_address_2
+        pdf.set '6_CITY', reg.apo_city
+        pdf.set '6_STATE', reg.apo_state
+        set_digital_field pdf, '6_ZIP', 5, reg.apo_zip5
+      end
     else
-      pdf.set '6_ADDRESS', reg.apo_address
-      pdf.set '6_APT', reg.apo_address_2
-      pdf.set '6_CITY', reg.apo_city
-      pdf.set '6_STATE', reg.apo_state
-      set_digital_field pdf, '6_ZIP', 5, reg.apo_zip5
+      if reg.ma_is_different == '1'
+        pdf.set '6_ADDRESS_MA', 'Y'
+        pdf.set '6_ADDRESS', reg.ma_address
+        pdf.set '6_APT', reg.ma_address_2
+        pdf.set '6_CITY', reg.ma_city
+        pdf.set '6_STATE', reg.ma_state
+        set_digital_field pdf, '6_ZIP', 9, [ reg.ma_zip5, reg.ma_zip4 ].rjoin('')
+      else
+        pdf.set '6_ADDRESS_RES', 'Y'
+      end
     end
   end
 

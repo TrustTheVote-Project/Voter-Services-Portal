@@ -180,11 +180,11 @@ class RegistrationsController < ApplicationController
       elsif !@registration.requesting_absentee?
         return Pdf::NewDomestic.render(@registration).string
       else
-        return Pdf::AbsenteeRequest.render(@registration).string
+        return Pdf::StateAbsenteeRequest.render(@registration).string
       end
     else
       if @registration.rab_type == 'state'
-        return Pdf::OverseasStateAbsenteeRequest.render(@registration).string
+        return Pdf::StateAbsenteeRequest.render(@registration).string
       else
         return Pdf::Fpca.render(@registration).string
       end
