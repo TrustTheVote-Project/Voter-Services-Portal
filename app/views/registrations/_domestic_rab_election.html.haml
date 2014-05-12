@@ -9,7 +9,7 @@
 .row
   .span6.election-name-field
     = f.label :rab_election_name, "Election name"
-    = f.text_field :rab_election_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "rabElectionName" }, valueUpdate: "afterkeyup"'
+    = f.select :rab_election_name, Dictionaries::DEFAULT_ELECTIONS, { include_blank: false }, { autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "rabElectionName" }, valueUpdate: "afterkeyup"' }
   .span3
     = f.label :registration_rab_election_date, "Held on"
     = f.text_field :rab_election_date, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "rabElectionDate" }, valueUpdate: "afterkeyup"', placeholder: 'MM/DD/YYYY'

@@ -145,4 +145,9 @@ module Dictionaries
     'General Election held on Tuesday, November 6, 2012.'
   ]
 
+  DEFAULT_ELECTIONS = [
+    'General or Special Election',
+    'Democratic Primary',
+    'Republican Primary'
+  ]
 end
