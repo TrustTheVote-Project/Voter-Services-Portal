@@ -24,7 +24,7 @@ class Pdf::AbsenteeRequest < Pdf::Form
       pdf.set('A_COUNTY_CHECK', 'Y')
     end
     pdf.set('A_LOCALITY_NAME', reg.vvr_county_or_city.to_s.upcase.gsub(/\s*(COUNTY|CITY)/, ''))
-    setDigitalField(pdf, 'A_SSN', 9, reg.ssn)
+    set_digital_field(pdf, 'A_SSN', 9, reg.ssn)
 
     # TODO fill in elections data
   end
@@ -41,7 +41,7 @@ class Pdf::AbsenteeRequest < Pdf::Form
       pdf.set('B_MAIL_LINE_1', [ reg.ma_address, reg.ma_address_2 ].rjoin(', '))
       pdf.set('B_MAIL_CITY_TOWN', reg.ma_city)
       pdf.set('B_MAIL_STATE', reg.ma_state)
-      setDigitalField(pdf, 'B_MAIL_ZIP', 5, reg.ma_zip5)
+      set_digital_field(pdf, 'B_MAIL_ZIP', 5, reg.ma_zip5)
     elsif p.registration_address_changed?
       # new reg address
       pdf.set('B_NEW_CHECK', 'Y')
@@ -57,16 +57,16 @@ class Pdf::AbsenteeRequest < Pdf::Form
 
   def self.set_part_d(pdf, reg, p)
     pdf.set('D_FULL_NAME', reg.full_name)
-    setDateField(pdf, 'D_SIG_DATE', Time.now)
-    setDigitalField(pdf, 'D_SSN', 9, reg.ssn)
-    setDigitalField(pdf, 'D_YOB', 4, reg.dob.year) unless reg.dob.blank?
-    setDigitalField(pdf, 'D_PHONE', 10, reg.phone.gsub(/[^0-9]/, '')) unless reg.phone.blank?
+    set_date_field(pdf, 'D_SIG_DATE', Time.now)
+    set_digital_field(pdf, 'D_SSN', 9, reg.ssn)
+    set_digital_field(pdf, 'D_YOB', 4, reg.dob.year.to_s) unless reg.dob.blank?
+    set_digital_field(pdf, 'D_PHONE', 10, reg.phone.gsub(/[^0-9]/, '')) unless reg.phone.blank?
     pdf.set('D_EMAIL_OR_FAX', reg.email)
 
     pdf.set('D_RES_LINE_1', reg.vvr_address_1)
     pdf.set('D_RES_APT_UNIT', reg.vvr_address_2)
     pdf.set('D_RES_CITY_TOWN', reg.vvr_town)
-    setDigitalField(pdf, 'D_RES_ZIP', 5, reg.vvr_zip5)
+    set_digital_field(pdf, 'D_RES_ZIP', 5, reg.vvr_zip5)
 
     pdf.set('D_RES_CHANGE_CHECK', 'Y') if p.name_changed? || p.registration_address_changed?
   end
@@ -76,7 +76,7 @@ class Pdf::AbsenteeRequest < Pdf::Form
     pdf.set('E_ADDRESS_ASSISTANT', [ reg.as_address, reg.as_address_2 ].rjoin(', '))
     pdf.set('E_CITY_TOWN_ASSISTANT', reg.as_city)
     pdf.set('E_STATE_ASSISTANT', reg.as_state)
-    setDigitalField(pdf, 'E_ZIP_ASSISTANT', 5, reg.as_zip5)
+    set_digital_field(pdf, 'E_ZIP_ASSISTANT', 5, reg.as_zip5)
   end
 
   def self.set_part_f(pdf, reg, p)
@@ -87,7 +87,7 @@ class Pdf::AbsenteeRequest < Pdf::Form
       pdf.set('F_NEW_ADDRESS_LINE1', reg.vvr_address_1)
       pdf.set('F_APT_UNIT', reg.vvr_address_2)
       pdf.set('F_CITY_TOWN', reg.vvr_town)
-      setDigitalField(pdf, 'F_ZIP', 5, reg.vvr_zip5)
+      set_digital_field(pdf, 'F_ZIP', 5, reg.vvr_zip5)
     end
     pdf.set('F_OLD_ADDRESS', p.old_registration_address)
 

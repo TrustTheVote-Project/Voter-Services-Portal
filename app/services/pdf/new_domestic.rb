@@ -31,10 +31,10 @@ class Pdf::NewDomestic < Pdf::Form
   end
 
   def self.setIdentity(pdf, reg)
-    setDigitalField(pdf, 'SSN', 9, reg.ssn)
+    set_digital_field(pdf, 'SSN', 9, reg.ssn)
     pdf.set("GENDER_#{reg.gender =~ /F/ ? "F" : "M"}", "Y")
-    setDateField(pdf, 'DOB', reg.dob)
-    setDigitalField(pdf, 'PHONE', 10, reg.phone.gsub(/[^0-9]/, '')) unless reg.phone.blank?
+    set_date_field(pdf, 'DOB', reg.dob)
+    set_digital_field(pdf, 'PHONE', 10, reg.phone.gsub(/[^0-9]/, '')) unless reg.phone.blank?
     pdf.set("LAST_NAME", reg.last_name)
     pdf.set('FIRST_NAME', reg.first_name)
 
@@ -84,7 +84,7 @@ class Pdf::NewDomestic < Pdf::Form
         setCheck(pdf, 'CONVICTED', true)
         pdf.set('CONVICTED_STATE', reg.rights_felony_restored_in)
         setCheck(pdf, 'CONVICTED_RESTORED', reg.rights_felony_restored == '1')
-        setDateField(pdf, 'CONVICTED_RESTORED_ON', reg.rights_felony_restored_on)
+        set_date_field(pdf, 'CONVICTED_RESTORED_ON', reg.rights_felony_restored_on)
       else
         setCheck(pdf, 'CONVICTED', false)
       end
@@ -92,7 +92,7 @@ class Pdf::NewDomestic < Pdf::Form
       if reg.rights_mental == '1'
         setCheck(pdf, 'MENTAL', true)
         setCheck(pdf, 'MENTAL_RESTORED', reg.rights_mental_restored == '1')
-        setDateField(pdf, 'MENTAL_RESTORED_ON', reg.rights_mental_restored_on)
+        set_date_field(pdf, 'MENTAL_RESTORED_ON', reg.rights_mental_restored_on)
       else
         setCheck(pdf, 'MENTAL', false)
       end
@@ -104,7 +104,7 @@ class Pdf::NewDomestic < Pdf::Form
 
   def self.setRegistrationStatement(pdf, reg)
     if AppConfig['pdf']['fill_sign_date']
-      setDateField(pdf, 'STATEMENT', Time.now)
+      set_date_field(pdf, 'STATEMENT', Time.now)
     end
 
     details = [
@@ -116,7 +116,7 @@ class Pdf::NewDomestic < Pdf::Form
 
   def self.setOptionalQuestions(pdf, reg)
     if reg.is_confidential_address == '1'
-      setDigitalField(pdf, 'PROTECTED_VOTER_CODE', 3, reg.ca_type.to_s.upcase)
+      set_digital_field(pdf, 'PROTECTED_VOTER_CODE', 3, reg.ca_type.to_s.upcase)
     end
 
     pdf.set('NEED_ASSISTANT', 'Y') if reg.need_assistance == '1'
@@ -134,8 +134,8 @@ class Pdf::NewDomestic < Pdf::Form
       pdf.set('PREV_REG_ZIP', [ reg.pr_zip5, reg.pr_zip4 ].rjoin('-'))
       pdf.set('PREV_REG_COUNTY', reg.pr_county_or_city)
 
-      setDigitalField(pdf, 'PREV_REG_SSN', 9, reg.ssn)
-      setDateField(pdf, 'PREV_REG_DOB', reg.dob)
+      set_digital_field(pdf, 'PREV_REG_SSN', 9, reg.ssn)
+      set_date_field(pdf, 'PREV_REG_DOB', reg.dob)
     else
       pdf.set('PREV_REG_N', 'Y')
     end

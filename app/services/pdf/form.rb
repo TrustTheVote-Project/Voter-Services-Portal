@@ -14,15 +14,19 @@ class Pdf::Form
     pdf.save(nil, options: { flatten: true })
   end
 
-  def self.setDigitalField(pdf, key, cells, text)
+  def self.set_digital_field(pdf, key, cells, text)
     return if text.blank?
     cells.times do |i|
       pdf.set("#{key}_#{i + 1}", text[i])
     end
   end
 
-  def self.setDateField(pdf, key, date)
-    setDigitalField(pdf, key, 8, date.strftime('%m%d%Y')) unless date.blank?
+  def self.set_date_field(pdf, key, date)
+    set_digital_field(pdf, key, 8, date.strftime('%m%d%Y')) unless date.blank?
+  end
+
+  def self.set_short_date_field(pdf, key, date)
+    set_digital_field(pdf, key, 6, date.strftime('%m%d%y')) unless date.blank?
   end
 
 end

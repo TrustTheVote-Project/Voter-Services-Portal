@@ -34,6 +34,7 @@ gem 'sidekiq'
 gem 'jbuilder'
 gem 'therubyracer'
 gem 'active_pdftk', git: 'git://github.com/tcocca/active_pdftk.git'
+gem 'chronic'
 
 group :development do
   gem 'capistrano'

@@ -405,5 +405,5 @@ en:
         try again later.
 
   rab_type:
-    until: "I would like to vote absentee until %{until}."
-    event: "I would like to request an absentee ballot for the upcoming election."
+    federal: "I would like to vote absentee until %{until}."
+    state: "I would like to request an absentee ballot for the upcoming election."

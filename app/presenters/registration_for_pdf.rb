@@ -189,6 +189,27 @@ class RegistrationForPdf < RegistrationDetailsPresenter
     end
   end
 
+  def absentee_election_type
+    e = absentee_election
+    if e =~ /general/i
+      'G'
+    elsif e =~ /democrat/i
+      'D'
+    elsif e =~ /republic/i
+      'R'
+    else
+      'G'
+    end
+  end
+
+  def absentee_election_date
+    if @reg.rab_election == 'other'
+      Chronic.parse(@reg.rab_election_date)
+    else
+      Chronic.parse(@reg.rab_election)
+    end
+  end
+
   def absence_fields
     @absence_fields ||= begin
       f1_label = Dictionaries::ABSENCE_F1_LABEL[@reg.ab_reason]

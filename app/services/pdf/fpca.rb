@@ -48,9 +48,9 @@ class Pdf::Fpca < Pdf::Form
       pdf.set('4_M_CHECK', 'Y')
     end
 
-    setDateField(pdf, '4_DOB', reg.dob)
+    set_date_field(pdf, '4_DOB', reg.dob)
     pdf.set('4_DLN', reg.dmv_id)
-    setDigitalField(pdf, '4_SSN', 9, reg.ssn)
+    set_digital_field(pdf, '4_SSN', 9, reg.ssn)
   end
 
   def self.set_part_5(pdf, reg, p)
@@ -70,7 +70,7 @@ class Pdf::Fpca < Pdf::Form
       pdf.set('7_COUNTY', reg.vvr_county_or_city.to_s.gsub(/county/i, '').strip.upcase)
     end
     pdf.set('7_STATE', 'VA')
-    setDigitalField(pdf, '7_ZIP', 9, [ reg.vvr_zip5, reg.vvr_zip4 ].rjoin(''))
+    set_digital_field(pdf, '7_ZIP', 9, [ reg.vvr_zip5, reg.vvr_zip4 ].rjoin(''))
   end
 
   def self.set_part_8(pdf, reg, p)
