@@ -35,6 +35,7 @@ gem 'jbuilder'
 gem 'therubyracer'
 gem 'active_pdftk', git: 'git://github.com/tcocca/active_pdftk.git'
 gem 'chronic'
+gem 'gon'
 
 group :development do
   gem 'capistrano'
