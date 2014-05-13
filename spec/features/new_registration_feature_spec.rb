@@ -7,6 +7,7 @@ feature 'New registration', :js do
   after  { AppConfig['enable_dmvid_lookup'] = @old_enable_dmvid_lookup }
 
   scenario 'DMV match should populate the address section' do
+    AppConfig['enable_dmvid_lookup'] = true
     LookupService.stub(registration: { registered: false, dmv_match: true, address: { address_1: "123 WannaVote DR", zip5: "12345", county_or_city: "ALEXANDRIA CITY" }})
     visit '/register/residential'
 
@@ -38,6 +39,8 @@ feature 'New registration', :js do
   end
 
   scenario 'w/ d/l screen for normal records' do
+    pending "Need to figure what to do when DMV ID stays in the form field, but doesn't match"
+    
     AppConfig['enable_dmvid_lookup'] = true
     LookupService.stub(registration: { registered: false, dmv_match: false })
     SubmitEml310.stub(submit_new: false)

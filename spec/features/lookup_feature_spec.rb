@@ -3,8 +3,8 @@ require 'spec_helper'
 feature 'Looking up records' do
 
   scenario 'Entering search' do
-    visit '/'
-    click_on 'search'
+    visit '/front'
+    click_on 'Update or View Voter Record'
 
     expect(page).to have_text 'Identity'
     find_field('Use SSN4').should be_checked
@@ -33,8 +33,7 @@ feature 'Looking up records' do
   def fill_search_page(voter_id)
     seed_offices
 
-    visit '/'
-    click_on 'search'
+    visit '/search'
 
     choose "Use Voter ID"
     within "#vid" do

@@ -10,13 +10,15 @@ window.present = (v) ->
   else
     !!(v)
 
+window.dmvIdRegexp = new RegExp("^[0-9a-z]{#{gon.state_id_length_min},#{gon.state_id_length_max}}$", 'i')
+
 window.filled  = (v) -> !!v && !v.match(/^\s*$/)
 window.join    = (a, sep) -> $.map(a, (i) -> if filled(i) then i else null).join(sep)
 window.zip5    = (v) -> filled(v) && v.match(/^\d{5}$/)
 window.ssn     = (v) -> filled(v) && v.match(/^([\(\)\-\s]*\d[\(\)\-\s]*){9}$/)
 window.ssn4    = (s) -> filled(s) && s.match(/^\d{4}$/)
 window.voterId = (s) -> filled(s) && s.match(/^\d{9}$/)
-window.isDmvId = (s) -> filled(s) && s.replace(/[ \-]/g, '').match(/^[0-9a-z]{<%= AppConfig['state_id_length']['min'] %>,<%= AppConfig['state_id_length']['max'] %>}$/i)
+window.isDmvId = (s) -> filled(s) && s.replace(/[ \-]/g, '').match(window.dmvIdRegexp)
 window.yesNo   = (v) -> if v == '1' then "Yes" else "No"
 window.valueOrUnspecified = (v) -> if filled(v) then v else "Unspecified"
 window.time = (h, m) -> moment("#{h}:#{m}", "HH:mm").format("h:mm A")

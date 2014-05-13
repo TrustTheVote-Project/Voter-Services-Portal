@@ -11,8 +11,8 @@ class window.Registration
     @nameSuffixRequired = ko.observable($("input#require_name_suffix").val() == 'true')
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
     @editMailingAddressAtProtectedVoter = ko.observable($("input#enable_edit_mailing_address_at_protected_voter").val() == 'true')
-    @dmvIdCheckbox      = <%= !!AppConfig['require_dmv_id'] %>
-    @personalDataOnEligibilityPage = <%= !!AppConfig['personal_data_on_eligibility_page'] %>
+    @dmvIdCheckbox      = !!gon.require_dmv_id
+    @personalDataOnEligibilityPage = !!gon.personal_data_on_eligibility_page
     @paperlessPossible  = ko.observable()
     @lookupPerformed    = false
 
@@ -44,7 +44,7 @@ class window.Registration
     @rightsFelony                 = ko.observable()
     @rightsMental                 = ko.observable()
 
-    @expandedRights               = <%= !!AppConfig['enable_expanded_felony_mental_eligibility'] %>
+    @expandedRights               = !!gon.enable_expanded_felony_mental_eligibility
     if @expandedRights
       @rightsWereRevoked          = ko.computed => if (@rightsFelony() == '1' or @rightsMental() == '1') then '1' else '0'
       @expandRightsQuestions      = ko.observable(true)
@@ -221,7 +221,7 @@ class window.Registration
   validatePersonalData: (errors) ->
     errors.push('Date of birth') unless @dob()
     errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
-    errors.push('<%= I18n.t('dmvid') %>') if @dmvIdCheckbox and !isDmvId(@dmvId()) and !@noDmvId()
+    errors.push(gon.i18n_dmvid) if @dmvIdCheckbox and !isDmvId(@dmvId()) and !@noDmvId()
 
   initAddressFields: ->
     @maIsDifferent          = ko.observable(false)
@@ -594,7 +594,7 @@ class window.Registration
 
     @summaryExistingRegistration = ko.computed =>
       if @prStatus() != '1'
-        '<%= I18n.t("confirm.previous_registration.not_registered") %>'
+        gon.i18n_confirm_prev_reg_not_reg
       else
         lines = []
 
@@ -624,15 +624,15 @@ class window.Registration
           @summaryRegistrationAddress()
 
     @summaryPhone = ko.computed =>
-      if filled(@phone()) then @phone() else '<%= I18n.t("confirm.not_provided") %>'
+      if filled(@phone()) then @phone() else gon.i18n_confirm_not_provided
     @summaryEmail = ko.computed =>
-      if filled(@email()) then @email() else '<%= I18n.t("confirm.not_provided") %>'
+      if filled(@email()) then @email() else gon.i18n_confirm_not_provided
 
     @summaryNeedsAssistance = ko.computed =>
-      if @needsAssistance() then '<%= I18n.t("confirm.required") %>' else '<%= I18n.t("confirm.not_required") %>'
+      if @needsAssistance() then gon.i18n_confirm_required else gon.i18n_confirm_not_required
 
     @summaryBeOfficial = ko.computed =>
-      if @beOfficial() then '<%= I18n.t("confirm.required") %>' else '<%= I18n.t("confirm.not_required") %>'
+      if @beOfficial() then gon.i18n_confirm_required else gon.i18n_confirm_not_required
 
     @summaryAbsenteeRequest = ko.computed =>
       lines = []
@@ -760,8 +760,8 @@ class window.Registration
       @lookupRecord(_, e)
 
   onLookupResult: (data) =>
-    @paperlessPossible(<%= !!AppConfig['enable_dmv_ovr'] || false %> and data.dmv_match)
-    if <%= !!AppConfig['enable_dmv_address_display'] %>
+    @paperlessPossible(!!gon.enable_dmv_ovr and data.dmv_match)
+    if !!gon.enable_dmv_address_display
       a = data.address || @initialVvrAddress
       @vvrAddress1(a.address_1)
       @vvrAddress2(a.address_2)
@@ -775,7 +775,7 @@ class window.Registration
     return if $(e.target).hasClass('disabled')
     @page('lookup_record')
 
-    if <%= !AppConfig['enable_dmvid_lookup'] %> or !filled(@dmvId()) or !filled(@ssn()) or (@isConfidentialAddress() and @caType() == 'TSC')
+    if !gon.enable_dmvid_lookup or !filled(@dmvId()) or !filled(@ssn()) or (@isConfidentialAddress() and @caType() == 'TSC')
       return @onLookupResult({
         registered: false,
         dmv_match: false,

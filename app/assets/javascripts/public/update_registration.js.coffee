@@ -59,7 +59,7 @@ class UpdateRegistration extends Registration
 
   validatePersonalData: (errors) ->
     errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
-    errors.push('<%= I18n.t('dmvid') %>') if @dmvIdCheckbox and !isDmvId(@dmvId()) and !@noDmvId()
+    errors.push(gon.i18n_dmvid) if @dmvIdCheckbox and !isDmvId(@dmvId()) and !@noDmvId()
 
   augmentEligibilityFields: ->
     @dobDay($("input#dob_day").val())
