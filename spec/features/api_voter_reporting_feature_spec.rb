@@ -42,7 +42,7 @@ feature 'Voter reporting' do
 
     res = completion_call
     expect(page.status_code).to eq 401
-    expect(res['error']).to eq "Duplicate completion recording"
+    expect(res['error']).to eq "Can't record completion more than once"
   end
 
 
