@@ -12,7 +12,7 @@ class SearchQuery
   validates :locality,    presence: true
   validates :first_name,  presence: { unless: :using_voter_id? }
   validates :last_name,   presence: { unless: :using_voter_id? }
-  validates :dob,         presence: { unless: :using_voter_id? }
+  validates :dob,         presence: true
   validates :ssn4,        presence: { unless: :using_voter_id? }
   validates :voter_id,    presence: {     if: :using_voter_id? }
 

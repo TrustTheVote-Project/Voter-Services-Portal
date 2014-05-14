@@ -14,6 +14,10 @@ class Api::VoterReportingController < ActionController::Base
   # looks up the voter record and lists the polling location
   def lookup
     sq  = SearchQuery.new(params)
+    if !sq.valid?
+      raise ReportingError, "Invalid lookup parameters: #{sq.errors.full_messages.join(', ')}"
+    end
+
     res = PollingLocationsSearch.perform(sq)
 
     queued_voter = QueuedVoter.find_or_create_by_voter_id(res[:voter_id])
@@ -51,10 +55,21 @@ class Api::VoterReportingController < ActionController::Base
     render json: {}
   end
 
+  def wait_time_info
+    reports = qv.reports.where(polling_location_id: params[:polling_location_id])
+    lc = reports.completed.order('completed_at DESC').first
+
+    render json: {
+      last_completion: lc ? { waited: lc.waited, completed_at: lc.completed_at.strftime('%Y-%m-%d %H:%M:%S') } : nil,
+      waiting_count:   reports.waiting.count,
+      completed_count: reports.completed.count
+    }
+  end
+
   private
 
   def qv
-    @qv ||= QueuedVoter.find_by_token(params[:token])
+    @qv ||= QueuedVoter.find_by_token!(params[:token])
   rescue ActiveRecord::RecordNotFound
     raise NotFound, 'Voter not found'
   end

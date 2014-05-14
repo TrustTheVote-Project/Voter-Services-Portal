@@ -56,6 +56,35 @@ feature 'Voter reporting' do
   end
 
 
+  scenario 'Reporting wait time info for never used polling location' do
+    json = wait_time_info
+    expect(json['last_completion']).to eq nil
+    expect(json['waiting_count']).to eq 0
+    expect(json['completed_count']).to eq 0
+  end
+
+  scenario 'Reporting waiting in line' do
+    arrival_call
+    json = wait_time_info
+    expect(json['last_completion']).to eq nil
+    expect(json['waiting_count']).to eq 1
+    expect(json['completed_count']).to eq 0
+  end
+
+  scenario 'Reporting completed' do
+    Timecop.travel(5.minutes.ago) do
+      arrival_call
+    end
+
+    Timecop.freeze do
+      completion_call
+      json = wait_time_info
+      expect(json['last_completion']).to eq({ waited: 5.minutes, completed_at: Time.now.utc.strftime('%Y-%m-%d %H:%M:%S') })
+      expect(json['waiting_count']).to eq 1
+      expect(json['completed_count']).to eq 0
+    end
+  end
+
   private
 
   def json_call(call, params = {})
@@ -82,6 +111,13 @@ feature 'Voter reporting' do
   def completion_call(token = nil, polling_location_id = nil)
     token, polling_location_id = ensure_params(token, polling_location_id)
     json_call 'report_complete', token: token, polling_location_id: polling_location_id
+  end
+
+  def wait_time_info
+    token = qv['token']
+    polling_location_id = qv['polling_locations'].first['uuid']
+
+    json_call 'wait_time_info', token: token, polling_location_id: polling_location_id
   end
 
   def ensure_params(token, polling_location_id)
