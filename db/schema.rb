@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140513080648) do
+ActiveRecord::Schema.define(:version => 20140514092055) do
 
   create_table "active_forms", :force => true do |t|
     t.string   "voter_id"
@@ -67,9 +67,11 @@ ActiveRecord::Schema.define(:version => 20140513080648) do
     t.string   "token",      :null => false
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+    t.string   "voter_id"
   end
 
   add_index "queued_voters", ["token"], :name => "index_queued_voters_on_token", :unique => true
+  add_index "queued_voters", ["voter_id"], :name => "index_queued_voters_on_voter_id", :unique => true
 
   create_table "registrations", :force => true do |t|
     t.text     "data"

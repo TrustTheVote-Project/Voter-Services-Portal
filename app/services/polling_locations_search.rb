@@ -1,3 +1,5 @@
+require 'digest/md5'
+
 class PollingLocationsSearch < AbstractRegistrationSearch
 
   # looks for the polling locations by parameters
@@ -41,10 +43,13 @@ class PollingLocationsSearch < AbstractRegistrationSearch
         loc[:phone] = ppl.css('AddressLine[type="Phone"]').try(:text)
       end
 
+      loc[:uuid] = Digest::MD5.hexdigest(loc.to_a.sort.to_s)
+
       polling_locations << loc
     end
 
-    polling_locations
+    { voter_id: doc.css('VoterIdentification').first['Id'],
+      polling_locations: polling_locations }
   end
 
 end
