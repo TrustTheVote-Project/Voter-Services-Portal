@@ -1,5 +1,5 @@
 # Searches for existing registrations with given attributes
-class RegistrationSearch < LookupApi
+class RegistrationSearch < AbstractRegistrationSearch
 
   def self.perform(search_query)
     vid = search_query.voter_id
@@ -11,7 +11,7 @@ class RegistrationSearch < LookupApi
         xml = search_by_voter_id(vid, search_query.locality, search_query.dob)
       end
     else
-      xml = search_by_data(search_query)
+      xml = search_by_data(search_query.ssn4, search_query.locality, search_query.dob, search_query.first_name, search_query.last_name)
     end
 
     DebugLogging.log_response_to_file("eml330", xml)
@@ -41,56 +41,6 @@ class RegistrationSearch < LookupApi
       end
       r
     end
-  end
-
-  def self.search_by_voter_id(vid, locality, dob)
-    q = {
-      voterIDnumber:  vid.to_s.gsub(/[^\d]/, '').rjust(9, '0'),
-      localityName:   locality,
-      dobMonth:       dob.month,
-      dobDay:         dob.day,
-      dobYear:        dob.year }
-
-    query('voterByVID', q)
-  end
-
-  def self.search_by_data(query)
-    q = {
-      ssn4:           query.ssn4,
-      localityName:   query.locality,
-      dobMonth:       query.dob.month,
-      dobDay:         query.dob.day,
-      dobYear:        query.dob.year,
-      firstName:      query.first_name,
-      lastName:       query.last_name }
-
-    query('voterBySSN4', q)
-  end
-
-  def self.query(method, q)
-    parse_uri(method, q) do |res, method = nil|
-      handle_response(res, method)
-    end
-  end
-
-  def self.handle_response(res, method = nil)
-    Rails.logger.info("LOOKUP: #{method} code=#{res.code}\n#{res.body}") if AppConfig['api_debug_logging']
-
-    return res.body if res.code == '200'
-
-    # raise known errors
-    if res.code == '400'
-      raise RecordIsConfidential if /(cannot be displayed|not available)/i =~ res.body
-      raise RecordIsInactive if /is not active/ =~ res.body
-    end
-
-    # log unknown errors
-    if res.code != '404'
-      ErrorLogRecord.log("Lookup: unknown error", code: res.code, body: res.body)
-      LogRecord.lookup_error(res.body)
-    end
-
-    raise RecordNotFound
   end
 
   def self.parse(xml)
@@ -292,30 +242,6 @@ class RegistrationSearch < LookupApi
       options[:electoral_board_contacts] = vl.map { |v| v[:val] }.join(', ')
     end
 
-    # For now we decided not to parse MA and stay blank
-
-    # madft = doc.css('MailingAddress FreeTextAddress').first
-    # if madft
-    #   ma_address      = madft.css('AddressLine[type="AddressLine1"]').try(:text)
-    #   ma_address      = madft.css('AddressLine[type="MailingAddressLine1"]').try(:text) if ma_address.blank?
-    #   ma_address_2    = madft.css('AddressLine[type="AddressLine2"]').try(:text)
-    #   ma_address_2    = madft.css('AddressLine[type="MailingAddressLine2"]').try(:text) if ma_address_2.blank?
-    #   ma_city         = madft.css('AddressLine[type="City"]').try(:text)
-    #   ma_city         = madft.css('AddressLine[type="MailingCity"]').try(:text) if ma_city.blank?
-    #   ma_state        = madft.css('AddressLine[type="State"]').try(:text)
-    #   ma_state        = madft.css('AddressLine[type="MailingState"]').try(:text) if ma_state.blank?
-    #   ma_zip          = madft.css('AddressLine[type="Zip"]').try(:text)
-    #   ma_zip          = madft.css('AddressLine[type="MailingZip"]').try(:text) || "" if ma_zip.blank?
-    # else
-    #   madpa = doc.css('MailingAddress PostalAddress').first
-    #   ma_address      = madpa.css('Thoroughfare').first.try(:text)
-    #   ma_address_2    = madpa.css('OtherDetail').try(:text)
-    #   ma_city         = madpa.css('Locality').try(:text),
-    #   ma_state        = madpa.css('AdministrativeArea').try(:text)
-    #   ma_zip          = madpa.css('PostCode').try(:text) || ""
-    # end
-    # ma_zip5, ma_zip4 = ma_zip.scan(/(\d{5})(\d{4})?/).flatten
-
     districts = []
     [ [ 'Congressional', 'CongressionalDistrict' ],
       [ 'Senate', 'SenateDistrict' ],
@@ -329,38 +255,11 @@ class RegistrationSearch < LookupApi
     end
     options[:districts] = districts
 
-    if !military && !overseas
-      # options.merge!({
-      #   ma_address:           ma_address,
-      #   ma_address_2:         ma_address_2,
-      #   ma_city:              ma_city,
-      #   ma_state:             ma_state,
-      #   ma_zip5:              ma_zip5,
-      #   ma_zip4:              ma_zip4 || "" })
-    else
-      # if %w( APO DPO FPO ).include?(ma_city.upcase) || (ma_address_2.to_s =~ /\b(apo|dpo|fpo)\b/i)
-      #   options.merge!({
-      #     mau_type:           'apo',
-      #     apo_address:        ma_address,
-      #     apo_address_2:      ma_address_2,
-      #     apo_city:           ma_city.upcase,
-      #     apo_state:          ma_state.upcase,
-      #     apo_zip5:           ma_zip5 })
-      # else
-      #   options.merge!({
-      #     mau_type:           'non-us',
-      #     mau_address:        ma_address,
-      #     mau_address_2:      ma_address_2,
-      #     mau_city:           ma_city,
-      #     mau_city_2:         nil,
-      #     mau_state:          ma_state,
-      #     mau_postal_code:    ma_zip,
-      #     mau_country:        doc.css('MailingAddress AddressLine[type="MailingCountry"]').try(:text) })
-      # end
-
+    if military || overseas
       # We don't have info about this, so always available for now
       options[:vvr_uocava_residence_available] = '1'
     end
+
     Registration.new(options.merge(existing: true))
   end
 

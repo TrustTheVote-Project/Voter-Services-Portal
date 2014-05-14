@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130715092026) do
+ActiveRecord::Schema.define(:version => 20140513080648) do
 
   create_table "active_forms", :force => true do |t|
     t.string   "voter_id"
@@ -50,6 +50,26 @@ ActiveRecord::Schema.define(:version => 20130715092026) do
   end
 
   add_index "offices", ["locality"], :name => "index_offices_on_locality", :unique => true
+
+  create_table "queued_voter_reports", :force => true do |t|
+    t.integer  "queued_voter_id",     :null => false
+    t.string   "polling_location_id", :null => false
+    t.datetime "arrived_on",          :null => false
+    t.datetime "cancelled_on"
+    t.datetime "completed_on"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  add_index "queued_voter_reports", ["queued_voter_id"], :name => "index_queued_voter_reports_on_queued_voter_id"
+
+  create_table "queued_voters", :force => true do |t|
+    t.string   "token",      :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "queued_voters", ["token"], :name => "index_queued_voters_on_token", :unique => true
 
   create_table "registrations", :force => true do |t|
     t.text     "data"

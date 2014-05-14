@@ -53,6 +53,10 @@ VaVote::Application.routes.draw do
 
   namespace :api do
     get '/search(.json)' => 'registrations#show', format: 'json'
+
+    namespace :voter_reporting, module: nil do
+      get '/lookup' => 'voter_reporting#lookup'
+    end
   end
 
   if AppConfig['demo']

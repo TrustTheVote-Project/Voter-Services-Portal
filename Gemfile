@@ -43,7 +43,7 @@ group :development do
 end
 
 group :test do
-  gem 'rspec-rails'
+  gem 'rspec-rails', '~> 2.14.0' #'~> 3.0.0.beta'
   gem 'turnip'
   gem 'faye-websocket', '0.4.4'
   gem 'poltergeist'
