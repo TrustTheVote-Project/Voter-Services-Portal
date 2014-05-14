@@ -2,6 +2,8 @@ require 'spec_helper'
 
 feature 'Voter reporting' do
 
+  let(:qv) { lookup_call }
+
   scenario 'Report arrival and completion' do
     # lookup and get polling locations list
     json  = lookup_call
@@ -9,11 +11,11 @@ feature 'Voter reporting' do
     pl    = json['polling_locations'].first
 
     # report arrival
-    json_call("report_arrive", token: token, polling_location_id: pl['uuid'])
+    arrival_call token, pl['uuid']
     expect(page.status_code).to eq 200
 
     # report completion
-    json_call("report_complete", token: token, polling_location_id: pl['uuid'])
+    completion_call token, pl['uuid']
     expect(page.status_code).to eq 200
   end
 
@@ -26,6 +28,32 @@ feature 'Voter reporting' do
     expect(first_token).to eq json['token']
   end
 
+
+  scenario 'Recording completion before arrival' do
+    res = completion_call
+    expect(page.status_code).to eq 401
+    expect(res['error']).to eq "Can't record completion before the arrival"
+  end
+
+
+  scenario 'Recording completion twice' do
+    arrival_call
+    completion_call
+
+    res = completion_call
+    expect(page.status_code).to eq 401
+    expect(res['error']).to eq "Duplicate completion recording"
+  end
+
+
+  scenario 'Recording arrival after completion' do
+    arrival_call
+    completion_call
+
+    res = arrival_call
+    expect(page.status_code).to eq 401
+    expect(res['error']).to eq "Can't report arrival after completion"
+  end
 
 
   private
@@ -44,6 +72,25 @@ feature 'Voter reporting' do
     end
 
     json
+  end
+
+  def arrival_call(token = nil, polling_location_id = nil)
+    token, polling_location_id = ensure_params(token, polling_location_id)
+    json_call 'report_arrive', token: token, polling_location_id: polling_location_id
+  end
+
+  def completion_call(token = nil, polling_location_id = nil)
+    token, polling_location_id = ensure_params(token, polling_location_id)
+    json_call 'report_complete', token: token, polling_location_id: polling_location_id
+  end
+
+  def ensure_params(token, polling_location_id)
+    if token.nil? || polling_location_id.nil?
+      token = qv['token']
+      polling_location_id = qv['polling_locations'].first['uuid']
+    end
+
+    return [ token, polling_location_id ]
   end
 
 end
