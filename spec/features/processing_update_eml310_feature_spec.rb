@@ -8,13 +8,13 @@ feature 'Processing update EML310 submission', :js do
 
   describe 'Updates' do
     scenario 'Sumission errors out' do
-      SubmitEml310.should_receive(:submit).and_raise(SubmitEml310::SubmissionError)
+      expect(SubmitEml310).to receive(:submit).and_raise(SubmitEml310::SubmissionError)
       submit_record_update
       expect(page).to have_text "Submit Your Application"
     end
 
     scenario 'Submission succeeds' do
-      SubmitEml310.should_receive(:submit_update).and_return(true)
+      expect(SubmitEml310).to receive(:submit_update).and_return(true)
       submit_record_update
       expect(page).to have_text "Submit Your Application"
     end
@@ -24,13 +24,13 @@ feature 'Processing update EML310 submission', :js do
     before { seed_offices }
 
     scenario 'Submission errors out' do
-      SubmitEml310.should_receive(:submit).and_raise(SubmitEml310::SubmissionError)
+      expect(SubmitEml310).to receive(:submit).and_raise(SubmitEml310::SubmissionError)
       submit_new_record
       expect(page).to have_text "Submit Your Application"
     end
 
     scenario 'Submission succeeds' do
-      SubmitEml310.should_receive(:submit_new).and_return(true)
+      expect(SubmitEml310).to receive(:submit_new).and_return(true)
       submit_new_record
       expect(page).to have_text "Submit Your Application"
       expect(page).not_to have_text "TBD 310 error"
@@ -40,7 +40,7 @@ feature 'Processing update EML310 submission', :js do
       AppConfig['enable_dmvid_lookup'] = true
 
       LookupService.stub(registration: { registered: false, dmv_match: true })
-      SubmitEml310.should_receive(:submit_new).and_return(true)
+      expect(SubmitEml310).to receive(:submit_new).and_return(true)
 
       submit_new_record dmv_id: "1234567890"
       click_button 'Submit'

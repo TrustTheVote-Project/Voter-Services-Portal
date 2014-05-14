@@ -52,8 +52,8 @@ describe LookupService do
     let(:locality)    { 'NORFOLK CITY' }
 
     it 'should return elections details' do
-      LookupService.should_receive(:collect_election_ids_for_voter).with(voter_id).and_return([ election_id ])
-      LookupService.should_receive(:collect_elections_details).with(voter_id, [ election_id ], dob, locality)
+      expect(LookupService).to receive(:collect_election_ids_for_voter).with(voter_id).and_return([ election_id ])
+      expect(LookupService).to receive(:collect_elections_details).with(voter_id, [ election_id ], dob, locality)
       LookupService.absentee_status_history(voter_id, dob, locality)
     end
 
@@ -191,9 +191,9 @@ describe LookupService do
         { id: 'id1', name: 'with ballots' },
         { id: 'id2', name: 'without ballots' }
       ]
-      LookupService.should_receive(:all_voter_elections).and_return(elections)
-      LookupService.should_receive(:has_ballot_for?).with(:vid, 'id1').and_return(true)
-      LookupService.should_receive(:has_ballot_for?).with(:vid, 'id2').and_return(false)
+      expect(LookupService).to receive(:all_voter_elections).and_return(elections)
+      expect(LookupService).to receive(:has_ballot_for?).with(:vid, 'id1').and_return(true)
+      expect(LookupService).to receive(:has_ballot_for?).with(:vid, 'id2').and_return(false)
 
       expect(LookupService.voter_elections(:vid)).to eq [ { id: 'id1', name: 'with ballots' } ]
     end

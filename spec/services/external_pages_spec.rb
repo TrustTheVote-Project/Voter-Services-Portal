@@ -13,7 +13,7 @@ describe ExternalPages do
 
   it 'should store page contents' do
     ExternalPages.get_by_name('about')
-    ExternalPages.should_not_receive(:get_from_remote)
+    expect(ExternalPages).to_not receive(:get_from_remote)
     ExternalPages.get_by_name('about').should == 'about'
   end
 
@@ -23,14 +23,14 @@ describe ExternalPages do
 
     sleep 2
 
-    ExternalPages.should_receive(:get_from_remote)
+    expect(ExternalPages).to receive(:get_from_remote)
     ExternalPages.get_by_name('about')
   end
 
   it 'should expire on demand' do
     ExternalPages.get_by_name('about')
     ExternalPages.reset_cache
-    ExternalPages.should_receive(:get_from_remote)
+    expect(ExternalPages).to receive(:get_from_remote)
     ExternalPages.get_by_name('about')
   end
 

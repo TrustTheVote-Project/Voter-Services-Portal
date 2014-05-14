@@ -3,7 +3,7 @@ require 'spec_helper'
 describe BallotInfoController do
 
   describe 'show' do
-    let(:reg) { stub(voter_id: "600000000") }
+    let(:reg) { double(voter_id: "600000000") }
 
     before do
       controller.stub(current_registration: reg)
@@ -22,13 +22,13 @@ describe BallotInfoController do
     end
 
     it 'should redirect to reg detail if error', :vcr do
-      LookupService.should_receive(:ballot_info).and_raise(LookupApi::RecordNotFound)
+      expect(LookupService).to receive(:ballot_info).and_raise(LookupApi::RecordNotFound)
       get :show, election_uid: ''
       expect(page).to redirect_to :registration
     end
 
     it 'should render server_busy template' do
-      LookupService.should_receive(:ballot_info).and_raise(LookupApi::LookupTimeout)
+      expect(LookupService).to receive(:ballot_info).and_raise(LookupApi::LookupTimeout)
       get :show, election_uid: ''
       expect(page).to render_template :servers_busy
     end

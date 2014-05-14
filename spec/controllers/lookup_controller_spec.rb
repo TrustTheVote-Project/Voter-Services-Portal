@@ -4,7 +4,7 @@ describe LookupController do
 
   describe 'registration' do
     it 'should return lookup results' do
-      LookupService.should_receive(:registration).with({
+      expect(LookupService).to receive(:registration).with({
         eligible_citizen:             '1',
         eligible_18_next_election:    '1',
         eligible_revoked_felony:      '1',
@@ -27,7 +27,7 @@ describe LookupController do
   end
 
   context 'specific registration' do
-    let(:reg) { stub(voter_id: "600000000", dob: Date.parse('1979-10-24'), vvr_county_or_city: 'NORFOLK CITY') }
+    let(:reg) { double(voter_id: "600000000", dob: Date.parse('1979-10-24'), vvr_county_or_city: 'NORFOLK CITY') }
 
     before do
       controller.stub(current_registration: reg)
@@ -40,7 +40,7 @@ describe LookupController do
       end
 
       it 'should return failure' do
-        LookupService.should_receive(:absentee_status_history).and_raise(LookupApi::RecordNotFound)
+        expect(LookupService).to receive(:absentee_status_history).and_raise(LookupApi::RecordNotFound)
         get :absentee_status_history, voter_id: "600000000"
         expect(response.body).to eq({ success: true, items: [] }.to_json)
       end
@@ -54,7 +54,7 @@ describe LookupController do
       end
 
       it 'should return failure' do
-        LookupService.should_receive(:voter_elections).and_raise(LookupApi::RecordNotFound)
+        expect(LookupService).to receive(:voter_elections).and_raise(LookupApi::RecordNotFound)
         get :my_ballot
         expect(response.body).to eq({ success: true, items: [] }.to_json)
       end

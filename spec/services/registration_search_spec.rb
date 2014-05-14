@@ -231,7 +231,7 @@ describe RegistrationSearch do
 
     it 'should raise error when times out' do
       lambda {
-        RegistrationSearch.should_receive(:parse_uri_without_timeout).and_raise(Timeout::Error)
+        expect(RegistrationSearch).to receive(:parse_uri_without_timeout).and_raise(Timeout::Error)
         search(600000009, 'NEWPORT NEWS CITY')
       }.should raise_error RegistrationSearch::LookupTimeout
     end
@@ -250,8 +250,8 @@ describe RegistrationSearch do
   end
 
   it 'should log the error when there is no gender' do
-    RegistrationSearch.should_receive(:parse).and_return(Registration.new(voter_id: 123))
-    ErrorLogRecord.should_receive(:log).with("Parsing error", error: "no gender", voter_id: 123)
+    expect(RegistrationSearch).to receive(:parse).and_return(Registration.new(voter_id: 123))
+    expect(ErrorLogRecord).to receive(:log).with("Parsing error", error: "no gender", voter_id: 123)
     search(600000006, 'ALEXANDRIA CITY')
   end
 
@@ -260,30 +260,30 @@ describe RegistrationSearch do
     let(:b) { "error body" }
 
     it 'should handle 200' do
-      RegistrationSearch.handle_response(stub(code: "200", body: "xml")).should == "xml"
+      RegistrationSearch.handle_response(double(code: "200", body: "xml")).should == "xml"
     end
 
     it 'should handle unknown 400 error code' do
-      ErrorLogRecord.should_receive(:log).with("Lookup: unknown error", code: c, body: b)
-      LogRecord.should_receive(:lookup_error).with(b)
+      expect(ErrorLogRecord).to receive(:log).with("Lookup: unknown error", code: c, body: b)
+      expect(LogRecord).to receive(:lookup_error).with(b)
       lambda {
-        RegistrationSearch.handle_response(stub(code: c, body: b))
+        RegistrationSearch.handle_response(double(code: c, body: b))
       }.should raise_error RegistrationSearch::RecordNotFound
     end
 
     it 'should handle unknown 401' do
-      ErrorLogRecord.should_receive(:log).with("Lookup: unknown error", code: "401", body: b)
-      LogRecord.should_receive(:lookup_error).with(b)
+      expect(ErrorLogRecord).to receive(:log).with("Lookup: unknown error", code: "401", body: b)
+      expect(LogRecord).to receive(:lookup_error).with(b)
       lambda {
-        RegistrationSearch.handle_response(stub(code: "401", body: b))
+        RegistrationSearch.handle_response(double(code: "401", body: b))
       }.should raise_error RegistrationSearch::RecordNotFound
     end
 
     it 'should handle 404 w/o logging' do
-      ErrorLogRecord.should_not_receive(:log)
-      LogRecord.should_not_receive(:lookup_error)
+      expect(ErrorLogRecord).to_not receive(:log)
+      expect(LogRecord).to_not receive(:lookup_error)
       lambda {
-        RegistrationSearch.handle_response(stub(code: "404", body: b))
+        RegistrationSearch.handle_response(double(code: "404", body: b))
       }.should raise_error RegistrationSearch::RecordNotFound
     end
   end
@@ -297,7 +297,7 @@ describe RegistrationSearch do
   end
 
   def query_for(n, loc)
-    stub(voter_id: n, locality: loc, first_name: '1', dob: Date.parse('2013-06-25'))
+    double(voter_id: n, locality: loc, first_name: '1', dob: Date.parse('2013-06-25'))
   end
 
   def for_election(id)

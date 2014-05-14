@@ -12,7 +12,7 @@ describe StatusController do
     end
 
     it 'should render the registration data' do
-      RegistrationRepository.should_receive(:get_registration).and_return(r)
+      expect(RegistrationRepository).to receive(:get_registration).and_return(r)
       get :show
       assigns(:search_query).should be
       assigns(:registration).should == r
@@ -28,7 +28,7 @@ describe StatusController do
     end
 
     it 'should render the registration data upon successful search' do
-      RegistrationSearch.should_receive(:perform).and_return(r)
+      expect(RegistrationSearch).to receive(:perform).and_return(r)
       post :search, search_query: { voter_id: '600000000', locality: 'NORFOLK CITY' }
       assigns(:search_query).should be
       assigns(:registration).should == r
@@ -36,8 +36,8 @@ describe StatusController do
     end
 
     it 'should render the error page on error' do
-      SearchQuery.any_instance.stub(valid?: true)
-      RegistrationSearch.should_receive(:perform).and_raise(RegistrationSearch::RecordNotFound)
+      allow_any_instance_of(SearchQuery).to receive(:valid?).and_return(true)
+      expect(RegistrationSearch).to receive(:perform).and_raise(RegistrationSearch::RecordNotFound)
       post :search
       assigns(:search_query).should be
       assigns(:error).should be
