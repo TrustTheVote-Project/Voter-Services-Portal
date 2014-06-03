@@ -79,9 +79,9 @@ feature 'Voter reporting' do
     Timecop.freeze do
       completion_call
       json = wait_time_info
-      expect(json['last_completion']).to eq({ waited: 5.minutes, completed_at: Time.now.utc.strftime('%Y-%m-%d %H:%M:%S') })
-      expect(json['waiting_count']).to eq 1
-      expect(json['completed_count']).to eq 0
+      expect(json['last_completion']).to eq({ 'waited' => 5.minutes, 'completed_at' => Time.now.utc.strftime('%Y-%m-%d %H:%M:%S') })
+      expect(json['waiting_count']).to eq 0
+      expect(json['completed_count']).to eq 1
     end
   end
 
