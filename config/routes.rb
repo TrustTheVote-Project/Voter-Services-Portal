@@ -55,6 +55,7 @@ VaVote::Application.routes.draw do
     get '/search(.json)' => 'registrations#show', format: 'json'
 
     namespace :v1, module: nil do
+      get '/demo'            => 'voter_reporting#demo', as: 'demo'
       get '/PollingLocation' => 'voter_reporting#polling_location'
       get '/ReportArrive'    => 'voter_reporting#report_arrive'
       get '/ReportComplete'  => 'voter_reporting#report_complete'

@@ -1,0 +1,43 @@
+.row
+  .span12
+    %h2 Voter Reporting Demo
+
+.row
+  .span6
+    = form_tag '#', class: 'form-horizontal' do
+      .control-group
+        = label_tag :voter_id, 'Voter ID', class: 'control-label'
+        .controls
+          = text_field_tag :voter_id, '600000008', placeholder: 'NNNNNNNNN'
+
+      .control-group
+        = label_tag :locality, 'Locality', class: 'control-label'
+        .controls
+          = select_tag :locality, options_for_select(Office.localities, 'TAZEWELL COUNTY'), include_blank: true
+
+      .control-group
+        = label_tag :dob, 'Date of birth', class: 'control-label'
+        .controls
+          = text_field_tag :dob, '1965-06-25', placeholder: '1965-06-25'
+
+      .control-group
+        = label_tag :pid, 'Polling location', class: 'control-label'
+        .controls
+          = select_tag :pid, options_for_select([]), include_blank: true
+
+
+      .control-group
+        .controls
+          %p
+            %button#btn-polling-location.btn.btn-default PollingLocation
+          %p
+            %button#btn-report-arrive.btn.btn-default ReportArrive
+            %button#btn-report-complete.btn.btn-default ReportComplete
+          %p
+            %button#btn-wait-time-info.btn.btn-default WaitTimeInfo
+          %p
+            = link_to "Reset records", "?reset=1", class: "btn btn-danger", confirm: "Sure to clear all reports?"
+
+  .span6
+    %h4 Response from backend:
+    %pre#response Idle.

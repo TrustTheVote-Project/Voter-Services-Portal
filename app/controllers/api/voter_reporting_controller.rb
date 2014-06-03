@@ -8,8 +8,20 @@ class Api::VoterReportingController < ActionController::Base
   end
 
   rescue_from NotFound do |e|
-    render json: { error: e.message }, status: :not_found
+    render json: { 'Not found' => e.message }, status: :not_found
   end
+
+  # demo app using the api
+  def demo
+    if params[:reset]
+      QueuedVoter.destroy_all
+      redirect_to :api_v1_demo
+    else
+      gon.fake = true
+      render :demo, layout: 'api-demo'
+    end
+  end
+
 
   # looks up the voter record and lists the polling location
   def polling_location
@@ -61,13 +73,22 @@ class Api::VoterReportingController < ActionController::Base
 
   def queued_voter
     @queued_voter ||= begin
-      sq = SearchQuery.from_eml310_json(params[:q])
+      q = params[:q]
+      if q.blank?
+        raise ReportingError, "Missing lookup parameters"
+      end
+
+      sq = SearchQuery.from_eml310_json(q)
       if !sq.valid?
         raise ReportingError, "Invalid lookup parameters: #{sq.errors.full_messages.join(', ')}"
       end
 
       res = PollingLocationsSearch.perform(sq)
-      QueuedVoter.find_or_create_by_voter_id(res[:voter_id], polling_locations: res[:polling_locations])
+      qv = QueuedVoter.find_or_initialize_by_voter_id(res[:voter_id])
+      qv.polling_locations = res[:polling_locations]
+      qv.save
+
+      qv
     end
   end
 
