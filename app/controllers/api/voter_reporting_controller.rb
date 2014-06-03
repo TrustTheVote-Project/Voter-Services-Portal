@@ -12,17 +12,8 @@ class Api::VoterReportingController < ActionController::Base
   end
 
   # looks up the voter record and lists the polling location
-  def lookup
-    sq  = SearchQuery.new(params)
-    if !sq.valid?
-      raise ReportingError, "Invalid lookup parameters: #{sq.errors.full_messages.join(', ')}"
-    end
-
-    res = PollingLocationsSearch.perform(sq)
-
-    queued_voter = QueuedVoter.find_or_create_by_voter_id(res[:voter_id])
-
-    render json: { token: queued_voter.token, polling_locations: res[:polling_locations] }
+  def polling_location
+    render json: { polling_locations: queued_voter.polling_locations }
   rescue LookupApi::SearchError => e
     raise NotFound, e.message
   end
@@ -56,7 +47,7 @@ class Api::VoterReportingController < ActionController::Base
   end
 
   def wait_time_info
-    reports = qv.reports.where(polling_location_id: params[:polling_location_id])
+    reports = queued_voter.reports.where(polling_location_id: params[:polling_location_id])
     lc = reports.completed.order('completed_at DESC').first
 
     render json: {
@@ -68,14 +59,20 @@ class Api::VoterReportingController < ActionController::Base
 
   private
 
-  def qv
-    @qv ||= QueuedVoter.find_by_token!(params[:token])
-  rescue ActiveRecord::RecordNotFound
-    raise NotFound, 'Voter not found'
+  def queued_voter
+    @queued_voter ||= begin
+      sq = SearchQuery.from_eml310_json(params[:q])
+      if !sq.valid?
+        raise ReportingError, "Invalid lookup parameters: #{sq.errors.full_messages.join(', ')}"
+      end
+
+      res = PollingLocationsSearch.perform(sq)
+      QueuedVoter.find_or_create_by_voter_id(res[:voter_id], polling_locations: res[:polling_locations])
+    end
   end
 
   def report
-    @report ||= qv.reports.find_or_initialize_by_polling_location_id(params[:polling_location_id])
+    @report ||= queued_voter.reports.find_or_initialize_by_polling_location_id(params[:polling_location_id])
   end
 
 end

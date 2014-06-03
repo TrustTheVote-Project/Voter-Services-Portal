@@ -21,6 +21,37 @@ class SearchQuery
     self.lookup_type ||= 'ssn4'
   end
 
+  def self.from_eml310_json(json)
+    eml = JSON.parse(json)
+
+    lookup_type = from_eml(eml, "VoterRegistration", "Voter", "VoterIdentification", "CheckBox", "CheckBox-Type")
+    if lookup_type == 'IDbyVIDwLocalityDOB'
+      lookup_type = 'vid'
+    elsif lookup_type == 'IDbySSN4wFnameLnameLocalityDOB'
+      lookup_type = 'ssn4'
+    else
+      raise InvalidArgument, "Unknown lookup type: #{lookup_type}"
+    end
+
+    if lookup_type == 'vid'
+      SearchQuery.new({
+        lookup_type: lookup_type,
+        voter_id:    from_eml(eml, "VoterRegistration", "Voter", "VoterIdentification", "VoterPhysicalID", "VoterPhysicalID-value"),
+        locality:    from_eml(eml, "VoterRegistration", "Voter", "VoterIdentification", "ElectoralAddress", "PostalAddress", "Locality"),
+        dob:         Chronic.parse(from_eml(eml, "VoterRegistration", "Voter", "VoterIdentification", "DateOfBirth")).to_date
+      })
+    elsif lookup_type == 'ssn4'
+      SearchQuery.new({
+        lookup_type: lookup_type,
+        first_name:  from_eml(eml, "VoterRegistration", "Voter", "VoterIdentification", "VoterName", "GivenName"),
+        last_name:   from_eml(eml, "VoterRegistration", "Voter", "VoterIdentification", "VoterName", "FamilyName"),
+        locality:    from_eml(eml, "VoterRegistration", "Voter", "VoterIdentification", "ElectoralAddress", "PostalAddress", "Locality"),
+        ssn4:        from_eml(eml, "VoterRegistration", "Voter", "VoterIdentification", "VoterPhysicalID", "VoterPhysicalID-value"),
+        dob:         Chronic.parse(from_eml(eml, "VoterRegistration", "Voter", "VoterIdentification", "DateOfBirth")).to_date
+      })
+    end
+  end
+
   # Secure mass attribute assignment
   def assign_attributes(at)
     at = SearchQuery.convert_date(at, :dob) if at[:dob].blank?
@@ -55,6 +86,10 @@ class SearchQuery
 
   def to_key
     nil
+  end
+
+  def self.from_eml(eml, *chain)
+    chain.inject(eml['eml']) { |m, e| m.try(:[], e) }
   end
 
 end

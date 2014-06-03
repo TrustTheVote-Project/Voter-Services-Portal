@@ -5,7 +5,9 @@ class QueuedVoter < ActiveRecord::Base
   validates :voter_id, presence: true
   validates :token, presence: true
 
-  attr_accessible :token
+  attr_accessible :token, :polling_locations
+
+  serialize :polling_locations, Array
 
   before_validation :init_token, on: 'create'
 

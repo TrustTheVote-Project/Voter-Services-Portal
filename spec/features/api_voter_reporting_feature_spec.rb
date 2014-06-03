@@ -2,30 +2,22 @@ require 'spec_helper'
 
 feature 'Voter reporting' do
 
+  let(:vid) { '600000008' }
+
   let(:qv) { lookup_call }
 
   scenario 'Report arrival and completion' do
     # lookup and get polling locations list
     json  = lookup_call
-    token = json['token']
     pl    = json['polling_locations'].first
 
     # report arrival
-    arrival_call token, pl['uuid']
+    arrival_call pl['uuid']
     expect(page.status_code).to eq 200
 
     # report completion
-    completion_call token, pl['uuid']
+    completion_call pl['uuid']
     expect(page.status_code).to eq 200
-  end
-
-
-  scenario 'Duplicate lookup should return the same token' do
-    json = lookup_call
-    first_token = json['token']
-
-    json = lookup_call
-    expect(first_token).to eq json['token']
   end
 
 
@@ -88,45 +80,80 @@ feature 'Voter reporting' do
   private
 
   def json_call(call, params = {})
-    visit "/api/voter_reporting/#{call}?#{params.to_query}"
+    visit "/api/v1/#{call}?#{params.to_query}"
     return JSON.parse(page.body)
   end
 
   def lookup_call
     json = nil
-    vid  = '600000008'
 
     VCR.use_cassette("vid_#{vid}") do
-      json = json_call("lookup", 'voter_id' => vid, 'locality' => 'TAZEWELL COUNTY', 'dob(1i)' => '2013', 'dob(2i)' => '6', 'dob(3i)' => '25')
+      json = json_call("PollingLocation", q: user_data_json(vid))
     end
 
     json
   end
 
-  def arrival_call(token = nil, polling_location_id = nil)
-    token, polling_location_id = ensure_params(token, polling_location_id)
-    json_call 'report_arrive', token: token, polling_location_id: polling_location_id
+  def user_data_json(vid)
+    { "eml" =>
+      { "SchemaVersion" => "7.0",
+        "Id" => "310",
+        "emlheader" => { "TransactionId" => 310 },
+        "VoterRegistration" => {
+          "Voter" => {
+            "VoterIdentification" => {
+              "ElectoralAddress" => {
+                "PostalAddress" => {
+                  "Locality" => "TAZEWELL COUNTY"
+                }
+              },
+
+              "VoterPhysicalID" => {
+                "VoterPhysicalID-IdType" => "VID",
+                "VoterPhysicalID-value" => vid
+              },
+
+              "DateOfBirth" => "2013-06-25",
+              "CheckBox" => {
+                "CheckBox-Type" => "IDbyVIDwLocalityDOB",
+                "CheckBox-value" => "yes"
+              }
+            }
+          }
+        }
+      }
+    }.to_json
   end
 
-  def completion_call(token = nil, polling_location_id = nil)
-    token, polling_location_id = ensure_params(token, polling_location_id)
-    json_call 'report_complete', token: token, polling_location_id: polling_location_id
+  def arrival_call(polling_location_id = nil)
+    polling_location_id = ensure_params(polling_location_id)
+    VCR.use_cassette("vid_#{vid}") do
+      json_call 'ReportArrive', q: user_data_json(vid), polling_location_id: polling_location_id
+    end
+  end
+
+  def completion_call(polling_location_id = nil)
+    polling_location_id = ensure_params(polling_location_id)
+    VCR.use_cassette("vid_#{vid}") do
+      json_call 'ReportComplete', q: user_data_json(vid), polling_location_id: polling_location_id
+    end
   end
 
   def wait_time_info
     token = qv['token']
     polling_location_id = qv['polling_locations'].first['uuid']
 
-    json_call 'wait_time_info', token: token, polling_location_id: polling_location_id
+    VCR.use_cassette("vid_#{vid}") do
+      json_call 'WaitTimeInfo', q: user_data_json(vid), polling_location_id: polling_location_id
+    end
   end
 
-  def ensure_params(token, polling_location_id)
-    if token.nil? || polling_location_id.nil?
-      token = qv['token']
+  def ensure_params(polling_location_id)
+    if polling_location_id.nil?
       polling_location_id = qv['polling_locations'].first['uuid']
     end
 
-    return [ token, polling_location_id ]
+    return polling_location_id
   end
 
 end

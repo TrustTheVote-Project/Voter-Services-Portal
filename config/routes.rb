@@ -54,11 +54,11 @@ VaVote::Application.routes.draw do
   namespace :api do
     get '/search(.json)' => 'registrations#show', format: 'json'
 
-    namespace :voter_reporting, module: nil do
-      get '/lookup'          => 'voter_reporting#lookup'
-      get '/report_arrive'   => 'voter_reporting#report_arrive'
-      get '/report_complete' => 'voter_reporting#report_complete'
-      get '/wait_time_info'  => 'voter_reporting#wait_time_info'
+    namespace :v1, module: nil do
+      get '/PollingLocation' => 'voter_reporting#polling_location'
+      get '/ReportArrive'    => 'voter_reporting#report_arrive'
+      get '/ReportComplete'  => 'voter_reporting#report_complete'
+      get '/WaitTimeInfo'    => 'voter_reporting#wait_time_info'
     end
   end
 
