@@ -11,6 +11,10 @@ class Api::VoterReportingController < ActionController::Base
     render json: { 'Not found' => e.message }, status: :not_found
   end
 
+  rescue_from LookupApi::SearchError do |e|
+    render json: { 'Not found' => e.message }, status: :not_found
+  end
+
   # demo app using the api
   def demo
     if params[:reset]
@@ -26,8 +30,6 @@ class Api::VoterReportingController < ActionController::Base
   # looks up the voter record and lists the polling location
   def polling_location
     render json: { polling_locations: queued_voter.polling_locations }
-  rescue LookupApi::SearchError => e
-    raise NotFound, e.message
   end
 
   # report the arrival to a polling location
