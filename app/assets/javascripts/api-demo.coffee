@@ -37,6 +37,7 @@ sendRequest = (call, args = {}, cb = null) ->
     type: "GET"
     url: "/api/v1/#{call}"
     data: args
+    beforeSend: (xhr, po) -> $("#request").text(po.url)
   }).done((json, s, xhr) ->
     $("#response").text(xhr.responseText)
     cb(json) if cb?
