@@ -2,37 +2,30 @@
   .row
     .span4.upcoming
       - ue = AppConfig['upcoming_election']
-      %h3 Upcoming Election
+      %h3= t "footer.upcoming_election.title"
 
       %h4= raw ue['name']
       %p=  raw ue['date']
 
-      %h4 Virginia polling times
+      %h4= t "footer.upcoming_election.polling_items"
       %p=  raw ue['polling_times']
 
-      %h4 Registration deadline
+      %h4= t "footer.upcoming_election.registration_deadline"
       %p=  raw ue['reg_deadline']
 
     .span8.additional-info
       .row
         .span4.howto
-          %h3 How to Register
+          %h3= t "footer.how_to_register.title"
           .external-page= ExternalPages.get_by_name :how_to_register
 
         .span4.contact
-          %h3 Contact
-          %h4= raw t("contact.organization")
-          %p
-            Washington Building<br/>
-            First Floor<br/>
-            1100 Bank Street<br/>
-            Richmond, VA 23219
+          %h3= t "footer.contact.title"
+          %h4= raw t("footer.contact.organization")
+          %p=  raw t("footer.contact.address")
+          %p=  raw t("footer.contact.phones")
 
           %p
-            (800) 552-9745 Phone<br/>
-            (804) 371-0194 Fax<br/>
-            info@sbe.virginia.gov Email<br/>
-            www.sbe.virginia.gov Web
 
   .row.footer
     .span4 &nbsp;
@@ -50,6 +43,4 @@
       = link_to 'Security & Privacy', :security_page
       &nbsp;&nbsp;|&nbsp;&nbsp;
       = link_to 'Feedback', :feedback_page
-    .span3.powered
-      Powered by Open Source<br/>
-      Digital Voting Foundation
+    .span3.powered= raw t("footer.powered_by")
