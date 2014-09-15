@@ -3,18 +3,13 @@
 #hero
   .row.w
     .span12
-      %h2 Welcome.
-      %small
-        #{raw t('front.welcome.line1')}<br/>
-        #{raw t('front.welcome.line2')}<br/>
-        #{raw t('front.welcome.line3')}
+      %h2= t 'front.welcome.title'
+      %small= raw t 'front.welcome.text'
 
   - if AppConfig['enable_dmv_id_submission']
     .row.steps
       .span4.info
-        .line1 5
-        .line2 simple steps
-        .line3 to register to vote
+        = raw t 'front.steps.text'
       .span8
         %table
           %tr.step-numbers
@@ -24,11 +19,11 @@
             %th 4
             %th 5
           %tr.step-names
-            %td Enter information<hr>
-            %td Download<hr>
-            %td Print<hr>
-            %td Sign &amp; Date<hr>
-            %td Mail<hr>
+            %td #{raw t 'front.steps.step1' }<hr>
+            %td #{raw t 'front.steps.step2' }<hr>
+            %td #{raw t 'front.steps.step3' }<hr>
+            %td #{raw t 'front.steps.step4' }<hr>
+            %td #{raw t 'front.steps.step5' }<hr>
           %tr.step-icons
             %td= image_tag '1x1.png', class: 'icon icon_enterinformation'
             %td= image_tag '1x1.png', class: 'icon icon_download'

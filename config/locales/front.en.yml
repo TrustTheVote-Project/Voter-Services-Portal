@@ -1,0 +1,39 @@
+en:
+  front:
+    welcome:
+      title: Welcome.
+      text:
+        We've created this service to help all Virginians<br/>
+        to apply to register to vote and<br/>
+        keep their voter information up-to-date.
+
+    steps:
+      text:
+        <div class='line1'>5</div>
+        <div class='line2'>simple steps</div>
+        <div class='line3'>to register to vote</div>
+      step1: Enter information
+      step2: Download
+      step3: Print
+      step4: Sign &amp; Date
+      step5: Mail
+
+
+    options:
+      residential:
+        title: "<br/>Apply to Register to Vote"
+        subtitle: Residential Voter
+        text: I am a Virginia resident. I am not registered to vote in Virginia and I want to apply to register to vote.
+      overseas:
+        title: "<br/>Overseas or Military"
+        subtitle: Overseas or Military Voter
+        text: I am an active member of the Uniformed Services, the Merchant Marine, a family member, or a citizen of the United States, residing outside of the United States, and I want to register to vote absentee on election day.
+      update:
+        title: Update Current Voter Registration
+        subtitle: View and Update Voter Record
+        text: I am already registered to vote in Virginia and want to view and apply to update my Voter Record.
+      request_absentee:
+        subtitle: ""
+        text: ""
+    deadline: ""
+
