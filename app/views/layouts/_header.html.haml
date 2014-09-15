@@ -8,6 +8,6 @@
     &nbsp;&nbsp;|&nbsp;&nbsp;
     = link_to 'Help', :help_page
   = link_to :root do
-    = image_tag AppConfig['logo']['filename'], size: AppConfig['logo']['size'], alt: t("alt.logo")
+    = image_tag '1x1.png', class: 'img_logo', alt: t("alt.logo")
   %h1= raw t('title')
 
