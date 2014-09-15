@@ -1,7 +1,7 @@
 !!!
 %html
   %head
-    %title VA Voter Portal
+    %title= raw t("title")
     = stylesheet_link_tag "mobile", :media => "all"
     = custom_css_link_tag "mobile_css"
     %meta( content='width=device-width,initial-scale=1' name='viewport' )
@@ -12,7 +12,7 @@
       .content
         #header
           = image_tag '1x1.png', class: 'img_logo', alt: t("alt.logo")
-          %h1 Virginia Voter Registration
+          %h1= raw t("title")
         = yield
 
     = javascript_include_tag  "mobile"
