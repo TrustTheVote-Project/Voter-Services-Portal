@@ -3,13 +3,13 @@
   %tr
     %td.section
       .logo
-      %h1 Commonweath of Virginia
-      %h2 Voter Card
+      %h1= t 'voting_cards.title'
+      %h2= t 'voting_cards.subtitle'
       %table.details
         %tr
-          %td.label ID<br/>NO.
+          %td.label= raw t 'voting_cards.id'
           %td.idd #{r.id}
-          %td.date.label DATE<br/>ISSUED
+          %td.date.label= raw t 'voting_cards.date_issued'
           %td.date #{r.date_issued}
 
       %p.registration
@@ -17,13 +17,13 @@
         #{r.address_line_1}<br/>
         #{r.address_line_2}
 
-      %p LANGUAGE PREFERENCE: #{r.language}
+      %p= raw t 'voting_cards.language_preference', lang: r.language
 
       %p.id= r.id.to_s.split(//).map { |l| "<span>#{l}</span>" }.join.html_safe
 
       - if r.voting_location_given?
         .voting_location
-          %h3 VOTING LOCATION:
+          %h3= t 'voting_cards.voting_location'
           %p= r.voting_location
 
     %td.fold
@@ -32,20 +32,20 @@
     %td.section.middle
       %table.districts
         %tr
-          %td LOCALITY:
+          %td= t 'voting_cards.locality'
           %td= r.locality
         %tr
-          %td PRECINCT:
+          %td= t 'voting_cards.precinct'
           %td= r.precinct
         %tr
-          %td DISTRICTS:
+          %td= t 'voting_cards.districts'
           %td= r.districts
         %tr
-          %td LOCAL:
+          %td= t 'voting_cards.local'
           %td= r.local
 
       .voter_office
-        %h3 Voter Registration Office
+        %h3= t 'voting_cards.voter_office'
         %p #{r.voter_registration_office.gsub("\n", "<br/>").html_safe}
 
     %td.fold
@@ -53,10 +53,10 @@
 
     %td.section.right
       .town_elections
-        %h3 FOR TOWN ELECTIONS:
-        %p TOWN:<br/><br/><br/>
-        %P TOWN PRECINCT / DISTRICT:<br/><br/><br/>
-        %p TOWN ELECTION VOTING LOCATION:<br/><br/><br/>
+        %h3= t 'voting_cards.town_elections.title'
+        %p= raw t 'voting_cards.town_elections.town'
+        %p= raw t 'voting_cards.town_elections.precinct'
+        %p= raw t 'voting_cards.town_elections.location'
 
 .note
   *** Please show this card or other proper ID when you go to vote
