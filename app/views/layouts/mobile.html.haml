@@ -2,7 +2,8 @@
 %html
   %head
     %title VA Voter Portal
-    = stylesheet_link_tag     "mobile", :media => "all"
+    = stylesheet_link_tag "mobile", :media => "all"
+    = custom_css_link_tag "mobile_css"
     %meta( content='width=device-width,initial-scale=1' name='viewport' )
     = csrf_meta_tags
 

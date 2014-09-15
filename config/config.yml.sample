@@ -27,7 +27,7 @@ enable_eml_post: true
 enable_dmv_ovr: true
 
 # Enables integration with external ballot service
-: true
+enable_online_balloting: true
 
 
 ################
@@ -251,10 +251,15 @@ xml:
 ## Configuration keys that control use of external assets
 ##
 
+customization:
+  # Custom CSS overrides. Can be an absolute http://... URL.
+  application_css:        custom_application.css
+  mobile_css:             custom_mobile.css
+
 # Logo in the header
 logo:
-  filename: 'VA_logo.png'
-  size:     '90x60'
+  filename:               VA_logo.png
+  size:                   90x60
 
 # Static page mapping
 static_pages:
