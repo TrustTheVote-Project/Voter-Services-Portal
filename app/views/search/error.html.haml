@@ -5,10 +5,7 @@
     .head
       %h3= @error.title
       .description
-        #{@error.message.html_safe}
+        = raw @error.message
         - if @error.can_retry?
-          %p
-            You can try again by
-            #{link_to "changing the information", :search}, or you can instead
-            #{link_with_privacy_act_to "register to vote", :new_registration, id: "register"}.
+          %p= raw t 'search.retry', changing_info: link_to("changing the information", :search), register: link_with_privacy_act_to("register to vote", :new_registration, id: "register")
 

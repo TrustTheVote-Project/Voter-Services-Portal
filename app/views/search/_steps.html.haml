@@ -1,14 +1,14 @@
 - complete ||= false
 .row#steps
   .span2{ class: !complete ? 'current' : 'done' }
-    %h2 View &amp; Update
+    %h2= raw t 'search.step1'
 
   .span2{ class: complete ? 'done' : nil, 'data-bind' => "attr: { 'class': stepClass(step(), 2) }" }
-    %h2 Addresses
+    %h2= raw t 'search.step2'
 
   .span2{ class: complete ? 'done' : nil, 'data-bind' => "attr: { 'class': stepClass(step(), 3) }" }
-    %h2 Optional Questions
+    %h2= raw t 'search.step3'
 
   .span2{ class: complete ? 'current' : nil, 'data-bind' => "attr: { 'class': stepClass(step(), 4, 'span2 last') }" }
-    %h2 Complete
+    %h2= raw t 'search.step4'
 
