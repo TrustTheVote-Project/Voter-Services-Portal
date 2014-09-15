@@ -27,3 +27,11 @@ certain image, place it somewhere accessible on the web (Amazon S3, for
 example), and create a custom stylesheet as described above to wire it.
 
 
+PDF
+---
+
+Default PDF forms reside in `app/assets/pdf-templates`. The names of
+files from this folder are in `config.yml`. You can specify alternative
+PDF files to use by specifying paths either absolute, or relative to the
+default files folder mentioned above.
+

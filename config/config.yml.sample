@@ -256,6 +256,12 @@ customization:
   application_css:        custom_application.css
   mobile_css:             custom_mobile.css
 
+  # Absolute filesystem paths to PDF files to overrides. Blank for defaults.
+  absentee_request_pdf:   Portal_PDF_sbe_absentee_request.pdf
+  fpca_pdf:               Portal_PDF_FPCA.pdf
+  domestic_pdf:           Portal_PDF_sbe_voter_app.pdf
+  state_absentee_pdf:     Portal_PDF_State_Absentee_Request.pdf
+
 # Static page mapping
 static_pages:
   url_base:

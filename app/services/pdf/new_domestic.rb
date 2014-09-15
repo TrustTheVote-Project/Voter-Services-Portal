@@ -2,7 +2,7 @@ class Pdf::NewDomestic < Pdf::Form
 
   # Renders PDF and returns it as a string
   def self.render(reg)
-    render_pdf("Portal_PDF_sbe_voter_app.pdf") do |pdf|
+    render_pdf "domestic_pdf" do |pdf|
       setMailingInstructions(pdf, reg)
       setEligibility(pdf, reg)
       setIdentity(pdf, reg)

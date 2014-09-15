@@ -3,8 +3,18 @@ class Pdf::Form
   protected
 
   # Renders PDF and returns it as a string
-  def self.render_pdf(pdf_filename, &block)
-    pdf_path = "#{Rails.root}/app/assets/pdf-templates/#{pdf_filename}"
+  def self.render_pdf(pdf_key, &block)
+    pdf_filename = AppConfig['customization'].try(:[], pdf_key)
+    if pdf_filename.blank?
+      raise "Path for PDF form by key '#{pdf_key}' is unspecified"
+    end
+
+    # If #pdf_filename is an absolute path, it will be used as-is.
+    # If it is a relative path, it will be merged with the pdf-templates folder path.
+    pdf_path = File.absolute_path(pdf_filename, "#{Rails.root}/app/assets/pdf-templates")
+    if !File.exists?(pdf_path)
+      raise "PDF file is missing: #{pdf_path}"
+    end
 
     pdf = ActivePdftk::Form.new(pdf_path, path: AppConfig['pdftk_path'])
 

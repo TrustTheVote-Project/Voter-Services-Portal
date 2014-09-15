@@ -3,7 +3,7 @@ class Pdf::AbsenteeRequest < Pdf::Form
   # Renders PDF and returns it as a string
   def self.render(reg)
     p = RegistrationForPdf.new(reg)
-    render_pdf("Portal_PDF_sbe_absentee_request.pdf") do |pdf|
+    render_pdf 'absentee_request_pdf' do |pdf|
       set_header(pdf, reg)
       set_part_a(pdf, reg, p)
       set_part_b(pdf, reg, p)

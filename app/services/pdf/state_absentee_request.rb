@@ -3,7 +3,7 @@ class Pdf::StateAbsenteeRequest < Pdf::Form
   # Renders PDF and returns it as a string
   def self.render(reg)
     p = RegistrationForPdf.new(reg)
-    render_pdf 'Portal_PDF_State_Absentee_Request.pdf' do |pdf|
+    render_pdf 'state_absentee_pdf' do |pdf|
       set_part_1 pdf, reg
       set_part_2 pdf, reg, p
       set_part_3 pdf, reg, p
