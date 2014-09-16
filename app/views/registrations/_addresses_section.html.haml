@@ -2,7 +2,7 @@
   .head
     %h3 #{raw t('residence_address')}
     .description
-      #{t('residence_address').capitalize} is your Home address in Virginia or your most recent Virginia residence.
+      = raw t 'addresses.description', address_name: raw(t('residence_address').capitalize)
 
   .row
     .span10
@@ -71,14 +71,15 @@
     .span12
       .radio
         = radio_button :registration, :vvr_uocava_residence_available, '1', { autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrOverseasRA" }' }
-        %label{ for: 'registration_vvr_uocava_residence_available_1' } My Virginia residence is still available to me
+        %label{ for: 'registration_vvr_uocava_residence_available_1' }= raw t 'addresses.still_available'
       .radio
         = radio_button :registration, :vvr_uocava_residence_available, '0', { autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrOverseasRA" }' }
-        %label{ for: 'registration vvr_uocava_residence_available_0' } My Virginia residence is no longer available to me
+        %label{ for: 'registration vvr_uocava_residence_available_0' }= raw t 'addresses.not_available'
+
   <!-- ko if: vvrOverseasRA() == '0' -->
   .row
     .span12
-      %span My last date of residence at the above address was:
+      %span= raw t 'addresses.my_last_date_of_residence'
       = bound_date f, :vvr_uocava_residence_unavailable_since, { end_year: Date.today.year }, class: 'date'
   <!-- /ko -->
   <!-- /ko --> <!-- overseas -->

@@ -1,38 +1,15 @@
 #complete.section{ 'data-bind' => 'vis: page() == "congratulations"' }
   .head
-    %h3
-      Congratulations!
-      %em Your Virginia Voter Record is almost updated.
-    .description
-      Don't forget, to officially update your Virginia Voter Record
-      you will need to complete these steps:
+    %h3= raw t 'complete_section.title'
+    .description= raw t 'complete_section.description'
 
   .partition
     .row
-      .span10
-        %ol
-          %li Download
-          %li Print
-          %li Sign
-          %li Mail
-        %p
-          %strong
-            Mail your updated Virginia Voter Record to your local
-            %br/
-            Voter Registration office:
-        %p= office_address(@registration.vvr_county_or_city)
+      .span10= raw t 'complete_section.block_1', office_address: office_address(@registration.vvr_county_or_city)
+
   .partition
     .row
-      .span10
-        %p
-          Within 30 days of mailing your updated Virginia Voter Record, you should receive a
-          %br/
-          voter card by mail that will confirm your updated Voter Record. If you do not receive a voter card
-          %br/
-          within in that time, please contact the
-          %a{ :href => "#" }
-            %strong Virginia State Board or Elections.
-        %p Thank you!
+      .span10= raw t 'complete_section.block_2'
 
   .form-actions
     = button_tag 'Back', class: 'back bt', 'data-bind' => 'click: gotoDownload'
