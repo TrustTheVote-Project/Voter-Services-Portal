@@ -154,9 +154,6 @@ en:
         If you do not receive a voter card within that time, please contact the
         Virginia State Board of Elections using the contact information provided below.</p>
 
-  congratulations:
-    instructions: "Within 30 days of mailing your Virginia Voter Registration Application, you should receive a<br/>voter card by mail that will confirm you are registered to vote. If you do not receive a voter card<br/>within in that time, please contact the <strong>Virginia State Board or Elections.</strong><br/><br/>Thank you!"
-
   submit_paperless:
     title: Submit Your Application Online
     subheader: ""
