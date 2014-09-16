@@ -64,32 +64,6 @@ en:
       requesting_absentee: "I will not be able to vote in person."
     being_official: "I'm interested in being an Election Official on Election Day. Please send me information."
 
-  confirm:
-    details: Please confirm that your information is accurate. If any information is not correct, click "Edit" beside the incorrect data to return to the page to make corrections.
-    required: "Yes"
-    not_required: "No"
-    not_provided: "Not provided"
-    previous_registration:
-      not_registered: "Not currently registered in Virginia or another state"
-    rows:
-      name: Name
-      eligibility: Eligibility
-      voting_rights: Voting Rights
-      dob: Date of Birth
-      ssn: Social Security Number
-      gender: Gender
-      phone: Phone
-      email: Email
-      mailing_address: Mailing Address
-      previous_registration: Previous Registration
-      party_preference:
-        absentee: Party preference for absentee ballots
-        non_absentee: Political party preference
-      protected_voter: Protected Voter
-      absentee_request: Absentee Request
-      assistance_request: Assistance Request
-      volunteering: Volunteering
-
   oath:
     subheader: ""
     information_correct: "I swear/affirm, under felony penalty for making willfully false material statements or entries, that the information provided on this form is true."

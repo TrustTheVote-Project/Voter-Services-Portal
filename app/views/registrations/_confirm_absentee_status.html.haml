@@ -1,22 +1,21 @@
 .row
   .span10
     .head.light
-      %h3 Voting Status
+      %h3= t 'confirm.status.title'
 
     <!-- ko if: overseas -->
     %p
-      %strong Overseas/Military Absentee Voter
-    %p Receiving an absentee ballot for elections through <strong data-bind="text: absenteeUntilFormatted"></strong>
+      %strong= t 'confirm.status.overseas'
+    %p #{t 'confirm.status.receiving_absentee_through'} <strong data-bind="text: absenteeUntilFormatted"></strong>
     <!-- /ko -->
 
     <!-- ko if: domestic() && requestingAbsentee() -->
     %p
-      %strong Domestic Absentee Voter
-    %p
-      Requesting an <strong>Absentee Ballot</strong> for <span data-bind='html: summaryElection'></span>
+      %strong= t 'confirm.status.domestic'
+    %p #{raw t 'confirm.status.domestic_ballot_for'} <span data-bind='html: summaryElection'></span>
     <!-- /ko -->
 
     <!-- ko if: domestic() && !requestingAbsentee() -->
     %p
-      %strong Virginia Residential Voter
+      %strong= t 'confirm.status.resident'
     <!-- /ko -->

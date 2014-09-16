@@ -9,7 +9,7 @@
   .row
     .span10
       .head.light
-        %h3 Voter Information
+        %h3= raw t 'confirm.voter_info'
       .summary
         .body
           %table.table.properties
@@ -92,11 +92,11 @@
                 (#{t("mailing_address.different.#{AppConfig['enable_limit_on_domestic_voter_mailing_address'] ? 'limit' : 'no_limit'}", address: t("residence_address").downcase)})
                 <!-- /ko -->
                 <!-- ko if: isConfidentialAddress() -->
-                (Protected Voter)
+                = raw t 'confirm.protected_voter'
                 <!-- /ko -->
                 <!-- /ko --> <!-- domestic -->
                 <!-- ko if: overseas -->
-                (used for absentee ballot and other voting correspondence)
+                = raw t 'confirm.absentee'
                 <!-- /ko -->
             %tr
               %th= t('confirm.rows.previous_registration')
