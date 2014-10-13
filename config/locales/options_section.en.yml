@@ -1,16 +1,16 @@
 en:
   options:
     title: Optional Questions
-    description: Select only applicable options (not required).
+    description: "Select only applicable options (not required)."
 
     party_preference:
-      choose_party: I want to choose a %{entity}.
-      other_party: %{entity} name
+      choose_party: "I want to choose a %{entity}."
+      other_party: "%{entity} name"
       other: Other
 
     ac:
-      requesting: I qualify as a protected voter.
-      statement: I legally qualify to not have my %{address} published on publicly-released voter lists because I or a member of my household
+      requesting: "I qualify as a protected voter."
+      statement: "I legally qualify to not have my %{address} published on publicly-released voter lists because I or a member of my household"
       address: You must attach copy of the complaint that you filed
       mailing_address_label: Mailing Address
       reasons:

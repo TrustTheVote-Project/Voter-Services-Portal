@@ -1,12 +1,12 @@
 en:
   complete_section:
-    title:
+    title: >
       Congratulations!
       <em>Your Virginia Voter Record is almost updated.</em>
-    description:
+    description: >
       Don't forget, to officially update your Virginia Voter Record
       you will need to complete these steps:
-    block_1:
+    block_1: >
       <ol>
         <li>Download</li>
         <li>Print</li>
@@ -21,7 +21,7 @@ en:
       </p>
       <p>%{office_address}</p>
 
-    block_2:
+    block_2: >
       <p>
         Within 30 days of mailing your updated Virginia Voter Record, you should receive a<br/>
         voter card by mail that will confirm your updated Voter Record. If you do not receive a voter card<br/>

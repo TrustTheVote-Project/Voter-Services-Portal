@@ -2,7 +2,7 @@ en:
   residence_address: Residence Address
 
   addresses:
-    description: %{address_name} is your Home address in Virginia or your most recent Virginia residence.
+    description: "%{address_name} is your Home address in Virginia or your most recent Virginia residence."
     address: "Address"
     rural_address: "Describe where you reside"
     address_2: "Address Line 2"
@@ -13,7 +13,7 @@ en:
     zip4: "Zip4"
     still_available: My Virginia residence is still available to me
     not_available: My Virginia residence is no longer available to me
-    my_last_date_of_residence: My last date of residence at the above address was:
+    my_last_date_of_residence: "My last date of residence at the above address was:"
 
   mailing_address:
     different:
