@@ -1,10 +1,4 @@
+- section = no_forms? ? "no_forms" : "forms"
 .head
-  - if no_forms?
-    %h3 Your Voter Information
-    .description
-      You are registered to vote in Virginia. You can see your voter information below.
-  - else
-    %h3 View &amp; Update
-    .description
-      View your Voter Information and Update your Voting Status.
-      If this is not you, please go back to the previous page, and correct your personal information.
+  %h3= raw t "show_registration.head.#{section}.title"
+  .description= raw t "show_registration.head.#{section}.description"
