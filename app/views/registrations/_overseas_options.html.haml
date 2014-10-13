@@ -7,7 +7,7 @@
         = f.check_box :requesting_absentee, autocomplete: ac, disabled: true, checked: true
         = f.hidden_field :requesting_absentee, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "requestingAbsentee" }'
         = f.label :requesting_absentee do
-          %strong= t('options.overseas.requesting_absentee', until: until_date)
+          %strong= t 'options.overseas.requesting_absentee', until: until_date
 
   <!-- ko if: requestingAbsentee -->
   .row

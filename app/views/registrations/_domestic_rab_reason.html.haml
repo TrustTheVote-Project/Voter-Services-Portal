@@ -1,12 +1,11 @@
 .row
   .span12
-    %p
-      Select only one reason to vote absentee from the list below and include any<br/>
-      required information to support the reason.
+    %p= raw t 'options.rab_reason.details'
+
 .row
   .span12
     = f.label :ab_reason do
-      %strong I am unable to go to the polls on election day because
+      %strong= t 'options.rab_reason.reason'
     = f.select :ab_reason, Dictionaries::ABSENCE_REASONS.invert, { include_blank: true }, { autocomplete: ac, class: 'span10', 'data-bind' => 'instantValidation: { accessor: "abReason" }' }
 
 -# Fields to blank elements of the record that aren't on the form
@@ -46,10 +45,10 @@
 
   <!-- ko if: abTimeRangeRequired -->
   .span3
-    %label{ for: 'registration_ab_time_1_4i_' } Time start
+    %label{ for: 'registration_ab_time_1_4i_' }= t 'options.rab_reason.time_start'
     = bound_time f, :ab_time_1
   .span3
-    %label{ for: 'registration_ab_time_2_4i_' } Time end
+    %label{ for: 'registration_ab_time_2_4i_' }= t 'options.rab_reason.time_end'
     = bound_time f, :ab_time_2
   <!-- /ko --> <!-- time range -->
 
@@ -63,40 +62,40 @@
 <!-- ko if: abAddressRequired -->
 .row
   .span2
-    = f.label :ab_street_number, "Street number"
+    = f.label :ab_street_number, t('options.rab_reason.street_number')
     = f.text_field :ab_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abStreetNumber" }, valueUpdate: "afterkeyup"', class: 'span2'
   .span4
-    = f.label :ab_street_name, "Street name"
+    = f.label :ab_street_name, t('options.rab_reason.street_name')
     = f.text_field :ab_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abStreetName" }, valueUpdate: "afterkeyup"', class: 'span4'
   .span2.street-type-field
-    = f.label :ab_street_type, "Street type"
+    = f.label :ab_street_type, t('options.rab_reason.street_type')
     = f.select :ab_street_type, Dictionaries::STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'street-type', 'data-bind' => 'instantValidation: { accessor: "abStreetType" }' }
   .span2.lot-field
     = f.label :ab_apt do
-      Apt/Lot
-      %label (optional)
+      = t 'options.rab_reason.apt'
+      %label= t 'optional'
     = f.text_field :ab_apt, autocomplete: ac, 'data-bind' => 'valueWithInit: abApt'
 .row
   .span3
-    = f.label :ab_city, "City"
+    = f.label :ab_city, t('options.rab_reason.city')
     = f.text_field :ab_city, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abCity" }, valueUpdate: "afterkeyup"'
   .span3
-    = f.label :ab_state, "Province or State"
+    = f.label :ab_state, t('options.rab_reason.state')
     = f.text_field :ab_state, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abState" }, valueUpdate: "afterkeyup"'
   .span3.postal-code-field
     %table
       %tr
-        %td= f.label :ab_zip5, "Postal code"
+        %td= f.label :ab_zip5, t('options.rab_reason.zip5')
         %td &nbsp;
         %td
           = f.label :ab_zip4 do
-            = t('addresses.zip4')
-            %span= t('optional')
+            = t 'options.rab_reason.zip4'
+            %span= t 'optional'
       %tr
         %td= f.text_field :ab_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "abZip5" }, valueUpdate: "afterkeyup"', placeholder: 'NNNNN'
         %td.space &mdash;
         %td= f.text_field :ab_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', placeholder: 'NNNN', 'data-bind' => 'valueWithInit: abZip4, valueUpdate: "afterkeyup"'
   .span2.country-field
-    = f.label :ab_country, "Country"
+    = f.label :ab_country, t('options.rab_reason.country')
     = f.text_field :ab_country, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "abCountry" }, valueUpdate: "afterkeyup"'
 <!-- /ko --> <!-- addressRequired -->

@@ -26,13 +26,13 @@
 <!-- ko if: needsServiceDetails -->
 .row
   .span2
-    %span Service Branch
+    %span= t 'options.rab_until.service_branch'
     = select     :registration, :service_branch, options_for_select(Registration::SERVICE_BRANCHES), {}, autocomplete: ac, class: 'span2 inline', 'data-bind' => 'valueWithInit: serviceBranch'
   .span2
-    %span Service ID
+    %span= t 'options.rab_until.service_id'
     = text_field :registration, :service_id, placeholder: 'Service ID', autocomplete: ac, class: 'span1 inline', 'data-bind' => 'valueWithInit: serviceId, valueUpdate: "afterkeyup"'
   .span2
-    %span Rank / Grade / Rate
+    %span= t 'options.rab_until.rank'
     = text_field :registration, :rank, placeholder: 'Rank / Grade / Rate', autocomplete: ac, class: 'span2 inline', 'data-bind' => 'valueWithInit: rank, valueUpdate: "afterkeyup"'
 <!-- /ko -->
 

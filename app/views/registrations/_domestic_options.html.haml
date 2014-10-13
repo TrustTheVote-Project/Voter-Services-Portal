@@ -7,7 +7,7 @@
       .checkbox
         = f.check_box :need_assistance, 'data-bind' => 'checked: needsAssistance'
         = f.label :need_assistance do
-          %strong= t('options.domestic.need_assistance')
+          %strong= t 'options.domestic.need_assistance'
 
 .partition
   .row
@@ -15,7 +15,7 @@
       .checkbox
         = f.check_box :be_official, autocomplete: ac, 'data-bind' => 'checked: beOfficial'
         = f.label :be_official do
-          %strong= t('options.being_official')
+          %strong= t 'options.being_official'
 
 - if (updating && AppConfig['enable_absentee_option_domestic_update']) || (!updating && AppConfig['enable_absentee_option_domestic_new'])
   .partition
@@ -24,9 +24,9 @@
         .checkbox
           = f.check_box :requesting_absentee, 'data-bind' => 'checkedWithInit: requestingAbsentee', autocomplete: ac
           = f.label :requesting_absentee do
-            %strong= t('options.domestic.requesting_absentee')
+            %strong= t 'options.domestic.requesting_absentee'
         <!-- ko if: requestingAbsentee -->
-        %p To apply to vote absentee, you must identify the election for which you are applying.
+        %p= t 'options.domestic.requesting_absentee_info'
         <!-- /ko -->
     <!-- ko if: requestingAbsentee -->
     = render partial: 'domestic_rab_election', locals: { f: f }

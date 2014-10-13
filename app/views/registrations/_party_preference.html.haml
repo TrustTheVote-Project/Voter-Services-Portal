@@ -5,18 +5,18 @@
     .checkbox
       = f.check_box :choose_party, { 'data-bind' => 'checkedWithInit: chooseParty' }
       = f.label :choose_party do
-        %strong I want to choose a #{name.downcase}.
+        %strong= raw t 'options.party_preference.choose_party', entity: name.downcase
 
 <!-- ko if: chooseParty -->
 .row
   .span5
     %p My #{name.downcase} is
 
-    = f.select :party, Dictionaries::PARTIES + [ [ "Other", "other" ] ], { include_blank: true }, { autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "party" }', class: 'span5' }
+    = f.select :party, Dictionaries::PARTIES + [ [ t('options.party_preference.other'), "other" ] ], { include_blank: true }, { autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "party" }', class: 'span5' }
 
   <!-- ko if: party() == 'other' -->
   .span5
-    %span #{name} name
+    %span= raw t 'options.party_preference.other_party', entity: name
     = f.text_field :other_party, autocomplete: ac, 'data-bind' => 'valueWithInit: otherParty, valueUpdate: "afterkeyup"', class: 'span5'
   <!-- /ko -->
 <!-- /ko -->
