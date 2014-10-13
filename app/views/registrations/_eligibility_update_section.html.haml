@@ -1,8 +1,8 @@
 #eligibility.section{ 'data-bind' => 'vis: page() == "eligibility"' }
   .head
-    %h3 Eligibility
-    .description= raw t('eligibility.subtitle')
-  %p= raw t('eligibility.details')
+    %h3= raw t 'eligibility.title'
+    .description= raw t 'eligibility.update_description'
+  %p= raw t 'eligibility.details'
 
   = render partial: 'eligibility_citizen', locals: { f: f }
   = render partial: 'eligibility_age', locals: { f: f }

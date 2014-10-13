@@ -1,5 +1,5 @@
 .partition.citizen
-  %h4= raw t('eligibility.citizen.question')
+  %h4= raw t 'eligibility.citizen.question'
   .radio
     = f.radio_button :citizen, '1', 'data-bind' => 'checkedWithInit: citizen'
     %label{ for: 'registration_citizen_1' } Yes
@@ -7,4 +7,4 @@
     = f.radio_button :citizen, '0', 'data-bind' => 'checkedWithInit: citizen'
     %label{ for: 'registration_citizen_0' } No
   .block.ineligible{ 'data-bind' => "visible: citizen() == '0'" }
-    %p= raw t("eligibility.citizen.ineligible")
+    %p= raw t "eligibility.citizen.ineligible"

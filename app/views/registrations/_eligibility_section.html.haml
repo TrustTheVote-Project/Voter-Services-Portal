@@ -1,8 +1,8 @@
 #eligibility.section{ 'data-bind' => 'vis: page() == "eligibility"' }
   .head
-    %h3 Eligibility
-    .description Eligibility to vote in Virginia.
-  %p= raw t('eligibility.details')
+    %h3= raw t 'eligibility.title'
+    .description= raw t 'eligibility.description'
+  %p= raw t 'eligibility.details'
 
   = render partial: 'eligibility_citizen', locals: { f: f }
   = render partial: 'eligibility_age', locals: { f: f }
@@ -21,7 +21,7 @@
   - if AppConfig['personal_data_on_eligibility_page']
     .partition
       .date
-        %label{ for: 'registration_dob_2i_' } Date of birth
+        %label{ for: 'registration_dob_2i_' }= t 'identity.date_of_birth'
         = bound_date f, :dob, :start_year => Date.today.year - 120, :end_year => Date.today.year - 17
 
     = render partial: 'eligibility_ssn', locals: { f: f }
