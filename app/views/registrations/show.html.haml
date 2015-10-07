@@ -15,9 +15,9 @@
     .head.light
       - if !no_forms? && AppConfig['enable_voter_info_show_show_download_voter_card_link']
         = link_to "Download Voter Card", voter_card_path, class: 'download voter_card'
-      %h3 Voter Information
+      %h3= raw t 'view.title'
 
-      %p= raw t('view.info')
+      %p= raw t 'view.info'
       %p
         - clauses = [ "You can also #{edit_link_1}" ]
         - clauses << ", or #{link_with_privacy_act_to 'apply for an absentee ballot', :request_absentee_registration}".html_safe if update_ab
