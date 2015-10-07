@@ -1,4 +1,5 @@
-rvm use 1.9.3-p392@vaportal
+# rvm use 1.9.3-p392@vaportal
+rvm use 2.1.3
 
 alias t="bundle exec guard"
 alias ss="r s"

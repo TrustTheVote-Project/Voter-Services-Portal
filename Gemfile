@@ -32,7 +32,7 @@ gem 'nokogiri'
 gem 'factory_girl_rails'
 gem 'sidekiq'
 gem 'jbuilder'
-gem 'therubyracer'
+# gem 'therubyracer'
 gem 'active_pdftk', git: 'git://github.com/tcocca/active_pdftk.git'
 gem 'chronic'
 gem 'gon'
@@ -61,7 +61,7 @@ end
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'pry-rails'
-  gem 'pry-debugger'
+  # gem 'pry-rails'
+  # gem 'pry-debugger'
   gem 'better_errors'
 end
