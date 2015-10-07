@@ -15,4 +15,4 @@
       = render partial: contest[:type].downcase, locals: { contest: contest }
 
   .row.form-actions
-    = link_to "Done", :registration, class: 'done bt'
+    = link_to t("ballot_info.done"), :registration, class: 'done bt'

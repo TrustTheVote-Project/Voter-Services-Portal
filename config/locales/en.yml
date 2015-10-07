@@ -46,19 +46,6 @@ en:
 
   nossn: "Without providing your SSN, you will need to print, sign, and mail your application form to your General Registrar, who may reject your application for lack of an SSN. For more information on eligibility, see http://sbe.virginia.gov."
 
-  ballot_info:
-    title: "Upcoming Election: Your Sample Ballot"
-    subtitle: "You can see your sample ballot below, for the upcoming election"
-    election: Election
-    header:
-      title: "Sample Ballot:"
-      precinct: "Precinct"
-    server_busy:
-      title: Our servers are busy
-      description: >
-        Please <a href="/registration">return to your registration details page</a> and
-        try again later.
-
   rab_type:
     federal: "I would like to vote absentee until %{until}."
     state: "I would like to request an absentee ballot for the upcoming election."
