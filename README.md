@@ -31,6 +31,8 @@ Installation
 * Copy application configuration:
 
         $ cp config/config.yml{.sample,}
+        $ cp config/config_service.yml{.sample,}
+        $ cp config/config_timely.yml{.sample,}
 
 * Set admin password in the application configuration.
 
@@ -45,6 +47,12 @@ Installation
 * Start the application server:
 
         $ rails server
+
+
+Testing
+------------------------
+
+brew install homebrew/versions/phantomjs198
 
 
 
@@ -234,6 +242,8 @@ Check out official page for installation instructions:
 
 http://www.pdflabs.com/tools/pdftk-the-pdf-toolkit/
 
+Specifically:
+https://www.pdflabs.com/tools/pdftk-server/
 
 
 Marking ballots online

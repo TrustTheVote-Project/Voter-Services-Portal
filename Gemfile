@@ -55,7 +55,7 @@ group :test do
   gem 'launchy'
   gem 'capybara'
   gem 'vcr'
-  gem 'webmock'
+  gem 'webmock', '~> 1.9.0'
   gem 'rb-fsevent', '~> 0.9.1'
 end
 

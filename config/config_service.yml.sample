@@ -29,3 +29,11 @@ wscp:
   lookup_path:  "Electionlist.svc/v3"
   submit_path:  "VoterRegistration.svc/v3"
   api_key:      "xxxxxxxxxxxxxxx"
+
+
+test:
+  wscp:
+    url_base:     "http://vas.herokuapp.com"
+    lookup_path:  ""
+    submit_path:  ""
+    api_key:      ""
