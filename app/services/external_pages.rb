@@ -24,6 +24,11 @@ class ExternalPages
     config = AppConfig['static_pages']
     base = config['url_base']
     page = name.to_s.gsub(/[^a-z_\-]/i, '')
+
+    unless config.has_key? page
+      Rails.logger.warn "STATIC PAGE: missing config key for #{page}"
+    end
+
     path = config[page]
 
     Rails.logger.debug "STATIC PAGE: #{base}/#{path}"

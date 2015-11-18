@@ -270,6 +270,7 @@ static_pages:
   about_update_absentee:  about_update_absentee.htm
   elections:              elections.htm
   faq:                    faq.htm
+  footer:                 footer.htm
   feedback:               feedback.htm
   help:                   help.htm
   how_to_register:        howtoregister.htm
