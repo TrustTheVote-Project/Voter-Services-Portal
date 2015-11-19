@@ -66,6 +66,7 @@ Deployment prerequisites
 * wkhtmltopdf 0.9.9 (https://code.google.com/p/wkhtmltopdf/downloads/detail?name=wkhtmltopdf-0.9.9-installer.exe&can=2&q=)
 * PDFtk (see Installing PDFtk)
 
+* NodeJS (?) (for compiling assets)
 
 
 Deployment
