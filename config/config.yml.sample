@@ -81,6 +81,13 @@ form_expiry: 60
 # Require the sign off of the privacy act page before some actions
 show_privacy_act_page: true
 
+# Show home link in page headers
+enable_home_header_link: true
+
+# Show FAQ link in page headers
+enable_faq_header_link: true
+
+
 # Enables user to select between multuple localizations.
 # When a localization is selected, strings in the app will be localized,
 # localized external pages will be fetched, the application's URLs will
