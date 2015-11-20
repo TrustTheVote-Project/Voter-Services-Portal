@@ -31,9 +31,15 @@ class ExternalPages
 
     path = config[page]
 
-    Rails.logger.debug "STATIC PAGE: #{base}/#{path}"
+    if AppConfig['supported_localizations'].any?
+      full_path = "#{base}/#{I18n.locale}/#{path}"
+    else
+      full_path = "#{base}/#{path}"
+    end
 
-    res = open("#{base}/#{path}").read.gsub(/(^.*<body[^>]*>|<\/body>.*$)/mi, '')
+    Rails.logger.debug "STATIC PAGE: #{full_path}"
+
+    res = open("#{full_path}").read.gsub(/(^.*<body[^>]*>|<\/body>.*$)/mi, '')
     res
   end
 
@@ -43,7 +49,11 @@ class ExternalPages
   end
 
   def self.key(name)
-    "ep.#{name}"
+    if AppConfig['supported_localizations'].any?
+      "ep.#{name}.#{I18n.locale}"
+    else
+      "ep.#{name}"
+    end
   end
 
   def self.redis

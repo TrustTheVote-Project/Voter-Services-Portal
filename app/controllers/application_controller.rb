@@ -4,6 +4,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_env_vars
 
+  before_filter :set_locale
+
   # Returns the registration record for the current session
   def current_registration
     @current_registration ||= RegistrationRepository.get_registration(session)
@@ -38,6 +40,21 @@ class ApplicationController < ActionController::Base
     gon.i18n_confirm_required         = I18n.t("confirm.required")
     gon.i18n_confirm_not_required     = I18n.t("confirm.not_required")
     gon.i18n_confirm_prev_reg_not_reg = I18n.t("confirm.previous_registration.not_registered")
+  end
+
+  def default_url_options(options = {})
+    if AppConfig['supported_localizations'].any?
+      { locale: I18n.locale }.merge options
+    else
+      {}
+    end
+  end
+
+  def set_locale
+    if AppConfig['supported_localizations'].any?
+      default_locale = AppConfig['supported_localizations'].map {|l| l['code'] }.first
+      I18n.locale = params[:locale] || default_locale || I18n.default_locale
+    end
   end
 
 end
