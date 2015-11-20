@@ -93,6 +93,10 @@ show_privacy_act_page: true
 # TBD: should be enable_home_page_update_right
 enable_home_page_update_right: false
 
+# Home page stacked layout
+# true = each homepage option is laid out in a full-width row, stacked vertically
+# false = original layout, with each front-page option occupying a column in a 3 column layout
+enable_home_page_stacked_layout: false
 
 #################
 ## Configuration keys that toggle the user-visible behavior of 
