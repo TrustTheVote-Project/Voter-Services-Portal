@@ -1,12 +1,17 @@
 #header
   #menu
-    = link_to 'Home', :root
-    &nbsp;&nbsp;|&nbsp;&nbsp;
+    - if AppConfig['enable_home_header_link']
+      = link_to 'Home', :root
+      &nbsp;&nbsp;|&nbsp;&nbsp;
     = link_to 'About', :about_page
     &nbsp;&nbsp;|&nbsp;&nbsp;
-    = link_to 'FAQs', :faq_page
-    &nbsp;&nbsp;|&nbsp;&nbsp;
+    - if AppConfig['enable_faq_header_link']
+      = link_to 'FAQs', :faq_page
+      &nbsp;&nbsp;|&nbsp;&nbsp;
     = link_to 'Help', :help_page
+    - alternate_localizations.each do |l|
+      &nbsp;&nbsp;|&nbsp;&nbsp;
+      = link_to l[:text], l[:url]
   = link_to :root do
     = image_tag '1x1.png', class: 'img_logo', alt: t("alt.logo")
   %h1= raw t('title')
