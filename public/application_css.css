@@ -1,0 +1,103 @@
+body #header {
+    background: #FED430 !important;
+}
+
+body #header .img_logo {
+    background: url('/ontario_logo.png') !important;
+    width: 222px;
+    height: 85px;
+}
+
+body .content > #hero {
+    background: url('/breadcrumb-background.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+body #hero {
+    color: #fff;
+}
+
+body #hero h2 {
+    color: #ccc;
+}
+
+.footer {
+    background-color: #333;
+    color: white;
+}
+
+body #hero .row.w {
+    padding-left: 1em;
+}
+
+
+body #hero .info div {
+    padding-left: 1em;
+}
+
+.footer .container {
+    font-family: Arial,Helvetica,sans-serif;
+    margin: 2em;
+    border: 0px;
+}
+
+.footer .container .title {
+
+    font-weight: 750;
+    font-style: normal;
+    font-size: 16px;
+    margin-top: 10px;
+    margin-bottom: 2px;
+    display: block;
+}
+
+.footer h3 {
+    color: white;
+
+}
+
+.footer a {
+    color: white;
+}
+
+.footer .title .row {
+    margin-left: 1em;
+    margin-right: 0px;
+}
+
+.footer .title.contactus .row {
+    margin-left: 0em;
+}
+
+.footer li {
+    list-style: none;
+    margin-left: 1em;
+    text-indent: -1em;
+    margin-top: 5px;
+    font-style: normal;
+    font-size: 16px;
+    font-weight: lighter;
+}
+
+.footer li:before {
+    content: "\2022";
+    color: #ffcd41;
+    padding-right: 5px;
+    font-size: 18px;
+}
+
+.col-xs-12 {
+    width: 100%;
+}
+
+.col-xs-1, .col-xs-2, .col-xs-3, .col-xs-4, .col-xs-5, .col-xs-6, .col-xs-7, .col-xs-8, .col-xs-9, .col-xs-10, .col-xs-11, .col-xs-12 {
+    float: left;
+}
+
+
+.col-md-3 {
+    width: 25%;
+}
