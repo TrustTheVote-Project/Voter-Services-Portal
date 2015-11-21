@@ -81,6 +81,27 @@ form_expiry: 60
 # Require the sign off of the privacy act page before some actions
 show_privacy_act_page: true
 
+# Show home link in page headers
+enable_home_header_link: true
+
+# Show FAQ link in page headers
+enable_faq_header_link: true
+
+
+# When provided, users can select between multiple localizations.
+# When a localization is enabled, strings in the app will be localized,
+# localized external pages will be fetched, the application's URLs will
+# be prefixed with the active locale, and a locale selector
+# will be added to the header.
+#
+# Localizations are configured as an array of hashes,
+# each structured like so: {name: 'English', code: 'en'}.
+# The name property is shown to users, and the code is used to
+# retrieve locale-specific assets and strings.
+#
+# The first localization in the array will be the default when
+# a user visits the front page of the application.
+supported_localizations: []
 
 ################
 ## Configuration keys that toggle the user-visible behavior of 
@@ -93,6 +114,10 @@ show_privacy_act_page: true
 # TBD: should be enable_home_page_update_right
 enable_home_page_update_right: false
 
+# Home page stacked layout
+# true = each homepage option is laid out in a full-width row, stacked vertically
+# false = original layout, with each front-page option occupying a column in a 3 column layout
+enable_home_page_stacked_layout: false
 
 #################
 ## Configuration keys that toggle the user-visible behavior of 
@@ -263,6 +288,9 @@ customization:
   state_absentee_pdf:     Portal_PDF_State_Absentee_Request.pdf
 
 # Static page mapping
+# If supported_localizations are provided, the localization code
+# will be appended to urL_base. For example, public/static would
+# become public/static/en.
 static_pages:
   url_base:
   about:                  about.htm
@@ -270,6 +298,7 @@ static_pages:
   about_update_absentee:  about_update_absentee.htm
   elections:              elections.htm
   faq:                    faq.htm
+  footer:                 footer.htm
   feedback:               feedback.htm
   help:                   help.htm
   how_to_register:        howtoregister.htm

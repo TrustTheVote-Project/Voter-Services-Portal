@@ -10,4 +10,17 @@ module ConfigHelper
     end
   end
 
+  def alternate_localizations
+    if AppConfig['supported_localizations'].any?
+      AppConfig['supported_localizations']
+        .select {|l| l['code'] != I18n.locale.to_s }
+        .map do |l|
+          alt_url = params.merge({:locale => l['code']})
+          { text: l['name'], url: alt_url }
+        end
+    else
+      []
+    end
+  end
+
 end

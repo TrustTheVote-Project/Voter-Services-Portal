@@ -13,6 +13,7 @@
         = render :partial => 'layouts/header'
         = render :partial => 'layouts/alerts_and_notices'
         = yield
-        = render :partial => 'layouts/footer'
+        .external-page
+          = ExternalPages.get_by_name :footer
 
     = javascript_include_tag  "application"

@@ -31,61 +31,12 @@
             %td= image_tag '1x1.png', class: 'icon icon_sign'
             %td.mail= image_tag '1x1.png', class: 'icon icon_mail'
 
-- uocava_reg     = AppConfig['enable_home_page_update_right']
-- domestic_title = t('front.options.residential.title').html_safe
-- update_title   = t('front.options.update.title').html_safe
-- overseas_title = t('front.options.overseas.title').html_safe
-.row.options
-  - if uocava_reg
-    %div{ class: enabled_uocava_reg ? "span8" : "span4" }
-      %h3= domestic_title
-    .span4
-      %h3= update_title
-  - else
-    .span4
-      %h3= domestic_title
-    .span4
-      %h3= update_title
-    - if enabled_uocava_reg
-      .span4
-        %h3= overseas_title
+- stacked_layout = AppConfig['enable_home_page_stacked_layout']
+- if stacked_layout
+  = render 'front/stacked_layout'
+- else
+  = render 'front/column_layout'
 
-.row.options-details
-  .span4
-    %h4= raw t('front.options.residential.subtitle')
-    %p= raw t('front.options.residential.text')
-
-  - if uocava_reg
-    - if enabled_uocava_reg
-      .span4
-        %h4= raw t('front.options.overseas.subtitle')
-        %p= raw t('front.options.overseas.text')
-    .span4
-      %h4= raw t('front.options.update.subtitle')
-      %p= raw t('front.options.update.text')
-      %h4= raw t('front.options.request_absentee.subtitle')
-      %p= raw t('front.options.request_absentee.text')
-  - else
-    .span4
-      %h4= raw t('front.options.update.subtitle')
-      %p= raw t('front.options.update.text')
-      %h4= raw t('front.options.request_absentee.subtitle')
-      %p= raw t('front.options.request_absentee.text')
-    - if enabled_uocava_reg
-      .span4
-        %h4= raw t('front.options.overseas.subtitle')
-        %p= raw t('front.options.overseas.text')
-
-.row.options-links
-  .span4= link_with_privacy_act_to "Register Residential", :register_residential, alt: "Register Resedential", class: "residential bt right"
-  - if uocava_reg
-    - if enabled_uocava_reg
-      .span4= link_with_privacy_act_to "Register Overseas", :register_overseas, alt: "Register Overseas", class: "overseas bt right"
-    .span4= link_to "Update or View Voter Record", :search, alt: "Update or View Voter Record", class: "update bt right", id: 'search'
-  - else
-    .span4= link_to "Update or View Voter Record", :search, alt: "Update or View Voter Record", class: "update bt right", id: 'search'
-    - if enabled_uocava_reg
-      .span4= link_with_privacy_act_to "Register Overseas", :register_overseas, alt: "Register Overseas", class: "overseas bt right"
 
 - deadline = raw t('front.deadline')
 - if deadline.present?
