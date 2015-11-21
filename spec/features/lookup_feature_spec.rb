@@ -11,7 +11,7 @@ feature 'Looking up records' do
   end
 
   scenario 'Successful search' do
-    AppConfig['show_privacy_act_page'] = true
+    AppConfig['OVR']['show_privacy_act_page'] = true
 
     fill_search_page '600000000'
     expect(page).to have_text 'Voter Information'

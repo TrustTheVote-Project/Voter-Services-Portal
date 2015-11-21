@@ -1,6 +1,6 @@
 - updating ||= false
-- rj = AppConfig['confirmation_table_right_justify']
-- personal_data_link = AppConfig['personal_data_on_eligibility_page'] ? '#eligibility' : '#identity'
+- rj = AppConfig['OVR']['confirmation_table_right_justify']
+- personal_data_link = AppConfig['OVR']['personal_data_on_eligibility_page'] ? '#eligibility' : '#identity'
 #confirm.section{ 'data-bind' => 'vis: page() == "confirm"' }
   .head
     %h3 Confirm
@@ -171,7 +171,7 @@
                   = link_to "Edit", "#options", class: 'edit'
                 %span{ 'data-bind' => 'text: summaryBeOfficial' }
 
-  - if AppConfig['enable_confirm_voting_status_display']
+  - if AppConfig['OVR']['enable_confirm_voting_status_display']
     = render partial: 'confirm_absentee_status'
 
 

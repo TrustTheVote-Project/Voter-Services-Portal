@@ -37,7 +37,7 @@ feature 'Processing update EML310 submission', :js do
     end
 
     scenario 'DMV included, successful submission' do
-      AppConfig['enable_dmvid_lookup'] = true
+      AppConfig['OVR']['enable_dmvid_lookup'] = true
 
       LookupService.stub(registration: { registered: false, dmv_match: true })
       expect(SubmitEml310).to receive(:submit_new).and_return(true)

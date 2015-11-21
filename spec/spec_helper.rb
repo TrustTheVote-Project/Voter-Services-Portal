@@ -33,9 +33,9 @@ RSpec.configure do |config|
     @app_config = AppConfig
 
     # Disable lookup
-    AppConfig['enable_dmvid_lookup'] = false
+    AppConfig['OVR']['enable_dmvid_lookup'] = false
     # Hide privacy act pages
-    AppConfig['show_privacy_act_page'] = false
+    AppConfig['OVR']['show_privacy_act_page'] = false
     # Stub out external pages
     ExternalPages.stub(get_from_remote: 'page')
   end

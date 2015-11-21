@@ -24,14 +24,14 @@ class ApplicationController < ActionController::Base
   end
 
   def set_env_vars
-    gon.enable_dmvid_lookup           = AppConfig['enable_dmvid_lookup']
-    gon.enable_dmv_address_display    = AppConfig['enable_dmv_address_display']
-    gon.personal_data_on_eligibility_page = AppConfig['personal_data_on_eligibility_page']
-    gon.require_dmv_id                = AppConfig['require_dmv_id']
+    gon.enable_dmvid_lookup           = AppConfig['OVR']['enable_dmvid_lookup']
+    gon.enable_dmv_address_display    = AppConfig['OVR']['enable_dmv_address_display']
+    gon.personal_data_on_eligibility_page = AppConfig['OVR']['personal_data_on_eligibility_page']
+    gon.require_dmv_id                = AppConfig['OVR']['require_dmv_id']
     gon.enable_dmv_ovr                = AppConfig['enable_dmv_ovr']
-    gon.enable_expanded_felony_mental_eligibility = AppConfig['enable_expanded_felony_mental_eligibility']
-    gon.state_id_length_min           = AppConfig['state_id_length']['min']
-    gon.state_id_length_max           = AppConfig['state_id_length']['max']
+    gon.enable_expanded_felony_mental_eligibility = AppConfig['OVR']['enable_expanded_felony_mental_eligibility']
+    gon.state_id_length_min           = AppConfig['OVR']['state_id_length']['min']
+    gon.state_id_length_max           = AppConfig['OVR']['state_id_length']['max']
 
     gon.i18n_dmvid                    = I18n.t('dmvid')
     gon.i18n_confirm_not_provided     = I18n.t("confirm.not_provided")

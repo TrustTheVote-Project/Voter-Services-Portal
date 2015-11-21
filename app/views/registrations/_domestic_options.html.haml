@@ -17,7 +17,7 @@
         = f.label :be_official do
           %strong= t 'options.being_official'
 
-- if (updating && AppConfig['enable_absentee_option_domestic_update']) || (!updating && AppConfig['enable_absentee_option_domestic_new'])
+- if (updating && AppConfig['OVR']['enable_absentee_option_domestic_update']) || (!updating && AppConfig['OVR']['enable_absentee_option_domestic_new'])
   .partition
     .row
       .span12

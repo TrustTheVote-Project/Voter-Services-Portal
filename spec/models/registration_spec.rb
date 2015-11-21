@@ -98,15 +98,15 @@ describe Registration do
   end
 
   describe 'eligible?' do
-    before { @old_ssn_required = AppConfig['ssn_required'] }
-    after  { AppConfig['ssn_required'] = @old_ssn_required }
+    before { @old_ssn_required = AppConfig['OVR']['ssn_required'] }
+    after  { AppConfig['OVR']['ssn_required'] = @old_ssn_required }
 
     specify { Registration.new(citizen: '1', old_enough: '1', dob: 30.years.ago, ssn: '123123123', rights_revoked: '0').should be_eligible }
     specify { Registration.new(citizen: '1', old_enough: '1', dob: 30.years.ago, ssn: '123123123', rights_revoked: '1', rights_felony: '1', rights_felony_restored: '1', rights_felony_restored_in: 'VA', rights_felony_restored_on: 15.years.ago).should be_eligible }
     specify { Registration.new(citizen: '0', old_enough: '1', dob: 30.years.ago, ssn: '123123123', rights_revoked: '0').should_not be_eligible }
     specify { Registration.new(citizen: '1', old_enough: '0', dob: 30.years.ago, ssn: '123123123', rights_revoked: '0').should_not be_eligible }
-    specify { AppConfig['ssn_required'] = true;  Registration.new(citizen: '1', old_enough: '1', dob: 30.years.ago, ssn: '', no_ssn: '1', rights_revoked: '0').should_not be_eligible }
-    specify { AppConfig['ssn_required'] = false; Registration.new(citizen: '1', old_enough: '1', dob: 30.years.ago, ssn: '', no_ssn: '1', rights_revoked: '0').should be_eligible }
+    specify { AppConfig['OVR']['ssn_required'] = true;  Registration.new(citizen: '1', old_enough: '1', dob: 30.years.ago, ssn: '', no_ssn: '1', rights_revoked: '0').should_not be_eligible }
+    specify { AppConfig['OVR']['ssn_required'] = false; Registration.new(citizen: '1', old_enough: '1', dob: 30.years.ago, ssn: '', no_ssn: '1', rights_revoked: '0').should be_eligible }
     specify { Registration.new(citizen: '1', old_enough: '1', dob: 30.years.ago, ssn: '123123123', rights_revoked: '1').should_not be_eligible }
     specify { Registration.new(citizen: '1', old_enough: '1', dob: 30.years.ago, ssn: '123123123', rights_revoked: '1', rights_felony: '1', rights_felony_restored: '0').should_not be_eligible }
     specify { Registration.new(citizen: '1', old_enough: '1', dob: 30.years.ago, ssn: '123123123', rights_revoked: '1', rights_felony: '1', rights_felony_restored: '1').should_not be_eligible }

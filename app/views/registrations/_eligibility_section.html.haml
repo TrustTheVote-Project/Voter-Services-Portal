@@ -18,7 +18,7 @@
 
   = render partial: 'eligibility_rights', locals: { f: f }
 
-  - if AppConfig['personal_data_on_eligibility_page']
+  - if AppConfig['OVR']['personal_data_on_eligibility_page']
     .partition
       .date
         %label{ for: 'registration_dob_2i_' }= t 'identity.date_of_birth'

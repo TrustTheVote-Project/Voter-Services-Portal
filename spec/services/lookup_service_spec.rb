@@ -5,12 +5,12 @@ describe LookupService do
   let(:no_match) { { registered: false, dmv_match: false } }
 
   it 'should loopback the lookup' do
-    AppConfig['enable_dmvid_lookup'] = false
+    AppConfig['OVR']['enable_dmvid_lookup'] = false
     expect(lookup('123456789')).to eq no_match
   end
 
   context 'complete record' do
-    before { AppConfig['enable_dmvid_lookup'] = true }
+    before { AppConfig['OVR']['enable_dmvid_lookup'] = true }
 
     it 'should return SBE=false Match=true' do
       expect(lookup('000000002')).to eq({
