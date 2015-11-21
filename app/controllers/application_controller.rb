@@ -26,8 +26,9 @@ class ApplicationController < ActionController::Base
   end
 
   def set_env_vars
-    gon.enable_dmvid_lookup           = AppConfig['OVR']['enable_dmvid_lookup']
+    gon.enable_dmvid_lookup           = AppConfig['OVR']['Eligibility']['PreCheckForPaperless']
     gon.enable_dmv_address_display    = AppConfig['OVR']['enable_dmv_address_display']
+    gon.eligibility_single_statement  = AppConfig['OVR']['Eligibility']['SingleStatement']
     gon.personal_data_on_eligibility_page = AppConfig['OVR']['personal_data_on_eligibility_page']
     gon.require_dmv_id                = AppConfig['OVR']['require_dmv_id']
     gon.enable_dmv_ovr                = AppConfig['enable_dmv_ovr']

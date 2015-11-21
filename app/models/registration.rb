@@ -26,7 +26,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :voter_id
 
   # Eligibility
-  serialized_attr :citizen, :old_enough, :residence
+  serialized_attr :citizen, :old_enough, :residence, :eligibility_single_statement
 
   serialized_attr :outside_type
   serialized_attr :service_branch, :service_id, :rank

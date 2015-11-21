@@ -4,6 +4,10 @@ en:
     description: Eligibility to vote in Virginia.
     update_description: "Re-confirm your eligibility and voter status"
     details: "To register you must be a US citizen, be a resident of Virginia, be 18 years old by the next general election, had voting rights restored (if convicted of a felony or declared mentally incapacitated)."
+    single_statement:
+      statement: Are you eligible to vote?
+      agree: Agree
+      disagree: Disagree
     citizen:
       question: Are you a citizen of the United States of America?
       ineligible: To register, you must be a citizen of the United States of America.

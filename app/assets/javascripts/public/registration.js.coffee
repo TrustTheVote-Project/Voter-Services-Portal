@@ -40,6 +40,7 @@ class window.Registration
 
   initEligibilityFields: ->
     @citizen                      = ko.observable()
+    @eligibility_single_statement = ko.observable()
     @oldEnough                    = ko.observable()
     @rightsFelony                 = ko.observable()
     @rightsMental                 = ko.observable()
@@ -103,11 +104,12 @@ class window.Registration
          (@rightsMental() == '0' or (@rightsMentalRestored() == '1' and !!@rightsMentalRestoredOn()))))
 
     @isEligible = ko.computed =>
-      @citizen() == '1' and
+      (@eligibility_single_statement() == '1' && gon.eligibility_single_statement) or
+      (@citizen() == '1' and
       @oldEnough() == '1' and
       !!@dob() and
       (!@ssnRequired() or (!@noSSN() and filled(@ssn()))) and
-      @hasEligibleRights()
+      @hasEligibleRights())
 
     @rightsNotFilled = ko.computed =>
       rightsOptionsNotFilled =
@@ -125,10 +127,14 @@ class window.Registration
 
     @eligibilityErrors = ko.computed =>
       errors = []
-      errors.push("Citizenship criteria") unless @citizen()
-      errors.push("Age criteria") unless @oldEnough()
-      errors.push("Voting rights criteria") if @rightsNotFilled()
-      errors.push("The date of restoration must be after your date of birth.") if @invalidRightsRestorationDate()
+      if gon.eligibility_single_statement
+        errors.push("Declare Eligibility") unless @eligibility_single_statement() == "agree"
+      else
+        errors.push("Citizenship criteria") unless @citizen()
+        errors.push("Age criteria") unless @oldEnough()
+        errors.push("Voting rights criteria") if @rightsNotFilled()
+        errors.push("The date of restoration must be after your date of birth.") if @invalidRightsRestorationDate()
+        
       @validatePersonalData(errors) if @personalDataOnEligibilityPage
       errors
 

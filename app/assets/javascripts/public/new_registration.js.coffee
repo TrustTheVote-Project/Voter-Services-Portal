@@ -62,6 +62,7 @@ class NewRegistration extends Registration
   submitForm: =>
     $("form#new_registration")[0].submit()
 
+
 $ ->
   if $('form#new_registration').length > 0
     form = new NewRegistration(0)
