@@ -43,7 +43,7 @@ class ApplicationController < ActionController::Base
   end
 
   def default_url_options(options = {})
-    if AppConfig['supported_localizations'].any?
+    if AppConfig['supported_localizations'] && AppConfig['supported_localizations'].any?
       { locale: I18n.locale }.merge options
     else
       {}
@@ -51,7 +51,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    if AppConfig['supported_localizations'].any?
+    if AppConfig['supported_localizations'] && AppConfig['supported_localizations'].any?
       default_locale = AppConfig['supported_localizations'].map {|l| l['code'] }.first
       I18n.locale = params[:locale] || default_locale || I18n.default_locale
     end
