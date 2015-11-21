@@ -31,7 +31,7 @@ class ExternalPages
 
     path = config[page]
 
-    if AppConfig['supported_localizations'].any?
+    if AppConfig['supported_localizations'] && AppConfig['supported_localizations'].any?
       full_path = "#{base}/#{I18n.locale}/#{path}"
     else
       full_path = "#{base}/#{path}"
@@ -49,7 +49,7 @@ class ExternalPages
   end
 
   def self.key(name)
-    if AppConfig['supported_localizations'].any?
+    if AppConfig['supported_localizations'] && AppConfig['supported_localizations'].any?
       "ep.#{name}.#{I18n.locale}"
     else
       "ep.#{name}"
