@@ -1,0 +1,15 @@
+fr:
+  ballot_info:
+    title: "Upcoming Election: Your Sample Ballot"
+    subtitle: "You can see your sample ballot below, for the upcoming election"
+    election: Election
+    header:
+      title: "Sample Ballot:"
+      precinct: "Precinct"
+    server_busy:
+      title: Our servers are busy
+      description: >
+        Please <a href="/registration">return to your registration details page</a> and
+        try again later.
+
+    done: Done
