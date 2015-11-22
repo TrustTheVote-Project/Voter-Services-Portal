@@ -11,7 +11,7 @@ module ConfigHelper
   end
 
   def alternate_localizations
-    if AppConfig['supported_localizations'].any?
+    if AppConfig['supported_localizations'] && AppConfig['supported_localizations'].any?
       AppConfig['supported_localizations']
         .select {|l| l['code'] != I18n.locale.to_s }
         .map do |l|
