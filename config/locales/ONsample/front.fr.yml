@@ -1,11 +1,11 @@
 fr:
   front:
     welcome:
-      title: Bonjour.
+      title: Bienvenue.
       text:
-        We've created this service to help all Ontario<br/>
-        residents apply to register to vote and<br/>
-        keep their voter information up-to-date.
+        On a créé ce service pour aider tous les habitants<br/>
+        d'Ontario à faire une demande de s'inscrire à voter<br/>
+        et tenir au courant leurs renseignements
 
     steps:
       text:
