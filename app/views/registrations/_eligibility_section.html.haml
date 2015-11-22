@@ -1,24 +1,40 @@
-#eligibility.section{ 'data-bind' => 'vis: page() == "eligibility"' }
+- condition = 'page() == "eligibility"'
+- if AppConfig['OVR']['Eligibility']['CombineWithIdentity']
+  - condition += " || page() == 'identity'";
+
+#eligibility.section{ 'data-bind' => 'vis: ' + condition }
   .head
     %h3= raw t 'eligibility.title'
     .description= raw t 'eligibility.description'
   %p= raw t 'eligibility.details'
 
-  = render partial: 'eligibility_citizen', locals: { f: f }
-  = render partial: 'eligibility_age', locals: { f: f }
-
-  .partition
-    .radio
-      = f.radio_button :residence, 'in', 'data-bind' => 'checked: residence'
-      %label{ for: 'registration_residence_in' } #{t('eligibility.residence.in')}
-    - if enabled_uocava_reg
+  - if AppConfig['OVR']['Eligibility']['SingleStatement']
+    .partition.eligibility-single-statement
+      %h4= raw t 'eligibility.single_statement.statement'
       .radio
-        = f.radio_button :residence, 'outside', 'data-bind' => 'checked: residence'
-        %label{ for: 'registration_residence_outside' } #{t('eligibility.residence.out')}
+        = f.radio_button :eligibility_single_statement, 'agree', 'data-bind' => 'checkedWithInit: eligibility_single_statement'
+        %label{ for: 'registration_eligibility_single_statement_agree' } #{t('eligibility.single_statement.agree')}
+      .radio
+        = f.radio_button :eligibility_single_statement, 'disagree', 'data-bind' => 'checkedWithInit: eligibility_single_statement'
+        %label{ for: 'registration_eligibility_single_statement_disagree' } #{t('eligibility.single_statement.disagree')}
+        
+      
+  - else
+    = render partial: 'eligibility_citizen', locals: { f: f }
+    = render partial: 'eligibility_age', locals: { f: f }
 
-  = render partial: 'eligibility_rights', locals: { f: f }
+    .partition
+      .radio
+        = f.radio_button :residence, 'in', 'data-bind' => 'checked: residence'
+        %label{ for: 'registration_residence_in' } #{t('eligibility.residence.in')}
+      - if enabled_uocava_reg
+        .radio
+          = f.radio_button :residence, 'outside', 'data-bind' => 'checked: residence'
+          %label{ for: 'registration_residence_outside' } #{t('eligibility.residence.out')}
 
-  - if AppConfig['personal_data_on_eligibility_page']
+    = render partial: 'eligibility_rights', locals: { f: f }
+
+  - if AppConfig['OVR']['Eligibility']['CollectPersonalData'] && !AppConfig['OVR']['Eligibility']['CombineWithIdentity']
     .partition
       .date
         %label{ for: 'registration_dob_2i_' }= t 'identity.date_of_birth'
@@ -27,5 +43,6 @@
     = render partial: 'eligibility_ssn', locals: { f: f }
     = render partial: 'eligibility_dmvid', locals: { f: f }
 
-  .form-actions
+
+  .form-actions{style: "#{AppConfig['OVR']['Eligibility']['CombineWithIdentity'] ? 'display: none;' : ''}"}
     = button_tag 'Next', class: 'next right bt', 'data-bind' => 'click: nextFromEligibility, css: { disabled: eligibilityInvalid }'

@@ -1,7 +1,7 @@
 module FormHelper
 
   def spac
-    AppConfig['show_privacy_act_page']
+    AppConfig['OVR']['show_privacy_act_page']
   end
 
   def link_with_privacy_act_to(label, url, *options)

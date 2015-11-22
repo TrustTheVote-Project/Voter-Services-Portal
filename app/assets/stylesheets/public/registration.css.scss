@@ -5,7 +5,7 @@
 
 #registration {
   .section {
-    display: none;
+    // display: none; //only set to not display when javascript doesn't work.
     &#eligibility { display: block; }
   }
 }

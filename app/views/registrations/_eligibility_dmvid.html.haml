@@ -1,10 +1,10 @@
-- min = AppConfig['state_id_length']['min']
-- max = AppConfig['state_id_length']['max']
+- min = AppConfig['OVR']['state_id_length']['min']
+- max = AppConfig['OVR']['state_id_length']['max']
 .partition
   .dmv
     = f.label :dmv_id, t("dmvid")
     = f.text_field :dmv_id, autocomplete: ac, maxlength: max, 'data-bind' => 'disable: noDmvId, instantValidation: { accessor: "dmvId", validation: "isDmvId", unless: "noDmvId" }, valueUpdate: "afterkeyup"', placeholder: "From #{min} to #{max} letters or numbers", class: 'span4'
-    - if AppConfig['require_dmv_id']
+    - if AppConfig['OVR']['require_dmv_id']
       .checkbox
         = f.check_box :no_dmv_id, 'data-bind' => 'checked: noDmvId'
         = f.label :no_dmv_id, t("eligibility.dmvid.dont_have")

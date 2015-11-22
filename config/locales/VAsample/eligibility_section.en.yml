@@ -1,0 +1,38 @@
+en:
+  eligibility:
+    title: Eligibility
+    description: Eligibility to vote in Virginia.
+    update_description: "Re-confirm your eligibility and voter status"
+    details: "To register you must be a US citizen, be a resident of Virginia, be 18 years old by the next general election, had voting rights restored (if convicted of a felony or declared mentally incapacitated)."
+    single_statement:
+      statement: Are you eligible to vote?
+      agree: Agree
+      disagree: Disagree
+    citizen:
+      question: Are you a citizen of the United States of America?
+      ineligible: To register, you must be a citizen of the United States of America.
+    old_enough:
+      question: Will you be at least 18 years of age on or before the next Election Day?
+    residence:
+      in: I am currently a resident of Virginia.
+      out: I live outside of the U.S., but the most recent U.S. residence was in Virginia.
+      in_overseas: I have returned to reside in Virginia.
+      out_overseas: I am still residing abroad or deployed on military duty.
+    rights:
+      question: Have you been convicted of a felony or been adjudicated mentally incapacitated?
+      ineligible: To register, you must have had your voting rights restored.
+      felony:
+        question: "Have you ever been convicted of a felony?"
+        state: "State where convicted:"
+        restored: "Have your voting rights been restored?"
+        date: "Date when restored:"
+      mental:
+        question: "Have you ever been judged mentally incapacitated?"
+        restored: "Has court restored you to capacity?"
+    ssn:
+      dont_have: "I do not have a Social Security Number"
+    dmvid:
+      details: By providing a valid DMV Identifier or Customer Number, you may be eligible to submit your voter registration application online, without the need to print, sign, and mail a paper application.
+      dont_have: "I am not providing a Department of Motor Vehicles Identifier or Customer Number"
+      unable: "If you are unable or choose not to provide DMV credentials, you may be required to print a document at the end of this process to complete your application.  Please make sure you are connected to a working printer before continuing."
+

@@ -161,13 +161,13 @@ describe RegistrationsController do
     end
 
     it 'should not submit if SSN is missing' do
-      AppConfig['ssn_required'] = true
+      AppConfig['OVR']['ssn_required'] = true
       expect(SubmitEml310).to_not receive(:submit_update)
       controller.send(:finalize_update, af, reg, ses)
     end
 
     it 'should submit if SSN is missing' do
-      AppConfig['ssn_required'] = false
+      AppConfig['OVR']['ssn_required'] = false
       expect(SubmitEml310).to receive(:submit_update).and_return(true)
       controller.send(:finalize_update, af, reg, ses)
     end

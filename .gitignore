@@ -4,6 +4,8 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile ~/.gitignore_global
 
+.DS_Store
+
 # Ignore bundler config
 /.bundle
 /vendor/bundle
@@ -11,6 +13,7 @@
 /config/database.yml
 /config/config*.yml
 /config/deploy.rb
+/config/deploy.*.rb
 /db/*.sqlite3
 
 /doc/notes.md

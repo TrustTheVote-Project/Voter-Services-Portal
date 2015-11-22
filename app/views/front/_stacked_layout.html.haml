@@ -1,37 +1,6 @@
-- update_right   = AppConfig['enable_home_page_update_right']
-- domestic_title = t('front.options.residential.title').html_safe
-- update_title   = t('front.options.update.title').html_safe
-- overseas_title = t('front.options.overseas.title').html_safe
-
-.row.options.stacked
-  %h3= domestic_title
-  %h4= raw t('front.options.residential.subtitle')
-  %p= raw t('front.options.residential.text')
-  = link_with_privacy_act_to "Register Residential", :register_residential, alt: "Register Resedential", class: "residential bt right"
-
-- if update_right
+- [[:am_registered, :search], [:add_to_register, :register_residential], [:add_to_intl_register, :register_overseas], [:update_information, :search], [:removal_from_register, :search]].each do |r,m|
   .row.options.stacked
-    %h3= overseas_title
-    %h4= raw t('front.options.overseas.subtitle')
-    %p= raw t('front.options.overseas.text')
-    = link_with_privacy_act_to "Register Overseas", :register_overseas, alt: "Register Overseas", class: "overseas bt right"
-  .row.options.stacked
-    -# Other title strings have <br> inline, but not update.title
-    %br
-    %h3= update_title
-    %h4= raw t('front.options.update.subtitle')
-    %p= raw t('front.options.update.text')
-    = link_to "Update or View Voter Record", :search, alt: "Update or View Voter Record", class: "update bt right", id: 'search'
-- else
-  .row.options.stacked
-    -# Other title strings have <br> inline, but not update.title
-    %br
-    %h3= update_title
-    %h4= raw t('front.options.update.subtitle')
-    %p= raw t('front.options.update.text')
-    = link_to "Update or View Voter Record", :search, alt: "Update or View Voter Record", class: "update bt right", id: 'search'
-  .row.options.stacked
-    %h3= overseas_title
-    %h4= raw t('front.options.overseas.subtitle')
-    %p= raw t('front.options.overseas.text')
-    = link_with_privacy_act_to "Register Overseas", :register_overseas, alt: "Register Overseas", class: "overseas bt right"
+    %h3= raw t("front.options.#{r}.title")
+    %h4= raw t("front.options.#{r}.subtitle")
+    %p= raw t("front.options.#{r}.text")
+    = link_to t("front.options.#{r}.button"), m, class: "residential bt right"

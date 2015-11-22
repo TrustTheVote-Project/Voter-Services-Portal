@@ -1,6 +1,9 @@
-- personal_data_here = !AppConfig['personal_data_on_eligibility_page']
+- personal_data_here = !(AppConfig['OVR']['Eligibility']['CollectPersonalData'] && !AppConfig['OVR']['Eligibility']['CombineWithIdentity'])
 - span23 = personal_data_here ? 'span2' : 'span3'
-#identity.section{ 'data-bind' => 'vis: page() == "identity"' }
+- condition = 'page() == "identity"'
+- if AppConfig['OVR']['Eligibility']['CombineWithIdentity']
+  - condition += " || page() == 'eligibility'";
+#identity.section{ 'data-bind' => 'visible: ' + condition }
   .head
     %h3 Identity
     .description Identify who you are
@@ -39,4 +42,4 @@
 
   .form-actions
     = button_tag 'Next', class: 'next bt', 'data-bind' => 'click: nextFromIdentity, css: { disabled: identityInvalid }'
-    = button_tag 'Back', class: 'back bt', 'data-bind' => 'click: backFromIdentity'
+    = button_tag 'Back', class: 'back bt', 'data-bind' => 'click: backFromIdentity', style: "#{AppConfig['OVR']['Eligibility']['CombineWithIdentity'] ? 'display: none;' : ''}"

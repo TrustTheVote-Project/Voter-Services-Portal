@@ -26,7 +26,7 @@ class Registration < ActiveRecord::Base
   serialized_attr :voter_id
 
   # Eligibility
-  serialized_attr :citizen, :old_enough, :residence
+  serialized_attr :citizen, :old_enough, :residence, :eligibility_single_statement
 
   serialized_attr :outside_type
   serialized_attr :service_branch, :service_id, :rank
@@ -88,7 +88,7 @@ class Registration < ActiveRecord::Base
     self.citizen == '1' &&
     self.old_enough == '1' &&
     self.dob.try(:past?) &&
-    (!AppConfig['ssn_required'] || self.ssn.present?) &&
+    (!AppConfig['OVR']['ssn_required'] || self.ssn.present?) &&
     (self.rights_revoked == '0' ||
      ((self.rights_felony == '1' || self.rights_mental == '1') &&
       (self.rights_felony == '0' || (self.rights_felony_restored == '1' && self.rights_felony_restored_in.present? && self.rights_felony_restored_on.try(:past?))) or
