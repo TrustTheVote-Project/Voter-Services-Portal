@@ -1,4 +1,4 @@
-- personal_data_here = !AppConfig['OVR']['personal_data_on_eligibility_page']
+- personal_data_here = !(AppConfig['OVR']['Eligibility']['CollectPersonalData'] && !AppConfig['OVR']['Eligibility']['CombineWithIdentity'])
 - span23 = personal_data_here ? 'span2' : 'span3'
 - condition = 'page() == "identity"'
 - if AppConfig['OVR']['Eligibility']['CombineWithIdentity']

@@ -127,14 +127,7 @@ class window.Registration
 
     @eligibilityErrors = ko.computed =>
       errors = []
-      if gon.eligibility_single_statement
-        errors.push("Declare Eligibility") unless @eligibility_single_statement() == "agree"
-      else
-        errors.push("Citizenship criteria") unless @citizen()
-        errors.push("Age criteria") unless @oldEnough()
-        errors.push("Voting rights criteria") if @rightsNotFilled()
-        errors.push("The date of restoration must be after your date of birth.") if @invalidRightsRestorationDate()
-        
+      @validateEligibilityData(errors)
       @validatePersonalData(errors) if @personalDataOnEligibilityPage
       errors
 
@@ -196,6 +189,9 @@ class window.Registration
 
     @identityErrors = ko.computed =>
       errors = []
+      if gon.eligibility_with_identity 
+        @validateEligibilityData(errors)        
+      
       errors.push('First name') unless filled(@firstName())
       errors.push('Last name') unless filled(@lastName())
       errors.push('Gender') unless filled(@gender())
@@ -224,6 +220,16 @@ class window.Registration
 
     @identityInvalid = ko.computed => @identityErrors().length > 0
 
+  validateEligibilityData: (errors) ->
+    if gon.eligibility_single_statement
+      errors.push("Declare Eligibility") unless @eligibility_single_statement() == "agree"
+    else
+      errors.push("Citizenship criteria") unless @citizen()
+      errors.push("Age criteria") unless @oldEnough()
+      errors.push("Voting rights criteria") if @rightsNotFilled()
+      errors.push("The date of restoration must be after your date of birth.") if @invalidRightsRestorationDate()
+    
+    
   validatePersonalData: (errors) ->
     errors.push('Date of birth') unless @dob()
     errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()

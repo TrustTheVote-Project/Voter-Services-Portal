@@ -1,6 +1,6 @@
 - updating ||= false
 - rj = AppConfig['OVR']['confirmation_table_right_justify']
-- personal_data_link = AppConfig['OVR']['personal_data_on_eligibility_page'] ? '#eligibility' : '#identity'
+- personal_data_link = AppConfig['OVR']['Eligibility']['CollectPersonalData'] && !AppConfig['OVR']['Eligibility']['CombineWithIdentity'] ? '#eligibility' : '#identity'
 #confirm.section{ 'data-bind' => 'vis: page() == "confirm"' }
   .head
     %h3 Confirm
