@@ -772,7 +772,7 @@ class window.Registration
       @lookupRecord(_, e)
 
   onLookupResult: (data) =>
-    @paperlessPossible(!!gon.enable_dmv_ovr and data.dmv_match)
+    @paperlessPossible(!!gon.enable_digital_ovr and data.dmv_match )
     if !!gon.enable_dmv_address_display
       a = data.address || @initialVvrAddress
       @vvrAddress1(a.address_1)
@@ -790,7 +790,7 @@ class window.Registration
     if !gon.enable_dmvid_lookup or !filled(@dmvId()) or !filled(@ssn()) or (@isConfidentialAddress() and @caType() == 'TSC')
       return @onLookupResult({
         registered: false,
-        dmv_match: false,
+        dmv_match: !gon.enable_dmvid_lookup,
         address: @initialVvrAddress })
 
     $.getJSON '/lookup/registration', { record: {

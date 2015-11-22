@@ -3,5 +3,5 @@
 = hidden_field_tag :ssn_required, AppConfig['OVR']['ssn_required']
 = hidden_field_tag :require_middle_name, AppConfig['require_middle_name']
 = hidden_field_tag :require_name_suffix, AppConfig['require_name_suffix']
-- c = AppConfig['enable_display_assistant_details']
-= hidden_field_tag :enable_display_assistant_details, '', 'data-paper' => c['paper'], 'data-paperless' => c['paperless']
+- c = AppConfig['OVR']['Completion']['Assistance']
+= hidden_field_tag :enable_display_assistant_details, '', 'data-paper' => c['Paper'], 'data-paperless' => c['Paperless']

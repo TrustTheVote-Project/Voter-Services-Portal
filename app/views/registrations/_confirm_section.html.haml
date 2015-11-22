@@ -1,7 +1,12 @@
 - updating ||= false
 - rj = AppConfig['OVR']['confirmation_table_right_justify']
 - personal_data_link = AppConfig['OVR']['Eligibility']['CollectPersonalData'] && !AppConfig['OVR']['Eligibility']['CombineWithIdentity'] ? '#eligibility' : '#identity'
-#confirm.section{ 'data-bind' => 'vis: page() == "confirm"' }
+
+- condition = 'page() == "confirm"'
+- if AppConfig['OVR']['Completion']['CombineAttestationWithConfirmation']
+  - condition += " || page() == 'oath'";
+
+#confirm.section{ 'data-bind' => 'vis: ' + condition }
   .head
     %h3 Confirm
     .description= raw t('confirm.details')
@@ -175,6 +180,6 @@
     = render partial: 'confirm_absentee_status'
 
 
-  .form-actions
+  .form-actions{style: "#{AppConfig['OVR']['Completion']['CombineAttestationWithConfirmation'] ? 'display: none;' : ''}"}
     = button_tag 'Next', class: 'next bt', 'data-bind' => 'click: nextFromConfirm'
     = button_tag 'Back', class: 'back bt', 'data-bind' => 'click: prevPage'

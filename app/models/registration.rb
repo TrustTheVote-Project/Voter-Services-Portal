@@ -85,14 +85,15 @@ class Registration < ActiveRecord::Base
 
   # TRUE if new registration is eligible
   def eligible?
-    self.citizen == '1' &&
+    (self.eligibility_single_statement == 'agree' && AppConfig['OVR']['Eligibility']['SingleStatement']) ||
+    (self.citizen == '1' &&
     self.old_enough == '1' &&
     self.dob.try(:past?) &&
     (!AppConfig['OVR']['ssn_required'] || self.ssn.present?) &&
     (self.rights_revoked == '0' ||
      ((self.rights_felony == '1' || self.rights_mental == '1') &&
       (self.rights_felony == '0' || (self.rights_felony_restored == '1' && self.rights_felony_restored_in.present? && self.rights_felony_restored_on.try(:past?))) or
-      (self.rights_mental == '0' || (self.rights_mental_restored == '1' && self.rights_mental_restored_on.try(:past?)))))
+      (self.rights_mental == '0' || (self.rights_mental_restored == '1' && self.rights_mental_restored_on.try(:past?))))))
   end
 
   def full_name
