@@ -1,0 +1,259 @@
+##
+## Main configuration keys for VSP
+## Config keys that need to change over time are in a subsidiary config file.
+## Config keys that are confidential are in a subsidiary config file.
+##
+
+###############
+## Configuration keys that control the use of
+## integration with backend service.
+##
+
+# Enable DMV ID submission
+enable_dmv_id_submission: true
+
+
+# Enables posting EML310 data
+enable_eml_post: true
+
+# When false, always paper submission. When true -- EML310 post result decides.
+# Serves as a handy emergency off switch in situations where the DMV back-end
+# integration is not working right.
+enable_dmv_ovr: true
+
+# Enables integration with external ballot service
+enable_online_balloting: true
+
+
+################
+## Configuration keys that control logging of
+## integration with backend service.
+## DEBUG ONLY
+##
+
+# Enables saving all outgoing EML310 in log/last_eml310.xml and 
+# all incoming EML330 in log/eml330.xml-- DEBUG ONLY
+enable_eml_log: false
+
+# Enables / disables extensive debug logging -- DEBUG ONLY
+api_debug_logging: false
+
+
+################
+## Configuration keys that turn on/off 
+## major features of the application
+##
+
+# Enables UOCAVA registration
+enable_uocava_new_registration: true
+
+# Toggles forms functionality: false = perform the forms functionality
+enable_forms: true
+
+
+
+
+################
+## Configuration keys that control user-visible 
+## behavior for the whole application
+##
+
+# enables / disables demo mode
+demo: true
+
+# enables / disables form field autocompletion
+autocomplete: off
+
+# Minutes given to finish registration / update form
+form_expiry: 60
+
+
+
+# Show home link in page headers
+enable_home_header_link: true
+
+# Show FAQ link in page headers
+enable_faq_header_link: true
+
+
+
+# When provided, users can select between multiple localizations.
+# When a localization is enabled, strings in the app will be localized,
+# localized external pages will be fetched, the application's URLs will
+# be prefixed with the active locale, and a locale selector
+# will be added to the header.
+#
+# Localizations are configured as an array of hashes,
+# each structured like so: {name: 'English', code: 'en'}.
+# The name property is shown to users, and the code is used to
+# retrieve locale-specific assets and strings.
+#
+# The first localization in the array will be the default when
+# a user visits the front page of the application.
+supported_localizations: []
+
+
+
+
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the home page
+##
+
+# Home page UOCAVA registration layout
+# true = original layout with update separate and on the right
+# false = new layout with UOCAVA on the right
+# TBD: should be enable_home_page_update_right
+enable_home_page_update_right: false
+
+
+# Home page stacked layout
+# true = each homepage option is laid out in a full-width row, stacked vertically
+# false = original layout, with each front-page option occupying a column in a 3 column layout
+enable_home_page_stacked_layout: true
+
+
+
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the personal info dialog
+##
+
+# enables / disables collection of gender 
+collect_gender: true
+
+# enables / disables collection of title on the registration request form
+collect_title:  false
+
+# true  == collect party preference only for absentees
+# false == collect party preference for all users
+collect_absentee_party_preference_only_absentee: true
+
+# Middle name is required on the identity form
+require_middle_name: true
+
+# Name suffix is required on the identity form
+require_name_suffix: true
+
+# When TRUE mailing address is editable on the
+# protected voter form (even if it's entered on addresses page)
+enable_edit_mailing_address_at_protected_voter: false
+
+# Domestic voter mailing address limit: if true, the user may supply a mailing address
+# only if they check a box stating the reason why they must supply a separate mailing address
+enable_limit_on_domestic_voter_mailing_address: true
+
+# Maximum length of the rural field
+rural_address_length: 80
+
+
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the options dialog
+##
+
+# Toggles if we let UOCAVA absentees to choose the end date
+enable_uocava_end_date_choice: false
+
+
+
+
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the page that displays the oath
+## at the conclusion of the session
+
+# Shows / hides the assistant details section on oath page
+# separate toggles for paperless OVR vs. requires PDF
+enable_display_assistant_details:
+  paperless: true
+  paper: true
+
+
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the page that displays voter records
+## and otherinformation (before update workflow)
+##
+
+# Toggles display of voter record items that are empty
+# False = omit the empty fields from the voter info display
+enable_voter_info_show_missing_item: true
+
+# Enable/disable, on the voter record display screen, 
+# the presentation of link to download voter card as PDF
+enable_voter_info_show_show_download_voter_card_link: false
+
+# URL for the link in the ID requirements row of the voter record display page
+voter_info_id_requirement_url: http://sbe.virginia.gov/VotinginPerson.html
+
+ballot_info:
+  # Sizes of the check-box like boxes on the ballot info page (in px)
+  check:
+    width: 23
+    height: 23
+
+
+################
+## Configuration keys that control how PDF generation works
+##
+pdf:
+  # True to fill the sign date with current date
+  fill_sign_date: false
+
+# New forms (renders forms from templates in app/assets/pdf-templates)
+pdf_forms: true
+pdftk_path: "/usr/local/bin/pdftk"
+
+
+################
+## Configuration keys that control how logging works
+##
+
+# Record log configuration
+log:
+  origin:       'Virginia Voter Services Portal'
+  origin_uniq:  'AA:BB:CC:DD:EE:FF'
+
+  # Voter IDs will be SHA-1 hashed if TRUE
+  hashalg:      true
+
+xml:
+  source_name: Virginia SBE Voter Services Portal
+
+################
+## Configuration keys that control use of external assets
+##
+
+customization:
+  # Custom CSS overrides. Can be an absolute http://... URL.
+  application_css:        custom_application.css
+  mobile_css:             custom_mobile.css
+
+  # Absolute filesystem paths to PDF files to overrides. Blank for defaults.
+  absentee_request_pdf:   Portal_PDF_sbe_absentee_request.pdf
+  fpca_pdf:               Portal_PDF_FPCA.pdf
+  domestic_pdf:           Portal_PDF_sbe_voter_app.pdf
+  state_absentee_pdf:     Portal_PDF_State_Absentee_Request.pdf
+
+
+# Static page mapping
+# If supported_localizations are provided, the localization code
+# will be appended to urL_base. For example, public/static would
+# become public/static/en.
+static_pages:
+  url_base:               public/static
+  about:                  about.htm
+  about_registration:     about_registration.htm
+  about_update_absentee:  about_update_absentee.htm
+  elections:              elections.htm
+  faq:                    faq.htm
+  footer:                 footer.htm
+  feedback:               feedback.htm
+  help:                   help.htm
+  how_to_register:        howtoregister.htm
+  ineligible:             ineligible.htm
+  online_ballot_marking:  online-ballot-marking.htm
+  privacy_act_notice:     privacyactnotice.htm
+  proof_of_identity:      proof-of-identity.htm
+  security_privacy:       security-privacy.htm
