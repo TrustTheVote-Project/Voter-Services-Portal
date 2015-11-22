@@ -104,7 +104,7 @@ class window.Registration
          (@rightsMental() == '0' or (@rightsMentalRestored() == '1' and !!@rightsMentalRestoredOn()))))
 
     @isEligible = ko.computed =>
-      (@eligibility_single_statement() == '1' && gon.eligibility_single_statement) or
+      (@eligibility_single_statement() == 'agree' && gon.eligibility_single_statement) or
       (@citizen() == '1' and
       @oldEnough() == '1' and
       !!@dob() and
