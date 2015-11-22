@@ -526,18 +526,24 @@ class window.Registration
 
     @summaryEligibility = ko.computed =>
       items = []
-      if @citizen()
-        items.push "U.S. citizen"
+      if gon.eligibility_single_statement
+        if @eligibility_single_statement() == 'agree'
+          items.push "Agree to eligibility"
+        else
+          items.push "Does not agree to eligibility"
       else
-        items.push "Not a U.S. citizen"
+        if @citizen()
+          items.push "U.S. citizen"
+        else
+          items.push "Not a U.S. citizen"
 
-      if @domestic()
-        items.push "VA resident"
+        if @domestic()
+          items.push "VA resident"
 
-      if @oldEnough()
-        items.push "Over 18 by next election"
-      else
-        items.push "Not over 18 by next election"
+        if @oldEnough()
+          items.push "Over 18 by next election"
+        else
+          items.push "Not over 18 by next election"
 
       items.join(', ')
 
