@@ -1,0 +1,77 @@
+# Require the sign off of the privacy act page before some actions
+show_privacy_act_page: true
+
+
+
+#################
+## Configuration keys that toggle the user-visible behavior of 
+## the eligibility dialog
+##
+
+Eligibility:
+  # When precheck is false, does not lookup user data based on IDs (and therefore does not check for eligibility)
+  PreCheckForPaperless: false # was enable_dmvid_lookup
+  SingleStatement: true # Skip all the other eligibilty checks and ask a single question to attest user's eligibility
+  Age18: false # Show age checkbox on eligibility screen (if not shown, the age eligibility attribue defaults to TRUE)
+  CombineWithIdentity: true #Show eligibility and identity in one page, usually when there are few eligibility questions
+  CollectPersonalData: true #actually force to false when ComineWithIdentity is true
+  
+  
+# When FALSE, showing the explanation page to ineligible
+allow_ineligible_to_complete_form: false  
+
+# When true we don't ask a top-level rights question on the eligibility page
+enable_expanded_felony_mental_eligibility: true
+
+# TRUE to place SSN / DMVID / DOB on eligibility page, FALSE -- on identity
+personal_data_on_eligibility_page: true
+
+# Require SSN field to be present on eligibility screen (both registration and update)
+#   true = users who don't provide SSN are treated as ineligible
+#   false = users who don't provide SSN are allowed to continue to register
+ssn_required: false
+
+# Length of DMV ID field
+state_id_length:
+  min: 9
+  max: 12
+
+# When false, DMV ID entry field is optional
+# TBD: require_dmv_id: true
+require_dmv_id: true
+
+
+
+
+
+
+
+
+# Enable/disable the pre-population of residence address fields from DMV address, if available
+enable_dmv_address_display: true
+
+
+
+# Enable/disable the presentation of absentee options 
+# to user in the domestic workflow for new registrations 
+enable_absentee_option_domestic_new: false
+
+# Enable/disable the presentation of absentee options
+# to user in the domestic workflow for update existing registrations 
+enable_absentee_option_domestic_update: false
+
+
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the page that displays voter info for user confirmation
+## before proceeding to conclusion of the session
+##
+
+# When TRUE "edit" links are placed on the far right in the confirmation table
+confirmation_table_right_justify: false
+
+# Width of the labels column on confirm page (in px)
+confirmation_table_labels_width: 224
+
+# Show voting status on confirmation page
+enable_confirm_voting_status_display: false
