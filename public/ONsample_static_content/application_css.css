@@ -3,13 +3,13 @@ body #header {
 }
 
 body #header .img_logo {
-    background: url('/ontario_logo.png') !important;
+    background: url('/ONsample_static_content/ontario_logo.png') !important;
     width: 222px;
     height: 85px;
 }
 
 body .content > #hero {
-    background: url('/breadcrumb-background.jpg') no-repeat center center fixed;
+    background: url('/ONsample_static_content/breadcrumb-background.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
