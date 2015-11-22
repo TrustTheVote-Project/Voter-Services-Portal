@@ -227,8 +227,8 @@ xml:
 
 customization:
   # Custom CSS overrides. Can be an absolute http://... URL.
-  application_css:        custom_application.css
-  mobile_css:             custom_mobile.css
+  # application_css:        custom_application.css
+  # mobile_css:             custom_mobile.css
 
   # Absolute filesystem paths to PDF files to overrides. Blank for defaults.
   absentee_request_pdf:   Portal_PDF_sbe_absentee_request.pdf
