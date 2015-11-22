@@ -1,15 +1,48 @@
 require 'sidekiq/capistrano'
 
+def sample_deploy_domain
+  case ENV['SAMPLE_DEPLOY_TARGET']
+  when "VA"
+    "ec2-184-73-108-219.compute-1.amazonaws.com"
+  when "ON"
+    "ec2-54-205-167-214.compute-1.amazonaws.com"
+  else
+    ""
+  end
+end
+
+def sample_deploy_key
+  case ENV['SAMPLE_DEPLOY_TARGET']
+  when "VA"
+    "oset-vaconfigdemo.pem"
+  when "ON"
+    "oset-on-demo.pem"
+  else
+    "osdv.pem"
+  end
+end
+
+def sample_deploy_branch
+  case ENV['SAMPLE_DEPLOY_TARGET']
+  when "VA"
+    "configuration-refactor"
+  when "ON"
+    "configuration-refactor"
+  else
+    "master"
+  end
+end
+
 # Location configuration
-set :domain,      "server.com"                    # Domain name or IP address of the server
+set :domain,      sample_deploy_domain            # Domain name or IP address of the server
 set :user,        "deploy"                        # Unix user to own the deployment
 set :runner,      "deploy"                        # Same as :user
 set :deploy_to,   "/home/deploy/va-portal"        # Path to the deployment directory
 
 # Common configuration
 set :application, "va-portal"
-set :repository,  "git://github.com/trustthevote/Virginia-Voter-Services-Portal.git"
-set :branch,      "v2"
+set :repository,  "git://github.com/trustthevote-project/Voter-Services-Portal.git"
+set :branch,      sample_deploy_branch
 set :rails_env,   "production"
 
 role :web, domain
@@ -25,7 +58,7 @@ set :whenever_environment,  "production"
 
 set :default_shell, "/bin/bash"
 ssh_options[:user] = "deploy"
-ssh_options[:keys] = [ "~/.ssh/osdv-aws.pem" ]
+ssh_options[:keys] = [ "~/.ssh/#{sample_deploy_key}" ]
 default_run_options[:pty] = true
 
 set :default_environment, {
@@ -35,10 +68,41 @@ set :default_environment, {
 # Create uploads directory and link
 namespace :deploy do
   task :shared, :roles => :app do
-    run "cp #{shared_path}/config/database.yml #{latest_release}/config/database.yml"
-    run "cp #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
-    run "cp #{shared_path}/config/config_service.yml #{latest_release}/config/config_service.yml"
-    run "cp #{shared_path}/config/config_timely.yml #{latest_release}/config/config_timely.yml"
+    # run "cp #{shared_path}/config/database.yml #{latest_release}/config/database.yml"
+    # run "cp #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
+    # run "cp #{shared_path}/config/config_service.yml #{latest_release}/config/config_service.yml"
+    # run "cp #{shared_path}/config/config_timely.yml #{latest_release}/config/config_timely.yml"
+    
+    run "rm -f #{latest_release}/config/database.yml"
+    run "ln -nfs #{shared_path}/config/database.yml #{latest_release}/config/database.yml"
+
+    
+    if ENV['SAMPLE_DEPLOY_TARGET']  #copy repo files into live ones
+      extension = ENV['SAMPLE_DEPLOY_TARGET'] + "sample"
+      run "cp #{latest_release}/config/config.yml.#{extension} #{latest_release}/config/config.yml"
+      run "cp #{latest_release}/config/config_service.yml.#{extension} #{latest_release}/config/config_service.yml"
+      run "cp #{latest_release}/config/config_timely.yml.#{extension} #{latest_release}/config/config_timely.yml"
+      run "cp #{latest_release}/config/config_ovr.yml.#{extension} #{latest_release}/config/config_ovr.yml"
+      
+      #also all the locales content
+      run "cp #{latest_release}/config/locales/#{extension}/* #{latest_release}/config/locales/"
+      
+    else #use shared files
+      run "rm -f #{latest_release}/config/config.yml"
+      run "ln -nfs #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
+
+      run "rm -f #{latest_release}/config/config_service.yml"
+      run "ln -nfs #{shared_path}/config/config_service.yml  #{latest_release}/config/config_service.yml"
+
+      run "rm -f #{latest_release}/config/config_timely.yml"
+      run "ln -nfs #{shared_path}/config/config_timely.yml  #{latest_release}/config/config_timely.yml"
+
+      run "rm -f #{latest_release}/config/config_ovr.yml"
+      run "ln -nfs #{shared_path}/config/config_ovr.yml  #{latest_release}/config/config_ovr.yml"      
+    end
+    
+    
+    
   end
 end
 
