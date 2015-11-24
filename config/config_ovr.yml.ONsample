@@ -46,15 +46,11 @@ state_id_length:
 require_dmv_id: true
 
 
-
-
-
-
-
-
 # Enable/disable the pre-population of residence address fields from DMV address, if available
 enable_dmv_address_display: true
 
+Identity:
+  IncludeProtectedVoterBlock: false
 
 
 # Enable/disable the presentation of absentee options 
