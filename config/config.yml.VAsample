@@ -238,7 +238,7 @@ customization:
 # will be appended to urL_base. For example, public/static would
 # become public/static/en.
 static_pages:
-  url_base:               public/static
+  url_base:               public/VAsample_static_content
   about:                  about.htm
   about_registration:     about_registration.htm
   about_update_absentee:  about_update_absentee.htm
