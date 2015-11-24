@@ -129,7 +129,7 @@ class RegistrationsController < ApplicationController
 
     active_form.unmark!
 
-    paperless = AppConfig['OVR']['EnableDigitalService'] && submitted && reg.paperless_submission_allowed? && reg.dmv_id.present?
+    paperless = AppConfig['OVR']['EnableDigitalService'] && submitted && reg.paperless_submission_allowed? && (reg.dmv_id.present? || !AppConfig['enable_eml_post'])
 
     if paperless
       LogRecord.submit_new(reg, ses[:slr_id])

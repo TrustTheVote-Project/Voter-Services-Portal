@@ -14,7 +14,7 @@ enable_dmv_id_submission: false
 
 
 # Enables posting EML310 data
-enable_eml_post: true
+enable_eml_post: false
 
 
 # Enables integration with external ballot service
