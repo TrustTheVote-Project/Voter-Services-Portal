@@ -56,6 +56,10 @@ require_dmv_id: true
 enable_dmv_address_display: true
 
 
+Identity:
+  IncludeProtectedVoterBlock: true
+
+
 
 # Enable/disable the presentation of absentee options 
 # to user in the domestic workflow for new registrations 
