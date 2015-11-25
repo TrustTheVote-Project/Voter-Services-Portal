@@ -96,7 +96,8 @@ namespace :deploy do
       run "cp #{latest_release}/config/config_ovr.yml.#{extension} #{latest_release}/config/config_ovr.yml"
       
       #also all the locales content
-      run "cp #{latest_release}/config/locales/#{extension}/* #{latest_release}/config/locales/"
+      run "rm -f #{latest_release}/config/locales"
+      run "ln-s #{latest_release}/config/locales-#{extension} #{latest_release}/config/locales"
       
     else #use shared files
       run "rm -f #{latest_release}/config/config.yml"
