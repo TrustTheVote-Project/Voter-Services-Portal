@@ -97,7 +97,7 @@ namespace :deploy do
       
       #also all the locales content
       run "rm -f #{latest_release}/config/locales"
-      run "ln-s #{latest_release}/config/locales-#{extension} #{latest_release}/config/locales"
+      run "ln -nfs #{latest_release}/config/locales-#{extension} #{latest_release}/config/locales"
       
     else #use shared files
       run "rm -f #{latest_release}/config/config.yml"

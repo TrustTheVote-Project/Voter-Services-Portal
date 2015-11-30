@@ -214,6 +214,50 @@ body .content .options .bt {
   width: 60%;
 }
 
+
+
+body#registration #steps .current, #steps .current {
+  background: url('/ONsample_static_content/current-step.jpg') #fdd202 no-repeat right top;
+  
+}
+body#registration #steps .current h2, #steps .current h2 {
+  color: black;
+}
+
+body#registration .section .head h3, .section .head h3 {
+  font-size: 16pt;
+  line-height: 1.4em;
+  height: auto;
+  padding: 0;
+  margin: 1em 0 .6em;
+  border: 0;
+  color: #fdd202;
+  font-family: Arimo;
+}
+
+body#registration .bt {
+  background-color: #fdd202;
+  color: black;
+  
+  -webkit-box-shadow: 0 1px 2px rgba(195, 170, 51, 0.8);
+  -moz-box-shadow: 0 1px 2px rgba(195, 170, 51, 0.8);
+  box-shadow: 0 0 5px rgba(195, 170, 51, 0.8);
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+body#registration .bt:hover {
+  background-color: #ffc600;
+}
+
+body#registration .summary a {
+  color: black;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+
 @media (max-width: 1050px) {
   .col-md-3 {
     padding: 0 20px;
