@@ -275,4 +275,36 @@ body#registration .summary a {
     margin-top: 3em;
     float: left;
   }
+  .padded_page_span {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+  }
+  .radio, .checkbox {
+    margin-left: 0;
+  }
+  .span3, .span2 {
+    margin-left: 0px;
+  }
+  .span10 {
+    width: 100%;
+  }
+  .span12 {
+    width: 95%;
+    margin-left: 2.5%;
+    margint-right: 2.5%;
+  }
+  #steps .span2 {
+    width: 100%;
+  }
+  .section .address-field input {
+      width: 90%;
+  }
+  .summary {
+    margin-left: 0;
+    width: 100%;
+  }
+  .summary .body table {
+    width: 100%;
+  }
 }
