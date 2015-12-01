@@ -23,14 +23,7 @@ def sample_deploy_key
 end
 
 def sample_deploy_branch
-  case ENV['SAMPLE_DEPLOY_TARGET']
-  when "VA"
-    "configuration-refactor"
-  when "ON"
-    "configuration-refactor"
-  else
-    "master"
-  end
+  "master"
 end
 
 # Location configuration
