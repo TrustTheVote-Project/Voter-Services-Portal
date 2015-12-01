@@ -3,7 +3,7 @@ VaVote::Application.routes.draw do
   # Add localized scope if alternate localizations are present,
   # otherwise directly add unprefixed routes.
   def conditional_scope(localized_route, root_url, &block)
-    if AppConfig['supported_localizations'] && AppConfig['supported_localizations'].any?
+    unless AppConfig['supported_localizations'].blank?
       scope(localized_route, &block)
       get '/' => root_url # Add root_url outside of localized route.
     else
