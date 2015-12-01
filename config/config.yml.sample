@@ -21,11 +21,6 @@ enable_dmv_address_display: true
 # Enables posting EML310 data
 enable_eml_post: true
 
-# When false, always paper submission. When true -- EML310 post result decides.
-# Serves as a handy emergency off switch in situations where the DMV back-end
-# integration is not working right.
-enable_dmv_ovr: true
-
 # Enables integration with external ballot service
 enable_online_balloting: true
 

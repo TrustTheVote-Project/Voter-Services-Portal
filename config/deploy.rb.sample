@@ -67,6 +67,17 @@ set :default_environment, {
 
 # Create uploads directory and link
 namespace :deploy do
+  # namespace :assets do
+  #   task :precompile, :roles => :app, :except => { :no_release => true } do
+  #     from = source.next_revision(current_revision)
+  #     if capture("cd #{latest_release} && #{source.local.log(from)} vendor/assets/ app/assets/ | wc -l").to_i > 0
+  #       run %Q{cd #{latest_release} && #{rake} RAILS_ENV=#{rails_env} #{asset_env} assets:precompile}
+  #     else
+  #       logger.info "Skipping asset pre-compilation because there were no asset changes"
+  #     end
+  #   end
+  # end
+    
   task :shared, :roles => :app do
     # run "cp #{shared_path}/config/database.yml #{latest_release}/config/database.yml"
     # run "cp #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
@@ -85,7 +96,8 @@ namespace :deploy do
       run "cp #{latest_release}/config/config_ovr.yml.#{extension} #{latest_release}/config/config_ovr.yml"
       
       #also all the locales content
-      run "cp #{latest_release}/config/locales/#{extension}/* #{latest_release}/config/locales/"
+      run "rm -f #{latest_release}/config/locales"
+      run "ln -nfs #{latest_release}/config/locales-#{extension} #{latest_release}/config/locales"
       
     else #use shared files
       run "rm -f #{latest_release}/config/config.yml"

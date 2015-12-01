@@ -44,6 +44,10 @@ class SubmitEml310
       response = send_request(reg, method)
       result = parse(response)
     end
+    
+    if !AppConfig['enable_eml_post']
+      return true
+    end
 
     result
   rescue => e

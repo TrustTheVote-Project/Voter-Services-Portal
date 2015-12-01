@@ -1,11 +1,12 @@
 #footer {
-  margin-top: 50px;
-  background: #f4f4f4;
+  padding: 40px 0;
+}
 
+#footer, #sub-footer {
+  background: #f4f4f4;
   .upcoming, .additional-info {
     padding: 10px 10px 0;
     margin: 0;
-    height: 315px;
 
     h3 {
       color: #cf2145;
@@ -37,7 +38,7 @@
   }
 
   .footer {
-    padding: 20px 0;
+    padding: 40px 0;
     background: #e1e2e2;
     font-size: 11px;
     &, a {

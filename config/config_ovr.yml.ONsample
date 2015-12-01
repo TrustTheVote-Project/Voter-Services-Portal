@@ -1,6 +1,11 @@
 # Require the sign off of the privacy act page before some actions
 show_privacy_act_page: true
 
+# When false, always paper submission. When true -- EML310 post result decides.
+# Serves as a handy emergency off switch in situations where the DMV back-end
+# integration is not working right.
+EnableDigitalService: true
+EnablePaperService: false
 
 
 #################
@@ -41,15 +46,11 @@ state_id_length:
 require_dmv_id: true
 
 
-
-
-
-
-
-
 # Enable/disable the pre-population of residence address fields from DMV address, if available
 enable_dmv_address_display: true
 
+Identity:
+  IncludeProtectedVoterBlock: false
 
 
 # Enable/disable the presentation of absentee options 
@@ -75,3 +76,25 @@ confirmation_table_labels_width: 224
 
 # Show voting status on confirmation page
 enable_confirm_voting_status_display: false
+
+
+
+
+
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the page that displays the oath
+## at the conclusion of the session
+
+# Shows / hides the assistant details section on oath page
+# separate toggles for paperless OVR vs. requires PDF
+
+Completion:
+  IncludeAttestation: true
+  CombineAttestationWithConfirmation: true
+  Assistance:
+    Paperless: false
+    Paper: false
+
+
+

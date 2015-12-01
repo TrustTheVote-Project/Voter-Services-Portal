@@ -16,10 +16,6 @@ enable_dmv_id_submission: true
 # Enables posting EML310 data
 enable_eml_post: true
 
-# When false, always paper submission. When true -- EML310 post result decides.
-# Serves as a handy emergency off switch in situations where the DMV back-end
-# integration is not working right.
-enable_dmv_ovr: true
 
 # Enables integration with external ballot service
 enable_online_balloting: true
@@ -110,7 +106,7 @@ enable_home_page_update_right: false
 # Home page stacked layout
 # true = each homepage option is laid out in a full-width row, stacked vertically
 # false = original layout, with each front-page option occupying a column in a 3 column layout
-enable_home_page_stacked_layout: true
+enable_home_page_stacked_layout: false
 
 
 
@@ -242,7 +238,7 @@ customization:
 # will be appended to urL_base. For example, public/static would
 # become public/static/en.
 static_pages:
-  url_base:               public/static
+  url_base:               public/VAsample_static_content
   about:                  about.htm
   about_registration:     about_registration.htm
   about_update_absentee:  about_update_absentee.htm

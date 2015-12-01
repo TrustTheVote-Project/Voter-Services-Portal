@@ -1,9 +1,49 @@
-body #header {
-    background: #FED430 !important;
+/* 
+$yellow: #fdd202 
+$text: #666666
+*/
+@import url(https://fonts.googleapis.com/css?family=Arimo:400,700);
+
+body {
+  color: #666666;
+  color: black;
+  font-family: Arial;
+  font-size: 10pt;
 }
 
+body .container {
+  width: 90%;
+  max-width: 960px;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-family: Arimo;
+}
+
+
+body #header, body #header h1 {
+    background: white ;
+    color: #fdd202 ;
+    font-size: 20pt;
+    font-family: Arimo;
+    float: none;
+    text-align: left;
+    height: auto;
+}
+
+body #header h1 {
+  display: none ;
+}
+
+body #menu, body #menu a {
+  color: black;
+}
+
+
 body #header .img_logo {
-    background: url('/ONsample_static_content/ontario_logo.png') !important;
+    float: none;
+    background: url('/ONsample_static_content/ontario_logo.png') ;
+    background-size: 100% ;
     width: 222px;
     height: 85px;
 }
@@ -18,19 +58,23 @@ body .content > #hero {
 
 body #hero {
     color: #fff;
+    font-size: 12pt;
+    padding: 0 10%; 
 }
 
 body #hero h2 {
-    color: #ccc;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    color: #fdd202;
+    font-size: 16pt;
+    font-size: 20pt;
+    line-height: 1em;
 }
 
-.footer {
-    background-color: #333;
-    color: white;
-}
 
 body #hero .row.w {
-    padding-left: 1em;
+   padding-top: 0;
+   margin: 0;
 }
 
 
@@ -38,9 +82,61 @@ body #hero .info div {
     padding-left: 1em;
 }
 
+body #hero small {
+  font-size: 12pt;
+}
+
+body .content .options h3, body#front .content .options h3 {
+  font-size: 16pt;
+  line-height: 1.4em;
+  height: auto;
+  padding: 0;
+  margin: 1em 0 .6em;
+  border: 0;
+  color: #fdd202;
+  font-family: Arimo;
+}
+body .content .options h4, body#front .content .options h4 {
+  display: none;
+
+}
+
+body .content .stacked-layout {
+  padding: 0 10%;
+}
+
+body .content .row {
+  margin: 0 !important;
+}
+
+body .content .options .bt {
+    border: none;
+    border-radius: 0;
+    padding:0;
+    background-image: none;
+    display: inline;
+    outline: none;
+    text-decoration: underline;
+    color: black;
+    cursor: pointer;
+    text-align: left;
+    font-size: 10pt;
+    font-weight: bold;
+    font-family: Arial;
+    margin: 0;
+    text-shadow: none;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.footer {
+    background-color: #333;
+    color: white;
+}
+
 .footer .container {
     font-family: Arial,Helvetica,sans-serif;
-    margin: 2em;
+    margin: 1em 2em;
     border: 0px;
 }
 
@@ -89,6 +185,15 @@ body #hero .info div {
     font-size: 18px;
 }
 
+.span6 {
+  width: 360px;
+  max-width: 100%;
+}
+.span12 {
+  width: 740px;
+  max-width: 100%;
+}
+
 .col-xs-12 {
     width: 100%;
 }
@@ -97,7 +202,109 @@ body #hero .info div {
     float: left;
 }
 
-
 .col-md-3 {
-    width: 25%;
+  padding: 0 20px;
+  width: 170px;
+}
+
+.span3.powered {
+  float: right;
+}
+.row .span9 {
+  width: 60%;
+}
+
+
+
+body#registration #steps .current, #steps .current {
+  background: url('/ONsample_static_content/current-step.jpg') #fdd202 no-repeat right top;
+  
+}
+body#registration #steps .current h2, #steps .current h2 {
+  color: black;
+}
+
+body#registration .section .head h3, .section .head h3 {
+  font-size: 16pt;
+  line-height: 1.4em;
+  height: auto;
+  padding: 0;
+  margin: 1em 0 .6em;
+  border: 0;
+  color: #fdd202;
+  font-family: Arimo;
+}
+
+body#registration .bt {
+  background-color: #fdd202;
+  color: black;
+  
+  -webkit-box-shadow: 0 1px 2px rgba(195, 170, 51, 0.8);
+  -moz-box-shadow: 0 1px 2px rgba(195, 170, 51, 0.8);
+  box-shadow: 0 0 5px rgba(195, 170, 51, 0.8);
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}
+
+body#registration .bt:hover {
+  background-color: #ffc600;
+}
+
+body#registration .summary a {
+  color: black;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+
+@media (max-width: 1050px) {
+  .col-md-3 {
+    padding: 0 20px;
+    width: calc(50% - 40px);
+  }
+}
+@media (max-width: 761px) {
+  .col-md-3 {
+    width: calc(100% - 40px);
+  }
+  .row .span9 {
+    width: 100%;
+  }
+  .span3.powered {
+    margin-top: 3em;
+    float: left;
+  }
+  .padded_page_span {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+  }
+  .radio, .checkbox {
+    margin-left: 0;
+  }
+  .span3, .span2 {
+    margin-left: 0px;
+  }
+  .span10 {
+    width: 100%;
+  }
+  .span12 {
+    width: 95%;
+    margin-left: 2.5%;
+    margint-right: 2.5%;
+  }
+  #steps .span2 {
+    width: 100%;
+  }
+  .section .address-field input {
+      width: 90%;
+  }
+  .summary {
+    margin-left: 0;
+    width: 100%;
+  }
+  .summary .body table {
+    width: 100%;
+  }
 }
