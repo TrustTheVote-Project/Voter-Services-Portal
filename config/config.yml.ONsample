@@ -229,7 +229,7 @@ customization:
 
 # Static page mapping
 # If supported_localizations are provided, the localization code
-# will be appended to urL_base. For example, public/static would
+# will be appended to url_base. For example, public/static would
 # become public/static/en.
 static_pages:
   url_base:               public/ONsample_static_content
