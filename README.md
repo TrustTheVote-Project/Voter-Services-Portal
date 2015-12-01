@@ -43,6 +43,10 @@ Installation
 * Create the database:
 
         $ bundle exec rake db:setup
+        
+* Populate the county list from db/localities.yml:
+
+        $ rake va:reload_offices
 
 * Start the application server:
 
