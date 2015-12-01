@@ -72,6 +72,27 @@ enable_home_header_link: true
 enable_faq_header_link: true
 
 
+# List of subfooter links to show below main footer.
+# Each footer item needs url and text values.
+#
+# If supported_localizations are provided, the text key should be
+# an identifier for a localized string.
+subfooter_links:
+  - url:  '/'
+    text: 'Home'
+  - url:  '/about'
+    text: 'About'
+  - url:  '/faq'
+    text: 'FAQs'
+  - url:  '/help'
+    text: 'Help'
+  - url:  '/elections'
+    text: 'Elections'
+  - url:  '/security'
+    text: 'Security & Privacy'
+  - url:  '/feedback'
+    text: 'Feedback'
+
 
 # When provided, users can select between multiple localizations.
 # When a localization is enabled, strings in the app will be localized,

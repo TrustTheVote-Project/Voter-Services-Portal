@@ -49,3 +49,12 @@ fr:
   rab_type:
     federal: "I would like to vote absentee until %{until}."
     state: "I would like to request an absentee ballot for the upcoming election."
+
+  subfooter:
+    home: 'Accueil'
+    about: 'About'
+    faq: 'FAQs'
+    help: 'Help'
+    elections: 'Elections'
+    security: 'Security & Privacy'
+    feedback: 'Feedback'

@@ -19,22 +19,13 @@
         #sub-footer
           .row.footer
             .span9
-              = link_to 'Home', :root
-              &nbsp;&nbsp;|&nbsp;&nbsp;
-              = link_to 'About', :about_page
-              &nbsp;&nbsp;|&nbsp;&nbsp;
-              = link_to 'FAQs', :faq_page
-              &nbsp;&nbsp;|&nbsp;&nbsp;
-              = link_to 'Help', :help_page
-              &nbsp;&nbsp;|&nbsp;&nbsp;
-              = link_to 'Elections', :elections_page
-              &nbsp;&nbsp;|&nbsp;&nbsp;
-              = link_to 'Security & Privacy', :security_page
-              &nbsp;&nbsp;|&nbsp;&nbsp;
-              = link_to 'Feedback', :feedback_page
+              - links = subfooter_links
+              - links.each_with_index do |link, idx|
+                = link_to link[:text], link[:url]
+                - unless idx == links.size - 1
+                  &nbsp;&nbsp;|&nbsp;&nbsp;
             .span3.powered
               = image_tag "ttv_grey_poweredby.jpg", style: 'height: 60px; float: right; margin: 0 5px; '
               Powered by Open Source<br/>
               Digital Voting Foundation
-              
     = javascript_include_tag  "application"

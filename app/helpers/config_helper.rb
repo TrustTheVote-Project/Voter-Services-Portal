@@ -22,5 +22,26 @@ module ConfigHelper
       []
     end
   end
+  
+  def subfooter_links
+    unless AppConfig['subfooter_links'].blank?
+      AppConfig['subfooter_links'].map do |link|
+        if link['url'].blank?
+          Rails.logger.warn "No url provided for subfooter_link #{link}"
+          next nil
+        end
+        link_text = link['text']
+        unless link_text.is_a?(String)
+          Rails.logger.warn "Unexpected text value for subfooter_link #{link['url']}: #{link_text}"
+        end
+        unless AppConfig['supported_localizations'].blank?
+          link_text = I18n.t(link_text)
+        end
+        { text: link_text, url: link['url'] }
+      end.compact
+    else
+      []
+    end
+  end
 
 end
