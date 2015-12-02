@@ -31,7 +31,7 @@ class ExternalPages
 
     path = config[page]
 
-    unless AppConfig['supported_localizations'].blank?
+    unless AppConfig['SupportedLocalizations'].blank?
       full_path = "#{base}/#{I18n.locale}/#{path}"
     else
       full_path = "#{base}/#{path}"
@@ -49,7 +49,7 @@ class ExternalPages
   end
 
   def self.key(name)
-    unless AppConfig['supported_localizations'].blank?
+    unless AppConfig['SupportedLocalizations'].blank?
       "ep.#{name}.#{I18n.locale}"
     else
       "ep.#{name}"

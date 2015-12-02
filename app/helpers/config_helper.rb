@@ -11,8 +11,8 @@ module ConfigHelper
   end
 
   def alternate_localizations
-    unless AppConfig['supported_localizations'].blank?
-      AppConfig['supported_localizations']
+    unless AppConfig['SupportedLocalizations'].blank?
+      AppConfig['SupportedLocalizations']
         .select {|l| l['code'] != I18n.locale.to_s }
         .map do |l|
           alt_url = params.merge({:locale => l['code']})
@@ -34,7 +34,7 @@ module ConfigHelper
         unless link_text.is_a?(String)
           Rails.logger.warn "Unexpected text value for subfooter_link #{link['url']}: #{link_text}"
         end
-        unless AppConfig['supported_localizations'].blank?
+        unless AppConfig['SupportedLocalizations'].blank?
           link_text = I18n.t(link_text)
         end
         { text: link_text, url: link['url'] }

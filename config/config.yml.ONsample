@@ -74,7 +74,7 @@ enable_faq_header_link: false
 # List of subfooter links to show below main footer.
 # Each footer item needs url and text values.
 #
-# If supported_localizations are provided, the text key should be
+# If SupportedLocalizations are provided, the text key should be
 # an identifier for a localized string.
 subfooter_links:
   - url:  '/'
@@ -99,7 +99,7 @@ subfooter_links:
 # will be added to the header menu.
 #
 # The first localization provided is the default.
-supported_localizations: 
+SupportedLocalizations:
   - name: 'English'
     code: 'en'
   - name: 'Francais'
@@ -249,7 +249,7 @@ customization:
   state_absentee_pdf:     Portal_PDF_State_Absentee_Request.pdf
 
 # Static page mapping
-# If supported_localizations are provided, the localization code
+# If SupportedLocalizations are provided, the localization code
 # will be appended to url_base. For example, public/static would
 # become public/static/en.
 static_pages:

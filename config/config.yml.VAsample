@@ -75,7 +75,7 @@ enable_faq_header_link: true
 # List of subfooter links to show below main footer.
 # Each footer item needs url and text values.
 #
-# If supported_localizations are provided, the text key should be
+# If SupportedLocalizations are provided, the text key should be
 # an identifier for a localized string.
 subfooter_links:
   - url:  '/'
@@ -107,7 +107,7 @@ subfooter_links:
 #
 # The first localization in the array will be the default when
 # a user visits the front page of the application.
-supported_localizations: []
+SupportedLocalizations: []
 
 
 
@@ -255,7 +255,7 @@ customization:
 
 
 # Static page mapping
-# If supported_localizations are provided, the localization code
+# If SupportedLocalizations are provided, the localization code
 # will be appended to url_base. For example, public/static would
 # become public/static/en.
 static_pages:
