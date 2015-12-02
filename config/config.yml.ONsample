@@ -76,7 +76,7 @@ enable_faq_header_link: false
 #
 # If SupportedLocalizations are provided, the text key should be
 # an identifier for a localized string.
-subfooter_links:
+SubfooterLinks:
   - url:  '/'
     text: 'subfooter.home'
   - url:  '/about'

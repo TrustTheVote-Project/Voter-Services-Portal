@@ -24,8 +24,8 @@ module ConfigHelper
   end
   
   def subfooter_links
-    unless AppConfig['subfooter_links'].blank?
-      AppConfig['subfooter_links'].map do |link|
+    unless AppConfig['SubfooterLinks'].blank?
+      AppConfig['SubfooterLinks'].map do |link|
         if link['url'].blank?
           Rails.logger.warn "No url provided for subfooter_link #{link}"
           next nil
