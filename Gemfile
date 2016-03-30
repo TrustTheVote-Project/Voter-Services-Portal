@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.13'
 gem 'rake', '10.0.3'
 
-gem 'mysql2'
+gem 'mysql2', '0.3.20'
 
 # Gems used only for assets and not required
 # in production environments by default.
