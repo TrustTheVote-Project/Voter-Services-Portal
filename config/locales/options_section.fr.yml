@@ -1,0 +1,56 @@
+fr:
+  options:
+    title: Optional Questions
+    description: "Select only applicable options (not required)."
+
+    party_preference:
+      choose_party: "I want to choose a %{entity}."
+      other_party: "%{entity} name"
+      other: Other
+
+    ac:
+      requesting: "I qualify as a protected voter."
+      statement: "I legally qualify to not have my %{address} published on publicly-released voter lists because I or a member of my household"
+      address: You must attach copy of the complaint that you filed
+      mailing_address_label: Mailing Address
+      reasons:
+        LEO: "is an active or retired law enforcement officer, judge, U.S. or Virginia Attorney General attorney"
+        CPO: "have/has a court issued protective order for my benefit"
+        TSC: "have/has a complaint with law enforcement about being threatened or stalked"
+        ACP: "is registered with the Virginia Attorney General's Address Confidentiality Program"
+      type: "As a protected voter, you must supply a mailing address that is either a post office box provided by the United States Postal Service or a commercial mail receiving agency described in the United States Postal Service Domestic Mail Manual commonly referred to as a commercial mailing address."
+
+    domestic:
+      requesting_absentee: I am not able to go to the polls on election day and would like an Absentee Ballot Application.
+      requesting_absentee_info: To apply to vote absentee, you must identify the election for which you are applying.
+      need_assistance: "I have a disability that requires assistance to vote."
+
+    overseas:
+      requesting_absentee: "I will not be able to vote in person."
+
+    rab_election:
+      election: "I am applying to vote absentee in:"
+      election_name: Election name
+      held_on: Held on
+
+    rab_reason:
+      details: "Select only one reason to vote absentee from the list below and include any<br/>required information to support the reason."
+      reason: I am unable to go to the polls on election day because
+      time_start: Time start
+      time_end: Time end
+      street_number: Street number
+      street_name: Street name
+      street_type: Street type
+      apt: "Apt/Lot"
+      city: City
+      state: Province or State
+      zip5: Postal code
+      zip4: Zip4
+      country: Country
+
+    rab_until:
+      service_branch: Service Branch
+      service_id: Service ID
+      rank: "Rank / Grade / Rate"
+    being_official: "I'm interested in being an Election Official on Election Day. Please send me information."
+

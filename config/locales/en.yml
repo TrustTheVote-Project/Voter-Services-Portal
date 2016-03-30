@@ -1,0 +1,60 @@
+en:
+  title: Ontario E-Registration
+  dmvid: Department of Motor Vehicles Identifier or Customer Number
+  ssn:   "Social Security Number"
+  rural: "Check here if Rural Address or Homeless and describe where you reside."
+  optional: "(optional)"
+  overseas_phone: "Up to 20 digits, with space or dashes allowed"
+
+  alt:
+    logo: "Ontario E-Registration"
+    download_pdf: "Download your voter registration application as a PDF file."
+
+  identity:
+    no_middle_name: "I do not have a middle name"
+    no_name_suffix: "I do not have a name suffix"
+
+  oath:
+    subheader: ""
+    information_correct: "I swear/affirm, under felony penalty for making willfully false material statements or entries, that the information provided on this form is true."
+    assistance:
+      title: Assistance to Applicant
+      info: "If assistance for signature is provided to applicant due to disability, provide name and address of assistant:"
+
+  submit_paperless:
+    title: Submit Your Application Online
+    subheader: ""
+    details: "<p>Your registration application is ready to be submitted online to your local voter registration office.  You <span class='important'>must</span> click the \"Submit\" button below to complete the registration application.</p><p><strong>Note:</strong> The information you provided during this application has been confirmed with your record at the Department of Motor Vehicles.  By clicking submit, your registration application will be submitted to your local voter registration office along with a digital representation of your signature from the Department of Motor Vehicles.</p>"
+
+  submitted_paperless:
+    title: Registration Submitted
+    subheader: "Your registration application has been submitted."
+    details: "Your application has been submitted to your local voter registration office. You are not officially registered to vote until your application is approved by that office. You should receive a Voter Card in the mail. If you do not receive this acknowledgement within 30 days, contact your voter registration office (displayed below) or the State Board of Elections."
+
+  outside_type:
+    ActiveDutyMerchantMarineOrArmedForces: Active Duty Merchant Marine or Armed Forces
+    SpouseOrDependentActiveDutyMerchantMarineOrArmedForces: Spouse or dependent living with a member of an active duty Merchant Marine or Armed Forces
+    TemporaryResideOutside: Temporarily residing outside U.S.
+    TemporaryResideOutsideSpouse: Temporarily residing outside U.S. for employment, or spouse or dependent residing with employee
+
+  voting_status:
+    residential_voter: "Virginia Residential Voter"
+    overseas: "Overseas/Military Absentee Voter"
+
+  dmv:
+    address_info: "The address shown below is derived from your DMV record. You may correct any inaccurate information."
+
+  nossn: "Without providing your SSN, you will need to print, sign, and mail your application form to your General Registrar, who may reject your application for lack of an SSN. For more information on eligibility, see http://sbe.virginia.gov."
+
+  rab_type:
+    federal: "I would like to vote absentee until %{until}."
+    state: "I would like to request an absentee ballot for the upcoming election."
+
+  subfooter:
+    home: 'Home'
+    about: 'About'
+    faq: 'FAQs'
+    help: 'Help'
+    elections: 'Elections'
+    security: 'Security & Privacy'
+    feedback: 'Feedback'

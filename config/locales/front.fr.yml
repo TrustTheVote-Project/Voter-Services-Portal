@@ -1,0 +1,48 @@
+fr:
+  front:
+    welcome:
+      title: Bienvenue.
+      text:
+        On a créé ce service pour aider tous les habitants<br/>
+        d'Ontario à faire une demande de s'inscrire à voter<br/>
+        et tenir au courant leurs renseignements
+
+    steps:
+      text:
+        <div class='line1'>5</div>
+        <div class='line2'>simple steps</div>
+        <div class='line3'>to register to vote</div>
+      step1: Enter information
+      step2: Download
+      step3: Print
+      step4: Sign &amp; Date
+      step5: Mail
+
+    options:
+      am_registered:
+        title: "<br/>Am I Registered"
+        subtitle: Check Your Elector Record
+        text: Identify yourself to do a lookup in the Register.
+        button: Lookup Now
+      add_to_register:
+        title: "<br/>Add Yourself to the Register"
+        subtitle: Canadian Resident Voter
+        text: Fill out an online form and provide a photo of your documentation.
+        button: Start the Online Form
+      add_to_intl_register:
+        title: "<br/>Add Yourself to the International Register"
+        subtitle: Canadian Forces Members and Canadians Living Abroad
+        text: Fill out an online form and provide a photo of your documentation.
+        button: Start the Online Military/Overseas Form
+      update_information:
+        title: "<br/>Update Your Information on the Register"
+        subtitle: All Registered Ontario Voters
+        text: Identify yourself to do a lookup in the Register, and provide your updated information.
+        button: Start the Online Update
+      removal_from_register:
+        title: "<br/>Removal From the Register"
+        subtitle: All Registered Ontario Voters
+        text: Identify yourself or a deceased elector, and complete the online form.
+        button: Lookup Now
+    deadline: ""
+

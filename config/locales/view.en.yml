@@ -1,0 +1,76 @@
+en:
+  view:
+    head:
+      no_forms:
+        title: Your Voter Information
+        description: You are registered to vote in Virginia. You can see your voter information below.
+      forms:
+        title: View &amp; Update
+        description: >
+          View your Voter Information and Update your Voting Status.
+          If this is not you, please go back to the previous page, and correct your personal information.
+
+    title: Voter Information
+    info: 'Your voter record is shown below, along with several kinds of additional information that you can view by clicking "SHOW"'
+
+    absentee_status:
+      title: Absentee Status
+      none: You have no pending absentee requests for upcoming elections.
+      request:
+        VoterRegistration: Voter Registration
+        VoterRegistrationAbsenteeRequest: Absentee Request
+        VoterRecordUpdate: Voter Registration
+        VoterRecordUpdateAbsenteeRequest: Absentee Request
+        AbsenteeRequest: Absentee Request
+        AbsenteeBallot: Absentee Ballot
+        ProvisionalBallot: ProvisionalBallot
+        PollBookEntry: Poll Book Entry
+        VoterCard: Voter Card
+      action:
+        identify: Identify
+        start: Start
+        discard: Discard
+        complete: Complete
+        submit: Submit Online
+        receive: Receive
+        approve: Approve
+        reject: Reject
+        sentToVoter: Sent To Voter
+        returnedUndelivered: Returned Undelivered
+      notes:
+        acceptReactivate: Accept
+        acceptDuplicate: Accept
+        acceptTransferIn: Accept
+        rejectLate: Late
+        rejectUnsigned: Unsigned
+        rejectIncomplete: Incomplete
+        rejectFelonyConviction: Felony Conviction
+        rejectIneligible: Ineligible
+        rejectPreviousVoteAbsentee: Previous Absentee Ballot
+        rejectPreviousVote: Voted In Person
+        postalReceived: Received via Post
+        personalReceived: Delivered in Person
+        faxReceived: Received via Fax
+        postalSent: Sent via Post
+        emailSent: Sent via Email
+        faxSent: Sent vai Fax
+        personalSent: Delivered in Person
+        onlineVoterReg: Online Voter Registration
+        onlineBalloting: Online Ballot
+      formnotes:
+        handMarked: Hand-Marked
+        onlineGenerated: Generated Online
+        FPCA: FPCA
+        FWAB: FWAB
+        trackingCodeNone: No Tracking Code
+        trackingCodeMatch: Matched Tracking Code
+        trackingCodeNoMatch: No Match of Tracking Code
+    my_ballot:
+      title: My Ballot
+      none: Ballot information is not yet available for upcoming elections.
+      prompt: "You can view your ballot for the following upcoming elections:"
+    voting_location:
+      title: Voting Location
+    electoral_board_contacts:
+      title: Locality Electoral Board Contact Information
+
