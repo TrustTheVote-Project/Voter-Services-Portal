@@ -33,6 +33,11 @@ module VaVote
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
+    if custom = ENV['SAMPLE_DEPLOY_TARGET']
+      config.i18n.load_path += Dir[Rails.root.join('config', "locales-#{custom}sample", '*.{rb,yml}').to_s]
+    end
+
+
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
