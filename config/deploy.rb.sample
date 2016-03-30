@@ -5,7 +5,9 @@ def sample_deploy_domain
   when "VA"
     "ec2-184-73-108-219.compute-1.amazonaws.com"
   when "ON"
-    "ec2-54-205-167-214.compute-1.amazonaws.com"
+    "ec2-54-211-200-213.compute-1.amazonaws.com"
+  when "RI"
+    "ec2-54-205-215-73.compute-1.amazonaws.com"
   else
     ""
   end
@@ -15,7 +17,7 @@ def sample_deploy_key
   case ENV['SAMPLE_DEPLOY_TARGET']
   when "VA"
     "oset-vaconfigdemo.pem"
-  when "ON"
+  when "ON", "RI"
     "oset-on-demo.pem"
   else
     "osdv.pem"
@@ -82,17 +84,10 @@ namespace :deploy do
 
     
     if ENV['SAMPLE_DEPLOY_TARGET']  #copy repo files into live ones
-      extension = ENV['SAMPLE_DEPLOY_TARGET'] + "sample"
-      run "cp #{latest_release}/config/config.yml.#{extension} #{latest_release}/config/config.yml"
-      run "cp #{latest_release}/config/config_service.yml.#{extension} #{latest_release}/config/config_service.yml"
-      run "cp #{latest_release}/config/config_timely.yml.#{extension} #{latest_release}/config/config_timely.yml"
-      run "cp #{latest_release}/config/config_ovr.yml.#{extension} #{latest_release}/config/config_ovr.yml"
+      # Set the ENV variable on the server
+      run "export SAMPLE_DEPLOY_TARGET=#{ENV['SAMPLE_DEPLOY_TARGET']}"
       
-      #also all the locales content
-      run "rm -f #{latest_release}/config/locales"
-      run "ln -nfs #{latest_release}/config/locales-#{extension} #{latest_release}/config/locales"
-      
-    else #use shared files
+      # use shared files
       run "rm -f #{latest_release}/config/config.yml"
       run "ln -nfs #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
 
