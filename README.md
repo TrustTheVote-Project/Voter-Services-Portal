@@ -114,6 +114,10 @@ the remote server.
 
           https://wscp.sbe.virginia.gov/.../v1/YOUR_KEY
 
+  * Optionally set an ENV var, or use a prefix for the deploys. E.g:
+  
+      $ SAMPLE_DEPLOY_TARGET=VA cap deploy
+
   * Make the initial deployment with:
 
       $ cap deploy:cold

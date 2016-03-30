@@ -25,7 +25,7 @@ def sample_deploy_key
 end
 
 def sample_deploy_branch
-  "master"
+  "ri_demo"
 end
 
 # Location configuration
@@ -85,22 +85,21 @@ namespace :deploy do
     
     if ENV['SAMPLE_DEPLOY_TARGET']  #copy repo files into live ones
       # Set the ENV variable on the server
+      # TODO this doesn't actually keep the value set :(
       run "export SAMPLE_DEPLOY_TARGET=#{ENV['SAMPLE_DEPLOY_TARGET']}"
-      
-      # use shared files
-      run "rm -f #{latest_release}/config/config.yml"
-      run "ln -nfs #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
-
-      run "rm -f #{latest_release}/config/config_service.yml"
-      run "ln -nfs #{shared_path}/config/config_service.yml  #{latest_release}/config/config_service.yml"
-
-      run "rm -f #{latest_release}/config/config_timely.yml"
-      run "ln -nfs #{shared_path}/config/config_timely.yml  #{latest_release}/config/config_timely.yml"
-
-      run "rm -f #{latest_release}/config/config_ovr.yml"
-      run "ln -nfs #{shared_path}/config/config_ovr.yml  #{latest_release}/config/config_ovr.yml"      
     end
-    
+    # use shared files
+    run "rm -f #{latest_release}/config/config.yml"
+    run "ln -nfs #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
+
+    run "rm -f #{latest_release}/config/config_service.yml"
+    run "ln -nfs #{shared_path}/config/config_service.yml  #{latest_release}/config/config_service.yml"
+
+    run "rm -f #{latest_release}/config/config_timely.yml"
+    run "ln -nfs #{shared_path}/config/config_timely.yml  #{latest_release}/config/config_timely.yml"
+
+    run "rm -f #{latest_release}/config/config_ovr.yml"
+    run "ln -nfs #{shared_path}/config/config_ovr.yml  #{latest_release}/config/config_ovr.yml"      
     
     
   end
