@@ -100,10 +100,6 @@ SubfooterLinks:
 #
 # The first localization provided is the default.
 SupportedLocalizations:
-  - name: 'English'
-    code: 'en'
-  - name: 'Francais'
-    code: 'fr'
 
 
 ################
@@ -239,8 +235,8 @@ xml:
 
 customization:
   # Custom CSS overrides. Can be an absolute http://... URL.
-  application_css:        '/ONsample_static_content/application_css.css'
-  mobile_css:             '/ONsample_static_content/mobile_css.css'
+  application_css:        '/RIsample_static_content/application_css.css'
+  mobile_css:             '/RIsample_static_content/mobile_css.css'
 
   # Absolute filesystem paths to PDF files to overrides. Blank for defaults.
   absentee_request_pdf:   Portal_PDF_sbe_absentee_request.pdf
@@ -253,7 +249,7 @@ customization:
 # will be appended to url_base. For example, public/static would
 # become public/static/en.
 static_pages:
-  url_base:               public/ONsample_static_content
+  url_base:               public/RIsample_static_content
   about:                  about.htm
   about_registration:     about_registration.htm
   about_update_absentee:  about_update_absentee.htm
