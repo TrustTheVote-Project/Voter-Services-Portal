@@ -1,0 +1,21 @@
+en:
+  front:
+    welcome:
+      title: Rhode Island E-Registration.
+      text:
+        We've created this service to help all Rhode Island<br/>
+        residents apply to register to vote and<br/>
+        keep their voter information up-to-date.
+
+    options:
+      am_registered:
+        subtitle: Check Your Registration Record
+      add_to_register:
+        subtitle: Rhode Island Resident Voter
+      add_to_intl_register:
+        subtitle: US Forces Members and Living Abroad
+      update_information:
+      removal_from_register:
+        subtitle: All Registered R.I. Voters
+    deadline: ""
+
