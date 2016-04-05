@@ -11,7 +11,6 @@
 /vendor/bundle
 
 /config/database.yml
-/config/config*.yml
 /config/deploy.rb
 /config/deploy.*.rb
 /db/*.sqlite3

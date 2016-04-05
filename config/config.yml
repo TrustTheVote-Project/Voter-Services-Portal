@@ -12,14 +12,10 @@
 # Enable DMV ID submission
 enable_dmv_id_submission: true
 
-# Enables real DMV ID lookups
-enable_dmvid_lookup: true
-
-# Enable/disable the pre-population of residence address fields from DMV address, if available
-enable_dmv_address_display: true
 
 # Enables posting EML310 data
 enable_eml_post: true
+
 
 # Enables integration with external ballot service
 enable_online_balloting: true
@@ -50,13 +46,7 @@ enable_uocava_new_registration: true
 # Toggles forms functionality: false = perform the forms functionality
 enable_forms: true
 
-# Enable/disable the presentation of absentee options 
-# to user in the domestic workflow for new registrations 
-enable_absentee_option_domestic_new: false
 
-# Enable/disable the presentation of absentee options
-# to user in the domestic workflow for update existing registrations 
-enable_absentee_option_domestic_update: false
 
 
 ################
@@ -73,8 +63,7 @@ autocomplete: off
 # Minutes given to finish registration / update form
 form_expiry: 60
 
-# Require the sign off of the privacy act page before some actions
-show_privacy_act_page: true
+
 
 # Show home link in page headers
 enable_home_header_link: true
@@ -82,8 +71,9 @@ enable_home_header_link: true
 # Show FAQ link in page headers
 enable_faq_header_link: true
 
+
 # List of subfooter links to show below main footer.
-# Each footer item needs url and text keys.
+# Each footer item needs url and text values.
 #
 # If SupportedLocalizations are provided, the text key should be
 # an identifier for a localized string.
@@ -103,6 +93,7 @@ SubfooterLinks:
   - url:  '/feedback'
     text: 'Feedback'
 
+
 # When provided, users can select between multiple localizations.
 # When a localization is enabled, strings in the app will be localized,
 # localized external pages will be fetched, the application's URLs will
@@ -118,6 +109,9 @@ SubfooterLinks:
 # a user visits the front page of the application.
 SupportedLocalizations: []
 
+
+
+
 ################
 ## Configuration keys that toggle the user-visible behavior of 
 ## the home page
@@ -129,41 +123,12 @@ SupportedLocalizations: []
 # TBD: should be enable_home_page_update_right
 enable_home_page_update_right: false
 
+
 # Home page stacked layout
 # true = each homepage option is laid out in a full-width row, stacked vertically
 # false = original layout, with each front-page option occupying a column in a 3 column layout
 enable_home_page_stacked_layout: false
 
-#################
-## Configuration keys that toggle the user-visible behavior of 
-## the eligibility dialog
-##
-
-# Show age checkbox on eligibility screen (if not shown, the age eligibility attribue defaults to TRUE)
-collect_eligibility_18: true
-
-# When FALSE, showing the explanation page to ineligible
-allow_ineligible_to_complete_form: false
-
-# When true we don't ask a top-level rights question on the eligibility page
-enable_expanded_felony_mental_eligibility: true
-
-# TRUE to place SSN / DMVID / DOB on eligibility page, FALSE -- on identity
-personal_data_on_eligibility_page: true
-
-# Require SSN field to be present on eligibility screen (both registration and update)
-#   true = users who don't provide SSN are treated as ineligible
-#   false = users who don't provide SSN are allowed to continue to register
-ssn_required: false
-
-# Length of DMV ID field
-state_id_length:
-  min: 9
-  max: 12
-
-# When false, DMV ID entry field is optional
-# TBD: require_dmv_id: true
-require_dmv_id: true
 
 
 ################
@@ -208,20 +173,6 @@ rural_address_length: 80
 enable_uocava_end_date_choice: false
 
 
-################
-## Configuration keys that toggle the user-visible behavior of 
-## the page that displays voter info for user confirmation
-## before proceeding to conclusion of the session
-##
-
-# When TRUE "edit" links are placed on the far right in the confirmation table
-confirmation_table_right_justify: false
-
-# Width of the labels column on confirm page (in px)
-confirmation_table_labels_width: 224
-
-# Show voting status on confirmation page
-enable_confirm_voting_status_display: false
 
 
 ################
@@ -293,8 +244,8 @@ xml:
 
 customization:
   # Custom CSS overrides. Can be an absolute http://... URL.
-  application_css:        custom_application.css
-  mobile_css:             custom_mobile.css
+  # application_css:        custom_application.css
+  # mobile_css:             custom_mobile.css
 
   # Absolute filesystem paths to PDF files to overrides. Blank for defaults.
   absentee_request_pdf:   Portal_PDF_sbe_absentee_request.pdf
@@ -302,12 +253,13 @@ customization:
   domestic_pdf:           Portal_PDF_sbe_voter_app.pdf
   state_absentee_pdf:     Portal_PDF_State_Absentee_Request.pdf
 
+
 # Static page mapping
 # If SupportedLocalizations are provided, the localization code
 # will be appended to url_base. For example, public/static would
 # become public/static/en.
 static_pages:
-  url_base:
+  url_base:               public/VAsample_static_content
   about:                  about.htm
   about_registration:     about_registration.htm
   about_update_absentee:  about_update_absentee.htm
@@ -322,4 +274,3 @@ static_pages:
   privacy_act_notice:     privacyactnotice.htm
   proof_of_identity:      proof-of-identity.htm
   security_privacy:       security-privacy.htm
-
