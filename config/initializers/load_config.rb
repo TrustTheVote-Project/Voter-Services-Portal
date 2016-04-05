@@ -1,5 +1,7 @@
 def load_config(name)
-  config = YAML.load_file(File.join(Rails.root, 'config', name))
+  file_name = File.join(Rails.root, 'config', name)
+  return nil if !File.exists?(file_name)
+  config = YAML.load_file(file_name) || {}
   env_config = config.delete(Rails.env)
   config.merge!(env_config) unless env_config.nil?
   config
