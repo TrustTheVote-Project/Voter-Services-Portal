@@ -1,5 +1,5 @@
 en:
-  title: Ontario E-Registration
+  title: Virginia Voter Registration
   dmvid: Department of Motor Vehicles Identifier or Customer Number
   ssn:   "Social Security Number"
   rural: "Check here if Rural Address or Homeless and describe where you reside."
@@ -7,7 +7,7 @@ en:
   overseas_phone: "Up to 20 digits, with space or dashes allowed"
 
   alt:
-    logo: "Ontario E-Registration"
+    logo: "Virginia State Board of Elections"
     download_pdf: "Download your voter registration application as a PDF file."
 
   identity:
@@ -49,12 +49,3 @@ en:
   rab_type:
     federal: "I would like to vote absentee until %{until}."
     state: "I would like to request an absentee ballot for the upcoming election."
-
-  subfooter:
-    home: 'Home'
-    about: 'About'
-    faq: 'FAQs'
-    help: 'Help'
-    elections: 'Elections'
-    security: 'Security & Privacy'
-    feedback: 'Feedback'
