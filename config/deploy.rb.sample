@@ -3,11 +3,11 @@ require 'sidekiq/capistrano'
 def sample_deploy_domain
   case ENV['SAMPLE_DEPLOY_TARGET']
   when "VA"
-    "ec2-184-73-108-219.compute-1.amazonaws.com"
+    "54.243.43.115"
   when "ON"
-    "ec2-54-211-200-213.compute-1.amazonaws.com"
+    "54.235.245.205"
   when "RI"
-    "ec2-54-205-215-73.compute-1.amazonaws.com"
+    "54.225.97.231"
   else
     ""
   end
@@ -89,17 +89,17 @@ namespace :deploy do
       run "export SAMPLE_DEPLOY_TARGET=#{ENV['SAMPLE_DEPLOY_TARGET']}"
     end
     # use shared files
-    run "rm -f #{latest_release}/config/config.yml"
-    run "ln -nfs #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
-
-    run "rm -f #{latest_release}/config/config_service.yml"
-    run "ln -nfs #{shared_path}/config/config_service.yml  #{latest_release}/config/config_service.yml"
-
-    run "rm -f #{latest_release}/config/config_timely.yml"
-    run "ln -nfs #{shared_path}/config/config_timely.yml  #{latest_release}/config/config_timely.yml"
-
-    run "rm -f #{latest_release}/config/config_ovr.yml"
-    run "ln -nfs #{shared_path}/config/config_ovr.yml  #{latest_release}/config/config_ovr.yml"      
+    # run "rm -f #{latest_release}/config/config.yml"
+    # run "ln -nfs #{shared_path}/config/config.yml #{latest_release}/config/config.yml"
+    #
+    # run "rm -f #{latest_release}/config/config_service.yml"
+    # run "ln -nfs #{shared_path}/config/config_service.yml  #{latest_release}/config/config_service.yml"
+    #
+    # run "rm -f #{latest_release}/config/config_timely.yml"
+    # run "ln -nfs #{shared_path}/config/config_timely.yml  #{latest_release}/config/config_timely.yml"
+    #
+    # run "rm -f #{latest_release}/config/config_ovr.yml"
+    # run "ln -nfs #{shared_path}/config/config_ovr.yml  #{latest_release}/config/config_ovr.yml"
     
     
   end
