@@ -10,7 +10,7 @@
 ##
 
 # Enable DMV ID submission
-enable_dmv_id_submission: true
+enable_dmv_id_submission: false
 
 
 # Enables posting EML310 data
@@ -66,10 +66,10 @@ form_expiry: 60
 
 
 # Show home link in page headers
-enable_home_header_link: true
+enable_home_header_link: false
 
 # Show FAQ link in page headers
-enable_faq_header_link: true
+enable_faq_header_link: false
 
 
 # List of subfooter links to show below main footer.
@@ -79,19 +79,19 @@ enable_faq_header_link: true
 # an identifier for a localized string.
 SubfooterLinks:
   - url:  '/'
-    text: 'Home'
+    text: 'subfooter.home'
   - url:  '/about'
-    text: 'About'
+    text: 'subfooter.about'
   - url:  '/faq'
-    text: 'FAQs'
+    text: 'subfooter.faq'
   - url:  '/help'
-    text: 'Help'
+    text: 'subfooter.help'
   - url:  '/elections'
-    text: 'Elections'
+    text: 'subfooter.elections'
   - url:  '/security'
-    text: 'Security & Privacy'
+    text: 'subfooter.security'
   - url:  '/feedback'
-    text: 'Feedback'
+    text: 'subfooter.feedback'
 
 
 # When provided, users can select between multiple localizations.
@@ -127,7 +127,7 @@ enable_home_page_update_right: false
 # Home page stacked layout
 # true = each homepage option is laid out in a full-width row, stacked vertically
 # false = original layout, with each front-page option occupying a column in a 3 column layout
-enable_home_page_stacked_layout: false
+enable_home_page_stacked_layout: true
 
 
 

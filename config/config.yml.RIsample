@@ -1,2 +1,6 @@
+customization:
+  # Custom CSS overrides. Can be an absolute http://... URL.
+  application_css:        '/RIsample_static_content/application_css.css'
+
 static_pages:
   url_base:               public/RIsample_static_content

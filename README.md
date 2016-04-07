@@ -52,6 +52,11 @@ Installation
 
         $ rails server
 
+* Or for a specific config target:
+
+        $ 
+
+
 
 Testing
 ------------------------

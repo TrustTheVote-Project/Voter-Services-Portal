@@ -1,10 +1,10 @@
 en:
   front:
     welcome:
-      title: Welcome.
+      title: DEMO E-Registration.
       text:
-        We've created this service to help all Virginians<br/>
-        to apply to register to vote and<br/>
+        We've created this service to help all<br/>
+        residents apply to register to vote and<br/>
         keep their voter information up-to-date.
 
     steps:
@@ -18,22 +18,31 @@ en:
       step4: Sign &amp; Date
       step5: Mail
 
-
     options:
-      residential:
-        title: "<br/>Apply to Register to Vote"
-        subtitle: Residential Voter
-        text: I am a Virginia resident. I am not registered to vote in Virginia and I want to apply to register to vote.
-      overseas:
-        title: "<br/>Overseas or Military"
-        subtitle: Overseas or Military Voter
-        text: I am an active member of the Uniformed Services, the Merchant Marine, a family member, or a citizen of the United States, residing outside of the United States, and I want to register to vote absentee on election day.
-      update:
-        title: Update Current Voter Registration
-        subtitle: View and Update Voter Record
-        text: I am already registered to vote in Virginia and want to view and apply to update my Voter Record.
-      request_absentee:
-        subtitle: ""
-        text: ""
+      am_registered:
+        title: "<br/>Am I Registered"
+        subtitle: Check Your Record
+        text: Identify yourself to do a lookup in the voter regeister.
+        button: Lookup Now
+      add_to_register:
+        title: "<br/>Register to vote"
+        subtitle: Resident Voter
+        text: Fill out an online form and provide a photo of your documentation.
+        button: Start the Online Form
+      add_to_intl_register:
+        title: "<br/>Add Yourself to the International Register"
+        subtitle: Canadian Forces Members and Canadians Living Abroad
+        text: Fill out an online form and provide a photo of your documentation.
+        button: Start the Online Military/Overseas Form
+      update_information:
+        title: "<br/>Update Your Information on the Register"
+        subtitle: All Registered Ontario Voters
+        text: Identify yourself to do a lookup in the Register, and provide your updated information.
+        button: Start the Online Update
+      removal_from_register:
+        title: "<br/>Removal From the Register"
+        subtitle: All Registered Ontario Voters
+        text: Identify yourself or a deceased elector, and complete the online form.
+        button: Lookup Now
     deadline: ""
 
