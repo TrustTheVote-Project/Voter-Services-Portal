@@ -5,7 +5,7 @@ show_privacy_act_page: true
 # Serves as a handy emergency off switch in situations where the DMV back-end
 # integration is not working right.
 EnableDigitalService: true
-EnablePaperService: true
+EnablePaperService: false
 
 
 #################
@@ -15,10 +15,10 @@ EnablePaperService: true
 
 Eligibility:
   # When precheck is false, does not lookup user data based on IDs (and therefore does not check for eligibility)
-  PreCheckForPaperless: true # was enable_dmvid_lookup
-  SingleStatement: false # Skip all the other eligibilty checks and ask a single question to attest user's eligibility
+  PreCheckForPaperless: false # was enable_dmvid_lookup
+  SingleStatement: true # Skip all the other eligibilty checks and ask a single question to attest user's eligibility
   Age18: false # Show age checkbox on eligibility screen (if not shown, the age eligibility attribue defaults to TRUE)
-  CombineWithIdentity: false #Show eligibility and identity in one page, usually when there are few eligibility questions
+  CombineWithIdentity: true #Show eligibility and identity in one page, usually when there are few eligibility questions
   CollectPersonalData: true #actually force to false when ComineWithIdentity is true
   
   
@@ -46,19 +46,11 @@ state_id_length:
 require_dmv_id: true
 
 
-
-
-
-
-
-
 # Enable/disable the pre-population of residence address fields from DMV address, if available
 enable_dmv_address_display: true
 
-
 Identity:
-  IncludeProtectedVoterBlock: true
-
+  IncludeProtectedVoterBlock: false
 
 
 # Enable/disable the presentation of absentee options 
@@ -88,6 +80,7 @@ enable_confirm_voting_status_display: false
 
 
 
+
 ################
 ## Configuration keys that toggle the user-visible behavior of 
 ## the page that displays the oath
@@ -98,7 +91,10 @@ enable_confirm_voting_status_display: false
 
 Completion:
   IncludeAttestation: true
-  CombineAttestationWithConfirmation: false
+  CombineAttestationWithConfirmation: true
   Assistance:
-    Paperless: true
-    Paper: true
+    Paperless: false
+    Paper: false
+
+
+
