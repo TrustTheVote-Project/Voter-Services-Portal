@@ -1,18 +1,18 @@
 - updating ||= false
+- if any_options?(updating)
+  #options.section{ 'data-bind' => 'vis: page() == "options"' }
+    .head
+      %h3= raw t 'options.title'
+      .description= raw t 'options.description'
 
-#options.section{ 'data-bind' => 'vis: page() == "options"' }
-  .head
-    %h3= raw t 'options.title'
-    .description= raw t 'options.description'
+    .partition
+      - unless AppConfig['collect_absentee_party_preference_only_absentee']
+        = render partial: 'registrations/party_preference', locals: { f: f }
 
-  .partition
-    - unless AppConfig['collect_absentee_party_preference_only_absentee']
-      = render partial: 'registrations/party_preference', locals: { f: f }
+    = hidden_field_tag 'registration[be_official]', '0', id: nil
+    = render partial: 'domestic_options', locals: { f: f, updating: updating }
+    = render partial: 'overseas_options', locals: { f: f, updating: updating }
 
-  = hidden_field_tag 'registration[be_official]', '0', id: nil
-  = render partial: 'domestic_options', locals: { f: f, updating: updating }
-  = render partial: 'overseas_options', locals: { f: f, updating: updating }
-
-  .form-actions
-    = button_tag 'Next', class: 'next bt', 'data-bind' => 'click: nextFromOptions, css: { disabled: optionsInvalid }'
-    = button_tag 'Back', class: 'back bt', 'data-bind' => 'click: prevPage'
+    .form-actions
+      = button_tag 'Next', class: 'next bt', 'data-bind' => 'click: nextFromOptions, css: { disabled: optionsInvalid }'
+      = button_tag 'Back', class: 'back bt', 'data-bind' => 'click: prevPage'

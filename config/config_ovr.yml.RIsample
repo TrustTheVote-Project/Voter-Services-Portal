@@ -1,0 +1,9 @@
+#################
+## Configuration keys that toggle the user-visible behavior of 
+## the eligibility dialog
+##
+
+Eligibility:
+  CombineWithIdentity: false #Show eligibility and identity in one page, usually when there are few eligibility questions
+  
+  

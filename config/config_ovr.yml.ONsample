@@ -1,0 +1,5 @@
+# Enable/disable the needs-assitance option
+enable_need_assistance_option: false
+
+# Enable/disable the volunteer option
+enable_volunteer_option: false

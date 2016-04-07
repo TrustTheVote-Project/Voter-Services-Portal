@@ -53,6 +53,12 @@ Identity:
   IncludeProtectedVoterBlock: false
 
 
+# Enable/disable the needs-assitance option
+enable_need_assistance_option: true
+
+# Enable/disable the volunteer option
+enable_volunteer_option: true
+
 # Enable/disable the presentation of absentee options 
 # to user in the domestic workflow for new registrations 
 enable_absentee_option_domestic_new: false

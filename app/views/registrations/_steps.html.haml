@@ -1,4 +1,5 @@
 - complete ||= false
+- updating ||= false
 .row#steps
   .span2{ class: complete ? nil : 'current', 'data-bind' => "attr: { 'class': stepClass(step(), 1) }" }
     %h2 Eligibility
@@ -8,9 +9,10 @@
 
   .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 3) }" }
     %h2 Addresses
-
-  .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 4) }" }
-    %h2 Optional Questions
+  
+  - if any_options?(updating)
+    .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 4) }" }
+      %h2 Optional Questions
 
   .span2{ class: complete ? 'current' : nil, 'data-bind' => "attr: { 'class': stepClass(step(), 5, 'span2 last') }" }
     %h2 Complete
