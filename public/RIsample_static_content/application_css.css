@@ -9,11 +9,23 @@ $text: #666666
 */
 @import url(https://fonts.googleapis.com/css?family=Arimo:400,700);
 
+.bkg-img {
+    position: fixed;
+    top: 0;
+    display: none;
+    width: 100%;
+    height: 100%;
+    opacity: .8;
+    z-index: -1;
+}
+
+
 body {
   color: #666666;
   color: black;
   font-family: Arial;
   font-size: 10pt;
+  margin-bottom: 62px;
 }
 
 body .container {
@@ -21,34 +33,37 @@ body .container {
   max-width: 960px;
 }
 
-h1,h2,h3,h4,h5,h6 {
-  font-family: Arimo;
-}
 
-
-body #header, body #header h1 {
-    background: rgba(26, 76, 129, 1) ;
-    color: white ;
-    font-size: 18px;
-    font-family: Arial;
-    float: none;
-    text-align: left;
-    height: auto;
+body #header {
+  background: rgba(26, 76, 129, 1) ;
+  background-image: url('/RIsample_static_content/ri_logo.png') ;
+  background-size: 50px 50px;
+  background-position: 55px 10px;
+  background-repeat: no-repeat;
+  margin: 0;
+  padding: 0;
+  height: 100px;
 }
 
 body #header h1 {
-  float: left;
+    color: white ;
+    font-size: 15px;
+    font-family: Arial;
+    float: left;
+    margin: 10px;
+    text-align: left;
+    height: auto;    
 }
+
 body #header h1 span {
   display: block;
   line-height: 1.4em;
 }
 body #header h1 span.title {
-  font-size: 1.6em;
+  font-size: 26px;
 }
 
 body #header h1 span.title-sub {
-  font-size: .9em;
 }
 body #header h1 span a {
   color: white;
@@ -59,11 +74,12 @@ body #header h1 span a:hover {
 
 body #header .img_logo {
     float: left;
-    background: url('/RIsample_static_content/ri_logo.png') ;
-    background-size: 100% ;
+    background: url('/RIsample_static_content/sos-header-photo.png') ;
     margin: 0 15px 0 5px;
-    height: 90px;
-    width: 90px;
+    background-size: 80px 80px;
+    height: 100px;
+    background-position: left bottom;
+    background-repeat: no-repeat;
     left: 0;
 }
 
@@ -75,26 +91,23 @@ body #menu, body #menu a {
 
 
 body .content > #hero {
-    background: url('/ONsample_static_content/breadcrumb-background.jpg') no-repeat center center fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+  background: white;
 }
 
 body #hero {
-    color: #fff;
-    font-size: 12pt;
-    padding: 0 10%; 
+  padding: 1.5em;
 }
+
+
 
 body #hero h2 {
     margin-top: 1em;
-    margin-bottom: 1em;
-    color: #fdd202;
-    font-size: 16pt;
-    font-size: 20pt;
-    line-height: 1em;
+    margin-bottom: 0;
+    padding-bottom: .5em;
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    font-size: 37px;
+    font-weight: normal;
 }
 
 
@@ -119,8 +132,8 @@ body .content .options h3, body#front .content .options h3 {
   padding: 0;
   margin: 1em 0 .6em;
   border: 0;
-  color: #fdd202;
-  font-family: Arimo;
+  color: rgb(12, 61, 111);
+  font-family: Arial;
 }
 body .content .options h4, body#front .content .options h4 {
   display: none;
@@ -239,15 +252,20 @@ body .content .options .bt {
 .row .span9 {
   width: 60%;
 }
+#steps .done {
+  /* background: ;  */
+}
 
-
+#steps .done h2 {
+    color: #298DCB;
+}
 
 body#registration #steps .current, #steps .current {
-  background: url('/ONsample_static_content/current-step.jpg') #fdd202 no-repeat right top;
-  
+ /*  background: url('/VAsample_static_content/current-step.jpg') #fdd202 no-repeat right top; */
 }
+
 body#registration #steps .current h2, #steps .current h2 {
-  color: black;
+  color: white;
 }
 
 body#registration .section .head h3, .section .head h3 {
@@ -257,13 +275,13 @@ body#registration .section .head h3, .section .head h3 {
   padding: 0;
   margin: 1em 0 .6em;
   border: 0;
-  color: #fdd202;
+  color: rgb(12, 61, 111);
   font-family: Arimo;
 }
 
 body#registration .bt {
-  background-color: #fdd202;
-  color: black;
+  background-color: rgb(12, 61, 111);
+  color: white;
   
   -webkit-box-shadow: 0 1px 2px rgba(195, 170, 51, 0.8);
   -moz-box-shadow: 0 1px 2px rgba(195, 170, 51, 0.8);
@@ -274,7 +292,11 @@ body#registration .bt {
 }
 
 body#registration .bt:hover {
-  background-color: #ffc600;
+  background-color: rgba(12, 61, 111, .6);
+}
+
+body#registration .bt:disabled, body#registration .bt.disabled {
+    background-color: #919498;
 }
 
 body#registration .summary a {
@@ -336,6 +358,42 @@ body#registration .summary a {
 }
 
 #footer {
+  box-sizing: border-box;
+  height: 62px;
   position: fixed;
-  background: ;
+  background-color: rgba(5, 28, 51, 1);
+  color: white;
+  border-top: 1px solid #e5a04e;
+  z-index: 5;
+  bottom: 0;
+  left: 0;
+  padding: 0 10%;
+  width: 100%;
+}
+
+#footer ul.inline-list {
+  margin: 0 auto 1.0625rem auto;
+  margin-left: -1.375rem;
+  margin-right: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+  display: table;
+  vertical-align: middle;
+  width: 100%;
+  text-align: center;
+  
+}
+
+#footer ul.inline-list li {
+  list-style: none;
+  float: left;
+  margin-left: 1.375rem;
+  display: table-cell;
+  float: none;
+  vertical-align: middle;
+}
+
+#footer ul.inline-list li a {
+  color: white;
 }
