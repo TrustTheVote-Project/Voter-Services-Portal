@@ -104,6 +104,15 @@
 
     <!-- /ko -->
 
-  .form-actions
-    = button_tag 'Next', class: 'next bt', 'data-bind' => 'click: nextFromAddress, css: { disabled: addressesInvalid }'
+
+  .form-actions{style: "#{any_options?(updating) ? 'display: none;' : ''}"}
+    = button_tag 'Next', class: 'next right bt', 'data-bind' => 'click: nextFromOptions, css: { disabled: addressesInvalid }'
     = button_tag 'Back', class: 'back bt', 'data-bind' => 'click: prevPage'
+
+
+  .form-actions{style: "#{any_options?(updating) ? '' : 'display: none;'}"}
+    = button_tag 'Next', class: 'next right bt', 'data-bind' => 'click: nextFromAddress, css: { disabled: addressesInvalid }'
+    = button_tag 'Back', class: 'back bt', 'data-bind' => 'click: prevPage'
+
+
+

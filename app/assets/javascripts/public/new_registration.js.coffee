@@ -18,7 +18,8 @@ class NewRegistration extends Registration
     new Popover('#eligibility .next.bt', @eligibilityErrors)
     new Popover('#identity .next.bt', @identityErrors)
     new Popover('#mailing .next.bt', @addressesErrors)
-    new Popover('#options .next.bt', @optionsErrors)
+    if ($("#options .next.bt").length > 0)
+      new Popover('#options .next.bt', @optionsErrors)
     new Popover('#oath .next.bt', @oathErrors)
 
     $(".next.bt").on 'click', (e) ->

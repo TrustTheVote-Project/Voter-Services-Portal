@@ -28,6 +28,10 @@ module FormHelper
     !!app_config["collect_#{field}"]
   end
 
+  def any_options?(updating)
+    AppConfig['OVR']['enable_need_assistance_option'] || AppConfig['OVR']['enable_volunteer_option'] || (updating && AppConfig['OVR']['enable_absentee_option_domestic_update']) || (!updating && AppConfig['OVR']['enable_absentee_option_domestic_new'])
+  end
+
   # Returns the select tags for the date entry and binds them
   def bound_date(f, field, options = {}, html_options = {})
     dts = ActionView::Helpers::DateTimeSelector.new(Date.today)

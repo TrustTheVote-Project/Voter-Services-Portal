@@ -1,5 +1,5 @@
 - requesting_absentee_status = @registration.absentee?
-= render partial: "steps"
+= render partial: "steps", locals: { updating: true }
 
 .row#update_registration
   .padded_page_span

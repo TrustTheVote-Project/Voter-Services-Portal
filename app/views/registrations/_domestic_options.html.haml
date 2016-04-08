@@ -1,21 +1,23 @@
 - updating ||= false
 
 <!-- ko if: domestic -->
-.partition
-  .row
-    .span12
-      .checkbox
-        = f.check_box :need_assistance, 'data-bind' => 'checked: needsAssistance'
-        = f.label :need_assistance do
-          %strong= t 'options.domestic.need_assistance'
+-if AppConfig['OVR']['enable_need_assistance_option']
+  .partition
+    .row
+      .span12
+        .checkbox
+          = f.check_box :need_assistance, 'data-bind' => 'checked: needsAssistance'
+          = f.label :need_assistance do
+            %strong= t 'options.domestic.need_assistance'
 
-.partition
-  .row
-    .span12
-      .checkbox
-        = f.check_box :be_official, autocomplete: ac, 'data-bind' => 'checked: beOfficial'
-        = f.label :be_official do
-          %strong= t 'options.being_official'
+-if AppConfig['OVR']['enable_volunteer_option']
+  .partition
+    .row
+      .span12
+        .checkbox
+          = f.check_box :be_official, autocomplete: ac, 'data-bind' => 'checked: beOfficial'
+          = f.label :be_official do
+            %strong= t 'options.being_official'
 
 - if (updating && AppConfig['OVR']['enable_absentee_option_domestic_update']) || (!updating && AppConfig['OVR']['enable_absentee_option_domestic_new'])
   .partition

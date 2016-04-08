@@ -27,6 +27,7 @@ class ExternalPages
 
     unless config.has_key? page
       Rails.logger.warn "STATIC PAGE: missing config key for #{page}"
+      return ""
     end
 
     path = config[page]

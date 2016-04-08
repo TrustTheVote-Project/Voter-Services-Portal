@@ -10,11 +10,11 @@
 ##
 
 # Enable DMV ID submission
-enable_dmv_id_submission: true
+enable_dmv_id_submission: false
 
 
 # Enables posting EML310 data
-enable_eml_post: true
+enable_eml_post: false
 
 
 # Enables integration with external ballot service
@@ -66,10 +66,10 @@ form_expiry: 60
 
 
 # Show home link in page headers
-enable_home_header_link: true
+enable_home_header_link: false
 
 # Show FAQ link in page headers
-enable_faq_header_link: true
+enable_faq_header_link: false
 
 
 # List of subfooter links to show below main footer.
@@ -79,19 +79,19 @@ enable_faq_header_link: true
 # an identifier for a localized string.
 SubfooterLinks:
   - url:  '/'
-    text: 'Home'
+    text: 'subfooter.home'
   - url:  '/about'
-    text: 'About'
+    text: 'subfooter.about'
   - url:  '/faq'
-    text: 'FAQs'
+    text: 'subfooter.faq'
   - url:  '/help'
-    text: 'Help'
+    text: 'subfooter.help'
   - url:  '/elections'
-    text: 'Elections'
+    text: 'subfooter.elections'
   - url:  '/security'
-    text: 'Security & Privacy'
+    text: 'subfooter.security'
   - url:  '/feedback'
-    text: 'Feedback'
+    text: 'subfooter.feedback'
 
 
 # When provided, users can select between multiple localizations.
@@ -107,7 +107,10 @@ SubfooterLinks:
 #
 # The first localization in the array will be the default when
 # a user visits the front page of the application.
-SupportedLocalizations: []
+SupportedLocalizations:
+  - name: 'English'
+    code: 'en'  
+
 
 
 
@@ -123,12 +126,10 @@ SupportedLocalizations: []
 # TBD: should be enable_home_page_update_right
 enable_home_page_update_right: false
 
-
 # Home page stacked layout
 # true = each homepage option is laid out in a full-width row, stacked vertically
 # false = original layout, with each front-page option occupying a column in a 3 column layout
-enable_home_page_stacked_layout: false
-
+enable_home_page_stacked_layout: true
 
 
 ################
@@ -173,18 +174,21 @@ rural_address_length: 80
 enable_uocava_end_date_choice: false
 
 
-
-
 ################
 ## Configuration keys that toggle the user-visible behavior of 
-## the page that displays the oath
-## at the conclusion of the session
+## the page that displays voter info for user confirmation
+## before proceeding to conclusion of the session
+##
 
-# Shows / hides the assistant details section on oath page
-# separate toggles for paperless OVR vs. requires PDF
-enable_display_assistant_details:
-  paperless: true
-  paper: true
+# When TRUE "edit" links are placed on the far right in the confirmation table
+confirmation_table_right_justify: false
+
+# Width of the labels column on confirm page (in px)
+confirmation_table_labels_width: 224
+
+# Show voting status on confirmation page
+enable_confirm_voting_status_display: false
+
 
 
 ################
@@ -237,7 +241,8 @@ log:
 
 xml:
   source_name: Virginia SBE Voter Services Portal
-
+  
+  
 ################
 ## Configuration keys that control use of external assets
 ##

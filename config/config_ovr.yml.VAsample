@@ -63,11 +63,11 @@ Identity:
 
 # Enable/disable the presentation of absentee options 
 # to user in the domestic workflow for new registrations 
-enable_absentee_option_domestic_new: false
+enable_absentee_option_domestic_new: true
 
 # Enable/disable the presentation of absentee options
 # to user in the domestic workflow for update existing registrations 
-enable_absentee_option_domestic_update: false
+enable_absentee_option_domestic_update: true
 
 
 ################
