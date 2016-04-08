@@ -1,0 +1,12 @@
+en:
+  eligibility:
+    requirements:
+      all_requirements:
+        question: >
+         I meet all of the following eligibility requirements:
+         <ul>
+         <li>I am a citizen</li>
+         <li>I will be 18 before the election</li>
+         <li>I am a resident of the state of Rhode Island</li>
+         </ul>
+      at_least_16: I am over 16 years of age.

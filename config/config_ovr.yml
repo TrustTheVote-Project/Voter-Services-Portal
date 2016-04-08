@@ -8,12 +8,45 @@ EnableDigitalService: true
 EnablePaperService: false
 
 
-#################
+###################
+## Config Guide 6.1
 ## Configuration keys that toggle the user-visible behavior of 
 ## the eligibility dialog
 ##
 
-Eligibility:
+eligibility:
+  ### This config item turns on the VA-specific eligibility requirements. 
+  ### When true, the remaining eligibility configuration has no effect
+  enable_method_virginia: false
+  # enable_method_STATE_NAME: Potentail future functionality
+  
+  ### When using the default eligibility requirements (i.e. no state-specific eligibility
+  ### method is set to `true` above), the following `requirements` config item
+  ### specifies a list of eligibility keys. Each of these keys will result in presenting the
+  ### user with an interface to confirm that specific eligibility requirement. Each key 
+  ### corresponds to a localization item under the eligibility.requirements namespace.
+  ### If the given key is a string, the user will be presented with a checkbox with
+  ### the string as a lable. If the user checks the box, they are agreeing that they
+  ### meet the stated requirement. By default the box will not be checked.
+  ### If the given key is a hash of further keys, the following
+  ### structure of localiation keys will be assumed:
+  ###     eligibility:
+  ###       requirements:
+  ###         complex_requirement:
+  ###           question: "Do you meet this requirement?"
+  ###           agree: "I meet the complex requirement"
+  ###           disagree: "I do not meet the complex requirement"
+  ###           ineligible: "You must meet this complex requirement to vote"
+  ### When this structure is provided, the user will be present with the text specified by
+  ### `question` followed by a radio button for each of the `agree` and `disagree` statement
+  ### If the user selects the radio button corresponding to the `agree` statement,
+  ### they will be able to vote. If they select the radio button corresponding to the
+  ### `disagree` option, they will be shown the statement specified by `ineligible` if present.
+  ### The `ineligible` key is optional.
+  requirements:
+    - all_requirements
+  
+  
   # When precheck is false, does not lookup user data based on IDs (and therefore does not check for eligibility)
   PreCheckForPaperless: false # was enable_dmvid_lookup
   SingleStatement: true # Skip all the other eligibilty checks and ask a single question to attest user's eligibility

@@ -13,7 +13,8 @@ EnablePaperService: true
 ## the eligibility dialog
 ##
 
-Eligibility:
+eligibility:
+  enable_method_virginia: true
   # When precheck is false, does not lookup user data based on IDs (and therefore does not check for eligibility)
   PreCheckForPaperless: true # was enable_dmvid_lookup
   SingleStatement: false # Skip all the other eligibilty checks and ask a single question to attest user's eligibility

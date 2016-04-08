@@ -1,7 +1,7 @@
 class Registration < ActiveRecord::Base
 
   include Concern::SerializedAttrs
-
+  
   scope :stale, lambda { where([ "created_at < ?", 1.day.ago ]) }
 
   SERVICE_BRANCHES        = [ 'Army', 'Air Force', 'Marines', 'Merchant Marine', 'Navy' ]
@@ -26,6 +26,14 @@ class Registration < ActiveRecord::Base
   serialized_attr :voter_id
 
   # Eligibility
+  
+  ## Define methods based on config
+  if FormsController.helpers.default_eligibility_config?
+    FormsController.helpers.eligibility_config['requirements'].each do |req_key|
+      serialized_attr "eligibility_requirement_#{req_key}"
+    end
+  end
+  
   serialized_attr :citizen, :old_enough, :residence, :eligibility_single_statement
 
   serialized_attr :outside_type
@@ -85,7 +93,7 @@ class Registration < ActiveRecord::Base
 
   # TRUE if new registration is eligible
   def eligible?
-    (self.eligibility_single_statement == 'agree' && AppConfig['OVR']['Eligibility']['SingleStatement']) ||
+    (self.eligibility_single_statement == 'agree' && AppConfig['OVR']['eligibility']['SingleStatement']) ||
     (self.citizen == '1' &&
     self.old_enough == '1' &&
     self.dob.try(:past?) &&

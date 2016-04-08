@@ -1,6 +1,6 @@
 - updating ||= false
 - rj = AppConfig['OVR']['confirmation_table_right_justify']
-- personal_data_link = AppConfig['OVR']['Eligibility']['CollectPersonalData'] && !AppConfig['OVR']['Eligibility']['CombineWithIdentity'] ? '#eligibility' : '#identity'
+- personal_data_link = AppConfig['OVR']['eligibility']['CollectPersonalData'] && !AppConfig['OVR']['eligibility']['CombineWithIdentity'] ? '#eligibility' : '#identity'
 
 - condition = 'page() == "confirm"'
 - if AppConfig['OVR']['Completion']['CombineAttestationWithConfirmation']
