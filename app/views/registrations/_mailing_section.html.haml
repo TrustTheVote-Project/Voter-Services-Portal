@@ -105,12 +105,12 @@
     <!-- /ko -->
 
 
-  .form-actions{style: "#{any_options?(updating) ? 'display: none;' : ''}"}
+  .form-actions{style: "#{any_options?(updating) && !option_config['combine_with_confirmation'] ? 'display: none;' : ''}"}
     = button_tag 'Next', class: 'next right bt', 'data-bind' => 'click: nextFromOptions, css: { disabled: addressesInvalid }'
     = button_tag 'Back', class: 'back bt', 'data-bind' => 'click: prevPage'
 
 
-  .form-actions{style: "#{any_options?(updating) ? '' : 'display: none;'}"}
+  .form-actions{style: "#{any_options?(updating) && !option_config['combine_with_confirmation'] ? '' : 'display: none;'}"}
     = button_tag 'Next', class: 'next right bt', 'data-bind' => 'click: nextFromAddress, css: { disabled: addressesInvalid }'
     = button_tag 'Back', class: 'back bt', 'data-bind' => 'click: prevPage'
 

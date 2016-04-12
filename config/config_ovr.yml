@@ -130,7 +130,8 @@ state_id_length:
 enable_dmv_address_display: true
 
 options:
-  enable_need_assitance: true
+  combine_with_confirmation: true
+  enable_need_assistance: true
   enable_volunteer: true
   enable_absentee_domestic_new: false
   enable_absentee_domestic_update: false

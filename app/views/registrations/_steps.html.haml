@@ -13,7 +13,7 @@
   .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 3) }" }
     %h2 Addresses
   
-  - if any_options?(updating)
+  - if any_options?(updating) && !option_config['combine_with_confirmation']
     .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 4) }" }
       %h2 Optional Questions
 

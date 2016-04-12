@@ -159,22 +159,23 @@
                   = link_to "Edit", "#identity", class: 'edit'
                 %span{ 'data-bind' => 'text: summaryEmail' }
 
-            %tr
-              %th= t('confirm.rows.assistance_request')
-              - if !rj
-                %td.edit= link_to "Edit", "#options"
-              %td
-                - if rj
-                  = link_to "Edit", "#options", class: 'edit'
-                %span{ 'data-bind' => 'text: summaryNeedsAssistance' }
-            %tr
-              %th= t('confirm.rows.volunteering')
-              - if !rj
-                %td.edit= link_to "Edit", "#options"
-              %td
-                - if rj
-                  = link_to "Edit", "#options", class: 'edit'
-                %span{ 'data-bind' => 'text: summaryBeOfficial' }
+            - unless option_config['combine_with_confirmation']
+              %tr
+                %th= t('confirm.rows.assistance_request')
+                - if !rj
+                  %td.edit= link_to "Edit", "#options"
+                %td
+                  - if rj
+                    = link_to "Edit", "#options", class: 'edit'
+                  %span{ 'data-bind' => 'text: summaryNeedsAssistance' }
+              %tr
+                %th= t('confirm.rows.volunteering')
+                - if !rj
+                  %td.edit= link_to "Edit", "#options"
+                %td
+                  - if rj
+                    = link_to "Edit", "#options", class: 'edit'
+                  %span{ 'data-bind' => 'text: summaryBeOfficial' }
 
   - if AppConfig['OVR']['enable_confirm_voting_status_display']
     = render partial: 'confirm_absentee_status'
