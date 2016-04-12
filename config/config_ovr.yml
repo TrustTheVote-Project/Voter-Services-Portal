@@ -49,7 +49,6 @@ eligibility:
   
   # When precheck is false, does not lookup user data based on IDs (and therefore does not check for eligibility)
   PreCheckForPaperless: false # was enable_dmvid_lookup
-  SingleStatement: true # Skip all the other eligibilty checks and ask a single question to attest user's eligibility
   Age18: false # Show age checkbox on eligibility screen (if not shown, the age eligibility attribue defaults to TRUE)
   CombineWithIdentity: true #Show eligibility and identity in one page, usually when there are few eligibility questions
   CollectPersonalData: true #actually force to false when ComineWithIdentity is true
