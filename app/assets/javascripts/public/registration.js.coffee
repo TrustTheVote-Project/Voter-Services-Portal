@@ -7,6 +7,7 @@ class window.Registration
     @domestic           = ko.computed => !@overseas()
     
     @ssnRequired        = ko.observable($("input#ssn_required").val() == 'true')
+    @requireAttestation        = ko.observable($("input#attestation_required").val() == 'true')
     @showDocImage       = ko.observable($("input#id_documentation_image_enabled").val() == 'true')
     @middleNameRequired = ko.computed =>
       gon.enable_names_virginia and !@noMiddleName()
@@ -792,7 +793,7 @@ class window.Registration
 
     @oathErrors = ko.computed =>
       errors = []
-      errors.push("Confirm that information is correct") unless @infoCorrect()
+      errors.push("Confirm that information is correct") unless !@requireAttestation() or @infoCorrect()
 
       unless @paperlessSubmission()
         fn = filled(@asFirstName())

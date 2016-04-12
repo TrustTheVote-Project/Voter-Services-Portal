@@ -4,4 +4,12 @@ en:
     <span class='title-sub'><a href="/">Rhode Island Department of State</a></span>
     <span class='title'><a href="http://sos.ri.gov/about-us">Nellie M. Gorbea</a></span>
     <span class='title-sub'>Secretary of state</span>
-    
+
+  oath:
+    information_correct: >
+      I swear or affirm that:
+      <ul>
+      <li>I am not incarcerated in a correctional facility upon a felony conviction.</li>
+      <li>I am not presently judged "mentally incompetent" to vote by a court of law.</li>
+      <li>The information I have provided is true to the best of my knowledge under penalty of perjury. If I have provided false information, I may be fined, imprisoned, or (if not a U.S. citizen) deported from or refused entry into the United States.</li>
+      </ul>

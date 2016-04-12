@@ -7,3 +7,10 @@ eligibility:
   requirements:
     - all_requirements  
   
+
+completion:
+  include_attestation: true
+  combine_attestation_with_confirmation: false
+  assistance:
+    paperless: false
+    paper: false

@@ -1,7 +1,8 @@
 - updating ||= false
 - condition = 'page() == "oath"'
-- if AppConfig['OVR']['Completion']['CombineAttestationWithConfirmation']
+- if completion_config['combine_attestation_with_confirmation']
   - condition += " || page() == 'confirm'";
+
 
 #oath.section{ 'data-bind' => 'vis: ' + condition }
   = render partial: 'oath_details', locals: { f: f, updating: updating }

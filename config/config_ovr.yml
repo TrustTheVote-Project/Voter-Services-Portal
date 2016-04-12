@@ -169,12 +169,12 @@ enable_confirm_voting_status_display: false
 # Shows / hides the assistant details section on oath page
 # separate toggles for paperless OVR vs. requires PDF
 
-Completion:
-  IncludeAttestation: true
-  CombineAttestationWithConfirmation: true
-  Assistance:
-    Paperless: false
-    Paper: false
+completion:
+  include_attestation: false
+  combine_attestation_with_confirmation: true
+  assistance:
+    paperless: false
+    paper: false
 
 
 

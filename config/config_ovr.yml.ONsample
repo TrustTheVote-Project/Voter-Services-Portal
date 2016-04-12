@@ -13,3 +13,11 @@ identity:
     - photo_card
     - health_card
     - band_council_document
+
+
+completion:
+  include_attestation: true
+  combine_attestation_with_confirmation: true
+  assistance:
+    paperless: false
+    paper: false

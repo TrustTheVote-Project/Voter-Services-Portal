@@ -1,18 +1,19 @@
 - updating ||= false
 
-.head
-  %h3 Complete Your Application
-  .description= raw t('oath.subheader')
+- if completion_config['include_attestation']
+  .head
+    %h3 Complete Your Application
+    .description= raw t('oath.subheader')
 
 
-.partition
-  .row
-    .span10
-      %p
-        %strong Registration Statement
-      .checkbox
-        = check_box :registration, :information_correct, 'data-bind' => 'instantValidation: { accessor: "infoCorrect" }'
-        = f.label :information_correct, t('oath.information_correct')
+  .partition
+    .row
+      .span10
+        %p
+          %strong Registration Statement
+        .checkbox
+          = check_box :registration, :information_correct, 'data-bind' => 'instantValidation: { accessor: "infoCorrect" }'
+          = f.label :information_correct, raw(t('oath.information_correct'))
 
 <!-- ko if: showAssistantDetails -->
 .partition

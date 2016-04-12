@@ -12,6 +12,9 @@ module ConfigHelper
     AppConfig['OVR']['options']
   end
   
+  def completion_config
+    AppConfig['OVR']['completion']
+  end
   
   ### Eligibility section helpers
   def default_eligibility_config?
