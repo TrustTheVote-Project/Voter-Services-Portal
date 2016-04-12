@@ -5,7 +5,7 @@ class window.Registration
     @residence          = ko.observable(residence)
     @overseas           = ko.computed => @residence() == 'outside'
     @domestic           = ko.computed => !@overseas()
-
+    
     @ssnRequired        = ko.observable($("input#ssn_required").val() == 'true')
     @showDocImage       = ko.observable($("input#id_documentation_image_enabled").val() == 'true')
     @middleNameRequired = ko.computed =>
@@ -16,6 +16,8 @@ class window.Registration
     @editMailingAddressAtProtectedVoter = ko.observable($("input#enable_edit_mailing_address_at_protected_voter").val() == 'true')
     @dmvIdCheckbox      = !!gon.require_transport_id_number
     @personalDataOnEligibilityPage = !!gon.personal_data_on_eligibility_page
+    @virginiaAbsentee = !!gon.virginia_absentee
+    
     @paperlessPossible  = ko.observable()
     @lookupPerformed    = false
 
@@ -287,7 +289,7 @@ class window.Registration
     
   validatePersonalData: (errors) ->
     errors.push('Date of birth') unless @dob()
-    errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
+    errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN() and @ssnRequired()
     errors.push(gon.i18n_dmvid) if @dmvIdCheckbox and !isDmvId(@dmvId()) and !@noDmvId()
     errors.push(gon.i18n_id_documentation_image) if @showDocImage() and !@noDocImage() and (!@docImageType() or !@docImage())
 
@@ -517,7 +519,7 @@ class window.Registration
         if !filled(@party()) || (@party() == 'other' and !filled(@otherParty()))
           errors.push("Party preference")
 
-      if @requestingAbsentee()
+      if @requestingAbsentee() && @virginiaAbsentee
         if @overseas() and !filled(@rabType())
           errors.push("Request period")
         else if @overseas() and @rabType() == 'until'

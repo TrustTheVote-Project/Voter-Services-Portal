@@ -91,7 +91,6 @@ identity:
   enable_id_document_image: false
   require_id_document_image: false
   enable_protected_status: false
-  require_protected_status: false
   # When true, uses a special set of name fields that requires users to confirm blank, optional fields
   enable_names_virginia: false
   gender_options:
@@ -130,23 +129,14 @@ state_id_length:
 # Enable/disable the pre-population of residence address fields from DMV address, if available
 enable_dmv_address_display: true
 
-Identity:
-  IncludeProtectedVoterBlock: false
-
-
-# Enable/disable the needs-assitance option
-enable_need_assistance_option: true
-
-# Enable/disable the volunteer option
-enable_volunteer_option: true
-
-# Enable/disable the presentation of absentee options 
-# to user in the domestic workflow for new registrations 
-enable_absentee_option_domestic_new: false
-
-# Enable/disable the presentation of absentee options
-# to user in the domestic workflow for update existing registrations 
-enable_absentee_option_domestic_update: false
+options:
+  enable_need_assitance: true
+  enable_volunteer: true
+  enable_absentee_domestic_new: false
+  enable_absentee_domestic_update: false
+  enable_permanent_absentee: false
+  temporary_absentee: false
+  virginia_absentee: false
 
 
 ################

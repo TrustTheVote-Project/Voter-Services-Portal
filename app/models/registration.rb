@@ -100,7 +100,7 @@ class Registration < ActiveRecord::Base
       return (self.citizen == '1' &&
       self.old_enough == '1' &&
       self.dob.try(:past?) &&
-      (!AppConfig['OVR']['ssn_required'] || self.ssn.present?) &&
+      (!identity_config['require_federal_id_number'] || self.ssn.present?) &&
       (self.rights_revoked == '0' ||
        ((self.rights_felony == '1' || self.rights_mental == '1') &&
         (self.rights_felony == '0' || (self.rights_felony_restored == '1' && self.rights_felony_restored_in.present? && self.rights_felony_restored_on.try(:past?))) or

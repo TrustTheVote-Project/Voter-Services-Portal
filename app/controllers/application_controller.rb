@@ -40,7 +40,7 @@ class ApplicationController < ActionController::Base
     gon.enable_expanded_felony_mental_eligibility = AppConfig['OVR']['enable_expanded_felony_mental_eligibility']
     gon.state_id_length_min           = AppConfig['OVR']['state_id_length']['min']
     gon.state_id_length_max           = AppConfig['OVR']['state_id_length']['max']
-
+    gon.virginia_absentee             = option_config['virginia_absentee']
     gon.i18n_dmvid                    = I18n.t('dmvid')
     gon.i18n_id_documentation_image   = I18n.t('identity.id_documentation_image')
     gon.i18n_confirm_not_provided     = I18n.t("confirm.not_provided")

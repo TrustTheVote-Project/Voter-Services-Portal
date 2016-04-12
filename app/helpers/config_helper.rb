@@ -8,6 +8,10 @@ module ConfigHelper
     AppConfig['OVR']['identity']
   end
   
+  def option_config
+    AppConfig['OVR']['options']
+  end
+  
   
   ### Eligibility section helpers
   def default_eligibility_config?
@@ -57,7 +61,7 @@ module ConfigHelper
   ### Optional questions section helpers
 
   def any_options?(updating)
-    AppConfig['OVR']['enable_need_assistance_option'] || AppConfig['OVR']['enable_volunteer_option'] || (updating && AppConfig['OVR']['enable_absentee_option_domestic_update']) || (!updating && AppConfig['OVR']['enable_absentee_option_domestic_new'])
+    option_config['enable_need_assistance'] || option_config['enable_volunteer'] || (updating && option_config['enable_absentee_domestic_update']) || (!updating && option_config['enable_absentee_domestic_new'])
   end
 
 

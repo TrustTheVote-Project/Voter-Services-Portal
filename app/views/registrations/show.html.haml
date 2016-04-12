@@ -1,7 +1,7 @@
 - @page_id = 'registration_details'
 - reg = RegistrationDetailsPresenter.new(@registration)
 - show_missing = AppConfig['enable_voter_info_show_missing_item']
-- update_ab = AppConfig['OVR']['enable_absentee_option_domestic_update']
+- update_ab = option_config['enable_absentee_domestic_update']
 - disabled_overseas = @registration.currently_overseas? && !AppConfig['enable_uocava_new_registration']
 - label_1 = 'update your voter information'
 - label_2 = 'Update Your Voter Information'

@@ -1,7 +1,7 @@
 - updating ||= false
 
 <!-- ko if: domestic -->
--if AppConfig['OVR']['enable_need_assistance_option']
+-if option_config['enable_need_assistance']
   .partition
     .row
       .span12
@@ -10,7 +10,7 @@
           = f.label :need_assistance do
             %strong= t 'options.domestic.need_assistance'
 
--if AppConfig['OVR']['enable_volunteer_option']
+-if option_config['enable_volunteer']
   .partition
     .row
       .span12
@@ -19,7 +19,7 @@
           = f.label :be_official do
             %strong= t 'options.being_official'
 
-- if (updating && AppConfig['OVR']['enable_absentee_option_domestic_update']) || (!updating && AppConfig['OVR']['enable_absentee_option_domestic_new'])
+- if (updating && option_config['enable_absentee_domestic_update']) || (!updating && option_config['enable_absentee_domestic_new'])
   .partition
     .row
       .span12
@@ -27,15 +27,18 @@
           = f.check_box :requesting_absentee, 'data-bind' => 'checkedWithInit: requestingAbsentee', autocomplete: ac
           = f.label :requesting_absentee do
             %strong= t 'options.domestic.requesting_absentee'
-        <!-- ko if: requestingAbsentee -->
-        %p= t 'options.domestic.requesting_absentee_info'
-        <!-- /ko -->
-    <!-- ko if: requestingAbsentee -->
-    = render partial: 'domestic_rab_election', locals: { f: f }
-    <!-- /ko --> <!-- requestingAbsentee -->
+        - if option_config['virginia_absentee']
+          <!-- ko if: requestingAbsentee -->
+          %p= t 'options.domestic.requesting_absentee_info'
+          <!-- /ko -->
+    - if option_config['virginia_absentee']
+      <!-- ko if: requestingAbsentee -->
+      = render partial: 'domestic_rab_election', locals: { f: f }
+      <!-- /ko --> <!-- requestingAbsentee -->
 
-  <!-- ko if: requestingAbsentee -->
-  .partition
-    = render partial: 'domestic_rab_reason', locals: { f: f }
-  <!-- /ko -->
+  - if option_config['virginia_absentee']
+    <!-- ko if: requestingAbsentee -->
+    .partition
+      = render partial: 'domestic_rab_reason', locals: { f: f }
+    <!-- /ko -->
 <!-- /ko --> <!-- domestic -->

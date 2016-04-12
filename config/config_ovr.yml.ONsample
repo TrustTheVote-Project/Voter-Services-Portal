@@ -1,8 +1,7 @@
-# Enable/disable the needs-assitance option
-enable_need_assistance_option: false
-
-# Enable/disable the volunteer option
-enable_volunteer_option: false
+options:
+  enable_need_assitance: false
+  enable_volunteer: false
+  
 
 identity:
   enable_federal_id_number: false

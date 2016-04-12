@@ -9,15 +9,16 @@
         = f.label :requesting_absentee do
           %strong= t 'options.overseas.requesting_absentee', until: until_date
 
-  <!-- ko if: requestingAbsentee -->
-  .row
-    .span10.indented.overseas_rab_type
-      .radio
-        = f.radio_button :rab_type, 'federal', { 'data-bind' => 'checkedWithInit: rabType' }
-        %label{ for: 'registration_rab_type_until' }= t 'rab_type.federal', until: until_date
-      .radio
-        = f.radio_button :rab_type, 'state', { 'data-bind' => 'checkedWithInit: rabType' }
-        %label{ for: 'registration_rab_type_event' }= t 'rab_type.state'
+  - if option_config['virginia_absentee']
+    <!-- ko if: requestingAbsentee -->
+    .row
+      .span10.indented.overseas_rab_type
+        .radio
+          = f.radio_button :rab_type, 'federal', { 'data-bind' => 'checkedWithInit: rabType' }
+          %label{ for: 'registration_rab_type_until' }= t 'rab_type.federal', until: until_date
+        .radio
+          = f.radio_button :rab_type, 'state', { 'data-bind' => 'checkedWithInit: rabType' }
+          %label{ for: 'registration_rab_type_event' }= t 'rab_type.state'
 
   <!-- ko if: rabType() == 'state' -->
   = render partial: 'domestic_rab_election', locals: { f: f }
