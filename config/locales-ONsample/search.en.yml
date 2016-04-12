@@ -18,6 +18,11 @@ en:
     retry:
       You can try again by %{changing_info}, or you can instead %{register}.
 
+    unavailable:
+      title: Unavailable
+      details:
+        <p>The Voter Lookup Service is currently unavailable. Please try again later.</p>
+
     step1: View &amp; Update
     step2: Addresses
     step3: Optional Questions

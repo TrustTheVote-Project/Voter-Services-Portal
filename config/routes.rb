@@ -23,6 +23,7 @@ VaVote::Application.routes.draw do
     get   '/register/overseas/privacy'    => 'pages#privacy', defaults: { path: 'register_overseas' }, as: 'register_overseas_privacy'
 
     get   '/search'                       => 'search#new', as: 'search_form'
+    get   '/search/unavailable'           => 'search#unavailable'
     post  '/search'                       => 'search#create', as: 'search'
 
     get   '/register/residential'         => 'registrations#new', defaults: { residence: 'in' }, as: 'register_residential'

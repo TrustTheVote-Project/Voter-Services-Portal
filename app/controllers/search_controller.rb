@@ -1,6 +1,20 @@
 # Registration search
 class SearchController < ApplicationController
 
+  before_filter :check_lookup_service_availability, except: :unavailable
+  
+  def check_lookup_service_availability
+    if !AppConfig['OVR']['EnableLookupService']
+      redirect_to action: 'unavailable'
+    end
+  end
+  
+  def unavailable
+    if AppConfig['OVR']['EnableLookupService']
+      redirect_to action: 'new'
+    end
+  end
+
   def new
     options = RegistrationRepository.pop_search_query(session)
     @search_query ||= SearchQuery.new(options)
