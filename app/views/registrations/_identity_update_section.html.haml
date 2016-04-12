@@ -1,4 +1,4 @@
-- personal_data_here = !(AppConfig['OVR']['eligibility']['CollectPersonalData'] && !AppConfig['OVR']['eligibility']['CombineWithIdentity'])
+- personal_data_here = !(AppConfig['OVR']['eligibility']['CollectPersonalData'] && !eligibility_config['combine_with_identity'])
 #identity.section{ 'data-bind' => 'vis: page() == "identity"' }
   .head
     %h3 Identity

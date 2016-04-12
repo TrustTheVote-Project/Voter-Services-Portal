@@ -1,11 +1,14 @@
 - complete ||= false
 - updating ||= false
 .row#steps
-  .span2{ class: complete ? nil : 'current', 'data-bind' => "attr: { 'class': stepClass(step(), 1) }" }
-    %h2 Eligibility
-
-  .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 2) }" }
-    %h2 Identity
+  - if eligibility_config['combine_with_identity']
+    .span2{ class: complete ? nil : 'current', 'data-bind' => "attr: { 'class': stepClass(step(), 1) }" }
+      %h2 Eligibility
+  - else
+    .span2{ class: complete ? nil : 'current', 'data-bind' => "attr: { 'class': stepClass(step(), 1) }" }
+      %h2 Eligibility
+    .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 2) }" }
+      %h2 Identity
 
   .span2{ 'data-bind' => "attr: { 'class': stepClass(step(), 3) }" }
     %h2 Addresses

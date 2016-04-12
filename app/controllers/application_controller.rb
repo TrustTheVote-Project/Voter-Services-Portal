@@ -29,9 +29,9 @@ class ApplicationController < ActionController::Base
   def set_env_vars
     gon.enable_dmvid_lookup           = AppConfig['OVR']['eligibility']['PreCheckForPaperless']
     gon.enable_dmv_address_display    = AppConfig['OVR']['enable_dmv_address_display']
-    gon.eligibility_with_identity     = AppConfig['OVR']['eligibility']['CombineWithIdentity']
+    gon.eligibility_with_identity     = eligibility_config['combine_with_identity']
     gon.default_eligibility_config    = default_eligibility_config?
-    gon.personal_data_on_eligibility_page = AppConfig['OVR']['eligibility']['CollectPersonalData'] && !AppConfig['OVR']['eligibility']['CombineWithIdentity']
+    gon.personal_data_on_eligibility_page = AppConfig['OVR']['eligibility']['CollectPersonalData'] && !eligibility_config['combine_with_identity']
     gon.require_dmv_id                = AppConfig['OVR']['require_dmv_id']
     gon.enable_digital_ovr                = AppConfig['OVR']['EnableDigitalService']
     gon.enable_paper_ovr                = AppConfig['OVR']['EnablePaperService']

@@ -5,7 +5,6 @@
 
 eligibility:
   requirements:
-    - all_requirements
-  CombineWithIdentity: false #Show eligibility and identity in one page, usually when there are few eligibility questions
+    - all_requirements  
   
   

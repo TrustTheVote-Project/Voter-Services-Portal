@@ -112,14 +112,7 @@ class window.Registration
          (@rightsFelony() == '0' or (@rightsFelonyRestored() == '1' and filled(@rightsFelonyRestoredIn()) and !!@rightsFelonyRestoredOn())) and
          (@rightsMental() == '0' or (@rightsMentalRestored() == '1' and !!@rightsMentalRestoredOn()))))
 
-    @isEligible = ko.computed =>
-      if gon.default_eligibility_config
-      else
-        (@citizen() == '1' and
-        @oldEnough() == '1' and
-        !!@dob() and
-        (!@ssnRequired() or (!@noSSN() and filled(@ssn()))) and
-        @hasEligibleRights())
+    
 
     @rightsNotFilled = ko.computed =>
       rightsOptionsNotFilled =
@@ -140,7 +133,17 @@ class window.Registration
       @validateEligibilityData(errors)
       @validatePersonalData(errors) if @personalDataOnEligibilityPage
       errors
-
+      
+    @isEligible = ko.computed =>
+      if gon.default_eligibility_config
+        @eligibilityErrors().length == 0
+      else
+        (@citizen() == '1' and
+        @oldEnough() == '1' and
+        !!@dob() and
+        (!@ssnRequired() or (!@noSSN() and filled(@ssn()))) and
+        @hasEligibleRights())
+        
     @eligibilityInvalid = ko.computed => @eligibilityErrors().length > 0
 
   updatePhoneField: ->

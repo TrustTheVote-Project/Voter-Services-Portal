@@ -1,5 +1,5 @@
 - condition = 'page() == "eligibility"'
-- if eligibility_config['CombineWithIdentity']
+- if eligibility_config['combine_with_identity']
   - condition += " || page() == 'identity'";
 
 #eligibility.section{ 'data-bind' => 'vis: ' + condition }
@@ -29,7 +29,7 @@
       = render partial: 'eligibility_rights', locals: { f: f }
         
       
-  - if eligibility_config['CollectPersonalData'] && !eligibility_config['CombineWithIdentity']
+  - if eligibility_config['CollectPersonalData'] && !eligibility_config['combine_with_identity']
     .partition
       .date
         %label{ for: 'registration_dob_2i_' }= t 'identity.date_of_birth'
@@ -39,5 +39,5 @@
     = render partial: 'eligibility_dmvid', locals: { f: f }
 
 
-  .form-actions{style: "#{AppConfig['OVR']['eligibility']['CombineWithIdentity'] ? 'display: none;' : ''}"}
+  .form-actions{style: "#{eligibility_config['combine_with_identity'] ? 'display: none;' : ''}"}
     = button_tag 'Next', class: 'next right bt', 'data-bind' => 'click: nextFromEligibility, css: { disabled: eligibilityInvalid }'

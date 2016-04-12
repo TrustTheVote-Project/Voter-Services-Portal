@@ -28,8 +28,8 @@ class Registration < ActiveRecord::Base
   # Eligibility
   
   ## Define methods based on config
-  if FormsController.helpers.default_eligibility_config?
-    FormsController.helpers.eligibility_config['requirements'].each do |req_key|
+  if RegistrationsController.helpers.default_eligibility_config?
+    RegistrationsController.helpers.eligibility_config['requirements'].each do |req_key|
       serialized_attr "eligibility_requirement_#{req_key}"
     end
   end
@@ -93,15 +93,20 @@ class Registration < ActiveRecord::Base
 
   # TRUE if new registration is eligible
   def eligible?
-    #TODO: need default_eligibility_config version
-    (self.citizen == '1' &&
-    self.old_enough == '1' &&
-    self.dob.try(:past?) &&
-    (!AppConfig['OVR']['ssn_required'] || self.ssn.present?) &&
-    (self.rights_revoked == '0' ||
-     ((self.rights_felony == '1' || self.rights_mental == '1') &&
-      (self.rights_felony == '0' || (self.rights_felony_restored == '1' && self.rights_felony_restored_in.present? && self.rights_felony_restored_on.try(:past?))) or
-      (self.rights_mental == '0' || (self.rights_mental_restored == '1' && self.rights_mental_restored_on.try(:past?))))))
+    if RegistrationsController.helpers.default_eligibility_config?
+      #TODO: need default_eligibility_config version
+      return true
+    elsif RegistrationsController.helpers.eligibility_config['enable_method_virginia']
+      return (self.citizen == '1' &&
+      self.old_enough == '1' &&
+      self.dob.try(:past?) &&
+      (!AppConfig['OVR']['ssn_required'] || self.ssn.present?) &&
+      (self.rights_revoked == '0' ||
+       ((self.rights_felony == '1' || self.rights_mental == '1') &&
+        (self.rights_felony == '0' || (self.rights_felony_restored == '1' && self.rights_felony_restored_in.present? && self.rights_felony_restored_on.try(:past?))) or
+        (self.rights_mental == '0' || (self.rights_mental_restored == '1' && self.rights_mental_restored_on.try(:past?))))))
+    end
+    return true  
   end
 
   def full_name
