@@ -3,6 +3,10 @@
 ## the eligibility dialog
 ##
 
+options:
+  combine_with_confirmation: true
+
+
 eligibility:
   requirements:
     - all_requirements  
@@ -10,7 +14,7 @@ eligibility:
 
 completion:
   include_attestation: true
-  combine_attestation_with_confirmation: true
+  combine_attestation_with_confirmation: false
   assistance:
     paperless: false
     paper: false
