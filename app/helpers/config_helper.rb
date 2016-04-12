@@ -84,37 +84,41 @@ module ConfigHelper
     end
   end
 
-  def alternate_localizations
-    unless AppConfig['SupportedLocalizations'].blank?
-      AppConfig['SupportedLocalizations']
-        .select {|l| l['code'] != I18n.locale.to_s }
-        .map do |l|
-          alt_url = params.merge({:locale => l['code']})
-          { text: l['name'], url: alt_url }
-        end
-    else
-      []
+  # Array of links to current page with alternate supported localizations.
+  # Will return empty array if SupportedLocalizations config is empty or has
+  # only one localization.
+  def alternate_localization_links
+    AppConfig.fetch('SupportedLocalizations', [])
+      .select {|l| l['code'] != I18n.locale.to_s }
+      .map do |l|
+        alt_url = params.merge({:locale => l['code']})
+        { 'text' => l['text'], 'url' => alt_url }
     end
   end
-  
-  def subfooter_links
-    unless AppConfig['SubfooterLinks'].blank?
-      AppConfig['SubfooterLinks'].map do |link|
-        if link['url'].blank?
-          Rails.logger.warn "No url provided for subfooter_link #{link}"
+
+  # Generates a list of links from a Hash with 'url' and 'text'
+  # keys.
+  # For use with the HeaderLinks and SubfooterLinks config keys,
+  # and the output of alternate_localization_links.
+  def generate_link_list(links_spec)
+    unless links_spec.blank?
+      links_spec.map do |link|
+        link_url = link['url']
+        link_text_key = link['text']
+        if link_url.nil?
+          Rails.logger.warn "Missing url for link #{link}"
+          next nil
+        elsif !link_url.is_a?(String) && !link_url.is_a?(Hash)
+          Rails.logger.warn "Invalid url provided for link #{link}: #{link_url} #{link_url.class}, must be a String or Hash"
+          next nil
+        elsif !link_text_key.is_a?(String) || link_text_key.blank?
+          Rails.logger.warn "Missing or invalid text for link #{link}, must be a String"
           next nil
         end
-        link_text = link['text']
-        unless link_text.is_a?(String)
-          Rails.logger.warn "Unexpected text value for subfooter_link #{link['url']}: #{link_text}"
-        end
-        unless AppConfig['SupportedLocalizations'].blank?
-          link_text = I18n.t(link_text)
-        end
-        { text: link_text, url: link['url'] }
-      end.compact
-    else
-      []
+
+        link_text = I18n.t(link_text_key)
+        link_to link_text, link_url
+      end.compact.join('&nbsp;&nbsp;|&nbsp;&nbsp;')
     end
   end
 

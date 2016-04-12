@@ -50,6 +50,9 @@ fr:
     federal: "I would like to vote absentee until %{until}."
     state: "I would like to request an absentee ballot for the upcoming election."
 
+  header:
+    contact: 'Contact'
+
   subfooter:
     home: 'Accueil'
     about: 'About'
@@ -58,3 +61,7 @@ fr:
     elections: 'Elections'
     security: 'Security & Privacy'
     feedback: 'Feedback'
+    
+  localization:
+    en: 'English'
+    fr: 'Francais'

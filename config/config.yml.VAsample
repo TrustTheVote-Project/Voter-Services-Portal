@@ -63,35 +63,46 @@ autocomplete: off
 # Minutes given to finish registration / update form
 form_expiry: 60
 
-
-
-# Show home link in page headers
-enable_home_header_link: true
-
-# Show FAQ link in page headers
-enable_faq_header_link: true
-
+# List of links to show in page header.
+# Each item needs url and text keys.
+#
+# The text key should be an identifier for a localized string.
+#
+# If the deployment is localized, URLs should not include a leading
+# slash ('faq', not '/faq'), to ensure the generated URL are prefixed
+HeaderLinks:
+  - url: ''
+    text: 'header.home'
+  - url: 'about'
+    text: 'header.about'
+  - url: 'faqs'
+    text: 'header.faq'
+  - url: 'help'
+    text: 'header.help'
+    
 
 # List of subfooter links to show below main footer.
 # Each footer item needs url and text values.
 #
-# If SupportedLocalizations are provided, the text key should be
-# an identifier for a localized string.
+# The text key should be an identifier for a localized string.
+#
+# If the deployment is localized, URLs should not include a leading
+# slash ('faq', not '/faq'), to ensure the generated URL are prefixed
 SubfooterLinks:
   - url:  '/'
-    text: 'Home'
-  - url:  '/about'
-    text: 'About'
-  - url:  '/faq'
-    text: 'FAQs'
-  - url:  '/help'
-    text: 'Help'
-  - url:  '/elections'
-    text: 'Elections'
-  - url:  '/security'
-    text: 'Security & Privacy'
-  - url:  '/feedback'
-    text: 'Feedback'
+    text: 'subfooter.home'
+  - url:  'about'
+    text: 'subfooter.about'
+  - url:  'faq'
+    text: 'subfooter.faq'
+  - url:  'help'
+    text: 'subfooter.help'
+  - url:  'elections'
+    text: 'subfooter.elections'
+  - url:  'security'
+    text: 'subfooter.security'
+  - url:  'feedback'
+    text: 'subfooter.feedback'
 
 
 # When provided, users can select between multiple localizations.
@@ -99,11 +110,6 @@ SubfooterLinks:
 # localized external pages will be fetched, the application's URLs will
 # be prefixed with the active locale, and a locale selector
 # will be added to the header.
-#
-# Localizations are configured as an array of hashes,
-# each structured like so: {name: 'English', code: 'en'}.
-# The name property is shown to users, and the code is used to
-# retrieve locale-specific assets and strings.
 #
 # The first localization in the array will be the default when
 # a user visits the front page of the application.
@@ -255,6 +261,7 @@ static_pages:
   about:                  about.htm
   about_registration:     about_registration.htm
   about_update_absentee:  about_update_absentee.htm
+  contact:                contact.htm
   elections:              elections.htm
   faq:                    faq.htm
   footer:                 footer.htm

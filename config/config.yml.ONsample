@@ -1,36 +1,49 @@
+# List of links to show in page header.
+# Each item needs url and text keys.
+#
+# The text key should be an identifier for a localized string.
+#
+# If the deployment is localized, URLs should not include a leading
+# slash ('faq', not '/faq'), to ensure the generated URL are prefixed
+HeaderLinks:
+  - url: 'contact'
+    text: 'header.contact'
 
 # List of subfooter links to show below main footer.
 # Each footer item needs url and text values.
 #
-# If SupportedLocalizations are provided, the text key should be
-# an identifier for a localized string.
+# The text key should be an identifier for a localized string.
+#
+# If the deployment is localized, URLs should not include a leading
+# slash ('faq', not '/faq'), to ensure the generated URL are prefixed
 SubfooterLinks:
-  - url:  '/'
+  - url:  ''
     text: 'subfooter.home'
-  - url:  '/about'
+  - url:  'about'
     text: 'subfooter.about'
-  - url:  '/faq'
+  - url:  'faq'
     text: 'subfooter.faq'
-  - url:  '/help'
+  - url:  'help'
     text: 'subfooter.help'
-  - url:  '/elections'
+  - url:  'elections'
     text: 'subfooter.elections'
-  - url:  '/security'
+  - url:  'security'
     text: 'subfooter.security'
-  - url:  '/feedback'
+  - url:  'feedback'
     text: 'subfooter.feedback'
 
-# Enables user to select between multuple localizations.
-# When a localization is selected, strings in the app will be localized,
+# When provided, users can select between multiple localizations.
+# When a localization is enabled, strings in the app will be localized,
 # localized external pages will be fetched, the application's URLs will
-# be prefixed with the active localization, and a localization selector
-# will be added to the header menu.
+# be prefixed with the active locale, and a locale selector
+# will be added to the header.
 #
-# The first localization provided is the default.
+# The first localization in the array will be the default when
+# a user visits the front page of the application.
 SupportedLocalizations:
-  - name: 'English'
+  - text: 'localization.en'
     code: 'en'
-  - name: 'Francais'
+  - text: 'localization.fr'
     code: 'fr'
 
 
@@ -59,6 +72,7 @@ static_pages:
   about:                  about.htm
   about_registration:     about_registration.htm
   about_update_absentee:  about_update_absentee.htm
+  contact:                contact.htm
   elections:              elections.htm
   faq:                    faq.htm
   footer:                 footer.htm

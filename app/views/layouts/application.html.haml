@@ -19,11 +19,7 @@
         #sub-footer
           .row.footer
             .span9
-              - links = subfooter_links
-              - links.each_with_index do |link, idx|
-                = link_to link[:text], link[:url]
-                - unless idx == links.size - 1
-                  &nbsp;&nbsp;|&nbsp;&nbsp;
+              = raw generate_link_list AppConfig['SubfooterLinks']
             .span3.powered
               = image_tag "ttv_grey_poweredby.jpg", style: 'height: 60px; float: right; margin: 0 5px; '
               Powered by Open Source<br/>
