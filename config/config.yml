@@ -137,21 +137,12 @@ enable_home_page_stacked_layout: true
 ## the personal info dialog
 ##
 
-# enables / disables collection of gender 
-collect_gender: true
-
 # enables / disables collection of title on the registration request form
 collect_title:  false
 
 # true  == collect party preference only for absentees
 # false == collect party preference for all users
 collect_absentee_party_preference_only_absentee: true
-
-# Middle name is required on the identity form
-require_middle_name: true
-
-# Name suffix is required on the identity form
-require_name_suffix: true
 
 # When TRUE mailing address is editable on the
 # protected voter form (even if it's entered on addresses page)

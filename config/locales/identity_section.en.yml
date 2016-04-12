@@ -1,3 +1,36 @@
 en:
   identity:
+    optional: (optional)
     date_of_birth: Date of birth
+    name_prefix: Prefix
+    first_name: First Name
+    middle_name: Middle Name
+    last_name: Last Name
+    name_suffix: Suffix
+    gender: Gender
+    email: Email
+    phone: Phone
+    fax: Fax
+    federal_id_number: Social Security Number
+    transport_id_number: Driver's License Number
+    id_document_image: Upload ID Document
+    protected_status: Projected Voter
+    gender_options:
+      male: Male
+      female: Female
+      other: Other
+    name_prefix_options:
+      mister: Mr.
+      misses: Mrs.
+      mis: Ms.
+      miss: Miss
+      doctor: Dr.
+    name_suffix_options:
+      junior: Jr.
+      senior: Sr.
+      second: II
+      third: III
+      fourth: IV
+    documenation_types:
+      drivers_license: Driver's License
+      passport: Passport

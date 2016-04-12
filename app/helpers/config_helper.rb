@@ -4,6 +4,11 @@ module ConfigHelper
     AppConfig['OVR']['eligibility']
   end
 
+  def identity_config
+    AppConfig['OVR']['identity']
+  end
+  
+  
   ### Eligibility section helpers
   def default_eligibility_config?
     !eligibility_config['enable_method_virginia']
@@ -12,6 +17,41 @@ module ConfigHelper
   def is_complex_eligibility_requirement?(requirement_key)
     I18n.t("eligibility.requirements.#{requirement_key}").is_a?(Hash)
   end
+
+  
+  ### Identity section helpers
+  def default_identity_name_config?
+    !identity_config['enable_names_virginia']
+  end
+  
+  def identity_field_enabled?(field)
+    identity_config["enable_#{field}"]
+  end
+  
+  def identity_field_required?(field)
+    identity_config["require_#{field}"]
+  end
+  
+  def identity_field_options(field)
+    identity_config["#{field}_options"].collect {|k| [I18n.t("identity.#{field}_options.#{k}"), k]}
+  end
+  
+  def identity_name_fields
+    possible_name_fields = [:name_prefix,
+    :first_name,
+    :middle_name,
+    :last_name,
+    :name_suffix]
+    name_fields = []
+    possible_name_fields.each do |f|
+      if identity_config["enable_#{f}"]
+        field = {name: f, required: identity_config["require_#{f}"]}        
+        name_fields << field
+      end
+    end
+    name_fields
+  end
+  
   
   
   ### Optional questions section helpers

@@ -44,9 +44,9 @@ class Registration < ActiveRecord::Base
   serialized_attr :rights_mental, :rights_mental_restored, :rights_mental_restored_on
 
   # Identity
-  serialized_attr :first_name, :middle_name, :last_name, :suffix
+  serialized_attr :name_prefix, :first_name, :middle_name, :last_name, :name_suffix
   serialized_attr :dob, :gender, :ssn, :no_ssn, :dmv_id, :no_dmv_id
-  serialized_attr :phone, :email
+  serialized_attr :phone, :fax, :email
 
   # Contact info
   serialized_attr :vvr_county_or_city, :vvr_address_1, :vvr_address_2
@@ -57,13 +57,13 @@ class Registration < ActiveRecord::Base
   serialized_attr :ma_address, :ma_address_2, :ma_city, :ma_state, :ma_zip5, :ma_zip4, :ma_is_different
   serialized_attr :apo_address, :apo_address_2, :apo_city, :apo_state, :apo_zip5
   serialized_attr :pr_status, :pr_cancel
-  serialized_attr :pr_first_name, :pr_middle_name, :pr_last_name, :pr_suffix
+  serialized_attr :pr_first_name, :pr_middle_name, :pr_last_name, :pr_name_suffix
   serialized_attr :pr_address, :pr_address_2, :pr_city, :pr_state, :pr_zip5, :pr_zip4, :pr_is_rural, :pr_county_or_city
 
   # Options
   serialized_attr :choose_party, :party, :other_party
   serialized_attr :is_confidential_address, :ca_type
-  serialized_attr :need_assistance, :as_first_name, :as_middle_name, :as_last_name, :as_suffix, :as_address, :as_address_2, :as_city, :as_state, :as_zip5, :as_zip4
+  serialized_attr :need_assistance, :as_first_name, :as_middle_name, :as_last_name, :as_name_suffix, :as_address, :as_address_2, :as_city, :as_state, :as_zip5, :as_zip4
   serialized_attr :requesting_absentee, :rab_election,
                   :rab_election_name, :rab_election_date,
                   :absentee_until, :rab_type
@@ -110,15 +110,15 @@ class Registration < ActiveRecord::Base
   end
 
   def full_name
-    [ first_name, middle_name, last_name, suffix ].delete_if(&:blank?).join(' ')
+    [ name_prefix, first_name, middle_name, last_name, name_suffix ].delete_if(&:blank?).join(' ')
   end
 
   def pr_full_name
-    [ pr_first_name, pr_middle_name, pr_last_name, pr_suffix ].delete_if(&:blank?).join(' ')
+    [ pr_first_name, pr_middle_name, pr_last_name, pr_name_suffix ].delete_if(&:blank?).join(' ')
   end
 
   def as_full_name
-    [ as_first_name, as_middle_name, as_last_name, as_suffix ].delete_if(&:blank?).join(' ')
+    [ as_first_name, as_middle_name, as_last_name, as_name_suffix ].delete_if(&:blank?).join(' ')
   end
 
   def as_full_address

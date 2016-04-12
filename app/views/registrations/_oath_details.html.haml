@@ -34,10 +34,10 @@
       = f.label :as_last_name, "Last name"
       = f.text_field :as_last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "asLastName" }, valueUpdate: "afterkeyup"'
     .span2
-      = f.label :as_suffix do
+      = f.label :as_name_suffix do
         Suffix
         %span= t('optional')
-      = f.select :as_suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'value: asSuffix' }
+      = f.select :as_name_suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'value: asSuffix' }
 
   .row
     .span3

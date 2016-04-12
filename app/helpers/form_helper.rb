@@ -5,7 +5,10 @@ module FormHelper
   
   
 
-
+  def identity_field_option_label(field)
+    opt_label = identity_field_required?(field) ? "&nbsp;" : I18n.t("identity.optional")
+    return "#{I18n.t("identity.#{field}")}<span>#{opt_label}</span>".html_safe
+  end
 
 
   def link_with_privacy_act_to(label, url, *options)
@@ -25,11 +28,6 @@ module FormHelper
   def online_ballot_url(r = @registration)
     ob = AppConfig['private']['online_balloting']
     "#{ob['url']}/?search[vid]=#{r.voter_id}&token=#{ob['access_token']}&account=#{ob['account_id']}"
-  end
-
-  # Checks if we are collecting a certain field for a given form.
-  def collecting?(field, app_config = AppConfig)
-    !!app_config["collect_#{field}"]
   end
 
 

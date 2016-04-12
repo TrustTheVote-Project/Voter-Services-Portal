@@ -92,12 +92,17 @@
     margin-bottom: 10px;
     margin-left: 0;
 
+    .span1,
     .span2,
     .span3,
     .span4,
     .span5,
     .span6,
+    .span7,
+    .span8,
+    .span8,
     .span10,
+    .span11,
     .span12 {
       &:first-child {
         margin-left: 0;
@@ -262,6 +267,10 @@
 }
 
 .personal-info {
+  padding-top: 1em;
+  label span {
+    display: block;
+  }
   .span2 {
     width: 120px;
   }

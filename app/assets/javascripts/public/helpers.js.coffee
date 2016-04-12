@@ -111,6 +111,7 @@ ko.bindingHandlers.instantValidation = {
     $(element).on('keyup', visit).on('change', visit).on('blur', validate).on('validate', validate)
 
   validate: (element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) ->
+    
     options    = valueAccessor()
     attribute  = options.attribute || options.accessor
     validation = options.validation || 'present'
@@ -131,7 +132,7 @@ ko.bindingHandlers.instantValidation = {
     errorClass      = 'field-invalid'
     attributeValue  = viewModel[attribute]()
 
-    if (unlessAttr and viewModel[unlessAttr]()) or window[validation](attributeValue)
+    if (unlessAttr == true or (unlessAttr and viewModel[unlessAttr]())) or (window[validation](attributeValue))
       elementAcceptor.removeClass(errorClass)
       $(options.resetAlso).removeClass(errorClass) if options.resetAlso
     else

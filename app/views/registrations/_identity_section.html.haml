@@ -9,30 +9,43 @@
     .description Identify who you are
 
   .partition
-    = render partial: "identity_name", locals: { f: f }
+    - if default_identity_name_config?
+      = render partial: "identity_name", locals: { f: f }
+    - elsif identity_config['enable_names_virginia']
+      = render partial: "identity_name_virginia", locals: { f: f }
     .row.personal-info
       - if personal_data_here
-        .span4
-          .date
-            %label{ for: 'registration_dob_2i_' } Date of birth
-            = bound_date f, :dob, :start_year => Date.today.year - 120, :end_year => Date.today.year - 17
-      - if collecting? :gender
+        - if identity_field_enabled?(:date_of_birth)
+          .span4
+            .date
+              %label{ for: 'registration_dob_2i_' }
+                = identity_field_option_label(:date_of_birth)
+              = bound_date f, :dob, :start_year => Date.today.year - 120, :end_year => Date.today.year - 17, required: identity_field_required?(:date_of_birth)
+      - if identity_field_enabled? :gender
         %div{ class: span23 }
-          = f.label :gender
-          = f.select :gender, [ 'Male', 'Female' ], { include_blank: true }, { autocomplete: ac, class: span23, 'data-bind' => 'instantValidation: { accessor: "gender" }' }
-      .email-field{ class: span23 }
-        = f.label :email do
-          Email
-          %span (optional)
-        = f.text_field :email, autocomplete: ac, placeholder: 'john@smith.com', 'data-bind' => 'instantValidation: { accessor: "email", attribute: "validEmail" }', class: span23
-      .phone-field{ class: 'span3' }
-        = f.label :phone do
-          Phone
-          %span (optional)
-        = f.text_field :phone, autocomplete: ac, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'instantValidation: { accessor: "phone", attribute: "validPhone" }', class: span23
-        <!-- ko if: overseas -->
-        %small= t 'overseas_phone'
-        <!-- /ko -->
+          = f.label :gender do
+            = identity_field_option_label(:gender)
+          = f.select :gender, identity_field_options(:gender), { include_blank: true }, { autocomplete: ac, class: span23, 'data-bind' => 'instantValidation: { accessor: "gender" }' }
+      - if identity_field_enabled? :email
+        .email-field{ class: span23 }
+          = f.label :email do
+            = identity_field_option_label(:email)
+          = f.text_field :email, autocomplete: ac, placeholder: 'john@smith.com', 'data-bind' => 'instantValidation: { accessor: "email", attribute: "validEmail" }', class: span23
+    - if identity_field_enabled?(:phone) || identity_field_enabled?(:fax) 
+      .row.personal-info
+        - if identity_field_enabled? :phone
+          .phone-field{ class: 'span3' }
+            = f.label :phone do
+              = identity_field_option_label(:phone)
+            = f.text_field :phone, autocomplete: ac, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'instantValidation: { accessor: "phone", attribute: "validPhone" }', class: span23
+            <!-- ko if: overseas -->
+            %small= t 'overseas_phone'
+            <!-- /ko -->
+        - if identity_field_enabled? :fax
+          .phone-field{ class: 'span3' }
+            = f.label :fax do
+              = identity_field_option_label(:fax)
+            = f.text_field :fax, autocomplete: ac, placeholder: '(NNN) NNN-NNNN', 'data-bind' => 'instantValidation: { accessor: "fax", attribute: "validPhone" }', class: span23
 
   - if personal_data_here
     = render partial: 'eligibility_ssn', locals: { f: f }

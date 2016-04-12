@@ -7,8 +7,10 @@ class window.Registration
     @domestic           = ko.computed => !@overseas()
 
     @ssnRequired        = ko.observable($("input#ssn_required").val() == 'true')
-    @middleNameRequired = ko.observable($("input#require_middle_name").val() == 'true')
-    @nameSuffixRequired = ko.observable($("input#require_name_suffix").val() == 'true')
+    @middleNameRequired = ko.computed =>
+      ko.observable($("input#require_middle_name").val() == 'true') and (gon.enable_names_virginia and !@noMiddleName())
+    @nameSuffixRequired = ko.computed =>
+      ko.observable($("input#require_name_suffix").val() == 'true') and (gon.enable_names_virginia and !@noSuffix())
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
     @editMailingAddressAtProtectedVoter = ko.observable($("input#enable_edit_mailing_address_at_protected_voter").val() == 'true')
     @dmvIdCheckbox      = !!gon.require_dmv_id
@@ -157,17 +159,16 @@ class window.Registration
       phoneEl.attr('placeholder', '(NNN) NNN-NNNN')
 
   initIdentityFields: ->
+    @namePrefix                 = ko.observable()
     @firstName              = ko.observable()
     @middleName             = ko.observable()
-    @noMiddleName           = ko.observable()
-    @middleNameEnabled      = ko.computed => !@noMiddleName()
     @lastName               = ko.observable()
-    @suffix                 = ko.observable()
-    @noSuffix               = ko.observable()
-    @suffixEnabled          = ko.computed => !@noSuffix()
+    @nameSuffix             = ko.observable()
     @gender                 = ko.observable()
     @phone                  = ko.observable()
+    @fax                    = ko.observable()
     @validPhone             = ko.computed => !filled(@phone()) or phone(@phone())
+    @validFax               = ko.computed => !filled(@fax()) or phone(@fax())
     @email                  = ko.observable()
     @validEmail             = ko.computed => !filled(@email()) or email(@email())
     @caType                 = ko.observable()
@@ -178,18 +179,24 @@ class window.Registration
       @overseas.subscribe => @updatePhoneField()
       @updatePhoneField()
 
-    @noMiddleName.subscribe (v) =>
-      if v
-        @middleName(null)
-        $("#registration_middle_name").removeAttr('data-visited')
-      else
-        $("input#registration_middle_name[type='text']").focus()
+    if gon.enable_names_virginia
+      @noMiddleName           = ko.observable()
+      @middleNameEnabled      = ko.computed => !@noMiddleName()
+      @noSuffix               = ko.observable()
+      @suffixEnabled          = ko.computed => !@noSuffix()
+    
+      @noMiddleName.subscribe (v) =>
+        if v
+          @middleName(null)
+          $("#registration_middle_name").removeAttr('data-visited')
+        else
+          $("input#registration_middle_name[type='text']").focus()
 
-    @noSuffix.subscribe (v) =>
-      if v
-        @suffix('')
-      else
-        $("select#registration_suffix").focus()
+      @noSuffix.subscribe (v) =>
+        if v
+          @suffix('')
+        else
+          $("select#registration_suffix").focus()
 
     @isConfidentialAddress.subscribe (v) =>
       @caType(null) unless v
@@ -214,10 +221,10 @@ class window.Registration
         errors.push('The date of restoration of voting rights must be after your date of birth. Please correct your date of birth or go back to to correct your restoration date.')
 
 
-      if (@middleNameRequired() and !filled(@middleName()) and !@noMiddleName())
+      if (@middleNameRequired() and !filled(@middleName()))
         errors.push('Middle name')
 
-      if (@nameSuffixRequired() and !filled(@suffix()) and !@noSuffix())
+      if (@nameSuffixRequired() and !filled(@nameSuffix()))
         errors.push('Name suffix')
 
       if @isConfidentialAddress()
@@ -548,7 +555,7 @@ class window.Registration
 
   initSummaryFields: ->
     @summaryFullName = ko.computed =>
-      valueOrUnspecified(join([ @firstName(), @middleName(), @lastName(), @suffix() ], ' '))
+      valueOrUnspecified(join([ @firstName(), @middleName(), @lastName(), @nameSuffix() ], ' '))
 
     @summaryEligibility = ko.computed =>
       items = []

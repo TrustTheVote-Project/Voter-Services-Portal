@@ -1,38 +1,30 @@
 - updating ||= false
-- require_middle_name = AppConfig['require_middle_name']
-- require_name_suffix = AppConfig['require_name_suffix']
-- middle_name_value = require_middle_name ? 'instantValidation: { accessor: "middleName", unless: "noMiddleName" }' : 'value: middleName'
-- name_suffix_value = require_name_suffix ? 'instantValidation: { accessor: "suffix", unless: "noSuffix" }' : 'value: suffix'
 .row.personal-info
-  .span3
-    = f.label :first_name
-    = f.text_field :first_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "firstName" }, valueUpdate: "afterkeyup"'
-  .span3
-    = f.label :middle_name do
-      Full middle
-      - unless require_middle_name
-        %span= t('optional')
-    = hidden_field_tag "registration[middle_name]", ''
-    = f.text_field :middle_name, autocomplete: ac, 'data-bind' => [ "enable: middleNameEnabled", middle_name_value ].join(", ")
-  .span3
-    = f.label :last_name
-    = f.text_field :last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "lastName" }, valueUpdate: "afterkeyup"'
-  .span2
-    = f.label :suffix do
-      Suffix
-      - unless require_name_suffix
-        %span= t('optional')
-    = hidden_field_tag "registration[suffix]", ''
-    = f.select :suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => [ 'enable: suffixEnabled', name_suffix_value ].join(', ') }
-
-- if require_middle_name
-  .row
-    .checkbox
-      = check_box_tag :no_middle_name, '1', updating && f.object.middle_name.blank?, 'data-bind' => 'checkedWithInit: noMiddleName'
-      = label_tag :no_middle_name, t('identity.no_middle_name')
-
-- if require_name_suffix
-  .row
-    .checkbox
-      = check_box_tag :no_name_suffix, '1', updating && f.object.suffix.blank?, 'data-bind' => 'checkedWithInit: noSuffix'
-      = label_tag :no_name_suffix, t('identity.no_name_suffix')
+  - if identity_field_enabled?(:name_prefix)
+    .span1
+      = f.label :name_prefix do
+        = identity_field_option_label(:name_prefix)
+      = f.select :name_prefix, identity_field_options(:name_prefix), { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => "instantValidation: { accessor: \"namePrefix\", unless: #{!identity_field_required?(:name_prefix)}}",  required: identity_field_required?(:name_prefix)}
+  - if identity_field_enabled?(:first_name)
+    .span3
+      = f.label :first_name do
+        = identity_field_option_label(:first_name)
+      = f.text_field :first_name, autocomplete: ac, 'data-bind' => "instantValidation: { accessor: \"firstName\" , unless: #{!identity_field_required?(:first_name)}}, valueUpdate: \"afterkeyup\"", required: identity_field_required?(:first_name), class: 'span2'
+  - if identity_field_enabled?(:middle_name)
+    .span2
+      = f.label :middle_name do
+        = identity_field_option_label(:middle_name)
+      = f.text_field :middle_name, autocomplete: ac, 'data-bind' => "instantValidation: { accessor: \"middleName\", unless: #{!identity_field_required?(:middle_name)} }, valueUpdate: \"afterkeyup\"", required: identity_field_required?(:middle_name), class: 'span2'
+  - if identity_field_enabled?(:middle_name)
+    .span3
+      = f.label :last_name do
+        = identity_field_option_label(:last_name)
+      = f.text_field :last_name, autocomplete: ac, 'data-bind' => "instantValidation: { accessor: \"lastName\", unless: #{!identity_field_required?(:last_name)} }, valueUpdate: \"afterkeyup\"", required: identity_field_required?(:last_name), class: 'span2'
+      
+  - if identity_field_enabled?(:name_suffix)
+    .span1
+      = f.label :name_suffix do
+        = identity_field_option_label(:name_suffix)
+      = f.select :name_suffix, identity_field_options(:name_suffix), { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => "instantValidation: { accessor: \"nameSuffix\", unless: #{!identity_field_required?(:name_suffix)} }", required: identity_field_required?(:name_suffix) }
+    
+      

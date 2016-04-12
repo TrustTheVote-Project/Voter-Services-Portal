@@ -53,7 +53,6 @@ eligibility:
   Age18: false # Show age checkbox on eligibility screen (if not shown, the age eligibility attribue defaults to TRUE)
   CollectPersonalData: true #actually force to false when ComineWithIdentity is true
   
-  
 # When FALSE, showing the explanation page to ineligible
 allow_ineligible_to_complete_form: false  
 
@@ -62,6 +61,59 @@ enable_expanded_felony_mental_eligibility: true
 
 # TRUE to place SSN / DMVID / DOB on eligibility page, FALSE -- on identity
 personal_data_on_eligibility_page: true
+
+
+identity:
+  enable_name_prefix: true
+  require_name_prefix: false
+  enable_first_name: true
+  require_first_name: true
+  enable_middle_name: true
+  require_middle_name: false
+  enable_last_name: true
+  require_last_name: true
+  enable_name_suffix: true
+  require_name_suffix: false
+  enable_gender: true
+  require_gender: true
+  enable_email: true
+  require_email: false
+  enable_phone: true
+  require_phone: false
+  enable_fax: true
+  require_fax: false
+  enable_date_of_birth: true
+  require_date_of_birth: true
+  enable_federal_id_number: true
+  require_federal_id_number: true
+  enable_transport_id_number: true
+  require_transport_id_number: false
+  enable_id_document_image: false
+  require_id_document_image: false
+  enable_protected_status: false
+  require_protected_status: false
+  # When true, uses a special set of name fields that requires users to confirm blank, optional fields
+  enable_names_virginia: false
+  gender_options:
+    - female
+    - male
+    - other
+  name_prefix_options:
+    - mister
+    - misses
+    - mis
+    - miss
+    - doctor
+  name_suffix_options:
+    - junior
+    - senior
+    - second
+    - third
+    - fourth
+  documenation_types:
+    - drivers_license
+    - passport
+
 
 # Require SSN field to be present on eligibility screen (both registration and update)
 #   true = users who don't provide SSN are treated as ineligible

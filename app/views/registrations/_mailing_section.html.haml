@@ -47,10 +47,10 @@
         = f.label :pr_last_name, "Last name"
         = f.text_field :pr_last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prLastName" }, valueUpdate: "afterkeyup"'
       .span2
-        = f.label :pr_suffix do
+        = f.label :pr_name_suffix do
           Suffix
           %span= t('optional')
-        = f.select :pr_suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'value: prSuffix' }
+        = f.select :pr_name_suffix, Dictionaries::NAME_SUFFIXES, { include_blank: true }, { autocomplete: ac, class: 'span1', 'data-bind' => 'value: prSuffix' }
     .row
       .span12
         .checkbox
