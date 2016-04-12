@@ -87,7 +87,7 @@ identity:
   enable_federal_id_number: true
   require_federal_id_number: true
   enable_transport_id_number: true
-  require_transport_id_number: false
+  require_transport_id_number: true
   enable_id_document_image: false
   require_id_document_image: false
   enable_protected_status: false
@@ -110,7 +110,7 @@ identity:
     - second
     - third
     - fourth
-  documenation_types:
+  id_document_image_options:
     - drivers_license
     - passport
 
@@ -125,9 +125,6 @@ state_id_length:
   min: 9
   max: 12
 
-# When false, DMV ID entry field is optional
-# TBD: require_dmv_id: true
-require_dmv_id: true
 
 
 # Enable/disable the pre-population of residence address fields from DMV address, if available

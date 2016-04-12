@@ -295,6 +295,32 @@
   overflow-y: scroll;
 }
 
+.file-upload-input {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+label.file-upload-button {
+  font-size: 1.25em;
+  font-weight: 700;
+  color: white;
+  text-align: center;
+  background-color: black;
+  padding: 3px ;
+  border-radius: 3px;
+  cursor: pointer;
+  &:focus, &:hover {
+    background-color: red;  
+  }
+  &.disabled {
+    background-color: #ccc;
+  }
+}
+
 #download {
   .download-link {
     float: right;

@@ -3,3 +3,14 @@ enable_need_assistance_option: false
 
 # Enable/disable the volunteer option
 enable_volunteer_option: false
+
+identity:
+  enable_federal_id_number: false
+  enable_transport_id_number: false
+  enable_id_document_image: true
+  require_id_document_image: false
+  id_document_image_options:
+    - drivers_license
+    - photo_card
+    - health_card
+    - band_council_document

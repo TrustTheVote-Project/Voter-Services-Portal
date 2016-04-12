@@ -37,6 +37,7 @@
 
     = render partial: 'eligibility_ssn', locals: { f: f }
     = render partial: 'eligibility_dmvid', locals: { f: f }
+    = render partial: 'eligibility_image', locals: { f: f }
 
 
   .form-actions{style: "#{eligibility_config['combine_with_identity'] ? 'display: none;' : ''}"}

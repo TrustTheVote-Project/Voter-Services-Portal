@@ -34,7 +34,7 @@ class ApplicationController < ActionController::Base
     gon.default_identity_name_config    = default_identity_name_config?
     gon.enable_names_virginia         = identity_config['enable_names_virginia']
     gon.personal_data_on_eligibility_page = AppConfig['OVR']['eligibility']['CollectPersonalData'] && !eligibility_config['combine_with_identity']
-    gon.require_dmv_id                = AppConfig['OVR']['require_dmv_id']
+    gon.require_transport_id_number                = eligibility_config['require_transport_id_number']
     gon.enable_digital_ovr                = AppConfig['OVR']['EnableDigitalService']
     gon.enable_paper_ovr                = AppConfig['OVR']['EnablePaperService']
     gon.enable_expanded_felony_mental_eligibility = AppConfig['OVR']['enable_expanded_felony_mental_eligibility']
@@ -42,6 +42,7 @@ class ApplicationController < ActionController::Base
     gon.state_id_length_max           = AppConfig['OVR']['state_id_length']['max']
 
     gon.i18n_dmvid                    = I18n.t('dmvid')
+    gon.i18n_id_documentation_image   = I18n.t('identity.id_documentation_image')
     gon.i18n_confirm_not_provided     = I18n.t("confirm.not_provided")
     gon.i18n_confirm_required         = I18n.t("confirm.required")
     gon.i18n_confirm_not_required     = I18n.t("confirm.not_required")

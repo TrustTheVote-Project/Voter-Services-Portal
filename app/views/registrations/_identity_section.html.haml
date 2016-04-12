@@ -50,6 +50,7 @@
   - if personal_data_here
     = render partial: 'eligibility_ssn', locals: { f: f }
     = render partial: 'eligibility_dmvid', locals: { f: f }
+    = render partial: 'eligibility_image', locals: { f: f }
 
   = render partial: 'registrations/protected_voter', locals: { f: f }
 

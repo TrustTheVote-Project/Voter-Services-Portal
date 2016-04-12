@@ -27,6 +27,7 @@
   - if AppConfig['OVR']['eligibility']['CollectPersonalData'] && !eligibility_config['combine_with_identity']
     = render partial: 'eligibility_ssn', locals: { f: f }
     = render partial: 'eligibility_dmvid', locals: { f: f }
+    = render partial: 'eligibility_image', locals: { f: f }
 
   .form-actions
     = button_tag 'Next', class: 'next bt', 'data-bind' => 'click: nextFromEligibility, css: { disabled: eligibilityInvalid }'

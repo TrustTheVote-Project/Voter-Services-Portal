@@ -1,0 +1,24 @@
+- if identity_config['enable_id_document_image']
+  .partition
+    .id_documentation_image
+      = f.label :id_document_image_type do
+        = identity_field_option_label(:id_document_image)
+      - if identity_config['require_id_document_image']
+        .row
+          .span4
+            = f.select :id_document_image_type, identity_field_options(:id_document_image), { include_blank: true }, {autocomplete: ac, 'data-bind' => 'disable: noDocImage, instantValidation: { accessor: "docImageType", unless: "noDocImage" }, valueUpdate: "afterkeyup"', class: 'span4 '}
+          = f.file_field :id_document_image, autocomplete: ac, 'data-bind' => 'disable: noDocImageSelected, instantValidation: { accessor: "docImage", unless: "noDocImage" }, valueUpdate: "afterkeyup"', class: 'file-upload-input'
+          = f.label :id_document_image, class: 'id_documentation_image bt file-upload-button span4', 'data-bind' => 'css: { disabled: noDocImageSelected }' do
+            = I18n.t('identity.id_document_image_upload_label')
+        .checkbox
+          = f.check_box :no_doc_image, 'data-bind' => 'checked: noDocImage'
+          = f.label :no_doc_image, t("identity.id_document_image_dont_have")
+      - else
+        .row
+          .span4
+            = f.select :id_document_image_type, identity_field_options(:id_document_image), { include_blank: true }, {autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "docImageType", unless: true }, valueUpdate: "afterkeyup"', class: 'span4'}
+          = f.file_field :id_document_image, autocomplete: ac, 'data-bind' => 'disable: noDocImageSelected, instantValidation: { accessor: "docImage", unless: true }, valueUpdate: "afterkeyup"', class: 'file-upload-input'
+          = f.label :id_document_image, class: 'id_documentation_image bt file-upload-button span4', 'data-bind' => 'css: { disabled: noDocImageSelected }' do
+            = I18n.t('identity.id_document_image_upload_label')
+        
+        

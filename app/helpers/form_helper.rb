@@ -7,7 +7,7 @@ module FormHelper
 
   def identity_field_option_label(field)
     opt_label = identity_field_required?(field) ? "&nbsp;" : I18n.t("identity.optional")
-    return "#{I18n.t("identity.#{field}")}<span>#{opt_label}</span>".html_safe
+    return "#{I18n.t("identity.#{field}")} <span>#{opt_label}</span>".html_safe
   end
 
 

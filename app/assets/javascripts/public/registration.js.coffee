@@ -7,13 +7,14 @@ class window.Registration
     @domestic           = ko.computed => !@overseas()
 
     @ssnRequired        = ko.observable($("input#ssn_required").val() == 'true')
+    @showDocImage       = ko.observable($("input#id_documentation_image_enabled").val() == 'true')
     @middleNameRequired = ko.computed =>
-      ko.observable($("input#require_middle_name").val() == 'true') and (gon.enable_names_virginia and !@noMiddleName())
+      gon.enable_names_virginia and !@noMiddleName()
     @nameSuffixRequired = ko.computed =>
-      ko.observable($("input#require_name_suffix").val() == 'true') and (gon.enable_names_virginia and !@noSuffix())
+      gon.enable_names_virginia and !@noSuffix()
     @allowInelligibleToCompleteForm = ko.observable($("input#allow_ineligible_to_complete_form").val() == 'true')
     @editMailingAddressAtProtectedVoter = ko.observable($("input#enable_edit_mailing_address_at_protected_voter").val() == 'true')
-    @dmvIdCheckbox      = !!gon.require_dmv_id
+    @dmvIdCheckbox      = !!gon.require_transport_id_number
     @personalDataOnEligibilityPage = !!gon.personal_data_on_eligibility_page
     @paperlessPossible  = ko.observable()
     @lookupPerformed    = false
@@ -73,6 +74,12 @@ class window.Registration
     @hasSSN                       = ko.computed => filled(@ssn())
     @dmvId                        = ko.observable()
     @noDmvId                      = ko.observable()
+    @docImageType                 = ko.observable()
+    @docImage                     = ko.observable()
+    @noDocImage                   = ko.observable()
+    @noDocImageSelected           = ko.computed => @docImageType() == ''
+    
+
 
     @rightsFelonyRestored         = ko.observable()
     @rightsMentalRestored         = ko.observable()
@@ -107,6 +114,21 @@ class window.Registration
         setTimeout (-> $("#registration_dmv_id").removeAttr('data-visited')), 1
       else
         setTimeout (-> $("#registration_dmv_id").focus()), 1
+
+    @noDocImage.subscribe (v) =>
+      if v
+        @docImage(null)
+        @docImageType(null)
+        setTimeout (-> $("#registration_id_documentation_image").removeAttr('data-visited')), 1
+      else
+        setTimeout (-> $("#registration_id_documentation_image").focus()), 1
+
+    @docImage.subscribe (v) =>
+      if v
+        fileName = v.split( '\\' ).pop();
+        if fileName
+          $("label.file-upload-button.id_documentation_image").text(fileName);
+        
 
     @hasEligibleRights = ko.computed =>
       (@rightsWereRevoked() == '0' or
@@ -173,7 +195,7 @@ class window.Registration
     @validEmail             = ko.computed => !filled(@email()) or email(@email())
     @caType                 = ko.observable()
     @isConfidentialAddress  = ko.observable()
-
+    
     if phoneEl = $("#registration_phone")
       phoneEl.formatter({ pattern: @phonePatternDomestic })
       @overseas.subscribe => @updatePhoneField()
@@ -267,6 +289,7 @@ class window.Registration
     errors.push('Date of birth') unless @dob()
     errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN()
     errors.push(gon.i18n_dmvid) if @dmvIdCheckbox and !isDmvId(@dmvId()) and !@noDmvId()
+    errors.push(gon.i18n_id_documentation_image) if @showDocImage() and !@noDocImage() and (!@docImageType() or !@docImage())
 
   initAddressFields: ->
     @maIsDifferent          = ko.observable(false)

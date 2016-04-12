@@ -1,5 +1,8 @@
 en:
   identity:
+    id_documentation_image: "ID Document"
+    id_document_image_upload_label: "Choose a file"
+    id_document_image_dont_have: I do not have an ID document image
     optional: (optional)
     date_of_birth: Date of birth
     name_prefix: Prefix
@@ -12,7 +15,7 @@ en:
     phone: Phone
     fax: Fax
     federal_id_number: Social Security Number
-    transport_id_number: Driver's License Number
+    transport_id_number: Department of Motor Vehicles Identifier or Customer Number    
     id_document_image: Upload ID Document
     protected_status: Projected Voter
     gender_options:

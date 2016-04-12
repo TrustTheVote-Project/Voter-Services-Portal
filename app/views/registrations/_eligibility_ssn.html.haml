@@ -1,7 +1,13 @@
-.partition
-  .security-number
-    = f.label :ssn, t("ssn")
-    = f.text_field :ssn, autocomplete: ac, placeholder: "NNN-NN-NNNN", maxlength: 11, 'data-bind' => 'disable: noSSN, instantValidation: { accessor: "ssn", validation: "ssn", unless: "noSSN" }, valueUpdate: "afterkeyup"', class: 'span3 ssn'
-    .checkbox
-      = f.check_box :no_ssn, 'data-bind' => 'checked: noSSN, disable: hasSSN'
-      = f.label :no_ssn, t("eligibility.ssn.dont_have"), 'data-bind' => 'css: { disabled: hasSSN }'
+- if identity_config['enable_federal_id_number']
+  .partition
+    .security-number
+      = f.label :ssn do
+        = identity_field_option_label(:federal_id_number)
+      
+      - if identity_config['require_federal_id_number']
+        = f.text_field :ssn, autocomplete: ac, placeholder: "NNN-NN-NNNN", maxlength: 11, 'data-bind' => 'disable: noSSN, instantValidation: { accessor: "ssn", validation: "ssn", unless: "noSSN" }, valueUpdate: "afterkeyup"', class: 'span3 ssn'
+        .checkbox
+          = f.check_box :no_ssn, 'data-bind' => 'checked: noSSN, disable: hasSSN'
+          = f.label :no_ssn, t("eligibility.ssn.dont_have"), 'data-bind' => 'css: { disabled: hasSSN }'
+      - else 
+        = f.text_field :ssn, autocomplete: ac, placeholder: "NNN-NN-NNNN", maxlength: 11, 'data-bind' => 'instantValidation: { accessor: "ssn", validation: "ssn", unless: true }, valueUpdate: "afterkeyup"', class: 'span3 ssn'
