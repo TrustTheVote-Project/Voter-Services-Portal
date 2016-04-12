@@ -40,7 +40,16 @@ class window.Registration
 
   initEligibilityFields: ->
     @citizen                      = ko.observable()
-    @eligibility_single_statement = ko.observable()
+    @eligibilityRequirements = []
+    if gon.default_eligibility_config
+      $('.eligibility_requirement input').each (i, el) =>
+        observableName = $(el).data('observable')
+        if observableName && observableName != '' && !@eligibilityRequirements.includes(observableName)
+            @eligibilityRequirements.push(observableName)
+
+    for req in @eligibilityRequirements
+      @[req] = ko.observable()
+      
     @oldEnough                    = ko.observable()
     @rightsFelony                 = ko.observable()
     @rightsMental                 = ko.observable()
@@ -104,12 +113,13 @@ class window.Registration
          (@rightsMental() == '0' or (@rightsMentalRestored() == '1' and !!@rightsMentalRestoredOn()))))
 
     @isEligible = ko.computed =>
-      (@eligibility_single_statement() == 'agree' && gon.eligibility_single_statement) or
-      (@citizen() == '1' and
-      @oldEnough() == '1' and
-      !!@dob() and
-      (!@ssnRequired() or (!@noSSN() and filled(@ssn()))) and
-      @hasEligibleRights())
+      if gon.default_eligibility_config
+      else
+        (@citizen() == '1' and
+        @oldEnough() == '1' and
+        !!@dob() and
+        (!@ssnRequired() or (!@noSSN() and filled(@ssn()))) and
+        @hasEligibleRights())
 
     @rightsNotFilled = ko.computed =>
       rightsOptionsNotFilled =
@@ -220,9 +230,22 @@ class window.Registration
 
     @identityInvalid = ko.computed => @identityErrors().length > 0
 
+  default_eligibility_config_errors: ->
+    errors = []
+    inputs = $(".eligibility_requirement input[type=checkbox], .eligibility_requirement input[type=radio]")
+    for req in @eligibilityRequirements
+      observableValue = @[req]()
+      input = $("input[data-observable=#{req}]")
+      error = $(input).parents(".eligibility_requirement").find(".ineligible_message").text().trim()
+      if !(observableValue == true || observableValue == "1")
+        errors.push(error)
+
+    errors
+
   validateEligibilityData: (errors) ->
-    if gon.eligibility_single_statement
-      errors.push("Declare Eligibility") unless @eligibility_single_statement() == "agree"
+    if gon.default_eligibility_config
+      for error in @default_eligibility_config_errors()
+        errors.push(error)
     else
       errors.push("Citizenship criteria") unless @citizen()
       errors.push("Age criteria") unless @oldEnough()
@@ -526,8 +549,8 @@ class window.Registration
 
     @summaryEligibility = ko.computed =>
       items = []
-      if gon.eligibility_single_statement
-        if @eligibility_single_statement() == 'agree'
+      if gon.default_eligibility_config
+        if @default_eligibility_config_errors().length == 0
           items.push "Agree to eligibility"
         else
           items.push "Does not agree to eligibility"

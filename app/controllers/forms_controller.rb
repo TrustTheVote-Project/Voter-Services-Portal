@@ -10,4 +10,6 @@ class FormsController < ApplicationController
     @req.ssn        = current_registration.ssn
   end
 
+  
+
 end

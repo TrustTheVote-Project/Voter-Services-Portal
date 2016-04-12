@@ -228,6 +228,8 @@
   float: none;
 }
 
+
+
 .radio,
 .checkbox {
   padding-left: 22px;
@@ -237,6 +239,11 @@
   input[type="checkbox"] {
     margin-left: -22px;
   }
+}
+
+
+.ineligible_message {
+  display: none;
 }
 
 .form-actions {

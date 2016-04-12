@@ -1,5 +1,28 @@
 module ConfigHelper
 
+  def eligibility_config
+    AppConfig['OVR']['eligibility']
+  end
+
+  ### Eligibility section helpers
+  def default_eligibility_config?
+    !eligibility_config['enable_method_virginia']
+  end
+  
+  def is_complex_eligibility_requirement?(requirement_key)
+    I18n.t("eligibility.requirements.#{requirement_key}").is_a?(Hash)
+  end
+  
+  
+  ### Optional questions section helpers
+
+  def any_options?(updating)
+    AppConfig['OVR']['enable_need_assistance_option'] || AppConfig['OVR']['enable_volunteer_option'] || (updating && AppConfig['OVR']['enable_absentee_option_domestic_update']) || (!updating && AppConfig['OVR']['enable_absentee_option_domestic_new'])
+  end
+
+
+
+
   def enabled_uocava_reg
     @enabled_uocava_reg ||= AppConfig['enable_uocava_new_registration']
   end

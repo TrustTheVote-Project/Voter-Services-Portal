@@ -3,11 +3,11 @@
     .partition.eligibility_requirement.eligibility_requirement_complex
       %h4= raw t "eligibility.requirements.#{requirement_key}.question"
       .radio
-        = f.radio_button "eligibility_requirement_#{requirement_key}", '1', 'data-bind' => 'checkedWithInit: "eligibility_requirement_#{requirement_key}"'
-        %label{ for: "eligibility_requirement_#{requirement_key}_1" }= raw t("eligibility.requirements.#{requirement_key}.agree")
+        = f.radio_button "eligibility_requirement_#{requirement_key}", '1', 'data-bind' => "checkedWithInit: eligibility_requirement_#{requirement_key}", 'data-observable' => "eligibility_requirement_#{requirement_key}"
+        %label{ for: "registration_eligibility_requirement_#{requirement_key}_1" }= raw t("eligibility.requirements.#{requirement_key}.agree")
       .radio
-        = f.radio_button "eligibility_requirement_#{requirement_key}", '0', 'data-bind' => 'checkedWithInit: "eligibility_requirement_#{requirement_key}"'
-        %label{ for: "eligibility_requirement_#{requirement_key}_0" }= raw t("eligibility.requirements.#{requirement_key}.disagree")
+        = f.radio_button "eligibility_requirement_#{requirement_key}", '0', 'data-bind' => "checkedWithInit: eligibility_requirement_#{requirement_key}", 'data-observable' => "eligibility_requirement_#{requirement_key}"
+        %label{ for: "registration_eligibility_requirement_#{requirement_key}_0" }= raw t("eligibility.requirements.#{requirement_key}.disagree")
       .ineligible_message
         = raw t("eligibility.requirements.#{requirement_key}.ineligible")
         
@@ -15,5 +15,7 @@
   - else 
     .partition.eligibility_requirement
       .checkbox
-        = f.check_box "eligibility_requirement_#{requirement_key}", 'data-bind' => "checked: eligibility_requirement_#{requirement_key}"
+        = f.check_box "eligibility_requirement_#{requirement_key}", 'data-bind' => "checked: eligibility_requirement_#{requirement_key}", 'data-observable' => "eligibility_requirement_#{requirement_key}"
         = f.label "eligibility_requirement_#{requirement_key}", raw(t("eligibility.requirements.#{requirement_key}"))
+      .ineligible_message
+        = "Agree to #{requirement_key}"

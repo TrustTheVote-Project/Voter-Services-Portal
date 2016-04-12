@@ -113,6 +113,7 @@ class RegistrationsController < ApplicationController
 
   private
 
+  
   # Finalizes the creation
   def finalize_create(active_form, reg = @registration, ses = session)
     submitted = false
