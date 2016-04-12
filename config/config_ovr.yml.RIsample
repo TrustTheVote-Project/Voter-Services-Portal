@@ -10,7 +10,7 @@ eligibility:
 
 completion:
   include_attestation: true
-  combine_attestation_with_confirmation: false
+  combine_attestation_with_confirmation: true
   assistance:
     paperless: false
     paper: false

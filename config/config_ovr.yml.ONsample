@@ -1,7 +1,6 @@
 options:
-  enable_need_assitance: false
+  enable_need_assistance: false
   enable_volunteer: false
-  
 
 identity:
   enable_federal_id_number: false
