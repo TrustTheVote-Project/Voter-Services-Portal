@@ -4,8 +4,11 @@
 ##
 
 options:
-  combine_with_confirmation: true
-
+  combine_with_confirmation: false
+  enable_need_assistance: true
+  confirm_need_assistance: true
+  enable_volunteer: true
+  confirm_volunteer: false
 
 eligibility:
   requirements:
