@@ -1,0 +1,8 @@
+en:
+  confirm:
+    previous_registration:
+      not_registered: "Not currently registered in Rhode Island or another state"
+    status:
+      resident: Rhode Island Residential Voter
+
+

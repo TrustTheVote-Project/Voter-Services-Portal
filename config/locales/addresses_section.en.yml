@@ -2,7 +2,7 @@ en:
   residence_address: Residence Address
 
   addresses:
-    description: "%{address_name} is your Home address in Virginia or your most recent Virginia residence."
+    description: "%{address_name} is your Home address in the statre or your most recent state residence."
     address: "Address"
     rural_address: "Describe where you reside"
     address_2: "Address Line 2"
@@ -11,8 +11,8 @@ en:
     state: "State"
     zip5: "Zip code"
     zip4: "Zip4"
-    still_available: My Virginia residence is still available to me
-    not_available: My Virginia residence is no longer available to me
+    still_available: My State residence is still available to me
+    not_available: My State residence is no longer available to me
     my_last_date_of_residence: "My last date of residence at the above address was:"
 
   mailing_address:
@@ -21,15 +21,15 @@ en:
       no_limit: "I get my mail at a different address than my %{address}."
 
   previous_registration:
-    header: "I am registered to vote at another address in Virginia or in another state."
+    header: "I am registered to vote at another address in this state or in another state."
     explanation: "If checked, provide the name and address below under which you are currently registered."
     update:
       no_answer: "No"
       yes_answer: "Yes"
     rural: "Check here if Rural Address or Homeless and describe where you used to reside."
     new:
-      no_answer: I am not currently registered to vote in Virginia or another state.
-      yes_answer: I am currently registered to vote in Virginia or in another state.
+      no_answer: I am not currently registered to vote in this state or another state.
+      yes_answer: I am currently registered to vote in this state or in another state.
     address: "Address"
     address_2: "Address Line 2"
     county_or_city: "City, county, or town of residence, if applicable"

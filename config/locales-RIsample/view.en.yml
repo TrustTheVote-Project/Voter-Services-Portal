@@ -1,0 +1,6 @@
+en:
+  view:
+    head:
+      no_forms:
+        description: You are registered to vote in Rhode Island. You can see your voter information below.
+

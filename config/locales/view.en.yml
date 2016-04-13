@@ -3,7 +3,7 @@ en:
     head:
       no_forms:
         title: Your Voter Information
-        description: You are registered to vote in Virginia. You can see your voter information below.
+        description: You are registered to vote in the state. You can see your voter information below.
       forms:
         title: View &amp; Update
         description: >

@@ -2,9 +2,9 @@ en:
   complete_section:
     title: >
       Congratulations!
-      <em>Your State Voter Record is almost updated.</em>
+      <em>Your Rhode Island Voter Record is almost updated.</em>
     description: >
-      Don't forget, to officially update your State Voter Record
+      Don't forget, to officially update your Rhode Island Voter Record
       you will need to complete these steps:
     block_1: >
       <ol>
@@ -15,7 +15,7 @@ en:
       </ol>
       <p>
         <strong>
-          Mail your updated State Voter Record to your local<br/>
+          Mail your updated Rhode Island Voter Record to your local<br/>
           Voter Registration office:
         </strong>
       </p>
@@ -23,7 +23,7 @@ en:
 
     block_2: >
       <p>
-        Within 30 days of mailing your updated State Voter Record, you should receive a<br/>
+        Within 30 days of mailing your updated Rhode Island State Voter Record, you should receive a<br/>
         voter card by mail that will confirm your updated Voter Record. If you do not receive a voter card<br/>
         within in that time, please contact the
         <a href="#"><strong>State Board or Elections.</strong></a>

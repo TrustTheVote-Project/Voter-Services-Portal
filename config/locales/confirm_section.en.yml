@@ -6,7 +6,7 @@ en:
     not_required: "No"
     not_provided: "Not provided"
     previous_registration:
-      not_registered: "Not currently registered in Virginia or another state"
+      not_registered: "Not currently registered in this or another state"
     protected_voter: '(Protected Voter)'
     absentee: '(used for absentee ballot and other voting correspondence)'
 
@@ -16,7 +16,7 @@ en:
       receiving_absentee_through: Receiving an absentee ballot for elections through
       domestic: Domestic Absentee Voter
       domestic_ballot_for: Requesting an <strong>Absentee Ballot</strong> for 
-      resident: Virginia Residential Voter
+      resident: State Residential Voter
 
     rows:
       name: Name

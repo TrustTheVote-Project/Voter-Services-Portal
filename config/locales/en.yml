@@ -1,12 +1,12 @@
 en:
-  title: Virginia Voter Registration
+  title: State Voter Registration
   ssn:   "Social Security Number"
   rural: "Check here if Rural Address or Homeless and describe where you reside."
   optional: "(optional)"
   overseas_phone: "Up to 20 digits, with space or dashes allowed"
 
   alt:
-    logo: "Virginia State Board of Elections"
+    logo: "State Board of Elections"
     download_pdf: "Download your voter registration application as a PDF file."
 
   identity:
@@ -37,13 +37,13 @@ en:
     TemporaryResideOutsideSpouse: Temporarily residing outside U.S. for employment, or spouse or dependent residing with employee
 
   voting_status:
-    residential_voter: "Virginia Residential Voter"
+    residential_voter: "State Residential Voter"
     overseas: "Overseas/Military Absentee Voter"
 
   dmv:
     address_info: "The address shown below is derived from your DMV record. You may correct any inaccurate information."
 
-  nossn: "Without providing your SSN, you will need to print, sign, and mail your application form to your General Registrar, who may reject your application for lack of an SSN. For more information on eligibility, see http://sbe.virginia.gov."
+  nossn: "Without providing your SSN, you will need to print, sign, and mail your application form to your General Registrar, who may reject your application for lack of an SSN. For more information on eligibility."
 
   rab_type:
     federal: "I would like to vote absentee until %{until}."

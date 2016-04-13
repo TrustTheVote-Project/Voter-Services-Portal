@@ -22,9 +22,9 @@ en:
     old_enough:
       question: Will you be at least 18 years of age on or before the next Election Day?
     residence:
-      in: I am currently a resident of Virginia.
-      out: I live outside of the U.S., but the most recent U.S. residence was in Virginia.
-      in_overseas: I have returned to reside in Virginia.
+      in: I am currently a resident of the State.
+      out: I live outside of the U.S., but the most recent U.S. residence was in this state.
+      in_overseas: I have returned to reside in this state.
       out_overseas: I am still residing abroad or deployed on military duty.
     rights:
       question: Have you been convicted of a felony or been adjudicated mentally incapacitated?

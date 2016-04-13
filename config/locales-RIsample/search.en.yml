@@ -1,0 +1,24 @@
+en:
+  search:
+    no_forms:
+      details:
+        <p>We've created this service to help all Rhode Island voters -- domestic, military, and overseas --
+          by providing you with access to your voter record, and information about voter registration,
+          updating your record, and your options for how to vote.</p>
+        <p>To get started, use the form below to check whether you are registered to vote, and to view your voter information if so.</p>
+    title: Identity
+    subtitle:  Identify who you are to look-up your State Voter Record.
+    details:
+      <p>To look-up your State Voter Record, you'll need to provide your first name,
+        last name, date of birth, locality, and the last 4 digits of your
+        Social Security Number. You can also identify using the voter identification
+        number on your voter card, by selecting "Use Voter ID" below.</p>
+    via_vid:
+      option: Use RI Voter ID
+      voter_id: RI Voter ID
+    affirmation: "I certify and affirm that the information provided to access my voter registration record is my own. I understand that it is unlawful to access the record of any other voter, punishable as computer fraud under RI. Code &sect; N.N.N.N."
+    record_is_confidential:
+      body:   "We are sorry, but for confidentiality reasons, the requested record cannot be displayed. To review or update your record, please contact your local general registrar or the Rhode Island State Board of Elections. If you are attempting to submit an absentee ballot application, please visit the SBE website to get the PDF version of the form or contact or visit your local general registrar's office."
+    record_is_inactive:
+      body:   "We are sorry, but we are unable to process your request based on the information you have provided.  Please contact your local general registrar or the Rhode Island Board of Elections for assistance."
+

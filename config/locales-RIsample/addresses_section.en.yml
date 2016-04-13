@@ -1,0 +1,10 @@
+en:
+  addresses:
+    still_available: My Rhode Island state residence is still available to me
+    not_available: My Rhode Island state residence is no longer available to me
+
+  previous_registration:
+    header: "I am registered to vote at another address in Rhode Island or in another state."
+      no_answer: I am not currently registered to vote in Rhode Island or another state.
+      yes_answer: I am currently registered to vote in Rhode Island or in another state.
+
