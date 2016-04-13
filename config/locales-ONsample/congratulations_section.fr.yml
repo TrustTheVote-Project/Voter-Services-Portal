@@ -1,7 +1,7 @@
 fr:
   congratulations:
     title: Congratulations! You're almost registered.
-    description: "Don't forget, to officially register to vote in Virginia you will need to complete these steps:"
+    description: "Don't forget, to officially register to vote in Ontario you will need to complete these steps:"
     block_1: >
       <ol>
         <li>Download</li>
@@ -11,12 +11,12 @@ fr:
       </ol>
       <p>
         <strong>
-          Mail your Virginia Voter Registration Application and proof of identity to your local<br/>
+          Mail your Ontario Voter Registration Application and proof of identity to your local<br/>
           Voter Registration office:
         </strong>
       </p>
       <p>%{office_address}</p>
 
     block_2: >
-      <p>Within 30 days of mailing your Virginia Voter Registration Application, you should receive a<br/>voter card by mail that will confirm you are registered to vote. If you do not receive a voter card<br/>within in that time, please contact the <strong>Virginia State Board or Elections.</strong><br/><br/>Thank you!</p>
+      <p>Within 30 days of mailing your Ontario Voter Registration Application, you should receive a<br/>voter card by mail that will confirm you are registered to vote. If you do not receive a voter card<br/>within in that time, please contact the <strong>Ontario Board of Elections.</strong><br/><br/>Thank you!</p>
 

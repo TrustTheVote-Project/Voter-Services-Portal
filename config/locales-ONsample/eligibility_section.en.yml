@@ -1,25 +1,25 @@
 en:
   eligibility:
     title: Eligibility
-    description: Eligibility to vote in Virginia.
+    description: Eligibility to vote in Ontario.
     update_description: "Re-confirm your eligibility and voter status"
-    details: "To register you must be a US citizen, be a resident of Virginia, be 18 years old by the next general election, had voting rights restored (if convicted of a felony or declared mentally incapacitated)."
+    details: "To register you must be a US citizen, be a resident of Ontario, be 18 years old by the next general election, had voting rights restored (if convicted of a felony or declared mentally incapacitated)."
     citizen:
-      question: Are you a citizen of the United States of America?
-      ineligible: To register, you must be a citizen of the United States of America.
+      question: Are you a citizen of Canada?
+      ineligible: To register, you must be a citizen of Canada.
     old_enough:
       question: Will you be at least 18 years of age on or before the next Election Day?
     residence:
-      in: I am currently a resident of Virginia.
-      out: I live outside of the U.S., but the most recent U.S. residence was in Virginia.
-      in_overseas: I have returned to reside in Virginia.
+      in: I am currently a resident of Ontario.
+      out: I live outside of the U.S., but the most recent U.S. residence was in Ontario.
+      in_overseas: I have returned to reside in Ontario.
       out_overseas: I am still residing abroad or deployed on military duty.
     rights:
       question: Have you been convicted of a felony or been adjudicated mentally incapacitated?
       ineligible: To register, you must have had your voting rights restored.
       felony:
         question: "Have you ever been convicted of a felony?"
-        state: "State where convicted:"
+        state: "Provence where convicted:"
         restored: "Have your voting rights been restored?"
         date: "Date when restored:"
       mental:

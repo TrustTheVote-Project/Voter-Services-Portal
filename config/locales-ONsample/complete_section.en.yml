@@ -2,9 +2,9 @@ en:
   complete_section:
     title: >
       Congratulations!
-      <em>Your Virginia Voter Record is almost updated.</em>
+      <em>Your Ontario Voter Record is almost updated.</em>
     description: >
-      Don't forget, to officially update your Virginia Voter Record
+      Don't forget, to officially update your Ontario Voter Record
       you will need to complete these steps:
     block_1: >
       <ol>
@@ -15,7 +15,7 @@ en:
       </ol>
       <p>
         <strong>
-          Mail your updated Virginia Voter Record to your local<br/>
+          Mail your updated Ontario Voter Record to your local<br/>
           Voter Registration office:
         </strong>
       </p>
@@ -23,9 +23,9 @@ en:
 
     block_2: >
       <p>
-        Within 30 days of mailing your updated Virginia Voter Record, you should receive a<br/>
+        Within 30 days of mailing your updated Ontario Voter Record, you should receive a<br/>
         voter card by mail that will confirm your updated Voter Record. If you do not receive a voter card<br/>
         within in that time, please contact the
-        <a href="#"><strong>Virginia State Board or Elections.</strong></a>
+        <a href="#"><strong>Ontario Board of Elections.</strong></a>
       </p>
       <p>Thank you!</p>

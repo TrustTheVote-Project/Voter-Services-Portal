@@ -29,7 +29,7 @@ en:
   submitted_paperless:
     title: Registration Submitted
     subheader: "Your registration application has been submitted."
-    details: "Your application has been submitted to your local voter registration office. You are not officially registered to vote until your application is approved by that office. You should receive a Voter Card in the mail. If you do not receive this acknowledgement within 30 days, contact your voter registration office (displayed below) or the State Board of Elections."
+    details: "Your application has been submitted to your local voter registration office. You are not officially registered to vote until your application is approved by that office. You should receive a Voter Card in the mail. If you do not receive this acknowledgement within 30 days, contact your voter registration office (displayed below) or the Board of Elections."
 
   outside_type:
     ActiveDutyMerchantMarineOrArmedForces: Active Duty Merchant Marine or Armed Forces
@@ -38,13 +38,13 @@ en:
     TemporaryResideOutsideSpouse: Temporarily residing outside U.S. for employment, or spouse or dependent residing with employee
 
   voting_status:
-    residential_voter: "Virginia Residential Voter"
+    residential_voter: "Ontario Residential Voter"
     overseas: "Overseas/Military Absentee Voter"
 
   dmv:
     address_info: "The address shown below is derived from your DMV record. You may correct any inaccurate information."
 
-  nossn: "Without providing your SSN, you will need to print, sign, and mail your application form to your General Registrar, who may reject your application for lack of an SSN. For more information on eligibility, see http://sbe.virginia.gov."
+  nossn: "Without providing your SSN, you will need to print, sign, and mail your application form to your General Registrar, who may reject your application for lack of an SSN."
 
   rab_type:
     federal: "I would like to vote absentee until %{until}."
