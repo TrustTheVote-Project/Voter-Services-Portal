@@ -4,42 +4,104 @@
     .description
       = raw t 'addresses.description', address_name: raw(t('residence_address').capitalize)
 
-  .row
-    .span10
-      .checkbox
-        = f.check_box :vvr_is_rural, 'data-bind' => 'checkedWithInit: vvrIsRural'
-        = f.label :vvr_is_rural, t('rural')
-      <!-- ko if: paperlessSubmission -->
-      <br/>
-      #{t("dmv.address_info")}
-      <!-- /ko -->
+  - if address_config['us_format']
+    .row
+      .span10
+        .checkbox
+          = f.check_box :vvr_is_rural, 'data-bind' => 'checkedWithInit: vvrIsRural'
+          = f.label :vvr_is_rural, t('rural')
+        <!-- ko if: paperlessSubmission -->
+        <br/>
+        #{t("dmv.address_info")}
+        <!-- /ko -->
 
-  .row
-    .span10
-      .address-field
+    .row
+      .span10
+        .address-field
+          <!-- ko ifnot: vvrIsRural -->
+          = f.label :vvr_address_1, t('addresses.address')
+          = f.text_field :vvr_address_1, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }, valueUpdate: "afterkeyup"'
+          <!-- /ko -->
+          <!-- ko if: vvrIsRural -->
+          = f.label :vvr_address_1, t('addresses.rural_address')
+          = f.text_field :vvr_address_1, autocomplete: ac, maxlength: AppConfig['rural_address_length'], 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }, valueUpdate: "afterkeyup"'
+          <!-- /ko -->
         <!-- ko ifnot: vvrIsRural -->
-        = f.label :vvr_address_1, t('addresses.address')
-        = f.text_field :vvr_address_1, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }, valueUpdate: "afterkeyup"'
+        .address-field
+          = f.label :vvr_address_2 do
+            = t('addresses.address_2')
+            %span= t('optional')
+          = f.text_field :vvr_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: vvrAddress2'
         <!-- /ko -->
-        <!-- ko if: vvrIsRural -->
-        = f.label :vvr_address_1, t('addresses.rural_address')
-        = f.text_field :vvr_address_1, autocomplete: ac, maxlength: AppConfig['rural_address_length'], 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }, valueUpdate: "afterkeyup"'
+  - elsif address_config['canada_format']
+    .row
+      .span10
+        .radio
+          = radio_button :registration, :ca_address_type, '1', {autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddressType" }' }
+          %label{for: 'registration_ca_address_type_1'}= raw t 'ca_civic'
+        .radio
+          = radio_button :registration, :ca_address_type, '1', {autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddressType" }'} 
+          %label{for: 'registration_ca_address_type_1'}= raw t 'ca_lot_concession'
+        <!-- ko if: paperlessSubmission -->
+        <br/>
+        #{t("dmv.address_info")}
         <!-- /ko -->
-      <!-- ko ifnot: vvrIsRural -->
-      .address-field
-        = f.label :vvr_address_2 do
-          = t('addresses.address_2')
-          %span= t('optional')
-        = f.text_field :vvr_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: vvrAddress2'
-      <!-- /ko -->
+    .row
+      .span12
+        .address-field.row
+          .span2
+            = f.label :ca_address_street_number, t('addresses.address')
+            = f.text_field :ca_address_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddressStreetNumber" }, valueUpdate: "afterkeyup"'
+          .span4
+            = f.label :ca_address_street_name, t('addresses.address')
+            = f.text_field :ca_address_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddressStreetName" }, valueUpdate: "afterkeyup"'
+          .span2
+            = f.label :ca_address_street_type, t('addresses.address')
+            = f.text_field :ca_address_street_type, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddressStreetType" }, valueUpdate: "afterkeyup"'
+          .span2
+            = f.label :ca_address_direction do
+              = t('addresses.address_2')
+              %span= t('optional')
+            = f.text_field :ca_address_direction, autocomplete: ac, 'data-bind' => 'valueWithInit: caAddressDirection'
+          .span2
+            = f.label :ca_address_unit do
+              = t('addresses.address_2')
+              %span= t('optional')
+            = f.text_field :ca_address_unit, autocomplete: ac, 'data-bind' => 'valueWithInit: caAddressUnit'
+
+
+
+    .row
+      .span10
+        .address-field
+          <!-- ko ifnot: vvrIsRural -->
+          = f.label :vvr_address_1, t('addresses.address')
+          = f.text_field :vvr_address_1, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }, valueUpdate: "afterkeyup"'
+          <!-- /ko -->
+          <!-- ko if: vvrIsRural -->
+          = f.label :vvr_address_1, t('addresses.rural_address')
+          = f.text_field :vvr_address_1, autocomplete: ac, maxlength: AppConfig['rural_address_length'], 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }, valueUpdate: "afterkeyup"'
+          <!-- /ko -->
+        <!-- ko ifnot: vvrIsRural -->
+        .address-field
+          = f.label :vvr_address_2 do
+            = t('addresses.address_2')
+            %span= t('optional')
+          = f.text_field :vvr_address_2, autocomplete: ac, 'data-bind' => 'valueWithInit: vvrAddress2'
+        <!-- /ko -->
+        
   .row
     .span3.town
       = f.label :vvr_town, t('addresses.city_town')
       = f.text_field :vvr_town, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrTown" }, valueUpdate: "afterkeyup"'
-    .span2.state-field.short
+    .state-field{class: address_config['explicit_state'] ? "short span2" : "span4"}
       %span= t('addresses.state')
-      = text_field_tag "state", "VA", disabled: true, class: 'span1'
-      = f.hidden_field :vvr_state, autocomplete: ac, 'data-bind' => 'value: vvrState'
+      - if address_config['explicit_state']
+        = text_field_tag "state", address_config['explicit_state'], disabled: true, class: 'span1'
+        = f.hidden_field :vvr_state, autocomplete: ac, 'data-bind' => 'value: vvrState'
+      - else
+        = f.select :vvr_state, Dictionaries::STATES, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "vvrState" }' }
+      
     .span3.zip-field
       %table
         %tr
@@ -53,10 +115,11 @@
           %td= f.text_field :vvr_zip5, maxlength: 5, autocomplete: ac, class: 'first-zip', 'data-bind' => 'instantValidation: { accessor: "vvrZip5", validation: "zip5" }, valueUpdate: "afterkeyup"', placeholder: 'NNNNN'
           %td.space &mdash;
           %td= f.text_field :vvr_zip4, maxlength: 4, autocomplete: ac, class: 'second-zip', 'data-bind' => 'valueWithInit: vvrZip4, valueUpdate: "afterkeyup"', placeholder: 'NNNN'
-  .row
-    .span3
-      = f.label :vvr_county_or_city, t('addresses.county_or_city')
-      = f.select :vvr_county_or_city, Office.localities, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "vvrCountyOrCity" }' }
+  - if address_config['virginia_address']  
+    .row
+      .span3
+        = f.label :vvr_county_or_city, t('addresses.county_or_city')
+        = f.select :vvr_county_or_city, Office.localities, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "vvrCountyOrCity" }' }
 
   <!-- ko if: domestic() && !isConfidentialAddress() -->
   .row

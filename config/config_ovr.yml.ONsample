@@ -13,7 +13,9 @@ identity:
     - health_card
     - band_council_document
 
-
+address:
+  explicit_state: "ON"
+  
 completion:
   include_attestation: true
   combine_attestation_with_confirmation: true

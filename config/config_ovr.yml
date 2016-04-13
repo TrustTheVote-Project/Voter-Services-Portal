@@ -125,6 +125,13 @@ state_id_length:
   max: 12
 
 
+address:
+  virginia_address: false
+  explicit_state: null
+  us_format: true
+  canada_format: false
+  
+
 
 # Enable/disable the pre-population of residence address fields from DMV address, if available
 enable_dmv_address_display: true

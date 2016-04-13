@@ -8,6 +8,10 @@ module ConfigHelper
     AppConfig['OVR']['identity']
   end
   
+  def address_config
+    AppConfig['OVR']['address']
+  end
+  
   def option_config
     AppConfig['OVR']['options']
   end

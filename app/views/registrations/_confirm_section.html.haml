@@ -35,30 +35,42 @@
                   - if rj
                     = link_to "Edit", personal_data_link, class: 'edit'
                   %span{ 'data-bind' => 'text: summaryDOB' }
-            %tr
-              %th= t('confirm.rows.gender')
-              - if !rj
-                %td.edit= link_to "Edit", "#identity"
-              %td
-                - if rj
-                  = link_to "Edit", "#identity", class: 'edit'
-                %span{ 'data-bind' => 'text: summaryGender' }
-            %tr
-              %th= t('confirm.rows.ssn')
-              - if !rj
-                %td.edit= link_to "Edit", personal_data_link
-              %td
-                - if rj
-                  = link_to "Edit", personal_data_link, class: 'edit'
-                %span{ 'data-bind' => 'text: summarySSN' }
-            %tr
-              %th= t('dmvid')
-              - if !rj
-                %td.edit= link_to "Edit", personal_data_link
-              %td
-                - if rj
-                  = link_to "Edit", personal_data_link, class: 'edit'
-                %span{ 'data-bind' => 'text: summaryDMVID' }
+            - if identity_config['enable_gender']
+              %tr
+                %th= t('confirm.rows.gender')
+                - if !rj
+                  %td.edit= link_to "Edit", "#identity"
+                %td
+                  - if rj
+                    = link_to "Edit", "#identity", class: 'edit'
+                  %span{ 'data-bind' => 'text: summaryGender' }
+            - if identity_config['enable_federal_id_number']
+              %tr
+                %th= t('confirm.rows.ssn')
+                - if !rj
+                  %td.edit= link_to "Edit", personal_data_link
+                %td
+                  - if rj
+                    = link_to "Edit", personal_data_link, class: 'edit'
+                  %span{ 'data-bind' => 'text: summarySSN' }
+            - if identity_config['enable_transport_id_number']
+              %tr
+                %th= t('dmvid')
+                - if !rj
+                  %td.edit= link_to "Edit", personal_data_link
+                %td
+                  - if rj
+                    = link_to "Edit", personal_data_link, class: 'edit'
+                  %span{ 'data-bind' => 'text: summaryDMVID' }
+            - if identity_config['enable_id_document_image']
+              %tr
+                %th= t('confirm.rows.id_document_image')
+                - if !rj
+                  %td.edit= link_to "Edit", personal_data_link
+                %td
+                  - if rj
+                    = link_to "Edit", personal_data_link, class: 'edit'
+                  %span{ 'data-bind' => 'text: summaryIdDocument' }
             %tr
               %th= t('confirm.rows.eligibility')
               - if !rj
@@ -142,22 +154,33 @@
                 %span{ 'data-bind' => 'text: summaryParty' }
 
 
-            %tr
-              %th= t('confirm.rows.phone')
-              - if !rj
-                %td.edit= link_to "Edit", "#identity"
-              %td
-                - if rj
-                  = link_to "Edit", "#identity", class: 'edit'
-                %span{ 'data-bind' => 'text: summaryPhone' }
-            %tr
-              %th= t('confirm.rows.email')
-              - if !rj
-                %td.edit= link_to "Edit", "#identity"
-              %td
-                - if rj
-                  = link_to "Edit", "#identity", class: 'edit'
-                %span{ 'data-bind' => 'text: summaryEmail' }
+            - if identity_config['enable_phone']
+              %tr
+                %th= t('confirm.rows.phone')
+                - if !rj
+                  %td.edit= link_to "Edit", "#identity"
+                %td
+                  - if rj
+                    = link_to "Edit", "#identity", class: 'edit'
+                  %span{ 'data-bind' => 'text: summaryPhone' }
+            - if identity_config['enable_fax']
+              %tr
+                %th= t('confirm.rows.fax')
+                - if !rj
+                  %td.edit= link_to "Edit", "#identity"
+                %td
+                  - if rj
+                    = link_to "Edit", "#identity", class: 'edit'
+                  %span{ 'data-bind' => 'text: summaryFax' }
+            - if identity_config['enable_email']
+              %tr
+                %th= t('confirm.rows.email')
+                - if !rj
+                  %td.edit= link_to "Edit", "#identity"
+                %td
+                  - if rj
+                    = link_to "Edit", "#identity", class: 'edit'
+                  %span{ 'data-bind' => 'text: summaryEmail' }
 
             - unless option_config['combine_with_confirmation']
               - if option_config['confirm_need_assistance'] && option_config['enable_need_assistance']

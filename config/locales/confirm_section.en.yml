@@ -24,8 +24,10 @@ en:
       voting_rights: Voting Rights
       dob: Date of Birth
       ssn: Social Security Number
+      id_document_image: Identification Document
       gender: Gender
       phone: Phone
+      fax: Fax
       email: Email
       mailing_address: Mailing Address
       previous_registration: Previous Registration

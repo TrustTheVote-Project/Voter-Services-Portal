@@ -17,8 +17,8 @@ class window.Registration
     @editMailingAddressAtProtectedVoter = ko.observable($("input#enable_edit_mailing_address_at_protected_voter").val() == 'true')
     @dmvIdCheckbox      = !!gon.require_transport_id_number
     @personalDataOnEligibilityPage = !!gon.personal_data_on_eligibility_page
-    @virginiaAbsentee = !!gon.virginia_absentee
-    
+    @virginiaAbsentee   = !!gon.virginia_absentee
+    @noCountyOrCity     = !gon.virginia_address
     @paperlessPossible  = ko.observable()
     @lookupPerformed    = false
 
@@ -126,9 +126,15 @@ class window.Registration
       else
         setTimeout (-> $("#registration_id_documentation_image").focus()), 1
 
+    @docImageName = ko.computed =>
+      if @docImage()
+        @docImage().split( '\\' ).pop();
+      else
+        null
+      
     @docImage.subscribe (v) =>
       if v
-        fileName = v.split( '\\' ).pop();
+        fileName = @docImageName();
         if fileName
           $("label.file-upload-button.id_documentation_image").text(fileName);
         
@@ -369,7 +375,7 @@ class window.Registration
          filled(@vvrTown()) and
          filled(@vvrState()) and
          zip5(@vvrZip5()) and
-         filled(@vvrCountyOrCity())
+         (filled(@vvrCountyOrCity()) || @noCountyOrCity)
 
       if @overseas()
         residental = residental and
@@ -634,6 +640,8 @@ class window.Registration
       if @noSSN() || !filled(@ssn()) then "none" else @ssn()
     @summaryDMVID = ko.computed =>
       if @noDmvId() || !filled(@dmvId()) then "none" else @dmvId()
+    @summaryIdDocument = ko.computed =>
+      if @noDocImage() || !filled(@docImage()) then "none" else @docImageName()
     @summaryDOB = ko.computed =>
       if filled(@dobMonth()) && filled(@dobDay()) && filled(@dobYear())
         moment([ @dobYear(), parseInt(@dobMonth()) - 1, @dobDay() ]).format("MMMM D, YYYY")
@@ -702,6 +710,8 @@ class window.Registration
 
     @summaryPhone = ko.computed =>
       if filled(@phone()) then @phone() else gon.i18n_confirm_not_provided
+    @summaryFax = ko.computed =>
+      if filled(@fax()) then @fax() else gon.i18n_confirm_not_provided
     @summaryEmail = ko.computed =>
       if filled(@email()) then @email() else gon.i18n_confirm_not_provided
 
