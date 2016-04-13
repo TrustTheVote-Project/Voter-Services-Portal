@@ -5,6 +5,6 @@ en:
 
   previous_registration:
     header: "I am registered to vote at another address in Rhode Island or in another state."
+    new:
       no_answer: I am not currently registered to vote in Rhode Island or another state.
       yes_answer: I am currently registered to vote in Rhode Island or in another state.
-
