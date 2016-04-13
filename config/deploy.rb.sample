@@ -3,10 +3,13 @@ require 'sidekiq/capistrano'
 def sample_deploy_domain
   case ENV['SAMPLE_DEPLOY_TARGET']
   when "VA"
+    # vavsp.trustthevote.org
     "54.243.43.115"
   when "ON"
+    # onvsp.trustthevote.org
     "54.235.245.205"
   when "RI"
+    # c
     "54.225.97.231"
   else
     ""
@@ -25,7 +28,7 @@ def sample_deploy_key
 end
 
 def sample_deploy_branch
-  "master"
+  "config_eligibility"
 end
 
 # Location configuration
