@@ -376,6 +376,7 @@ body#registration .summary a {
   margin-left: -1.375rem;
   margin-right: 0;
   padding: 0;
+  padding-top: 5px;
   list-style: none;
   overflow: hidden;
   display: table;
@@ -396,4 +397,89 @@ body#registration .summary a {
 
 #footer ul.inline-list li a {
   color: white;
+}
+
+
+
+
+@media (max-width: 1050px) {
+  .col-md-3 {
+    padding: 0 20px;
+    width: calc(50% - 40px);
+  }
+  .padded_page_span {
+    width: 95%;
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+  }
+  
+  .radio, .checkbox {
+    margin-left: 0;
+  }
+  #footer {
+    height: 100px;
+  }
+  #footer ul.inline-list li {
+    padding-top: 10px;
+    display: block;
+    margin: 0;
+    text-align: left;
+    float: left;
+    width: 50%;
+  }
+  #footer ul.inline-list li:nth-child(even) {
+    text-align: right;
+  }
+}
+@media (max-width: 761px) {
+  .col-md-3 {
+    width: calc(100% - 40px);
+  }
+  .row .span9 {
+    width: 100%;
+  }
+  .span3.powered {
+    margin-top: 3em;
+    float: left;
+  }
+  
+  .span3, .span2 {
+    margin-left: 0px;
+  }
+  .span10 {
+    width: 100%;
+  }
+  .span12 {
+    width: 95%;
+    margin-left: 2.5%;
+    margint-right: 2.5%;
+  }
+  #steps .span2 {
+    width: 100%;
+  }
+  .section .address-field input {
+      width: 90%;
+  }
+  .summary {
+    margin-left: 0;
+    width: 100%;
+  }
+  .summary .body table {
+    width: 100%;
+  }
+  
+  
+  #footer {
+    height: 170px;
+  }
+  #footer ul.inline-list li img {
+    margin-left: 0 !important;
+  }
+  #footer ul.inline-list li {
+    width: 100%;
+  }
+  #footer ul.inline-list li:nth-child(even) {
+    text-align: left;
+  }
+  
 }
