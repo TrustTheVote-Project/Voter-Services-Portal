@@ -42,6 +42,9 @@ class ApplicationController < ActionController::Base
     gon.state_id_length_max           = AppConfig['OVR']['state_id_length']['max']
     gon.virginia_absentee             = option_config['virginia_absentee']
     gon.virginia_address              = address_config['virginia_address']
+    gon.us_format                     = address_config['us_format']
+    gon.canada_format                 = address_config['canada_format']
+    gon.default_state                 = address_config['explicit_state']
     gon.i18n_dmvid                    = I18n.t('dmvid')
     gon.i18n_id_documentation_image   = I18n.t('identity.id_documentation_image')
     gon.i18n_confirm_not_provided     = I18n.t("confirm.not_provided")

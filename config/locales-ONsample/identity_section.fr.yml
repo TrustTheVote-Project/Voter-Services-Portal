@@ -1,0 +1,7 @@
+en:
+  identity:
+    id_document_image_options:
+      drivers_license: Ontario Driver's License
+      photo_card: Ontario Photo Card
+      health_card: Ontario Health Card (with address)
+      band_council_document: Any Document Issued by a aBand Council in Ontario

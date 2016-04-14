@@ -15,7 +15,7 @@ eligibility:
     - all_requirements  
   
 address:
-  explicit_state: RI
+  explicit_state: "RI"
 
 completion:
   include_attestation: true

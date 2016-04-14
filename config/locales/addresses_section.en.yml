@@ -1,15 +1,23 @@
 en:
   residence_address: Residence Address
+  ca_civic: Civic Address
+  ca_lot_concession: Lot & Concession Address
 
   addresses:
     description: "%{address_name} is your Home address in the statre or your most recent state residence."
     address: "Address"
+    street_number: Street Number
+    street_name: Street Name
+    street_type: Street Type
+    direction: Direction
+    unit: Unit
     rural_address: "Describe where you reside"
     address_2: "Address Line 2"
     county_or_city: "County or City of residence"
     city_town: "City/Town"
     state: "State"
     zip5: "Zip code"
+    postal_code: "Postal Code"
     zip4: "Zip4"
     still_available: My State residence is still available to me
     not_available: My State residence is no longer available to me

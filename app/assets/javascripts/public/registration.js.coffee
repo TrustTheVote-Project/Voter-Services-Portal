@@ -18,7 +18,10 @@ class window.Registration
     @dmvIdCheckbox      = !!gon.require_transport_id_number
     @personalDataOnEligibilityPage = !!gon.personal_data_on_eligibility_page
     @virginiaAbsentee   = !!gon.virginia_absentee
+    @useUSAddress       = !!gon.us_format
+    @useCAAddress       = !!gon.canada_format
     @noCountyOrCity     = !gon.virginia_address
+    @defaultState       = gon.default_state
     @paperlessPossible  = ko.observable()
     @lookupPerformed    = false
 
@@ -304,12 +307,24 @@ class window.Registration
     @maIsDifferent          = ko.observable(false)
     @prStatus               = ko.observable()
     @prIsRural              = ko.observable(false)
-    @vvrIsRural             = ko.observable()
-    @vvrAddress1            = ko.observable()
-    @vvrAddress2            = ko.observable()
+    
+    if @useUSAddress
+      @vvrIsRural             = ko.observable()
+      @vvrAddress1            = ko.observable()
+      @vvrAddress2            = ko.observable()
+
+    if @useCAAddress
+      @caAddressType        = ko.observable("1")
+      @caAddressStreetNumber = ko.observable()
+      @caAddressStreetName = ko.observable()
+      @caAddressStreetType = ko.observable()
+      @caAddressDirection = ko.observable()
+      @caAddressUnit = ko.observable()
+    
     @vvrApt                 = ko.observable()
     @vvrTown                = ko.observable()
-    @vvrState               = ko.observable('VA')
+    console.log(@defaultState)
+    @vvrState               = ko.observable(@defaultState)
     @vvrZip5                = ko.observable()
     @vvrZip4                = ko.observable()
     @vvrCountyOrCity        = ko.observable()
@@ -318,6 +333,7 @@ class window.Registration
     @vvrUocavaResidenceUnavailableSinceMonth = ko.observable()
     @vvrUocavaResidenceUnavailableSinceYear = ko.observable()
     @vvrUocavaResidenceUnavailableSince = ko.computed => pastDate(@vvrUocavaResidenceUnavailableSinceYear(), @vvrUocavaResidenceUnavailableSinceMonth(), @vvrUocavaResidenceUnavailableSinceDay())
+    
     @maAddress1             = ko.observable()
     @maAddress2             = ko.observable()
     @maCity                 = ko.observable()
@@ -370,15 +386,18 @@ class window.Registration
     @addressesErrors = ko.computed =>
       errors = []
 
-      residental =
-        filled(@vvrAddress1()) and
+      residential =
+        ((@useUSAddress and filled(@vvrAddress1())) or (@useCAAddress and
+         filled(@caAddressStreetNumber()) and 
+         filled(@caAddressStreetName()) and 
+         filled(@caAddressStreetType()))) and
          filled(@vvrTown()) and
          filled(@vvrState()) and
-         zip5(@vvrZip5()) and
+         ((@useUSAddress and zip5(@vvrZip5())) or (@useCAAddress and caPostalCode(@vvrZip5()))) and
          (filled(@vvrCountyOrCity()) || @noCountyOrCity)
 
       if @overseas()
-        residental = residental and
+        residential = residential and
           filled(@vvrOverseasRA()) and
           (@vvrOverseasRA() == '1' or @vvrUocavaResidenceUnavailableSince())
         mailing = @overseasMAFilled()
@@ -397,7 +416,7 @@ class window.Registration
           zip5(@prZip5())
         )
 
-      errors.push("Registration address") unless residental
+      errors.push("Registration address") unless residential
       errors.push("Mailing address") unless mailing
       errors.push("Previous registration") unless previous
       errors
@@ -405,14 +424,24 @@ class window.Registration
     @addressesInvalid = ko.computed => @addressesErrors().length > 0
 
   saveOriginalRegAddress: =>
-    @initialVvrAddress = {
-      address_1:      @vvrAddress1(),
-      address_2:      @vvrAddress2(),
-      county_or_city: @vvrCountyOrCity(),
-      town:           @vvrTown(),
-      zip5:           @vvrZip5(),
-      zip4:           @vvrZip4()
-    }
+    if @useUSAddress
+      @initialVvrAddress = {
+        address_1:      @vvrAddress1(),
+        address_2:      @vvrAddress2(),
+        county_or_city: @vvrCountyOrCity(),
+        town:           @vvrTown(),
+        zip5:           @vvrZip5(),
+        zip4:           @vvrZip4()
+      }
+    if @useCAAddress
+      @initialVvrAddress = {
+        address_1:      [@caAddressStreetNumber(), @caAddressStreetName(), @caAddressStreetType()].join(' '),
+        address_2:      [@caAddressDirection(), @caAddressUnit()].join(' '),
+        county_or_city: @vvrCountyOrCity(),
+        town:           @vvrTown(),
+        zip5:           @vvrZip5(),
+        zip4:           @vvrZip4()
+      }
 
   initOptionsFields: ->
     @party                  = ko.observable()
@@ -649,11 +678,19 @@ class window.Registration
         "Unspecified"
 
     @summaryRegistrationAddress = ko.computed =>
-      address =
-        join([ @vvrAddress1(), @vvrAddress2() ], ' ') + "<br/>" +
-        join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ') + "<br/>" +
-        @vvrCountyOrCity()
-
+      address = null
+      if @useUSAddress
+        address =
+          join([ @vvrAddress1(), @vvrAddress2() ], ' ') + "<br/>" +
+          join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
+        if !@noCountyOrCity
+          address += "<br/>" + @vvrCountyOrCity()
+      if @useCAAddress
+        address =
+          join([ @caAddressStreetNumber(), @caAddressStreetName(), @caAddressStreetType(), @caAddressDirection(), @caAddressUnit() ], ' ') + "<br/>" +
+          join([ @vvrTown(), join([ @vvrState(), join([ @vvrZip5(), @vvrZip4() ], '-') ], ' ') ], ', ')
+        
+        
       if @overseas()
         lines = [ address ]
         if @vvrOverseasRA() == '0'
@@ -850,9 +887,13 @@ class window.Registration
     @paperlessPossible(!!gon.enable_digital_ovr and data.dmv_match )
     if !!gon.enable_dmv_address_display
       a = data.address || @initialVvrAddress
-      @vvrAddress1(a.address_1)
-      @vvrAddress2(a.address_2)
-      @vvrCountyOrCity(a.county_or_city || '')
+      if @useUSAddress
+        @vvrAddress1(a.address_1)
+        @vvrAddress2(a.address_2)
+      if @useCAAddress
+        @caAddressStreetName(a.address_1)
+      if !@noCountyOrCity
+        @vvrCountyOrCity(a.county_or_city || '')
       @vvrTown(a.town)
       @vvrZip5(a.zip5)
       @vvrZip4(a.zip4 || '')
