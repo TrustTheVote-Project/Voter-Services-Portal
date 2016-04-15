@@ -4,6 +4,8 @@ SupportedLocalizations:
   - name: 'Spanish'
     code: 'es'
 
+HeaderLinks: []
+
 customization:
   # Custom CSS overrides. Can be an absolute http://... URL.
   application_css:        '/RIsample_static_content/application_css.css'
