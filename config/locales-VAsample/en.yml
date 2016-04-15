@@ -1,5 +1,5 @@
 en:
-  title: Virginia Voter Registration
+  header_title: Virginia Voter Registration
   dmvid: Department of Motor Vehicles Identifier or Customer Number
   ssn:   "Social Security Number"
   rural: "Check here if Rural Address or Homeless and describe where you reside."
