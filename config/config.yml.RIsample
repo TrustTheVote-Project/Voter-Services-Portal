@@ -1,3 +1,8 @@
+SupportedLocalizations:
+  - name: 'English'
+    code: 'en'
+  - name: 'Spanish'
+    code: 'es'
 
 customization:
   # Custom CSS overrides. Can be an absolute http://... URL.

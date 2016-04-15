@@ -46,6 +46,7 @@ body #header {
 }
 
 body #header h1 {
+    clear: none;
     color: white ;
     font-size: 15px;
     font-family: Arial;
@@ -84,7 +85,8 @@ body #header .img_logo {
 }
 
 body #menu, body #menu a {
-  color: black;
+  color: white;
+  margin: 3px 8px;
 }
 
 

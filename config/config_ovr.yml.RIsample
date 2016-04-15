@@ -3,17 +3,21 @@
 ## the eligibility dialog
 ##
 
+eligibility:
+  combine_with_identity: false
+  requirements:
+    - ri_resident
+    - us_citizen
+    - at_least_16  
+  
+
 options:
-  combine_with_confirmation: false
-  enable_need_assistance: true
-  confirm_need_assistance: true
+  combine_with_confirmation: true
+  enable_need_assistance: false
+  confirm_need_assistance: false
   enable_volunteer: true
   confirm_volunteer: false
 
-eligibility:
-  requirements:
-    - all_requirements  
-  
 address:
   explicit_state: "RI"
 

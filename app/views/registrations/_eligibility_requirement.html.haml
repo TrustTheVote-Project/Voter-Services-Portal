@@ -18,4 +18,4 @@
         = f.check_box "eligibility_requirement_#{requirement_key}", 'data-bind' => "checked: eligibility_requirement_#{requirement_key}", 'data-observable' => "eligibility_requirement_#{requirement_key}"
         = f.label "eligibility_requirement_#{requirement_key}", raw(t("eligibility.requirements.#{requirement_key}"))
       .ineligible_message
-        = "Agree to #{requirement_key}"
+        = "Agree to &ldquo;#{raw(t("eligibility.requirements.#{requirement_key}"))}&rdquo;"

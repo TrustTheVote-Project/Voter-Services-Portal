@@ -323,7 +323,6 @@ class window.Registration
     
     @vvrApt                 = ko.observable()
     @vvrTown                = ko.observable()
-    console.log(@defaultState)
     @vvrState               = ko.observable(@defaultState)
     @vvrZip5                = ko.observable()
     @vvrZip4                = ko.observable()

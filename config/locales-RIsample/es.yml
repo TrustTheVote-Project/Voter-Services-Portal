@@ -1,5 +1,8 @@
-en:
-  title: Voter Registration - Rhode Island Department of State
+es:
+  title: (Spanish) Voter Registration - Rhode Island Department of State
+  alt:
+    logo: "State Board of Elections"
+    download_pdf: "Download your voter registration application as a PDF file."
   header_title: |
     <span class='title-sub'><a href="/">Rhode Island Department of State</a></span>
     <span class='title'><a href="http://sos.ri.gov/about-us">Nellie M. Gorbea</a></span>

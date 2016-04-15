@@ -3,8 +3,6 @@ en:
     description: Eligibility to vote in Rhode Island.
     details: "To register to vote in Rhode Island, you must be a legal resident of RI, a citizen of the United States, and at least 16 years of age. (You must be at least 18 years of age to vote on Election Day.)"
     requirements:
-      all_requirements:
-        question: ""
-        agree: Yes.
-        disagree: No.
-        ineligible: 'If you checked "No", then you are not eligible to vote, and should not complete this form.'
+      ri_resident: I am a legal resident of Rhode Island
+      us_citizen: I am a citizen of the United States
+      at_least_16: I am at least 16 years of age.
