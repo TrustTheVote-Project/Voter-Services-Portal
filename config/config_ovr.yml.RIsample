@@ -9,7 +9,7 @@ eligibility:
     - ri_resident
     - us_citizen
     - at_least_16  
-  
+  CollectPersonalData: false
 
 options:
   combine_with_confirmation: true
