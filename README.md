@@ -54,7 +54,7 @@ Installation
 
 * Or for a specific config target:
 
-        $ 
+        $ SAMPLE_DEPLOY_TARGET=ON rails server
 
 
 
