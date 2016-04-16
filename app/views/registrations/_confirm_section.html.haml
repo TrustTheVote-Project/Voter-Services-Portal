@@ -115,14 +115,15 @@
                 <!-- ko if: overseas -->
                 = raw t 'confirm.absentee'
                 <!-- /ko -->
-            %tr
-              %th= t('confirm.rows.previous_registration')
-              - if !rj
-                %td.edit= link_to "Edit", "#address"
-              %td
-                - if rj
-                  = link_to "Edit", "#address", class: 'edit'
-                %span{ 'data-bind' => 'html: summaryExistingRegistration' }
+            - if address_config['enable_previous_registration']
+              %tr
+                %th= t('confirm.rows.previous_registration')
+                - if !rj
+                  %td.edit= link_to "Edit", "#address"
+                %td
+                  - if rj
+                    = link_to "Edit", "#address", class: 'edit'
+                  %span{ 'data-bind' => 'html: summaryExistingRegistration' }
             %tr{ 'data-bind' => 'if: isConfidentialAddress' }
               %th= t('confirm.rows.protected_voter')
               - if !rj

@@ -1,8 +1,8 @@
 en:
   demo_splash:
     title: Example Voter Registration Portal
-    summary: "This is a demonstration of online voter registration and services capabilities. No actual voter data is used. This illustrates the freely available open source software that any province or local election official may download, modify as needed, and deploy."
-    details: "This example is made possible through collaboration with the ON Board of Elections, and their adaptation of this open source code.  <span style='color: red'>Note:</span> the example voter records displayed are of fictitious individuals.  Any likeness or similarity to any actual person residing in the province of Ontario is purely coincidental."
+    summary: "This is a demonstration of online voter registration and services capabilities. No actual voter data is used. This illustrates the freely available open source software that any Province or local election official may download, modify as needed, and deploy."
+    details: "This example is made possible through collaboration with the ON Board of Elections, and their adaptation of this open source code.  <span style='color: red'>Note:</span> the example voter records displayed are of fictitious individuals.  Any likeness or similarity to any actual person residing in the Province of Ontario is purely coincidental."
     button_label: Enter
     footer:
       This site is brought to you by the <a href='http://www.osetfoundation.org' target='blank'>Open Source Election Technology Foundation</a>

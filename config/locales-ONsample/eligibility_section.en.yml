@@ -19,7 +19,7 @@ en:
       ineligible: To register, you must have had your voting rights restored.
       felony:
         question: "Have you ever been convicted of a felony?"
-        state: "province where convicted:"
+        state: "Province where convicted:"
         restored: "Have your voting rights been restored?"
         date: "Date when restored:"
       mental:

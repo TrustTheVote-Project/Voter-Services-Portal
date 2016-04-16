@@ -21,6 +21,8 @@ class window.Registration
     @useUSAddress       = !!gon.us_format
     @useCAAddress       = !!gon.canada_format
     @noCountyOrCity     = !gon.virginia_address
+    @enableDMVAddressDisplay = !!gon.enable_dmv_address_display
+    @enablePreviousRegistration = !!gon.enable_previous_registration
     @defaultState       = gon.default_state
     @paperlessPossible  = ko.observable()
     @lookupPerformed    = false
@@ -403,7 +405,7 @@ class window.Registration
       else
         mailing = !@maIsDifferent() or @domesticMAFilled()
 
-      previous =
+      previous = !@enablePreviousRegistration or (
         filled(@prStatus()) and (
           @prStatus() != '1' or
           filled(@prFirstName()) and
@@ -413,7 +415,7 @@ class window.Registration
           filled(@prState()) and
           filled(@prCity()) and
           zip5(@prZip5())
-        )
+        ))
 
       errors.push("Registration address") unless residential
       errors.push("Mailing address") unless mailing
@@ -884,7 +886,7 @@ class window.Registration
 
   onLookupResult: (data) =>
     @paperlessPossible(!!gon.enable_digital_ovr and data.dmv_match )
-    if !!gon.enable_dmv_address_display
+    if @enableDMVAddressDisplay
       a = data.address || @initialVvrAddress
       if @useUSAddress
         @vvrAddress1(a.address_1)
@@ -896,7 +898,8 @@ class window.Registration
       @vvrTown(a.town)
       @vvrZip5(a.zip5)
       @vvrZip4(a.zip4 || '')
-    location.hash = 'address'
+    @page('address')
+    #location.hash = 'address'
 
   lookupRecord: (_, e) =>
     return if $(e.target).hasClass('disabled')

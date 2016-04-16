@@ -42,7 +42,7 @@
         .radio
           = radio_button :registration, :ca_address_type, '0', {autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddressType" }'} 
           %label{for: 'registration_ca_address_type_0'}= raw t 'ca_lot_concession'
-        <!-- ko if: paperlessSubmission -->
+        <!-- ko if: paperlessSubmission && enableDMVAddressDisplay -->
         <br/>
         #{t("dmv.address_info")}
         <!-- /ko -->

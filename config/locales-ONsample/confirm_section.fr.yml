@@ -6,7 +6,7 @@ fr:
     not_required: "No"
     not_provided: "Not provided"
     previous_registration:
-      not_registered: "Not currently registered in Ontario or another province"
+      not_registered: "Not currently registered in Ontario or another Province"
     protected_voter: '(Protected Voter)'
     absentee: '(used for absentee ballot and other voting correspondence)'
 

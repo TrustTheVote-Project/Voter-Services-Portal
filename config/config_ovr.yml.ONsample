@@ -1,12 +1,9 @@
-options:
-  enable_need_assistance: false
-  enable_volunteer: false
 
 identity:
   enable_federal_id_number: false
   enable_transport_id_number: false
   enable_id_document_image: true
-  require_id_document_image: false
+  require_id_document_image: true
   id_document_image_options:
     - drivers_license
     - photo_card
@@ -17,7 +14,17 @@ address:
   us_format: false
   canada_format: true
   explicit_state: "ON"
+  enable_previous_registration: false
   
+  
+# Enable/disable the pre-population of residence address fields from DMV address, if available
+enable_dmv_address_display: false
+
+options:
+  enable_need_assistance: false
+  enable_volunteer: false
+
+
 completion:
   include_attestation: true
   combine_attestation_with_confirmation: true

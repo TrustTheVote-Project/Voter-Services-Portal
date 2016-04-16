@@ -133,6 +133,7 @@ address:
   explicit_state: null
   us_format: true
   canada_format: false
+  enable_previous_registration: true
   
 
 

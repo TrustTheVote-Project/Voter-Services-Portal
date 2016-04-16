@@ -27,7 +27,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_env_vars
-    gon.enable_dmvid_lookup           = AppConfig['OVR']['eligibility']['PreCheckForPaperless']
+    gon.enable_dmvid_lookup           = eligibility_config['PreCheckForPaperless']
     gon.enable_dmv_address_display    = AppConfig['OVR']['enable_dmv_address_display']
     gon.eligibility_with_identity     = eligibility_config['combine_with_identity']
     gon.default_eligibility_config    = default_eligibility_config?
@@ -46,6 +46,7 @@ class ApplicationController < ActionController::Base
     gon.us_format                     = address_config['us_format']
     gon.canada_format                 = address_config['canada_format']
     gon.default_state                 = address_config['explicit_state']
+    gon.enable_previous_registration  = address_config['enable_previous_registration']
     gon.i18n_dmvid                    = I18n.t('dmvid')
     gon.i18n_id_documentation_image   = I18n.t('identity.id_documentation_image')
     gon.i18n_confirm_not_provided     = I18n.t("confirm.not_provided")
