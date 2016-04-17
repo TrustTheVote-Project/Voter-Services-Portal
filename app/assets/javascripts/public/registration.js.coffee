@@ -297,14 +297,15 @@ class window.Registration
       errors.push("Age criteria") unless @oldEnough()
       errors.push("Voting rights criteria") if @rightsNotFilled()
       errors.push("The date of restoration must be after your date of birth.") if @invalidRightsRestorationDate()
+    console.log(@showDocImage(),@noDocImage(),@docImageType(),@docImage())
+    errors.push(gon.i18n_id_documentation_image) if @showDocImage() and !@noDocImage() and (!@docImageType() or !@docImage())
     
     
   validatePersonalData: (errors) ->
     errors.push('Date of birth') unless @dob()
     errors.push('Social Security #') if !ssn(@ssn()) and !@noSSN() and @ssnRequired()
     errors.push(gon.i18n_dmvid) if @dmvIdCheckbox and !isDmvId(@dmvId()) and !@noDmvId()
-    errors.push(gon.i18n_id_documentation_image) if @showDocImage() and !@noDocImage() and (!@docImageType() or !@docImage())
-
+    
   initAddressFields: ->
     @maIsDifferent          = ko.observable(false)
     @prStatus               = ko.observable()

@@ -1,7 +1,7 @@
 = hidden_field_tag :allow_ineligible_to_complete_form, AppConfig['OVR']['allow_ineligible_to_complete_form']
 = hidden_field_tag :enable_edit_mailing_address_at_protected_voter, AppConfig['enable_edit_mailing_address_at_protected_voter']
 = hidden_field_tag :ssn_required, identity_config['enable_federal_id_number']
-= hidden_field_tag :id_documentation_image_enabled, identity_config['enable_id_documentation_image']
+= hidden_field_tag :id_documentation_image_enabled, identity_config['enable_id_document_image']
 = hidden_field_tag :attestation_required, completion_config['include_attestation']
 - c = completion_config['assistance']
 = hidden_field_tag :enable_display_assistant_details, '', 'data-paper' => c['paper'], 'data-paperless' => c['paperless']
