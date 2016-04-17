@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   include ConfigHelper
   
+  rescue_from ActionController::RoutingError, :with => :render_not_found
+  
   protect_from_forgery
 
   before_filter :set_env_vars
@@ -12,6 +14,16 @@ class ApplicationController < ActionController::Base
     @current_registration ||= RegistrationRepository.get_registration(session)
   end
 
+  def render_not_found(e)
+    @page = 'four_oh_four'
+    render 'pages/external_page', status: 404
+  end
+  
+  def raise_not_found!
+    raise ActionController::RoutingError.new("No route matches #{params[:unmatched_route]}")
+  end
+  
+  
   protected
 
   # TRUE when forms are disabled
@@ -69,5 +81,7 @@ class ApplicationController < ActionController::Base
       I18n.locale = params[:locale] || default_locale || I18n.default_locale
     end
   end
+  
+  
 
 end

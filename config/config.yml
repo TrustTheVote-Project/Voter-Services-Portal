@@ -260,6 +260,7 @@ customization:
 # become public/static/en.
 static_pages:
   url_base:               public/VAsample_static_content
+  four_oh_four:           404.htm
   about:                  about.htm
   about_registration:     about_registration.htm
   about_update_absentee:  about_update_absentee.htm

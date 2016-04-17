@@ -46,6 +46,9 @@ VaVote::Application.routes.draw do
         get :about_registration
         get :about_update_absentee
         get :online_ballot_marking
+        AppConfig.fetch('HeaderLinks', []).each do |settings|
+          get settings["url"]
+        end
       end
     end
 
@@ -82,4 +85,6 @@ VaVote::Application.routes.draw do
     root to: root_url
   end
 
+  match '*unmatched_route', :to => 'application#raise_not_found!'
+  
 end

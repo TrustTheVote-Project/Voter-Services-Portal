@@ -117,7 +117,7 @@ module ConfigHelper
         end
 
         link_text = I18n.t(link_text_key)
-        link_to link_text, link_url
+        link_to link_text, File.join("/", I18n.locale.to_s, link_url.to_s)
       end.compact.join('&nbsp;&nbsp;|&nbsp;&nbsp;')
     end
   end

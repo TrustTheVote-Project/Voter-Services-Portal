@@ -4,7 +4,9 @@ SupportedLocalizations:
   - name: 'Spanish'
     code: 'es'
 
-HeaderLinks: []
+HeaderLinks:
+  - url: 'contact'
+    text: 'header.contact'
 
 customization:
   # Custom CSS overrides. Can be an absolute http://... URL.
