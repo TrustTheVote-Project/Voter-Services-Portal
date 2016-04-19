@@ -109,10 +109,13 @@ module ConfigHelper
           Rails.logger.warn "Missing url for link #{link}"
           next nil
         elsif !link_url.is_a?(String) && !link_url.is_a?(Hash)
-          Rails.logger.warn "Invalid url provided for link #{link}: #{link_url} #{link_url.class}, must be a String or Hash"
+          Rails.logger.warn "Invalid url provided for link #{link}: #{link_url} (#{link_url.class}), must be a String or Hash"
           next nil
-        elsif !link_text_key.is_a?(String) || link_text_key.blank?
-          Rails.logger.warn "Missing or invalid text for link #{link}, must be a String"
+        elsif link_text_key.blank?
+          Rails.logger.warn "Missing text for link #{link}"
+          next nil
+        elsif !link_text_key.is_a?(String)
+          Rails.logger.warn "Invalid text for link #{link}: #{link_text_key} (#{link_text_key.class}), must be a String"
           next nil
         end
 

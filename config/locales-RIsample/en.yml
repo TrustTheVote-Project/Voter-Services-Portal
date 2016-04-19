@@ -16,4 +16,7 @@ en:
       
   header:
     contact: 'Contact'
-    
+     
+  localization:
+    en: 'English'
+    es: 'Español'
