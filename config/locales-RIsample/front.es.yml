@@ -1,7 +1,7 @@
-en:
+es:
   front:
     welcome:
-      title: Voter registration
+      title: El registro de votantes
       text: ''        
 
     options:
@@ -28,8 +28,8 @@ en:
       update_information:
         title: "<br/>Update Your Information on the Register"
         subtitle: All Registered R.I. Voters
-        text: Identify yourself or a deceased elector, and complete the online form.
+        text: Identify yourself or a deceased elector, and complete the online form.    
         button: Update Now
-        
+           
     deadline: ""
 

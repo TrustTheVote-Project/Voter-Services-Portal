@@ -22,7 +22,7 @@ en:
       am_registered:
         title: "<br/>Am I Registered"
         subtitle: Check Your Record
-        text: Identify yourself to do a lookup in the voter regeister.
+        text: Identify yourself to do a lookup in the voter register.
         button: Lookup Now
       add_to_register:
         title: "<br/>Register to vote"
