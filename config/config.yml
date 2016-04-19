@@ -112,7 +112,7 @@ SubfooterLinks:
 # The first localization in the array will be the default when
 # a user visits the front page of the application.
 SupportedLocalizations:
-  - name: 'English'
+  - text: 'localization.en'
     code: 'en'  
 
 

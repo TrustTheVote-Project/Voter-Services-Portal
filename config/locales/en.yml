@@ -57,3 +57,8 @@ en:
     elections: 'Elections'
     security: 'Security & Privacy'
     feedback: 'Feedback'
+  localization:
+    en: 'English'
+    es: 'Español'
+    fr: 'Francais'
+  

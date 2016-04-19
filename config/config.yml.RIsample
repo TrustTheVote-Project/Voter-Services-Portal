@@ -1,7 +1,7 @@
 SupportedLocalizations:
-  - name: 'English'
+  - text: 'localization.en'
     code: 'en'
-  - name: 'Spanish'
+  - text: 'localization.es'
     code: 'es'
 
 HeaderLinks:

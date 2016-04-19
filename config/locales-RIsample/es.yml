@@ -16,3 +16,12 @@ es:
       <li>I am not presently judged "mentally incompetent" to vote by the state of Rhode Island.</li>
       <li>The information I have provided is true to the best of my knowledge under penalty of perjury. If I have provided false information, I may be fined, imprisoned, or (if not a U.S. citizen) deported from or refused entry into the United States.</li>
       </ul>
+      
+  header:
+    contact: "Contact"
+    
+  localization:
+    en: 'English'
+    es: 'Español'
+    fr: 'Francais'
+  
