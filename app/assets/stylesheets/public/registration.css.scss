@@ -100,12 +100,15 @@
     .span6,
     .span7,
     .span8,
-    .span8,
+    .span9,
     .span10,
     .span11,
     .span12 {
       &:first-child {
         margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
       }
     }
 

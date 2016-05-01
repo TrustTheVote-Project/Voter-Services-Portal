@@ -11,34 +11,70 @@ class SearchForm
     @dobDay     = ko.observable()
     @dobMonth   = ko.observable()
     @dobYear    = ko.observable()
+    @dateOfBirthDay     = ko.observable()
+    @dateOfBirthMonth   = ko.observable()
+    @dateOfBirthYear    = ko.observable()
 
+
+    @streetNumber     = ko.observable()
+    @streetName       = ko.observable()
+    @streetType       = ko.observable()
+    @idDocumentNumber = ko.observable()
+    @idDocumentType   = ko.observable()
+    
     @currentPageIdx = ko.observable(null)
 
     @dob = ko.computed => pastDate(@dobYear(), @dobMonth(), @dobDay())
+    @dateOfBirth = ko.computed => pastDate(@dateOfBirthYear(), @dateOfBirthMonth(), @dateOfBirthDay())
 
     @errors = ko.computed =>
       errors = []
 
-      unless filled(@locality())
-        errors.push("Locality")
+      if gon.lookup_service_config.id_and_locality_style
+        unless filled(@locality())
+          errors.push("Locality")
 
-      unless present(@dob())
-        errors.push("Date of birth")
+        unless present(@dob())
+          errors.push("Date of birth")
 
-      if @lookupType() == 'ssn4'
-        unless filled(@firstName())
-          errors.push("First name")
-        unless filled(@lastName())
-          errors.push("Last name")
-        unless ssn4(@ssn4())
-          errors.push("SSN4")
+        if @lookupType() == 'ssn4'
+          unless filled(@firstName())
+            errors.push("First name")
+          unless filled(@lastName())
+            errors.push("Last name")
+          unless ssn4(@ssn4())
+            errors.push("SSN4")
+        else
+          unless voterId(@voterId())
+            errors.push("Voter ID")
+
+        unless @swear()
+          errors.push("Affirmation")
       else
-        unless voterId(@voterId())
-          errors.push("Voter ID")
-
-      unless @swear()
-        errors.push("Affirmation")
-
+        if gon.lookup_service_config.first_name
+          unless filled(@firstName())
+            errors.push("First Name")
+        if gon.lookup_service_config.last_name
+          unless filled(@lastName())
+            errors.push("Last Name")
+        if gon.lookup_service_config.street_name
+          unless filled(@streetName())
+            errors.push("Street Name")
+        if gon.lookup_service_config.street_number
+          unless filled(@streetNumber())
+            errors.push("Street Number")
+        if gon.lookup_service_config.street_type
+          unless filled(@streetType())
+            errors.push("Street Type")
+        if gon.lookup_service_config.date_of_birth
+          unless present(@dateOfBirth())
+            errors.push("Date of birth")
+        if gon.lookup_service_config.identification_document
+          unless present(@idDocumentNumber())
+            errors.push("ID Document Number")
+          unless present(@idDocumentType())
+            errors.push("ID Document Type")
+        
       errors
 
     @invalid = ko.computed => @errors().length > 0

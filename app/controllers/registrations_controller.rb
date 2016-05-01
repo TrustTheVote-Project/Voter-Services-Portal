@@ -7,6 +7,11 @@ class RegistrationsController < ApplicationController
       redirect_to :about_registration_page
       return
     end
+    
+    if lookup_service_config['is_registration_first_step'] && !params[:lookup_performed]
+      redirect_to search_form_path(continue_with_registration: true)
+    end
+    
 
     # Don't enter the UOCAVA registration path if disabled
     params[:residence] = 'in' unless AppConfig['enable_uocava_new_registration']

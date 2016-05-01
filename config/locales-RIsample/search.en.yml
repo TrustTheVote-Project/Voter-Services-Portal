@@ -22,3 +22,7 @@ en:
     record_is_inactive:
       body:   "We are sorry, but we are unable to process your request based on the information you have provided.  Please contact your local general registrar or the Rhode Island Board of Elections for assistance."
 
+    identification_document_options:
+      drivers_license: Rhode Island Driver's License
+      state_id_card: Rhode Island State ID Card
+      social_security_number: Social Security Number

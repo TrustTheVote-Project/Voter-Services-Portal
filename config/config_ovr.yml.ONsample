@@ -1,4 +1,11 @@
-
+lookup_service:
+  enabled: true
+  is_registration_first_step: true
+  identification_document: false
+  
+eligibility:
+  combine_with_identity: true
+  
 identity:
   enable_federal_id_number: false
   enable_transport_id_number: false

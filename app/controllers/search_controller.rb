@@ -27,11 +27,16 @@ class SearchController < ApplicationController
 
     reg = RegistrationSearch.perform(@search_query)
 
-    LogRecord.identify(reg, @search_query.locality)
-    RegistrationRepository.store_registration(session, reg)
-
-    RegistrationRepository.store_lookup_data(session, @search_query)
-
+    if @search_query.respond_to?(:locality)
+      LogRecord.identify(reg, @search_query.locality)
+      RegistrationRepository.store_registration(session, reg)
+      RegistrationRepository.store_lookup_data(session, @search_query)
+    else
+      LogRecord.identify(reg, nil)
+      RegistrationRepository.store_registration(session, reg)
+      #RegistrationRepository.store_lookup_data(session, @search_query)
+    end
+    
     redirect_to :registration
   rescue RegistrationSearch::SearchError => @error
     #if @error.kind_of? RegistrationSearch::RecordNotFound
@@ -39,8 +44,12 @@ class SearchController < ApplicationController
     #end
 
     RegistrationRepository.store_search_query(session, @search_query)
-
-    render :error
+    
+    if !params[:continue_with_registration].blank?
+      redirect_to new_registration_url(lookup_performed: true)
+    else
+      render :error
+    end
   end
 
 end

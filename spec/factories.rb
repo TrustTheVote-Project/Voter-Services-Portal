@@ -25,7 +25,7 @@ FactoryGirl.define do
       first_name          'Wanda'
       middle_name         'Hunt'
       last_name           'Phepts'
-      suffix              'III'
+      name_suffix         'III'
       phone               '540-555-1212'
       gender              'Female'
       dob                 Date.parse('1950-11-06 00:00:00.000')

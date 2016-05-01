@@ -11,8 +11,21 @@ EnablePaperService: false
 # registered, and to retrieve voters' registration data.
 lookup_service:
   enabled: true
-
-EnableLookupService: true
+  id_and_locality_style: false
+  is_registration_first_step: false
+  first_name: true
+  last_name: true
+  date_of_birth: true
+  street_number: true
+  street_name: true
+  street_type: true
+  identification_document: true
+  identification_document_options:
+    - voter_id
+  # identification_document block is two elements, field to enter doc number, and pulldown for the doc type.
+  
+  
+  
 
 ###################
 ## Config Guide 6.1

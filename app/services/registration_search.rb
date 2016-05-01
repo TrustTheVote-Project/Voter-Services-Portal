@@ -2,18 +2,29 @@
 class RegistrationSearch < AbstractRegistrationSearch
 
   def self.perform(search_query)
-    vid = search_query.voter_id
+    xml = nil
+    if SearchController.helpers.lookup_service_config['id_and_locality_style']
+      vid = search_query.voter_id 
 
-    unless vid.blank?
-      if vid.to_s =~ /^a/
-        return sample_record(vid)
+      unless vid.blank?
+        if vid.to_s =~ /^a/
+          return sample_record(vid)
+        else
+          xml = search_by_voter_id(vid, search_query.locality, search_query.dob)
+        end
       else
-        xml = search_by_voter_id(vid, search_query.locality, search_query.dob)
+        xml = search_by_data(search_query.ssn4, search_query.locality, search_query.dob, search_query.first_name, search_query.last_name)
       end
-    else
-      xml = search_by_data(search_query.ssn4, search_query.locality, search_query.dob, search_query.first_name, search_query.last_name)
-    end
 
+    else 
+      vid = '123123124' #search_query.id_document_number
+      if search_query.street_name.downcase == 'main'
+        return self.sample_record(vid)
+      else
+        raise RecordNotFound
+      end
+    end
+    
     DebugLogging.log_response_to_file("eml330", xml)
 
     rec = parse(xml)

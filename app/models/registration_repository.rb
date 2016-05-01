@@ -28,11 +28,19 @@ class RegistrationRepository
   def self.store_search_query(session, query)
     session[:s_first_name]  = query.first_name
     session[:s_last_name]   = query.last_name
-    session[:s_dob]         = query.dob.try(:strftime, "%Y-%m-%d")
-    session[:s_ssn4]        = query.ssn4
-    session[:s_locality]    = query.locality
-    session[:s_voter_id]    = query.voter_id
-    session[:s_lookup_type] = query.lookup_type
+    if query.respond_to?(:dob)
+      session[:s_dob]         = query.dob.try(:strftime, "%Y-%m-%d")
+      session[:s_ssn4]        = query.ssn4
+      session[:s_locality]    = query.locality
+      session[:s_voter_id]    = query.voter_id
+      session[:s_lookup_type] = query.lookup_type
+    else
+      session[:s_street_name]   = query.street_name
+      session[:s_street_type]   = query.street_type
+      session[:s_street_number]   = query.street_number
+      session[:s_dob]         = query.date_of_birth.try(:strftime, "%Y-%m-%d")
+      #session[:s_id_document_number]    = query.id_document_number
+    end
   end
 
   # Gets stored search query params
@@ -44,7 +52,10 @@ class RegistrationRepository
       dob:          dob.blank? ? nil : Date.parse(dob),
       ssn4:         session.delete(:s_ssn4),
       locality:     session.delete(:s_locality),
-      voter_id:     session.delete(:s_voter_id) }
+      voter_id:     session.delete(:s_voter_id),
+      ca_address_street_number:  session.delete(:s_street_number),
+      ca_address_street_name:  session.delete(:s_street_name),
+      ca_address_street_type:  session.delete(:s_street_type)}
   end
 
   # Stores DOB and SSN4 used in lookup in session

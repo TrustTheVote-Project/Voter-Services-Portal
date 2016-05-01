@@ -8,6 +8,12 @@ EnableDigitalService: true
 EnablePaperService: true
 
 
+lookup_service:
+  enabled: true
+  id_and_locality: true
+  is_registration_first_step: false
+
+
 #################
 ## Configuration keys that toggle the user-visible behavior of 
 ## the eligibility dialog

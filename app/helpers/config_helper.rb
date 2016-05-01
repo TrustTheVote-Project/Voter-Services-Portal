@@ -24,6 +24,11 @@ module ConfigHelper
     AppConfig['OVR']['completion']
   end
   
+  ### Lookup section helpers
+  def lookup_service_field_options(field)
+    lookup_service_config["#{field}_options"].collect {|k| [I18n.t("search.#{field}_options.#{k}"), k]}
+  end
+  
   ### Eligibility section helpers
   def default_eligibility_config?
     !eligibility_config['enable_method_virginia']

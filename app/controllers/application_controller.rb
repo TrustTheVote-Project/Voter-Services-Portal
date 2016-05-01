@@ -48,6 +48,7 @@ class ApplicationController < ActionController::Base
     gon.personal_data_on_eligibility_page = AppConfig['OVR']['eligibility']['CollectPersonalData'] && !eligibility_config['combine_with_identity']
     gon.require_transport_id_number                = eligibility_config['require_transport_id_number']
     gon.enable_lookup_service         = lookup_service_config['enabled']
+    gon.lookup_service_config         = lookup_service_config
     gon.enable_digital_ovr                = AppConfig['OVR']['EnableDigitalService']
     gon.enable_paper_ovr                = AppConfig['OVR']['EnablePaperService']
     gon.enable_expanded_felony_mental_eligibility = AppConfig['OVR']['enable_expanded_felony_mental_eligibility']

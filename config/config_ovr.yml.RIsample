@@ -3,6 +3,13 @@
 ## the eligibility dialog
 ##
 
+lookup_service:
+  identification_document_options:
+    - drivers_license
+    - state_id_card
+    - social_security_number
+    
+    
 eligibility:
   combine_with_identity: false
   requirements:
