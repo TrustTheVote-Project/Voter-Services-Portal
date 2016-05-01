@@ -55,7 +55,7 @@ class window.Registration
     if gon.default_eligibility_config
       $('.eligibility_requirement input').each (i, el) =>
         observableName = $(el).data('observable')
-        if observableName && observableName != '' && !@eligibilityRequirements.includes(observableName)
+        if observableName && observableName != '' && @eligibilityRequirements.indexOf(observableName) == -1
             @eligibilityRequirements.push(observableName)
 
     for req in @eligibilityRequirements
@@ -297,7 +297,6 @@ class window.Registration
       errors.push("Age criteria") unless @oldEnough()
       errors.push("Voting rights criteria") if @rightsNotFilled()
       errors.push("The date of restoration must be after your date of birth.") if @invalidRightsRestorationDate()
-    console.log(@showDocImage(),@noDocImage(),@docImageType(),@docImage())
     errors.push(gon.i18n_id_documentation_image) if @showDocImage() and !@noDocImage() and (!@docImageType() or !@docImage())
     
     

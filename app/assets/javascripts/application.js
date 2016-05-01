@@ -21,6 +21,7 @@
 //= require jquery.ba-hashchange.min
 //= require feedback
 //= require jquery-ui-1.8.21.custom.min
+//= reqiure public/ie_helpers
 //= require public/helpers
 //= require public/popover
 //= require public/registration
