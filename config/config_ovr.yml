@@ -9,6 +9,9 @@ EnablePaperService: false
 
 # Enable integration with LookupService backend to determine if voters are
 # registered, and to retrieve voters' registration data.
+lookup_service:
+  enabled: true
+
 EnableLookupService: true
 
 ###################

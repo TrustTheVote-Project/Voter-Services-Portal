@@ -1,5 +1,9 @@
 module ConfigHelper
 
+  def lookup_service_config
+    AppConfig['OVR']['lookup_service']
+  end
+
   def eligibility_config
     AppConfig['OVR']['eligibility']
   end
