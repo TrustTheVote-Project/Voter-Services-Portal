@@ -12,8 +12,7 @@ en:
     details:
       <p>To look-up your State Voter Record, you'll need to provide your first name,
         last name, date of birth, locality, and the last 4 digits of your
-        Social Security Number. You can also identify using the voter identification
-        number on your voter card, by selecting "Use Voter ID" below.</p>
+        Social Security Number.</p>
 
     retry:
       You can try again by %{changing_info}, or you can instead %{register}.
