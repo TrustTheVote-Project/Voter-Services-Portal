@@ -8,11 +8,20 @@
 
 .row
   .padded_page_span.section{ class: no_forms? ? nil : "welcome" }
-    .head
-      %h3= raw t('search.title')
-      .description= raw t('search.subtitle')
+  
+    - if params[:continue_with_registration].blank?
+      .head
+        %h3= raw t('search.title')
+        .description= raw t('search.subtitle')
 
-    = raw t('search.details')
+      = raw t('search.details')
+    - else 
+      .head
+        %h3= raw t('search.as_registration_first_step.title')
+        .description= raw t('search.as_registration_first_step.subtitle')
+
+      = raw t('search.as_registration_first_step.details')
+    
 
     = form_for @search_query, url: search_path do |f|
       = hidden_field_tag :continue_with_registration, params[:continue_with_registration]
