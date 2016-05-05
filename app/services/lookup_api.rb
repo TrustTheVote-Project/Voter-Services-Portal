@@ -45,7 +45,7 @@ class LookupApi
   end
 
   def self.parse_uri(method, q, &block)
-    c = AppConfig['private']['wscp']
+    c = AppConfig['services']['wscp']
     url_parts = [ c['url_base'] ]
     url_parts << c['lookup_path'] unless c['lookup_path'].blank?
     url_parts << c['api_key'] unless c['api_key'].blank?

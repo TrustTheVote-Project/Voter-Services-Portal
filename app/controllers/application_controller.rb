@@ -39,7 +39,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_env_vars
-    gon.enable_dmvid_lookup           = eligibility_config['PreCheckForPaperless']
+    gon.enable_dmvid_lookup           = eligibility_config['check_for_paperless_eligibility']
     gon.enable_dmv_address_display    = AppConfig['OVR']['enable_dmv_address_display']
     gon.eligibility_with_identity     = eligibility_config['combine_with_identity']
     gon.default_eligibility_config    = default_eligibility_config?

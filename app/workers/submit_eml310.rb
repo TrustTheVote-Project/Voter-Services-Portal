@@ -2,6 +2,7 @@ require 'builder'
 require 'net/http'
 
 class SubmitEml310
+  extend ConfigHelper
 
   # Possible reasons: bad EML310, service unavailable
   class SubmissionError < StandardError
@@ -45,7 +46,10 @@ class SubmitEml310
       result = parse(response)
     end
     
-    if !AppConfig['enable_eml_post']
+    if registration_service_config['debug']
+      if reg.first_name.downcase == 'fail'
+        raise SubmissionError.new(500, "This is a debug sample failure.")
+      end
       return true
     end
 
@@ -93,12 +97,12 @@ class SubmitEml310
   end
 
   def self.submission_enabled?
-    submission_url.present? && AppConfig['enable_eml_post']
+    submission_url.present? && !registration_service_config['debug']
   end
 
   def self.submission_url
     @submission_url ||= begin
-      c = AppConfig['private']['wscp']
+      c = AppConfig['services']['wscp']
       url_parts = [ c['url_base'] ]
       url_parts << c['submit_path'] unless c['lookup_path'].blank?
       url_parts << c['api_key'] unless c['api_key'].blank?

@@ -12,6 +12,11 @@ online_balloting:
   access_token: "osdvlb"
   account_id:   65
 
+lookup:
+  enabled: true
+  is_registration_first_step: true
+  identification_document: false
+
 # URLs to use to access the backend service. One service is for lookups to get voter info,
 # another is for submitting voter info as registration request.
 #

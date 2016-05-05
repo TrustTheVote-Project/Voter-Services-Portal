@@ -2,7 +2,7 @@ class LookupService < LookupApi
 
   # stub registration lookup
   def self.registration(record)
-    if AppConfig['OVR']['eligibility']['PreCheckForPaperless'] && record_complete?(record)
+    if AppConfig['OVR']['eligibility']['check_for_paperless_eligibility'] && record_complete?(record)
       return dmv_address_lookup(record)
     else
       return { registered: false, dmv_match: false }

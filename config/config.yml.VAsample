@@ -13,10 +13,6 @@
 enable_dmv_id_submission: true
 
 
-# Enables posting EML310 data
-enable_eml_post: true
-
-
 # Enables integration with external ballot service
 enable_online_balloting: true
 

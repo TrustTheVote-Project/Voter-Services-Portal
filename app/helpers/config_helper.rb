@@ -1,8 +1,5 @@
 module ConfigHelper
 
-  def lookup_service_config
-    AppConfig['OVR']['lookup_service']
-  end
 
   def eligibility_config
     AppConfig['OVR']['eligibility']
@@ -23,6 +20,18 @@ module ConfigHelper
   def completion_config
     AppConfig['OVR']['completion']
   end
+  
+  def services_config
+    AppConfig['services']
+  end
+  
+  def lookup_service_config
+    services_config['lookup']
+  end
+  def registration_service_config
+    services_config['registration']
+  end
+  
   
   ### Lookup section helpers
   def lookup_service_field_options(field)

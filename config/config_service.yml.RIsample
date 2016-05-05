@@ -1,0 +1,5 @@
+lookup:
+  identification_document_options:
+    - drivers_license
+    - state_id_card
+    - social_security_number

@@ -17,7 +17,7 @@ module FormHelper
 
   # TRUE if online balloting is enabled
   def online_balloting?
-    ob = AppConfig['private']['online_balloting']
+    ob = services_config['online_balloting']
 
     AppConfig[''] &&
     !ob['url'].blank? &&
@@ -26,7 +26,7 @@ module FormHelper
   end
 
   def online_ballot_url(r = @registration)
-    ob = AppConfig['private']['online_balloting']
+    ob = services_config['online_balloting']
     "#{ob['url']}/?search[vid]=#{r.voter_id}&token=#{ob['access_token']}&account=#{ob['account_id']}"
   end
 

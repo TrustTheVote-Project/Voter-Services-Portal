@@ -33,5 +33,5 @@ if custom
 end
 
 AppConfig.deep_merge!(timely_config) unless timely_config.nil?
-AppConfig.deep_merge!({ 'private' => service_config }) unless service_config.nil?
+AppConfig.deep_merge!({ 'services' => service_config }) unless service_config.nil?
 AppConfig.deep_merge!({ 'OVR' => config_ovr }) unless config_ovr.nil?
