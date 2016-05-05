@@ -60,6 +60,9 @@ class SearchForm
         if gon.lookup_service_config.last_name
           unless filled(@lastName())
             errors.push("Last Name")
+        if gon.lookup_service_config.date_of_birth
+          unless present(@dateOfBirth())
+            errors.push("Date Of Birth")          
         if gon.lookup_service_config.street_name
           unless filled(@streetName())
             errors.push("Street Name")
