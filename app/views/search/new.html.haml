@@ -100,7 +100,8 @@
               - if lookup_service_config['street_type']
                 .span3
                   %label( for='search_query_street_type' )= t('search.street_type')
-                  = f.text_field :street_type, 'data-bind' => 'instantValidation: { accessor: "streetType" }'
+                  = f.select :street_type, Dictionaries::CA_STREET_TYPES, { include_blank: true }, { class: 'span3', 'data-bind' => 'instantValidation: { accessor: "streetType" }' }
+                  
         - if lookup_service_config['vvr_address_1'] || lookup_service_config['vvr_town'] || lookup_service_config['vvr_zip5']
           .partition
             .row

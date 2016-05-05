@@ -150,4 +150,9 @@ module Dictionaries
     'Democratic Primary',
     'Republican Primary'
   ]
+  
+  CA_DIRECTIONS = %w(East North Northeast Northwest South Southeast Southwest West)
+  CA_STREET_TYPES = %w(Street Avenue)
+  
+  
 end

@@ -51,19 +51,21 @@
         .ca-address-field.row
           .span2
             = f.label :ca_address_street_number, t('addresses.street_number')
-            = f.text_field :ca_address_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddressStreetNumber" }, valueUpdate: "afterkeyup"', class: 'span2'
+            = f.text_field :ca_address_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddressStreetNumber", validation: "caStreetNumber" }, valueUpdate: "afterkeyup"', class: 'span2'
           .span4
             = f.label :ca_address_street_name, t('addresses.street_name')
-            = f.text_field :ca_address_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddressStreetName" }, valueUpdate: "afterkeyup"', class: 'span4'
+            = f.text_field :ca_address_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddressStreetName", validation: "caStreetName" }, valueUpdate: "afterkeyup"', class: 'span4'
           .span2
             = f.label :ca_address_street_type, t('addresses.street_type')
-            = f.text_field :ca_address_street_type, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddressStreetType" }, valueUpdate: "afterkeyup"', class: 'span2'
+            = f.select :ca_address_street_type, Dictionaries::CA_STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'span2', 'data-bind' => 'instantValidation: { accessor: "caAddressStreetType" }' }
+            
         .ca-address-field.row
           .span2
             = f.label :ca_address_direction do
               = t('addresses.direction')
               %span= t('optional')
-            = f.text_field :ca_address_direction, autocomplete: ac, 'data-bind' => 'valueWithInit: caAddressDirection', class: 'span2'
+            = f.select :ca_address_direction, Dictionaries::CA_DIRECTIONS, { include_blank: true }, { class: 'span2', 'data-bind' => 'valueWithInit: caAddressDirection' }
+            
           .span3
             = f.label :ca_address_unit do
               = t('addresses.unit')
