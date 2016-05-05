@@ -4,7 +4,8 @@
 # We store records here while the user is active to maintain
 # the state and remove them once they leave the portal.
 class RegistrationRepository
-
+  extend ConfigHelper
+  
   # Find a registration for the current session
   def self.get_registration(session)
     rid = session[:registration_id]
@@ -35,10 +36,27 @@ class RegistrationRepository
       session[:s_voter_id]    = query.voter_id
       session[:s_lookup_type] = query.lookup_type
     else
-      session[:s_street_name]   = query.street_name
-      session[:s_street_type]   = query.street_type
-      session[:s_street_number]   = query.street_number
-      session[:s_dob]         = query.date_of_birth.try(:strftime, "%Y-%m-%d")
+      if lookup_service_config['street_name']
+        session[:s_street_name]   = query.street_name
+      end
+      if lookup_service_config['street_type']
+        session[:s_street_type]   = query.street_type
+      end
+      if lookup_service_config['street_number']
+        session[:s_street_number]   = query.street_number
+      end
+      if lookup_service_config['vvr_address_1']
+        session[:s_vvr_address_1]   = query.vvr_address_1
+      end
+      if lookup_service_config['vvr_town']
+        session[:s_vvr_town]   = query.vvr_town
+      end
+      if lookup_service_config['vvr_zip5']
+        session[:s_vvr_zip5]   = query.vvr_zip5
+      end
+      if lookup_service_config['date_of_birth']
+        session[:s_dob]         = query.date_of_birth.try(:strftime, "%Y-%m-%d")
+      end
       #session[:s_id_document_number]    = query.id_document_number
     end
   end
@@ -55,7 +73,12 @@ class RegistrationRepository
       voter_id:     session.delete(:s_voter_id),
       ca_address_street_number:  session.delete(:s_street_number),
       ca_address_street_name:  session.delete(:s_street_name),
-      ca_address_street_type:  session.delete(:s_street_type)}
+      ca_address_street_type:  session.delete(:s_street_type),
+      vvr_address_1: session.delete(:s_vvr_address_1),
+      vvr_town: session.delete(:s_vvr_town),
+      vvr_zip5: session.delete(:s_vvr_zip5),
+    }
+
   end
 
   # Stores DOB and SSN4 used in lookup in session

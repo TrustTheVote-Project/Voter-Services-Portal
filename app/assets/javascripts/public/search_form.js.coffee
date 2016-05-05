@@ -19,6 +19,9 @@ class SearchForm
     @streetNumber     = ko.observable()
     @streetName       = ko.observable()
     @streetType       = ko.observable()
+    @vvrAddress1     = ko.observable()
+    @vvrTown       = ko.observable()
+    @vvrZip5       = ko.observable()
     @idDocumentNumber = ko.observable()
     @idDocumentType   = ko.observable()
     
@@ -66,9 +69,15 @@ class SearchForm
         if gon.lookup_service_config.street_type
           unless filled(@streetType())
             errors.push("Street Type")
-        if gon.lookup_service_config.date_of_birth
-          unless present(@dateOfBirth())
-            errors.push("Date of birth")
+        if gon.lookup_service_config.vvr_address_1
+          unless filled(@vvrAddress1())
+            errors.push("Address")
+        if gon.lookup_service_config.vvr_town
+          unless filled(@vvrTown())
+            errors.push("Town Name")
+        if gon.lookup_service_config.vvr_zip5
+          unless present(@vvrZip5())
+            errors.push("Zip Code")
         if gon.lookup_service_config.identification_document
           unless present(@idDocumentNumber())
             errors.push("ID Document Number")

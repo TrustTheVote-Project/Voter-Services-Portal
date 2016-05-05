@@ -19,7 +19,8 @@ class RegistrationSearch < AbstractRegistrationSearch
     else 
       if SearchController.helpers.lookup_service_config['debug']
         vid = '123123124' #search_query.id_document_number
-        if search_query.street_name.downcase == 'main'
+        
+        if SearchController.helpers.lookup_service_config['street_name'] && search_query.street_name.downcase == 'main'
           return self.sample_record(vid)
         else
           raise RecordNotFound

@@ -18,7 +18,7 @@ class SearchQuery
       validates :ssn4,        presence: { unless: :using_voter_id? }
       validates :voter_id,    presence: {     if: :using_voter_id? }
     else
-      [:first_name, :last_name, :date_of_birth, :street_number, :street_name, :street_type].each do |field|
+      [:first_name, :last_name, :date_of_birth, :street_number, :street_name, :street_type, :vvr_address_1, :vvr_town, :vvr_zip5].each do |field|
         if lookup_config[field.to_s]
           attr_accessor field
           attr_accessible field

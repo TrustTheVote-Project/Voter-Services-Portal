@@ -10,9 +10,18 @@ module FormHelper
     return "#{I18n.t("identity.#{field}")} <span>#{opt_label}</span>".html_safe
   end
 
-
   def link_with_privacy_act_to(label, url, *options)
-    link_to label, "#{url}#{ '_privacy' if spac }".to_sym, *options
+    if url.is_a?(Hash)
+      if url[:action] && spac
+        url[:action] = "#{url[:action]}_privacy".to_sym
+      end
+      url = url_for(url)      
+    else
+      if spac
+        url = "#{url}_privacy".to_sym
+      end
+    end
+    link_to label, url, *options
   end
 
   # TRUE if online balloting is enabled

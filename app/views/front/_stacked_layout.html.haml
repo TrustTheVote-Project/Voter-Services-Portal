@@ -5,4 +5,7 @@
         %h3= raw t("front.options.#{r}.title")
         %h4= raw t("front.options.#{r}.subtitle")
         %p= raw t("front.options.#{r}.text")
-        = link_to t("front.options.#{r}.button"), m, class: "residential bt right"
+        - if [:register_residential, :register_overseas, :search].include?(m)
+          = link_with_privacy_act_to t("front.options.#{r}.button"), m, class: "residential bt right"
+        - else
+          = link_to t("front.options.#{r}.button"), m, class: "residential bt right"

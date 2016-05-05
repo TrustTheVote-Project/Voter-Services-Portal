@@ -85,20 +85,38 @@
               .span4
                 %label( for='search_query_dob' )= t('search.dob')
                 = bound_date f, :date_of_birth, { object_name: 'search_query', start_year: Date.today.year - 120, end_year: Date.today.year - 17 }, { class: 'date' }
-        .partition
-          .row
-            - if lookup_service_config['street_number']
-              .span2
-                %label( for='search_query_street_number' )= t('search.street_number')
-                = f.text_field :street_number, 'data-bind' => 'instantValidation: { accessor: "streetNumber" }', class: 'span2'
-            - if lookup_service_config['street_name']
-              .span4
-                %label( for='search_query_street_name' )= t('search.street_name')
-                = f.text_field :street_name, 'data-bind' => 'instantValidation: { accessor: "streetName" }', class: 'span4'
-            - if lookup_service_config['street_type']
-              .span3
-                %label( for='search_query_street_type' )= t('search.street_type')
-                = f.text_field :street_type, 'data-bind' => 'instantValidation: { accessor: "streetType" }'
+        
+        - if lookup_service_config['street_number'] || lookup_service_config['street_name'] || lookup_service_config['street_type']
+          .partition
+            .row
+              - if lookup_service_config['street_number']
+                .span2
+                  %label( for='search_query_street_number' )= t('search.street_number')
+                  = f.text_field :street_number, 'data-bind' => 'instantValidation: { accessor: "streetNumber" }', class: 'span2'
+              - if lookup_service_config['street_name']
+                .span4
+                  %label( for='search_query_street_name' )= t('search.street_name')
+                  = f.text_field :street_name, 'data-bind' => 'instantValidation: { accessor: "streetName" }', class: 'span4'
+              - if lookup_service_config['street_type']
+                .span3
+                  %label( for='search_query_street_type' )= t('search.street_type')
+                  = f.text_field :street_type, 'data-bind' => 'instantValidation: { accessor: "streetType" }'
+        - if lookup_service_config['vvr_address_1'] || lookup_service_config['vvr_town'] || lookup_service_config['vvr_zip5']
+          .partition
+            .row
+              - if lookup_service_config['vvr_address_1']
+                .span4
+                  %label( for='search_query_street_number' )= t('search.vvr_address_1')
+                  = f.text_field :vvr_address_1, 'data-bind' => 'instantValidation: { accessor: "vvrAddress1" }', class: 'span4'
+              - if lookup_service_config['vvr_town']
+                .span3
+                  %label( for='search_query_street_name' )= t('search.vvr_town')
+                  = f.text_field :vvr_town, 'data-bind' => 'instantValidation: { accessor: "vvrTown" }', class: 'span3'
+              - if lookup_service_config['vvr_zip5']
+                .span2
+                  %label( for='search_query_street_type' )= t('search.vvr_zip5')
+                  = f.text_field :vvr_zip5, 'data-bind' => 'instantValidation: { accessor: "vvrZip5" }', class: 'span2'
+          
         .partition
           .row
             - if lookup_service_config['identification_document']

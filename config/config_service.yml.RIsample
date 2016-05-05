@@ -1,4 +1,12 @@
 lookup:
+  street_number: false
+  street_name: false
+  street_type: false
+  vvr_address_1: true
+  vvr_town: true
+  vvr_zip5: true
+
+
   identification_document_options:
     - drivers_license
     - state_id_card

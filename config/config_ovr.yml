@@ -1,5 +1,5 @@
 # Require the sign off of the privacy act page before some actions
-show_privacy_act_page: true
+show_privacy_act_page: false
 
 # When false, always paper submission. When true -- EML310 post result decides.
 # Serves as a handy emergency off switch in situations where the DMV back-end

@@ -1,5 +1,8 @@
 module ConfigHelper
 
+  def ovr_config
+    AppConfig['OVR']
+  end
 
   def eligibility_config
     AppConfig['OVR']['eligibility']

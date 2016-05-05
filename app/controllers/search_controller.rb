@@ -42,7 +42,6 @@ class SearchController < ApplicationController
     #if @error.kind_of? RegistrationSearch::RecordNotFound
     #  LogRecord.log("", "identify", nil, "No match for #{@search_query.to_log_details}")
     #end
-
     RegistrationRepository.store_search_query(session, @search_query)
     
     if !params[:continue_with_registration].blank?
