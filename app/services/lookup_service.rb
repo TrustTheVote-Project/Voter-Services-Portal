@@ -1,8 +1,16 @@
 class LookupService < LookupApi
-
+  extend ConfigHelper 
   # stub registration lookup
   def self.registration(record)
-    if AppConfig['OVR']['eligibility']['check_for_paperless_eligibility'] && record_complete?(record)
+    if eligibility_config['check_for_paperless_eligibility'] && record_complete?(record)
+      if eligibility_config['debug_check_for_paperless_eligibility']
+        if record[:ssn] =~ /^123/
+          return { dmv_match: true, address: {address_1: "DMV Match Street"}}
+        else 
+          return { registered: false, dmv_match: false}
+        end
+      end
+
       return dmv_address_lookup(record)
     else
       return { registered: false, dmv_match: false }

@@ -52,7 +52,8 @@ eligibility:
   combine_with_identity: true #Show eligibility and identity in one page, usually when there are few eligibility questions
   
   # When precheck is false, does not lookup user data based on IDs (and therefore does not check for eligibility)
-  check_for_paperless_eligibility: false # was enable_dmvid_lookup
+  check_for_paperless_eligibility: true # was enable_dmvid_lookup
+  debug_check_for_paperless_eligibility: true
   Age18: false # Show age checkbox on eligibility screen (if not shown, the age eligibility attribue defaults to TRUE)
   CollectPersonalData: true #actually force to false when ComineWithIdentity is true
   

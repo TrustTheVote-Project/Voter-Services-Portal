@@ -1,5 +1,6 @@
 eligibility:
   combine_with_identity: true
+  check_for_paperless_eligibility: false
   
 identity:
   enable_federal_id_number: false

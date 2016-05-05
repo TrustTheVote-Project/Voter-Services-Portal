@@ -3,9 +3,6 @@
 ## the eligibility dialog
 ##
 
-
-    
-    
 eligibility:
   combine_with_identity: false
   requirements:

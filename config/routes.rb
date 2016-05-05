@@ -11,6 +11,22 @@ VaVote::Application.routes.draw do
     end
   end
 
+  get '/lookup/registration'            => 'lookup#registration'
+    
+  namespace :api do
+    get '/search(.json)' => 'registrations#show', format: 'json'
+
+    namespace :v1, module: nil do
+      get '/demo'            => 'voter_reporting#demo', as: 'demo'
+      get '/PollingLocation' => 'voter_reporting#polling_location'
+      get '/ReportArrive'    => 'voter_reporting#report_arrive'
+      get '/ReportComplete'  => 'voter_reporting#report_complete'
+      get '/WaitTimeInfo'    => 'voter_reporting#wait_time_info'
+    end
+  end
+
+
+
   root_url = AppConfig['demo'] ? 'pages#demo_splash' : "pages#front"
   conditional_scope "/:locale", root_url do
 
@@ -58,7 +74,7 @@ VaVote::Application.routes.draw do
     end
     get '/voter_card.pdf' => 'voter_cards#show', format: 'pdf', as: 'voter_card'
 
-    get '/lookup/registration'            => 'lookup#registration'
+
     get '/lookup/absentee_status_history' => 'lookup#absentee_status_history'
     get '/lookup/my_ballot'               => 'lookup#my_ballot'
 
@@ -70,21 +86,11 @@ VaVote::Application.routes.draw do
       end
     end
 
-    namespace :api do
-      get '/search(.json)' => 'registrations#show', format: 'json'
-
-      namespace :v1, module: nil do
-        get '/demo'            => 'voter_reporting#demo', as: 'demo'
-        get '/PollingLocation' => 'voter_reporting#polling_location'
-        get '/ReportArrive'    => 'voter_reporting#report_arrive'
-        get '/ReportComplete'  => 'voter_reporting#report_complete'
-        get '/WaitTimeInfo'    => 'voter_reporting#wait_time_info'
-      end
-    end
 
     root to: root_url
   end
-
+    
+  
   match '*unmatched_route', :to => 'application#raise_not_found!'
   
 end

@@ -42,7 +42,7 @@ lookup:
   identification_document_options:
     - voter_id
   # identification_document block is two elements, field to enter doc number, and pulldown for the doc type.
-  
+
 registration:
   debug: true
   enabled: true

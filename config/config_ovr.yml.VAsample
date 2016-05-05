@@ -22,7 +22,7 @@ eligibility:
   Age18: false # Show age checkbox on eligibility screen (if not shown, the age eligibility attribue defaults to TRUE)
   combine_with_identity: false #Show eligibility and identity in one page, usually when there are few eligibility questions
   CollectPersonalData: true #actually force to false when ComineWithIdentity is true
-  
+  debug_check_for_paperless_eligibility: false
   
 # When FALSE, showing the explanation page to ineligible
 allow_ineligible_to_complete_form: false  
