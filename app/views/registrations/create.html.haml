@@ -12,5 +12,7 @@
   .padded_page_span
     - if @paperless_submission
       = render partial: 'submitted_with_dmvid'
-    - else
+    - elsif ovr_config['EnablePaperService']
       = render partial: 'download'
+    - else
+      = ExternalPages.get_by_name :failed_digital_no_paper
