@@ -18,6 +18,7 @@ address:
   canada_format: true
   explicit_state: "ON"
   enable_previous_registration: false
+  placeholder_zip: "XNX NXN"
   
   
 # Enable/disable the pre-population of residence address fields from DMV address, if available

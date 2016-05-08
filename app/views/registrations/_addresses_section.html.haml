@@ -105,7 +105,7 @@
     - if address_config['canada_format']
       .span3.zip-field
         = f.label :vvr_zip5, t('addresses.postal_code')
-        = f.text_field :vvr_zip5, maxlength: 7, autocomplete: ac, class: 'postal-code', 'data-bind' => 'instantValidation: { accessor: "vvrZip5", validation: "caPostalCode" }, valueUpdate: "afterkeyup"', placeholder: 'NNN NNN'
+        = f.text_field :vvr_zip5, maxlength: 7, autocomplete: ac, class: 'postal-code', 'data-bind' => 'instantValidation: { accessor: "vvrZip5", validation: "caPostalCode" }, valueUpdate: "afterkeyup"', placeholder: address_config['placeholder_zip']
         
   - if address_config['virginia_address']  
     .row
