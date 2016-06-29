@@ -15,19 +15,8 @@ class RegistrationSearch < AbstractRegistrationSearch
       else
         xml = search_by_data(search_query.ssn4, search_query.locality, search_query.dob, search_query.first_name, search_query.last_name)
       end
-
-    else 
-      if SearchController.helpers.lookup_service_config['debug']
-        vid = '123123124' #search_query.id_document_number
-        
-        if SearchController.helpers.lookup_service_config['street_name'] && search_query.street_name.downcase == 'main'
-          return self.sample_record(vid)
-        else
-          raise RecordNotFound
-        end
-      else
-        raise 'generic lookup service not implemented'
-      end
+    else
+      return GeneralRegistrationSearch.perform(@search_query, SearchController.helpers.lookup_service_config)
     end
     
     DebugLogging.log_response_to_file("eml330", xml)

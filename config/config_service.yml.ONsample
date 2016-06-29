@@ -16,6 +16,7 @@ lookup:
   enabled: true
   is_registration_first_step: true
   identification_document: false
+  url: https://vri-on-stub.herokuapp.com/lookup
 
 
   
