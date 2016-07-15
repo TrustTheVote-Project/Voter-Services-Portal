@@ -1,7 +1,7 @@
 en:
   confirm:
     details: Please confirm that your information is accurate. If any information is not correct, click "Edit" beside the incorrect data to return to the page to make corrections.
-    voter_info: Voter Information
+    voter_info: Personal Information
     required: "Yes"
     not_required: "No"
     not_provided: "Not provided"
