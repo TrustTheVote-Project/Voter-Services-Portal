@@ -15,8 +15,8 @@ en:
     title: Identity
     subtitle:  Identify who you are to look-up your State Voter Record.
     details:
-      <p>To look-up your State Voter Record, you'll need to provide your first name,
-        last name, date of birth, locality, and the last 4 digits of your
+      <p>To look-up your State Voter Record, you'll need to provide your given name,
+        surname (last name), date of birth, locality, and the last 4 digits of your
         Social Security Number.</p>
 
     retry:
@@ -29,8 +29,8 @@ en:
 
     via_ssn:
       option: Use SSN4
-      first_name: First name
-      last_name: Last name
+      first_name: Given name
+      last_name: Surname (last name)
       ssn4: Last 4 digits of SSN
       dob: Date of birth
       locality: Locality

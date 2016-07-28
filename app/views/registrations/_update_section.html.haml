@@ -11,9 +11,9 @@
         %tr
           %th Name:
           %td
-            = f.text_field :first_name,   class: 'span2', placeholder: 'First name'
+            = f.text_field :first_name,   class: 'span2', placeholder: 'Given name'
             = f.text_field :middle_name,  class: 'span2', placeholder: 'Middle name'
-            = f.text_field :last_name,    class: 'span2', placeholder: 'Last name', 'data-bind' => 'value: lastName, valueUpdate: "keyup"'
+            = f.text_field :last_name,    class: 'span2', placeholder: 'Surname (last name)', 'data-bind' => 'value: lastName, valueUpdate: "keyup"'
             = f.select     :suffix, Dictionaries::NAME_SUFFIXES, {}, class: 'span1'
         %tr
           %th Date of Birth:

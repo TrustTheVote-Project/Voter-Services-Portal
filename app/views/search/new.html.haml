@@ -37,10 +37,10 @@
         .partition{ 'data-bind' => 'visible: lookupType() == "ssn4"' }
           .row
             .span3
-              %label( for='search_query_first_name' )= t('search.via_ssn.first_name')
+              %label( for='search_query_first_name' )= t('search.via_ssn.first_name', default: 'Given Name')
               = f.text_field :first_name, 'data-bind' => 'instantValidation: { accessor: "firstName" }'
             .span3
-              %label( for='search_query_last_name' )= t('search.via_ssn.last_name')
+              %label( for='search_query_last_name' )= t('search.via_ssn.last_name', default: 'Surname (Last Name)')
               = f.text_field :last_name, 'data-bind' => 'instantValidation: { accessor: "lastName" }'
             .span4
               %label( for='search_query_dob' )= t('search.via_ssn.dob')
@@ -75,11 +75,11 @@
           .row
             - if lookup_service_config['first_name']
               .span3
-                %label( for='search_query_first_name' )= t('search.first_name')
+                %label( for='search_query_first_name' )= t('search.first_name', default: 'Given Name')
                 = f.text_field :first_name, 'data-bind' => 'instantValidation: { accessor: "firstName" }'
             - if lookup_service_config['last_name']
               .span3
-                %label( for='search_query_last_name' )= t('search.last_name')
+                %label( for='search_query_last_name' )= t('search.last_name', default: 'Surname (Last Name)')
                 = f.text_field :last_name, 'data-bind' => 'instantValidation: { accessor: "lastName" }'
             - if lookup_service_config['date_of_birth']
               .span4

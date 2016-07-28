@@ -10,8 +10,8 @@ en:
     title: Identity
     subtitle:  Identify who you are to look-up your Ontario Voter Record.
     details:
-      <p>To look-up your Ontario Voter Record, you'll need to provide your first name,
-        last name, date of birth, locality, and your street address information.</p>
+      <p>To look-up your Ontario Voter Record, you'll need to provide your given name,
+        surname (last name), date of birth, locality, and your street address information.</p>
 
     retry:
       You can try again by %{changing_info}, or you can instead %{register}.
@@ -28,8 +28,8 @@ en:
 
     via_ssn:
       option: Use SSN4
-      first_name: First name
-      last_name: Last name
+      first_name: Given name
+      last_name: Surname (last name)
       ssn4: Last 4 digits of SSN
       dob: Date of birth
       locality: Locality

@@ -70,7 +70,7 @@ class UpdateRegistration extends Registration
   initConfirmFields: ->
     @confirmErrors = ko.computed =>
       errors = []
-      errors.push("Your last name") unless filled(@lastName())
+      errors.push("Your surname (last name)") unless filled(@lastName())
       errors
     @confirmInvalid = ko.computed => @confirmErrors().length > 0
 

@@ -24,7 +24,7 @@
       %p= raw t('oath.assistance.info')
   .row.personal-info
     .span3
-      = f.label :as_first_name, 'Assistant first name'
+      = f.label :as_first_name, 'Assistant given name'
       = f.text_field :as_first_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "asFirstName" }, valueUpdate: "afterkeyup"'
     .span3
       = f.label :as_middle_name do
@@ -32,7 +32,7 @@
         %span= t('optional')
       = f.text_field :as_middle_name, autocomplete: ac, 'data-bind' => 'value: asMiddleName'
     .span3
-      = f.label :as_last_name, "Last name"
+      = f.label :as_last_name, "Surname (last name)"
       = f.text_field :as_last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "asLastName" }, valueUpdate: "afterkeyup"'
     .span2
       = f.label :as_name_suffix do
