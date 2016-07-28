@@ -70,10 +70,10 @@ class VriAdapter
     Registration.new(data: {
         :voter_id => voter_id,
         :current_residence => "in", # TODO analyze voter_classifications # affects `currently_overseas?` and showing mail address
-        :first_name => source_data.name.first_name,
-        :middle_name => source_data.name.middle_name,
-        :last_name => source_data.name.last_name,
-        :name_suffix => source_data.name.title_suffix,
+        :first_name => source_data['name']['first_name'],
+        :middle_name => source_data['name']['middle_name'],
+        :last_name => source_data['name']['last_name'],
+        :name_suffix => source_data['name']['title_suffix'],
         :phone => phone,
         :gender => gender,
         # :dob => Date.new(1950, 11, 06),             # TODO ??? ## shown at registrations/show
@@ -82,7 +82,7 @@ class VriAdapter
         :vvr_address_1 => address_1,        # used in RegistrationDetailsPresenter.registration_address
         :vvr_county_or_city => county,
         # :vvr_town => "Queensberry",
-        :vvr_state => source_data.registration_address.numbered_thoroughfare_address.state,
+        :vvr_state => source_data['registration_address']['numbered_thoroughfare_address']['state'],
         # :vvr_zip5 => "24201",
         # :vvr_zip4 => "2445",
         # :vvr_is_rural => "0",
@@ -109,42 +109,43 @@ class VriAdapter
 
   def initialize(vri_on_response)
     # deep (recursive) conversion to OpenStruct
-    @source = JSON.parse(vri_on_response.to_json, object_class: OpenStruct)
+    # @source = JSON.parse(vri_on_response.to_json, object_class: OpenStruct)
+    @source = vri_on_response
     raise LookupApi::RecordNotFound if not_found?
   end
 
   def voter_id
-    source_data.voter_ids.find { |x| x.othertype == 'elector_id' }.try(:string_value)
+    source_data['voter_ids'].find { |x| x['othertype'] == 'elector_id' }.try(:[], 'string_value')
   end
 
   def phone
-    source_data.contact_methods.find {|x| x.type == 'phone' }.try(:value)
+    source_data['contact_methods'].find {|x| x['type'] == 'phone' }.try(:[], 'value')
   end
 
   def gender
-    source_data.gender.try(:capitalize)
+    source_data['gender'].try(:capitalize)
   end
 
   def address_1
     [
-        source_data.registration_address.numbered_thoroughfare_address.complete_address_number.address_number,
-        source_data.registration_address.numbered_thoroughfare_address.complete_street_name.street_name
+        source_data['registration_address']['numbered_thoroughfare_address']['complete_address_number']['address_number'],
+        source_data['registration_address']['numbered_thoroughfare_address']['complete_street_name']['street_name']
     ].join(' ')
 
   end
 
   def county
-    source_data.registration_address.numbered_thoroughfare_address.complete_place_names.find{|x| x.place_name_type == 'County'}.try(:place_name_value)
+    source_data['registration_address']['numbered_thoroughfare_address']['complete_place_names'].find{|x| x['place_name_type'] == 'County'}.try(:[], 'place_name_value')
   end
 
   def source_data
-    @source.voter_records_response.registration_success.voter_registration
+    @source['voter_records_response']['registration_success']['voter_registration']
   end
 
   private
 
   def not_found?
-    success = @source.voter_records_response.registration_success
-    success.nil? || success.action != 'registration-matched'
+    success = @source['voter_records_response']['registration_success']
+    success.nil? || success['action'] != 'registration-matched'
   end
 end
