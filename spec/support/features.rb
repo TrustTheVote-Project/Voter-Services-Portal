@@ -23,8 +23,8 @@ def fill_eligibility_page(options = {})
 end
 
 def fill_identity_page(options = {})
-  fill_in "First name", with: "Jack"
-  fill_in "Last name", with: "Smith"
+  fill_in "Given name", with: "Jack"
+  fill_in "Surname (Last Name)", with: "Smith"
   select  "Male", from: "Gender"
 
   if AppConfig['require_middle_name']

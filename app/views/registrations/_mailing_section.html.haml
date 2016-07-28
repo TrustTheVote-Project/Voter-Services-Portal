@@ -38,7 +38,7 @@
       .row.personal-info
         .span3
           = f.label :pr_first_name do
-            First name
+            Given name
             %span &nbsp;
           = f.text_field :pr_first_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prFirstName" }, valueUpdate: "afterkeyup"'
         .span3
@@ -48,7 +48,7 @@
           = f.text_field :pr_middle_name, autocomplete: ac, 'data-bind' => 'valueWithInit: prMiddleName'
         .span3
           = f.label :pr_last_name do
-            Last name
+            Surname (Last Name)
             %span &nbsp;          
           = f.text_field :pr_last_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "prLastName" }, valueUpdate: "afterkeyup"'
         .span2

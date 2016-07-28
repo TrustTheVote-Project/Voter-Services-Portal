@@ -42,9 +42,9 @@ class SearchForm
 
         if @lookupType() == 'ssn4'
           unless filled(@firstName())
-            errors.push("First name")
+            errors.push("Given name")
           unless filled(@lastName())
-            errors.push("Last name")
+            errors.push("Surname (last name)")
           unless ssn4(@ssn4())
             errors.push("SSN4")
         else
@@ -56,10 +56,10 @@ class SearchForm
       else
         if gon.lookup_service_config.first_name
           unless filled(@firstName())
-            errors.push("First Name")
+            errors.push("Given Name")
         if gon.lookup_service_config.last_name
           unless filled(@lastName())
-            errors.push("Last Name")
+            errors.push("Surname (Last Name)")
         if gon.lookup_service_config.date_of_birth
           unless present(@dateOfBirth())
             errors.push("Date Of Birth")          

@@ -248,8 +248,8 @@ class window.Registration
       if gon.eligibility_with_identity 
         @validateEligibilityData(errors)        
       
-      errors.push('First name') unless filled(@firstName())
-      errors.push('Last name') unless filled(@lastName())
+      errors.push('Given name') unless filled(@firstName())
+      errors.push('Surname (last name)') unless filled(@lastName())
       errors.push('Gender') unless filled(@gender())
       errors.push('Phone number') unless @validPhone()
       errors.push('Email address') unless @validEmail()
