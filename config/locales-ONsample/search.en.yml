@@ -11,7 +11,9 @@ en:
     subtitle:  Please enter your personal information below. This information will be used to verify whether you are a registered elector.
     details: ''
     retry:
-      You can try again by %{changing_info}, or you can instead %{register}.
+      You can try again by %{changing_info}, or you can %{register}.
+    changing_info: changing your search information
+    register: add yourself to the register
 
     unavailable:
       title: Unavailable
@@ -40,7 +42,7 @@ en:
     affirmation: "I certify and affirm that the information provided to access my voter registration record is my own. I understand that it is unlawful to access the record of any other voter, punishable as computer fraud under Va. Code &sect; 18.2.152.3."
     record_not_found:
       title:  "Record Not Found"
-      body:   "We were unable to find an existing voter record with the information you provided."
+      body:   "Based on the information provided, we cannot confirm that you are on the register."
     timeout:
       title:  "Not Available"
       body:   "Our servers are busy right now. Please try again later or contact the Board of Elections."

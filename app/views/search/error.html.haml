@@ -7,5 +7,5 @@
       .description
         = raw @error.message
         - if @error.can_retry?
-          %p= raw t 'search.retry', changing_info: link_to("changing the information", :search), register: link_with_privacy_act_to("register to vote", {action: :new, controller: :registrations, lookup_performed: true}, id: "register",)
+          %p= raw t 'search.retry', changing_info: link_to(t('search.changing_info', default: 'changing the information'), :search), register: link_with_privacy_act_to(t('search.register', default: 'register to vote'), {action: :new, controller: :registrations, lookup_performed: true}, id: "register",)
 
