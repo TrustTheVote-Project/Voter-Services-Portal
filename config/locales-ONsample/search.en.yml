@@ -8,11 +8,8 @@ en:
           updating your record, and your options for how to vote.</p>
         <p>To get started, use the form below to check whether you are registered to vote, and to view your voter information if so.</p>
     title: Identity
-    subtitle:  Identify who you are to look-up your Ontario Voter Record.
-    details:
-      <p>To look-up your Ontario Voter Record, you'll need to provide your given name,
-        surname (last name), date of birth, locality, and your street address information.</p>
-
+    subtitle:  Please enter your personal information below. This information will be used to verify whether you are a registered elector.
+    details: ''
     retry:
       You can try again by %{changing_info}, or you can instead %{register}.
 

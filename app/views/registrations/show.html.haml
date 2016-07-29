@@ -9,212 +9,218 @@
 - edit_link_2 = disabled_overseas ? link_to(label_2, :about_update_absentee_page, class: 'bt', id: 'edit_registration') : link_with_privacy_act_to(label_2, :edit_registration, class: 'bt', id: 'edit_registration')
 
 .padded_page_span.section#overview
-  = render partial: 'head'
 
-  .row
-    .head.light
-      - if !no_forms? && AppConfig['enable_voter_info_show_show_download_voter_card_link']
-        = link_to "Download Voter Card", voter_card_path, class: 'download voter_card'
-      %h3= raw t 'view.title'
+  - if services_config['lookup']['hide_match_details']
+    .head
+      %h3= raw t 'view.head.hide_match_details.title'
+      .description= raw t 'view.head.hide_match_details.description'
+  - else
+    = render partial: 'head'
 
-      %p= raw t 'view.info'
-      %p
-        - clauses = [ "You can also #{edit_link_1}" ]
-        - clauses << ", or #{link_with_privacy_act_to 'apply for an absentee ballot', :request_absentee_registration}".html_safe if update_ab
-        - clauses << render(partial: 'shared/mark_my_ballot_online', locals: { link_text: ", or #{link_to 'mark your absentee ballot online', '#', class: 'mark-submit'}", form_class: 'mark-online inline', render_no_form: true })
-        #{clauses.compact.join('').html_safe}.
+    .row
+      .head.light
+        - if !no_forms? && AppConfig['enable_voter_info_show_show_download_voter_card_link']
+          = link_to "Download Voter Card", voter_card_path, class: 'download voter_card'
+        %h3= raw t 'view.title'
 
-    .summary
-      .body
-        %table.table.properties.table-condensed
-          %tr
-            %th Name:
-            %td= reg.full_name
-          - if show_missing || reg.dob
-            %tr
-              %th Date of birth:
-              %td= reg.dob
-          %tr
-            %th Gender:
-            %td= reg.gender
-          - if show_missing || reg.voter_id.present?
-            %tr
-              %th Voter ID:
-              %td= reg.voter_id
-          - if show_missing
-            %tr
-              %th Status:
-              %td
-          - if show_missing
-            %tr
-              %th Date of Status:
-              %td
-          %tr
-            %th ID Requirement:
-            %td
-              State
-              .pull-right= link_to "Click here for more information", AppConfig['voter_info_id_requirement_url'], target: '_blank'
-          %tr
-            %th Residential address:
-            %td= reg.registration_address
-          - if @registration.ma_is_different == '1' || @registration.currently_overseas?
-            %tr
-              %th Mailing address:
-              %td= reg.mailing_address(@registration.currently_overseas?)
-          - if show_missing || @registration.poll_locality.present?
-            %tr
-              %th Locality:
-              %td= @registration.poll_locality
-          - if show_missing || @registration.poll_precinct.present?
-            %tr
-              %th Precinct:
-              %td= @registration.poll_precinct
-          - if show_missing
-            %tr
-              %th Town:
-              %td N/A
-          - if show_missing
-            %tr
-              %th Town precinct:
-              %td N/A
+        %p= raw t 'view.info'
+        %p
+          - clauses = [ "You can also #{edit_link_1}" ]
+          - clauses << ", or #{link_with_privacy_act_to 'apply for an absentee ballot', :request_absentee_registration}".html_safe if update_ab
+          - clauses << render(partial: 'shared/mark_my_ballot_online', locals: { link_text: ", or #{link_to 'mark your absentee ballot online', '#', class: 'mark-submit'}", form_class: 'mark-online inline', render_no_form: true })
+          #{clauses.compact.join('').html_safe}.
 
-          - unless reg.optional_phone.blank?
-            %tr
-              %th Phone:
-              %td= reg.optional_phone
-          - unless reg.optional_email.blank?
-            %tr
-              %th Email:
-              %td= reg.optional_email
-          - if reg.address_confidentiality?
-            %tr
-              %th Address confidentiality:
-              %td Active
-
-    - if (vlp = @registration.voting_location.present?) || show_missing
-      .accordion.summary.voting-location
+      .summary
         .body
-          %h3
+          %table.table.properties.table-condensed
+            %tr
+              %th Name:
+              %td= reg.full_name
+            - if show_missing || reg.dob
+              %tr
+                %th Date of birth:
+                %td= reg.dob
+            %tr
+              %th Gender:
+              %td= reg.gender
+            - if show_missing || reg.voter_id.present?
+              %tr
+                %th Voter ID:
+                %td= reg.voter_id
+            - if show_missing
+              %tr
+                %th Status:
+                %td
+            - if show_missing
+              %tr
+                %th Date of Status:
+                %td
+            %tr
+              %th ID Requirement:
+              %td
+                State
+                .pull-right= link_to "Click here for more information", AppConfig['voter_info_id_requirement_url'], target: '_blank'
+            %tr
+              %th Residential address:
+              %td= reg.registration_address
+            - if @registration.ma_is_different == '1' || @registration.currently_overseas?
+              %tr
+                %th Mailing address:
+                %td= reg.mailing_address(@registration.currently_overseas?)
+            - if show_missing || @registration.poll_locality.present?
+              %tr
+                %th Locality:
+                %td= @registration.poll_locality
+            - if show_missing || @registration.poll_precinct.present?
+              %tr
+                %th Precinct:
+                %td= @registration.poll_precinct
+            - if show_missing
+              %tr
+                %th Town:
+                %td N/A
+            - if show_missing
+              %tr
+                %th Town precinct:
+                %td N/A
+
+            - unless reg.optional_phone.blank?
+              %tr
+                %th Phone:
+                %td= reg.optional_phone
+            - unless reg.optional_email.blank?
+              %tr
+                %th Email:
+                %td= reg.optional_email
+            - if reg.address_confidentiality?
+              %tr
+                %th Address confidentiality:
+                %td Active
+
+      - if (vlp = @registration.voting_location.present?) || show_missing
+        .accordion.summary.voting-location
+          .body
+            %h3
+              - if vlp
+                = link_to "Show", '#', class: 'toggle'
+              = raw t('view.voting_location.title')
             - if vlp
-              = link_to "Show", '#', class: 'toggle'
-            = raw t('view.voting_location.title')
-          - if vlp
-            .area
-              .left-padded= @registration.voting_location
+              .area
+                .left-padded= @registration.voting_location
 
-    - districts = reg.districts || []
-    - if !districts.blank? || show_missing
-      .accordion.summary.districts
+      - districts = reg.districts || []
+      - if !districts.blank? || show_missing
+        .accordion.summary.districts
+          .body
+            %h3
+              - if districts.present?
+                = link_to "Show", '#', class: 'toggle'
+              Districts
+            .area
+              %table.table
+                - districts.each do |label, (c, v)|
+                  %tr
+                    %th &nbsp;
+                    %td.l #{label}:
+                    %td <em>#{v}</em>
+
+      .accordion.summary.my_ballot
         .body
           %h3
-            - if districts.present?
-              = link_to "Show", '#', class: 'toggle'
-            Districts
-          .area
-            %table.table
-              - districts.each do |label, (c, v)|
-                %tr
-                  %th &nbsp;
-                  %td.l #{label}:
-                  %td <em>#{v}</em>
+            = link_to "Show", '#', class: 'toggle'
+            = raw t('view.my_ballot.title')
+          .area{ 'data-bind' => "template: { name: myBallot.templateName, data: myBallot.data }" }
 
-    .accordion.summary.my_ballot
-      .body
-        %h3
-          = link_to "Show", '#', class: 'toggle'
-          = raw t('view.my_ballot.title')
-        .area{ 'data-bind' => "template: { name: myBallot.templateName, data: myBallot.data }" }
+      .accordion.summary.absentee_status
+        .body
+          %h3
+            = link_to "Show", '#', class: 'toggle'
+            = raw t('view.absentee_status.title')
+          .area{ 'data-bind' => "template: { name: absenteeStatus.templateName, data: absenteeStatus.data }" }
 
-    .accordion.summary.absentee_status
-      .body
-        %h3
-          = link_to "Show", '#', class: 'toggle'
-          = raw t('view.absentee_status.title')
-        .area{ 'data-bind' => "template: { name: absenteeStatus.templateName, data: absenteeStatus.data }" }
+      %script{ type: 'text/html', id: 'my-ballot' }
+        %p.left-padded{ 'data-bind' => 'if: items.length == 0' }
+          = raw t('view.my_ballot.none')
+        %div{ 'data-bind' => 'if: items.length > 0' }
+          %p.left-padded= raw t('view.my_ballot.prompt')
+          %table.table
+            %tbody{ 'data-bind' => 'foreach: items' }
+              %tr
+                %td
+                  %a{ 'data-bind' => 'text: name, attr: { href: url }' }
 
-    %script{ type: 'text/html', id: 'my-ballot' }
-      %p.left-padded{ 'data-bind' => 'if: items.length == 0' }
-        = raw t('view.my_ballot.none')
-      %div{ 'data-bind' => 'if: items.length > 0' }
-        %p.left-padded= raw t('view.my_ballot.prompt')
-        %table.table
-          %tbody{ 'data-bind' => 'foreach: items' }
+      %script{ type: 'text/html', id: 'absentee-status' }
+        %p.left-padded{ 'data-bind' => 'if: items.length == 0' }
+          = raw t('view.absentee_status.none')
+        %table.table{ 'data-bind' => 'if: items.length > 0' }
+          %thead
             %tr
-              %td
-                %a{ 'data-bind' => 'text: name, attr: { href: url }' }
+              %th Request
+              %th Action
+              %th Date
+              %th Notes
+              %th Registrar
+          %tbody{ 'data-bind' => "foreach: items" }
+            %tr
+              %td{ 'data-bind' => "text: request" }
+              %td{ 'data-bind' => "text: action" }
+              %td{ 'data-bind' => "text: date" }
+              %td{ 'data-bind' => "text: notes" }
+              %td{ 'data-bind' => "text: registrar" }
 
-    %script{ type: 'text/html', id: 'absentee-status' }
-      %p.left-padded{ 'data-bind' => 'if: items.length == 0' }
-        = raw t('view.absentee_status.none')
-      %table.table{ 'data-bind' => 'if: items.length > 0' }
-        %thead
-          %tr
-            %th Request
-            %th Action
-            %th Date
-            %th Notes
-            %th Registrar
-        %tbody{ 'data-bind' => "foreach: items" }
-          %tr
-            %td{ 'data-bind' => "text: request" }
-            %td{ 'data-bind' => "text: action" }
-            %td{ 'data-bind' => "text: date" }
-            %td{ 'data-bind' => "text: notes" }
-            %td{ 'data-bind' => "text: registrar" }
+      %script{ type: 'text/html', id: 'error' }
+        .left-padded{ 'data-bind' => 'text: message' }
 
-    %script{ type: 'text/html', id: 'error' }
-      .left-padded{ 'data-bind' => 'text: message' }
-
-    %script{ type: 'text/html', id: 'loading' }
-      .loading.left-padded Requesting. Please wait&hellip;
+      %script{ type: 'text/html', id: 'loading' }
+        .loading.left-padded Requesting. Please wait&hellip;
 
 
-    - if show_missing
-      .accordion.summary
-        .body
-          %h3 Provisional Ballot
+      - if show_missing
+        .accordion.summary
+          .body
+            %h3 Provisional Ballot
 
-    - history = reg.past_elections || []
-    - if !history.blank? || show_missing
-      .accordion.summary
-        .body
-          %h3
-            - if reg.has_election_participation_history?
-              = link_to "Show", '#', class: 'toggle'
-            Voter History
-          .area
-            %table.table
-              - (reg.past_elections || []).each do |e, s|
-                %tr
-                  %th &nbsp;
-                  %td.l= s
-                  %td <em>#{e}</em>
-
-    - if (ebcp = @registration.electoral_board_contacts.present?) || show_missing
-      .accordion.summary
-        .body
-          %h3
-            - if ebcp
-              = link_to "Show", '#', class: 'toggle'
-            = raw t('view.electoral_board_contacts.title')
-          - if ebcp
+      - history = reg.past_elections || []
+      - if !history.blank? || show_missing
+        .accordion.summary
+          .body
+            %h3
+              - if reg.has_election_participation_history?
+                = link_to "Show", '#', class: 'toggle'
+              Voter History
             .area
-              .left-padded= @registration.electoral_board_contacts
+              %table.table
+                - (reg.past_elections || []).each do |e, s|
+                  %tr
+                    %th &nbsp;
+                    %td.l= s
+                    %td <em>#{e}</em>
 
-    - if no_forms?
-      .info
-        %p
-          Need to change your address, name, or contact information?
-          = link_to "Learn more about updating your voter record", :about_update_absentee_page, target: '_blank'
-        %p
-          Need to understand your options for voting absentee?
-          = link_to "Learn more about absentee ballots", :about_update_absentee_page, target: '_blank'
+      - if (ebcp = @registration.electoral_board_contacts.present?) || show_missing
+        .accordion.summary
+          .body
+            %h3
+              - if ebcp
+                = link_to "Show", '#', class: 'toggle'
+              = raw t('view.electoral_board_contacts.title')
+            - if ebcp
+              .area
+                .left-padded= @registration.electoral_board_contacts
 
-      .form_action
-        = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Mark Your Absentee Ballot Online: #{link_to 'learn more', :online_ballot_marking_page, target: '_blank'} or #{link_to 'get started now', '#', class: 'mark-submit'}" }
-    - else
-      .form-actions
-        = edit_link_2
-        - if update_ab
-          = link_with_privacy_act_to "Apply for an Absentee Ballot", :request_absentee_registration, class: 'bt pull-right'
-        = render partial: 'shared/mark_my_ballot_online', locals: { link_class: 'bt mark-submit', form_class: 'mark-online pull-right' }
+      - if no_forms?
+        .info
+          %p
+            Need to change your address, name, or contact information?
+            = link_to "Learn more about updating your voter record", :about_update_absentee_page, target: '_blank'
+          %p
+            Need to understand your options for voting absentee?
+            = link_to "Learn more about absentee ballots", :about_update_absentee_page, target: '_blank'
+
+        .form_action
+          = render partial: 'shared/mark_my_ballot_online', locals: { link_text: "Mark Your Absentee Ballot Online: #{link_to 'learn more', :online_ballot_marking_page, target: '_blank'} or #{link_to 'get started now', '#', class: 'mark-submit'}" }
+      - else
+        .form-actions
+          = edit_link_2
+          - if update_ab
+            = link_with_privacy_act_to "Apply for an Absentee Ballot", :request_absentee_registration, class: 'bt pull-right'
+          = render partial: 'shared/mark_my_ballot_online', locals: { link_class: 'bt mark-submit', form_class: 'mark-online pull-right' }

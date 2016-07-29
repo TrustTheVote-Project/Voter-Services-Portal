@@ -9,6 +9,9 @@ en:
         description: >
           View your Voter Information and Update your Voting Status.
           If this is not you, please go back to the previous page, and correct your personal information.
+      hide_match_details:
+        title: Success
+        description: You are already on the register of Ontario electors
 
     title: Voter Information
     info: 'Your voter record is shown below, along with several kinds of additional information that you can view by clicking "SHOW"'
