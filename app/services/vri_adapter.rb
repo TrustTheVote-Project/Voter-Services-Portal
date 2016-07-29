@@ -145,7 +145,7 @@ class VriAdapter
   private
 
   def not_found?
-    success = @source['voter_records_response']['registration_success']
+    success = @source.try(:[], 'voter_records_response').try(:[], 'registration_success')
     success.nil? || success['action'] != 'registration-matched'
   end
 end

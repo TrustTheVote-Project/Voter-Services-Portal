@@ -1,7 +1,7 @@
 class GeneralRegistrationSearch
 
   def self.perform(search_query, config)
-    q = {} # todo search_query -> URL params
+    q = { first_name: search_query.first_name, last_name: search_query.last_name}
     uri = URI("#{config['url']}?#{q.to_query}")
     result = nil
 
@@ -12,7 +12,9 @@ class GeneralRegistrationSearch
         if response.code == '200'
           result = JSON.parse(response.body)
         else
-          raise LookupApi::SearchError.new('timeout') # TODO locale key to show others errors
+          Rails.logger.error "LookupApi error: #{response.code}, #{response.body}."
+          # required to show not found screen
+          raise LookupApi::RecordNotFound
         end
       end
     rescue Timeout::Error
@@ -20,7 +22,7 @@ class GeneralRegistrationSearch
       ErrorLogRecord.log("LOOKUP: timeout", uri: uri)
       LogRecord.lookup_timeout(uri)
 
-      raise LookupApi::LookupTimeout
+      raise LookupApi::RecordNotFound
     end
 
     VriAdapter.new(result).to_registration

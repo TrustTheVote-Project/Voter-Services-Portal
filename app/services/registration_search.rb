@@ -16,7 +16,7 @@ class RegistrationSearch < AbstractRegistrationSearch
         xml = search_by_data(search_query.ssn4, search_query.locality, search_query.dob, search_query.first_name, search_query.last_name)
       end
     else
-      return GeneralRegistrationSearch.perform(@search_query, SearchController.helpers.lookup_service_config)
+      return GeneralRegistrationSearch.perform(search_query, SearchController.helpers.lookup_service_config)
     end
     
     DebugLogging.log_response_to_file("eml330", xml)
