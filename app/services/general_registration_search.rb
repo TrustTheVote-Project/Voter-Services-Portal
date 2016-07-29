@@ -1,8 +1,16 @@
 class GeneralRegistrationSearch
 
   def self.perform(search_query, config)
-    q = { first_name: search_query.first_name, last_name: search_query.last_name}
+    q = {
+      first_name: search_query.first_name,
+      last_name: search_query.last_name,
+      dob: search_query.date_of_birth.strftime('%Y-%m-%d'),
+      street_name: search_query.street_name,
+      street_number: search_query.street_number,
+      street_type: search_query.street_type
+    }
     uri = URI("#{config['url']}?#{q.to_query}")
+    Rails.logger.info uri.to_s
     result = nil
 
     begin
