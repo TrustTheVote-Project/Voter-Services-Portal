@@ -1,5 +1,11 @@
 en:
   identity:
+    title: Personal Information
+    information: Please note, to complete your registration you will be required to upload electronic copies of your identification.
+    information2: Information management statement/Confidentiality/ID retention policy TBD
+    description: Please enter your personal information below.
+    phone: Phone Number
+    fax: Fax Number
     id_document_image_options:
       drivers_license: Ontario Driver's License
       photo_card: Ontario Photo Card
