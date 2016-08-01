@@ -1,12 +1,9 @@
 en:
   front:
     welcome:
-      title: Ontario E-Registration.
+      title: Provincial Online Voter Registration
       text:
-        We've created this service to help all Ontario<br/>
-        residents apply to register to vote and<br/>
-        keep their voter information up-to-date.
-
+        You can use this online tool to register and maintain your personal information, such as name and address, on the Permanent Register of Electors for Ontario.
     steps:
       text:
         <div class='line1'>5</div>
@@ -20,29 +17,34 @@ en:
 
     options:
       am_registered:
-        title: "<br/>Am I Registered"
+        title: "<br/>Am I on the Register"
         subtitle: Check Your Elector Record
-        text: Identify yourself to do a lookup in the Register.
-        button: Lookup Now
+        text: Verify and confirm your existing information on the register.
+        button: Search
       add_to_register:
         title: "<br/>Add Yourself to the Register"
         subtitle: Canadian Resident Voter
-        text: Fill out an online form and provide a photo of your documentation.
-        button: Start the Online Form
+        text: If you are eligible, you can add yourself to the register. <br><br>
+        button: Register
       add_to_intl_register:
         title: "<br/>Add Yourself to the International Register"
         subtitle: Canadian Forces Members and Canadians Living Abroad
-        text: Fill out an online form and provide a photo of your documentation.
+        text: If you are eligible, you can add yourself to the register.<br><br>
         button: Start the Online Military/Overseas Form
       update_information:
         title: "<br/>Update Your Information on the Register"
         subtitle: All Registered Ontario Voters
-        text: Identify yourself to do a lookup in the Register, and provide your updated information.
-        button: Start the Online Update
+        text: If your personal information has changed, you can update your information.
+        button: Update
       removal_from_register:
-        title: "<br/>Removal From the Register"
+        title: <br>Remove a Deceased Elector from the Register
         subtitle: All Registered Ontario Voters
-        text: Identify yourself or a deceased elector, and complete the online form.
-        button: Lookup Now
+        text: If someone in your family has passed away, the elector’s name can be removed from the register.<br><br>
+        button: Remove
+      set_privacy:
+        title: <br>Control Your Personal Information on the Register
+        subtitle: ''
+        text: If you do not want your personal information on the register or shared with federal or municipal election agencies, you can opt out of the register.
+        button: Remove
     deadline: ""
 
