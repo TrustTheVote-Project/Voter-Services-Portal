@@ -4,16 +4,19 @@ en:
   addresses:
     description: "%{address_name} is your Home address in Ontario or your most recent Ontario residence."
     address: "Address"
+    street_number: House/building Number
     rural_address: "Describe where you reside"
     address_2: "Address Line 2"
     county_or_city: "County or City of residence"
-    city_town: "City/Town"
+    city_town: City or Town
     state: "Province"
     zip5: "Zip code"
     zip4: "Zip4"
     still_available: My Ontario residence is still available to me
     not_available: My Ontario residence is no longer available to me
     my_last_date_of_residence: "My last date of residence at the above address was:"
+    unit: Unit/Suite/Apt
+    direction: Street Direction
 
   mailing_address:
     different:

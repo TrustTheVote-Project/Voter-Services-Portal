@@ -51,4 +51,5 @@ en:
       body:   "We are sorry, but for confidentiality reasons, the requested record cannot be displayed. To review or update your record, please contact your local general registrar or the Board of Elections."
     record_is_inactive:
       title:  "Inactive Record"
+    street_number: House/Building Number
 

@@ -90,7 +90,7 @@
           .partition
             .row
               - if lookup_service_config['street_number']
-                .span2
+                .span3
                   %label( for='search_query_street_number' )= t('search.street_number')
                   = f.text_field :street_number, 'data-bind' => 'instantValidation: { accessor: "streetNumber" }', class: 'span2'
               - if lookup_service_config['street_name']
@@ -98,9 +98,9 @@
                   %label( for='search_query_street_name' )= t('search.street_name')
                   = f.text_field :street_name, 'data-bind' => 'instantValidation: { accessor: "streetName", validation: "caStreetName"  }', class: 'span4'
               - if lookup_service_config['street_type']
-                .span3
+                .span2
                   %label( for='search_query_street_type' )= t('search.street_type')
-                  = f.select :street_type, Dictionaries::CA_STREET_TYPES, { include_blank: true }, { class: 'span3', 'data-bind' => 'instantValidation: { accessor: "streetType" }' }
+                  = f.select :street_type, Dictionaries::CA_STREET_TYPES, { include_blank: true }, { class: 'span2', 'data-bind' => 'instantValidation: { accessor: "streetType" }' }
                   
         - if lookup_service_config['vvr_address_1'] || lookup_service_config['vvr_town'] || lookup_service_config['vvr_zip5']
           .partition

@@ -49,7 +49,7 @@
     .row
       .span10
         .ca-address-field.row
-          .span2
+          .span3
             = f.label :ca_address_street_number, t('addresses.street_number')
             = f.text_field :ca_address_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddressStreetNumber", validation: "caStreetNumber" }, valueUpdate: "afterkeyup"', class: 'span2'
           .span4
@@ -60,7 +60,7 @@
             = f.select :ca_address_street_type, Dictionaries::CA_STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'span2', 'data-bind' => 'instantValidation: { accessor: "caAddressStreetType" }' }
             
         .ca-address-field.row
-          .span2
+          .span3
             = f.label :ca_address_direction do
               = t('addresses.direction')
               %span= t('optional')
