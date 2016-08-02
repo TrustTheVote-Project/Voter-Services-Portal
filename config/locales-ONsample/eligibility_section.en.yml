@@ -3,12 +3,11 @@ en:
     title: Eligibility
     description: Eligibility to vote in Ontario.
     update_description: "Re-confirm your eligibility and voter status"
-    details: "To register you must be a Canadian citizen, be a resident of Ontario, and be 18 years old by the next general election."
-    citizen:
-      question: Are you a citizen of Canada?
-      ineligible: To register, you must be a citizen of Canada.
-    old_enough:
-      question: Will you be at least 18 years of age on or before the next Election Day?
+    details: To register you must be a Canadian citizen, a resident of Ontario, and 18 years old.
+    requirements:
+      canadian_citizen: I am a Canadian citizen;
+      aged_18: I am at least 18 years of age or older;
+      on_resident: I am currently a resident of Ontario.
     residence:
       in: I am currently a resident of Ontario.
       out: I live outside of the U.S., but the most recent U.S. residence was in Ontario.
