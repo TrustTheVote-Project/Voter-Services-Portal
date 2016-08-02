@@ -16,7 +16,7 @@ fr:
 
   oath:
     subheader: ""
-    information_correct: "I swear/affirm, under felony penalty for making willfully false material statements or entries, that the information provided on this form is true."
+    information_correct: "I certify that:<ul><li>I am 18 years of age or older, a Canadian citizen and currently reside in Ontario, and </li><li>The personal information I provided is correct.</li></ul>"
     assistance:
       title: Assistance to Applicant
       info: "If assistance for signature is provided to applicant due to disability, provide name and address of assistant:"
