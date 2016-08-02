@@ -24,7 +24,7 @@ fr:
   submit_paperless:
     title: Submit Your Application Online
     subheader: ""
-    details: "<p>Your registration application is ready to be submitted online to your local voter registration office.  You <span class='important'>must</span> click the \"Submit\" button below to complete the registration application.</p><p><strong>Note:</strong> The information you provided during this application has been confirmed with your record at the Department of Motor Vehicles.  By clicking submit, your registration application will be submitted to your local voter registration office along with a digital representation of your signature from the Department of Motor Vehicles.</p>"
+    details: "<p>Your registration application is ready to be submitted online to Elections Ontario. You must click the \"Submit\" button below to complete the registration application.</p><p><strong>Note:</strong> By clicking \"Submit\", your registration application will be submitted to your PREO Clerk office along with a digital representation of your identification document.</p>"
 
   submitted_paperless:
     title: Registration Submitted
