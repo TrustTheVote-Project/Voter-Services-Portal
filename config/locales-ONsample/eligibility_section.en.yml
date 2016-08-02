@@ -7,7 +7,7 @@ en:
     requirements:
       canadian_citizen: I am a Canadian citizen;
       aged_18: I am at least 18 years of age or older;
-      on_resident: I am currently a resident of Ontario.
+      on_resident: I am currently a <a href='#' data-toggle="popover" data-trigger="hover" data-title="Residence" data-content="Definition of resident TBD">resident</a> of Ontario.
     residence:
       in: I am currently a resident of Ontario.
       out: I live outside of the U.S., but the most recent U.S. residence was in Ontario.
