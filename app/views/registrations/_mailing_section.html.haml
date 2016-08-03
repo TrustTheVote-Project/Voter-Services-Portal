@@ -5,7 +5,10 @@
   %div{ 'data-bind' => 'visible: domestic() && !isConfidentialAddress() && maIsDifferent()' }
     .head
       %h3 Mailing Address
-    = render partial: 'mailing_domestic_us', locals: { f: f }
+    - if address_config['us_format']
+      = render partial: 'mailing_domestic_us', locals: { f: f }
+    - if address_config['canada_format']
+      = render partial: 'mailing_domestic_ca', locals: { f: f }
 
   = render partial: 'mailing_overseas', locals: { f: f }
 

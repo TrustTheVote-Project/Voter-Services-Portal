@@ -1,0 +1,50 @@
+.row
+  .span10
+    %label I receive mail at
+    = f.select :ca_address_mail_option, Dictionaries::CA_MAIL_OPTIONS, { include_blank: false }, { autocomplete: ac, class: 'span3'} #, 'data-bind' => 'instantValidation: { accessor: "caAddressStreetType" }' }
+    -#= f.select :vvr_state,       Dictionaries::STATES         , { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "vvrState" }' }
+
+    <!-- ko if: paperlessSubmission && enableDMVAddressDisplay -->
+    <br/>
+    #{t("dmv.address_info")}
+    <!-- /ko -->
+  .row
+    .span10
+      .ca-address-field.row
+        .span3
+          = f.label :ca_address_street_number, t('addresses.street_number')
+          = f.text_field :ca_address_street_number, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddressStreetNumber", validation: "caStreetNumber" }, valueUpdate: "afterkeyup"', class: 'span2'
+        .span4
+          = f.label :ca_address_street_name, t('addresses.street_name')
+          = f.text_field :ca_address_street_name, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "caAddressStreetName", validation: "caStreetName" }, valueUpdate: "afterkeyup"', class: 'span4'
+        .span2
+          = f.label :ca_address_street_type, t('addresses.street_type')
+          = f.select :ca_address_street_type, Dictionaries::CA_STREET_TYPES, { include_blank: true }, { autocomplete: ac, class: 'span2', 'data-bind' => 'instantValidation: { accessor: "caAddressStreetType" }' }
+
+      .ca-address-field.row
+        .span3
+          = f.label :ca_address_direction do
+            = t('addresses.direction')
+            %span= t('optional')
+          = f.select :ca_address_direction, Dictionaries::CA_DIRECTIONS, { include_blank: true }, { class: 'span2', 'data-bind' => 'valueWithInit: caAddressDirection' }
+
+        .span3
+          = f.label :ca_address_unit do
+            = t('addresses.unit')
+            %span= t('optional')
+          = f.text_field :ca_address_unit, autocomplete: ac, 'data-bind' => 'valueWithInit: caAddressUnit', class: 'span3'
+.row
+  .span3.town
+    = f.label :vvr_town, t('addresses.city_town')
+    = f.text_field :vvr_town, autocomplete: ac, 'data-bind' => 'instantValidation: { accessor: "vvrTown" }, valueUpdate: "afterkeyup"'
+  .state-field{class: address_config['explicit_state'] ? "short span2" : "span4"}
+    %span= t('addresses.state')
+    - if address_config['explicit_state']
+      = text_field_tag "state", address_config['explicit_state'], disabled: true, class: 'span1'
+      = f.hidden_field :vvr_state, autocomplete: ac, 'data-bind' => 'value: vvrState'
+    - else
+      = f.select :vvr_state, Dictionaries::STATES, { include_blank: true }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "vvrState" }' }
+
+  .span3.zip-field
+    = f.label :vvr_zip5, t('addresses.postal_code')
+    = f.text_field :vvr_zip5, maxlength: 7, autocomplete: ac, class: 'postal-code', 'data-bind' => 'instantValidation: { accessor: "vvrZip5", validation: "caPostalCode" }, valueUpdate: "afterkeyup"', placeholder: address_config['placeholder_zip']
