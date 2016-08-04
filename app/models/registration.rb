@@ -51,7 +51,9 @@ class Registration < ActiveRecord::Base
   # Contact info
   serialized_attr :vvr_county_or_city, :vvr_address_1, :vvr_address_2
   serialized_attr :vvr_town, :vvr_state, :vvr_zip5, :vvr_zip4
-  serialized_attr :ca_address_type, :ca_address_mail_option
+  serialized_attr :ca_ma_option, :ca_ma_street_number, :ca_ma_street_name, :ca_ma_street_type, :ca_ma_direction,
+                  :ca_ma_unit, :ca_ma_town, :ca_ma_state, :ca_ma_zip5
+  serialized_attr :ca_address_type
   serialized_attr :ca_address_street_number, :ca_address_street_name, :ca_address_street_type
   serialized_attr :ca_address_unit, :ca_address_direction
   serialized_attr :vvr_is_rural
