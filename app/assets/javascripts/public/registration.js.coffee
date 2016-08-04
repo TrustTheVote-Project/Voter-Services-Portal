@@ -322,7 +322,16 @@ class window.Registration
       @caAddressStreetType = ko.observable()
       @caAddressDirection = ko.observable()
       @caAddressUnit = ko.observable()
-    
+      @caMAOption = ko.observable()
+      @caMAStreetNumber = ko.observable()
+      @caMAStreetName = ko.observable()
+      @caMAStreetType = ko.observable()
+      @caMADirection = ko.observable()
+      @caMAUnit = ko.observable()
+      @caMATown = ko.observable()
+      @caMAState = ko.observable(@defaultState)
+      @caMAZip5 = ko.observable()
+
     @vvrApt                 = ko.observable()
     @vvrTown                = ko.observable()
     @vvrState               = ko.observable(@defaultState)
@@ -403,7 +412,16 @@ class window.Registration
           (@vvrOverseasRA() == '1' or @vvrUocavaResidenceUnavailableSince())
         mailing = @overseasMAFilled()
       else
-        mailing = !@maIsDifferent() or @domesticMAFilled()
+        mailing = !@maIsDifferent() or
+          (!@useCAAddress and @domesticMAFilled()) or
+          (@useCAAddress and
+          filled(@caMAOption()) and
+          filled(@caMAStreetNumber()) and
+          filled(@caMAStreetName()) and
+          filled( @caMAStreetType()) and
+          filled(@caMATown()) and
+          filled(@caMAState()) and
+          caPostalCode(@caMAZip5()))
 
       previous = !@enablePreviousRegistration or (
         filled(@prStatus()) and (
@@ -731,11 +749,16 @@ class window.Registration
         lines.join "<br/>"
 
     @summaryDomesticMailingAddress = ko.computed =>
-      join([
-        @maAddress1(),
-        @maAddress2(),
-        join([ @maCity(), join([ @maState(), join([ @maZip5(), @maZip4()], '-')], ' ')], ', ')
-      ], "<br/>")
+      if @useCAAddress
+        address =
+          join([ @caMAStreetNumber(), @caMAStreetName(), @caMAStreetType(), @caMADirection(), @caMAUnit() ], ' ') + "<br/>" +
+            join([ @caMATown(), join([ @caMAState(), join([@caMAZip5()], '-') ], ' ') ], ', <br/>')
+      else
+        join([
+          @maAddress1(),
+          @maAddress2(),
+          join([ @maCity(), join([ @maState(), join([ @maZip5(), @maZip4()], '-')], ' ')], ', ')
+        ], "<br/>")
 
     @summaryMailingAddress = ko.computed =>
       if @overseas()

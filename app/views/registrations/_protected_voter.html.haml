@@ -23,7 +23,7 @@
           = hidden_field_tag 'registration[ma_is_different]', 1
           <!-- /ko -->
           %div{ 'data-bind' => 'visible: needsProtectedMailingAddress' }
-            = render partial: 'mailing_domestic', locals: { f: f, address_label: t('options.ac.mailing_address_label') }
+            = render partial: 'mailing_domestic_us', locals: { f: f, address_label: t('options.ac.mailing_address_label') }
 
           <!-- ko if: caType() == 'TSC' -->
           .important= raw t('options.ac.address')

@@ -153,6 +153,7 @@ module Dictionaries
   
   CA_DIRECTIONS = %w(East North Northeast Northwest South Southeast Southwest West)
   CA_STREET_TYPES = %w(Street Avenue)
+  CA_MAIL_OPTIONS = ['Civic Address', 'PO Box', 'Rural Route', 'General Delivery', 'Lot and Concession Address', 'Non-Canada Address']
   
   
 end
