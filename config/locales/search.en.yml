@@ -2,8 +2,9 @@ en:
   search:
     as_registration_first_step:
       title: Before you continue...
-      subtitle: Please enter your personal information below. This information will be used to verify whether you are a registered elector.
-      details: ''
+      subtitle: Let's check if you're already registered
+      details:
+        <p>To find your voter record, please fill out the following.</p>
     no_forms:
       title: Welcome
       details:
@@ -14,8 +15,8 @@ en:
     title: Identity
     subtitle:  Identify who you are to look-up your State Voter Record.
     details:
-      <p>To look-up your State Voter Record, you'll need to provide your given name,
-        surname (last name), date of birth, locality, and the last 4 digits of your
+      <p>To look-up your State Voter Record, you'll need to provide your first name,
+        last name, date of birth, locality, and the last 4 digits of your
         Social Security Number.</p>
 
     retry:

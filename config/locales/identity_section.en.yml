@@ -6,9 +6,9 @@ en:
     optional: (optional)
     date_of_birth: Date of birth
     name_prefix: Prefix
-    first_name: Given Name
+    first_name: First Name
     middle_name: Middle Name
-    last_name: Surname (Last Name)
+    last_name: Last Name
     name_suffix: Suffix
     gender: Gender
     email: Email

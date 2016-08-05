@@ -1,5 +1,8 @@
 en:
   search:
+    as_registration_first_step:
+      subtitle: Please enter your personal information below. This information will be used to verify whether you are a registered elector.
+      details: ''
     no_forms:
       title: Welcome
       details:
