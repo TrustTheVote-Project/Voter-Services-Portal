@@ -41,4 +41,22 @@ describe RegistrationRepository do
     specify { RegistrationRepository.pop_lookup_data(session).should == data }
   end
 
+  describe 'restore search session' do
+    subject { RegistrationRepository.restore_search_query_options(session) }
+
+    context 'empty session' do
+      let(:session) { {} }
+      it 'empty' do
+        expect(subject).to be_empty
+      end
+    end
+
+    context 'classic session' do
+      let(:session) { { s_first_name: 'fn', s_last_name: 'ln', s_date_of_birth: '1990-01-31'} }
+      it 'filled' do
+        expect(subject).to be_eql(first_name: 'fn', last_name: 'ln', date_of_birth: Date.parse('1990-01-31'))
+      end
+    end
+
+  end
 end
