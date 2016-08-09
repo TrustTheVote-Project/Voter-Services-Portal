@@ -61,7 +61,41 @@ class RegistrationRepository
     end
   end
 
-  # Gets stored search query params
+  # restore search query to render search screen again
+  def self.restore_search_query_options(session)
+    result = {}
+    date_fields = [:s_dob]
+
+    rules = [
+      [:s_first_name, :first_name],
+      [:s_last_name,  :last_name],
+      [:s_dob, :date_of_birth],
+      # [:s_dob, :dob],
+      [:s_ssn4, :ssn4],
+      [:s_locality, :locality],
+      [:s_voter_id, :voter_id],
+      [:s_lookup_type, :lookup_type],
+      [:s_street_name, :street_name],
+      [:s_street_type, :street_type],
+      [:s_street_number, :street_number],
+      [:s_vvr_address_1, :vvr_address_1],
+      [:s_vvr_town, :vvr_town],
+      [:s_vvr_zip5, :vvr_zip5]
+    ]
+
+    rules.each do |from, to|
+      value = session.delete(from)
+      if value && date_fields.include?(from)
+        result[to] = Date.parse(value) rescue nil
+      elsif value
+        result[to] = value
+      end
+    end
+
+    result
+  end
+
+  # Gets stored search query params for registration
   def self.pop_search_query(session)
     dob = session.delete(:s_dob)
     { lookup_type:  session.delete(:s_lookup_type),

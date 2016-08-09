@@ -16,7 +16,7 @@ class SearchController < ApplicationController
   end
 
   def new
-    options = RegistrationRepository.pop_search_query(session)
+    options = RegistrationRepository.restore_search_query_options(session)
     @search_query ||= SearchQuery.new(options)
     render :new
   end
