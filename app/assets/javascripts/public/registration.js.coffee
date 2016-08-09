@@ -399,7 +399,7 @@ class window.Registration
       residential =
         ((@useUSAddress and filled(@vvrAddress1())) or (@useCAAddress and
          filled(@caAddressStreetNumber()) and 
-         filled(@caAddressStreetName()) and 
+         caStreetName(@caAddressStreetName()) and
          filled(@caAddressStreetType()))) and
          filled(@vvrTown()) and
          filled(@vvrState()) and
@@ -417,7 +417,7 @@ class window.Registration
           (@useCAAddress and
           filled(@caMAOption()) and
           filled(@caMAStreetNumber()) and
-          filled(@caMAStreetName()) and
+          caStreetName(@caMAStreetName()) and
           filled( @caMAStreetType()) and
           filled(@caMATown()) and
           filled(@caMAState()) and

@@ -64,7 +64,7 @@ class SearchForm
           unless present(@dateOfBirth())
             errors.push("Date Of Birth")          
         if gon.lookup_service_config.street_name
-          unless filled(@streetName())
+          unless caStreetName(@streetName())
             errors.push("Street Name")
         if gon.lookup_service_config.street_number
           unless filled(@streetNumber())
