@@ -406,6 +406,17 @@ class window.Registration
          ((@useUSAddress and zip5(@vvrZip5())) or (@useCAAddress and caPostalCode(@vvrZip5()))) and
          (filled(@vvrCountyOrCity()) || @noCountyOrCity)
 
+      residential_details = []
+      if !residential and @useCAAddress
+        if filled(@caAddressStreetName()) and !caStreetName(@caAddressStreetName())
+          residential_details.push('Street name - invalid symbols')
+        if filled(@vvrZip5()) and !caPostalCode(@vvrZip5())
+          residential_details.push('Postal code - must be XNX NXN')
+
+      if !residential and @useUSAddress
+         if filled(@vvrZip5()) and !zip5(@vvrZip5())
+           residential_details.push('Zip code - must be NNNNN')
+
       if @overseas()
         residential = residential and
           filled(@vvrOverseasRA()) and
@@ -423,6 +434,13 @@ class window.Registration
           filled(@caMAState()) and
           caPostalCode(@caMAZip5()))
 
+      mailing_details = []
+      if !mailing and @useCAAddress
+        if filled(@caMAStreetName()) and !caStreetName(@caMAStreetName())
+          mailing_details.push('Street name - invalid symbols')
+        if filled(@caMAZip5()) and !caPostalCode(@caMAZip5())
+          mailing_details.push('Postal code - must be XNX NXN')
+
       previous = !@enablePreviousRegistration or (
         filled(@prStatus()) and (
           @prStatus() != '1' or
@@ -436,7 +454,9 @@ class window.Registration
         ))
 
       errors.push("Registration address") unless residential
+      errors.push(residential_details.join(', ')) if residential_details.length
       errors.push("Mailing address") unless mailing
+      errors.push(mailing_details.join(', ')) if mailing_details.length
       errors.push("Previous registration") unless previous
       errors
 

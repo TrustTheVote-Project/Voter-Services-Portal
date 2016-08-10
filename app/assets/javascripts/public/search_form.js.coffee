@@ -64,8 +64,10 @@ class SearchForm
           unless present(@dateOfBirth())
             errors.push("Date Of Birth")          
         if gon.lookup_service_config.street_name
-          unless caStreetName(@streetName())
+          unless filled(@streetName())
             errors.push("Street Name")
+          else unless caStreetName(@streetName())
+            errors.push("Street Name - invalid symbols")
         if gon.lookup_service_config.street_number
           unless filled(@streetNumber())
             errors.push("Street Number")
