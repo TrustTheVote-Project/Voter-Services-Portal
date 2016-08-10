@@ -712,7 +712,7 @@ class window.Registration
       if @noDocImage() || !filled(@docImage()) then "none" else @docImageName()
     @summaryDOB = ko.computed =>
       if filled(@dobMonth()) && filled(@dobDay()) && filled(@dobYear())
-        moment([ @dobYear(), parseInt(@dobMonth()) - 1, @dobDay() ]).format("MMMM D, YYYY")
+        moment([ @dobYear(), parseInt(@dobMonth()) - 1, @dobDay() ]).format(gon.date_format)
       else
         "Unspecified"
 

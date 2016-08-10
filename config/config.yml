@@ -273,3 +273,6 @@ static_pages:
   proof_of_identity:      proof-of-identity.htm
   security_privacy:       security-privacy.htm
   failed_digital_no_paper: failed_digital_no_paper.htm
+
+# MUST include "DD", "MM" and "YYYY", 8 chars. Default - 'MMDDYYYY'
+# date_format: MMDDYYYY

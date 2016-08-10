@@ -58,11 +58,41 @@ module FormHelper
     years   = options_for_select((start_year .. end_year).to_a.reverse, year)
     jsfield = field.to_s.camelcase(:lower)
 
-    [
-      select_tag("#{object_name}[#{field}(2i)]", months, html_options.merge('data-bind' => "instantValidation: { accessor: '#{jsfield}Month', attribute: '#{jsfield}', complex: true }", prompt: 'Month', include_blank: false)),
-      select_tag("#{object_name}[#{field}(3i)]", days,   html_options.merge('data-bind' => "instantValidation: { accessor: '#{jsfield}Day', attribute: '#{jsfield}', complex: true }", prompt: 'Day')),
-      select_tag("#{object_name}[#{field}(1i)]", years,  html_options.merge('data-bind' => "instantValidation: { accessor: '#{jsfield}Year', attribute: '#{jsfield}', complex: true }", prompt: 'Year'))
-    ].join(' ').html_safe
+
+    month = select_tag("#{object_name}[#{field}(2i)]", months, html_options.merge('data-bind' => "instantValidation: { accessor: '#{jsfield}Month', attribute: '#{jsfield}', complex: true }", prompt: 'Month', include_blank: false))
+    day = select_tag("#{object_name}[#{field}(3i)]", days,   html_options.merge('data-bind' => "instantValidation: { accessor: '#{jsfield}Day', attribute: '#{jsfield}', complex: true }", prompt: 'Day'))
+    year = select_tag("#{object_name}[#{field}(1i)]", years,  html_options.merge('data-bind' => "instantValidation: { accessor: '#{jsfield}Year', attribute: '#{jsfield}', complex: true }", prompt: 'Year'))
+
+    format = date_format_for_editors
+
+    mi = format.index('M')
+    di = format.index('D')
+    yi = format.index('Y')
+
+    output = [nil, nil, nil]
+    output[mi] = month
+    output[di] = day
+    output[yi] = year
+
+    output.join(' ').html_safe
+  end
+
+  def date_format_for_editors
+    format = config_date_format
+    format = format.sub('MM', 'M')
+    format = format.sub('DD', 'D')
+    format.sub('YYYY', 'Y')
+  end
+
+  def config_date_format
+    format = AppConfig['date_format']
+    valid = ->(v) { v.length == 8 && v.include?('YYYY') && v.include?('MM') && v.include?('DD') }
+
+    if format.nil? || format.empty? || !valid.(format)
+      'MMDDYYYY'
+    else
+      format
+    end
   end
 
   def bound_time(f, field, options = {}, html_options = {})

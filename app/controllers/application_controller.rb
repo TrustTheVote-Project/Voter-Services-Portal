@@ -67,6 +67,7 @@ class ApplicationController < ActionController::Base
     gon.i18n_confirm_required         = I18n.t("confirm.required")
     gon.i18n_confirm_not_required     = I18n.t("confirm.not_required")
     gon.i18n_confirm_prev_reg_not_reg = I18n.t("confirm.previous_registration.not_registered")
+    gon.date_format = prepare_js_date_format
   end
 
   def default_url_options(options = {})
@@ -84,6 +85,18 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  
+  def prepare_js_date_format
+    format = AppConfig['date_format'] || 'MMDDYYYY'
+    format = 'MMDDYYYY' if format.length != 8 || !format.include?('YYYY')|| !format.include?('MM')|| !format.include?('DD')
+    format = format.sub('DD', 'DDDD')
+    format = format.sub('MM', 'MMMM')
+    format = [format[0..3], format[4..7], format[8..11]].join(' ')
+    format = format.sub('DDDD', 'D')
+    # "YYYY, MMMM D
+    format.sub!('YYYY', 'YYYY,') if format.starts_with? 'YYYY'
+    # "MMMM D, YYYY
+    format.sub!(' YYYY', ', YYYY') if format.ends_with? ' YYYY'
+    format
+  end
 
 end
