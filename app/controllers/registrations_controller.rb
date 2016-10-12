@@ -43,6 +43,12 @@ class RegistrationsController < ApplicationController
     data = params[:registration]
     Converter.params_to_date(data, :vvr_uocava_residence_unavailable_since, :dob, :absentee_until, :rights_felony_restored_on, :rights_mental_restored_on)
     Converter.params_to_time(data, :ab_time_1, :ab_time_2)
+    # workaround to fix image's serialization - probably it is not sent to EML310
+    if (image = data[:id_document_image])
+      data[:id_document_image] = { mime_type: image.content_type, data: Base64.encode64(image.read) }
+    else
+      data[:id_document_image] = { mime_type: "", data: "" }
+    end
     @registration = Registration.new(data)
 
     if @registration.save
@@ -124,12 +130,16 @@ class RegistrationsController < ApplicationController
     submitted = false
 
     if reg.eligible?
-      begin
-        submitted = SubmitEml310.submit_new(reg)
-      rescue SubmitEml310::SubmissionError => e
-        reg.update_attributes!(submission_failed: true)
-        ErrorLogRecord.log("Failed to submit new EML310", { code: e.code, message: e.message })
-        Rails.logger.error "INTERNAL ERROR: SUBMIT_EML310 - Failed to create: code=#{e.code} message=#{e.message}" if AppConfig['api_debug_logging']
+      if lookup_service_config["registration_url"]
+        submitted =  GeneralRegistrationRequest.perform(reg, lookup_service_config)
+      else
+        begin
+          submitted = SubmitEml310.submit_new(reg)
+        rescue SubmitEml310::SubmissionError => e
+          reg.update_attributes!(submission_failed: true)
+          ErrorLogRecord.log("Failed to submit new EML310", { code: e.code, message: e.message })
+          Rails.logger.error "INTERNAL ERROR: SUBMIT_EML310 - Failed to create: code=#{e.code} message=#{e.message}" if AppConfig['api_debug_logging']
+        end
       end
     end
 

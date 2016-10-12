@@ -16,7 +16,8 @@ lookup:
   enabled: true
   is_registration_first_step: true
   identification_document: false
-  url: https://vri-on-stub.herokuapp.com/lookup
+  url: https://peaceful-sea-68646.herokuapp.com/elector-lookup
+  registration_url: https://peaceful-sea-68646.herokuapp.com/create-elector-register-request
   hide_match_details: true
 
 

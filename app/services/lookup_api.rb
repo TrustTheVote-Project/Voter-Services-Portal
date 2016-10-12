@@ -76,6 +76,20 @@ class LookupApi
     block.call res, method
   end
 
+  def self.post_request(uri, params, &block)
+    req = Net::HTTP::Post.new(uri.request_uri, "Content-Type" => "application/json")
+    req.body = params.to_json
+    res = Net::HTTP.start(uri.hostname, uri.port,
+                          use_ssl:      uri.scheme == 'https',
+                          open_timeout: 5,
+                          read_timeout: 15,
+                          verify_mode:  OpenSSL::SSL::VERIFY_NONE) do |http|
+      http.request(req)
+    end
+
+    block.call res
+  end
+
   # actual parsing of the response
   def self.handle_response(res, method = nil)
     raise "implement"

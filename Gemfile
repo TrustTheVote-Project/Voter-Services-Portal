@@ -61,7 +61,7 @@ end
 
 group :development, :test do
   gem 'sqlite3'
-  # gem 'pry-rails'
+  gem 'pry-rails'
   # gem 'pry-debugger'
   gem 'better_errors'
 end
