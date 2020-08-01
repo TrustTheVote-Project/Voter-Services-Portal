@@ -45,7 +45,7 @@ end
 group :test do
   gem 'rspec-rails', '~> 2.14.0' #'~> 3.0.0.beta'
   gem 'turnip'
-  gem 'faye-websocket', '0.4.4'
+  gem 'faye-websocket', '0.11.0'
   gem 'poltergeist'
   gem 'faker'
   gem 'timecop'
