@@ -126,7 +126,7 @@ module ConfigHelper
       links_spec.map do |link|
         link_url = link['url']
         link_text_key = link['text']
-        if link_url.nil?
+        if link_url.blank?
           Rails.logger.warn "Missing url for link #{link}"
           next nil
         elsif !link_url.is_a?(String) && !link_url.is_a?(Hash)

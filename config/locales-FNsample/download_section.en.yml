@@ -1,0 +1,84 @@
+en:
+  download:
+    title1: "Congratulations! You're almost done."
+    title2: "Submit Your Application"
+    subtitle: "The process has 4 steps: download, print, sign, and mail."
+    details: >
+      <p>
+        We have pre-filled your %{doc} using the
+        information you provided. Click the PDF icon on the right to download. The
+        %{doc} PDF will open in your default
+        PDF viewing application, or in your web browser.
+
+        <a href="#"><strong>Adobe Acrobat Reader</strong></a> is required to view PDF files.
+      </p>
+      <p>Check the PDF for accuracy.</p>
+      <p>
+        If the PDF has any incorrect information, return to the
+        <a href="%{review_url}"><strong>%{review_label}</strong></a>
+        page and re-enter your information.
+      </p>
+    print:
+      title: Print
+      subtitle: Print your %{doc}.
+      details: >
+        <p>
+          Print your updated %{doc} by selecting the PRINT button in the PDF.
+          <br/>
+          You can also select File/Print in your default PDF viewing application.
+        </p>
+
+    sign:
+      title: Sign
+      subtitle: Sign and date your updated %{doc}.
+      details: >
+        <p>
+          Don't forget to sign and date your updated %{doc}.
+          <br/>
+          Your information will not be %{approval_action} if you do not.
+        </p>
+
+    mail:
+      title: Mail
+      subtitle: Mail your updated %{doc}.
+      details:
+        update: >
+          <p>
+            Mail your updated voter registration form to your local
+            Voter Registration office</p>
+
+          <p><strong>%{office}</strong></p>
+
+          <p>
+            Your return envelope must be postmarked at least 22 days before the next Primary or
+            <br/>
+            General Election in which you plan to vote.</p>
+        reg: >
+          <p>
+            Mail your voter registration form and proof of identity to your local
+            Voter Registration office</p>
+
+          <p><strong>%{office}</strong></p>
+
+          <p>
+            Acceptable forms of proof of identity are a copy of:
+            Valid photo ID, Utility bill, Bank statement, Government check,
+            Paycheck, or other government document.</p>
+
+          <p>
+            Your return envelope must be postmarked at least 22 days before the next Primary or
+            <br/>
+            General Election in which you plan to vote.</p>
+
+    complete: >
+      <p>
+        You may complete registration applications in person at a
+        local election official office, DMV, and other
+        state government agencies.</p>
+      <p>
+        Within 30 days of submitting or mailing your
+        State Voter Registration Application, you should receive a
+        voter card by mail that will confirm you are registered to vote.
+        If you do not receive a voter card within that time, please contact the
+        State Board of Elections using the contact information provided below.</p>
+

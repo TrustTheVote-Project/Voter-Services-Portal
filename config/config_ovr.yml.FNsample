@@ -1,0 +1,192 @@
+# Require the sign off of the privacy act page before some actions
+show_privacy_act_page: false
+
+# When false, always paper submission. When true -- EML310 post result decides.
+# Serves as a handy emergency off switch in situations where the DMV back-end
+# integration is not working right.
+EnableDigitalService: true
+EnablePaperService: false
+
+  
+  
+  
+
+###################
+## Config Guide 6.1
+## Configuration keys that toggle the user-visible behavior of 
+## the eligibility dialog
+##
+
+eligibility:
+  ### This config item turns on the VA-specific eligibility requirements. 
+  ### When true, the remaining eligibility configuration has no effect
+  enable_method_virginia: false
+  # enable_method_STATE_NAME: Potentail future functionality
+  
+  ### When using the default eligibility requirements (i.e. no state-specific eligibility
+  ### method is set to `true` above), the following `requirements` config item
+  ### specifies a list of eligibility keys. Each of these keys will result in presenting the
+  ### user with an interface to confirm that specific eligibility requirement. Each key 
+  ### corresponds to a localization item under the eligibility.requirements namespace.
+  ### If the given key is a string, the user will be presented with a checkbox with
+  ### the string as a lable. If the user checks the box, they are agreeing that they
+  ### meet the stated requirement. By default the box will not be checked.
+  ### If the given key is a hash of further keys, the following
+  ### structure of localiation keys will be assumed:
+  ###     eligibility:
+  ###       requirements:
+  ###         complex_requirement:
+  ###           question: "Do you meet this requirement?"
+  ###           agree: "I meet the complex requirement"
+  ###           disagree: "I do not meet the complex requirement"
+  ###           ineligible: "You must meet this complex requirement to vote"
+  ### When this structure is provided, the user will be present with the text specified by
+  ### `question` followed by a radio button for each of the `agree` and `disagree` statement
+  ### If the user selects the radio button corresponding to the `agree` statement,
+  ### they will be able to vote. If they select the radio button corresponding to the
+  ### `disagree` option, they will be shown the statement specified by `ineligible` if present.
+  ### The `ineligible` key is optional.
+  requirements:
+    - all_requirements
+  
+  combine_with_identity: true #Show eligibility and identity in one page, usually when there are few eligibility questions
+  
+  # When precheck is false, does not lookup user data based on IDs (and therefore does not check for eligibility)
+  check_for_paperless_eligibility: true # was enable_dmvid_lookup
+  debug_check_for_paperless_eligibility: true
+  Age18: false # Show age checkbox on eligibility screen (if not shown, the age eligibility attribue defaults to TRUE)
+  CollectPersonalData: true #actually force to false when ComineWithIdentity is true
+  
+# When FALSE, showing the explanation page to ineligible
+allow_ineligible_to_complete_form: false  
+
+# When true we don't ask a top-level rights question on the eligibility page
+enable_expanded_felony_mental_eligibility: true
+
+# TRUE to place SSN / DMVID / DOB on eligibility page, FALSE -- on identity
+personal_data_on_eligibility_page: true
+
+
+identity:
+  enable_name_prefix: true
+  require_name_prefix: false
+  enable_first_name: true
+  require_first_name: true
+  enable_middle_name: true
+  require_middle_name: false
+  enable_last_name: true
+  require_last_name: true
+  enable_name_suffix: true
+  require_name_suffix: false
+  enable_gender: true
+  require_gender: true
+  enable_email: true
+  require_email: false
+  enable_phone: true
+  require_phone: false
+  enable_fax: true
+  require_fax: false
+  enable_date_of_birth: true
+  require_date_of_birth: true
+  enable_federal_id_number: true
+  require_federal_id_number: true
+  enable_transport_id_number: true
+  require_transport_id_number: true
+  enable_id_document_image: false
+  require_id_document_image: false
+  enable_protected_status: false
+  # When true, uses a special set of name fields that requires users to confirm blank, optional fields
+  enable_names_virginia: false
+  gender_options:
+    - female
+    - male
+    - other
+  name_prefix_options:
+    - mister
+    - misses
+    - mis
+    - miss
+    - doctor
+  name_suffix_options:
+    - junior
+    - senior
+    - second
+    - third
+    - fourth
+  id_document_image_options:
+    - drivers_license
+    - passport
+
+
+# Require SSN field to be present on eligibility screen (both registration and update)
+#   true = users who don't provide SSN are treated as ineligible
+#   false = users who don't provide SSN are allowed to continue to register
+ssn_required: false
+
+# Length of DMV ID field
+state_id_length:
+  min: 9
+  max: 12
+
+
+address:
+  virginia_address: false
+  explicit_state: null
+  us_format: true
+  canada_format: false
+  enable_previous_registration: true
+  
+
+
+# Enable/disable the pre-population of residence address fields from DMV address, if available
+enable_dmv_address_display: true
+
+options:
+  combine_with_confirmation: false
+  enable_need_assistance: true
+  confirm_need_assistance: false
+  enable_volunteer: true
+  confirm_volunteer: false
+  enable_absentee_domestic_new: false
+  enable_absentee_domestic_update: false
+  enable_permanent_absentee: false
+  temporary_absentee: false
+  virginia_absentee: false
+
+
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the page that displays voter info for user confirmation
+## before proceeding to conclusion of the session
+##
+
+# When TRUE "edit" links are placed on the far right in the confirmation table
+confirmation_table_right_justify: false
+
+# Width of the labels column on confirm page (in px)
+confirmation_table_labels_width: 224
+
+# Show voting status on confirmation page
+enable_confirm_voting_status_display: false
+
+
+
+
+
+################
+## Configuration keys that toggle the user-visible behavior of 
+## the page that displays the oath
+## at the conclusion of the session
+
+# Shows / hides the assistant details section on oath page
+# separate toggles for paperless OVR vs. requires PDF
+
+completion:
+  include_attestation: false
+  combine_attestation_with_confirmation: true
+  assistance:
+    paperless: false
+    paper: false
+
+
+
