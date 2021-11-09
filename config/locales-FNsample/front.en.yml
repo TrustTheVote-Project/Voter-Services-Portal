@@ -31,17 +31,17 @@ en:
         button: Start the Online Form
       add_to_intl_register:
         title: "<br/>Add Yourself to the International Register"
-        subtitle: Canadian Forces Members and Canadians Living Abroad
+        subtitle: Armed Forces Members and Farallon Resdients Living Abroad
         text: Fill out an online form and provide a photo of your documentation.
         button: Start the Online Military/Overseas Form
       update_information:
         title: "<br/>Update Your Information on the Register"
-        subtitle: All Registered Ontario Voters
+        subtitle: All Registered Farallon Voters
         text: Identify yourself to do a lookup in the Register, and provide your updated information.
         button: Start the Online Update
       removal_from_register:
         title: "<br/>Removal From the Register"
-        subtitle: All Registered Ontario Voters
+        subtitle: All Registered Farallon Voters
         text: Identify yourself or a deceased elector, and complete the online form.
         button: Lookup Now
     deadline: ""

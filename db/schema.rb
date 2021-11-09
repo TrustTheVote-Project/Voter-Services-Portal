@@ -11,7 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140603072204) do
+ActiveRecord::Schema.define(:version => 20211109162147) do
+
+  create_table "absentee_requests", :force => true do |t|
+    t.text     "data"
+    t.text     "previous_data"
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+  end
 
   create_table "active_forms", :force => true do |t|
     t.string   "voter_id"

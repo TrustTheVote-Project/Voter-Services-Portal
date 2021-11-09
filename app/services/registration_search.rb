@@ -3,6 +3,10 @@ class RegistrationSearch < AbstractRegistrationSearch
 
   def self.perform(search_query)
     xml = nil
+    if SearchController.helpers.lookup_service_config['stub_all_records']
+      vid = begin; search_query.id_document_number; rescue; search_query.voter_id; end;
+      return sample_record(vid);
+    end
     if SearchController.helpers.lookup_service_config['id_and_locality_style']
       vid = search_query.voter_id 
 
@@ -35,12 +39,15 @@ class RegistrationSearch < AbstractRegistrationSearch
   def self.sample_record(vid)
     if vid =~ /12312312\d/
       r = FactoryGirl.build(:existing_residential_voter)
+      r.vvr_state = AppConfig['state_code'] || r.vvr_state
+      r.ma_state = AppConfig['state_code'] || r.vvr_state
       if vid == "123123124"
         r.absentee_for_elections = [ "Election 1", "Election 2" ]
       end
       r
     else
       r = FactoryGirl.build(:existing_overseas_voter)
+      r.vvr_state = AppConfig['state_code'] || r.vvr_state
       if vid == "111222334"
         r.current_absentee_until = 1.year.from_now.end_of_year
       end

@@ -4,6 +4,10 @@
 ## Config keys that are confidential are in a subsidiary config file.
 ##
 
+state_name: Farallon
+state_code: FN
+  
+
 ###############
 ## Configuration keys that control the use of
 ## integration with backend service.
@@ -36,8 +40,26 @@ api_debug_logging: false
 ## major features of the application
 ##
 
+# Enable search
+enable_search: true
+
+# Enable new registration
+enable_new_registration: true
+
+#Enable registration update
+enable_update_registration: true
+
+# Enables removal from registry
+enable_remove_registration: false
+
+# Enables absentee request
+enable_new_absentee_request: true
+
 # Enables UOCAVA registration
-enable_uocava_new_registration: true
+enable_uocava_new_registration: false
+
+# Enables privacy settings update
+enable_set_privacy: false
 
 # Toggles forms functionality: false = perform the forms functionality
 enable_forms: true
@@ -240,7 +262,8 @@ xml:
 
 customization:
   # Custom CSS overrides. Can be an absolute http://... URL.
-  # application_css:        custom_application.css
+  application_css:        '/FNsample_static_content/application_css.css'
+  
   # mobile_css:             custom_mobile.css
 
   # Absolute filesystem paths to PDF files to overrides. Blank for defaults.

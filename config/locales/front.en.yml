@@ -44,5 +44,10 @@ en:
         subtitle: All Registered Ontario Voters
         text: Identify yourself or a deceased elector, and complete the online form.
         button: Lookup Now
+      new_absentee_request:
+        title: "<br/>Request an Absentee Ballot"
+        subtitle: All Registered Voters
+        text: Request an absentee ballot for the next election.
+        button: Start the Online Form
     deadline: ""
 

@@ -61,5 +61,12 @@ en:
     vvr_town: Town / City
     vvr_zip5: Zip
     
+    id_document_number: ID Number
+    id_document_type: Document Type
+    
+    identification_document_options:
+      drivers_license: Farallon Driver's License
+      state_id_card: Farallon State ID Card
+      social_security_number: Social Security Number
       
 

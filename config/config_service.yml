@@ -30,6 +30,7 @@ online_balloting:
 lookup:
   debug: true
   enabled: true
+  stub_all_records: false
   id_and_locality_style: false
   is_registration_first_step: false
   first_name: true

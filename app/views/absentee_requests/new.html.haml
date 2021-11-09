@@ -1,0 +1,4 @@
+.row
+  .padded_page_span
+    = form_for @abr, url: :absentee_request do |f|
+      = render partial: 'registrations/identity_name',       locals: { f: f }

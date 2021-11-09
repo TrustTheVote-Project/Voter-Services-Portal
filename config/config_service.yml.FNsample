@@ -19,7 +19,24 @@ lookup:
   url: https://vri-on-stub.herokuapp.com/lookup
   hide_match_details: true
 
-
+lookup:
+  debug: true
+  enabled: true
+  stub_all_records: true
+  id_and_locality_style: false
+  is_registration_first_step: false
+  first_name: true
+  last_name: true
+  date_of_birth: true
+  street_number: false
+  street_name: false
+  street_type: false
+  identification_document: true
+  identification_document_options:
+    - drivers_license
+    - state_id_card
+    - social_security_number
+  # identification_document block is two elements, field to enter doc number, and pulldown for the doc type.
   
 # URLs to use to access the backend service. One service is for lookups to get voter info,
 # another is for submitting voter info as registration request.

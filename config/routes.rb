@@ -72,6 +72,8 @@ VaVote::Application.routes.draw do
       get '/edit' => 'registrations#edit'
       get '/request_absentee' => 'registrations#edit', defaults: { request_absentee: true }, as: 'request_absentee'
     end
+    resource :absentee_request, only: [:new, :create, :edit, :update] do
+    end
     get '/voter_card.pdf' => 'voter_cards#show', format: 'pdf', as: 'voter_card'
 
 

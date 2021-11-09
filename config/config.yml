@@ -36,8 +36,27 @@ api_debug_logging: false
 ## major features of the application
 ##
 
+# Enable search
+enable_search: true
+
+# Enable new registration
+enable_new_registration: true
+
+#Enable registration update
+enable_update_registration: true
+
+# Enables removal from registry
+enable_remove_registration: true
+
+# Enables absentee request
+enable_new_absentee_request: true
+
 # Enables UOCAVA registration
 enable_uocava_new_registration: true
+
+
+# Enables privacy settings update
+enable_set_privacy: true
 
 # Toggles forms functionality: false = perform the forms functionality
 enable_forms: true
