@@ -115,8 +115,8 @@ SubfooterLinks:
   #   text: 'subfooter.help'
   # - url:  'elections'
   #   text: 'subfooter.elections'
-  - url:  'security'
-    text: 'subfooter.security'
+  # - url:  'security'
+  #   text: 'subfooter.security'
   # - url:  'feedback'
   #   text: 'subfooter.feedback'
 
@@ -219,7 +219,7 @@ enable_voter_info_show_missing_item: true
 enable_voter_info_show_show_download_voter_card_link: false
 
 # URL for the link in the ID requirements row of the voter record display page
-voter_info_id_requirement_url: http://sbe.virginia.gov/VotinginPerson.html
+voter_info_id_requirement_url: http://elections.farallon.gov
 
 ballot_info:
   # Sizes of the check-box like boxes on the ballot info page (in px)
@@ -294,7 +294,7 @@ static_pages:
   online_ballot_marking:  online-ballot-marking.htm
   privacy_act_notice:     privacyactnotice.htm
   proof_of_identity:      proof-of-identity.htm
-  security_privacy:       security-privacy.htm
+  #security_privacy:       security-privacy.htm
   failed_digital_no_paper: failed_digital_no_paper.htm
 
 # MUST include "DD", "MM" and "YYYY", 8 chars. Default - 'MMDDYYYY'

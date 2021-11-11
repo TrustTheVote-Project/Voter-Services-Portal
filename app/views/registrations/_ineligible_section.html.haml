@@ -1,7 +1,7 @@
 #ineligible.section{ 'data-bind' => 'vis: page() == "ineligible"' }
   .head
     %h3 Eligibility
-    .description Eligibility to vote in Virginia.
+    .description= "Eligibility to vote in #{AppConfig["state_name"]}."
 
   .external-page
     = ExternalPages.get_by_name :ineligible

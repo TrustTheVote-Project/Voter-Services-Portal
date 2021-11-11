@@ -1,5 +1,7 @@
 
 
 body #header .img_logo {
-    background: url('/FNsample_static_content/sos-header-photo.png') ;
+  width: 60px;
+  height: 60px;
+  background: url('/FNsample_static_content/FarallonSeal_v2-02.png') ;
 }

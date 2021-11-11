@@ -8,7 +8,7 @@
     = render partial: "identity_name", locals: { f: f, updating: true }
 
     .row.personal-info
-      - if false #collecting? :gender # helper not found
+      - if identity_field_enabled? :gender
         .span3
           = f.label :gender
           = f.select :gender, [ 'Male', 'Female' ], { }, { autocomplete: ac, class: 'span3', 'data-bind' => 'instantValidation: { accessor: "gender" }' }
