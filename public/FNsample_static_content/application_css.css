@@ -1,7 +1,13 @@
 
+body #header {
+  padding-top: 12px;
+  padding-bottom: 40px;
+}
 
 body #header .img_logo {
-  width: 60px;
-  height: 60px;
+  width: 90px;
+  height: 90px;
   background: url('/FNsample_static_content/FarallonSeal_v2-02.png') ;
+  background-size: contain;
+  
 }

@@ -8,9 +8,9 @@ def sample_deploy_domain
   when "ON"
     # onvsp.trustthevote.org
     "54.235.245.205"
-  when "RI"
+  when "RI", "FN"
     # c
-    "54.225.97.231"
+    "54.237.184.220"
   else
     ""
   end
@@ -20,7 +20,7 @@ def sample_deploy_key
   case ENV['SAMPLE_DEPLOY_TARGET']
   when "VA"
     "oset-vaconfigdemo.pem"
-  when "ON", "RI"
+  when "ON", "RI", "FN"
     "oset-on-demo.pem"
   else
     "osdv.pem"
@@ -28,7 +28,7 @@ def sample_deploy_key
 end
 
 def sample_deploy_branch
-  "config_eligibility"
+  "farallon"
 end
 
 # Location configuration
